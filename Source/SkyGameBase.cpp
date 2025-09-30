@@ -1,8 +1,8 @@
 ﻿// SkyGameBase.cpp : アプリケーションのエントリ ポイントを定義します。
 //
 
-#include "pch.h"
-#include "framework.h"
+#include "pch/pch.h"
+#include "pch/framework.h"
 #include "SkyGameBase.h"
 #include "SampleSkyCombat.h"
 
