@@ -13,5 +13,6 @@
 #include <string>
 #include <cstdint>
 #include <cassert>
+#include <vector>
 
 #endif //PCH_H
