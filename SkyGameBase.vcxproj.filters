@@ -59,4 +59,7 @@
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Doc\CodingGuide.md" />
+  </ItemGroup>
 </Project>
