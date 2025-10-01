@@ -36,10 +36,14 @@ void wtgb::Game::RunProcess()
 
 	pGame_->Start(pGameSystemRegister);
 
+	pGameLoop_ = new GameLoop{};
+
 	pGameLoop_->RunLoop(pGameSystemRegister);
 
-	delete pGameSystemRegister;
-	pGameSystemRegister = nullptr;
+	SAFE_DELETE(pGameLoop_);
+
+	SAFE_DELETE(pGameSystemRegister);
 }
 
 wtgb::IGame* wtgb::Game::pGame_{ nullptr };
+wtgb::GameLoop* wtgb::Game::pGameLoop_{ nullptr };

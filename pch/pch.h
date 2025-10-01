@@ -16,4 +16,6 @@
 #include <vector>
 #include <format>
 
+#include "ReleaseUtility.h"
+
 #endif //PCH_H

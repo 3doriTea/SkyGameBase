@@ -1,5 +1,6 @@
 #pragma once
 #include "pch/pch.h"
+#include "Core/Game.h"
 
 #ifdef _DEBUG
 
@@ -26,7 +27,7 @@ if (!(expression))\
 if (result == IDYES)\
 {\
 	DWORD errorCode{ GetLastError() };\
-	MessageBox(NULL, std::format("最終エラーコード:{}", errorCode, title.c_str(), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL);\
+	MessageBox(NULL, std::format("最終エラーコード:{}", errorCode).c_str(), title.c_str(), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL);\
 	throw "this wassersion error";\
 }\
 else if (result == IDNO)\
