@@ -1,23 +1,50 @@
 #pragma once
 #include "Core/IGameSystem.h"
 
+#pragma comment(lib, "Winmm.lib")  // timeBeginPeriodと timeEndPeriodで必要
+
 // LARGE_INTEGER の前方宣言
 typedef union _LARGE_INTEGER LARGE_INTEGER;
 
-
 namespace wtgb
 {
-	class GameTime
+	class GameTime : IGameSystem
 	{
 	public:
 		GameTime();
 		~GameTime();
 
-		const float DeltaTime() const { return deltaTimeSec_ }
+		/// <summary>
+		/// フレーム間時間を取得する
+		/// </summary>
+		/// <returns></returns>
+		const float GetDeltaTime() const { return deltaTimeSec_; }
+		/// <summary>
+		/// フレームが切り替わるタイミングかどうか
+		/// </summary>
+		/// <returns>切り替わるタイミング true / false</returns>
+		const bool IsFrameDue() const { return isFrameDue_; }
+
+		/// <summary>
+		/// 初期化処理
+		/// </summary>
+		void Init() override;
+		/// <summary>
+		/// 更新処理
+		/// </summary>
+		void Update() override;
+		/// <summary>
+		/// 終了処理
+		/// </summary>
+		void End() override;
 
 	private:
+		bool isFrameDue_;  // フレームが切り替わるタイミング true / false
 		float deltaTimeSec_;  // フレーム間時間
 		LARGE_INTEGER currentMicro_;  // 現在のCPU時間 (マイクロ秒)
 		LARGE_INTEGER previousMicro_;  // 前回のCPU時間 (マイクロ秒)
+	private:
+		static const UINT PERIOD_MILLI;  // 分解能(ミリ秒)
+		static const LONGLONG ONE_SEC_TO_MICRO;  // 1秒はマイクロ秒で表すと
 	};
 }

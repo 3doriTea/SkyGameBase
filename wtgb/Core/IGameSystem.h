@@ -33,5 +33,9 @@ namespace wtgb
 		/// XVˆ—
 		/// </summary>
 		virtual void Update() = 0;
+		/// <summary>
+		/// I—¹ˆ—
+		/// </summary>
+		virtual void End() = 0;
 	};
 }
