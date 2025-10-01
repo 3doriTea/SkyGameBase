@@ -1,5 +1,6 @@
 #pragma once
 #include "pch/pch.h"
+#include "GameSystemCollection.h"
 
 namespace wtgb
 {
@@ -8,6 +9,8 @@ namespace wtgb
 	/// </summary>
 	class IGame
 	{
+		friend class Game;  // ゲームクラスからは private操作可能
+
 	protected:
 		/// <summary>
 		/// ゲームのタイトルを取得
@@ -20,7 +23,7 @@ namespace wtgb
 		/// <returns>ゲームバージョンの取得</returns>
 		virtual std::string GetVersion() const = 0;
 
-		virtual void Start() = 0;
+		virtual void Start(GameSystemCollection* _pGameSystemRegister) = 0;
 	private:
 		IGame() = default;
 		virtual ~IGame() = default;

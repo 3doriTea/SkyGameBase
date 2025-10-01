@@ -51,10 +51,16 @@
     <ClInclude Include="wtgb\Core\GameLoop.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="wtgb\Core\GameSystemRegister.h">
+    <ClInclude Include="wtgb\Core\GameSystemCollection.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="wtgb\Core\GameSystem.h">
+    <ClInclude Include="wtgb\Core\IGameSystem.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\WTGBAssert.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\GameTime.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -66,6 +72,15 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="wtgb\Core\GameLoop.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\Core\GameSystemCollection.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\Core\Game.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\GameTime.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>
