@@ -18,6 +18,7 @@ wtgb::Result wtgb::GameWindow::Init()
 		.style = CS_VREDRAW | CS_HREDRAW,
 		.lpfnWndProc = [this](HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) -> LRESULT
 		{
+
 		},
 		.cbClsExtra = 0,
 		.cbWndExtra = 0,

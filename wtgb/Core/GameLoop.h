@@ -16,7 +16,7 @@ namespace wtgb
 		/// <summary>
 		/// ループ実行
 		/// </summary>
-		void RunLoop(GameSystemCollection* _pGameSystemRegister);
+		Result RunLoop(GameSystemCollection* _pGameSystemRegister);
 
 		/// <summary>
 		/// ループを止める
