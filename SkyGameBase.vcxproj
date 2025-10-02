@@ -29,6 +29,10 @@
     <ClInclude Include="wtgb\Core\Game.h" />
     <ClInclude Include="wtgb\Core\GameLoop.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
+    <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
+    <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
+    <ClInclude Include="wtgb\GameSystem\IResource.h" />
+    <ClInclude Include="wtgb\GameSystem\ScreenResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameTime.h" />
     <ClInclude Include="wtgb\Core\IGameSystem.h" />
     <ClInclude Include="wtgb\Core\GameSystemCollection.h" />
@@ -46,7 +50,10 @@
     <ClCompile Include="wtgb\Core\GameLoop.cpp" />
     <ClCompile Include="wtgb\Core\GameSystemCollection.cpp" />
     <ClCompile Include="wtgb\GameSystem\Debug.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Direct3D.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Direct3DResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameTime.cpp" />
+    <ClCompile Include="wtgb\GameSystem\IResource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc" />

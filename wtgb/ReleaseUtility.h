@@ -6,3 +6,10 @@ if (p)\
 	delete p;\
 	p = nullptr;\
 }
+
+#define SAFE_RELEASE(p)\
+if (p)\
+{\
+	p->Release();\
+	p = nullptr;\
+}
