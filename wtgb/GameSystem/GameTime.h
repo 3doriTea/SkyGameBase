@@ -52,5 +52,6 @@ namespace wtgb
 	private:
 		static const UINT PERIOD_MILLI;  // 分解能(ミリ秒)
 		static const LONGLONG ONE_SEC_TO_MICRO;  // 1秒はマイクロ秒で表すと
+		static const float MICRO_TO_SEC;  // マイクロ秒を秒に変換する
 	};
 }

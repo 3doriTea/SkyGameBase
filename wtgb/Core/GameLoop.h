@@ -18,6 +18,9 @@ namespace wtgb
 		/// </summary>
 		void RunLoop(GameSystemCollection* _pGameSystemRegister);
 
+		/// <summary>
+		/// ƒ‹[ƒv‚ğ~‚ß‚é
+		/// </summary>
 		void Stop();
 
 	private:

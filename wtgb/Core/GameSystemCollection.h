@@ -1,6 +1,8 @@
 #pragma once
 #include "pch\pch.h"
 #include "IGameSystem.h"
+#include <typeindex>
+#include <map>
 
 namespace wtgb
 {
@@ -23,6 +25,14 @@ namespace wtgb
 		/// <returns>GameSystemCollection自己参照</returns>
 		template<GameSystemT T>
 		GameSystemCollection& Register();
+
+		/// <summary>
+		/// 指定した型のゲームシステムを取得する
+		/// </summary>
+		/// <typeparam name="T">指定する型</typeparam>
+		/// <returns>ゲームシステム</returns>
+		template<GameSystemT T>
+		T& Get();
 
 		/// <summary>
 		/// 登録された全ゲームシステムを初期化する
@@ -57,6 +67,7 @@ namespace wtgb
 		void EndForEachAll();
 
 	private:
+		std::map<std::type_index, size_t> gameSystemTypeKey_;  // ゲームシステムの型キー
 		std::vector<IGameSystem*> gameSystems_;  // 登録したゲームシステム
 		std::vector<size_t> callFrameIndexes_;  // 描画フレームで呼び出すゲームシステムの要素番号
 		std::vector<size_t> callCycleIndexes_;  // ゲームループサイクルで呼び出すゲームシステムの要素番号
@@ -71,6 +82,7 @@ inline wtgb::GameSystemCollection& wtgb::GameSystemCollection::Register()
 	const size_t index{ gameSystems_.size() };
 
 	gameSystems_.push_back(pGameSystem);
+	gameSystemTypeKey_.emplace(typeid(T), index);
 	
 	// 呼び出すタイミング別で要素番号を保存しておく
 	switch (pGameSystem->GetCallType())
@@ -86,4 +98,14 @@ inline wtgb::GameSystemCollection& wtgb::GameSystemCollection::Register()
 	}
 
 	return *this;
+}
+
+template<wtgb::GameSystemT T>
+inline T& wtgb::GameSystemCollection::Get()
+{
+	T* p{ gameSystems_.at(gameSystemTypeKey_.at(typeid(T))) };
+
+	assert(p != nullptr && "指定された型のシステムが登録されてない @wtgb::GameSystemCollection::Get");
+
+	return *p;
 }
