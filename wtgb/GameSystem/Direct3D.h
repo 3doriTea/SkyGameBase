@@ -1,8 +1,15 @@
 #pragma once
 #include "Core/IGameSystem.h"
 
+#pragma comment(lib, "d3d11.lib")
+
 namespace wtgb
 {
+	class Direct3DResource;
+
+	/// <summary>
+	/// DirectX11-3D系の管理クラス
+	/// </summary>
 	class Direct3D : public IGameSystem
 	{
 	public:
@@ -18,7 +25,7 @@ namespace wtgb
 		/// <summary>
 		/// 初期化処理
 		/// </summary>
-		void Init() override;
+		Result Init() override;
 		/// <summary>
 		/// 更新処理
 		/// </summary>
@@ -27,5 +34,8 @@ namespace wtgb
 		/// 終了処理
 		/// </summary>
 		void End() override;
+
+	private:
+		Direct3DResource* pResource_;  // リソースのポインタ
 	};
 }

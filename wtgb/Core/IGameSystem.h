@@ -1,4 +1,5 @@
 #pragma once
+#include "pch/pch.h"
 
 namespace wtgb
 {
@@ -28,7 +29,7 @@ namespace wtgb
 		/// <summary>
 		/// ‰Šú‰»ˆ—
 		/// </summary>
-		virtual void Init() = 0;
+		virtual Result Init() = 0;
 		/// <summary>
 		/// XVˆ—
 		/// </summary>

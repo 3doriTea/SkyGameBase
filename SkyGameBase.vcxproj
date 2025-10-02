@@ -31,6 +31,7 @@
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
+    <ClInclude Include="wtgb\GameSystem\GameWindow.h" />
     <ClInclude Include="wtgb\GameSystem\IResource.h" />
     <ClInclude Include="wtgb\GameSystem\ScreenResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameTime.h" />
@@ -41,6 +42,7 @@
     <ClInclude Include="wtgb\ReleaseUtility.h" />
     <ClInclude Include="wtgb\wtgb.h" />
     <ClInclude Include="wtgb\WTGBAssert.h" />
+    <ClInclude Include="wtgb\WTGBResult.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch\pch.cpp" />
@@ -53,6 +55,7 @@
     <ClCompile Include="wtgb\GameSystem\Direct3D.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3DResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameTime.cpp" />
+    <ClCompile Include="wtgb\GameSystem\GameWindow.cpp" />
     <ClCompile Include="wtgb\GameSystem\IResource.cpp" />
   </ItemGroup>
   <ItemGroup>

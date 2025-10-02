@@ -3,20 +3,17 @@
 
 namespace wtgb
 {
-	/// <summary>
-	/// デバッグを管理するシステム
-	/// </summary>
-	class Debug : public IGameSystem
+	class GameWindow : public IGameSystem
 	{
 	public:
-		Debug();
-		~Debug();
+		GameWindow();
+		~GameWindow();
 
 		/// <summary>
 		/// 更新のタイミング
 		/// </summary>
 		/// <returns>更新のタイミング</returns>
-		const CallType GetCallType() override { return CallType::Frame; }
+		const CallType GetCallType() override { return CallType::Cycle; }
 
 		/// <summary>
 		/// 初期化処理

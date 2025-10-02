@@ -34,7 +34,7 @@ namespace wtgb
 		/// <summary>
 		/// ‰Šú‰»ˆ—
 		/// </summary>
-		void Init() override;
+		Result Init() override;
 		/// <summary>
 		/// XVˆ—
 		/// </summary>

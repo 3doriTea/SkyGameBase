@@ -11,7 +11,7 @@ namespace
 
 const UINT wtgb::GameTime::PERIOD_MILLI{ 1 };  // ï™âî\Çê›íË
 const LONGLONG wtgb::GameTime::ONE_SEC_TO_MICRO{ 1000000 };
-const float MICRO_TO_SEC{ 0.0000001f };
+const float wtgb::GameTime::MICRO_TO_SEC{ 0.0000001f };
 
 wtgb::GameTime::GameTime() :
 	isFrameDue_{ false },
@@ -25,11 +25,20 @@ wtgb::GameTime::~GameTime()
 {
 }
 
-void wtgb::GameTime::Init()
+wtgb::Result wtgb::GameTime::Init()
 {
 	timeBeginPeriod(PERIOD_MILLI);
 	BOOL succeed{ QueryPerformanceCounter(&previousMicro_) };
 	wassert(succeed && "CPUéûä‘ÇÃéÊìæÇ…é∏îs");
+
+	if (succeed)
+	{
+		return Result::Code::Succeed;
+	}
+	else
+	{
+		return Result::Code::Failed;
+	}
 }
 
 void wtgb::GameTime::Update()

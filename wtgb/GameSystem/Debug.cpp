@@ -9,8 +9,9 @@ wtgb::Debug::~Debug()
 {
 }
 
-void wtgb::Debug::Init()
+wtgb::Result wtgb::Debug::Init()
 {
+	return Result::Code::Ok;
 }
 
 void wtgb::Debug::Update()

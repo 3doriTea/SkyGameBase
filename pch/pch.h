@@ -18,5 +18,6 @@
 
 #include "ReleaseUtility.h"
 #include "LogUtility.h"
+#include "WTGBResult.h"
 
 #endif //PCH_H
