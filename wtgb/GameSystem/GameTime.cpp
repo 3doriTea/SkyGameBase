@@ -2,6 +2,7 @@
 #include "GameTime.h"
 #include <mmsystem.h>
 #include "WTGBAssert.h"
+#include "LogUtility.h"
 
 const UINT wtgb::GameTime::PERIOD_MILLI{ 1 };  // •ª‰ğ”\‚ğİ’è
 const LONGLONG wtgb::GameTime::ONE_SEC_TO_MICRO{ 1000000 };
@@ -27,7 +28,11 @@ void wtgb::GameTime::Init()
 
 void wtgb::GameTime::Update()
 {
-
+	if (QueryPerformanceCounter(&currentMicro_) == FALSE)
+	{
+		LOGFW("CPUŠÔæ“¾‚É¸”s");
+		return;
+	}
 }
 
 void wtgb::GameTime::End()

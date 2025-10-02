@@ -46,7 +46,7 @@ namespace wtgb
 		/// ゲームシステムを更新する
 		/// </summary>
 		/// <param name="_indexRef">呼び出す要素番号の参照</param>
-		void UpdateForEach(const std::vector<int>& _indexRef);
+		void UpdateForEach(const std::vector<size_t>& _indexRef);
 		/// <summary>
 		/// 登録されている全ゲームシステムを初期化する
 		/// </summary>
@@ -58,8 +58,8 @@ namespace wtgb
 
 	private:
 		std::vector<IGameSystem*> gameSystems_;  // 登録したゲームシステム
-		std::vector<int> callFrameIndexes_;  // 描画フレームで呼び出すゲームシステムの要素番号
-		std::vector<int> callCycleIndexes_;  // ゲームループサイクルで呼び出すゲームシステムの要素番号
+		std::vector<size_t> callFrameIndexes_;  // 描画フレームで呼び出すゲームシステムの要素番号
+		std::vector<size_t> callCycleIndexes_;  // ゲームループサイクルで呼び出すゲームシステムの要素番号
 	};
 }
 
@@ -68,7 +68,7 @@ inline wtgb::GameSystemCollection& wtgb::GameSystemCollection::Register()
 {
 	IGameSystem* pGameSystem{ new T{} };
 
-	const int index{ gameSystems_.size() };
+	const size_t index{ gameSystems_.size() };
 
 	gameSystems_.push_back(pGameSystem);
 	

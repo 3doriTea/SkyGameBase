@@ -66,6 +66,15 @@
     <ClInclude Include="wtgb\ReleaseUtility.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Debug.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\LogUtility.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SampleGame.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -84,6 +93,12 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="wtgb\GameSystem\GameTime.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Debug.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SampleGame.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>

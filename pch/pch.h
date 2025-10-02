@@ -17,5 +17,6 @@
 #include <format>
 
 #include "ReleaseUtility.h"
+#include "LogUtility.h"
 
 #endif //PCH_H

@@ -14,7 +14,7 @@ wtgb::GameSystemCollection::~GameSystemCollection()
 	gameSystems_.clear();
 }
 
-void wtgb::GameSystemCollection::UpdateForEach(const std::vector<int>& _indexRef)
+void wtgb::GameSystemCollection::UpdateForEach(const std::vector<size_t>& _indexRef)
 {
 	for (const auto index : _indexRef)
 	{

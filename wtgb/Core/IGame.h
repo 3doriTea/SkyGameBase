@@ -12,6 +12,9 @@ namespace wtgb
 		friend class Game;  // ゲームクラスからは private操作可能
 
 	protected:
+		IGame() = default;
+		virtual ~IGame() = default;
+
 		/// <summary>
 		/// ゲームのタイトルを取得
 		/// </summary>
@@ -24,8 +27,5 @@ namespace wtgb
 		virtual std::string GetVersion() const = 0;
 
 		virtual void Start(GameSystemCollection* _pGameSystemRegister) = 0;
-	private:
-		IGame() = default;
-		virtual ~IGame() = default;
 	};
 }

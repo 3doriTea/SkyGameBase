@@ -1,7 +1,5 @@
 #pragma once
 #include "pch/pch.h"
-#include <Windows.h>
-#include "WTGBAssert.h"
 
 namespace wtgb
 {

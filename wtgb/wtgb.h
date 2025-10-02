@@ -7,3 +7,9 @@
 * 読み方は ダブティージービー
 * 由来は mtgb の m を 水平軸反転しただけ
 */
+
+#include "Core/Game.h"
+#include "Core/IGame.h"
+
+using wtgb::IGame;
+using wtgb::GameSystemCollection;

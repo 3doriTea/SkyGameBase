@@ -6,6 +6,8 @@
 #include "SkyGameBase.h"
 #include "SampleSkyCombat.h"
 
+#include "SampleGame.h"
+
 #define MAX_LOADSTRING 100
 
 // グローバル変数:
@@ -27,6 +29,8 @@ int APIENTRY wWinMain(
 {
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
+
+	return wtgb::Game::Run<SampleGame>();
 
 	//SampleSkyCombat
 

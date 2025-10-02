@@ -8,11 +8,17 @@ typedef union _LARGE_INTEGER LARGE_INTEGER;
 
 namespace wtgb
 {
-	class GameTime : IGameSystem
+	class GameTime : public IGameSystem
 	{
 	public:
 		GameTime();
 		~GameTime();
+
+		/// <summary>
+		/// 更新のタイミング
+		/// </summary>
+		/// <returns>更新のタイミング</returns>
+		const CallType GetCallType() override { return CallType::Cycle; }
 
 		/// <summary>
 		/// フレーム間時間を取得する
