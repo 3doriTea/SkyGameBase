@@ -10,6 +10,8 @@
 
 #include "Core/Game.h"
 #include "Core/IGame.h"
+#include "Core/GameScene.h"
 
 using wtgb::IGame;
 using wtgb::GameSystemCollection;
+using wtgb::GameScene;

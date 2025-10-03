@@ -22,12 +22,14 @@
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
+    <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\SampleGame.h" />
     <ClInclude Include="Source\SampleSkyCombat.h" />
     <ClInclude Include="Source\SkyGameBase.h" />
     <ClInclude Include="wtgb\Core\Game.h" />
     <ClInclude Include="wtgb\Core\GameLoop.h" />
+    <ClInclude Include="wtgb\Core\GameScene.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
