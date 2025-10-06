@@ -41,6 +41,16 @@ void wtgb::GameWindow::End()
 {
 }
 
+void wtgb::GameWindow::Create(const Config& _config)
+{
+	WNDCLASSEX windowClass
+	{
+		.cbSize = sizeof(WNDCLASSEX),
+		//.style = CS_  // TODO: ウィンドウクラスEXを実装
+		.hInstance = GetModuleHandle(NULL),
+	};
+}
+
 LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
