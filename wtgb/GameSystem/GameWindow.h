@@ -6,6 +6,11 @@ namespace wtgb
 	class GameWindow : public IGameSystem
 	{
 	public:
+		struct Config
+		{
+			std::string_view title;
+		};
+	public:
 		GameWindow();
 		~GameWindow();
 
@@ -27,5 +32,21 @@ namespace wtgb
 		/// 終了処理
 		/// </summary>
 		void End() override;
+
+		/// <summary>
+		/// ウィンドウを作成する
+		/// </summary>
+		void Create(const Config& _config);
+
+	private:
+		/// <summary>
+		/// ウィンドウイベントのコールバック処理
+		/// </summary>
+		/// <param name="hWnd">ウィンドウハンドル</param>
+		/// <param name="message">メッセージ</param>
+		/// <param name="wParam">追加データ 状態Idフラグなど</param>
+		/// <param name="lParam">詳細データ 2つの値やポインタなど</param>
+		/// <returns>結果コード</returns>
+		static LRESULT WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	};
 }

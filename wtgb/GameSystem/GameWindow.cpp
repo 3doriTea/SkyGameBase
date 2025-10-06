@@ -1,6 +1,9 @@
 #include "pch\pch.h"
 #include "GameWindow.h"
 #include "Core/Game.h"
+#include "WTGBAssert.h"
+
+//#include "GameSystem/Input.h"
 
 wtgb::GameWindow::GameWindow()
 {
@@ -16,10 +19,7 @@ wtgb::Result wtgb::GameWindow::Init()
 	{
 		.cbSize = sizeof(WNDCLASSEX),
 		.style = CS_VREDRAW | CS_HREDRAW,
-		.lpfnWndProc = [this](HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) -> LRESULT
-		{
-
-		},
+		.lpfnWndProc = GameWindow::WinProc,
 		.cbClsExtra = 0,
 		.cbWndExtra = 0,
 		.hInstance = GetModuleHandle(NULL),
@@ -39,4 +39,34 @@ void wtgb::GameWindow::Update()
 
 void wtgb::GameWindow::End()
 {
+}
+
+LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_COMMAND:  // メニューとかのコマンド
+	{
+		int wmId{ LOWORD(wParam) };
+
+		// 選択されたId
+		switch (wmId)
+		{
+		default:
+			LOGFW("未指定のコマンドを受け取った:{}\n", wmId);
+			break;
+		}
+		break;
+	}
+	case WM_DESTROY:  // ウィンドウを閉じる処理
+		Game::Exit();
+		break;
+	case WM_MOUSEMOVE:
+		// TODO: マウス移動を検知する
+		return 0;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+
+	return 0;
 }
