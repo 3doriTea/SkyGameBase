@@ -16,10 +16,7 @@ wtgb::Result wtgb::GameWindow::Init()
 	{
 		.cbSize = sizeof(WNDCLASSEX),
 		.style = CS_VREDRAW | CS_HREDRAW,
-		.lpfnWndProc = [this](HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) -> LRESULT
-		{
-
-		},
+		.lpfnWndProc = WinProc,
 		.cbClsExtra = 0,
 		.cbWndExtra = 0,
 		.hInstance = GetModuleHandle(NULL),
@@ -39,4 +36,9 @@ void wtgb::GameWindow::Update()
 
 void wtgb::GameWindow::End()
 {
+}
+
+LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	return LRESULT();
 }

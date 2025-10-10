@@ -27,5 +27,8 @@ namespace wtgb
 		/// I—¹ˆ—
 		/// </summary>
 		void End() override;
+
+	private:
+		static LRESULT WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	};
 }
