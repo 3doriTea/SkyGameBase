@@ -29,8 +29,10 @@
     <ClInclude Include="Source\SkyGameBase.h" />
     <ClInclude Include="wtgb\CoreType\Vector2Int.h" />
     <ClInclude Include="wtgb\CoreType\Vector3.h" />
+    <ClInclude Include="wtgb\Core\EntityId.h" />
     <ClInclude Include="wtgb\Core\Game.h" />
     <ClInclude Include="wtgb\Core\GameLoop.h" />
+    <ClInclude Include="wtgb\Core\GameObject.h" />
     <ClInclude Include="wtgb\Core\GameScene.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
