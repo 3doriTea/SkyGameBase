@@ -15,6 +15,7 @@
 #include <cassert>
 #include <vector>
 #include <format>
+#include <string_view>
 
 #include "ReleaseUtility.h"
 #include "LogUtility.h"
