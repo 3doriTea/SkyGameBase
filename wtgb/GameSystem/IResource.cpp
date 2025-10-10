@@ -16,12 +16,17 @@ wtgb::IResource::~IResource()
 
 void wtgb::IResource::CallInit()
 {
+
+#ifdef _DEBUG
 	isReleased_ = false;
+#endif
 	CallInit();
 }
 
 void wtgb::IResource::CallRelease()
 {
 	Release();
+#ifdef _DEBUG
 	isReleased_ = true;
+#endif
 }

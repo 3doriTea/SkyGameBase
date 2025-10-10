@@ -16,4 +16,7 @@ OutputDebugString(\
 		__FUNCTION__).c_str())
 #else
 
+#define LOGF
+#define LOGFW
+
 #endif
