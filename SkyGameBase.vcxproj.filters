@@ -108,13 +108,16 @@
     <ClInclude Include="wtgb\Core\GameObject.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="wtgb\Core\EntityId.h">
+    <ClInclude Include="wtgb\Core\Entity.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="wtgb\CoreType\CoreType.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="wtgb\CoreType\Collection\HandlerCollection.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Core\World.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
   </ItemGroup>

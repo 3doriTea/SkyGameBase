@@ -14,10 +14,10 @@ namespace wtgb
 		};
 
 	public:
-		GameScene();
+		GameScene(Config&& _config);
 		virtual ~GameScene();
 
-		virtual void StartRegister() {}
+		virtual void Start() {}
 		virtual void Update() {}
 		virtual void Draw() {}
 	};

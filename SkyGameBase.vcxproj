@@ -31,11 +31,12 @@
     <ClInclude Include="wtgb\CoreType\CoreType.h" />
     <ClInclude Include="wtgb\CoreType\Vector2Int.h" />
     <ClInclude Include="wtgb\CoreType\Vector3.h" />
-    <ClInclude Include="wtgb\Core\EntityId.h" />
+    <ClInclude Include="wtgb\Core\Entity.h" />
     <ClInclude Include="wtgb\Core\Game.h" />
     <ClInclude Include="wtgb\Core\GameLoop.h" />
     <ClInclude Include="wtgb\Core\GameObject.h" />
     <ClInclude Include="wtgb\Core\GameScene.h" />
+    <ClInclude Include="wtgb\Core\World.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />

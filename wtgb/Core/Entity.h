@@ -12,10 +12,10 @@ namespace wtgb
 		uint32_t index;
 	};
 
-	//using EntityId = uint64_t;
-
-	/*struct EntityId
+	struct EntityData
 	{
-
-	};*/
+		EntityId self;
+		EntityId parent;
+		EntityId next;
+	};
 }
