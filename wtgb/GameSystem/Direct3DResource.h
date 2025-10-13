@@ -13,9 +13,13 @@ namespace wtgb
 		};
 
 	public:
-		Direct3DResource(Config&& _config);
+		Direct3DResource(const Config& _config);
 		~Direct3DResource();
 
+		ID3D11Device** Device() { return &pDevice_; }
+		ID3D11DeviceContext** Context() { return &pContext_; }
+
+	private:
 		/// <summary>
 		/// ‰Šú‰»ˆ—
 		/// </summary>
@@ -25,9 +29,6 @@ namespace wtgb
 		/// ‰ğ•úˆ—
 		/// </summary>
 		void Release() override;
-
-		ID3D11Device** Device() { return &pDevice_; }
-		ID3D11DeviceContext** Context() { return &pContext_; }
 
 	private:
 		Config config_;  // İ’è

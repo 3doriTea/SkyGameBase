@@ -14,11 +14,16 @@
 #include <cstdint>
 #include <cassert>
 #include <vector>
+#include <map>
 #include <format>
 #include <string_view>
+
+#include <concepts>
 
 #include "ReleaseUtility.h"
 #include "LogUtility.h"
 #include "WTGBResult.h"
+
+#include "CoreType/CoreType.h"
 
 #endif //PCH_H

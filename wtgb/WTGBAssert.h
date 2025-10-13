@@ -7,6 +7,7 @@
 #define wassert(expression)\
 if (!(expression))\
 {\
+	DWORD errorCode{ GetLastError() };\
 	std::string description\
 	{\
 		std::format(\
@@ -24,20 +25,19 @@ if (!(expression))\
 	{\
 		MessageBox(NULL, description.c_str(), title.c_str(), MB_YESNOCANCEL | MB_ICONSTOP | MB_SYSTEMMODAL)\
 	};\
-if (result == IDYES)\
-{\
-	DWORD errorCode{ GetLastError() };\
-	MessageBox(NULL, std::format("最終エラーコード:{}", errorCode).c_str(), title.c_str(), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL);\
-	throw "this wassersion error";\
-}\
-else if (result == IDNO)\
-{\
-	throw "this wassersion error";\
-}\
-else\
-{\
-	wtgb::Game::Exit();\
-}\
+	if (result == IDYES)\
+	{\
+		MessageBox(NULL, std::format("最終エラーコード:{}", errorCode).c_str(), title.c_str(), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL);\
+		throw "this wassersion error";\
+	}\
+	else if (result == IDNO)\
+	{\
+		throw "this wassersion error";\
+	}\
+	else\
+	{\
+		wtgb::Game::Exit();\
+	}\
 }
 
 #else

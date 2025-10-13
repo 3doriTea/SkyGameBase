@@ -14,7 +14,7 @@ wtgb::GameSystemCollection::~GameSystemCollection()
 	gameSystems_.clear();
 }
 
-void wtgb::GameSystemCollection::UpdateForEach(const std::vector<size_t>& _indexRef)
+void wtgb::GameSystemCollection::UpdateForEach(const Indexes& _indexRef)
 {
 	for (const auto index : _indexRef)
 	{
@@ -34,6 +34,11 @@ void wtgb::GameSystemCollection::EndForEachAll()
 {
 	for (auto pGameSystem : gameSystems_)
 	{
-		pGameSystem->Init();
+		pGameSystem->End();
 	}
+}
+
+wtgb::GameSystemCollection::GameSystemAccessor::GameSystemAccessor(GameSystemCollection* _pGameSystemCollection) :
+	pGameSystemCollection_{ _pGameSystemCollection }
+{
 }

@@ -107,6 +107,23 @@
 ❌ `HogeFuga hogeFuga = { 12345 };`</br>
 ❌ `HogeFuga hogeFuga = 12345;`
 
+ただし、指定初期化子を使う場合は、1つの値のときのみ代入演算子`=`を使う
+
+```cpp
+const Hoge HOGE
+{
+  hoo = 0,
+  bar = "",
+  fuga
+  {
+    hoo = 20,
+    bar = "ABC",
+  },
+};
+```
+
+DirectXの HOGEFUGA_DESC 系で見やすくなる効果を期待
+
 ### 波括弧の位置
 
 Allman / BSD Style
@@ -137,3 +154,14 @@ else
 ```
 
 全部の.h/.cppファイルでタブ文字
+
+## 略称
+
+- 略称は誰が読んでも分かる、共通認識を持った言葉にだけ使う
+- わからない場合は説明のコメントを残す
+
+以下共通認識を持つ略称
+
+|略称|正式名称|
+|-|-|
+|init|initialize|

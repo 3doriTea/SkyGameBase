@@ -1,8 +1,8 @@
 #include "pch\pch.h"
 #include "Direct3DResource.h"
 
-wtgb::Direct3DResource::Direct3DResource(Config&& _config) :
-	config_{ std::move(_config) },
+wtgb::Direct3DResource::Direct3DResource(const Config& _config) :
+	config_{ _config },
 	pDevice_{ nullptr },
 	pContext_{ nullptr }/*,
 	pDXGI_{ nullptr },

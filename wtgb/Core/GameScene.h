@@ -17,7 +17,7 @@ namespace wtgb
 		GameScene();
 		virtual ~GameScene();
 
-		virtual void Start() {}
+		virtual void StartRegister() {}
 		virtual void Update() {}
 		virtual void Draw() {}
 	};

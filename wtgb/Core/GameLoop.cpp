@@ -22,6 +22,7 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 		wassert(_pGameSystemRegister && "pGameSystemCollectionが nullptrだった");
 		return Result::Code::Error;
 	}
+	GameSystemCollection::GameSystemViewer gameSystemViewer{ _pGameSystemRegister };
 
 	isRunning_ = true;
 
@@ -30,7 +31,7 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 		_pGameSystemRegister->UpdateCycle();
 
 		// フレーム呼び出しのタイミングならフレームも更新
-		if (_pGameSystemRegister->Get<GameTime>().IsFrameDue())
+		if (gameSystemViewer.Get<GameTime>().IsFrameDue())
 		{
 			_pGameSystemRegister->UpdateFrame();
 		}

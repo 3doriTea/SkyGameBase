@@ -4,14 +4,40 @@
 #include "GameSystem/GameTime.h"
 #include "GameSystem/Debug.h"
 #include "GameSystem/Direct3D.h"
+#include "GameSystem/GameWindow.h"
 
-void SampleGame::Start(GameSystemCollection* _pGameSystemRegister)
+using namespace wtgb;
+
+void SampleGame::StartRegister(
+	const GameSystemCollection::GameSystemAdder& _gameSystemRegister)
 {
-	using namespace wtgb;
-
-	_pGameSystemRegister
-		->Register<GameTime>()
+	_gameSystemRegister
+		.Register<GameTime>()
 		.Register<Debug>()
+		.Register<GameWindow>()
 		.Register<Direct3D>()
 	;
+}
+
+void SampleGame::StartSetup(
+	const GameSystemCollection::GameSystemViewer& _viewer)
+{
+	GameWindowHandle hGameWindow
+	{
+		_viewer.Get<GameWindow>().Create(
+		{
+			.title = Game::Title(),
+			.classStyle = CS_VREDRAW | CS_HREDRAW,
+			.icon = LoadIcon(nullptr, IDI_APPLICATION),
+			.iconSmile = LoadIcon(nullptr, IDI_WINLOGO),
+			.cursor = LoadCursor(nullptr, IDC_ARROW),
+			.clientStyle = WS_OVERLAPPEDWINDOW,
+			.clientStyleEx = WS_EX_OVERLAPPEDWINDOW,
+			.hasMenu = FALSE,
+			// TODO: スクリーンサイズをinitファイルから読み込む
+			.windowScreenSize = { 1600, 900 },
+			.initPosition = { 50, 50 },
+			.hWndParent = nullptr,
+		})
+	};
 }

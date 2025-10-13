@@ -7,8 +7,9 @@ public:
 	SampleGame() {}
 	~SampleGame() {}
 
-	std::string GetTitle() const override { return "サンプルゲーム"; }
-	std::string GetVersion() const override { return "0.0.1"; }
+	const char* GetTitle() const override { return "サンプルゲーム"; }
+	const char* GetVersion() const override { return "0.0.1"; }
 
-	void Start(GameSystemCollection* _pGameSystemRegister) override;
+	void StartRegister(const GameSystemCollection::GameSystemAdder& _pGameSystemAdder) override;
+	void StartSetup(const GameSystemCollection::GameSystemViewer& _pGameSystemsViewer) override;
 };

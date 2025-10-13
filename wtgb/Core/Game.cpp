@@ -4,22 +4,22 @@
 #include "GameLoop.h"
 #include "GameSystemCollection.h"
 
-std::string wtgb::Game::Title()
+std::string_view wtgb::Game::Title()
 {
 	if (pGame_)
 	{
 		return pGame_->GetTitle();
 	}
-	return "";
+	return "No name game DX11";
 }
 
-std::string wtgb::Game::Version()
+std::string_view wtgb::Game::Version()
 {
 	if (pGame_)
 	{
 		return pGame_->GetVersion();
 	}
-	return "";
+	return "0.0.1";
 }
 
 void wtgb::Game::Exit()
@@ -34,11 +34,20 @@ void wtgb::Game::RunProcess()
 {
 	GameSystemCollection* pGameSystemRegister{ new GameSystemCollection{} };
 
-	pGame_->Start(pGameSystemRegister);
+	// “o˜^‚ð‚µ‚Ä‚à‚ç‚¤
+	pGame_->StartRegister(GameSystemCollection::GameSystemAdder{ pGameSystemRegister });
+
+	// ‰Šú‰»ˆ—
+	pGameSystemRegister->Init();
+
+	// Ý’è‚ð‚µ‚Ä‚à‚ç‚¤
+	pGame_->StartSetup(GameSystemCollection::GameSystemViewer{ pGameSystemRegister });
 
 	pGameLoop_ = new GameLoop{};
 
 	pGameLoop_->RunLoop(pGameSystemRegister);
+
+	pGameSystemRegister->End();
 
 	SAFE_DELETE(pGameLoop_);
 

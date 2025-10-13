@@ -3,13 +3,23 @@
 #include "Direct3DResource.h"
 #include "WTGBAssert.h"
 
+using namespace wtgb;
+
+namespace
+{
+	const Direct3DResource::Config D3D_RESOURCE_CONFIG
+	{
+	};
+}
+
 wtgb::Direct3D::Direct3D() :
-	pResource_{}
+	pResource_{ new Direct3DResource{ D3D_RESOURCE_CONFIG } }
 {
 }
 
 wtgb::Direct3D::~Direct3D()
 {
+	SAFE_DELETE(pResource_);
 }
 
 wtgb::Result wtgb::Direct3D::Init()

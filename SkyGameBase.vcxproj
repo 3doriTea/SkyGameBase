@@ -27,6 +27,8 @@
     <ClInclude Include="Source\SampleGame.h" />
     <ClInclude Include="Source\SampleSkyCombat.h" />
     <ClInclude Include="Source\SkyGameBase.h" />
+    <ClInclude Include="wtgb\CoreType\Collection\HandlerCollection.h" />
+    <ClInclude Include="wtgb\CoreType\CoreType.h" />
     <ClInclude Include="wtgb\CoreType\Vector2Int.h" />
     <ClInclude Include="wtgb\CoreType\Vector3.h" />
     <ClInclude Include="wtgb\Core\EntityId.h" />
