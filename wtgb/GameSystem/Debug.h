@@ -21,7 +21,7 @@ namespace wtgb
 		/// <summary>
 		/// ‰Šú‰»ˆ—
 		/// </summary>
-		Result Init() override;
+		Result Init(const Viewer& _viewer) override;
 		/// <summary>
 		/// XVˆ—
 		/// </summary>

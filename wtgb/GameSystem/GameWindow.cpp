@@ -13,7 +13,7 @@ wtgb::GameWindow::~GameWindow()
 {
 }
 
-wtgb::Result wtgb::GameWindow::Init()
+wtgb::Result wtgb::GameWindow::Init(const Viewer& _viewer)
 {
 	return Result::Code::Ok;
 }
@@ -51,11 +51,11 @@ wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _confi
 		.hIconSm       = _config.iconSmile,
 	};
 
-	wassert(RegisterClassEx(&WNDCLASSEX_DESC) != 0
-		&& "ウィンドウクラス登録に失敗");
+	ATOM atom{ RegisterClassEx(&WNDCLASSEX_DESC) };
+	wassert(atom != 0 && "ウィンドウクラス登録に失敗");
 
 	RECT windowRect{ 0, 0, _config.windowScreenSize.x, _config.windowScreenSize.y };
-	BOOL succeed = AdjustWindowRectEx(&windowRect, _config.clientStyle, _config.hasMenu, _config.clientStyleEx);
+	BOOL succeed{ AdjustWindowRectEx(&windowRect, _config.clientStyle, _config.hasMenu, _config.clientStyleEx) };
 	wassert(succeed && "クライアント領域を考慮したウィンドウサイズ計算に失敗");
 
 	// 計算されたウィンドウのサイズ 横幅
@@ -85,6 +85,12 @@ wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _confi
 	ShowWindow(hWnd, SW_SHOWDEFAULT);  // ウィンドウを表示
 
 	return hGameWindow;
+}
+
+HWND wtgb::GameWindow::GetMainWindowHandle()
+{
+	wassert(!windowHandles_.IsEmpty() && "ウィンドウハンドルが登録されていない");
+	return windowHandles_.begin()->second;
 }
 
 LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

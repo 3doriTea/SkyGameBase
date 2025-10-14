@@ -41,7 +41,7 @@ namespace wtgb
 		/// <summary>
 		/// 初期化処理
 		/// </summary>
-		Result Init() override;
+		Result Init(const Viewer& _viewer) override;
 		/// <summary>
 		/// 更新処理
 		/// </summary>
@@ -57,6 +57,8 @@ namespace wtgb
 		/// <param name="_config">作成するウィンドウの設定</param>
 		/// <returns>ウィンドウを特定するハンドル</returns>
 		GameWindowHandle Create(const CreateWindowConfig& _config);
+
+		HWND GetMainWindowHandle();
 
 	private:
 		/// <summary>

@@ -1,6 +1,5 @@
 #pragma once
 #include "pch\pch.h"
-#include "IGameSystem.h"
 #include <typeindex>
 #include <map>
 
@@ -8,6 +7,9 @@
 
 namespace wtgb
 {
+	class IGameSystem;
+	//enum struct IGameSystem::CallType;
+
 	template<typename T>
 	concept GameSystemT = std::is_base_of_v<IGameSystem, T>;
 

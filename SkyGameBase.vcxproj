@@ -36,6 +36,7 @@
     <ClInclude Include="wtgb\Core\GameLoop.h" />
     <ClInclude Include="wtgb\Core\GameObject.h" />
     <ClInclude Include="wtgb\Core\GameScene.h" />
+    <ClInclude Include="wtgb\Core\Handlers.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
@@ -74,6 +75,7 @@
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\IResource.cpp" />
+    <ClCompile Include="wtgb\Utility\InitSequence.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc" />

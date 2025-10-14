@@ -49,7 +49,7 @@ namespace wtgb
 		/// ‰Šú‰»ˆ—
 		/// </summary>
 		/// <returns>Œ‹‰Ê</returns>
-		Result Init() override;
+		Result Init(const Viewer& _viewer) override;
 		/// <summary>
 		/// XVˆ—
 		/// </summary>

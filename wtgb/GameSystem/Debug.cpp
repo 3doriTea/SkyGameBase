@@ -9,7 +9,7 @@ wtgb::Debug::~Debug()
 {
 }
 
-wtgb::Result wtgb::Debug::Init()
+wtgb::Result wtgb::Debug::Init(const Viewer& _viewer)
 {
 	return Result::Code::Ok;
 }

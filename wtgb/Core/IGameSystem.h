@@ -1,14 +1,19 @@
 #pragma once
 #include "pch/pch.h"
+#include "GameSystemCollection.h"
 
 namespace wtgb
 {
+	class GameSystemCollection;
+	class GameSystemCollection::GameSystemViewer;
 	/// <summary>
 	/// ゲームシステム
 	/// </summary>
 	class IGameSystem
 	{
 	public:
+		using Viewer = GameSystemCollection::GameSystemViewer;
+
 		/// <summary>
 		/// 呼び出しタイミングの種類
 		/// </summary>
@@ -29,7 +34,7 @@ namespace wtgb
 		/// <summary>
 		/// 初期化処理
 		/// </summary>
-		virtual Result Init() = 0;
+		virtual Result Init(const Viewer& _viewer) = 0;
 		/// <summary>
 		/// 更新処理
 		/// </summary>
