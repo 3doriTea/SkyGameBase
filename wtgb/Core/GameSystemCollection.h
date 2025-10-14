@@ -4,6 +4,8 @@
 #include <typeindex>
 #include <map>
 
+#include "Utility/Accessor.h"
+
 namespace wtgb
 {
 	template<typename T>
@@ -36,15 +38,7 @@ namespace wtgb
 		/// <summary>
 		/// ゲームシステムにアクセスする基底クラス
 		/// </summary>
-		class GameSystemAccessor
-		{
-		public:
-			GameSystemAccessor(GameSystemCollection* _pGameSystemCollection);
-			virtual ~GameSystemAccessor() {};
-
-		protected:
-			GameSystemCollection* pGameSystemCollection_;
-		};
+		using GameSystemAccessor = Accessor<GameSystemCollection>;
 
 		/// <summary>
 		/// ゲームシステムにアクセスし追加だけするクラス
@@ -130,13 +124,13 @@ template<wtgb::GameSystemT T, typename ...Args>
 inline const wtgb::GameSystemCollection::GameSystemAdder&
 	wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
 {
-	assert(pGameSystemCollection_ && "ゲームシステムコレクションがnullptr参照されてしまう");
+	assert(GetAccess() && "ゲームシステムコレクションがnullptr参照されてしまう");
 
 	// コレクション要素への参照
-	TypeKeys& gameSystemTypeKey{ pGameSystemCollection_->gameSystemTypeKey_ };
-	GameSystems& gameSystems   { pGameSystemCollection_->gameSystems_ };
-	Indexes& callFrameIndexes  { pGameSystemCollection_->callFrameIndexes_ };
-	Indexes& callCycleIndexes  { pGameSystemCollection_->callCycleIndexes_ };
+	TypeKeys& gameSystemTypeKey{ GetAccess()->gameSystemTypeKey_ };
+	GameSystems& gameSystems   { GetAccess()->gameSystems_ };
+	Indexes& callFrameIndexes  { GetAccess()->callFrameIndexes_ };
+	Indexes& callCycleIndexes  { GetAccess()->callCycleIndexes_ };
 
 	IGameSystem* pGameSystem{ new T{ args... } };
 
@@ -164,8 +158,8 @@ inline const wtgb::GameSystemCollection::GameSystemAdder&
 template<wtgb::GameSystemT T>
 inline T& wtgb::GameSystemCollection::GameSystemViewer::Get() const
 {
-	TypeKeys& gameSystemTypeKey{ pGameSystemCollection_->gameSystemTypeKey_ };
-	GameSystems& gameSystems{ pGameSystemCollection_->gameSystems_ };
+	TypeKeys& gameSystemTypeKey{ GetAccess()->gameSystemTypeKey_ };
+	GameSystems& gameSystems   { GetAccess()->gameSystems_ };
 
 	Index index{};
 	try

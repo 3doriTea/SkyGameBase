@@ -40,6 +40,10 @@
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameWindow.h" />
+    <ClInclude Include="wtgb\GameSystem\Input.h" />
+    <ClInclude Include="wtgb\GameSystem\Input\ButtonCode.h" />
+    <ClInclude Include="wtgb\GameSystem\Input\KeyCode.h" />
+    <ClInclude Include="wtgb\GameSystem\Input\MouseCode.h" />
     <ClInclude Include="wtgb\GameSystem\IResource.h" />
     <ClInclude Include="wtgb\GameSystem\ScreenResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameTime.h" />
@@ -48,6 +52,7 @@
     <ClInclude Include="wtgb\Core\IGame.h" />
     <ClInclude Include="wtgb\LogUtility.h" />
     <ClInclude Include="wtgb\ReleaseUtility.h" />
+    <ClInclude Include="wtgb\Utility\Accessor.h" />
     <ClInclude Include="wtgb\wtgb.h" />
     <ClInclude Include="wtgb\WTGBAssert.h" />
     <ClInclude Include="wtgb\WTGBResult.h" />
@@ -64,6 +69,7 @@
     <ClCompile Include="wtgb\GameSystem\Direct3DResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameTime.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameWindow.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\IResource.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -37,8 +37,3 @@ void wtgb::GameSystemCollection::EndForEachAll()
 		pGameSystem->End();
 	}
 }
-
-wtgb::GameSystemCollection::GameSystemAccessor::GameSystemAccessor(GameSystemCollection* _pGameSystemCollection) :
-	pGameSystemCollection_{ _pGameSystemCollection }
-{
-}
