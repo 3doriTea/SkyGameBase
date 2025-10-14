@@ -1,12 +1,16 @@
 #include "pch\pch.h"
 #include "Input.h"
+#include "Input/InputResource.h"
 
-wtgb::Input::Input()
+
+wtgb::Input::Input() :
+	pResource_{ new InputResource{} }
 {
 }
 
 wtgb::Input::~Input()
 {
+	SAFE_DELETE(pResource_);
 }
 
 wtgb::Result wtgb::Input::Init()

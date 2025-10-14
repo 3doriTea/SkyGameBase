@@ -1,14 +1,15 @@
 #pragma once
 #include "Core/IGameSystem.h"
+#include "Utility/Accessor.h"
 #include "Input/KeyCode.h"
 #include "Input/ButtonCode.h"
 #include "Input/MouseCode.h"
-#include "Utility/Accessor.h"
 
-#include <Xinput.h>
 
 namespace wtgb
 {
+	class InputResource;
+
 	/// <summary>
 	/// “ü—ÍŒnŠÇ—ƒNƒ‰ƒX
 	/// </summary>
@@ -59,7 +60,7 @@ namespace wtgb
 		void End() override;
 
 	private:
-		
+		InputResource* pResource_;
 	};
 }
 

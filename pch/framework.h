@@ -13,3 +13,9 @@
 // DirectX
 #include <d3d11.h>
 #include <DirectXMath.h>
+
+// XInput
+#include <Xinput.h>
+#pragma comment(lib, "Xinput.lib")
+
+#include <dinput.h>
