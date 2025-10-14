@@ -38,12 +38,12 @@ namespace wtgb
 		/// 頭イテレータ取得
 		/// </summary>
 		/// <returns>頭イテレータ</returns>
-		std::map<HandleT, ValueT>::iterator begin() { return this->begin(); }
+		std::map<HandleT, ValueT>::iterator begin() { return std::map<HandleT, ValueT>::begin(); }
 		/// <summary>
 		/// 尾イテレータ取得
 		/// </summary>
 		/// <returns>尾イテレータ</returns>
-		std::map<HandleT, ValueT>::iterator end() { return this->end(); }
+		std::map<HandleT, ValueT>::iterator end() { return std::map<HandleT, ValueT>::end(); }
 
 		ValueT Get(const HandleT _handle);
 	private:

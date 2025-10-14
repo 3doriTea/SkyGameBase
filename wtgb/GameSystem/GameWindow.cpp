@@ -104,6 +104,8 @@ LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 		// 選択されたId
 		switch (wmId)
 		{
+		case 0:
+			break;
 		default:
 			LOGFW("未指定のコマンドを受け取った:{}\n", wmId);
 			break;
