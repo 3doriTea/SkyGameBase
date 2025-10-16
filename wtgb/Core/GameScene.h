@@ -1,4 +1,5 @@
 #pragma once
+#include "GameObject.h"
 
 namespace wtgb
 {
@@ -20,5 +21,9 @@ namespace wtgb
 		virtual void StartRegister() {}
 		virtual void Update() {}
 		virtual void Draw() {}
+
+	protected:
+		template<GameObjectT T, typename ...Args>
+		GameObject Instantiate(Args... _args);
 	};
 }

@@ -37,6 +37,7 @@
     <ClInclude Include="wtgb\Core\GameObject.h" />
     <ClInclude Include="wtgb\Core\GameScene.h" />
     <ClInclude Include="wtgb\Core\Handlers.h" />
+    <ClInclude Include="wtgb\Core\IGameComponent.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
