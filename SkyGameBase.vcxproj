@@ -42,7 +42,7 @@
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameWindow.h" />
     <ClInclude Include="wtgb\GameSystem\Input.h" />
-    <ClInclude Include="wtgb\GameSystem\Input\ButtonCode.h" />
+    <ClInclude Include="wtgb\GameSystem\Input\PadCode.h" />
     <ClInclude Include="wtgb\GameSystem\Input\InputResource.h" />
     <ClInclude Include="wtgb\GameSystem\Input\KeyCode.h" />
     <ClInclude Include="wtgb\GameSystem\Input\MouseCode.h" />

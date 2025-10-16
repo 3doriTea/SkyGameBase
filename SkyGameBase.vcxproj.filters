@@ -117,6 +117,30 @@
     <ClInclude Include="wtgb\CoreType\Collection\HandlerCollection.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\Core\Handlers.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Input.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Input\PadCode.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Input\InputResource.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Input\KeyCode.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Input\MouseCode.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Utility\Accessor.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Utility\InitSequence.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -153,6 +177,15 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="wtgb\GameSystem\GameWindow.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Input.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\Utility\InitSequence.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>

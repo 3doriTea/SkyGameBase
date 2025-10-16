@@ -5,7 +5,8 @@
 
 //#include "GameSystem/Input.h"
 
-wtgb::GameWindow::GameWindow()
+wtgb::GameWindow::GameWindow() :
+	peekedMessage_{}
 {
 }
 
@@ -30,6 +31,12 @@ void wtgb::GameWindow::Update()
 
 void wtgb::GameWindow::End()
 {
+	// 全ウィンドウを閉じる && 解放
+	windowHandles_.Release([](HWND& _value)
+	{
+		CloseWindow(_value);
+		DestroyWindow(_value);
+	});
 }
 
 wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _config)
@@ -89,7 +96,7 @@ wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _confi
 
 HWND wtgb::GameWindow::GetMainWindowHandle()
 {
-	wassert(!windowHandles_.IsEmpty() && "ウィンドウハンドルが登録されていない");
+	wassert(!windowHandles_.IsEmpty() && "ウィンドウハンドルが1つも登録されていない");
 	return windowHandles_.begin()->second;
 }
 
