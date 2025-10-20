@@ -2,7 +2,7 @@
 #include "Core/IGameSystem.h"
 #include "Utility/Accessor.h"
 #include "Input/KeyCode.h"
-#include "Input/ButtonCode.h"
+#include "Input/PadCode.h"
 #include "Input/MouseCode.h"
 
 
@@ -26,9 +26,9 @@ namespace wtgb
 			bool IsKeyDown(const KeyCode _keyCode);
 			bool IsKeyUp(const KeyCode _keyCode);
 
-			bool IsButton(const ButtonCode _buttonCode);
-			bool IsButtonDown(const ButtonCode _buttonCode);
-			bool IsButtonUp(const ButtonCode _buttonCode);
+			bool IsButton(const PadCode _padCode);
+			bool IsButtonDown(const PadCode _padCode);
+			bool IsButtonUp(const PadCode _padCode);
 
 			bool IsMouse(const MouseCode _mouseCode);
 			bool IsMouseDown(const MouseCode _mouseCode);
