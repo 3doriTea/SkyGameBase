@@ -3,7 +3,9 @@
 #include "Core/Game.h"
 #include "WTGBAssert.h"
 
-//#include "GameSystem/Input.h"
+#include "GameSystem/Input.h"
+
+using namespace wtgb;
 
 wtgb::GameWindow::GameWindow() :
 	peekedMessage_{}
@@ -27,6 +29,9 @@ void wtgb::GameWindow::Update(const ViewerUpdate& _system)
 		TranslateMessage(&peekedMessage_);
 		DispatchMessage(&peekedMessage_);
 	}
+
+	// マウス座標を更新する
+	_system.Get<Input>().GetMouseUpdater().SetMousePosition(mousePosition_);
 }
 
 void wtgb::GameWindow::End()

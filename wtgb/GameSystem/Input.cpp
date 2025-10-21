@@ -11,6 +11,8 @@ namespace
 }
 
 wtgb::Input::Input() :
+	mouseUpdater_{ this },
+	inputGetter_{ this },
 	pResource_{ nullptr },
 	inputData_{}  // MEMO: 念のため初期化
 {
@@ -36,6 +38,8 @@ wtgb::Result wtgb::Input::Init(const ViewerInit& _viewer)
 
 void wtgb::Input::Update(const ViewerUpdate& _system)
 {
+	// TODO: 順番によってマウス移動量がフレーム上書きされる
+	inputData_.mousePositionPrev_ = inputData_.mousePosition_;
 }
 
 void wtgb::Input::End()
@@ -43,17 +47,17 @@ void wtgb::Input::End()
 	pResource_->CallRelease();
 }
 
-bool wtgb::Input::InputGetter::IsKey(const KeyCode _keyCode)
+bool wtgb::Input::InputGetter::IsKey(const KeyCode _keyCode) const
 {
 	return false;
 }
 
-bool wtgb::Input::InputGetter::IsKeyDown(const KeyCode _keyCode)
+bool wtgb::Input::InputGetter::IsKeyDown(const KeyCode _keyCode) const
 {
 	return false;
 }
 
-bool wtgb::Input::InputGetter::IsKeyUp(const KeyCode _keyCode)
+bool wtgb::Input::InputGetter::IsKeyUp(const KeyCode _keyCode) const
 {
 	return false;
 }
@@ -62,6 +66,19 @@ void wtgb::Input::MouseUpdater::SetMousePosition(const Vector2Int _position)
 {
 	InputData& data{ GetAccess()->inputData_ };
 
-	data.mousePositionPrev_ = data.mousePosition_;
 	data.mousePosition_ = _position;
+}
+
+Vector2Int wtgb::Input::InputGetter::GetMousePosition() const
+{
+	InputData& data{ GetAccess()->inputData_ };
+
+	return data.mousePosition_;
+}
+
+Vector2Int wtgb::Input::InputGetter::GetMouseMove() const
+{
+	InputData& data{ GetAccess()->inputData_ };
+
+	return data.mousePosition_ - data.mousePositionPrev_;
 }

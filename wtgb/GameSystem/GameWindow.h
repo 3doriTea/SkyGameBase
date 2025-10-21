@@ -77,6 +77,6 @@ namespace wtgb
 		MSG peekedMessage_;
 
 	private:
-		static Vector2Int mousePosition_;  // マウス座標
+		static Vector2Int mousePosition_;  // マウス座標 (WinProcで更新値仮置き) お好きにとって！
 	};
 }
