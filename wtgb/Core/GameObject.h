@@ -1,6 +1,6 @@
 #pragma once
 #include "pch/pch.h"
-#include "EntityId.h"
+#include "Entity.h"
 
 namespace wtgb
 {
