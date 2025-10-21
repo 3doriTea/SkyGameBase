@@ -19,7 +19,7 @@ wtgb::Result wtgb::GameWindow::Init(const ViewerInit& _viewer)
 	return Result::Code::Ok;
 }
 
-void wtgb::GameWindow::Update()
+void wtgb::GameWindow::Update(const ViewerUpdate& _system)
 {
 	// MEMO: すべてのウィンドウからのメッセージを受信するため第２引数は nullptr
 	if (PeekMessage(&peekedMessage_, nullptr, 0, 0, PM_REMOVE))

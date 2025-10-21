@@ -14,7 +14,7 @@ public:
 
 	wtgb::Result Init(const ViewerInit& _viewer) override;
 
-	void Update() override;
+	void Update(const ViewerUpdate& _system) override;
 
 	void End() override;
 };

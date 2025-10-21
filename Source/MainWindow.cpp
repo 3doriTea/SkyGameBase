@@ -39,7 +39,7 @@ wtgb::Result MainWindow::Init(const ViewerInit& _viewer)
 	return Result::Code::Ok;
 }
 
-void MainWindow::Update()
+void MainWindow::Update(const ViewerUpdate& _system)
 {
 }
 

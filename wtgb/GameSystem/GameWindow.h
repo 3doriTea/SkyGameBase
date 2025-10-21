@@ -45,7 +45,7 @@ namespace wtgb
 		/// <summary>
 		/// XVˆ—
 		/// </summary>
-		void Update() override;
+		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
 		/// I—¹ˆ—
 		/// </summary>

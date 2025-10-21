@@ -41,7 +41,7 @@ wtgb::Result wtgb::GameTime::Init(const ViewerInit& _viewer)
 	}
 }
 
-void wtgb::GameTime::Update()
+void wtgb::GameTime::Update(const ViewerUpdate& _system)
 {
 	if (QueryPerformanceCounter(&currentMicro_) == FALSE)
 	{

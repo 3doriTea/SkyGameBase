@@ -18,9 +18,10 @@ wtgb::GameSystemCollection::~GameSystemCollection()
 
 void wtgb::GameSystemCollection::UpdateForEach(const Indexes& _indexRef)
 {
+	GameSystemUpdateViewer viewer{ this };
 	for (const auto index : _indexRef)
 	{
-		gameSystems_[index]->Update();
+		gameSystems_[index]->Update(viewer);
 	}
 }
 

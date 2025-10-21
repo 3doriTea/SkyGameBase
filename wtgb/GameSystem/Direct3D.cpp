@@ -59,7 +59,7 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 	return Result::Code::Ok;
 }
 
-void wtgb::Direct3D::Update()
+void wtgb::Direct3D::Update(const ViewerUpdate& _system)
 {
 }
 

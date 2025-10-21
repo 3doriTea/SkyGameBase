@@ -34,7 +34,7 @@ wtgb::Result wtgb::Input::Init(const ViewerInit& _viewer)
 	return Result::Code::Ok;
 }
 
-void wtgb::Input::Update()
+void wtgb::Input::Update(const ViewerUpdate& _system)
 {
 }
 

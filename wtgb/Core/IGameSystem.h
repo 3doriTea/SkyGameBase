@@ -13,6 +13,7 @@ namespace wtgb
 	{
 	public:
 		using ViewerInit = GameSystemCollection::GameSystemInitViewer;
+		using ViewerUpdate = GameSystemCollection::GameSystemUpdateViewer;
 
 		/// <summary>
 		/// 呼び出しタイミングの種類
@@ -39,7 +40,7 @@ namespace wtgb
 		/// <summary>
 		/// 更新処理
 		/// </summary>
-		virtual void Update() = 0;
+		virtual void Update(const ViewerUpdate& _system) = 0;
 		/// <summary>
 		/// 終了処理
 		/// </summary>

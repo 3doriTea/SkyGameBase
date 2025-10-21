@@ -14,7 +14,7 @@ wtgb::Result wtgb::Debug::Init(const ViewerInit& _viewer)
 	return Result::Code::Ok;
 }
 
-void wtgb::Debug::Update()
+void wtgb::Debug::Update(const ViewerUpdate& _system)
 {
 }
 
