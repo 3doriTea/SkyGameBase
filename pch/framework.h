@@ -14,6 +14,10 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 
+// DXGI
+#include <dxgi1_2.h>
+#pragma comment(lib, "dxgi.lib")
+
 // XInput
 #include <Xinput.h>
 #pragma comment(lib, "Xinput.lib")

@@ -1,6 +1,6 @@
 #include "pch\pch.h"
 #include "Direct3D.h"
-#include "Direct3DResource.h"
+#include "Direct3D/Direct3DResource.h"
 #include "WTGBAssert.h"
 
 using namespace wtgb;
@@ -37,7 +37,12 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 
 	D3D_FEATURE_LEVEL featureLevel{};
 
+	// TODO: モニターとGPUの関係を理解する必要がある
+	// DXGI_OUTPUT_DESC 
+	// TODO: モニター解像度が違うから、swapchainから作られたdirectxのオブジェクトは作り直し
+	// => 将来的Direct2Dも作り直し
 	hResult = D3D11CreateDevice(
+		// TODO: ここで指定するデバイスは一つ、だからデバイスが複数必要？
 		nullptr,                             // どのビデオアダプタを使用するか
 		D3D_DRIVER_TYPE_HARDWARE,            // ドライバのタイプを渡す
 		nullptr,                             // 上記をD3D_DRIVER_TYPE_SOFTWAREに設定しない限り nullptr
@@ -56,6 +61,13 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 		return Result::Code::Failed;
 	}
 
+	//pResource_-
+
+	/*IDXGIFactory2::CreateSwapChainForHwnd(
+		pResource_->DXGIFactory(),
+		pResource_->Device(),
+		)*/
+
 	return Result::Code::Ok;
 }
 
@@ -65,5 +77,11 @@ void wtgb::Direct3D::Update(const ViewerUpdate& _system)
 
 void wtgb::Direct3D::End()
 {
+	// TODO: フルスクリーンだと解放できないから SwapChainのSetFullScreen
+
+	// MEMO: アダプタがモニターを列挙、IDXGIOutput
+	// EnumOutputs でモニター列挙、IDXGIOutputがGPU
+	// NVIDIAのGPU(=アダプタ)から列挙すると、モニターサブ
+	// 内臓GPU(=アダプタ)から列挙すると、モニターメイン
 	pResource_->CallRelease();
 }
