@@ -18,6 +18,7 @@
 #include <format>
 #include <string_view>
 #include <functional>
+#include <array>
 
 #include <concepts>
 

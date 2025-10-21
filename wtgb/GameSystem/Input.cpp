@@ -11,7 +11,8 @@ namespace
 }
 
 wtgb::Input::Input() :
-	pResource_{ nullptr }
+	pResource_{ nullptr },
+	inputData_{}  // MEMO: ”O‚Ì‚½‚ß‰Šú‰»
 {
 }
 
@@ -20,7 +21,7 @@ wtgb::Input::~Input()
 	SAFE_DELETE(pResource_);
 }
 
-wtgb::Result wtgb::Input::Init(const Viewer& _viewer)
+wtgb::Result wtgb::Input::Init(const ViewerInit& _viewer)
 {
 	const InputResource::Config CONFIG
 	{
@@ -42,17 +43,25 @@ void wtgb::Input::End()
 	pResource_->CallRelease();
 }
 
-bool wtgb::Input::InputData::IsKey(const KeyCode _keyCode)
+bool wtgb::Input::InputGetter::IsKey(const KeyCode _keyCode)
 {
 	return false;
 }
 
-bool wtgb::Input::InputData::IsKeyDown(const KeyCode _keyCode)
+bool wtgb::Input::InputGetter::IsKeyDown(const KeyCode _keyCode)
 {
 	return false;
 }
 
-bool wtgb::Input::InputData::IsKeyUp(const KeyCode _keyCode)
+bool wtgb::Input::InputGetter::IsKeyUp(const KeyCode _keyCode)
 {
 	return false;
+}
+
+void wtgb::Input::MouseUpdater::SetMousePosition(const Vector2Int _position)
+{
+	InputData& data{ GetAccess()->inputData_ };
+
+	data.mousePositionPrev_ = data.mousePosition_;
+	data.mousePosition_ = _position;
 }

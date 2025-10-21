@@ -22,7 +22,7 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 		wassert(_pGameSystemRegister && "pGameSystemCollection‚ª nullptr‚¾‚Á‚½");
 		return Result::Code::Error;
 	}
-	GameSystemCollection::GameSystemViewer gameSystemViewer{ _pGameSystemRegister };
+	GameSystemCollection::GameSystemInitViewer gameSystemViewer{ _pGameSystemRegister };
 
 	isRunning_ = true;
 

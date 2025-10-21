@@ -41,7 +41,7 @@ namespace wtgb
 		/// <summary>
 		/// 初期化処理
 		/// </summary>
-		Result Init(const Viewer& _viewer) override;
+		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
 		/// 更新処理
 		/// </summary>
@@ -75,5 +75,8 @@ namespace wtgb
 		// ウィンドウハンドルのコレクション
 		HandlerCollection<HWND, GameWindowHandle> windowHandles_;
 		MSG peekedMessage_;
+
+	private:
+		static Vector2Int mousePosition_;  // マウス座標
 	};
 }

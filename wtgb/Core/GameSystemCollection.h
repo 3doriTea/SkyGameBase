@@ -78,6 +78,26 @@ namespace wtgb
 			T& Get() const;
 		};
 
+		/// <summary>
+		/// ゲームシステム初期化の時の参照だけ提供
+		/// </summary>
+		class GameSystemInitViewer : public GameSystemViewer
+		{
+		public:
+			using GameSystemViewer::GameSystemViewer;
+			~GameSystemInitViewer() {};
+		};
+
+		/// <summary>
+		/// ゲームシステム更新の時の参照だけ提供
+		/// </summary>
+		class GameSystemUpdateViewer : public GameSystemViewer
+		{
+		public:
+			using GameSystemViewer::GameSystemViewer;
+			~GameSystemUpdateViewer() {};
+		};
+
 	public:
 		GameSystemCollection() {}
 		~GameSystemCollection();
@@ -144,12 +164,13 @@ inline const wtgb::GameSystemCollection::GameSystemAdder&
 	// 呼び出すタイミング別で要素番号を保存しておく
 	switch (pGameSystem->GetCallType())
 	{
-	case IGameSystem::CallType::Frame:
+	case IGameSystem::CallType::Frame:  // フレーム毎の呼び出しコレクションに追加
 		callFrameIndexes.push_back(index);
 		break;
-	case IGameSystem::CallType::Cycle:
+	case IGameSystem::CallType::Cycle:  // サイクル毎の呼び出しコレクションに追加
 		callCycleIndexes.push_back(index);
 		break;
+	case IGameSystem::CallType::DoNotUpdate:  // 更新不要
 	default:
 		break;
 	}

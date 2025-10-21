@@ -5,6 +5,7 @@
 #include "Input/PadCode.h"
 #include "Input/MouseCode.h"
 
+#include "Input/InputData.h"
 
 namespace wtgb
 {
@@ -16,11 +17,14 @@ namespace wtgb
 	class Input : public IGameSystem
 	{
 	public:
-		class InputData : public Accessor<Input>
+		/// <summary>
+		/// 入力ステート取得のためだけのアクセッサー
+		/// </summary>
+		class InputGetter : public Accessor<Input>
 		{
 		public:
 			using Accessor::Accessor;
-			~InputData() {};
+			~InputGetter() {}
 
 			bool IsKey(const KeyCode _keyCode);
 			bool IsKeyDown(const KeyCode _keyCode);
@@ -33,6 +37,22 @@ namespace wtgb
 			bool IsMouse(const MouseCode _mouseCode);
 			bool IsMouseDown(const MouseCode _mouseCode);
 			bool IsMouseUp(const MouseCode _mouseCode);
+		};
+
+		/// <summary>
+		/// マウスの状態更新のためだけのアクセッサー
+		/// </summary>
+		class MouseUpdater : public Accessor<Input>
+		{
+			friend class GameWindow;
+		private:
+			using Accessor::Accessor;
+
+		public:
+			~MouseUpdater() {}
+
+		private:
+			void SetMousePosition(const Vector2Int _position);
 		};
 
 	public:
@@ -49,7 +69,7 @@ namespace wtgb
 		/// 初期化処理
 		/// </summary>
 		/// <returns>結果</returns>
-		Result Init(const Viewer& _viewer) override;
+		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
 		/// 更新処理
 		/// </summary>
@@ -60,7 +80,8 @@ namespace wtgb
 		void End() override;
 
 	private:
-		InputResource* pResource_;
+		InputResource* pResource_;  // 入力デバイス系のリソース
+		InputData inputData_;  // 入力ステートのデータキャリア
 	};
 }
 

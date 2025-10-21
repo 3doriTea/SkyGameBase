@@ -5,20 +5,21 @@
 namespace wtgb
 {
 	class GameSystemCollection;
-	class GameSystemCollection::GameSystemViewer;
+	class GameSystemCollection::GameSystemInitViewer;
 	/// <summary>
 	/// ゲームシステム
 	/// </summary>
 	class IGameSystem
 	{
 	public:
-		using Viewer = GameSystemCollection::GameSystemViewer;
+		using ViewerInit = GameSystemCollection::GameSystemInitViewer;
 
 		/// <summary>
 		/// 呼び出しタイミングの種類
 		/// </summary>
 		enum struct CallType
 		{
+			DoNotUpdate,  // 呼び出し不要
 			Cycle,  // ゲームループサイクル
 			Frame,  // 描画フレーム
 		};
@@ -34,7 +35,7 @@ namespace wtgb
 		/// <summary>
 		/// 初期化処理
 		/// </summary>
-		virtual Result Init(const Viewer& _viewer) = 0;
+		virtual Result Init(const ViewerInit& _viewer) = 0;
 		/// <summary>
 		/// 更新処理
 		/// </summary>

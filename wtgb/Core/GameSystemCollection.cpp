@@ -26,7 +26,7 @@ void wtgb::GameSystemCollection::UpdateForEach(const Indexes& _indexRef)
 
 void wtgb::GameSystemCollection::InitForEachAll()
 {
-	GameSystemViewer viewer{ this };
+	GameSystemInitViewer viewer{ this };
 	for (auto pGameSystem : gameSystems_)
 	{
 		pGameSystem->Init(viewer);

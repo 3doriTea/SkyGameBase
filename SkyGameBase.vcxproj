@@ -22,6 +22,7 @@
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
+    <ClInclude Include="Source\MainWindow.h" />
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\SampleGame.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameWindow.h" />
     <ClInclude Include="wtgb\GameSystem\Input.h" />
+    <ClInclude Include="wtgb\GameSystem\Input\InputData.h" />
     <ClInclude Include="wtgb\GameSystem\Input\PadCode.h" />
     <ClInclude Include="wtgb\GameSystem\Input\InputResource.h" />
     <ClInclude Include="wtgb\GameSystem\Input\KeyCode.h" />
@@ -63,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch\pch.cpp" />
+    <ClCompile Include="Source\MainWindow.cpp" />
     <ClCompile Include="Source\SampleGame.cpp" />
     <ClCompile Include="Source\SkyGameBase.cpp" />
     <ClCompile Include="wtgb\Core\Game.cpp" />

@@ -25,7 +25,7 @@ wtgb::GameTime::~GameTime()
 {
 }
 
-wtgb::Result wtgb::GameTime::Init(const Viewer& _viewer)
+wtgb::Result wtgb::GameTime::Init(const ViewerInit& _viewer)
 {
 	timeBeginPeriod(PERIOD_MILLI);
 	BOOL succeed{ QueryPerformanceCounter(&previousMicro_) };

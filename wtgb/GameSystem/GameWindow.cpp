@@ -14,7 +14,7 @@ wtgb::GameWindow::~GameWindow()
 {
 }
 
-wtgb::Result wtgb::GameWindow::Init(const Viewer& _viewer)
+wtgb::Result wtgb::GameWindow::Init(const ViewerInit& _viewer)
 {
 	return Result::Code::Ok;
 }
@@ -123,7 +123,8 @@ LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 		Game::Exit();
 		break;
 	case WM_MOUSEMOVE:
-		// TODO: マウス移動を検知する
+		mousePosition_.x = LOWORD(lParam);
+		mousePosition_.y = LOWORD(lParam);
 		return 0;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
@@ -131,3 +132,5 @@ LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 
 	return 0;
 }
+
+wtgb::Vector2Int wtgb::GameWindow::mousePosition_{};

@@ -27,6 +27,6 @@ namespace wtgb
 		virtual const char* GetVersion() const = 0;
 
 		virtual void StartRegister(const GameSystemCollection::GameSystemAdder& _pGameSystemAdder) = 0;
-		virtual void StartSetup(const GameSystemCollection::GameSystemViewer& _pGameSystemsViewer) = 0;
+		virtual void StartSetup(const GameSystemCollection::GameSystemInitViewer& _pGameSystemsViewer) = 0;
 	};
 }
