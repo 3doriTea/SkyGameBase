@@ -1,11 +1,15 @@
 #pragma once
 #include "pch\pch.h"
-#include "IGameSystem.h"
 #include <typeindex>
 #include <map>
 
+#include "Utility/Accessor.h"
+
 namespace wtgb
 {
+	class IGameSystem;
+	//enum struct IGameSystem::CallType;
+
 	template<typename T>
 	concept GameSystemT = std::is_base_of_v<IGameSystem, T>;
 
@@ -36,15 +40,7 @@ namespace wtgb
 		/// <summary>
 		/// ゲームシステムにアクセスする基底クラス
 		/// </summary>
-		class GameSystemAccessor
-		{
-		public:
-			GameSystemAccessor(GameSystemCollection* _pGameSystemCollection);
-			virtual ~GameSystemAccessor() {};
-
-		protected:
-			GameSystemCollection* pGameSystemCollection_;
-		};
+		using GameSystemAccessor = Accessor<GameSystemCollection>;
 
 		/// <summary>
 		/// ゲームシステムにアクセスし追加だけするクラス
@@ -80,6 +76,26 @@ namespace wtgb
 			/// <returns>ゲームシステム</returns>
 			template<GameSystemT T>
 			T& Get() const;
+		};
+
+		/// <summary>
+		/// ゲームシステム初期化の時の参照だけ提供
+		/// </summary>
+		class GameSystemInitViewer : public GameSystemViewer
+		{
+		public:
+			using GameSystemViewer::GameSystemViewer;
+			~GameSystemInitViewer() {};
+		};
+
+		/// <summary>
+		/// ゲームシステム更新の時の参照だけ提供
+		/// </summary>
+		class GameSystemUpdateViewer : public GameSystemViewer
+		{
+		public:
+			using GameSystemViewer::GameSystemViewer;
+			~GameSystemUpdateViewer() {};
 		};
 
 	public:
@@ -130,13 +146,13 @@ template<wtgb::GameSystemT T, typename ...Args>
 inline const wtgb::GameSystemCollection::GameSystemAdder&
 	wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
 {
-	assert(pGameSystemCollection_ && "ゲームシステムコレクションがnullptr参照されてしまう");
+	assert(GetAccess() && "ゲームシステムコレクションがnullptr参照されてしまう");
 
 	// コレクション要素への参照
-	TypeKeys& gameSystemTypeKey{ pGameSystemCollection_->gameSystemTypeKey_ };
-	GameSystems& gameSystems   { pGameSystemCollection_->gameSystems_ };
-	Indexes& callFrameIndexes  { pGameSystemCollection_->callFrameIndexes_ };
-	Indexes& callCycleIndexes  { pGameSystemCollection_->callCycleIndexes_ };
+	TypeKeys& gameSystemTypeKey{ GetAccess()->gameSystemTypeKey_ };
+	GameSystems& gameSystems   { GetAccess()->gameSystems_ };
+	Indexes& callFrameIndexes  { GetAccess()->callFrameIndexes_ };
+	Indexes& callCycleIndexes  { GetAccess()->callCycleIndexes_ };
 
 	IGameSystem* pGameSystem{ new T{ args... } };
 
@@ -148,12 +164,13 @@ inline const wtgb::GameSystemCollection::GameSystemAdder&
 	// 呼び出すタイミング別で要素番号を保存しておく
 	switch (pGameSystem->GetCallType())
 	{
-	case IGameSystem::CallType::Frame:
+	case IGameSystem::CallType::Frame:  // フレーム毎の呼び出しコレクションに追加
 		callFrameIndexes.push_back(index);
 		break;
-	case IGameSystem::CallType::Cycle:
+	case IGameSystem::CallType::Cycle:  // サイクル毎の呼び出しコレクションに追加
 		callCycleIndexes.push_back(index);
 		break;
+	case IGameSystem::CallType::DoNotUpdate:  // 更新不要
 	default:
 		break;
 	}
@@ -164,8 +181,8 @@ inline const wtgb::GameSystemCollection::GameSystemAdder&
 template<wtgb::GameSystemT T>
 inline T& wtgb::GameSystemCollection::GameSystemViewer::Get() const
 {
-	TypeKeys& gameSystemTypeKey{ pGameSystemCollection_->gameSystemTypeKey_ };
-	GameSystems& gameSystems{ pGameSystemCollection_->gameSystems_ };
+	TypeKeys& gameSystemTypeKey{ GetAccess()->gameSystemTypeKey_ };
+	GameSystems& gameSystems   { GetAccess()->gameSystems_ };
 
 	Index index{};
 	try

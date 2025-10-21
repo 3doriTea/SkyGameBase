@@ -17,6 +17,8 @@
 #include <map>
 #include <format>
 #include <string_view>
+#include <functional>
+#include <array>
 
 #include <concepts>
 
@@ -24,6 +26,9 @@
 #include "LogUtility.h"
 #include "WTGBResult.h"
 
-#include "CoreType/CoreType.h"
+//#include "CoreType/CoreType.h"
+#include "CoreType/Vector2Int.h"
+#include "CoreType/Vector3.h"
+#include "CoreType/Collection/HandlerCollection.h"
 
 #endif //PCH_H

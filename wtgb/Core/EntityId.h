@@ -8,14 +8,11 @@ namespace wtgb
 	/// </summary>
 	union EntityId
 	{
-		uint32_t version;
-		uint32_t index;
+		uint64_t id;
+		struct
+		{
+			uint32_t version;
+			uint32_t index;
+		};
 	};
-
-	//using EntityId = uint64_t;
-
-	/*struct EntityId
-	{
-
-	};*/
 }

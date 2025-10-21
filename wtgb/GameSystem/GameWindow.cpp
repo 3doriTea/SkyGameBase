@@ -3,9 +3,12 @@
 #include "Core/Game.h"
 #include "WTGBAssert.h"
 
-//#include "GameSystem/Input.h"
+#include "GameSystem/Input.h"
 
-wtgb::GameWindow::GameWindow()
+using namespace wtgb;
+
+wtgb::GameWindow::GameWindow() :
+	peekedMessage_{}
 {
 }
 
@@ -13,12 +16,12 @@ wtgb::GameWindow::~GameWindow()
 {
 }
 
-wtgb::Result wtgb::GameWindow::Init()
+wtgb::Result wtgb::GameWindow::Init(const ViewerInit& _viewer)
 {
 	return Result::Code::Ok;
 }
 
-void wtgb::GameWindow::Update()
+void wtgb::GameWindow::Update(const ViewerUpdate& _system)
 {
 	// MEMO: すべてのウィンドウからのメッセージを受信するため第２引数は nullptr
 	if (PeekMessage(&peekedMessage_, nullptr, 0, 0, PM_REMOVE))
@@ -26,10 +29,19 @@ void wtgb::GameWindow::Update()
 		TranslateMessage(&peekedMessage_);
 		DispatchMessage(&peekedMessage_);
 	}
+
+	// マウス座標を更新する
+	_system.Get<Input>().GetMouseUpdater().SetMousePosition(mousePosition_);
 }
 
 void wtgb::GameWindow::End()
 {
+	// 全ウィンドウを閉じる && 解放
+	windowHandles_.Release([](HWND& _value)
+	{
+		CloseWindow(_value);
+		DestroyWindow(_value);
+	});
 }
 
 wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _config)
@@ -51,11 +63,11 @@ wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _confi
 		.hIconSm       = _config.iconSmile,
 	};
 
-	wassert(RegisterClassEx(&WNDCLASSEX_DESC) != 0
-		&& "ウィンドウクラス登録に失敗");
+	ATOM atom{ RegisterClassEx(&WNDCLASSEX_DESC) };
+	wassert(atom != 0 && "ウィンドウクラス登録に失敗");
 
 	RECT windowRect{ 0, 0, _config.windowScreenSize.x, _config.windowScreenSize.y };
-	BOOL succeed = AdjustWindowRectEx(&windowRect, _config.clientStyle, _config.hasMenu, _config.clientStyleEx);
+	BOOL succeed{ AdjustWindowRectEx(&windowRect, _config.clientStyle, _config.hasMenu, _config.clientStyleEx) };
 	wassert(succeed && "クライアント領域を考慮したウィンドウサイズ計算に失敗");
 
 	// 計算されたウィンドウのサイズ 横幅
@@ -87,6 +99,12 @@ wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _confi
 	return hGameWindow;
 }
 
+HWND wtgb::GameWindow::GetMainWindowHandle()
+{
+	wassert(!windowHandles_.IsEmpty() && "ウィンドウハンドルが1つも登録されていない");
+	return windowHandles_.begin()->second;
+}
+
 LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -98,6 +116,8 @@ LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 		// 選択されたId
 		switch (wmId)
 		{
+		case 0:
+			break;
 		default:
 			LOGFW("未指定のコマンドを受け取った:{}\n", wmId);
 			break;
@@ -108,7 +128,8 @@ LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 		Game::Exit();
 		break;
 	case WM_MOUSEMOVE:
-		// TODO: マウス移動を検知する
+		mousePosition_.x = LOWORD(lParam);
+		mousePosition_.y = LOWORD(lParam);
 		return 0;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
@@ -116,3 +137,5 @@ LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 
 	return 0;
 }
+
+wtgb::Vector2Int wtgb::GameWindow::mousePosition_{};

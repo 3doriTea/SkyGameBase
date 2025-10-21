@@ -13,3 +13,13 @@
 // DirectX
 #include <d3d11.h>
 #include <DirectXMath.h>
+
+// XInput
+#include <Xinput.h>
+#pragma comment(lib, "Xinput.lib")
+
+#define DIRECTINPUT_VERSION 0x0800
+#include <dinput.h>
+#pragma comment(lib, "dInput8.lib")
+
+#pragma comment(lib, "dxguid.lib")

@@ -22,6 +22,7 @@
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
+    <ClInclude Include="Source\MainWindow.h" />
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\SampleGame.h" />
@@ -36,10 +37,18 @@
     <ClInclude Include="wtgb\Core\GameLoop.h" />
     <ClInclude Include="wtgb\Core\GameObject.h" />
     <ClInclude Include="wtgb\Core\GameScene.h" />
+    <ClInclude Include="wtgb\Core\Handlers.h" />
+    <ClInclude Include="wtgb\Core\IGameComponent.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameWindow.h" />
+    <ClInclude Include="wtgb\GameSystem\Input.h" />
+    <ClInclude Include="wtgb\GameSystem\Input\InputData.h" />
+    <ClInclude Include="wtgb\GameSystem\Input\PadCode.h" />
+    <ClInclude Include="wtgb\GameSystem\Input\InputResource.h" />
+    <ClInclude Include="wtgb\GameSystem\Input\KeyCode.h" />
+    <ClInclude Include="wtgb\GameSystem\Input\MouseCode.h" />
     <ClInclude Include="wtgb\GameSystem\IResource.h" />
     <ClInclude Include="wtgb\GameSystem\ScreenResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameTime.h" />
@@ -48,12 +57,16 @@
     <ClInclude Include="wtgb\Core\IGame.h" />
     <ClInclude Include="wtgb\LogUtility.h" />
     <ClInclude Include="wtgb\ReleaseUtility.h" />
+    <ClInclude Include="wtgb\Utility\Accessor.h" />
+    <ClInclude Include="wtgb\Utility\InitSequence.h" />
+    <ClInclude Include="wtgb\Utility\InputChecker.h" />
     <ClInclude Include="wtgb\wtgb.h" />
     <ClInclude Include="wtgb\WTGBAssert.h" />
     <ClInclude Include="wtgb\WTGBResult.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch\pch.cpp" />
+    <ClCompile Include="Source\MainWindow.cpp" />
     <ClCompile Include="Source\SampleGame.cpp" />
     <ClCompile Include="Source\SkyGameBase.cpp" />
     <ClCompile Include="wtgb\Core\Game.cpp" />
@@ -64,7 +77,11 @@
     <ClCompile Include="wtgb\GameSystem\Direct3DResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameTime.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameWindow.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Input.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\IResource.cpp" />
+    <ClCompile Include="wtgb\Utility\InitSequence.cpp" />
+    <ClCompile Include="wtgb\Utility\InputChecker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc" />

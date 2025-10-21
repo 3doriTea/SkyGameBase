@@ -11,7 +11,9 @@ wtgb::IResource::IResource()
 
 wtgb::IResource::~IResource()
 {
+#ifdef _DEBUG
 	wassert(isReleased_ && "リソースを解放せずにデストラクタが呼ばれている");
+#endif
 }
 
 void wtgb::IResource::CallInit()

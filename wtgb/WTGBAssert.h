@@ -2,6 +2,18 @@
 #include "pch/pch.h"
 #include "Core/Game.h"
 
+/*
+* NOTE: wassertの式内でRelease時も必要な関数を入れないでください。
+*     : wassertはReleaseビルド時に式ごと無視されるため、適切なアサーション処理をしてください。
+*     : 適切なアサーション処理は、戻り値を一度変数に格納し、その変数をwassertの式に埋め込む形になります。
+* Bad Code:
+*   wassert(RegisterClassEx(&WNDCLASSEX_DESC) != 0
+*     && "ウィンドウクラス登録に失敗");
+* Good Code:
+*   ATOM atom{ RegisterClassEx(&WNDCLASSEX_DESC) };
+*   wassert(atom != 0 && "ウィンドウクラス登録に失敗");
+*/
+
 #ifdef _DEBUG
 
 #define wassert(expression)\

@@ -22,7 +22,7 @@ wtgb::Direct3D::~Direct3D()
 	SAFE_DELETE(pResource_);
 }
 
-wtgb::Result wtgb::Direct3D::Init()
+wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 {
 	wassert(pResource_ && "リソースのポインタが入ってない");
 
@@ -59,7 +59,7 @@ wtgb::Result wtgb::Direct3D::Init()
 	return Result::Code::Ok;
 }
 
-void wtgb::Direct3D::Update()
+void wtgb::Direct3D::Update(const ViewerUpdate& _system)
 {
 }
 

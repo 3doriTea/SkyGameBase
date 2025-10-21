@@ -41,7 +41,7 @@ void wtgb::Game::RunProcess()
 	pGameSystemRegister->Init();
 
 	// Ý’è‚ð‚µ‚Ä‚à‚ç‚¤
-	pGame_->StartSetup(GameSystemCollection::GameSystemViewer{ pGameSystemRegister });
+	pGame_->StartSetup(GameSystemCollection::GameSystemInitViewer{ pGameSystemRegister });
 
 	pGameLoop_ = new GameLoop{};
 

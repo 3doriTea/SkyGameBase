@@ -1,5 +1,7 @@
 #include "pch\pch.h"
 #include "GameSystemCollection.h"
+#include "IGameSystem.h"
+
 
 wtgb::GameSystemCollection::~GameSystemCollection()
 {
@@ -16,17 +18,19 @@ wtgb::GameSystemCollection::~GameSystemCollection()
 
 void wtgb::GameSystemCollection::UpdateForEach(const Indexes& _indexRef)
 {
+	GameSystemUpdateViewer viewer{ this };
 	for (const auto index : _indexRef)
 	{
-		gameSystems_[index]->Update();
+		gameSystems_[index]->Update(viewer);
 	}
 }
 
 void wtgb::GameSystemCollection::InitForEachAll()
 {
+	GameSystemInitViewer viewer{ this };
 	for (auto pGameSystem : gameSystems_)
 	{
-		pGameSystem->Init();
+		pGameSystem->Init(viewer);
 	}
 }
 
@@ -36,9 +40,4 @@ void wtgb::GameSystemCollection::EndForEachAll()
 	{
 		pGameSystem->End();
 	}
-}
-
-wtgb::GameSystemCollection::GameSystemAccessor::GameSystemAccessor(GameSystemCollection* _pGameSystemCollection) :
-	pGameSystemCollection_{ _pGameSystemCollection }
-{
 }
