@@ -4,7 +4,10 @@
 
 #include "GameSystem/GameWindow.h"
 
+
 using namespace wtgb;
+
+using Check = InputChecker;
 
 namespace
 {
@@ -14,7 +17,8 @@ wtgb::Input::Input() :
 	mouseUpdater_{ this },
 	inputGetter_{ this },
 	pResource_{ nullptr },
-	inputData_{}  // MEMO: ”O‚Ì‚½‚ß‰Šú‰»
+	inputData_{},  // MEMO: ”O‚Ì‚½‚ß‰Šú‰»
+	isDown_{ InputChecker::GenIsDown(inputData_.keyBoardState_, inputData_.keyBoardStatePrev_) }
 {
 }
 
@@ -49,17 +53,23 @@ void wtgb::Input::End()
 
 bool wtgb::Input::InputGetter::IsKey(const KeyCode _keyCode) const
 {
-	return false;
+	InputData& data{ GetAccess()->inputData_ };
+
+	return data.keyBoardState_[static_cast<int>(_keyCode)];
 }
 
 bool wtgb::Input::InputGetter::IsKeyDown(const KeyCode _keyCode) const
 {
-	return false;
+	InputData& data{ GetAccess()->inputData_ };
+
+	return isDown_(_keyCode)
 }
 
 bool wtgb::Input::InputGetter::IsKeyUp(const KeyCode _keyCode) const
 {
-	return false;
+	InputData& data{ GetAccess()->inputData_ };
+
+	return ;
 }
 
 void wtgb::Input::MouseUpdater::SetMousePosition(const Vector2Int _position)

@@ -7,6 +7,8 @@
 
 #include "Input/InputData.h"
 
+#include "Utility/InputChecker.h"
+
 namespace wtgb
 {
 	class InputResource;
@@ -108,6 +110,9 @@ namespace wtgb
 		InputGetter inputGetter_;  // 入力取得用
 		InputResource* pResource_;  // 入力デバイス系のリソース
 		InputData inputData_;  // 入力ステートのデータキャリア
+
+		InputChecker::Checker<BYTE> isDown_;  // 押された瞬間か
+		InputChecker::Checker<BYTE> isUp_;    // 離された瞬間か
 	};
 }
 
