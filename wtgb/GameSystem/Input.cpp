@@ -18,7 +18,23 @@ wtgb::Input::Input() :
 	inputGetter_{ this },
 	pResource_{ nullptr },
 	inputData_{},  // MEMO: 念のため初期化
-	isDown_{ InputChecker::GenIsDown(inputData_.keyBoardState_, inputData_.keyBoardStatePrev_) }
+	isKeyPress_
+	{
+		InputChecker::GenIsPress<InputData::KeyBoardStateArray, KeyCode>(
+			inputData_.keyBoardState_)
+	},
+	isKeyDown_
+	{
+		InputChecker::GenIsDown<InputData::KeyBoardStateArray, KeyCode>(
+			inputData_.keyBoardState_,
+			inputData_.keyBoardStatePrev_)
+	},
+	isKeyUp_
+	{
+		InputChecker::GenIsUp<InputData::KeyBoardStateArray, KeyCode>(
+			inputData_.keyBoardState_,
+			inputData_.keyBoardStatePrev_)
+	}
 {
 }
 
@@ -44,6 +60,18 @@ void wtgb::Input::Update(const ViewerUpdate& _system)
 {
 	// TODO: 順番によってマウス移動量がフレーム上書きされる
 	inputData_.mousePositionPrev_ = inputData_.mousePosition_;
+
+	inputData_.keyBoardStatePrev_ = inputData_.keyBoardState_;
+
+	pResource_->GetKeyDevice()->Acquire();
+	pResource_->GetKeyDevice()->GetDeviceState(
+		static_cast<DWORD>(inputData_.keyBoardState_.size()),
+		inputData_.keyBoardState_.data());
+
+	pResource_->GetMouseDevice()->Acquire();
+	pResource_->GetMouseDevice()->GetDeviceState(
+		static_cast<DWORD>(inputData_.keyBoardState_.size()),
+		inputData_.keyBoardState_.data());
 }
 
 void wtgb::Input::End()
@@ -53,23 +81,20 @@ void wtgb::Input::End()
 
 bool wtgb::Input::InputGetter::IsKey(const KeyCode _keyCode) const
 {
-	InputData& data{ GetAccess()->inputData_ };
-
-	return data.keyBoardState_[static_cast<int>(_keyCode)];
+	// MEMO: 以下の書き方が冗長だと考え、改良しました
+	//     : InputData& data{ GetAccess()->inputData_ };
+	//     : return data.keyBoardState_[static_cast<int>(_keyCode)];
+	return GetAccess()->isKeyPress_(_keyCode);
 }
 
 bool wtgb::Input::InputGetter::IsKeyDown(const KeyCode _keyCode) const
 {
-	InputData& data{ GetAccess()->inputData_ };
-
-	return isDown_(_keyCode)
+	return GetAccess()->isKeyDown_(_keyCode);
 }
 
 bool wtgb::Input::InputGetter::IsKeyUp(const KeyCode _keyCode) const
 {
-	InputData& data{ GetAccess()->inputData_ };
-
-	return ;
+	return GetAccess()->isKeyUp_(_keyCode);
 }
 
 void wtgb::Input::MouseUpdater::SetMousePosition(const Vector2Int _position)

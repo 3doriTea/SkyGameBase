@@ -107,12 +107,13 @@ namespace wtgb
 
 	private:
 		MouseUpdater mouseUpdater_;  // マウス設定専用
-		InputGetter inputGetter_;  // 入力取得用
-		InputResource* pResource_;  // 入力デバイス系のリソース
-		InputData inputData_;  // 入力ステートのデータキャリア
+		InputGetter inputGetter_;    // 入力取得用
+		InputResource* pResource_;   // 入力デバイス系のリソース
+		InputData inputData_;        // 入力ステートのデータキャリア
 
-		InputChecker::Checker<BYTE> isDown_;  // 押された瞬間か
-		InputChecker::Checker<BYTE> isUp_;    // 離された瞬間か
+		InputChecker::Checker<KeyCode> isKeyPress_;  // キーが押されているか
+		InputChecker::Checker<KeyCode> isKeyDown_;   // キーが押された瞬間か
+		InputChecker::Checker<KeyCode> isKeyUp_;     // キーが離された瞬間か
 	};
 }
 

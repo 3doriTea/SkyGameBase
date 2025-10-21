@@ -39,25 +39,32 @@ namespace wtgb
 				};
 		}
 
-		template <typename CurrAryT, typename PrevAryT, typename CodeT>
-		inline static Checker<CodeT> GenIsUp(const CurrAryT& _currArray, const PrevAryT& _prevArray)
+		template <typename StateArrayT, typename CodeT>
+		inline static Checker<CodeT> GenIsUp(const StateArrayT& _currArray, const StateArrayT& _prevArray)
 		{
 			return [&_currArray, &_prevArray](const CodeT _code)
 				{
-					return Check::IsUp
-						(_currArray[static_cast<int>(_keyCode)])
-						(_prevArray[static_cast<int>(_keyCode)]);
+					return IsUp(_currArray[static_cast<int>(_code)])
+						(_prevArray[static_cast<int>(_code)]);
 				};
 		}
 
-		template <typename CurrAryT, typename PrevAryT, typename CodeT>
-		inline static Checker<CodeT> GenIsDown(const CurrAryT& _currArray, const PrevAryT& _prevArray)
+		template <typename StateArrayT, typename CodeT>
+		inline static Checker<CodeT> GenIsDown(const StateArrayT& _currArray, const StateArrayT& _prevArray)
 		{
 			return [&_currArray, &_prevArray](const CodeT _code)
 				{
-					return Check::IsDown
-					(_currArray[static_cast<int>(_keyCode)])
-						(_prevArray[static_cast<int>(_keyCode)]);
+					return IsDown(_currArray[static_cast<int>(_code)])
+						(_prevArray[static_cast<int>(_code)]);
+				};
+		}
+
+		template <typename StateArrayT, typename CodeT>
+		inline static Checker<CodeT> GenIsPress(const StateArrayT& _currArray)
+		{
+			return [&_currArray](const CodeT _code)
+				{
+					return _currArray[static_cast<int>(_code)];
 				};
 		}
 	};

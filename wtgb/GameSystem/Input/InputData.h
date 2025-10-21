@@ -15,15 +15,18 @@ namespace wtgb
 	class InputData
 	{
 		friend class Input;
+	public:
+		using KeyBoardStateArray = std::array<BYTE, KEY_BOARD_STATE_SIZE>;
+
 	private:
 		InputData() {}
 		~InputData() {}
 
 	private:
 		// 現在のキーボード状態
-		std::array<BYTE, KEY_BOARD_STATE_SIZE> keyBoardState_;
+		KeyBoardStateArray keyBoardState_;
 		// 前回のキーボード状態
-		std::array<BYTE, KEY_BOARD_STATE_SIZE> keyBoardStatePrev_;
+		KeyBoardStateArray keyBoardStatePrev_;
 		// 現在のマウス座標
 		Vector2Int mousePosition_;
 		// 前回のマウス座標
