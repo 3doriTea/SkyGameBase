@@ -3,16 +3,23 @@
 
 namespace wtgb
 {
+	const uint64_t INVALIED_ID     { 0 };
+	const uint32_t INVALIED_VERSION{ 0 };
+	const uint32_t INVALIED_INDEX  { 0 };
+
 	/// <summary>
 	/// エンティティの識別値
 	/// </summary>
-	union EntityId
+	struct EntityId
 	{
-		uint64_t id;
-		struct
+		union 
 		{
-			uint32_t version;
-			uint32_t index;
+			uint64_t id;  // エンティティ識別番号
+			struct
+			{
+				uint32_t version;  // エンティティの所属世界バージョン
+				uint32_t index;    // エンティティの配列番号
+			};
 		};
 	};
 }

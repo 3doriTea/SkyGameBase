@@ -38,8 +38,10 @@
     <ClInclude Include="wtgb\Core\GameObject.h" />
     <ClInclude Include="wtgb\Core\GameScene.h" />
     <ClInclude Include="wtgb\Core\Handlers.h" />
-    <ClInclude Include="wtgb\Core\IGameComponent.h" />
+    <ClInclude Include="wtgb\Core\IComponent.h" />
     <ClInclude Include="wtgb\Core\World.h" />
+    <ClInclude Include="wtgb\GameComponent\GameObjectProperty.h" />
+    <ClInclude Include="wtgb\GameSystem\ComponentPool.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
@@ -73,6 +75,7 @@
     <ClCompile Include="wtgb\Core\Game.cpp" />
     <ClCompile Include="wtgb\Core\GameLoop.cpp" />
     <ClCompile Include="wtgb\Core\GameSystemCollection.cpp" />
+    <ClCompile Include="wtgb\GameComponent\GameObjectProperty.cpp" />
     <ClCompile Include="wtgb\GameSystem\Debug.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3D.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3DResource.cpp" />
