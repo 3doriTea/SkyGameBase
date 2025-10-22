@@ -21,9 +21,6 @@ namespace wtgb
 		ComponentPool();
 		virtual ~ComponentPool() {}
 
-		T& Add(const EntityId _entityId);
-		T& Get(const EntityId _entityId) { return pool_.at(_entityId.index); }
-
 	protected:
 		Pool::iterator begin() { pool_.begin(); }
 		Pool::iterator end() { pool_.end(); }

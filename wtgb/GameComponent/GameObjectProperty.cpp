@@ -23,6 +23,4 @@ void wtgb::GameObjectProperty::SetParent(const EntityId _parent)
 
 void wtgb::GameObjectProperty::CountChilds() const
 {
-
-	while ()
 }

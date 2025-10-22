@@ -20,6 +20,8 @@
 #include <functional>
 #include <array>
 
+#include <typeindex>
+
 #include <concepts>
 
 #include "ReleaseUtility.h"
