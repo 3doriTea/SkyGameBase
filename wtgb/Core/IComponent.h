@@ -1,8 +1,10 @@
 #pragma once
 #include "pch/pch.h"
+#include "GameObjectBuilder.h"
 
 namespace wtgb
 {
+	template<typename SetterT>
 	class IComponent
 	{
 	public:

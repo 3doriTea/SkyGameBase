@@ -31,6 +31,7 @@
 //#include "CoreType/CoreType.h"
 #include "CoreType/Vector2Int.h"
 #include "CoreType/Vector3.h"
+#include "CoreType/Matrix4x4.h"
 #include "CoreType/Collection/HandlerCollection.h"
 
 #endif //PCH_H

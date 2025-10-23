@@ -2,12 +2,28 @@
 #include "pch/pch.h"
 #include "Core/IComponent.h"
 #include "Core/Entity.h"
+#include "Utility/Accessor.h"
+#include "Core/GameObjectBuilder.h"
 
 namespace wtgb
 {
+	class GameObjectProperty;
+	class GameObjectProperty::Setter;
+
 	constexpr size_t NAME_SIZE{ 16 };
-	class GameObjectProperty : public IComponent
+	class GameObjectProperty : public IComponent<GameObjectProperty::Setter>
 	{
+	public:
+		class Setter : public GameObjectBuilder::Setter<GameObjectProperty>
+		{
+		public:
+			using GameObjectBuilder::Setter<GameObjectProperty>::Setter;
+			~Setter();
+
+			Setter& Name(const std::string& _name) { GetAccess()->SetName(_name); return *this; }
+			Setter& Parent(const EntityId _entityId) { GetAccess()->parent_ = _entityId; return *this; }
+		};
+
 	public:
 		GameObjectProperty();
 		~GameObjectProperty();

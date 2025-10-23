@@ -1,6 +1,7 @@
 #pragma once
 #include "pch/pch.h"
 #include "Entity.h"
+#include "GameObjectBuilder.h"
 
 namespace wtgb
 {
@@ -25,9 +26,7 @@ namespace wtgb
 		struct Config;
 
 	public:
-		GameObject(const Config& _config);
-		GameObject(Config&& _config);
-		GameObject();
+		GameObject(std::function<void(GameObjectBuilder&)>);
 		virtual ~GameObject() {};
 
 		virtual void Init() {}
@@ -37,7 +36,12 @@ namespace wtgb
 
 	protected:
 		template<typename ComponentT>
-		void GetComponent();
+		ComponentT* GetComponent();
+
+		template<typename ComponentT>
+		ComponentT* AddComponent();
+
+		
 
 		Property& Property();
 		Transform& Transform();
