@@ -27,7 +27,7 @@ namespace wtgb
 	private:
 		Vector3 position_;  // À•W
 		Vector3 rotation_;  // ‰ñ“]
-		Vector3 scale_;	    // ‘å‚«‚³
+		Vector3 scale_;     // ‘å‚«‚³
 
 		Matrix4x4 translateMatrix_;  // ˆÚ“®s—ñ
 		Matrix4x4 rotateMatrix_;     // ‰ñ“]s—ñ
