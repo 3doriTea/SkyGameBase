@@ -1,7 +1,9 @@
 #pragma once
 #include "pch/pch.h"
-#include "Entity.h"
-#include "GameObjectBuilder.h"
+#include "Core/Entity.h"
+#include "Core/GameObjectBuilder.h"
+
+// TODO: GameObjectは名ばかり、スクリプトコンポーネントだ！
 
 namespace wtgb
 {
@@ -47,5 +49,7 @@ namespace wtgb
 		Transform& Transform();
 	private:
 		EntityId entityId_;  // エンティティのId
+
+		// TODO: entityIdのみにする
 	};
 }

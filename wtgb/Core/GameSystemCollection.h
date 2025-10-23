@@ -98,6 +98,17 @@ namespace wtgb
 			~GameSystemUpdateViewer() {};
 		};
 
+		/// <summary>
+		/// <para>各ゲームオブジェクトへ参照だけ提供</para>
+		/// <para>メンバ変数として保持しておく用</para>
+		/// </summary>
+		class GameSystemCachedViewer : public GameSystemViewer
+		{
+		public:
+			using GameSystemViewer::GameSystemViewer;
+			~GameSystemCachedViewer() {};
+		};
+
 	public:
 		GameSystemCollection() {}
 		~GameSystemCollection();

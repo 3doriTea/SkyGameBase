@@ -5,7 +5,6 @@
 namespace wtgb
 {
 	class GameSystemCollection;
-	class GameSystemCollection::GameSystemInitViewer;
 	/// <summary>
 	/// ゲームシステム
 	/// </summary>
@@ -14,6 +13,7 @@ namespace wtgb
 	public:
 		using ViewerInit = GameSystemCollection::GameSystemInitViewer;
 		using ViewerUpdate = GameSystemCollection::GameSystemUpdateViewer;
+		using ViewerCached = GameSystemCollection::GameSystemCachedViewer;
 
 		/// <summary>
 		/// 呼び出しタイミングの種類

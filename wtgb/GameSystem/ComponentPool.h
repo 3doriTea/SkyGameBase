@@ -10,10 +10,11 @@ namespace
 
 namespace wtgb
 {
-	template<typename T>
-	concept ComponentT = std::is_base_of_v<IComponent, T>;
+	template<typename T, typename SetterT>
+	concept ComponentT = std::is_base_of_v<IComponent<SetterT>, T>;
 
-	template<ComponentT T>
+	template<typename SetterT>
+	template<ComponentT<SetterT> T>
 	class ComponentPool
 	{
 		using Pool = std::vector<ComponentT>;
