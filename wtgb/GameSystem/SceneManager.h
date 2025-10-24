@@ -27,6 +27,16 @@ namespace wtgb
 		/// </summary>
 		void End() override;
 
+		template<typename SceneT>
+		void Move()
+		{
+			assert(pToNext_ == nullptr && "既に次のシーン遷移が呼ばれている");
+			if (pToNext_ == nullptr)
+			{
+				pToNext_ = new SceneT{};
+			}
+		}
+
 	private:
 		GameScene* pCurrent_;  // 現在のシーン
 		GameScene* pToNext_;   // 次に予定されているシーン

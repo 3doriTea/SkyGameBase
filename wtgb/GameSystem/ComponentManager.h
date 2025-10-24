@@ -4,6 +4,7 @@
 #include "IComponentPool.h"
 #include "Utility/Accessor.h"
 #include "Core/IGameSystem.h"
+#include "ComponentManager/EntityGenerator.h"
 
 namespace wtgb
 {
@@ -56,8 +57,13 @@ namespace wtgb
 
 		void UpdateAll();
 
+		EntityId AddEntity();
+
 		template<typename T>
 		void Release(const EntityId _entityId);
+
+		template<typename T>
+		T& Add(const EntityId _entityId);
 
 		template<typename T>
 		T& Get(const EntityId _entityId);
@@ -68,12 +74,22 @@ namespace wtgb
 	private:
 		std::vector<IComponentPool*> pools_;  // コンポーネントプールの順番を持っておく
 		std::map<std::type_index, IComponentPool*> typeToPools_;  // コンポーネントプールの型変換用
+		EntityGenerator entityGenerator_;  // エンティティ生成
 	};
 }
 
 template<typename T>
 inline void wtgb::ComponentManager::Release(const EntityId _entityId)
 {
+}
+
+template<typename T>
+inline T& wtgb::ComponentManager::Add(const EntityId _entityId)
+{
+	if (entityGenerator_.IsValidId(_entityId))
+	{
+	}
+	pools_[]
 }
 
 template<typename T>

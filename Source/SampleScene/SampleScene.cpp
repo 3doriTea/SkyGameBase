@@ -5,6 +5,15 @@
 
 using namespace wtgb;
 
+SampleScene::SampleScene() : GameScene
+{
+	GameScene::Config
+	{
+	}
+}
+{
+}
+
 void SampleScene::Start()
 {
 	Instantiate<Player>();

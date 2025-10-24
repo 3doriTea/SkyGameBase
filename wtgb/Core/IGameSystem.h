@@ -1,6 +1,6 @@
 #pragma once
 #include "pch/pch.h"
-#include "GameSystemCollection.h"
+#include "GameSystemViewer.h"
 
 namespace wtgb
 {
@@ -11,9 +11,9 @@ namespace wtgb
 	class IGameSystem
 	{
 	public:
-		using ViewerInit = GameSystemCollection::GameSystemInitViewer;
-		using ViewerUpdate = GameSystemCollection::GameSystemUpdateViewer;
-		using ViewerCached = GameSystemCollection::GameSystemCachedViewer;
+		using ViewerInit = wtgb::ViewerInit;
+		using ViewerUpdate = wtgb::ViewerUpdate;
+		using ViewerCached = wtgb::ViewerCached;
 
 		/// <summary>
 		/// 呼び出しタイミングの種類

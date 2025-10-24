@@ -10,6 +10,7 @@
 
 #include "Core/Game.h"
 #include "Core/IGame.h"
+#include "Core/IGameSystem.h"
 #include "Core/GameScene.h"
 
 #include "Core/GameObjectBuilder.h"
@@ -19,6 +20,7 @@
 #include "GameComponent/Transform.h"
 
 using wtgb::IGame;
+using wtgb::IGameSystem;
 using wtgb::GameSystemCollection;
 using wtgb::GameScene;
 using wtgb::GameObject;

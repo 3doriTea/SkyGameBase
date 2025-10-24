@@ -22,7 +22,8 @@
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
-    <ClInclude Include="Source\MainWindow.h" />
+    <ClInclude Include="Source\Systems\FirstSceneRegister.h" />
+    <ClInclude Include="Source\Systems\MainWindow.h" />
     <ClInclude Include="Source\PlayScene\PlayScene.h" />
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\SampleGame.h" />
@@ -37,8 +38,10 @@
     <ClInclude Include="wtgb\CoreType\Vector2Int.h" />
     <ClInclude Include="wtgb\CoreType\Vector3.h" />
     <ClInclude Include="wtgb\Core\ComponentOption.h" />
+    <ClInclude Include="wtgb\Core\EntityCapacity.h" />
     <ClInclude Include="wtgb\Core\GameObjectBuilder.h" />
     <ClInclude Include="wtgb\Core\ComponentSetter.h" />
+    <ClInclude Include="wtgb\Core\GameSystemViewer.h" />
     <ClInclude Include="wtgb\GameComponent\Transform.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager.h" />
     <ClInclude Include="wtgb\Core\Entity.h" />
@@ -50,6 +53,7 @@
     <ClInclude Include="wtgb\Core\IComponent.h" />
     <ClInclude Include="wtgb\Core\World.h" />
     <ClInclude Include="wtgb\GameComponent\GameObjectProperty.h" />
+    <ClInclude Include="wtgb\GameSystem\ComponentManager\EntityGenerator.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentPool.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
@@ -80,12 +84,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch\pch.cpp" />
-    <ClCompile Include="Source\MainWindow.cpp" />
+    <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
+    <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />
     <ClCompile Include="Source\SampleGame.cpp" />
     <ClCompile Include="Source\SampleScene\Player.cpp" />
     <ClCompile Include="Source\SampleScene\SampleScene.cpp" />
     <ClCompile Include="Source\SkyGameBase.cpp" />
+    <ClCompile Include="wtgb\Core\GameObjectBuilder.cpp" />
     <ClCompile Include="wtgb\Core\GameScene.cpp" />
     <ClCompile Include="wtgb\GameComponent\GameObject.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager.cpp" />
@@ -93,6 +99,7 @@
     <ClCompile Include="wtgb\Core\GameLoop.cpp" />
     <ClCompile Include="wtgb\Core\GameSystemCollection.cpp" />
     <ClCompile Include="wtgb\GameComponent\GameObjectProperty.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ComponentManager\EntityGenerator.cpp" />
     <ClCompile Include="wtgb\GameSystem\Debug.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3D.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3DResource.cpp" />
@@ -111,6 +118,7 @@
   <ItemGroup>
     <None Include="Doc\CodingGuide.md" />
     <None Include="wtgb\Core\GameObjectBuilder.inl" />
+    <None Include="wtgb\GameSystem\ComponentPool.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

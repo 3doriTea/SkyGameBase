@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/GameSystemCollection.h"
+#include "Core/GameSystemViewer.h"
 
 namespace wtgb
 {
@@ -26,6 +26,12 @@ namespace wtgb
 
 	protected:
 		template<typename T, typename ...Args>
-		GameObject* Instantiate(Args... _args) { return nullptr; }
+		GameObject* Instantiate(Args... _args)
+		{
+			
+		}
+
+	private:
+		ViewerCached* pCachedSystem_;
 	};
 }

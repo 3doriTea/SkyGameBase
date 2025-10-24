@@ -3,13 +3,15 @@
 #include "Core/Entity.h"
 #include "Core/ComponentSetter.h"
 #include "Core/IComponent.h"
+#include "Core/GameSystemViewer.h"
+#include "GameSystem/ComponentManager.h"
 
 // TODO: GameObjectは名ばかり、スクリプトコンポーネントだ！
 
 namespace wtgb
 {
 	class Transform;
-	class Property;
+	class GameObjectProperty;
 	class GameObject;
 	class GameObjectBuilder;
 
@@ -26,6 +28,7 @@ namespace wtgb
 	/// </summary>
 	class GameObject : public IComponent
 	{
+		friend class GameScene;
 	public:
 		struct Config;
 
@@ -37,27 +40,35 @@ namespace wtgb
 
 		};
 
+	private:
+		GameObject();
+
 	public:
 		GameObject(std::function<void(GameObjectBuilder&)>);
 		virtual ~GameObject() {};
 
 		virtual void Init() {}
+		virtual void Init(ViewerUpdate& _system) {}
 		virtual void Update() {}
+		virtual void Update(ViewerUpdate& _system) {}
 		virtual void Draw() const {}
 		virtual void Release() {}
 
 		template<typename ComponentT>
-		ComponentT* GetComponent() { return nullptr; }
+		ComponentT* GetComponent() { return System().Get<ComponentManager>().Get<ComponentT>(entityId_); }
 
 		template<typename ComponentT>
-		ComponentT* AddComponent() { return nullptr; }
+		ComponentT* AddComponent() { return System().Get<ComponentManager>().Add<ComponentT>(entityId_); }
 
-		Property& Property();
+		GameObjectProperty& Property();
 		Transform& Transform();
+
+		ViewerCached& System() const;
 	protected:
 	private:
 		EntityId entityId_;  // エンティティのId
 
 		// TODO: entityIdのみにする
+		ViewerCached* pCachedSystem_;  // cache済みのゲームシステム
 	};
 }

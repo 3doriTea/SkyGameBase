@@ -6,8 +6,11 @@
 #include "GameSystem/Direct3D.h"
 #include "GameSystem/GameWindow.h"
 #include "GameSystem/Input.h"
+#include "GameSystem/SceneManager.h"
+#include "GameSystem/ComponentManager.h"
 
-#include "MainWindow.h"
+#include "Systems/MainWindow.h"
+#include "Systems/FirstSceneRegister.h"
 
 using namespace wtgb;
 
@@ -26,6 +29,13 @@ void SampleGame::StartRegister(
 		// メインウィンドウを登録したあとで ウィンドウハンドルを使うシステムを登録
 		.Register<Direct3D>()
 		.Register<Input>()
+
+		.Register<SceneManager>()
+		
+		// シーンマネージを登録したあとで最初のシーンを登録
+		.Register<FirstSceneRegister>()
+
+		.Register<ComponentManager>()
 	;
 }
 

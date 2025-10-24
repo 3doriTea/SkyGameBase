@@ -13,6 +13,7 @@ namespace wtgb
 		friend class ComponentSetter;
 		template<typename T>
 		friend class ComponentOption;
+		friend class GameObject;
 	public:
 		
 	private:
@@ -31,15 +32,6 @@ namespace wtgb
 	private:
 		GameObject& target_;  // 構築するゲームオブジェクト
 	};
-}
-
-inline wtgb::GameObjectBuilder::GameObjectBuilder(GameObject& _target) :
-	target_{ _target }
-{
-}
-
-inline wtgb::GameObjectBuilder::~GameObjectBuilder()
-{
 }
 
 #include "GameObjectBuilder.inl"

@@ -19,6 +19,7 @@
 #include <string_view>
 #include <functional>
 #include <array>
+#include <bitset>
 
 #include <typeindex>
 
