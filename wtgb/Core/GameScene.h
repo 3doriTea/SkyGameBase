@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/GameSystemCollection.h"
 
 namespace wtgb
 {

@@ -12,6 +12,15 @@
 #include "Core/IGame.h"
 #include "Core/GameScene.h"
 
+#include "Core/GameObjectBuilder.h"
+
+#include "GameComponent/GameObject.h"
+#include "GameComponent/GameObjectProperty.h"
+#include "GameComponent/Transform.h"
+
 using wtgb::IGame;
 using wtgb::GameSystemCollection;
 using wtgb::GameScene;
+using wtgb::GameObject;
+
+using namespace wtgb;

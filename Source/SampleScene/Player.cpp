@@ -1,20 +1,20 @@
 #include "pch\pch.h"
 #include "Player.h"
 
-#include "Core/GameObjectBuilder.h"
-#include "GameComponent/GameObjectProperty.h"
-//#include "GameComponent/Transform.h"
-
-using namespace wtgb;
-
 Player::Player() : GameObject
 {
 	[this](GameObjectBuilder& _builder) -> void
 	{
 		_builder
-			.AddComponent<GameObjectProperty>()
+		.AddComponent<GameObjectProperty>()
 			.BeginSetter()
 				.Name("Player")
+			.EndSetter()
+		.AddComponent<wtgb::Transform>()
+			.BeginSetter()
+				.Position({ 0, 2, 4 })
+				.Rotation({ 0, 0, 0 })
+				.Scale({ 1, 1, 1 })
 			.EndSetter()
 		.Build();
 	}

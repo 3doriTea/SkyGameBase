@@ -23,14 +23,28 @@ namespace wtgb
 		}
 		virtual ~ComponentSetter() {}
 
-		/// <summary>
+		/*/// <summary>
 		/// コンポーネントの設定終了
 		/// </summary>
 		/// <returns>ビルダー</returns>
 		ComponentOption<ComponentT>& EndSetter()
 		{
+			ComponentOption<ComponentT>& option{ *pOption_ };
 			delete this;
-			return *pOption_;
+			return option;
+		}*/
+
+		/// <summary>
+		/// コンポーネントの設定終了
+		/// </summary>
+		/// <returns>ビルダー</returns>
+		GameObjectBuilder& EndSetter()
+		{
+			delete pOption_;
+
+			GameObjectBuilder& builder{ builder_ };
+			delete this;
+			return builder;
 		}
 
 	private:

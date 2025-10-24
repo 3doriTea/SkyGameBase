@@ -22,19 +22,19 @@ namespace wtgb
 		T* GetAccess() const;
 
 	private:
-		T* pTarget_;  //　アクセス先のポインタ
+		T* target_;  //　アクセス先のポインタ
 	};
 }
 
 template<typename T>
 inline wtgb::Accessor<T>::Accessor(T* _pTarget) :
-	pTarget_{ _pTarget }
+	target_{ _pTarget }
 {
 	assert(_pTarget && "アクセス先指定でnullptrは無効");
 }
 template<typename T>
 inline T* wtgb::Accessor<T>::GetAccess() const
 {
-	assert(pTarget_ && "nullptrにアクセスしようとした");
-	return pTarget_;
+	assert(target_ && "nullptrにアクセスしようとした");
+	return target_;
 }

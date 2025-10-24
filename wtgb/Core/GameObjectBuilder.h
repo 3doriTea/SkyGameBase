@@ -16,19 +16,25 @@ namespace wtgb
 	public:
 		
 	private:
-		GameObjectBuilder();
+		GameObjectBuilder(GameObject& _target);
 		~GameObjectBuilder();
 
 	public:
 		template<typename ComponentT>
 		ComponentOption<ComponentT>& AddComponent();
 
+		GameObjectBuilder& Build()
+		{
+			return *this;
+		}
+
 	private:
-		GameObject* pTarget_;  // 構築するゲームオブジェクト
+		GameObject& target_;  // 構築するゲームオブジェクト
 	};
 }
 
-inline wtgb::GameObjectBuilder::GameObjectBuilder()
+inline wtgb::GameObjectBuilder::GameObjectBuilder(GameObject& _target) :
+	target_{ _target }
 {
 }
 

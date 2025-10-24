@@ -19,8 +19,10 @@ namespace wtgb
 		};
 
 	public:
-		Transform();
-		~Transform();
+		Transform() {}
+		~Transform() {}
+
+		void Update() override {}
 
 	private:
 		Vector3 position_;  // ç¿ïW

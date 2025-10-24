@@ -26,14 +26,14 @@ namespace wtgb
 		/// <typeparam name="...Args"></typeparam>
 		/// <param name="...args"></param>
 		/// <returns></returns>
-		template<typename ComponentT>
-		ComponentOption<ComponentT>& AddComponent()
+		template<typename AddComponentT>
+		ComponentOption<AddComponentT>& AddComponent()
 		{
-			ComponentT* pComponent{ builder_.pTarget_->template AddComponent<ComponentT>() };
+			AddComponentT* pComponent{ builder_.target_.AddComponent<AddComponentT>() };
 
-			ComponentOption<ComponentT>* pNewOption
+			ComponentOption<AddComponentT>* pNewOption
 			{
-				new ComponentOption<ComponentT>{ builder_, Accessor<ComponentT>::GetAccess() }
+				new ComponentOption<AddComponentT>{ builder_, pComponent }
 			};
 
 			delete this;
@@ -51,8 +51,9 @@ namespace wtgb
 
 		GameObjectBuilder& Build()
 		{
+			GameObjectBuilder& builder{ builder_ };
 			delete this;
-			return builder_;
+			return builder;
 		}
 
 	private:

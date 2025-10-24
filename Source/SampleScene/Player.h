@@ -1,7 +1,7 @@
 #pragma once
-#include "GameComponent/GameObject.h"
+#include <wtgb/wtgb.h>
 
-class Player : public wtgb::GameObject
+class Player : public GameObject
 {
 public:
 	Player();

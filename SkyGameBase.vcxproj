@@ -23,7 +23,7 @@
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
     <ClInclude Include="Source\MainWindow.h" />
-    <ClInclude Include="Source\PlayScene.h" />
+    <ClInclude Include="Source\PlayScene\PlayScene.h" />
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\SampleGame.h" />
     <ClInclude Include="Source\SampleScene\Player.h" />
@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClCompile Include="pch\pch.cpp" />
     <ClCompile Include="Source\MainWindow.cpp" />
+    <ClCompile Include="Source\PlayScene\PlayScene.cpp" />
     <ClCompile Include="Source\SampleGame.cpp" />
     <ClCompile Include="Source\SampleScene\Player.cpp" />
     <ClCompile Include="Source\SampleScene\SampleScene.cpp" />
