@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "Player.h"
 
+#include "Core/GameObjectBuilder.h"
 #include "GameComponent/GameObjectProperty.h"
 //#include "GameComponent/Transform.h"
 
@@ -10,14 +11,12 @@ Player::Player() : GameObject
 {
 	[this](GameObjectBuilder& _builder) -> void
 	{
-		_builder.AddComponent<GameObjectProperty>()
+		_builder
+			.AddComponent<GameObjectProperty>()
 			.BeginSetter()
 				.Name("Player")
 			.EndSetter()
-		/*.AddComponent<Transform>()
-			.BeginSetter()
-			.EndSetter()*/
-		;
+		.Build();
 	}
 }
 {

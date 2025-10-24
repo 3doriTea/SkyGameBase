@@ -9,10 +9,10 @@ namespace wtgb
 	class ComponentOption;
 
 	template<typename ComponentT>
-	class GameObjectSetter : public Accessor<ComponentT>
+	class ComponentSetter : public Accessor<ComponentT>
 	{
 	public:
-		GameObjectSetter(
+		ComponentSetter(
 			GameObjectBuilder& _builder,
 			ComponentT* _pComponent,
 			ComponentOption<ComponentT>* _pOption) :
@@ -21,7 +21,7 @@ namespace wtgb
 			pOption_{ _pOption }
 		{
 		}
-		virtual ~GameObjectSetter() {}
+		virtual ~ComponentSetter() {}
 
 		/// <summary>
 		/// コンポーネントの設定終了
@@ -29,7 +29,7 @@ namespace wtgb
 		/// <returns>ビルダー</returns>
 		ComponentOption<ComponentT>& EndSetter()
 		{
-			SAFE_DELETE(this);
+			delete this;
 			return *pOption_;
 		}
 

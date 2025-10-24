@@ -38,7 +38,7 @@
     <ClInclude Include="wtgb\CoreType\Vector3.h" />
     <ClInclude Include="wtgb\Core\ComponentOption.h" />
     <ClInclude Include="wtgb\Core\GameObjectBuilder.h" />
-    <ClInclude Include="wtgb\Core\GameObjectSetter.h" />
+    <ClInclude Include="wtgb\Core\ComponentSetter.h" />
     <ClInclude Include="wtgb\GameComponent\Transform.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager.h" />
     <ClInclude Include="wtgb\Core\Entity.h" />
@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Doc\CodingGuide.md" />
+    <None Include="wtgb\Core\GameObjectBuilder.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

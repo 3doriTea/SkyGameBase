@@ -1,8 +1,9 @@
 #pragma once
-#include "GameComponent/GameObject.h"
 
 namespace wtgb
 {
+	class GameObject;
+
 	/// <summary>
 	/// ÉQÅ[ÉÄÉVÅ[Éì
 	/// </summary>
@@ -23,7 +24,7 @@ namespace wtgb
 		virtual void Draw() {}
 
 	protected:
-		template<GameObjectT T, typename ...Args>
-		GameObject Instantiate(Args... _args);
+		template<typename T, typename ...Args>
+		GameObject* Instantiate(Args... _args) { return nullptr; }
 	};
 }

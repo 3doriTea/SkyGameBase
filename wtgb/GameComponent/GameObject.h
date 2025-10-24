@@ -1,7 +1,7 @@
 #pragma once
 #include "pch/pch.h"
 #include "Core/Entity.h"
-#include "Core/GameObjectSetter.h"
+#include "Core/ComponentSetter.h"
 #include "Core/IComponent.h"
 
 // TODO: GameObjectは名ばかり、スクリプトコンポーネントだ！
@@ -29,10 +29,10 @@ namespace wtgb
 	public:
 		struct Config;
 
-		class Setter : public GameObjectSetter<GameObject>
+		class Setter : public ComponentSetter<GameObject>
 		{
 		public:
-			using GameObjectSetter<GameObject>::GameObjectSetter;
+			using ComponentSetter<GameObject>::ComponentSetter;
 			~Setter();
 
 		};
@@ -46,17 +46,15 @@ namespace wtgb
 		virtual void Draw() const {}
 		virtual void Release() {}
 
-	protected:
 		template<typename ComponentT>
 		ComponentT* GetComponent() { return nullptr; }
 
 		template<typename ComponentT>
 		ComponentT* AddComponent() { return nullptr; }
 
-		
-
 		Property& Property();
 		Transform& Transform();
+	protected:
 	private:
 		EntityId entityId_;  // エンティティのId
 

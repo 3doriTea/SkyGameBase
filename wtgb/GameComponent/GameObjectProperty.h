@@ -1,9 +1,8 @@
 #pragma once
 #include "pch/pch.h"
 #include "Core/IComponent.h"
+#include "Core/ComponentSetter.h"
 #include "Core/Entity.h"
-#include "Utility/Accessor.h"
-#include "Core/GameObjectSetter.h"
 
 namespace wtgb
 {
@@ -11,11 +10,11 @@ namespace wtgb
 	class GameObjectProperty : public IComponent
 	{
 	public:
-		class Setter : public GameObjectSetter<GameObjectProperty>
+		class Setter : public ComponentSetter<GameObjectProperty>
 		{
 		public:
-			using GameObjectSetter<GameObjectProperty>::GameObjectSetter;
-			~Setter();
+			using ComponentSetter<GameObjectProperty>::ComponentSetter;
+			~Setter() {}
 
 			Setter& Name(const std::string& _name) { GetAccess()->SetName(_name); return *this; }
 			Setter& Parent(const EntityId _entityId) { GetAccess()->parent_ = _entityId; return *this; }
