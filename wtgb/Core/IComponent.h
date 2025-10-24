@@ -4,7 +4,6 @@
 
 namespace wtgb
 {
-	template<typename SetterT>
 	class IComponent
 	{
 	public:

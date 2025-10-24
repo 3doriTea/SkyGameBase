@@ -1,18 +1,16 @@
 #pragma once
 #include "Core/IComponent.h"
+#include "Core/GameObjectSetter.h"
 
 namespace wtgb
 {
-	class Transform;
-	class Transform::Setter;
-
-	class Transform : public IComponent<Transform::Setter>
+	class Transform : public IComponent
 	{
 	public:
-		class Setter : public GameObjectBuilder::Setter<Transform>
+		class Setter : public GameObjectSetter<Transform>
 		{
 		public:
-			using GameObjectBuilder::Setter<Transform>::Setter;
+			using GameObjectSetter<Transform>::GameObjectSetter;
 			~Setter() {}
 
 			Setter& Position(const Vector3& _position) { GetAccess()->position_ = _position; return *this; }

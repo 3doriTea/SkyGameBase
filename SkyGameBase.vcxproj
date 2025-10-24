@@ -36,7 +36,9 @@
     <ClInclude Include="wtgb\CoreType\Matrix4x4.h" />
     <ClInclude Include="wtgb\CoreType\Vector2Int.h" />
     <ClInclude Include="wtgb\CoreType\Vector3.h" />
+    <ClInclude Include="wtgb\Core\ComponentOption.h" />
     <ClInclude Include="wtgb\Core\GameObjectBuilder.h" />
+    <ClInclude Include="wtgb\Core\GameObjectSetter.h" />
     <ClInclude Include="wtgb\GameComponent\Transform.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager.h" />
     <ClInclude Include="wtgb\Core\Entity.h" />
@@ -84,6 +86,7 @@
     <ClCompile Include="Source\SampleScene\SampleScene.cpp" />
     <ClCompile Include="Source\SkyGameBase.cpp" />
     <ClCompile Include="wtgb\Core\GameScene.cpp" />
+    <ClCompile Include="wtgb\GameComponent\GameObject.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager.cpp" />
     <ClCompile Include="wtgb\Core\Game.cpp" />
     <ClCompile Include="wtgb\Core\GameLoop.cpp" />

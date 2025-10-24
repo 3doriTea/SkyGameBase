@@ -1,6 +1,8 @@
 #pragma once
 #include "pch/pch.h"
+#include "GameComponent/GameObject.h"
 #include "Utility/Accessor.h"
+#include "Core/ComponentOption.h"
 
 namespace wtgb
 {
@@ -8,49 +10,23 @@ namespace wtgb
 
 	class GameObjectBuilder
 	{
+		template<typename T>
+		friend class GameObjectSetter;
+		template<typename T>
+		friend class ComponentOption;
 	public:
-		template<typename ComponentT>
-		class Setter : public Accessor<ComponentT>
-		{
-		public:
-			Setter(GameObjectBuilder& _builder, ComponentT* _pComponent) :
-				Accessor::Accessor{ _pComponent },
-				builder_{ _builder }
-			{
-			}
-			virtual ~Setter() {}
-
-			/// <summary>
-			/// コンポーネントの設定開始
-			/// </summary>
-			/// <returns>コンポーネントのセッター</returns>
-			ComponentT::Setter& BeginSetter()
-			{
-				pSetter_ = new ComponentT::Setter{};
-				return *pSetter_;
-			}
-			/// <summary>
-			/// コンポーネントの設定終了
-			/// </summary>
-			/// <returns>ビルダー</returns>
-			GameObjectBuilder& EndSetter()
-			{
-				SAFE_DELETE(pSetter_);
-				return builder_;
-			}
-
-		private:
-			GameObjectBuilder& builder_;
-			ComponentT::Setter* pSetter_;  // コンポーネントのセッターポインタ
-		};
-
+		
 	private:
 		GameObjectBuilder();
 		~GameObjectBuilder();
 
 	public:
-		template<typename T, typename ...Args>
-		Setter<T>& AddComponent(Args... args);
+		template<typename ComponentT>
+		ComponentOption<ComponentT>& AddComponent()
+		{
+			ComponentT* pComponent{ pTarget_->template AddComponent<ComponentT>() };
+			return *(new ComponentOption<ComponentT>{ *this, pComponent });
+		}
 
 	private:
 		GameObject* pTarget_;  // 構築するゲームオブジェクト
@@ -65,13 +41,23 @@ inline wtgb::GameObjectBuilder::~GameObjectBuilder()
 {
 }
 
-template<typename T, typename ...Args>
-inline wtgb::GameObjectBuilder::Setter<T>& wtgb::GameObjectBuilder::AddComponent(Args... args)
-{
-	T* pComponent{ pTarget_->AddComponent<T>(args...) };
-	GameObjectBuilder::Setter<T>* pSetter
-	{
-		new GameObjectBuilder::Setter<T>{ *this, pComponent }
-	};
-	return *pSetter;
-}
+//template<typename T, typename ...Args>
+//typename wtgb::GameObjectBuilder::template Setter<T>&
+//wtgb::GameObjectBuilder::AddComponent(Args... args)
+//{
+//	T* pComponent{ pTarget_->AddComponent<T>(args...) };
+//	GameObjectBuilder::Setter<T>* pSetter
+//	{
+//		new typename GameObjectBuilder::template Setter<T>{ *this, pComponent }
+//	};
+//	return *pSetter;
+//}
+
+//template<typename T, typename ...Args>
+//typename wtgb::GameObjectBuilder::template Setter<T>&
+//wtgb::GameObjectBuilder::AddComponent(Args... args)
+//{
+//	T* pComponent = pTarget_->AddComponent<T>(args...);
+//	auto* pSetter = new typename wtgb::GameObjectBuilder::template Setter<T>{ *this, pComponent };
+//	return *pSetter;
+//}

@@ -21,7 +21,7 @@ void wtgb::SceneManager::Update(const ViewerUpdate& _system)
 {
 	if (pCurrent_)
 	{
-		pCurrent_->Update
+		pCurrent_->Update();
 	}
 }
 

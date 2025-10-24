@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/GameObject.h"
+#include "GameComponent/GameObject.h"
 
 class Player : public wtgb::GameObject
 {

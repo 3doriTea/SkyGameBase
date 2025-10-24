@@ -1,7 +1,8 @@
 #pragma once
 #include "pch/pch.h"
 #include "Core/Entity.h"
-#include "Core/GameObjectBuilder.h"
+#include "Core/GameObjectSetter.h"
+#include "Core/IComponent.h"
 
 // TODO: GameObjectは名ばかり、スクリプトコンポーネントだ！
 
@@ -10,6 +11,7 @@ namespace wtgb
 	class Transform;
 	class Property;
 	class GameObject;
+	class GameObjectBuilder;
 
 	/// <summary>
 	/// ゲームオブジェクトを継承している型
@@ -22,10 +24,18 @@ namespace wtgb
 	/// <para>軽量なため本体は基本的にコピーして利用</para>
 	/// <para>オリジナルゲームオブジェクトはこれを派生し、参照を利用</para>
 	/// </summary>
-	class GameObject
+	class GameObject : public IComponent
 	{
 	public:
 		struct Config;
+
+		class Setter : public GameObjectSetter<GameObject>
+		{
+		public:
+			using GameObjectSetter<GameObject>::GameObjectSetter;
+			~Setter();
+
+		};
 
 	public:
 		GameObject(std::function<void(GameObjectBuilder&)>);
@@ -38,10 +48,10 @@ namespace wtgb
 
 	protected:
 		template<typename ComponentT>
-		ComponentT* GetComponent();
+		ComponentT* GetComponent() { return nullptr; }
 
 		template<typename ComponentT>
-		ComponentT* AddComponent();
+		ComponentT* AddComponent() { return nullptr; }
 
 		
 
