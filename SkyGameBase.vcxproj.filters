@@ -93,9 +93,6 @@
     <ClInclude Include="wtgb\WTGBResult.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PlayScene.h">
-      <Filter>C++未分類ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="wtgb\Core\GameScene.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
@@ -141,9 +138,6 @@
     <ClInclude Include="wtgb\Utility\InitSequence.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MainWindow.h">
-      <Filter>C++未分類ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="wtgb\Core\IComponent.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
@@ -187,6 +181,36 @@
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="wtgb\GameSystem\SceneManager.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\FirstSceneRegister.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\MainWindow.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\PlayScene.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Core\ComponentOption.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Core\EntityCapacity.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Core\ComponentSetter.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Core\GameSystemViewer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\ComponentManager\EntityGenerator.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\CPGameObject.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Core\Component.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -236,9 +260,6 @@
     <ClCompile Include="wtgb\Utility\InitSequence.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MainWindow.cpp">
-      <Filter>C++未分類ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="wtgb\Utility\InputChecker.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
@@ -260,6 +281,33 @@
     <ClCompile Include="wtgb\Core\GameScene.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Systems\FirstSceneRegister.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\MainWindow.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\PlayScene.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\Core\GameObjectBuilder.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameComponent\GameObject.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\ComponentManager\EntityGenerator.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\IComponentPool.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\ComponentPool.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\CPGameObject.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -268,5 +316,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Doc\CodingGuide.md" />
+    <None Include="wtgb\Core\GameObjectBuilder.inl">
+      <Filter>C++未分類ファイル</Filter>
+    </None>
+    <None Include="wtgb\GameSystem\ComponentPool.inl">
+      <Filter>C++未分類ファイル</Filter>
+    </None>
+    <None Include="wtgb\GameSystem\ComponentManager.inl">
+      <Filter>C++未分類ファイル</Filter>
+    </None>
   </ItemGroup>
 </Project>

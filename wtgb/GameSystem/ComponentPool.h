@@ -2,16 +2,21 @@
 #include "pch/pch.h"
 #include "Core/Entity.h"
 #include "Core/IGameSystem.h"
+#include "IComponentPool.h"
+#include "Core/EntityCapacity.h"
 
 namespace wtgb
 {
+	/// <summary>
+	/// コンポーネントプールの基底クラス
+	/// </summary>
+	/// <typeparam name="ComponentT">コンポーネント型</typeparam>
 	template<typename ComponentT>
-	class ComponentPool : public IGameSystem
+	class ComponentPool : public IGameSystem, public IComponentPool
 	{
-		using Pool = std::array<ComponentT, CAPACITY_SIZE>;
-		using Versions = std::vector<uint32_t, CAPACITY_SIZE>;
+		using Pool = std::array<ComponentT, wtgb::ENTITY_CAPACITY>;
 	public:
-		ComponentPool() {}
+		ComponentPool() : system_{ nullptr }, pool_{} {}
 		virtual ~ComponentPool() {}
 
 		/// <summary>
@@ -31,7 +36,21 @@ namespace wtgb
 		/// <summary>
 		/// 終了処理
 		/// </summary>
-		void End() override;
+		virtual void End() override {}
+
+		ComponentT& Add(const EntityId _entityId);
+
+	protected:
+		/// <summary>
+		/// 初期化処理
+		/// </summary>
+		virtual void Init() = 0;
+		/// <summary>
+		/// 更新処理
+		/// </summary>
+		virtual void Update() = 0;
+
+		ViewerCached& System() { return system_; }
 
 	protected:
 		Pool::iterator begin() { pool_.begin(); }
@@ -41,6 +60,7 @@ namespace wtgb
 
 	private:
 		Pool pool_;
+		ViewerCached system_;
 	};
 }
 

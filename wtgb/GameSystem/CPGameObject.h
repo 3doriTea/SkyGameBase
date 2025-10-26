@@ -1,0 +1,27 @@
+#pragma once
+#include "ComponentPool.h"
+#include "GameComponent/GameObject.h"
+
+namespace wtgb
+{
+	class GameObject;
+
+	/// <summary>
+	/// コンポーネントプール : ゲームオブジェクト
+	/// </summary>
+	class CPGameObject : public ComponentPool<GameObject>
+	{
+	public:
+		CPGameObject();
+		~CPGameObject();
+
+		/// <summary>
+		/// 初期化処理
+		/// </summary>
+		void Init() override;
+		/// <summary>
+		/// 更新処理
+		/// </summary>
+		void Update() override;
+	};
+}

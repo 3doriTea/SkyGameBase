@@ -11,13 +11,8 @@ namespace wtgb
 	class EntityGenerator
 	{
 	public:
-		EntityGenerator(const size_t _capacity);
+		EntityGenerator();
 		~EntityGenerator();
-
-		/// <summary>
-		/// エンティティのバージョンを上げる
-		/// </summary>
-		void Reset();
 
 		/// <summary>
 		/// 新規エンティティを生成する

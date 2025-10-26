@@ -79,6 +79,17 @@ namespace wtgb
 		};
 
 		/// <summary>
+		/// <para>各ゲームオブジェクトへ参照だけ提供</para>
+		/// <para>メンバ変数として保持しておく用</para>
+		/// </summary>
+		class GameSystemCachedViewer : public GameSystemViewer
+		{
+		public:
+			using GameSystemViewer::GameSystemViewer;
+			~GameSystemCachedViewer() {};
+		};
+
+		/// <summary>
 		/// ゲームシステム初期化の時の参照だけ提供
 		/// </summary>
 		class GameSystemInitViewer : public GameSystemViewer
@@ -86,6 +97,8 @@ namespace wtgb
 		public:
 			using GameSystemViewer::GameSystemViewer;
 			~GameSystemInitViewer() {};
+
+			GameSystemCachedViewer GetCache() const;
 		};
 
 		/// <summary>
@@ -96,17 +109,6 @@ namespace wtgb
 		public:
 			using GameSystemViewer::GameSystemViewer;
 			~GameSystemUpdateViewer() {};
-		};
-
-		/// <summary>
-		/// <para>各ゲームオブジェクトへ参照だけ提供</para>
-		/// <para>メンバ変数として保持しておく用</para>
-		/// </summary>
-		class GameSystemCachedViewer : public GameSystemViewer
-		{
-		public:
-			using GameSystemViewer::GameSystemViewer;
-			~GameSystemCachedViewer() {};
 		};
 
 	public:

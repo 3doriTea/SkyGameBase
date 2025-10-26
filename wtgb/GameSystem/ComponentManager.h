@@ -57,10 +57,16 @@ namespace wtgb
 
 		void UpdateAll();
 
+		/// <summary>
+		/// エンティティを追加する
+		/// </summary>
+		/// <returns>追加されたエンティティId</returns>
 		EntityId AddEntity();
-
-		template<typename T>
-		void Release(const EntityId _entityId);
+		/// <summary>
+		/// エンティティを消す
+		/// </summary>
+		/// <param name="_entityId">消すエンティティId</param>
+		void RemoveEntity(const EntityId _entityId);
 
 		template<typename T>
 		T& Add(const EntityId _entityId);
@@ -75,46 +81,8 @@ namespace wtgb
 		std::vector<IComponentPool*> pools_;  // コンポーネントプールの順番を持っておく
 		std::map<std::type_index, IComponentPool*> typeToPools_;  // コンポーネントプールの型変換用
 		EntityGenerator entityGenerator_;  // エンティティ生成
+		ViewerCached system_;  // システムビューアのキャッシュ
 	};
 }
 
-template<typename T>
-inline void wtgb::ComponentManager::Release(const EntityId _entityId)
-{
-}
-
-template<typename T>
-inline T& wtgb::ComponentManager::Add(const EntityId _entityId)
-{
-	if (entityGenerator_.IsValidId(_entityId))
-	{
-	}
-	pools_[]
-}
-
-template<typename T>
-inline void wtgb::ComponentManager::ComponentPoolRegister::Register()
-{
-	T* pComponent{ new T{} };
-	GetAccess()->pools_.push_back(dynamic_cast<IComponentPool*>(pComponent));
-	GetAccess()->typeToPools_.emplace(typeid(T), pComponent);
-}
-
-
-template<typename T>
-T& wtgb::ComponentManager::Get(const EntityId _entityId)
-{
-	T* pComponent{ dynamic_cast<T*>(typeToPools_.at(typeid(T))) };
-	assert(pComponent && "指定したコンポーネントが見つからなかった");
-
-	return *pComponent;
-}
-
-template<typename T>
-inline const T& wtgb::ComponentManager::Get(const EntityId _entityId) const
-{
-	const T* pComponent{ dynamic_cast<const T*>(typeToPools_.at(typeid(T))) };
-	assert(pComponent && "指定したコンポーネントが見つからなかった");
-
-	return *pComponent;
-}
+#include "ComponentManager.inl"

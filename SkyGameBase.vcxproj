@@ -37,6 +37,7 @@
     <ClInclude Include="wtgb\CoreType\Matrix4x4.h" />
     <ClInclude Include="wtgb\CoreType\Vector2Int.h" />
     <ClInclude Include="wtgb\CoreType\Vector3.h" />
+    <ClInclude Include="wtgb\Core\Component.h" />
     <ClInclude Include="wtgb\Core\ComponentOption.h" />
     <ClInclude Include="wtgb\Core\EntityCapacity.h" />
     <ClInclude Include="wtgb\Core\GameObjectBuilder.h" />
@@ -55,6 +56,7 @@
     <ClInclude Include="wtgb\GameComponent\GameObjectProperty.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager\EntityGenerator.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentPool.h" />
+    <ClInclude Include="wtgb\GameSystem\CPGameObject.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
@@ -100,11 +102,14 @@
     <ClCompile Include="wtgb\Core\GameSystemCollection.cpp" />
     <ClCompile Include="wtgb\GameComponent\GameObjectProperty.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager\EntityGenerator.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ComponentPool.cpp" />
+    <ClCompile Include="wtgb\GameSystem\CPGameObject.cpp" />
     <ClCompile Include="wtgb\GameSystem\Debug.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3D.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3DResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameTime.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameWindow.cpp" />
+    <ClCompile Include="wtgb\GameSystem\IComponentPool.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\IResource.cpp" />
@@ -118,6 +123,7 @@
   <ItemGroup>
     <None Include="Doc\CodingGuide.md" />
     <None Include="wtgb\Core\GameObjectBuilder.inl" />
+    <None Include="wtgb\GameSystem\ComponentManager.inl" />
     <None Include="wtgb\GameSystem\ComponentPool.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

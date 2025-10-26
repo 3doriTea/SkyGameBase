@@ -41,3 +41,9 @@ void wtgb::GameSystemCollection::EndForEachAll()
 		pGameSystem->End();
 	}
 }
+
+wtgb::GameSystemCollection::GameSystemCachedViewer
+	wtgb::GameSystemCollection::GameSystemInitViewer::GetCache() const
+{
+	return { GetAccess() };
+}
