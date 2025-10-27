@@ -2,7 +2,8 @@
 #include "ComponentManager.h"
 
 wtgb::ComponentManager::ComponentManager() :
-	system_{ nullptr }
+	system_{ nullptr },
+	prevEntityId_{ wtgb::INVALIED_ID }
 {
 }
 
@@ -18,10 +19,10 @@ wtgb::Result wtgb::ComponentManager::Init(const ViewerInit& _viewer)
 
 void wtgb::ComponentManager::Update(const ViewerUpdate& _system)
 {
-	for (auto& pool : pools_)
-	{
-		//pool->;
-	}
+	//for (auto& pool : pools_)
+	//{
+	//	//pool->;
+	//}
 }
 
 void wtgb::ComponentManager::End()
@@ -36,9 +37,10 @@ void wtgb::ComponentManager::UpdateAll()
 {
 }
 
-wtgb::EntityId wtgb::ComponentManager::AddEntity()
+wtgb::EntityId wtgb::ComponentManager::GenerateEntity()
 {
-	return entityGenerator_.Generate();
+	prevEntityId_ = entityGenerator_.Generate();
+	return prevEntityId_;
 }
 
 void wtgb::ComponentManager::RemoveEntity(const EntityId _entityId)

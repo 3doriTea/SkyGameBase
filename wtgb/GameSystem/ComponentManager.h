@@ -58,10 +58,16 @@ namespace wtgb
 		void UpdateAll();
 
 		/// <summary>
-		/// エンティティを追加する
+		/// エンティティを生成する
 		/// </summary>
-		/// <returns>追加されたエンティティId</returns>
-		EntityId AddEntity();
+		/// <returns>新しく生成されたエンティティId</returns>
+		EntityId GenerateEntity();
+		/// <summary>
+		/// 前に生成したエンティティのIdを取得する
+		/// </summary>
+		/// <returns>前に生成したエンティティのId</returns>
+		EntityId GetPrevEntity() const { return prevEntityId_; }
+
 		/// <summary>
 		/// エンティティを消す
 		/// </summary>
@@ -81,7 +87,8 @@ namespace wtgb
 		std::vector<IComponentPool*> pools_;  // コンポーネントプールの順番を持っておく
 		std::map<std::type_index, IComponentPool*> typeToPools_;  // コンポーネントプールの型変換用
 		EntityGenerator entityGenerator_;  // エンティティ生成
-		ViewerCached system_;  // システムビューアのキャッシュ
+		ViewerCached system_;    // システムビューアのキャッシュ
+		EntityId prevEntityId_;  // 前に生成したエンティティのId
 	};
 }
 

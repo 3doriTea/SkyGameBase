@@ -40,7 +40,7 @@ namespace wtgb
 		template<typename T, typename ...Args>
 		GameObject* Instantiate(Args... _args)
 		{
-			EntityId entityId{ cachedSystem_.Get<ComponentManager>().AddEntity() };
+			EntityId entityId{ cachedSystem_.Get<ComponentManager>().GenerateEntity() };
 
 			GameObject* pNewGameObject
 			{
@@ -48,6 +48,8 @@ namespace wtgb
 					entityId,
 					new T{ _args... })
 			};
+
+			pNewGameObject->Init();  // ‰Šú‰»‚Í‚·‚®ŒÄ‚Ô
 
 			return pNewGameObject;
 		}

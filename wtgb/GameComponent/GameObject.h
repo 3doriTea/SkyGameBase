@@ -31,7 +31,7 @@ namespace wtgb
 	/// </summary>
 	class GameObject : public Component<CPGameObject>
 	{
-		friend class GameScene;
+		friend class CPGameObject;
 	public:
 		struct Config;
 
@@ -57,6 +57,16 @@ namespace wtgb
 		virtual void Draw() const {}
 		virtual void Release() {}
 
+		/// <summary>
+		/// このゲームオブジェクトを削除する
+		/// </summary>
+		void DestroyMe() { toDestroy_ = true; }
+		/// <summary>
+		/// このゲームオブジェクトは削除予定か
+		/// </summary>
+		/// <returns>削除予定である true / false</returns>
+		bool IsToDestroy() const { return toDestroy_; }
+
 		template<typename ComponentT>
 		ComponentT& GetComponent() { return System().Get<ComponentManager>().Get<ComponentT>(entityId_); }
 
@@ -71,6 +81,8 @@ namespace wtgb
 
 	private:
 		EntityId entityId_;  // エンティティのId
+
+		bool toDestroy_;  // 削除予定のゲームオブジェクトか true / false
 
 		// TODO: entityIdのみにする
 		static ViewerCached* pCachedSystem_;  // cache済みのゲームシステム

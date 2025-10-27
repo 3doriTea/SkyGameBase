@@ -8,6 +8,7 @@
 #include "GameObjectProperty.h"
 #include "GameSystem/CPGameObjectProperty.h"
 //#include "CPTransform.h"
+#include "GameSystem/ComponentManager.h"
 
 wtgb::GameObject::GameObject() : 
 	GameObject{ [](GameObjectBuilder&){} }
@@ -15,7 +16,7 @@ wtgb::GameObject::GameObject() :
 }
 
 wtgb::GameObject::GameObject(std::function<void(GameObjectBuilder&)> _callback) :
-	entityId_{ wtgb::INVALIED_ID }
+	entityId_{ System().Get<ComponentManager>().GetPrevEntity() }
 {
 	GameObjectBuilder builder{ *this };
 	_callback(builder);
