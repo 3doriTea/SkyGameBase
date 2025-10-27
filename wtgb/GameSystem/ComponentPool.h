@@ -39,7 +39,8 @@ namespace wtgb
 		/// </summary>
 		virtual void End() override {}
 
-		ComponentT& Add(const EntityId _entityId);
+		template<typename T = ComponentT, typename ...Args>
+		ComponentT& Add(const EntityId _entityId, const Args& ...args);
 
 	protected:
 		/// <summary>
@@ -54,10 +55,10 @@ namespace wtgb
 		ViewerCached& System() { return system_; }
 
 	protected:
-		Pool::iterator begin() { pool_.begin(); }
-		Pool::iterator end() { pool_.end(); }
-		Pool::const_iterator begin() const { pool_.begin(); }
-		Pool::const_iterator end() const { pool_.end(); }
+		Pool::iterator begin();// { return pool_.begin(); }
+		Pool::iterator end() { return pool_.end(); }
+		Pool::const_iterator begin() const { return pool_.begin(); }
+		Pool::const_iterator end() const { return pool_.end(); }
 
 	private:
 		Pool pool_;

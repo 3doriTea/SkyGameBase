@@ -4,7 +4,8 @@
 
 wtgb::SceneManager::SceneManager() :
 	pCurrent_{ nullptr },
-	pToNext_{ nullptr }
+	pToNext_{ nullptr },
+	system_{ nullptr }
 {
 }
 
@@ -14,6 +15,7 @@ wtgb::SceneManager::~SceneManager()
 
 wtgb::Result wtgb::SceneManager::Init(const ViewerInit& _viewer)
 {
+	system_ = _viewer.GetCache();
 	return Result::Code::Ok;
 }
 
@@ -24,10 +26,13 @@ void wtgb::SceneManager::Update(const ViewerUpdate& _system)
 		SAFE_DELETE(pCurrent_);
 		pCurrent_ = pToNext_;
 		pToNext_ = nullptr;
+
+		pCurrent_->cachedSystem_ = system_;
+		pCurrent_->Start();  // シーン開始処理
 	}
 	if (pCurrent_)
 	{
-		pCurrent_->Update();
+		pCurrent_->Update();  // シーン更新処理
 	}
 }
 

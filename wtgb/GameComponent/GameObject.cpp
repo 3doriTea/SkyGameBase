@@ -15,8 +15,7 @@ wtgb::GameObject::GameObject() :
 }
 
 wtgb::GameObject::GameObject(std::function<void(GameObjectBuilder&)> _callback) :
-	entityId_{ wtgb::INVALIED_ID },
-	pCachedSystem_{ nullptr }
+	entityId_{ wtgb::INVALIED_ID }
 {
 	GameObjectBuilder builder{ *this };
 	_callback(builder);
@@ -38,3 +37,5 @@ wtgb::ViewerCached& wtgb::GameObject::System() const
 
 	return *pCachedSystem_;
 }
+
+wtgb::ViewerCached* wtgb::GameObject::pCachedSystem_{ nullptr };

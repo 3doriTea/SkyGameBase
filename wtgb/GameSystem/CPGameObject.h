@@ -9,7 +9,7 @@ namespace wtgb
 	/// <summary>
 	/// コンポーネントプール : ゲームオブジェクト
 	/// </summary>
-	class CPGameObject : public ComponentPool<GameObject>
+	class CPGameObject : public ComponentPool<GameObject*>
 	{
 	public:
 		CPGameObject();
@@ -23,5 +23,10 @@ namespace wtgb
 		/// 更新処理
 		/// </summary>
 		void Update() override;
+
+		/// <summary>
+		/// 終了処理
+		/// </summary>
+		void End() override {};
 	};
 }

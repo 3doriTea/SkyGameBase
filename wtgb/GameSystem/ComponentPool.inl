@@ -2,6 +2,8 @@
 template<typename ComponentT>
 wtgb::Result wtgb::ComponentPool<ComponentT>::Init(const ViewerInit& _viewer)
 {
+	pool_.resize(wtgb::ENTITY_CAPACITY);
+
 	system_ = _viewer.GetCache();
 
 	Init();
@@ -16,8 +18,15 @@ void wtgb::ComponentPool<ComponentT>::Update(const ViewerUpdate& _system)
 }
 
 template<typename ComponentT>
-inline ComponentT& wtgb::ComponentPool<ComponentT>::Add(const EntityId _entityId)
+template<typename T, typename ...Args>
+ComponentT& wtgb::ComponentPool<ComponentT>::Add(const EntityId _entityId, const Args& ...args)
 {
-	pool_[_entityId.index] = {};
+	pool_[_entityId.index] = T{ args... };
 	return pool_[_entityId.index];
+}
+
+template<typename ComponentT>
+wtgb::ComponentPool<ComponentT>::Pool::iterator wtgb::ComponentPool<ComponentT>::begin()
+{
+	return pool_.begin();
 }

@@ -14,6 +14,7 @@ namespace wtgb
 	/// </summary>
 	class GameScene
 	{
+		friend class SceneManager;
 	public:
 		struct Config
 		{
@@ -39,17 +40,19 @@ namespace wtgb
 		template<typename T, typename ...Args>
 		GameObject* Instantiate(Args... _args)
 		{
-			if (pCachedSystem_)
+			EntityId entityId{ cachedSystem_.Get<ComponentManager>().AddEntity() };
+
+			GameObject* pNewGameObject
 			{
-				EntityId entityId{ pCachedSystem_->Get<ComponentManager>().AddEntity() };
+				cachedSystem_.Get<CPGameObject>().Add(
+					entityId,
+					new T{ _args... })
+			};
 
-				return &pCachedSystem_->Get<CPGameObject>().Add(entityId);
-			}
-
-			return nullptr;
+			return pNewGameObject;
 		}
 
 	private:
-		ViewerCached* pCachedSystem_;
+		ViewerCached cachedSystem_;
 	};
 }

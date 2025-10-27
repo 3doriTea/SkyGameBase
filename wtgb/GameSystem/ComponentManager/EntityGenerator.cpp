@@ -18,7 +18,7 @@ wtgb::EntityId wtgb::EntityGenerator::Generate()
 	EntityId newEntityId{ wtgb::INVALIED_ID };
 
 	// TODO: アルゴリズム改善が必要
-	for (uint32_t i = 0; i < nextIndex_; i++)
+	for (uint32_t i = 0; i < UINT32_MAX; i++)
 	{
 		if (!useFlag_[i])
 		{
@@ -26,7 +26,7 @@ wtgb::EntityId wtgb::EntityGenerator::Generate()
 			newEntityId.version = versions_[i];
 
 			useFlag_[i] = true;
-			break;
+			return newEntityId;
 		}
 	}
 

@@ -40,5 +40,6 @@ namespace wtgb
 	private:
 		GameScene* pCurrent_;  // 現在のシーン
 		GameScene* pToNext_;   // 次に予定されているシーン
+		ViewerCached system_;
 	};
 }

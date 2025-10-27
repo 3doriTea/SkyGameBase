@@ -12,6 +12,10 @@
 #include "Systems/MainWindow.h"
 #include "Systems/FirstSceneRegister.h"
 
+#include "GameSystem/CPGameObject.h"
+#include "GameSystem/CPGameObjectProperty.h"
+#include "GameSystem/CPTransform.h"
+
 using namespace wtgb;
 
 void SampleGame::StartRegister(
@@ -36,6 +40,10 @@ void SampleGame::StartRegister(
 		.Register<FirstSceneRegister>()
 
 		.Register<ComponentManager>()
+
+		.Register<CPGameObject>()
+		.Register<CPGameObjectProperty>()
+		.Register<CPTransform>()
 	;
 }
 

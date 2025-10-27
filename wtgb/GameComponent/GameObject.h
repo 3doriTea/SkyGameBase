@@ -43,7 +43,7 @@ namespace wtgb
 
 		};
 
-	//private:
+	private:
 		GameObject();
 
 	public:
@@ -52,7 +52,7 @@ namespace wtgb
 
 		virtual void Init() {}
 		virtual void Init(ViewerUpdate& _system) {}
-		virtual void Update() {}
+		virtual void Update() = 0;
 		virtual void Update(ViewerUpdate& _system) {}
 		virtual void Draw() const {}
 		virtual void Release() {}
@@ -73,6 +73,6 @@ namespace wtgb
 		EntityId entityId_;  // エンティティのId
 
 		// TODO: entityIdのみにする
-		ViewerCached* pCachedSystem_;  // cache済みのゲームシステム
+		static ViewerCached* pCachedSystem_;  // cache済みのゲームシステム
 	};
 }
