@@ -57,9 +57,11 @@
     <ClInclude Include="wtgb\GameSystem\ComponentManager\EntityGenerator.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentPool.h" />
     <ClInclude Include="wtgb\GameSystem\CPGameObject.h" />
+    <ClInclude Include="wtgb\GameSystem\CPGameObjectProperty.h" />
+    <ClInclude Include="wtgb\GameSystem\CPTransform.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
-    <ClInclude Include="wtgb\GameSystem\Direct3DResource.h" />
+    <ClInclude Include="wtgb\GameSystem\Direct3D\Direct3DResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameWindow.h" />
     <ClInclude Include="wtgb\GameSystem\IComponentPool.h" />
     <ClInclude Include="wtgb\GameSystem\Input.h" />
@@ -104,9 +106,11 @@
     <ClCompile Include="wtgb\GameSystem\ComponentManager\EntityGenerator.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentPool.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPGameObject.cpp" />
+    <ClCompile Include="wtgb\GameSystem\CPGameObjectProperty.cpp" />
+    <ClCompile Include="wtgb\GameSystem\CPTransform.cpp" />
     <ClCompile Include="wtgb\GameSystem\Debug.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3D.cpp" />
-    <ClCompile Include="wtgb\GameSystem\Direct3DResource.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Direct3D\Direct3DResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameTime.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameWindow.cpp" />
     <ClCompile Include="wtgb\GameSystem\IComponentPool.cpp" />

@@ -1,10 +1,13 @@
 #pragma once
-#include "Core/IComponent.h"
+#include "Core/Component.h"
 #include "Core/ComponentSetter.h"
+#include "GameSystem/CPTransform.h"
 
 namespace wtgb
 {
-	class Transform : public IComponent
+	class CPTransform;
+
+	class Transform : public Component<CPTransform>
 	{
 	public:
 		class Setter : public ComponentSetter<Transform>

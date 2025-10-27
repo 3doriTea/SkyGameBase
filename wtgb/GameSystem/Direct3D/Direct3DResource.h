@@ -1,6 +1,6 @@
 #pragma once
 #include "pch/pch.h"
-#include "IResource.h"
+#include "../IResource.h"
 
 namespace wtgb
 {
@@ -16,8 +16,8 @@ namespace wtgb
 		Direct3DResource(const Config& _config);
 		~Direct3DResource();
 
-		ID3D11Device** Device() { return &pDevice_; }
-		ID3D11DeviceContext** Context() { return &pContext_; }
+		ID3D11Device** Device() { return pDevice_.GetAddressOf(); }
+		ID3D11DeviceContext** Context() { return pContext_.GetAddressOf(); }
 
 	private:
 		/// <summary>
@@ -33,8 +33,8 @@ namespace wtgb
 	private:
 		Config config_;  // 設定
 
-		ID3D11Device* pDevice_;          // デバイス
-		ID3D11DeviceContext* pContext_;  // デバイスコンテキスト
+		ComPtr<ID3D11Device> pDevice_;          // デバイス
+		ComPtr<ID3D11DeviceContext> pContext_;  // デバイスコンテキスト
 
 		//IDXGIDevice1* pDXGI_;     // 複数ディスプレイ制御 // TODO なぜDeviceとDevice1があるのかを調べる
 		//IDXGIAdapter* pAdapter_;  // 

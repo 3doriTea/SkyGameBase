@@ -1,13 +1,16 @@
 #pragma once
 #include "pch/pch.h"
-#include "Core/IComponent.h"
+#include "Core/Component.h"
 #include "Core/ComponentSetter.h"
 #include "Core/Entity.h"
+#include "GameSystem/CPGameObjectProperty.h"
 
 namespace wtgb
 {
+	class CPGameObjectProperty;
+
 	constexpr size_t NAME_SIZE{ 16 };
-	class GameObjectProperty : public IComponent
+	class GameObjectProperty : public Component<CPGameObjectProperty>
 	{
 	public:
 		class Setter : public ComponentSetter<GameObjectProperty>

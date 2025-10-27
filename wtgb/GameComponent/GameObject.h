@@ -43,7 +43,7 @@ namespace wtgb
 
 		};
 
-	private:
+	//private:
 		GameObject();
 
 	public:
@@ -58,10 +58,10 @@ namespace wtgb
 		virtual void Release() {}
 
 		template<typename ComponentT>
-		ComponentT* GetComponent() { return System().Get<ComponentManager>().Get<ComponentT>(entityId_); }
+		ComponentT& GetComponent() { return System().Get<ComponentManager>().Get<ComponentT>(entityId_); }
 
 		template<typename ComponentT>
-		ComponentT* AddComponent() { return System().Get<ComponentManager>().Add<ComponentT>(entityId_); }
+		ComponentT& AddComponent() { return System().Get<ComponentManager>().Add<ComponentT>(entityId_); }
 
 		GameObjectProperty& Property();
 		Transform& Transform();

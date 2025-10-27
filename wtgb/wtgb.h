@@ -23,6 +23,8 @@ using wtgb::IGame;
 using wtgb::IGameSystem;
 using wtgb::GameSystemCollection;
 using wtgb::GameScene;
+
 using wtgb::GameObject;
+using wtgb::GameObjectProperty;
 
 using namespace wtgb;

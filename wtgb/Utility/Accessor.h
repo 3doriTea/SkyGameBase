@@ -30,7 +30,7 @@ template<typename T>
 inline wtgb::Accessor<T>::Accessor(T* _pTarget) :
 	target_{ _pTarget }
 {
-	assert(_pTarget && "アクセス先指定でnullptrは無効");
+	//assert(_pTarget && "アクセス先指定でnullptrは無効");
 }
 template<typename T>
 inline T* wtgb::Accessor<T>::GetAccess() const

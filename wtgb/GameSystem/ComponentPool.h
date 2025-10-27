@@ -14,7 +14,8 @@ namespace wtgb
 	template<typename ComponentT>
 	class ComponentPool : public IGameSystem, public IComponentPool
 	{
-		using Pool = std::array<ComponentT, wtgb::ENTITY_CAPACITY>;
+		//using Pool = std::array<ComponentT, wtgb::ENTITY_CAPACITY>;
+		using Pool = std::vector<ComponentT>;
 	public:
 		ComponentPool() : system_{ nullptr }, pool_{} {}
 		virtual ~ComponentPool() {}
@@ -28,7 +29,7 @@ namespace wtgb
 		/// <summary>
 		/// ‰Šú‰»ˆ—
 		/// </summary>
-		void Result Init(const ViewerInit& _viewer) override;
+		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
 		/// XVˆ—
 		/// </summary>

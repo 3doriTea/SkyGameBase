@@ -18,7 +18,7 @@ wtgb::EntityId wtgb::EntityGenerator::Generate()
 	EntityId newEntityId{ wtgb::INVALIED_ID };
 
 	// TODO: アルゴリズム改善が必要
-	for (int i = 0; i < nextIndex_; i++)
+	for (uint32_t i = 0; i < nextIndex_; i++)
 	{
 		if (!useFlag_[i])
 		{

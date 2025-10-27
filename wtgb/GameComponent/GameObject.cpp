@@ -1,9 +1,18 @@
 #include "pch\pch.h"
 #include "GameObject.h"
 #include "Core/GameObjectBuilder.h"
+#include "Core/GameScene.h"
 
 #include "Transform.h"
+#include "GameSystem/CPTransform.h"
 #include "GameObjectProperty.h"
+#include "GameSystem/CPGameObjectProperty.h"
+//#include "CPTransform.h"
+
+wtgb::GameObject::GameObject() : 
+	GameObject{ [](GameObjectBuilder&){} }
+{
+}
 
 wtgb::GameObject::GameObject(std::function<void(GameObjectBuilder&)> _callback) :
 	entityId_{ wtgb::INVALIED_ID },
@@ -15,11 +24,12 @@ wtgb::GameObject::GameObject(std::function<void(GameObjectBuilder&)> _callback) 
 
 wtgb::GameObjectProperty& wtgb::GameObject::Property()
 {
+	return System().Get<ComponentManager>().Get<GameObjectProperty>(entityId_);
 }
 
 wtgb::Transform& wtgb::GameObject::Transform()
 {
-	
+	return System().Get<ComponentManager>().Get<wtgb::Transform>(entityId_);
 }
 
 wtgb::ViewerCached& wtgb::GameObject::System() const

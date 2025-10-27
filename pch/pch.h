@@ -36,3 +36,7 @@
 #include "CoreType/Collection/HandlerCollection.h"
 
 #endif //PCH_H
+
+#include <wrl/client.h>
+
+using Microsoft::WRL::ComPtr;

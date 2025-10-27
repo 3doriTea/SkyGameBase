@@ -5,7 +5,7 @@ inline T& wtgb::ComponentManager::Add(const EntityId _entityId)
 {
 	assert(entityGenerator_.IsInvalidId(_entityId) == false && "無効なエンティティIdが指定された");
 
-	return system_.Get<T::PoolT>().Add(_entityId);
+	return system_.Get<typename T::PoolT>().Add(_entityId);
 }
 
 template<typename T>

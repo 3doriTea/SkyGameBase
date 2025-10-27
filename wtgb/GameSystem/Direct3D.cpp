@@ -1,6 +1,6 @@
 #include "pch\pch.h"
 #include "Direct3D.h"
-#include "Direct3DResource.h"
+#include "Direct3D/Direct3DResource.h"
 #include "WTGBAssert.h"
 
 using namespace wtgb;

@@ -28,6 +28,9 @@ void wtgb::Direct3DResource::Release()
 	SAFE_RELEASE(pAdapter_);
 	SAFE_RELEASE(pDXGI_);*/
 
-	SAFE_RELEASE(pContext_);
-	SAFE_RELEASE(pDevice_);
+	/*SAFE_RELEASE(pContext_);
+	SAFE_RELEASE(pDevice_);*/
+
+	pContext_.Reset();
+	pDevice_.Reset();
 }

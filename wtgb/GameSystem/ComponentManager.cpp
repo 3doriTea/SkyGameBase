@@ -1,7 +1,8 @@
 #include "pch\pch.h"
 #include "ComponentManager.h"
 
-wtgb::ComponentManager::ComponentManager()
+wtgb::ComponentManager::ComponentManager() :
+	system_{ nullptr }
 {
 }
 
@@ -17,9 +18,9 @@ wtgb::Result wtgb::ComponentManager::Init(const ViewerInit& _viewer)
 
 void wtgb::ComponentManager::Update(const ViewerUpdate& _system)
 {
-	for (auto& typeToPool : typeToPools_)
+	for (auto& pool : pools_)
 	{
-		typeToPool.second->Update();
+		//pool->;
 	}
 }
 
