@@ -42,16 +42,16 @@ namespace wtgb
 		{
 			EntityId entityId{ cachedSystem_.Get<ComponentManager>().GenerateEntity() };
 
-			GameObject* pNewGameObject
+			GameObject* pGameObject
 			{
 				cachedSystem_.Get<CPGameObject>().Add(
 					entityId,
 					new T{ _args... })
 			};
 
-			pNewGameObject->Init();  // ‰Šú‰»‚Í‚·‚®ŒÄ‚Ô
+			pGameObject->Init();  // ‰Šú‰»‚Í‚·‚®ŒÄ‚Ô
 
-			return pNewGameObject;
+			return pGameObject;
 		}
 
 	private:

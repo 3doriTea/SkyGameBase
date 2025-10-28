@@ -13,7 +13,7 @@ void wtgb::GameObjectProperty::Update()
 {
 }
 
-void wtgb::GameObjectProperty::SetName(const std::string& _newName)
+void wtgb::GameObjectProperty::SetName(const std::string& _name)
 {
 }
 

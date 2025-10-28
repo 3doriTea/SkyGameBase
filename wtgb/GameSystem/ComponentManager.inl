@@ -8,13 +8,13 @@ inline T& wtgb::ComponentManager::Add(const EntityId _entityId)
 	return system_.Get<typename T::PoolT>().Add(_entityId);
 }
 
-template<typename T>
-inline void wtgb::ComponentManager::ComponentPoolRegister::Register()
-{
-	T* pComponent{ new T{} };
-	GetAccess()->pools_.push_back(dynamic_cast<IComponentPool*>(pComponent));
-	GetAccess()->typeToPools_.emplace(typeid(T), pComponent);
-}
+//template<typename T>
+//inline void wtgb::ComponentManager::ComponentPoolRegister::Register()
+//{
+//	T* pComponent{ now T{} };
+//	GetAccess()->pools_.push_back(dynamic_cast<IComponentPool*>(pComponent));
+//	GetAccess()->typeToPools_.emplace(typeid(T), pComponent);
+//}
 
 
 template<typename T>

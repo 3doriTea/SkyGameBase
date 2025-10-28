@@ -10,8 +10,7 @@ wtgb::GameSystemCollection::~GameSystemCollection()
 
 	for (auto& pGameSystem : gameSystems_)
 	{
-		delete pGameSystem;
-		pGameSystem = nullptr;
+		SAFE_DELETE(pGameSystem);
 	}
 	gameSystems_.clear();
 }

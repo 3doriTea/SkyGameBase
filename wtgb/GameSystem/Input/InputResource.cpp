@@ -19,9 +19,9 @@ void wtgb::InputResource::Init()
 {
 	HRESULT hResult{};
 	hResult = InitSequence::Begin()
-		.TryRun([this, &hResult]() -> HRESULT
+		.TryRun([this]() -> HRESULT
 			{
-				hResult = DirectInput8Create(
+				HRESULT hResult = DirectInput8Create(
 					GetModuleHandle(nullptr),
 					DIRECTINPUT_VERSION,
 					IID_IDirectInput8,
@@ -31,9 +31,9 @@ void wtgb::InputResource::Init()
 
 				return hResult;
 			})
-		.TryRun([this, &hResult]() -> HRESULT
+		.TryRun([this]() -> HRESULT
 			{
-				hResult = pDirectInput_->CreateDevice(GUID_SysKeyboard, &pKeyDevice_, nullptr);
+				HRESULT hResult = pDirectInput_->CreateDevice(GUID_SysKeyboard, &pKeyDevice_, nullptr);
 				wassert(SUCCEEDED(hResult) && "キーボードデバイスの作成に失敗");
 				hResult = pKeyDevice_->SetDataFormat(&c_dfDIKeyboard);
 				wassert(SUCCEEDED(hResult) && "キーボードのフォーマット設定に失敗");
@@ -42,9 +42,9 @@ void wtgb::InputResource::Init()
 				
 				return hResult;
 			})
-		.TryRun([this, &hResult]() -> HRESULT
+		.TryRun([this]() -> HRESULT
 			{
-				hResult = pDirectInput_->CreateDevice(GUID_SysMouse, &pMouseDevice_, nullptr);
+				HRESULT hResult = pDirectInput_->CreateDevice(GUID_SysMouse, &pMouseDevice_, nullptr);
 				wassert(SUCCEEDED(hResult) && "マウスデバイスの作成に失敗");
 				hResult = pMouseDevice_->SetDataFormat(&c_dfDIMouse);
 				wassert(SUCCEEDED(hResult) && "マウスのフォーマット設定に失敗");

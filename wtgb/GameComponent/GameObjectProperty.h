@@ -38,8 +38,8 @@ namespace wtgb
 		/// <summary>
 		/// 名前を設定する
 		/// </summary>
-		/// <param name="_newName">新しく設定する名前</param>
-		void SetName(const std::string& _newName);
+		/// <param name="_name">新しく設定する名前</param>
+		void SetName(const std::string& _name);
 
 		void SetParent(const EntityId _parent);
 

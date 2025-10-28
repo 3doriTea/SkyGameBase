@@ -32,7 +32,8 @@ void wtgb::Game::Exit()
 
 void wtgb::Game::RunProcess()
 {
-	GameSystemCollection* pGameSystemRegister{ new GameSystemCollection{} };
+	GameSystemCollection gameSystemRegister{};
+	GameSystemCollection* pGameSystemRegister{ &gameSystemRegister };
 
 	// “o˜^‚ð‚µ‚Ä‚à‚ç‚¤
 	pGame_->StartRegister(GameSystemCollection::GameSystemAdder{ pGameSystemRegister });
@@ -43,15 +44,15 @@ void wtgb::Game::RunProcess()
 	// Ý’è‚ð‚µ‚Ä‚à‚ç‚¤
 	pGame_->StartSetup(GameSystemCollection::GameSystemInitViewer{ pGameSystemRegister });
 
-	pGameLoop_ = new GameLoop{};
+	GameLoop gameLoop{};
+	pGameLoop_ = &gameLoop;
 
 	pGameLoop_->RunLoop(pGameSystemRegister);
 
 	pGameSystemRegister->End();
 
-	SAFE_DELETE(pGameLoop_);
-
-	SAFE_DELETE(pGameSystemRegister);
+	//SAFE_DELETE(pGameLoop_);
+	//SAFE_DELETE(pGameSystemRegister);
 }
 
 wtgb::IGame* wtgb::Game::pGame_{ nullptr };

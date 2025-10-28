@@ -27,6 +27,6 @@ namespace wtgb
 		/// <summary>
 		/// I—¹ˆ—
 		/// </summary>
-		void End() override {};
+		void End() override;
 	};
 }

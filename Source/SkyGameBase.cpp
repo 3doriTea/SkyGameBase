@@ -15,5 +15,11 @@ int APIENTRY wWinMain(
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	return wtgb::Game::Run<SampleGame>();
+	Sleep(3000);
+
+	int result{ wtgb::Game::Run<SampleGame>() };
+
+	Sleep(3000);
+
+	return result;
 }

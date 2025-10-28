@@ -31,13 +31,13 @@ namespace wtgb
 		{
 			AddComponentT* pComponent{ builder_.target_.AddComponent<AddComponentT>() };
 
-			ComponentOption<AddComponentT>* pNewOption
+			ComponentOption<AddComponentT>* pOption
 			{
 				new ComponentOption<AddComponentT>{ builder_, pComponent }
 			};
 
 			delete this;
-			return *pNewOption;
+			return *pOption;
 		}
 
 		/// <summary>

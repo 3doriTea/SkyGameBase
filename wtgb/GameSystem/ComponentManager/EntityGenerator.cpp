@@ -15,22 +15,22 @@ wtgb::EntityGenerator::~EntityGenerator()
 
 wtgb::EntityId wtgb::EntityGenerator::Generate()
 {
-	EntityId newEntityId{ wtgb::INVALIED_ID };
+	EntityId entityId{ wtgb::INVALIED_ID };
 
 	// TODO: アルゴリズム改善が必要
 	for (uint32_t i = 0; i < UINT32_MAX; i++)
 	{
 		if (!useFlag_[i])
 		{
-			newEntityId.index = i;
-			newEntityId.version = versions_[i];
+			entityId.index = i;
+			entityId.version = versions_[i];
 
 			useFlag_[i] = true;
-			return newEntityId;
+			return entityId;
 		}
 	}
 
-	return newEntityId;
+	return entityId;
 }
 
 void wtgb::EntityGenerator::Remove(const EntityId _entityId)

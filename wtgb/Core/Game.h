@@ -52,7 +52,8 @@ namespace wtgb
 template<wtgb::GameT T>
 int wtgb::Game::Run()
 {
-	pGame_ = new T{};
+	T theGame{};
+	pGame_ = &theGame;
 
 	try
 	{
@@ -67,7 +68,6 @@ int wtgb::Game::Run()
 		throw errorCode;
 	}
 
-	SAFE_DELETE(pGame_);
-
+	pGame_ = nullptr;
 	return 0;
 }

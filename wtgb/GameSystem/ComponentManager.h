@@ -14,7 +14,7 @@ namespace wtgb
 	class ComponentManager : public IGameSystem
 	{
 	public:
-		/// <summary>
+		/*/// <summary>
 		/// コンポーネントプールを登録するためだけのアクセッサ
 		/// </summary>
 		class ComponentPoolRegister : public Accessor<ComponentManager>
@@ -25,7 +25,7 @@ namespace wtgb
 
 			template<typename T>
 			void Register();
-		};
+		};*/
 
 	public:
 		ComponentManager();

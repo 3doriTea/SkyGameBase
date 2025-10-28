@@ -24,3 +24,14 @@ void wtgb::CPGameObject::Update()
 		}
 	}
 }
+
+void wtgb::CPGameObject::End()
+{
+	for (auto& gameObject : *this)
+	{
+		if (gameObject)
+		{
+			SAFE_DELETE(gameObject);
+		}
+	}
+}
