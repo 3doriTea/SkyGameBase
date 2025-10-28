@@ -14,9 +14,11 @@ namespace wtgb
 	template<typename ComponentT>
 	class ComponentPool : public IGameSystem, public IComponentPool
 	{
+		friend ComponentT;
 		//using Pool = std::array<ComponentT, wtgb::ENTITY_CAPACITY>;
 		using Pool = std::vector<ComponentT>;
-	private:
+
+	protected:
 		ComponentPool() : system_{ nullptr }, pool_{} {}
 		virtual ~ComponentPool() {}
 
@@ -62,8 +64,8 @@ namespace wtgb
 		Pool::const_iterator begin() const { return pool_.begin(); }
 		Pool::const_iterator end() const { return pool_.end(); }
 
-		ComponentT& at(const size_type _index) { return pool_.at(); }
-		const ComponentT& at(const size_type _Pos) const { return pool_.at(); }
+		ComponentT& at(const size_t _index) { return pool_.at(_index); }
+		const ComponentT& at(const size_t _index) const { return pool_.at(_index); }
 
 	private:
 		Pool pool_;

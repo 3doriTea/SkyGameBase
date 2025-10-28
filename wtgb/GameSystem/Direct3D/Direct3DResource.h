@@ -16,8 +16,14 @@ namespace wtgb
 		Direct3DResource(const Config& _config);
 		~Direct3DResource();
 
-		ID3D11Device** Device() { return pDevice_.GetAddressOf(); }
-		ID3D11DeviceContext** Context() { return pContext_.GetAddressOf(); }
+		ComPtr<ID3D11Device>& Device() { return pDevice_; }
+		ComPtr<ID3D11DeviceContext>& Context() { return pContext_; }
+
+		ComPtr<IDXGIDevice1>& DXGIDevice() { return pDXGIDevice_; }
+		ComPtr<IDXGIAdapter>& DXGIAdapter() { return pDXGIAdapter_; }
+		ComPtr<IDXGIFactory>& DXGIFactory() { return pDXGIFactory_; }
+
+		ComPtr<IDXGISwapChain>& SwapChain() { return pSwapChain_; }
 
 	private:
 		/// <summary>
@@ -36,8 +42,10 @@ namespace wtgb
 		ComPtr<ID3D11Device> pDevice_;          // デバイス
 		ComPtr<ID3D11DeviceContext> pContext_;  // デバイスコンテキスト
 
-		//IDXGIDevice1* pDXGI_;     // 複数ディスプレイ制御 // TODO なぜDeviceとDevice1があるのかを調べる
-		//IDXGIAdapter* pAdapter_;  // 
-		//IDXGIFactory* pFactory_;  // 
+		ComPtr<IDXGIDevice1> pDXGIDevice_;   // 複数ディスプレイ制御 // TODO なぜDeviceとDevice1があるのかを調べる
+		ComPtr<IDXGIAdapter> pDXGIAdapter_;  // 
+		ComPtr<IDXGIFactory> pDXGIFactory_;  // 
+
+		ComPtr<IDXGISwapChain> pSwapChain_;  // スワップチェーン
 	};
 }

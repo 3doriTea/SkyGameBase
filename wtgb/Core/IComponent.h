@@ -1,4 +1,5 @@
 #pragma once
+#include "GameSystemViewer.h"
 
 namespace wtgb
 {
@@ -8,6 +9,7 @@ namespace wtgb
 		IComponent() {}
 		virtual ~IComponent() {}
 
-		virtual void Update() = 0;
+		virtual void Init(ViewerCached system_) = 0;
+		virtual void Update(ViewerCached system_) = 0;
 	};
 }

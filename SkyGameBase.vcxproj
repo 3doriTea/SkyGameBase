@@ -61,6 +61,8 @@
     <ClInclude Include="wtgb\GameSystem\ComponentPool.h" />
     <ClInclude Include="wtgb\GameSystem\CPGameObject.h" />
     <ClInclude Include="wtgb\GameSystem\CPGameObjectProperty.h" />
+    <ClInclude Include="wtgb\GameSystem\CPMeshRenderer.h" />
+    <ClInclude Include="wtgb\GameSystem\CPModelMesh.h" />
     <ClInclude Include="wtgb\GameSystem\CPTransform.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
@@ -74,6 +76,9 @@
     <ClInclude Include="wtgb\GameSystem\Input\KeyCode.h" />
     <ClInclude Include="wtgb\GameSystem\Input\MouseCode.h" />
     <ClInclude Include="wtgb\GameSystem\IResource.h" />
+    <ClInclude Include="wtgb\GameSystem\MeshRenderer\Material.h" />
+    <ClInclude Include="wtgb\GameSystem\ModelMesh\Fbx.h" />
+    <ClInclude Include="wtgb\GameSystem\ModelMesh\IModel.h" />
     <ClInclude Include="wtgb\GameSystem\Rendering.h" />
     <ClInclude Include="wtgb\GameSystem\SceneManager.h" />
     <ClInclude Include="wtgb\GameSystem\ScreenResource.h" />
@@ -102,6 +107,7 @@
     <ClCompile Include="wtgb\Core\GameObjectBuilder.cpp" />
     <ClCompile Include="wtgb\Core\GameScene.cpp" />
     <ClCompile Include="wtgb\GameComponent\GameObject.cpp" />
+    <ClCompile Include="wtgb\GameComponent\ModelMesh.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager.cpp" />
     <ClCompile Include="wtgb\Core\Game.cpp" />
     <ClCompile Include="wtgb\Core\GameLoop.cpp" />
@@ -111,6 +117,8 @@
     <ClCompile Include="wtgb\GameSystem\ComponentPool.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPGameObject.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPGameObjectProperty.cpp" />
+    <ClCompile Include="wtgb\GameSystem\CPMeshRenderer.cpp" />
+    <ClCompile Include="wtgb\GameSystem\CPModelMesh.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPTransform.cpp" />
     <ClCompile Include="wtgb\GameSystem\Debug.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3D.cpp" />
@@ -121,6 +129,7 @@
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\IResource.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ModelMesh\Fbx.cpp" />
     <ClCompile Include="wtgb\GameSystem\Rendering.cpp" />
     <ClCompile Include="wtgb\GameSystem\SceneManager.cpp" />
     <ClCompile Include="wtgb\Utility\InitSequence.cpp" />

@@ -8,23 +8,24 @@ Player::Player() : GameObject
 		_builder
 		.AddComponent<GameObjectProperty>()
 			.BeginSetter()
-				.Name("Player")
+				.name("Player")
 			.EndSetter()
 		.AddComponent<wtgb::Transform>()
 			.BeginSetter()
-				.Position({ 0, 2, 4 })
-				.Rotation({ 0, 0, 0 })
-				.Scale({ 1, 1, 1 })
+				.position({ 0, 2, 4 })
+				.rotation({ 0, 0, 0 })
+				.scale({ 1, 1, 1 })
 			.EndSetter()
 		.AddComponent<ModelMesh>()
 			.BeginSetter()
-				.Model("Models/Oden.fbx")
+				.fileName("Models/Oden.fbx")
 			.EndSetter()
+		/*
 		.AddComponent<MeshRenderer>()
 			.BeginSetter()
 				.Shader("Shader/Simple3D.hlsl")
 				.Texture("Models/Oden.jpg")
-			.EndSetter()
+			.EndSetter()*/
 		.Build();
 	}
 }
@@ -37,6 +38,7 @@ Player::~Player()
 
 void Player::Init()
 {
+	GetComponent<ModelMesh>().Load();
 }
 
 void Player::Update()

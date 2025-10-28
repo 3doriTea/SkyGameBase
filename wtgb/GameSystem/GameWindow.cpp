@@ -37,10 +37,10 @@ void wtgb::GameWindow::Update(const ViewerUpdate& _system)
 void wtgb::GameWindow::End()
 {
 	// 全ウィンドウを閉じる && 解放
-	windowHandles_.Release([](HWND& _value)
+	windowHandles_.Release([](CreatedWindowData& _data)
 	{
-		CloseWindow(_value);
-		DestroyWindow(_value);
+		CloseWindow(_data.hWnd);
+		DestroyWindow(_data.hWnd);
 	});
 }
 
@@ -102,7 +102,28 @@ wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _confi
 HWND wtgb::GameWindow::GetMainWindowHandle()
 {
 	wassert(!windowHandles_.IsEmpty() && "ウィンドウハンドルが1つも登録されていない");
-	return windowHandles_.begin()->second;
+	return windowHandles_.begin()->second.hWnd;
+}
+
+wtgb::Vector2Int wtgb::GameWindow::GetMainWindowSize()
+{
+	return GetMainWindowData().windowScreenSize;
+}
+
+wtgb::GameWindow::RefreshRate wtgb::GameWindow::GetMainWindowRefreshRate()
+{
+	return GetMainWindowData().refreshRateSec;
+}
+
+BOOL wtgb::GameWindow::GetMainWindowIsWindowed()
+{
+	return GetMainWindowData().windowed;
+}
+
+const wtgb::GameWindow::CreateWindowConfig& wtgb::GameWindow::GetMainWindowData()
+{
+	wassert(!windowHandles_.IsEmpty() && "ウィンドウハンドルが1つも登録されていない");
+	return windowHandles_.begin()->second.config;
 }
 
 LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

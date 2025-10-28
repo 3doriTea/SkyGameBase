@@ -1,23 +1,19 @@
 #pragma once
 #include "pch/pch.h"
-#include "Core/Component.h"
-#include "Core/ComponentSetter.h"
+#include "CommonGameComponent.h"
 #include "GameSystem/CPModelMesh.h"
 
 namespace wtgb
 {
 
-	class ModelMesh : public Component<CPModelMesh>
+	class COMPONENT(ModelMesh)
 	{
 	public:
-		class Setter : public ComponentSetter<ModelMesh>
+		class SETTER(ModelMesh)
 		{
-		public:
-			using ComponentSetter<ModelMesh>::ComponentSetter;
-			~Setter() {}
+			SETTER_HEAD(ModelMesh)
 
-			Setter& Model(const std::string& _fileName) { GetAccess()-> }
-
+			SETTER_PARAM(std::string, fileName)
 		};
 
 	public:
@@ -25,7 +21,9 @@ namespace wtgb
 		~ModelMesh() {}
 
 		void Load();
-		void Update() override {}
+
+		void Init(ViewerCached system_) override {}
+		void Update(ViewerCached system_) override {}
 
 	private:
 		std::string fileName_;

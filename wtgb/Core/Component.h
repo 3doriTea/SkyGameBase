@@ -13,6 +13,7 @@ namespace wtgb
 		Component() {}
 		virtual ~Component() {}
 
-		virtual void Update() override {}
+		virtual void Init(ViewerCached system_) override {};
+		virtual void Update(ViewerCached system_) override {};
 	};
 }

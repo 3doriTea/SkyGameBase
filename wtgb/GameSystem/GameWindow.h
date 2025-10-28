@@ -8,6 +8,23 @@ namespace wtgb
 	class GameWindow : public IGameSystem
 	{
 	public:
+		/// <summary>
+		/// 画面のリフレッシュレート
+		/// </summary>
+		struct RefreshRate
+		{
+			/// <summary>
+			/// FPSでリフレッシュレートを指定
+			/// </summary>
+			/// <param name="fps">Frame par sec</param>
+			RefreshRate(const float fps) :
+				denominator{ 1.0f },
+				numerator{ fps }
+			{}
+			float denominator;  // 分子
+			float numerator;  // 分母
+		};
+	public:
 		struct CreateWindowConfig
 		{
 			std::string_view title;
@@ -27,7 +44,28 @@ namespace wtgb
 			Vector2Int initPosition;
 			// ウィンドウの親ウィンドウ
 			HWND hWndParent{ nullptr };
+			// 画面の更新頻度 (秒)
+			RefreshRate refreshRateSec;
+			// ウィンドウであるか
+			BOOL windowed{ TRUE };
 		};
+
+	private:
+		/// <summary>
+		/// 作成したウィンドウの情報
+		/// </summary>
+		struct CreatedWindowData
+		{
+			/// <summary>
+			/// 作成時のウィンドウ設定
+			/// </summary>
+			CreateWindowConfig config;
+			/// <summary>
+			/// ウィンドウのハンドル
+			/// </summary>
+			HWND hWnd;
+		};
+
 	public:
 		GameWindow();
 		~GameWindow();
@@ -58,7 +96,30 @@ namespace wtgb
 		/// <returns>ウィンドウを特定するハンドル</returns>
 		GameWindowHandle Create(const CreateWindowConfig& _config);
 
+		/// <summary>
+		/// メインウィンドウのウィンドウハンドルを取得
+		/// </summary>
+		/// <returns>ウィンドウハンドル</returns>
 		HWND GetMainWindowHandle();
+
+		/// <summary>
+		/// メインウィンドウのウィンドウサイズを取得
+		/// </summary>
+		/// <returns>2次元の整数ベクトル</returns>
+		Vector2Int GetMainWindowSize();
+		/// <summary>
+		/// 画面の更新間隔 (秒) を取得
+		/// </summary>
+		/// <returns>画面の更新間隔 (秒)</returns>
+		RefreshRate GetMainWindowRefreshRate();
+		/// <summary>
+		/// メインウィンドウがウィンドウであるかを取得
+		/// </summary>
+		/// <returns>ウィンドウである true / false</returns>
+		BOOL GetMainWindowIsWindowed();
+
+	private:
+		const CreateWindowConfig& GetMainWindowData();
 
 	private:
 		/// <summary>
@@ -73,7 +134,7 @@ namespace wtgb
 
 	private:
 		// ウィンドウハンドルのコレクション
-		HandlerCollection<HWND, GameWindowHandle> windowHandles_;
+		HandlerCollection<CreatedWindowData, GameWindowHandle> windowHandles_;
 		MSG peekedMessage_;
 
 	private:

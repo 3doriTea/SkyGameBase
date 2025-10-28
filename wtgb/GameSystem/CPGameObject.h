@@ -13,6 +13,7 @@ namespace wtgb
 	{
 	public:
 		CPGameObject();
+	private:
 		~CPGameObject();
 
 		/// <summary>

@@ -20,7 +20,8 @@ namespace wtgb
 		Transform() {}
 		~Transform() {}
 
-		void Update() override {}
+		void Init(ViewerCached system_) override {}
+		void Update(ViewerCached system_) override {}
 
 	private:
 		Vector3 position_;  // ç¿ïW

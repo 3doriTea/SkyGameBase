@@ -23,7 +23,8 @@ namespace wtgb
 		GameObjectProperty();
 		~GameObjectProperty();
 
-		void Update() override {}
+		void Init(ViewerCached system_) override {}
+		void Update(ViewerCached system_) override {}
 
 		/// <summary>
 		/// –¼‘O‚ðŽæ“¾‚·‚é

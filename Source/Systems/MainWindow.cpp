@@ -33,6 +33,7 @@ wtgb::Result MainWindow::Init(const ViewerInit& _viewer)
 			.windowScreenSize = { 1600, 900 },
 			.initPosition = { 50, 50 },
 			.hWndParent = nullptr,
+			.refreshRateSec = 60.0f
 		})
 	};
 

@@ -18,6 +18,7 @@
 #include "GameComponent/GameObject.h"
 #include "GameComponent/GameObjectProperty.h"
 #include "GameComponent/Transform.h"
+#include "GameComponent/ModelMesh.h"
 
 using wtgb::IGame;
 using wtgb::IGameSystem;
@@ -26,5 +27,6 @@ using wtgb::GameScene;
 
 using wtgb::GameObject;
 using wtgb::GameObjectProperty;
+using wtgb::ModelMesh;
 
 using namespace wtgb;

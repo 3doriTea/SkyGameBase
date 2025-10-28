@@ -9,30 +9,6 @@ wtgb::GameObjectProperty::~GameObjectProperty()
 {
 }
 
-void wtgb::GameObjectProperty::Update()
-{
-}
-
-void wtgb::GameObjectProperty::SetName(const std::string& _name)
-{
-}
-
-void wtgb::GameObjectProperty::SetParent(const EntityId _parent)
-{
-}
-
-void wtgb::GameObjectProperty::CountChilds() const
-{
-}
-
-void wtgb::GameObjectProperty::CountChilds() const
-{
-}
-
-wtgb::GameObjectProperty::~GameObjectProperty()
-{
-}
-
 void wtgb::GameObjectProperty::SetName(const std::string& _name)
 {
 	if (_name.size() > NAME_SIZE)
