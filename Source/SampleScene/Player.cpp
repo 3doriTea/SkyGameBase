@@ -16,6 +16,15 @@ Player::Player() : GameObject
 				.Rotation({ 0, 0, 0 })
 				.Scale({ 1, 1, 1 })
 			.EndSetter()
+		.AddComponent<ModelMesh>()
+			.BeginSetter()
+				.Model("Models/Oden.fbx")
+			.EndSetter()
+		.AddComponent<MeshRenderer>()
+			.BeginSetter()
+				.Shader("Shader/Simple3D.hlsl")
+				.Texture("Models/Oden.jpg")
+			.EndSetter()
 		.Build();
 	}
 }

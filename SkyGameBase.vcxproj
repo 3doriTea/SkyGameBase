@@ -43,6 +43,9 @@
     <ClInclude Include="wtgb\Core\GameObjectBuilder.h" />
     <ClInclude Include="wtgb\Core\ComponentSetter.h" />
     <ClInclude Include="wtgb\Core\GameSystemViewer.h" />
+    <ClInclude Include="wtgb\GameComponent\CommonGameComponent.h" />
+    <ClInclude Include="wtgb\GameComponent\MeshRenderer.h" />
+    <ClInclude Include="wtgb\GameComponent\ModelMesh.h" />
     <ClInclude Include="wtgb\GameComponent\Transform.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager.h" />
     <ClInclude Include="wtgb\Core\Entity.h" />

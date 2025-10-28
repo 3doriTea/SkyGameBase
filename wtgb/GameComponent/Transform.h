@@ -1,24 +1,19 @@
 #pragma once
-#include "Core/Component.h"
-#include "Core/ComponentSetter.h"
+#include "CommonGameComponent.h"
 #include "GameSystem/CPTransform.h"
 
 namespace wtgb
 {
-	class CPTransform;
-
-	class Transform : public Component<CPTransform>
+	class COMPONENT(Transform)
 	{
 	public:
-		class Setter : public ComponentSetter<Transform>
+		class SETTER(Transform)
 		{
-		public:
-			using ComponentSetter<Transform>::ComponentSetter;
-			~Setter() {}
+			SETTER_HEAD(Transform)
 
-			Setter& Position(const Vector3& _position) { GetAccess()->position_ = _position; return *this; }
-			Setter& Rotation(const Vector3& _rotation) { GetAccess()->rotation_ = _rotation; return *this; }
-			Setter& Scale(const Vector3& _scale)       { GetAccess()->scale_ = _scale;       return *this; }
+			SETTER_PARAM(Vector3, position)
+			SETTER_PARAM(Vector3, rotation)
+			SETTER_PARAM(Vector3, scale)
 		};
 
 	public:
