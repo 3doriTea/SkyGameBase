@@ -25,8 +25,3 @@ ComponentT& wtgb::ComponentPool<ComponentT>::Add(const EntityId _entityId, const
 	return pool_[_entityId.index];
 }
 
-template<typename ComponentT>
-wtgb::ComponentPool<ComponentT>::Pool::iterator wtgb::ComponentPool<ComponentT>::begin()
-{
-	return pool_.begin();
-}

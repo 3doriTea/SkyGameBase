@@ -1,33 +1,29 @@
 #pragma once
 #include "pch/pch.h"
-#include "Core/Component.h"
-#include "Core/ComponentSetter.h"
+#include "CommonGameComponent.h"
 #include "Core/Entity.h"
 #include "GameSystem/CPGameObjectProperty.h"
 
 namespace wtgb
 {
-	class CPGameObjectProperty;
-
 	constexpr size_t NAME_SIZE{ 16 };
-	class GameObjectProperty : public Component<CPGameObjectProperty>
+
+	class COMPONENT(GameObjectProperty)
 	{
 	public:
-		class Setter : public ComponentSetter<GameObjectProperty>
+		class SETTER(GameObjectProperty)
 		{
-		public:
-			using ComponentSetter<GameObjectProperty>::ComponentSetter;
-			~Setter() {}
+			SETTER_HEAD(GameObjectProperty)
 
-			Setter& Name(const std::string& _name) { GetAccess()->SetName(_name); return *this; }
-			Setter& Parent(const EntityId _entityId) { GetAccess()->parent_ = _entityId; return *this; }
+			Setter& name(const std::string& _name) { GetAccess()->SetName(_name); return *this; }
+			SETTER_PARAM(EntityId, parent);
 		};
 
 	public:
 		GameObjectProperty();
 		~GameObjectProperty();
 
-		void Update() override;
+		void Update() override {}
 
 		/// <summary>
 		/// –¼‘O‚ðŽæ“¾‚·‚é

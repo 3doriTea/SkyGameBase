@@ -1,10 +1,9 @@
 #pragma once
 #include "pch/pch.h"
 #include "Core/Entity.h"
-#include "Core/ComponentSetter.h"
-#include "Core/Component.h"
 #include "Core/GameSystemViewer.h"
 #include "GameSystem/ComponentManager.h"
+#include "CommonGameComponent.h"
 #include "GameSystem/CPGameObject.h"
 
 // TODO: GameObjectは名ばかり、スクリプトコンポーネントだ！
@@ -22,25 +21,20 @@ namespace wtgb
 	template<typename T>
 	concept GameObjectT = std::is_base_of_v<GameObject, T>;
 
-	class CPGameObject;
-
 	/// <summary>
 	/// <para>ゲームオブジェクト (中身はエンティティIdのみ)</para>
 	/// <para>軽量なため本体は基本的にコピーして利用</para>
 	/// <para>オリジナルゲームオブジェクトはこれを派生し、参照を利用</para>
 	/// </summary>
-	class GameObject : public Component<CPGameObject>
+	class COMPONENT(GameObject)
 	{
 		friend class CPGameObject;
 	public:
 		struct Config;
 
-		class Setter : public ComponentSetter<GameObject>
+		class SETTER(GameObject)
 		{
-		public:
-			using ComponentSetter<GameObject>::ComponentSetter;
-			~Setter();
-
+			SETTER_HEAD(GameObject)
 		};
 
 	private:

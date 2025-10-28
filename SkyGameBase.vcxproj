@@ -74,6 +74,7 @@
     <ClInclude Include="wtgb\GameSystem\Input\KeyCode.h" />
     <ClInclude Include="wtgb\GameSystem\Input\MouseCode.h" />
     <ClInclude Include="wtgb\GameSystem\IResource.h" />
+    <ClInclude Include="wtgb\GameSystem\Rendering.h" />
     <ClInclude Include="wtgb\GameSystem\SceneManager.h" />
     <ClInclude Include="wtgb\GameSystem\ScreenResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameTime.h" />
