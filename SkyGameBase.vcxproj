@@ -121,6 +121,7 @@
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\IResource.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Rendering.cpp" />
     <ClCompile Include="wtgb\GameSystem\SceneManager.cpp" />
     <ClCompile Include="wtgb\Utility\InitSequence.cpp" />
     <ClCompile Include="wtgb\Utility\InputChecker.cpp" />

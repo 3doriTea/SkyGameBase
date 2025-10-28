@@ -1,0 +1,25 @@
+#include "pch\pch.h"
+#include "Rendering.h"
+#include "CPGameObject.h"
+
+wtgb::Rendering::Rendering()
+{
+}
+
+wtgb::Rendering::~Rendering()
+{
+}
+
+wtgb::Result wtgb::Rendering::Init(const ViewerInit& _viewer)
+{
+	return Result::Code::Ok;
+}
+
+void wtgb::Rendering::Update(const ViewerUpdate& _system)
+{
+	//_system.Get<CPGameObject>().
+}
+
+void wtgb::Rendering::End()
+{
+}

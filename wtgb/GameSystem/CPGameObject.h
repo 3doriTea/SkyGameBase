@@ -28,5 +28,11 @@ namespace wtgb
 		/// I—¹ˆ—
 		/// </summary>
 		void End() override;
+
+	private:
+		/// <summary>
+		/// •`‰æˆ—
+		/// </summary>
+		void Draw() const;
 	};
 }

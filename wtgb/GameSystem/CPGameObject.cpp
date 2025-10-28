@@ -35,3 +35,14 @@ void wtgb::CPGameObject::End()
 		}
 	}
 }
+
+void wtgb::CPGameObject::Draw() const
+{
+	for (const auto& gameObject : *this)
+	{
+		if (gameObject)
+		{
+			gameObject->Draw();
+		}
+	}
+}

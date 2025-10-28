@@ -16,7 +16,7 @@ namespace wtgb
 	{
 		//using Pool = std::array<ComponentT, wtgb::ENTITY_CAPACITY>;
 		using Pool = std::vector<ComponentT>;
-	public:
+	private:
 		ComponentPool() : system_{ nullptr }, pool_{} {}
 		virtual ~ComponentPool() {}
 
@@ -34,6 +34,8 @@ namespace wtgb
 		/// XVˆ—
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
+	
+	public:
 		/// <summary>
 		/// I—¹ˆ—
 		/// </summary>
