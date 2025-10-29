@@ -20,12 +20,11 @@ Player::Player() : GameObject
 			.BeginSetter()
 				.fileName("Models/Oden.fbx")
 			.EndSetter()
-		/*
 		.AddComponent<MeshRenderer>()
 			.BeginSetter()
-				.Shader("Shader/Simple3D.hlsl")
-				.Texture("Models/Oden.jpg")
-			.EndSetter()*/
+				.shader("Shader/Simple3D.hlsl")
+				.texture("Models/Oden.jpg")
+			.EndSetter()
 		.Build();
 	}
 }

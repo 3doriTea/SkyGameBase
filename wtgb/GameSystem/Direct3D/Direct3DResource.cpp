@@ -33,4 +33,14 @@ void wtgb::Direct3DResource::Release()
 
 	pContext_.Reset();
 	pDevice_.Reset();
+
+	pDXGIDevice_.Reset();
+	pDXGIAdapter_.Reset();
+	pDXGIFactory_.Reset();
+
+	pSwapChain_.Reset();
+
+	pRenderTargetView_.Reset();
+	pDepthBuffer_.Reset();
+	pDepthStencilView_.Reset();
 }

@@ -17,12 +17,12 @@ namespace wtgb
 			/// FPSでリフレッシュレートを指定
 			/// </summary>
 			/// <param name="fps">Frame par sec</param>
-			RefreshRate(const float fps) :
-				denominator{ 1.0f },
+			RefreshRate(const uint32_t fps) :
+				denominator{ 1U },
 				numerator{ fps }
 			{}
-			float denominator;  // 分子
-			float numerator;  // 分母
+			uint32_t denominator;  // 分子
+			uint32_t numerator;  // 分母
 		};
 	public:
 		struct CreateWindowConfig

@@ -81,9 +81,6 @@
     <ClInclude Include="wtgb\GameSystem\ScreenResource.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="wtgb\GameSystem\Direct3DResource.h">
-      <Filter>C++未分類ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="wtgb\GameSystem\IResource.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
@@ -213,6 +210,42 @@
     <ClInclude Include="wtgb\Core\Component.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\GameComponent\CommonGameComponent.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameComponent\MeshRenderer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameComponent\ModelMesh.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\CPGameObjectProperty.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\CPMeshRenderer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\CPModelMesh.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\CPTransform.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Direct3D\Direct3DResource.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\MeshRenderer\Material.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\ModelMesh\Fbx.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\ModelMesh\IModel.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Rendering.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -240,9 +273,6 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="wtgb\GameSystem\Direct3D.cpp">
-      <Filter>C++未分類ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="wtgb\GameSystem\Direct3DResource.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="wtgb\GameSystem\IResource.cpp">
@@ -308,6 +338,33 @@
     <ClCompile Include="wtgb\GameSystem\CPGameObject.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="wtgb\GameComponent\ModelMesh.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\CPGameObjectProperty.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\CPMeshRenderer.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\CPModelMesh.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\CPTransform.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Direct3D\Direct3DResource.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\ModelMesh\Fbx.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Rendering.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameComponent\MeshRenderer.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -325,5 +382,8 @@
     <None Include="wtgb\GameSystem\ComponentManager.inl">
       <Filter>C++未分類ファイル</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
   </ItemGroup>
 </Project>

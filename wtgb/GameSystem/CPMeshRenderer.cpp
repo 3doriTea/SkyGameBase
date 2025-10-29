@@ -15,4 +15,8 @@ void wtgb::CPMeshRenderer::Init()
 
 void wtgb::CPMeshRenderer::Update()
 {
+	for (auto& meshRenderer : *this)
+	{
+		//meshRenderer.
+	}
 }

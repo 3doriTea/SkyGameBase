@@ -24,6 +24,10 @@ namespace wtgb
 		ComPtr<IDXGIFactory>& DXGIFactory() { return pDXGIFactory_; }
 
 		ComPtr<IDXGISwapChain>& SwapChain() { return pSwapChain_; }
+		
+		ComPtr<ID3D11RenderTargetView>& RenderTargetView() { return pRenderTargetView_; }
+		ComPtr<ID3D11Texture2D>& DepthBuffer() { return pDepthBuffer_; }
+		ComPtr<ID3D11DepthStencilView>& DepthStencilView() { return pDepthStencilView_; }
 
 	private:
 		/// <summary>
@@ -47,5 +51,9 @@ namespace wtgb
 		ComPtr<IDXGIFactory> pDXGIFactory_;  // 
 
 		ComPtr<IDXGISwapChain> pSwapChain_;  // スワップチェーン
+
+		ComPtr<ID3D11RenderTargetView> pRenderTargetView_;  // レンダーターゲットビュー
+		ComPtr<ID3D11Texture2D> pDepthBuffer_;              // 深度バッファ
+		ComPtr<ID3D11DepthStencilView> pDepthStencilView_;  // 深度ステンシルビュー
 	};
 }

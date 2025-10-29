@@ -17,7 +17,7 @@ wtgb::Result wtgb::Rendering::Init(const ViewerInit& _viewer)
 
 void wtgb::Rendering::Update(const ViewerUpdate& _system)
 {
-	//_system.Get<CPGameObject>().
+	_system.Get<CPGameObject>().Draw();
 }
 
 void wtgb::Rendering::End()

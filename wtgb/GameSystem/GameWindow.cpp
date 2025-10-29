@@ -92,7 +92,7 @@ wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _confi
 	wassert(hWnd != nullptr && "ウィンドウの作成に失敗");
 	wassert(IsWindow(hWnd) && "ウィンドウではないハンドルが作られている");
 
-	GameWindowHandle hGameWindow{ windowHandles_.Emplace(hWnd) };
+	GameWindowHandle hGameWindow{ windowHandles_.Emplace(_config, hWnd) };
 
 	ShowWindow(hWnd, SW_SHOWDEFAULT);  // ウィンドウを表示
 

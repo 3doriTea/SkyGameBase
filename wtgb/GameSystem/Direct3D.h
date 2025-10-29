@@ -36,9 +36,14 @@ namespace wtgb
 		void End() override;
 
 		/// <summary>
+		/// シェーダを読み込む
+		/// </summary>
+		void LoadShader();
+
+		/// <summary>
 		/// 描画する
 		/// </summary>
-		//void Render();
+		void Render();
 
 	private:
 		Direct3DResource* pResource_;  // リソースのポインタ

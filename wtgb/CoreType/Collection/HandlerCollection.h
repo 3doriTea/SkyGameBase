@@ -58,7 +58,7 @@ template<typename ValueT, std::unsigned_integral HandleT>
 template<typename ...Args>
 HandleT wtgb::HandlerCollection<ValueT, HandleT>::Emplace(Args&& ...args)
 {
-	innerMap.insert(std::pair<HandleT, ValueT>{ ++counter_, ValueT{ std::move(args...) } });
+	innerMap.insert(std::pair<HandleT, ValueT>{ ++counter_, ValueT{ args... } });
 	return HandleT();
 }
 

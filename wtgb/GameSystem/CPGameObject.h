@@ -24,13 +24,12 @@ namespace wtgb
 		/// XVˆ—
 		/// </summary>
 		void Update() override;
-
 		/// <summary>
 		/// I—¹ˆ—
 		/// </summary>
 		void End() override;
 
-	private:
+	public:
 		/// <summary>
 		/// •`‰æˆ—
 		/// </summary>

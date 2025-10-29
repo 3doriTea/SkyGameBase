@@ -11,7 +11,19 @@ namespace wtgb
 		{
 			SETTER_HEAD(MeshRenderer)
 
-			//SETTER_PARAM()
+			SETTER_PARAM(std::string, shader)
+			SETTER_PARAM(std::string, texture)
 		};
+
+	public:
+		MeshRenderer() {}
+		~MeshRenderer() {}
+
+		void Init(ViewerCached _system) override;
+		void Update(ViewerCached _system) override {}
+
+	private:
+		std::string shader_;
+		std::string texture_;
 	};
 }

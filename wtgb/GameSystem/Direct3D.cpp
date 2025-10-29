@@ -129,19 +129,130 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 #pragma endregion
 
 #pragma region レンダーターゲットビューの作成
-	ID3D11Texture2D* pBackBuffer{ nullptr };
+	// 描画するバックバッファを一時的に取得
+	ComPtr<ID3D11Texture2D> pBackBuffer{ nullptr };
+	hResult = pResource_->SwapChain().Get()->GetBuffer(
+		0,
+		__uuidof(ID3D11Texture2D),
+		reinterpret_cast<void**>(pBackBuffer.GetAddressOf()));
+	wassert(SUCCEEDED(hResult) && "バックバッファの取得に失敗");
+	if (FAILED(hResult))
+	{
+		return Result::Code::Failed;
+	}
 
+	// レンダーターゲットビューを作成
+	hResult = pResource_->Device().Get()->CreateRenderTargetView(
+		pBackBuffer.Get(),
+		nullptr,
+		pResource_->RenderTargetView().GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "レンダーターゲットビューの作成に失敗");
+	if (FAILED(hResult))
+	{
+		return Result::Code::Failed;
+	}
 
+	// 一時的に取得したバックバッファを明示的に解放
+	pBackBuffer.Reset();
 #pragma endregion
 
+#pragma region 深度ステンシルビュー(深度バッファ)の作成
+	//TODO: const Vector2Int SCREEN_SIZE{ _viewer.Get<GameWindow>().GetMainWindowSize() };
+
+	const D3D11_TEXTURE2D_DESC DEPTH_BUFFER_DESC
+	{
+		.Width = static_cast<UINT>(SCREEN_SIZE.x),   // 横幅
+		.Height = static_cast<UINT>(SCREEN_SIZE.y),  // 高さ
+		.MipLevels = 1,                              // テクスチャ内のミップマップレベル (ここでは関係無い?)
+		.ArraySize = 1,                              // テクスチャ内の配列サイズ (ここでは関係無い?)
+		.Format = DXGI_FORMAT_D32_FLOAT,             // テクスチャの形式
+		.SampleDesc
+		{
+			.Count = 1,    // MSAA (アンチエイリアス) の設定
+			.Quality = 0,  // 
+		},
+		.Usage = D3D11_USAGE_DEFAULT,           // 読み書きの識別
+		.BindFlags = D3D11_BIND_DEPTH_STENCIL,  // 深度ステンシルとして使う！
+		.CPUAccessFlags = 0,                    // CPUアクセスの種類
+		.MiscFlags = 0,                         // その他フラグ
+	};
+
+	hResult = pResource_->Device().Get()->CreateTexture2D(
+		&DEPTH_BUFFER_DESC,
+		nullptr,
+		pResource_->DepthBuffer().GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "深度バッファ用バッファの作成に失敗");
+	if (FAILED(hResult))
+	{
+		return Result::Code::Failed;
+	}
+
+	hResult = pResource_->Device().Get()->CreateDepthStencilView(
+		pResource_->DepthBuffer().Get(),
+		nullptr,
+		pResource_->DepthStencilView().GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "深度ステンシルビューの作成に失敗");
+	if (FAILED(hResult))
+	{
+		return Result::Code::Failed;
+	}
+#pragma endregion
+
+#pragma region ビューポート (描画範囲) 設定
+	// ビューポートの情報
+	D3D11_VIEWPORT viewport
+	{
+		.TopLeftX = 0,                                // 左端
+		.TopLeftY = 0,                                // 上端
+		.Width = static_cast<float>(SCREEN_SIZE.x),   // 横幅
+		.Height = static_cast<float>(SCREEN_SIZE.y),  // 高さ
+		.MinDepth = 0.0f,                             // 手前
+		.MaxDepth = 1.0f,                             // 奥
+	};
+
+	// データを画面に描画するための一通りの設定 (パイプライン)
+	pResource_->Context().Get()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	pResource_->Context().Get()->OMSetRenderTargets(
+		1,
+		pResource_->RenderTargetView().GetAddressOf(),
+		pResource_->DepthStencilView().Get());
+	pResource_->Context().Get()->RSSetViewports(1, &viewport);
+#pragma endregion
 	return Result::Code::Ok;
 }
 
 void wtgb::Direct3D::Update(const ViewerUpdate& _system)
 {
+	float backgroundColor[4]{ 0.0f, 1.0f, 1.0f, 1.0f };
+	// 画面クリア
+	pResource_->Context().Get()->ClearRenderTargetView(
+		pResource_->RenderTargetView().Get(),
+		backgroundColor);
+	// 深度バッファ
+	pResource_->Context().Get()->ClearDepthStencilView(
+		pResource_->DepthStencilView().Get(),
+		D3D11_CLEAR_DEPTH,  // 深度をクリアする
+		1.0f,
+		0);
 }
 
 void wtgb::Direct3D::End()
 {
 	pResource_->CallRelease();
+}
+
+void wtgb::Direct3D::Render()
+{
+	// バックバッファと反転して描画
+	HRESULT hResult{ pResource_->SwapChain().Get()->Present(0, 0) };
+	static const int ERROR_TOLERANCE_COUNT{ 3 };
+	static int swapMissCount{ 0 };
+	if (FAILED(hResult))
+	{
+		swapMissCount++;
+		wassert(swapMissCount > ERROR_TOLERANCE_COUNT
+			&& "スワップチェーンのスワップに失敗");
+
+		Game::Exit();
+	}
 }

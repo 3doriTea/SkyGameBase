@@ -107,6 +107,7 @@
     <ClCompile Include="wtgb\Core\GameObjectBuilder.cpp" />
     <ClCompile Include="wtgb\Core\GameScene.cpp" />
     <ClCompile Include="wtgb\GameComponent\GameObject.cpp" />
+    <ClCompile Include="wtgb\GameComponent\MeshRenderer.cpp" />
     <ClCompile Include="wtgb\GameComponent\ModelMesh.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager.cpp" />
     <ClCompile Include="wtgb\Core\Game.cpp" />
@@ -143,6 +144,14 @@
     <None Include="wtgb\Core\GameObjectBuilder.inl" />
     <None Include="wtgb\GameSystem\ComponentManager.inl" />
     <None Include="wtgb\GameSystem\ComponentPool.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Assets\Shader\Simple3D.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

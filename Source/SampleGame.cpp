@@ -9,6 +9,8 @@
 #include "GameSystem/SceneManager.h"
 #include "GameSystem/ComponentManager.h"
 
+#include "GameSystem/Rendering.h"
+
 #include "Systems/MainWindow.h"
 #include "Systems/FirstSceneRegister.h"
 
@@ -44,6 +46,9 @@ void SampleGame::StartRegister(
 		.Register<CPGameObject>()
 		.Register<CPGameObjectProperty>()
 		.Register<CPTransform>()
+
+
+		.Register<Rendering>()
 	;
 }
 

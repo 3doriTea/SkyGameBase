@@ -4,12 +4,13 @@
 
 namespace wtgb
 {
+	class MeshRenderer;
 	/// <summary>
 	/// コンポーネントプール : メッシュ描画
 	/// </summary>
 	class CPMeshRenderer : public ComponentPool<MeshRenderer>
 	{
-	public:
+	private:
 		CPMeshRenderer();
 		~CPMeshRenderer();
 
