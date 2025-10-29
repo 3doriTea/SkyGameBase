@@ -1,6 +1,6 @@
 #pragma once
 #include "pch/pch.h"
-#include "../IResource.h"
+#include "Utility/IResource.h"
 
 namespace wtgb
 {

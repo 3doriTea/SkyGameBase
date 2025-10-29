@@ -38,7 +38,7 @@ namespace wtgb
 		/// <summary>
 		/// シェーダを読み込む
 		/// </summary>
-		void LoadShader();
+		/*void LoadShader();*/
 
 		/// <summary>
 		/// 描画する
