@@ -23,3 +23,10 @@
 #pragma comment(lib, "dInput8.lib")
 
 #pragma comment(lib, "dxguid.lib")
+
+// シェーダコンパイラ
+#include <d3dcompiler.h>
+#pragma comment(lib, "d3dcompiler.lib")
+
+#include <DirectXTex.h>
+#pragma comment(lib, "DirectXTex.lib")
