@@ -43,3 +43,9 @@ using Microsoft::WRL::ComPtr;
 
 #include <filesystem>
 namespace fs = std::filesystem;
+
+namespace wtgb
+{
+	// 無効なハンドル値
+	const uint32_t INVALID_HANDLE{ 0 };
+}

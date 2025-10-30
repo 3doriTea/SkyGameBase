@@ -1,6 +1,8 @@
 #pragma once
 #include "pch/pch.h"
 
+// TODO: 重複をチェックする関数を抽象化する
+
 namespace wtgb
 {
 	template<typename ValueT, std::unsigned_integral HandleT = uint32_t>
