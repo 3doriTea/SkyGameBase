@@ -20,14 +20,21 @@
 if (!(expression))\
 {\
 	DWORD errorCode{ GetLastError() };\
+	std::string hint{ "特になし" };\
+	switch (errorCode)\
+	{\
+		case 3: hint = "ファイルパスを間違えているかも！"; break;\
+		default: break;\
+	}\
 	std::string description\
 	{\
 		std::format(\
-			"{}\r\n\"{}\"より、{}行目の{}関数内でwassertが起動しました。\r\nキャンセルしない場合、例外スローします。Windowsの最終エラーを取得しますか？(はい/いいえ)",\
+			"{}\r\n\"{}\"より、{}行目の{}関数内でwassertが起動しました。\r\nキャンセルしない場合、例外スローします。Windowsの最終エラーを取得しますか？(はい/いいえ)\r\nヒント：{}",\
 			#expression,\
 			__FILE__,\
 			__LINE__,\
-			__FUNCTION__)\
+			__FUNCTION__,\
+			hint)\
 	};\
 	std::string title\
 	{\

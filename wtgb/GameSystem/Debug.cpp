@@ -7,6 +7,8 @@
 //#include "ResourceSystem/Texture.h"
 #include "ResourceSystem.h"
 
+#include "WTGBAssert.h"
+
 wtgb::Debug::Debug()
 {
 }
@@ -26,10 +28,9 @@ void wtgb::Debug::Update(const ViewerUpdate& _system)
 
 	if (input.IsKeyDown(KeyCode::L))
 	{
-		TextureHandle hTexture = _system.Get<ResourceSystem>().LoadTexture("Assets/Model/Oden.jpg");
+		TextureHandle hTexture = _system.Get<ResourceSystem>().LoadTexture("Assets/Models/Oden.jpg");
 
 		LOGFLN("ì«Ç›çûÇÒÇæÅI{}", hTexture);
-
 	}
 }
 

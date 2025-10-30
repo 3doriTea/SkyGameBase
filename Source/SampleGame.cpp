@@ -21,6 +21,8 @@
 #include "GameSystem/CPModelMesh.h"
 #include "GameSystem/CPMeshRenderer.h"
 
+#include "GameSystem/Path.h"
+
 using namespace wtgb;
 
 void SampleGame::StartRegister(
@@ -29,6 +31,7 @@ void SampleGame::StartRegister(
 	// TODO: “o˜^‡”Ô‚ªŒµ‚µ‚¢‚Æ‚±‚ë‚ª“ï‹V ƒ†[ƒU‚©‚ç‚·‚é‚Æ‚±‚±‚Í•s•Ö
 	_gameSystemRegister
 		.Register<GameTime>()
+		.Register<Path>()
 		.Register<Debug>()
 		.Register<GameWindow>()
 		

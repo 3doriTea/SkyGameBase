@@ -15,14 +15,26 @@ namespace wtgb
 		/// </summary>
 		class Current
 		{
+			friend Path;  // パスシステムからはアクセスできるようにするs
 		private:
-			Current();
+			Current(const fs::path& _currentPath);
 			~Current() {}
+
+		private:
+			fs::path currentPath_;  // カレントパス
+
 		public:
 			/// <summary>
 			/// 現在のディレクトリを取得する
 			/// </summary>
 			static fs::path Directory();
+
+			/// <summary>
+			/// ファイルが存在するかチェックする
+			/// </summary>
+			/// <param name="_path">チェックするファイルのパス</param>
+			/// <returns>存在する true / false</returns>
+			static bool Exists(const fs::path& _path);
 
 		private:
 			static Current* pInstance_;  // シングルトン用唯一のインスタンス

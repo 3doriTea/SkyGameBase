@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "Texture.h"
 #include "WTGBAssert.h"
+#include "GameSystem/Path.h"
 
 wtgb::Texture::Texture(Config& _config) :
 	config_{ _config },
@@ -60,6 +61,8 @@ void wtgb::Texture::CreateShaderResourceView(ID3D11Device* _pDevice)
 	HRESULT hResult{};
 
 	std::wstring fileNameW{ config_.fileName.begin(), config_.fileName.end() };
+
+	Path::Current::Exists(fileNameW);
 
 	hResult = LoadFromWICFile(
 		fileNameW.c_str(),
