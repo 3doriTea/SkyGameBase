@@ -46,6 +46,20 @@ namespace wtgb
 		template<typename T = ComponentT, typename ...Args>
 		ComponentT& Add(const EntityId _entityId, const Args& ...args);
 
+		/// <summary>
+		/// <para>コンポーネントを取得する</para>
+		/// <para>NOTE: 返されたポインタを保存しないでください！</para>
+		/// </summary>
+		/// <param name="_entityId">エンティティId</param>
+		/// <returns>コンポーネントのポインタ / なければ nullptr</returns>
+		ComponentT* Get(const EntityId _entityId);
+
+		/// <summary>
+		/// エンティティのコンポーネントをはずす
+		/// </summary>
+		/// <param name="_entityId">外すエンティティId</param>
+		void Remove(const EntityId _entityId);
+
 	protected:
 		/// <summary>
 		/// 初期化処理
@@ -68,7 +82,11 @@ namespace wtgb
 		const ComponentT& at(const size_t _index) const { return pool_.at(_index); }
 
 	private:
+		bool IsInvalidEntity(const EntityId _entityId);
+
+	private:
 		Pool pool_;
+		std::bitset<ENTITY_CAPACITY> useFlag_;  // エンティティがコンポーネントを使用しているかフラグ
 		ViewerCached system_;
 	};
 }

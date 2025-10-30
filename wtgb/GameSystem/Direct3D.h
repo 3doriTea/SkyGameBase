@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/IGameSystem.h"
+#include "Utility/Accessor.h"
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -12,6 +13,18 @@ namespace wtgb
 	/// </summary>
 	class Direct3D : public IGameSystem
 	{
+	public:
+		class ResourceAccessor : public Accessor<Direct3D>
+		{
+			friend Direct3D;
+		private:
+			using Accessor<Direct3D>::Accessor;
+			~ResourceAccessor() {}
+		
+		public:
+			 ID3D11Device* Device();
+		};
+
 	public:
 		Direct3D();
 		~Direct3D();
@@ -36,16 +49,19 @@ namespace wtgb
 		void End() override;
 
 		/// <summary>
-		/// シェーダを読み込む
-		/// </summary>
-		/*void LoadShader();*/
-
-		/// <summary>
 		/// 描画する
 		/// </summary>
 		void Render();
 
+		/// <summary>
+		/// リソースアクセッサを取得
+		/// </summary>
+		/// <returns>リソースへのアクセッサ</returns>
+		ResourceAccessor& Resource() { return resourceAccessor_; }
+
 	private:
 		Direct3DResource* pResource_;  // リソースのポインタ
+
+		ResourceAccessor resourceAccessor_;  // リソースへのアクセッサ
 	};
 }

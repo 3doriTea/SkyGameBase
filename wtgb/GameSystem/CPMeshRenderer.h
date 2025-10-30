@@ -10,10 +10,11 @@ namespace wtgb
 	/// </summary>
 	class CPMeshRenderer : public ComponentPool<MeshRenderer>
 	{
-	private:
+	public:
 		CPMeshRenderer();
 		~CPMeshRenderer();
 
+	private:
 		/// <summary>
 		/// ‰Šú‰»ˆ—
 		/// </summary>

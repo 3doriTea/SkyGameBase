@@ -4,6 +4,9 @@
 #include "Core/Game.h"
 #include "Input.h"
 
+//#include "ResourceSystem/Texture.h"
+#include "ResourceSystem.h"
+
 wtgb::Debug::Debug()
 {
 }
@@ -21,17 +24,12 @@ void wtgb::Debug::Update(const ViewerUpdate& _system)
 {
 	Input::InputGetter input{ _system.Get<Input>().Getter() };
 
-	Vector2Int mousePos{ input.GetMouseMove() };
-	LOGF("{}, {}\n", mousePos.x, mousePos.y);
-
-	if (input.IsKey(KeyCode::G))
+	if (input.IsKeyDown(KeyCode::L))
 	{
-		static int count{};
-		count++;
-		if (count >= 3)
-		{
-			Game::Exit();
-		}
+		TextureHandle hTexture = _system.Get<ResourceSystem>().LoadTexture("Assets/Model/Oden.jpg");
+
+		LOGFLN("ì«Ç›çûÇÒÇæÅI{}", hTexture);
+
 	}
 }
 

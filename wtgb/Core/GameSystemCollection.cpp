@@ -2,6 +2,7 @@
 #include "GameSystemCollection.h"
 #include "IGameSystem.h"
 
+#include "GameSystem/Debug.h"
 
 wtgb::GameSystemCollection::~GameSystemCollection()
 {
@@ -20,6 +21,7 @@ void wtgb::GameSystemCollection::UpdateForEach(const Indexes& _indexRef)
 	GameSystemUpdateViewer viewer{ this };
 	for (const auto index : _indexRef)
 	{
+		LOGFLN("systemIndex:{}", index);
 		gameSystems_[index]->Update(viewer);
 	}
 }

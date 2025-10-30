@@ -15,7 +15,8 @@ namespace
 }
 
 wtgb::Direct3D::Direct3D() :
-	pResource_{ new Direct3DResource{ D3D_RESOURCE_CONFIG } }
+	pResource_{ new Direct3DResource{ D3D_RESOURCE_CONFIG } },
+	resourceAccessor_{ this }
 {
 }
 
@@ -255,4 +256,9 @@ void wtgb::Direct3D::Render()
 
 		Game::Exit();
 	}
+}
+
+ID3D11Device* wtgb::Direct3D::ResourceAccessor::Device()
+{
+	return GetAccess()->pResource_->Device().Get();
 }

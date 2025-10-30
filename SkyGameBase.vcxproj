@@ -75,6 +75,7 @@
     <ClInclude Include="wtgb\GameSystem\Input\InputResource.h" />
     <ClInclude Include="wtgb\GameSystem\Input\KeyCode.h" />
     <ClInclude Include="wtgb\GameSystem\Input\MouseCode.h" />
+    <ClInclude Include="wtgb\GameSystem\ResourceSystem.h" />
     <ClInclude Include="wtgb\Utility\IResource.h" />
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\Material.h" />
     <ClInclude Include="wtgb\GameSystem\ModelMesh\Fbx.h" />
@@ -89,8 +90,8 @@
     <ClInclude Include="wtgb\GameSystem\ShaderCompile.h" />
     <ClInclude Include="wtgb\LogUtility.h" />
     <ClInclude Include="wtgb\ReleaseUtility.h" />
-    <ClInclude Include="wtgb\ResourceType\Material.h" />
-    <ClInclude Include="wtgb\ResourceType\Texture.h" />
+    <ClInclude Include="wtgb\GameSystem\ResourceSystem\Material.h" />
+    <ClInclude Include="wtgb\GameSystem\ResourceSystem\Texture.h" />
     <ClInclude Include="wtgb\Utility\Accessor.h" />
     <ClInclude Include="wtgb\Utility\InitSequence.h" />
     <ClInclude Include="wtgb\Utility\InputChecker.h" />
@@ -132,6 +133,8 @@
     <ClCompile Include="wtgb\GameSystem\IComponentPool.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ResourceSystem.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ResourceSystem\Texture.cpp" />
     <ClCompile Include="wtgb\Utility\IResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\Fbx.cpp" />
     <ClCompile Include="wtgb\GameSystem\Rendering.cpp" />

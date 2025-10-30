@@ -37,7 +37,7 @@ Player::~Player()
 
 void Player::Init()
 {
-	GetComponent<ModelMesh>().Load();
+	//GetComponent<ModelMesh>().Load();
 }
 
 void Player::Update()

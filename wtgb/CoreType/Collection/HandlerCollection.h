@@ -47,7 +47,8 @@ namespace wtgb
 		/// <returns>尾イテレータ</returns>
 		std::map<HandleT, ValueT>::iterator end() { return innerMap.end(); }
 
-		ValueT Get(const HandleT _handle);
+		ValueT& At(const HandleT _handle);
+		const ValueT& At(const HandleT _handle) const;
 	private:
 		InnerMap innerMap{};
 		HandleT counter_{};
@@ -89,7 +90,14 @@ void wtgb::HandlerCollection<ValueT, HandleT>::Release(const std::function<void(
 }
 
 template<typename ValueT, std::unsigned_integral HandleT>
-inline ValueT wtgb::HandlerCollection<ValueT, HandleT>::Get(const HandleT _handle)
+inline ValueT& wtgb::HandlerCollection<ValueT, HandleT>::At(const HandleT _handle)
 {
-	return innerMap[_handle];
+	return innerMap.at(_handle);
 }
+
+template<typename ValueT, std::unsigned_integral HandleT>
+inline const ValueT& wtgb::HandlerCollection<ValueT, HandleT>::At(const HandleT _handle) const
+{
+	return innerMap.at(_handle);
+}
+

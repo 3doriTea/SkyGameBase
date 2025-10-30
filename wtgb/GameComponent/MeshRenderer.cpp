@@ -3,5 +3,5 @@
 
 void wtgb::MeshRenderer::Init(ViewerCached _system)
 {
-
+	
 }

@@ -10,6 +10,7 @@
 #include "GameSystem/ComponentManager.h"
 
 #include "GameSystem/Rendering.h"
+#include "GameSystem/ResourceSystem.h"
 
 #include "Systems/MainWindow.h"
 #include "Systems/FirstSceneRegister.h"
@@ -17,6 +18,8 @@
 #include "GameSystem/CPGameObject.h"
 #include "GameSystem/CPGameObjectProperty.h"
 #include "GameSystem/CPTransform.h"
+#include "GameSystem/CPModelMesh.h"
+#include "GameSystem/CPMeshRenderer.h"
 
 using namespace wtgb;
 
@@ -37,6 +40,7 @@ void SampleGame::StartRegister(
 		.Register<Input>()
 
 		.Register<SceneManager>()
+		.Register<ResourceSystem>()
 		
 		// ƒV[ƒ“ƒ}ƒl[ƒW‚ğ“o˜^‚µ‚½‚ ‚Æ‚ÅÅ‰‚ÌƒV[ƒ“‚ğ“o˜^
 		.Register<FirstSceneRegister>()
@@ -46,6 +50,10 @@ void SampleGame::StartRegister(
 		.Register<CPGameObject>()
 		.Register<CPGameObjectProperty>()
 		.Register<CPTransform>()
+
+		// •`‰æŒn
+		.Register<CPModelMesh>()
+		.Register<CPMeshRenderer>()
 
 
 		.Register<Rendering>()

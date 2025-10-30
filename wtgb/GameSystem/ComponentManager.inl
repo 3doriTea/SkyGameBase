@@ -20,9 +20,12 @@ inline T& wtgb::ComponentManager::Add(const EntityId _entityId)
 template<typename T>
 T& wtgb::ComponentManager::Get(const EntityId _entityId)
 {
-	T* pComponent{ dynamic_cast<T*>(typeToPools_.at(typeid(T))) };
+	/*T* pComponent{ dynamic_cast<T*>(typeToPools_.at(typeid(T))) };
 	assert(pComponent && "指定したコンポーネントが見つからなかった");
 
+	return *pComponent;*/
+
+	T* pComponent{ system_.Get<typename T::PoolT>().Get(_entityId) };
 	return *pComponent;
 }
 

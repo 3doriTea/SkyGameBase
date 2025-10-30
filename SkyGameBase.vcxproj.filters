@@ -249,10 +249,13 @@
     <ClInclude Include="wtgb\GameSystem\ShaderCompile.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="wtgb\ResourceType\Material.h">
+    <ClInclude Include="wtgb\GameSystem\ResourceSystem\Material.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="wtgb\ResourceType\Texture.h">
+    <ClInclude Include="wtgb\GameSystem\ResourceSystem\Texture.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\ResourceSystem.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -375,6 +378,12 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="wtgb\GameSystem\ShaderCompile.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\ResourceSystem\Texture.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\ResourceSystem.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>

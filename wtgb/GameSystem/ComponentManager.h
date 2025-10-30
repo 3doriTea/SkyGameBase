@@ -68,6 +68,8 @@ namespace wtgb
 		/// <returns>前に生成したエンティティのId</returns>
 		EntityId GetPrevEntity() const { return prevEntityId_; }
 
+		const bool IsInvalidId(const EntityId _checkId) const { return entityGenerator_.IsInvalidId(_checkId); }
+
 		/// <summary>
 		/// エンティティを消す
 		/// </summary>
