@@ -18,15 +18,22 @@ namespace wtgb
 			/// <summary>
 			/// 各シェーダ固有の指定
 			/// </summary>
-			struct Target
+			struct ShaderTarget
 			{
 				std::string entryPointName;  // エントリポイント名
 				std::string compileVersion;  // シェーダのバージョン
 			};
 
-			Target target;  // 各シェーダ固有の指定
+			ShaderTarget vertexShader;  // 頂点シェーダ固有の指定
+			ShaderTarget pixelShader;   // ピクセルシェーダ固有の指定
+
+			std::vector<D3D11_INPUT_ELEMENT_DESC> vertexInputLayout;  // 頂点インプットレイアウト
 
 			std::string fileName;  // ファイル名
+
+			D3D11_FILL_MODE fillMode;  // 塗りつぶしモード
+			D3D11_CULL_MODE cullMode;  // 陰面消去モード
+			bool backIsClockwise;  // 時計回りを裏面とするか
 
 			UINT flag1{ 0 };  // フラグ1
 			UINT flag2{ 0 };  // フラグ2

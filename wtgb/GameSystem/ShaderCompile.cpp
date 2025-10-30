@@ -4,7 +4,8 @@
 #include "WTGBAssert.h"
 #include "Direct3D.h"
 
-wtgb::ShaderCompile::ShaderCompile()
+wtgb::ShaderCompile::ShaderCompile() :
+	system_{ nullptr }
 {
 }
 
@@ -33,18 +34,19 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 
 	HRESULT hResult{};
 	ComPtr<ID3DBlob> pError{ nullptr };
+	ComPtr<ID3DBlob> pCompileVS{ nullptr };
+	ComPtr<ID3DBlob> pCompilePS{ nullptr };
 
 #pragma region 頂点シェーダのコンパイル
-	ComPtr<ID3DBlob> pCompileVS{ nullptr };
-
 	std::wstring fileNameW{ _config.fileName.begin(), _config.fileName.end() };
 
+	// 頂点シェーダをファイルからコンパイル
 	hResult = D3DCompileFromFile(
 		fileNameW.c_str(),
 		_config.pDefines,
 		_config.pInclude,
-		_config.target.entryPointName.c_str(),
-		_config.target.compileVersion.c_str(),
+		_config.vertexShader.entryPointName.c_str(),
+		_config.vertexShader.compileVersion.c_str(),
 		_config.flag1,
 		_config.flag2,
 		pCompileVS.GetAddressOf(),
@@ -52,6 +54,7 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 	wassert(SUCCEEDED(hResult) && "頂点シェーダのコンパイルに失敗");
 	if (FAILED(hResult))
 	{
+		LOGFLN("頂点シェーダコンパイルエラー：{}", reinterpret_cast<char*>(pError.Get()));
 		// 失敗したなら無効ハンドルを返す
 		return INVALID_HANDLE;
 	}
@@ -67,14 +70,85 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 		// 失敗したなら無効ハンドルを返す
 		return INVALID_HANDLE;
 	}
-	// TODO: 次頂点インプットレイアウト、そしてピクセルシェーダ、最後にラスタライザ
 #pragma endregion
 
 #pragma region 頂点インプットレイアウト
+	hResult = pDevice->CreateInputLayout(
+		_config.vertexInputLayout.data(),
+		static_cast<UINT>(_config.vertexInputLayout.size()),
+		pCompileVS->GetBufferPointer(),
+		pCompileVS->GetBufferSize(),
+		shaders_.At(hShader).VertexLayout().GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "頂点インプットレイアウトの作成失敗");
+	if (FAILED(hResult))
+	{
+		// 失敗したなら無効ハンドルを返す
+		return INVALID_HANDLE;
+	}
 #pragma endregion
 
 #pragma region ピクセルシェーダ
+	// ピクセルシェーダをファイルからコンパイル
+	hResult = D3DCompileFromFile(
+		fileNameW.c_str(),
+		_config.pDefines,
+		_config.pInclude,
+		_config.vertexShader.entryPointName.c_str(),
+		_config.vertexShader.compileVersion.c_str(),
+		_config.flag1,
+		_config.flag2,
+		pCompileVS.GetAddressOf(),
+		pError.GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "ピクセルシェーダのコンパイルに失敗");
+	if (FAILED(hResult))
+	{
+		LOGFLN("ピクセルシェーダコンパイルエラー：{}", reinterpret_cast<char*>(pError.Get()));
+		// 失敗したなら無効ハンドルを返す
+		return INVALID_HANDLE;
+	}
+
+	hResult = pDevice->CreatePixelShader(
+		pCompileVS->GetBufferPointer(),
+		pCompileVS->GetBufferSize(),
+		nullptr,
+		shaders_.At(hShader).PixelShader().GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "ピクセルシェーダの作成に失敗");
+	if (FAILED(hResult))
+	{
+		// 失敗したなら無効ハンドルを返す
+		return INVALID_HANDLE;
+	}
 #pragma endregion
 
+#pragma region ラスタライザ
+	const D3D11_RASTERIZER_DESC RASTERIZER_DESC
+	{
+		.FillMode = _config.fillMode,
+		.CullMode = _config.cullMode,
+		.FrontCounterClockwise = _config.backIsClockwise,
+		.DepthBias = {},
+		.DepthBiasClamp = {},
+		.SlopeScaledDepthBias = {},
+		.DepthClipEnable = {},
+		.ScissorEnable = {},
+		.MultisampleEnable = {},
+		.AntialiasedLineEnable = {},
+	};
+	// ラスタライザステートを作成する
+	hResult = pDevice->CreateRasterizerState(
+		&RASTERIZER_DESC,
+		shaders_.At(hShader).RasterizerState().GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "ラスタライザステートの作成に失敗");
+	if (FAILED(hResult))
+	{
+		// 失敗したなら無効ハンドルを返す
+		return INVALID_HANDLE;
+	}
+#pragma endregion
+
+	// 明示的に解放
+
 	pError.Reset();
+	pCompileVS.Reset();
+	pCompilePS.Reset();
 }
