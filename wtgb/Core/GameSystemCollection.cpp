@@ -4,6 +4,10 @@
 
 #include "GameSystem/Debug.h"
 
+wtgb::GameSystemCollection::GameSystemCollection()
+{
+}
+
 wtgb::GameSystemCollection::~GameSystemCollection()
 {
 	callFrameIndexes_.clear();

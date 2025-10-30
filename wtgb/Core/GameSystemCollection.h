@@ -112,7 +112,7 @@ namespace wtgb
 		};
 
 	public:
-		GameSystemCollection() {}
+		GameSystemCollection();
 		~GameSystemCollection();
 
 		/// <summary>

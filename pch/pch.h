@@ -38,5 +38,8 @@
 #endif //PCH_H
 
 #include <wrl/client.h>
-
 using Microsoft::WRL::ComPtr;
+
+
+#include <filesystem>
+namespace fs = std::filesystem;
