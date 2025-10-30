@@ -151,4 +151,6 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 	pError.Reset();
 	pCompileVS.Reset();
 	pCompilePS.Reset();
+
+	return hShader;
 }

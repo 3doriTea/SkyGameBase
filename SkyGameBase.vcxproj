@@ -138,6 +138,7 @@
     <ClCompile Include="wtgb\GameSystem\Path.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem\Texture.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ShaderCompile\Shader.cpp" />
     <ClCompile Include="wtgb\Utility\IResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\Fbx.cpp" />
     <ClCompile Include="wtgb\GameSystem\Rendering.cpp" />

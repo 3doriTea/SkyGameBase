@@ -3,6 +3,9 @@
 
 namespace wtgb
 {
+	/// <summary>
+	/// •`‰æ‚ği‚éƒVƒXƒeƒ€
+	/// </summary>
 	class Rendering : public IGameSystem
 	{
 	public:
