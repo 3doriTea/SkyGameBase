@@ -5,6 +5,9 @@
 
 namespace wtgb
 {
+	// –³Œø‚Èƒnƒ“ƒhƒ‹’l
+	const uint32_t INVALID_HANDLE{ 0 };
+
 	template<typename ValueT, std::unsigned_integral HandleT = uint32_t>
 	class HandlerCollection
 	{

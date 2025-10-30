@@ -35,7 +35,6 @@
 #include "CoreType/Matrix4x4.h"
 #include "CoreType/Collection/HandlerCollection.h"
 
-#endif //PCH_H
 
 #include <wrl/client.h>
 using Microsoft::WRL::ComPtr;
@@ -44,8 +43,4 @@ using Microsoft::WRL::ComPtr;
 #include <filesystem>
 namespace fs = std::filesystem;
 
-namespace wtgb
-{
-	// 無効なハンドル値
-	const uint32_t INVALID_HANDLE{ 0 };
-}
+#endif //PCH_H
