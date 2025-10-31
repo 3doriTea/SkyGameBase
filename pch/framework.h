@@ -30,3 +30,6 @@
 
 #include <DirectXTex.h>
 #pragma comment(lib, "DirectXTex.lib")
+
+// ufbx
+#include "Library/ufbx/ufbx.h"

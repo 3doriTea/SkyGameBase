@@ -7,6 +7,17 @@ namespace wtgb
 	class Fbx
 	{
 	public:
+		/// <summary>
+		/// 頂点
+		/// </summary>
+		struct Vertex
+		{
+			Vector3 position;  // 座標
+			Vector3 uv;  // UV座標
+			Vector3 normal;  // 法線
+		};
+
+	public:
 		Fbx();
 		~Fbx();
 
