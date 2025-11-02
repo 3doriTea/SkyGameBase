@@ -5,8 +5,6 @@
 namespace wtgb
 {
 	// TODO: シェーダ コンパイル -> コンパイラーに名前変更を考える
-
-	using ShaderHandle = uint32_t;
 	class ShaderCompile : public IGameSystem
 	{
 	public:
@@ -24,12 +22,13 @@ namespace wtgb
 				std::string compileVersion;  // シェーダのバージョン
 			};
 
+			std::string fileName;  // ファイル名
+
 			ShaderTarget vertexShader;  // 頂点シェーダ固有の指定
 			ShaderTarget pixelShader;   // ピクセルシェーダ固有の指定
 
 			std::vector<D3D11_INPUT_ELEMENT_DESC> vertexInputLayout;  // 頂点インプットレイアウト
 
-			std::string fileName;  // ファイル名
 
 			D3D11_FILL_MODE fillMode;  // 塗りつぶしモード
 			D3D11_CULL_MODE cullMode;  // 陰面消去モード

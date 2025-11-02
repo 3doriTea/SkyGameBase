@@ -4,10 +4,8 @@
 
 namespace wtgb
 {
-	using TextureHandle = uint32_t;
 	class ResourceSystem : public IGameSystem
 	{
-	public:
 	public:
 		ResourceSystem();
 		~ResourceSystem();

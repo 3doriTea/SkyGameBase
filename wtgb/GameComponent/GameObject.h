@@ -28,6 +28,9 @@ namespace wtgb
 	/// </summary>
 	class COMPONENT(GameObject)
 	{
+		template<typename ComponentT>
+		friend class ComponentSetter;
+
 		friend class CPGameObject;
 	public:
 		struct Config;

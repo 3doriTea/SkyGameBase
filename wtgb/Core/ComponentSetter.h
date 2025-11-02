@@ -38,17 +38,12 @@ namespace wtgb
 		/// コンポーネントの設定終了
 		/// </summary>
 		/// <returns>ビルダー</returns>
-		GameObjectBuilder& EndSetter()
-		{
-			delete pOption_;
-
-			GameObjectBuilder& builder{ builder_ };
-			delete this;
-			return builder;
-		}
+		GameObjectBuilder& EndSetter();
 
 	private:
 		GameObjectBuilder& builder_;
 		ComponentOption<ComponentT>* pOption_;
 	};
 }
+
+#include "ComponentSetter.inl"

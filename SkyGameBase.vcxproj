@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Library\ufbx\ufbx.h" />
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="Source\SkyGameBase.h" />
     <ClInclude Include="wtgb\CoreType\Collection\HandlerCollection.h" />
     <ClInclude Include="wtgb\CoreType\CoreType.h" />
+    <ClInclude Include="wtgb\CoreType\Handler.h" />
     <ClInclude Include="wtgb\CoreType\ICoreType.h" />
     <ClInclude Include="wtgb\CoreType\Matrix4x4.h" />
     <ClInclude Include="wtgb\CoreType\Vector2Int.h" />
@@ -102,6 +104,7 @@
     <ClInclude Include="wtgb\WTGBResult.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Library\ufbx\ufbx.cpp" />
     <ClCompile Include="pch\pch.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
@@ -153,6 +156,7 @@
   <ItemGroup>
     <None Include="Doc\CodingGuide.md" />
     <None Include="packages.config" />
+    <None Include="wtgb\Core\ComponentSetter.inl" />
     <None Include="wtgb\Core\GameObjectBuilder.inl" />
     <None Include="wtgb\GameSystem\ComponentManager.inl" />
     <None Include="wtgb\GameSystem\ComponentPool.inl" />
@@ -250,6 +254,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>powershell -c (New-Object Media.SoundPlayer "C:\Users\admin\Music\buildOWATTA.wav").PlaySync();</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -268,6 +275,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>powershell -c (New-Object Media.SoundPlayer "C:\Users\admin\Music\buildOWATTA.wav").PlaySync();</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -285,6 +295,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>powershell -c (New-Object Media.SoundPlayer "C:\Users\admin\Music\buildOWATTA.wav").PlaySync();</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -304,6 +317,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>powershell -c (New-Object Media.SoundPlayer "C:\Users\admin\Music\buildOWATTA.wav").PlaySync();</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

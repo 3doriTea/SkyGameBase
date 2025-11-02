@@ -15,7 +15,7 @@ namespace wtgb
 			SETTER_PARAM(std::string, texture)
 		};
 
-	public:
+	public:	
 		MeshRenderer() {}
 		~MeshRenderer() {}
 
@@ -25,5 +25,7 @@ namespace wtgb
 	private:
 		std::string shader_;
 		std::string texture_;
+
+		TextureHandle hTexture_;
 	};
 }

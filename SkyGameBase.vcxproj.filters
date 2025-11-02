@@ -264,6 +264,12 @@
     <ClInclude Include="wtgb\GameSystem\ShaderCompile\Shader.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\CoreType\Handler.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ufbx\ufbx.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -398,6 +404,9 @@
     <ClCompile Include="wtgb\GameSystem\ShaderCompile\Shader.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Library\ufbx\ufbx.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -416,6 +425,9 @@
       <Filter>C++未分類ファイル</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="wtgb\Core\ComponentSetter.inl">
+      <Filter>C++未分類ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

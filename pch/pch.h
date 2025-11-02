@@ -34,6 +34,7 @@
 #include "CoreType/Vector3.h"
 #include "CoreType/Matrix4x4.h"
 #include "CoreType/Collection/HandlerCollection.h"
+#include "CoreType/Handler.h"
 
 
 #include <wrl/client.h>

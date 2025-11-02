@@ -3,8 +3,6 @@
 
 namespace wtgb
 {
-	using GameWindowHandle = uint32_t;
-
 	class GameWindow : public IGameSystem
 	{
 	public:

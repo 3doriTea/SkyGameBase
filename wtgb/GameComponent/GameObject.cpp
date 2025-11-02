@@ -10,6 +10,8 @@
 //#include "CPTransform.h"
 #include "GameSystem/ComponentManager.h"
 
+#include "Core/ComponentSetter.h"
+
 wtgb::GameObject::GameObject() : 
 	GameObject{ [](GameObjectBuilder&){} }
 {

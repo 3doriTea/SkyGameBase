@@ -10,6 +10,8 @@
 #include <memory.h>
 #include <tchar.h>
 
+#include <cmath>
+
 // DirectX
 #include <d3d11.h>
 #include <DirectXMath.h>
