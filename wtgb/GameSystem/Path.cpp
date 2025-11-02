@@ -12,6 +12,8 @@ wtgb::Path::~Path()
 
 wtgb::Result wtgb::Path::Init(const ViewerInit& _viewer)
 {
+	SetCurrentDirectory("./Assets");
+
 	Current::pInstance_ = new Current{ fs::current_path() };
 	return Result::Code::Ok;
 }

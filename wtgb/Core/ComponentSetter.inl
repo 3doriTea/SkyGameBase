@@ -1,7 +1,7 @@
 template<typename ComponentT>
 wtgb::GameObjectBuilder& wtgb::ComponentSetter<ComponentT>::EndSetter()
 {
-	builder_.target_.template GetComponent<ComponentT>().Init(nullptr);
+	builder_.target_.template GetComponent<ComponentT>().Init(*builder_.target_.pCachedSystem_);
 
 	delete pOption_;
 

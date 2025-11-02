@@ -32,6 +32,7 @@
 //#include "CoreType/CoreType.h"
 #include "CoreType/Vector2Int.h"
 #include "CoreType/Vector3.h"
+#include "CoreType/Vector2.h"
 #include "CoreType/Matrix4x4.h"
 #include "CoreType/Collection/HandlerCollection.h"
 #include "CoreType/Handler.h"

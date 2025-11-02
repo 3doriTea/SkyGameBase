@@ -3,14 +3,20 @@
 
 namespace wtgb
 {
+	/// <summary>
+	/// モデルのインタフェースクラス
+	/// </summary>
 	class IModel
 	{
 	public:
-		IModel();
-		virtual ~IModel();
+		IModel() {}
+		virtual ~IModel() {}
 
-		bool TryLoad();
-
-
+		/// <summary>
+		/// 試しにモデルを読み込む
+		/// </summary>
+		/// <param name="_fileName">ファイル名</param>
+		/// <returns>ロード結果</returns>
+		virtual HRESULT TryLoad(const std::string& _fileName) = 0;
 	};
 }

@@ -1,10 +1,11 @@
 #pragma once
 #include "pch/pch.h"
+#include "IModel.h"
 #include "GameComponent/Transform.h"
 
 namespace wtgb
 {
-	class Fbx
+	class Fbx : public IModel
 	{
 	public:
 		/// <summary>
@@ -13,8 +14,8 @@ namespace wtgb
 		struct Vertex
 		{
 			Vector3 position;  // 座標
-			Vector3 uv;  // UV座標
-			Vector3 normal;  // 法線
+			Vector3 normal;    // 法線
+			Vector2 uv;        // UV座標
 		};
 
 	public:
@@ -26,7 +27,7 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_fileName">ファイル名</param>
 		/// <returns>Fbxをロードする</returns>
-		HRESULT Load(const std::string& _fileName);
+		HRESULT TryLoad(const std::string& _fileName);
 		/// <summary>
 		/// Fbxを描画する
 		/// </summary>
@@ -36,6 +37,9 @@ namespace wtgb
 		/// 読み込んだモデルの解放処理
 		/// </summary>
 		void Release();
+
+	private:
+		void InitVertex(ufbx_mesh* pMesh, ufbx_mesh_part* pPart);
 
 	private:
 		int vertexCount_;  // 頂点数

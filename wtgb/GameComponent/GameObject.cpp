@@ -24,6 +24,10 @@ wtgb::GameObject::GameObject(std::function<void(GameObjectBuilder&)> _callback) 
 	_callback(builder);
 }
 
+wtgb::GameObject::~GameObject()
+{
+}
+
 wtgb::GameObjectProperty& wtgb::GameObject::Property()
 {
 	return System().Get<ComponentManager>().Get<GameObjectProperty>(entityId_);

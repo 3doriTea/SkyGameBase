@@ -22,7 +22,7 @@ namespace wtgb
 
 		void Load();
 
-		void Init(ViewerCached system_) override {}
+		void Init(ViewerCached system_) override;
 		void Update(ViewerCached system_) override {}
 
 	private:

@@ -15,6 +15,7 @@ wtgb::ShaderCompile::~ShaderCompile()
 
 wtgb::Result wtgb::ShaderCompile::Init(const ViewerInit& _viewer)
 {
+	system_ = _viewer.GetCache();
 	return Result::Code::Ok;
 }
 
@@ -93,11 +94,11 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 		fileNameW.c_str(),
 		_config.pDefines,
 		_config.pInclude,
-		_config.vertexShader.entryPointName.c_str(),
-		_config.vertexShader.compileVersion.c_str(),
+		_config.pixelShader.entryPointName.c_str(),
+		_config.pixelShader.compileVersion.c_str(),
 		_config.flag1,
 		_config.flag2,
-		pCompileVS.GetAddressOf(),
+		pCompilePS.GetAddressOf(),
 		pError.GetAddressOf());
 	wassert(SUCCEEDED(hResult) && "ピクセルシェーダのコンパイルに失敗");
 	if (FAILED(hResult))
@@ -108,8 +109,8 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 	}
 
 	hResult = pDevice->CreatePixelShader(
-		pCompileVS->GetBufferPointer(),
-		pCompileVS->GetBufferSize(),
+		pCompilePS->GetBufferPointer(),
+		pCompilePS->GetBufferSize(),
 		nullptr,
 		shaders_.At(hShader).PixelShader().GetAddressOf());
 	wassert(SUCCEEDED(hResult) && "ピクセルシェーダの作成に失敗");

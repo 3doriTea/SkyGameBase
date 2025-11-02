@@ -6,6 +6,7 @@ namespace wtgb
 {
 	class COMPONENT(MeshRenderer)
 	{
+		friend class ModelMesh;
 	public:
 		class SETTER(MeshRenderer)
 		{
@@ -16,7 +17,7 @@ namespace wtgb
 		};
 
 	public:	
-		MeshRenderer() {}
+		MeshRenderer();
 		~MeshRenderer() {}
 
 		void Init(ViewerCached _system) override;
@@ -26,6 +27,7 @@ namespace wtgb
 		std::string shader_;
 		std::string texture_;
 
+		ShaderHandle  hShader_;
 		TextureHandle hTexture_;
 	};
 }

@@ -2,10 +2,17 @@
 #include "MeshRenderer.h"
 #include "GameSystem/ResourceSystem.h"
 #include "GameSystem/ShaderCompile.h"
+#include "GameComponent/ModelMesh.h"
+
+wtgb::MeshRenderer::MeshRenderer() :
+	hShader_{ INVALID_HANDLE },
+	hTexture_{ INVALID_HANDLE }
+{
+}
 
 void wtgb::MeshRenderer::Init(ViewerCached _system)
 {
-	_system.Get<ShaderCompile>().Compile(
+	hShader_ = _system.Get<ShaderCompile>().Compile(
 		{
 			.fileName = shader_,
 			.vertexShader
@@ -28,5 +35,5 @@ void wtgb::MeshRenderer::Init(ViewerCached _system)
 			.cullMode = D3D11_CULL_BACK,   // âBñ è¡ãé
 			.backIsClockwise = false,
 		});
-	_system.Get<ResourceSystem>().LoadTexture(texture_);
+	hTexture_ = _system.Get<ResourceSystem>().LoadTexture(texture_);
 }

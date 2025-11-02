@@ -22,6 +22,7 @@
 #include "GameSystem/CPMeshRenderer.h"
 
 #include "GameSystem/Path.h"
+#include "GameSystem/ShaderCompile.h"
 
 using namespace wtgb;
 
@@ -34,7 +35,7 @@ void SampleGame::StartRegister(
 		.Register<Path>()
 		.Register<Debug>()
 		.Register<GameWindow>()
-		
+
 		// ゲームウィンドウシステムを登録したあとでメインウィンドウを登録
 		.Register<MainWindow>()
 
@@ -45,6 +46,8 @@ void SampleGame::StartRegister(
 		.Register<SceneManager>()
 		.Register<ResourceSystem>()
 		
+		.Register<ShaderCompile>()
+
 		// シーンマネージを登録したあとで最初のシーンを登録
 		.Register<FirstSceneRegister>()
 

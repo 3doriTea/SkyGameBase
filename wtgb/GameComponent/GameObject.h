@@ -45,7 +45,7 @@ namespace wtgb
 
 	public:
 		GameObject(std::function<void(GameObjectBuilder&)>);
-		virtual ~GameObject() {};
+		virtual ~GameObject();
 
 		virtual void Init() {}
 		virtual void Init(ViewerUpdate& _system) {}

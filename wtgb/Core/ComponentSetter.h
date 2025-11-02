@@ -2,6 +2,7 @@
 #include "pch/pch.h"
 #include "Utility/Accessor.h"
 
+
 namespace wtgb
 {
 	class GameObjectBuilder;
