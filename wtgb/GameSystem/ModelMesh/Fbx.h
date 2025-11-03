@@ -1,11 +1,11 @@
 #pragma once
 #include "pch/pch.h"
-#include "IModel.h"
+#include "ModelResource.h"
 #include "GameComponent/Transform.h"
 
 namespace wtgb
 {
-	class Fbx : public IModel
+	class Fbx : public ModelResource
 	{
 	public:
 		/// <summary>
@@ -18,32 +18,52 @@ namespace wtgb
 			Vector2 uv;        // UV座標
 		};
 
+		/// <summary>
+		/// 定数バッファ
+		/// </summary>
+		struct ConstantBuffer
+		{
+			DirectX::XMMATRIX matWVP;
+			DirectX::XMMATRIX matNormal;
+			DirectX::XMFLOAT4 diffuse;
+			BOOL materialFLag;  // 16byte単位で送られるから仕方ない
+		};
+
 	public:
-		Fbx();
+		using ModelResource::ModelResource;
 		~Fbx();
 
-		/// <summary>
-		/// Fbxをロードする
-		/// </summary>
-		/// <param name="_fileName">ファイル名</param>
-		/// <returns>Fbxをロードする</returns>
-		HRESULT TryLoad(const std::string& _fileName);
 		/// <summary>
 		/// Fbxを描画する
 		/// </summary>
 		/// <param name="_transform">描画するモデルの座標系</param>
 		void Draw(Transform& _transform);
+
+	private:
+		/// <summary>
+		/// Fbxをロードする
+		/// </summary>
+		void Init() override;
+
 		/// <summary>
 		/// 読み込んだモデルの解放処理
 		/// </summary>
-		void Release();
+		void Release() override;
 
-	private:
+		void InitTest(ufbx_mesh* pMesh);
+
 		void InitVertex(ufbx_mesh* pMesh, ufbx_mesh_part* pPart);
+		void InitIndex(ufbx_mesh* pMesh);
+		void InitConstant();
 
 	private:
-		int vertexCount_;  // 頂点数
-		int polygonCount_;  // ポリゴン数
-		int materialCount_;  // マテリアルの個数
+		size_t vertexCount_;  // 頂点数
+		size_t polygonCount_;  // ポリゴン数
+		size_t materialCount_;  // マテリアルの個数
+
+		ComPtr<ID3D11Buffer> pVertexBuffer_;    // 頂点バッファ
+		ComPtr<ID3D11Buffer> pIndexBuffer_;     // いんでっくすバッファ
+		ComPtr<ID3D11Buffer> pConstantBuffer_;  // コンスタントバッファ
+
 	};
 }

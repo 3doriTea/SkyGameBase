@@ -11,6 +11,7 @@
 
 #include "GameSystem/Rendering.h"
 #include "GameSystem/ResourceSystem.h"
+#include "GameSystem/Model.h"
 
 #include "Systems/MainWindow.h"
 #include "Systems/FirstSceneRegister.h"
@@ -20,6 +21,8 @@
 #include "GameSystem/CPTransform.h"
 #include "GameSystem/CPModelMesh.h"
 #include "GameSystem/CPMeshRenderer.h"
+
+#include "GameSystem/Camera.h"
 
 #include "GameSystem/Path.h"
 #include "GameSystem/ShaderCompile.h"
@@ -47,6 +50,7 @@ void SampleGame::StartRegister(
 		.Register<ResourceSystem>()
 		
 		.Register<ShaderCompile>()
+		.Register<Model>()
 
 		// ƒV[ƒ“ƒ}ƒl[ƒW‚ğ“o˜^‚µ‚½‚ ‚Æ‚ÅÅ‰‚ÌƒV[ƒ“‚ğ“o˜^
 		.Register<FirstSceneRegister>()
@@ -58,6 +62,7 @@ void SampleGame::StartRegister(
 		.Register<CPTransform>()
 
 		// •`‰æŒn
+		.Register<Camera>()
 		.Register<CPModelMesh>()
 		.Register<CPMeshRenderer>()
 

@@ -4,11 +4,12 @@
 #include "GameSystem/CPGameObject.h"
 #include "GameSystem/SceneManager.h"
 
-wtgb::GameScene::GameScene(Config&& _config) :
-	cachedSystem_{ nullptr }
+wtgb::GameScene::GameScene(Config&& _config)
 {
 }
 
 wtgb::GameScene::~GameScene()
 {
 }
+
+wtgb::ViewerCached wtgb::GameScene::cachedSystem_{ nullptr };

@@ -16,6 +16,7 @@ wtgb::SceneManager::~SceneManager()
 wtgb::Result wtgb::SceneManager::Init(const ViewerInit& _viewer)
 {
 	system_ = _viewer.GetCache();
+	GameScene::cachedSystem_ = _viewer.GetCache();
 	return Result::Code::Ok;
 }
 

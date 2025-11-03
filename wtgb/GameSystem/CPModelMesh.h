@@ -4,7 +4,6 @@
 
 namespace wtgb
 {
-
 	class ModelMesh;
 	/// <summary>
 	/// コンポーネントプール : モデルメッシュ

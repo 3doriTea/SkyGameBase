@@ -50,6 +50,7 @@
     <ClInclude Include="wtgb\GameComponent\MeshRenderer.h" />
     <ClInclude Include="wtgb\GameComponent\ModelMesh.h" />
     <ClInclude Include="wtgb\GameComponent\Transform.h" />
+    <ClInclude Include="wtgb\GameSystem\Camera.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager.h" />
     <ClInclude Include="wtgb\Core\Entity.h" />
     <ClInclude Include="wtgb\Core\Game.h" />
@@ -85,7 +86,7 @@
     <ClInclude Include="wtgb\Utility\IResource.h" />
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\Material.h" />
     <ClInclude Include="wtgb\GameSystem\ModelMesh\Fbx.h" />
-    <ClInclude Include="wtgb\GameSystem\ModelMesh\IModel.h" />
+    <ClInclude Include="wtgb\GameSystem\ModelMesh\ModelResource.h" />
     <ClInclude Include="wtgb\GameSystem\Rendering.h" />
     <ClInclude Include="wtgb\GameSystem\SceneManager.h" />
     <ClInclude Include="wtgb\GameSystem\ScreenResource.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="wtgb\GameComponent\GameObject.cpp" />
     <ClCompile Include="wtgb\GameComponent\MeshRenderer.cpp" />
     <ClCompile Include="wtgb\GameComponent\ModelMesh.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Camera.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager.cpp" />
     <ClCompile Include="wtgb\Core\Game.cpp" />
     <ClCompile Include="wtgb\Core\GameLoop.cpp" />
@@ -141,6 +143,7 @@
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\Model.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ModelMesh\ModelResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\Path.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem\Texture.cpp" />

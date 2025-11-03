@@ -17,7 +17,7 @@ namespace wtgb
 		};
 
 	public:
-		ModelMesh() {}
+		ModelMesh();
 		~ModelMesh() {}
 
 		void Load();
@@ -27,5 +27,7 @@ namespace wtgb
 
 	private:
 		std::string fileName_;
+
+		ModelHandle hModel_;  // ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹
 	};
 }

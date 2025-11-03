@@ -1,6 +1,6 @@
 #pragma once
 #include "Core/IGameSystem.h"
-#include "ModelMesh/IModel.h"
+#include "ModelMesh/ModelResource.h"
 
 namespace wtgb
 {
@@ -34,6 +34,7 @@ namespace wtgb
 		void Load(const std::string& _fileName);
 
 	private:
-		HandlerCollection<IModel, ModelHandle> models_;  // モデルハンドラコレクション
+		ViewerCached system_;  // システムアクセス用
+		HandlerCollection<ModelResource*, ModelHandle> models_;  // モデルハンドラコレクション
 	};
 }

@@ -54,7 +54,9 @@ namespace wtgb
 			return pGameObject;
 		}
 
+		ViewerCached System() { return cachedSystem_; }
+
 	private:
-		ViewerCached cachedSystem_;
+		static ViewerCached cachedSystem_;
 	};
 }
