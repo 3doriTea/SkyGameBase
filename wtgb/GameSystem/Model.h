@@ -33,6 +33,13 @@ namespace wtgb
 
 		void Load(const std::string& _fileName);
 
+		/// <summary>
+		/// モデルを取得する
+		/// </summary>
+		/// <param name="_hModel">モデルハンドル</param>
+		/// <returns></returns>
+		ModelResource* GetModel(ModelHandle _hModel) { return models_.At(_hModel); }
+
 	private:
 		ViewerCached system_;  // システムアクセス用
 		HandlerCollection<ModelResource*, ModelHandle> models_;  // モデルハンドラコレクション

@@ -1,6 +1,7 @@
 #include "pch/pch.h"
 #include "ModelMesh.h"
 #include "GameSystem/Model.h"
+#include "GameSystem/CPMeshRenderer.h"
 
 wtgb::ModelMesh::ModelMesh() : 
 	hModel_{ INVALID_HANDLE }

@@ -36,6 +36,12 @@ void wtgb::CPGameObject::End()
 	}
 }
 
+wtgb::EntityId wtgb::CPGameObject::GetEntityId(const size_t _index)
+{
+	auto itr{ begin() + _index };
+	return (*itr)->entityId_;
+}
+
 void wtgb::CPGameObject::Draw() const
 {
 	for (const auto& gameObject : *this)

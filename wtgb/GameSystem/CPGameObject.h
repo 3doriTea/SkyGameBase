@@ -31,6 +31,13 @@ namespace wtgb
 
 	public:
 		/// <summary>
+		/// インデックスからエンティティのIdを取得する
+		/// </summary>
+		/// <param name="_index">インデックス</param>
+		/// <returns>エンティティId</returns>
+		EntityId GetEntityId(const size_t _index);
+
+		/// <summary>
 		/// 描画処理
 		/// </summary>
 		void Draw() const;

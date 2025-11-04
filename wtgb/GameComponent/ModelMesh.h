@@ -8,6 +8,7 @@ namespace wtgb
 
 	class COMPONENT(ModelMesh)
 	{
+		friend class CPMeshRenderer;
 	public:
 		class SETTER(ModelMesh)
 		{
@@ -19,8 +20,6 @@ namespace wtgb
 	public:
 		ModelMesh();
 		~ModelMesh() {}
-
-		void Load();
 
 		void Init(ViewerCached system_) override;
 		void Update(ViewerCached system_) override {}
