@@ -4,6 +4,7 @@
 #include "Core/IGameSystem.h"
 #include "IComponentPool.h"
 #include "Core/EntityCapacity.h"
+#include "ComponentPool/ComponentPoolIterator.h"
 
 namespace wtgb
 {
@@ -17,6 +18,88 @@ namespace wtgb
 		friend ComponentT;
 		//using Pool = std::array<ComponentT, wtgb::ENTITY_CAPACITY>;
 		using Pool = std::vector<ComponentT>;
+
+	protected:
+		/// <summary>
+		/// コンポーネントプールへのイテレータ
+		/// </summary>
+		class ComponentPoolIterator
+		{
+		public:
+			ComponentPoolIterator(Pool::iterator&& _itr, Pool::iterator&& _itrBegin, Pool::iterator&& _itrEnd, std::bitset<ENTITY_CAPACITY>& _useFlag) :
+				itr_{ std::move(_itr) },
+				itrBegin_{ std::move(_itrBegin) },
+				itrEnd_{ std::move(_itrEnd) },
+				useFlag_{ _useFlag }
+			{}
+			~ComponentPoolIterator() {}
+
+			size_t GetIndex() const { return itr_ - itrBegin_; }
+
+			// 前置インクリメント
+			ComponentPoolIterator& operator++()
+			{
+				while (itr_ != itrEnd_)
+				{
+					++itr_;
+					if (itr_ != itrEnd_)
+					{
+						break;
+					}
+					size_t index{ GetIndex() };
+					if (index >= useFlag_.size())
+					{
+						break;
+					}
+					if (useFlag_[index])
+					{
+						break;
+					}
+				}
+				return *this;
+			}
+
+			// 後置インクリメント
+			ComponentPoolIterator operator++(int)
+			{
+				ComponentPoolIterator itr{ *this };
+				++itr;
+				return itr;
+			}
+
+			bool operator==(const ComponentPoolIterator& _other)
+			{
+				return this->itr_ == _other.itr_;
+			}
+
+			bool operator!=(const ComponentPoolIterator& _other)
+			{
+				return !(*this == _other);
+			}
+
+			ComponentT& operator*() const
+			{
+				return *itr_;
+			}
+
+			ComponentPoolIterator operator+(const size_t _index)
+			{
+				itr_ += _index;
+				return *this;
+			}
+
+			ComponentPoolIterator operator-(const size_t _index)
+			{
+				itr_ -= _index;
+				return *this;
+			}
+
+		private:
+			std::bitset<ENTITY_CAPACITY>& useFlag_;
+			Pool::iterator itr_;
+			Pool::iterator itrEnd_;
+			Pool::iterator itrBegin_;
+		};
 
 	protected:
 		ComponentPool() : system_{ nullptr }, pool_{} {}
@@ -73,8 +156,8 @@ namespace wtgb
 		ViewerCached& System() { return system_; }
 
 	protected:
-		Pool::iterator begin() { return pool_.begin(); }
-		Pool::iterator end() { return pool_.end(); }
+		ComponentPoolIterator begin() { return { pool_.begin(), pool_.begin(), pool_.end(), useFlag_ }; }
+		ComponentPoolIterator end() { return { pool_.end(), pool_.begin(), pool_.end(), useFlag_ }; }
 		Pool::const_iterator begin() const { return pool_.begin(); }
 		Pool::const_iterator end() const { return pool_.end(); }
 

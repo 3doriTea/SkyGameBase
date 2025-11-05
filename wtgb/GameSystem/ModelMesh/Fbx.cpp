@@ -115,7 +115,8 @@ void wtgb::Fbx::InitVertex(ufbx_mesh* pMesh, ufbx_mesh_part* pPart)
 		}
 	}
 
-	assert(vertexes.size() == pPart->num_triangles * 3);
+	indexCount_ = pPart->num_triangles * 3;
+	assert(vertexes.size() == indexCount_ && "頂点数とインデックス数が不一致");
 
 	const size_t STREAM_SIZE{ 1 };
 	ufbx_vertex_stream streams[STREAM_SIZE]
@@ -123,9 +124,9 @@ void wtgb::Fbx::InitVertex(ufbx_mesh* pMesh, ufbx_mesh_part* pPart)
 		{ vertexes.data(), vertexes.size(), sizeof(Vertex) }
 	};
 	std::vector<uint32_t> indexes{};
-	indexes.resize(pPart->num_triangles * 3);
+	indexes.resize(indexCount_);
 
-	size_t num_vertexes{ ufbx_generate_indices(streams, STREAM_SIZE, indexes.data(), indexes.size(), nullptr, nullptr) };
+	size_t num_vertexes{ ufbx_generate_indices(streams, STREAM_SIZE, indexes.data(), indexCount_, nullptr, nullptr) };
 
 	vertexes.resize(num_vertexes);
 

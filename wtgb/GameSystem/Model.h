@@ -31,14 +31,19 @@ namespace wtgb
 		/// </summary>
 		void End() override;
 
-		void Load(const std::string& _fileName);
+		/// <summary>
+		/// モデルを読み込んでハンドルを取得する
+		/// </summary>
+		/// <param name="_fileName">モデルのファイルパス</param>
+		[[nodiscard]]
+		wtgb::ModelHandle Load(const std::string& _fileName);
 
 		/// <summary>
 		/// モデルを取得する
 		/// </summary>
 		/// <param name="_hModel">モデルハンドル</param>
 		/// <returns></returns>
-		ModelResource* GetModel(ModelHandle _hModel) { return models_.At(_hModel); }
+		ModelResource* GetModel(ModelHandle _hModel);
 
 	private:
 		ViewerCached system_;  // システムアクセス用

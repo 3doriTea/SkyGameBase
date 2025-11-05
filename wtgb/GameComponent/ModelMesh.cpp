@@ -9,5 +9,5 @@ wtgb::ModelMesh::ModelMesh() :
 
 void wtgb::ModelMesh::Init(ViewerCached system_)
 {
-	system_.Get<Model>().Load(fileName_);
+	hModel_ = system_.Get<Model>().Load(fileName_);
 }

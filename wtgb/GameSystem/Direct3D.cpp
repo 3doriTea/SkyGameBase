@@ -4,6 +4,7 @@
 #include "WTGBAssert.h"
 
 #include "GameSystem/GameWindow.h"
+#include "GameSystem/ShaderCompile.h"
 
 using namespace wtgb;
 
@@ -16,7 +17,8 @@ namespace
 
 wtgb::Direct3D::Direct3D() :
 	pResource_{ new Direct3DResource{ D3D_RESOURCE_CONFIG } },
-	resourceAccessor_{ this }
+	resourceAccessor_{ this },
+	system_{ nullptr }
 {
 }
 
@@ -27,6 +29,8 @@ wtgb::Direct3D::~Direct3D()
 
 wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 {
+	system_ = _viewer.GetCache();
+
 	wassert(pResource_ && "リソースのポインタが入ってない");
 
 	if (pResource_ == nullptr)
@@ -258,7 +262,22 @@ void wtgb::Direct3D::Render()
 	}
 }
 
+void wtgb::Direct3D::SetShader(const ShaderHandle _hShader)
+{
+	Shader::ShaderAccessor accessor{ system_.Get<ShaderCompile>().GetShader(_hShader) };
+	ID3D11VertexShader* pVS{ accessor.VertexShader().Get() };
+	pResource_->Context()->VSSetShader(accessor.VertexShader().Get(), nullptr, 0);
+	pResource_->Context()->PSSetShader(accessor.PixelShader().Get(), nullptr, 0);
+	pResource_->Context()->IASetInputLayout(accessor.InputLayout().Get());
+	pResource_->Context()->RSSetState(accessor.RasterizerState().Get());
+}
+
 ID3D11Device* wtgb::Direct3D::ResourceAccessor::Device()
 {
 	return GetAccess()->pResource_->Device().Get();
+}
+
+ID3D11DeviceContext* wtgb::Direct3D::ResourceAccessor::Context()
+{
+	return GetAccess()->pResource_->Context().Get();
 }

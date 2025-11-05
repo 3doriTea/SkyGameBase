@@ -155,3 +155,8 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 
 	return hShader;
 }
+
+wtgb::Shader::ShaderAccessor wtgb::ShaderCompile::GetShader(const ShaderHandle _hShader)
+{
+	return shaders_.At(_hShader).GetAccessor();
+}

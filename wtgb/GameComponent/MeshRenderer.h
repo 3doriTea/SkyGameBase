@@ -7,6 +7,7 @@ namespace wtgb
 	class COMPONENT(MeshRenderer)
 	{
 		friend class ModelMesh;
+		friend class CPMeshRenderer;
 	public:
 		class SETTER(MeshRenderer)
 		{

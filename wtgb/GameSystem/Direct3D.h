@@ -23,6 +23,7 @@ namespace wtgb
 		
 		public:
 			 ID3D11Device* Device();
+			 ID3D11DeviceContext* Context();
 		};
 
 	public:
@@ -54,6 +55,12 @@ namespace wtgb
 		void Render();
 
 		/// <summary>
+		/// シェーダをセットする
+		/// </summary>
+		/// <param name="_hShader">シェーダハンドル</param>
+		void SetShader(const ShaderHandle _hShader);
+
+		/// <summary>
 		/// リソースアクセッサを取得
 		/// </summary>
 		/// <returns>リソースへのアクセッサ</returns>
@@ -62,6 +69,7 @@ namespace wtgb
 	private:
 		Direct3DResource* pResource_;  // リソースのポインタ
 
+		ViewerCached system_;  // システムアクセス用
 		ResourceAccessor resourceAccessor_;  // リソースへのアクセッサ
 	};
 }

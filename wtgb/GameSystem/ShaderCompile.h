@@ -1,12 +1,14 @@
 #pragma once
 #include "Core/IGameSystem.h"
 #include "ShaderCompile/Shader.h"
+#include "Utility/Accessor.h"
 
 namespace wtgb
 {
 	// TODO: シェーダ コンパイル -> コンパイラーに名前変更を考える
 	class ShaderCompile : public IGameSystem
 	{
+		friend class Direct3D;
 	public:
 		/// <summary>
 		/// シェーダをコンパイルするときの設定
@@ -66,6 +68,7 @@ namespace wtgb
 
 
 		const ShaderHandle Compile(const CompileConfig& _config);
+		Shader::ShaderAccessor GetShader(const ShaderHandle _hShader);
 
 	private:
 		HandlerCollection<Shader, ShaderHandle> shaders_;  // シェーダコレクション

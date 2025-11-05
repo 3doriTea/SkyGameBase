@@ -30,9 +30,17 @@ void wtgb::Model::End()
 		});
 }
 
-void wtgb::Model::Load(const std::string& _fileName)
+wtgb::ModelHandle wtgb::Model::Load(const std::string& _fileName)
 {
 	ModelHandle hModel{ models_.Emplace(new Fbx{ _fileName, system_ }) };
 	HRESULT hResult{};
-	models_.At(hModel)->CallInit();
+	models_.At(hModel).CallInit();
+
+	return hModel;
+}
+
+wtgb::ModelResource* wtgb::Model::GetModel(ModelHandle _hModel)
+{
+	wtgb::ModelResource* pModel{ &models_.At(_hModel) };
+	return pModel;
 }

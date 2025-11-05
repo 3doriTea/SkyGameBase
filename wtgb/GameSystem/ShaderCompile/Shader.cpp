@@ -1,7 +1,8 @@
 #include "pch\pch.h"
 #include "Shader.h"
 
-wtgb::Shader::Shader()
+wtgb::Shader::Shader() :
+	accessor_{ this }
 {
 }
 

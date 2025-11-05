@@ -39,6 +39,20 @@ namespace wtgb
 		/// <param name="_transform">描画するモデルの座標系</param>
 		void Draw(Transform& _transform);
 
+		ComPtr<ID3D11Buffer>& GetVertexBuffer() { return pVertexBuffer_; }
+		ComPtr<ID3D11Buffer>& GetIndexBuffer() { return pIndexBuffer_; }
+		ComPtr<ID3D11Buffer>& GetConstantBuffer() { return pConstantBuffer_; }
+		/// <summary>
+		/// Fbxにアタッチされているマテリアル数を取得
+		/// </summary>
+		/// <returns>マテリアル数</returns>
+		size_t GetMaterialCount() const { return materialCount_; }
+		/// <summary>
+		/// インデックス数を取得する
+		/// </summary>
+		/// <returns>インデックス数</returns>
+		size_t GetIndexCount() const { return indexCount_; }
+
 	private:
 		/// <summary>
 		/// Fbxをロードする
@@ -60,6 +74,7 @@ namespace wtgb
 		size_t vertexCount_;  // 頂点数
 		size_t polygonCount_;  // ポリゴン数
 		size_t materialCount_;  // マテリアルの個数
+		size_t indexCount_;  // インデックス数
 
 		ComPtr<ID3D11Buffer> pVertexBuffer_;    // 頂点バッファ
 		ComPtr<ID3D11Buffer> pIndexBuffer_;     // いんでっくすバッファ

@@ -52,7 +52,7 @@ namespace wtgb
 		/// <returns>尾イテレータ</returns>
 		std::map<HandleT, ValueT>::iterator end() { return innerMap.end(); }
 
-		ValueT& At(const HandleT _handle);
+		std::remove_pointer_t<ValueT>& At(const HandleT _handle);
 		const ValueT& At(const HandleT _handle) const;
 	private:
 		InnerMap innerMap{};
@@ -95,9 +95,25 @@ void wtgb::HandlerCollection<ValueT, HandleT>::Release(const std::function<void(
 }
 
 template<typename ValueT, std::unsigned_integral HandleT>
-inline ValueT& wtgb::HandlerCollection<ValueT, HandleT>::At(const HandleT _handle)
+inline std::remove_pointer_t<ValueT>& wtgb::HandlerCollection<ValueT, HandleT>::At(const HandleT _handle)
 {
-	return innerMap.at(_handle);
+	assert(_handle != INVALID_HANDLE && "無効なハンドル値に参照されました");
+	if (_handle == INVALID_HANDLE)
+	{
+		throw "無効なハンドル値に参照されました";
+	}
+
+	auto& valueRef{ innerMap.at(_handle) };
+	if constexpr (std::is_pointer_v<ValueT>)
+	{
+		// ValueTがポインタの場合は実態を返す
+		return *valueRef;
+	}
+	else
+	{
+		// ポインタでなければそのまま返す
+		return valueRef;
+	}
 }
 
 template<typename ValueT, std::unsigned_integral HandleT>
