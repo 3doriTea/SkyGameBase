@@ -20,40 +20,28 @@ void wtgb::Fbx::Draw(Transform& transform)
 
 void wtgb::Fbx::Init()
 {
-	ufbx_load_opts options{};
-	ufbx_error error{};
+	fs::path current{ fs::current_path() };
+	fs::path subPath{ current / FileName() };
 
-	ufbx_scene* pScene{ ufbx_load_file(FileName().data(), &options, &error)};
-	wassert(pScene != nullptr && "Fbxファイル読み込みに失敗");
-	if (pScene == nullptr)
-	{
-		return;
-	}
+	FbxManager* pFbxManager{ FbxManager::Create() };
+	FbxImporter* pFbxImporter{ FbxImporter::Create(pFbxManager, "importer") };
+	pFbxImporter->Initialize(subPath.filename().string().c_str(), -1, pFbxManager->GetIOSettings());
 
-	for (ufbx_node* pNode : pScene->nodes)
-	{
-		if (pNode->is_root)
-		{
-			LOGFLN("ルートのノード名:{}", pNode->name.data);
-			ufbx_node* pModelNode{ (*pNode->children.begin()) };
+	FbxScene* pFbxScene{ FbxScene::Create(pFbxManager, "fbx-scene")};
+	pFbxImporter->Import(pFbxScene);
 
-			vertexCount_ = pModelNode->mesh->num_vertices;
-			polygonCount_ = pModelNode->mesh->num_triangles;
-			materialCount_ = pModelNode->materials.count;
+	FbxNode* pRootNode{ pFbxScene->GetRootNode() };
+	FbxNode* pNode{ pRootNode->GetChild(0) };
+	FbxMesh* pMesh{ pNode->GetMesh() };
 
-			LOGFLN("頂点数:{}", vertexCount_);
-			LOGFLN("ポリゴン数:{}", polygonCount_);
-			LOGFLN("まてリアル数:{}", materialCount_);
+	vertexCount_ = pMesh->GetControlPointsCount();  // 頂点数
+	polygonCount_ = pMesh->GetPolygonCount();       // ポリゴン数
+	materialCount_ = pNode->GetMaterialCount();     // マテリアル数
 
-			InitVertex(pModelNode->mesh, pModelNode->mesh->material_parts.begin());
-			InitIndex(pModelNode->mesh);
-			InitConstant();
 
-			break;
-		}
-	}
-
-	ufbx_free_scene(pScene);
+	pFbxScene->Destroy();
+	pFbxImporter->Destroy();
+	pFbxManager->Destroy();
 }
 
 void wtgb::Fbx::Release()
@@ -61,79 +49,99 @@ void wtgb::Fbx::Release()
 	// 明示的に解放
 
 	pVertexBuffer_.Reset();
-	pIndexBuffer_.Reset();
+	for (auto& pIndexBuffer : pIndexBuffers_)
+	{
+		pIndexBuffer.Reset();
+	}
 	pConstantBuffer_.Reset();
 }
 
-void wtgb::Fbx::InitTest(ufbx_mesh* pMesh)
+void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
 {
+	enum { X, Y, Z };
+	enum { U, V };
 
-}
-
-void wtgb::Fbx::InitVertex(ufbx_mesh* pMesh, ufbx_mesh_part* pPart)
-{
 	std::vector<Vertex> vertexes{};
-	std::vector<uint32_t> triangleIndices{};
-	triangleIndices.resize(pMesh->max_face_triangles * 3);
+	vertexes.resize(vertexCount_);
 
-	for (uint32_t faceIndex : pPart->face_indices)
+	// 頂点のUV
+	FbxLayerElementUV* pUV = _pMesh->GetLayer(0)->GetUVs();
+	FbxLayerElement::EMappingMode mappingMode{ pUV->GetMappingMode() };
+	FbxLayerElement::EReferenceMode referenceMode{ pUV->GetReferenceMode() };
+
+	for (int p = 0; p < polygonCount_; p++)
 	{
-		ufbx_face face{ pMesh->faces[faceIndex] };
-
-		uint32_t numberTriangles
+		for (int v = 0; v < 3; v++)
 		{
-			ufbx_triangulate_face(
-				triangleIndices.data(),
-				triangleIndices.size(),
-				pMesh,
-				face)
-		};
+			int index{ _pMesh->GetPolygonVertex(p, v) };
 
-		for (size_t i = 0; i < numberTriangles * 3; i++)
-		{
-			uint32_t index{ triangleIndices[i] };
+			FbxVector4 position{ _pMesh->GetControlPointAt(index) };
+			vertexes[index].position =
+			{
+				static_cast<float>(position[X]),
+				static_cast<float>(position[Y]),
+				static_cast<float>(position[Z])
+			};
 
-			Vertex vertex{};
-			vertex.position =
+			int uvIndex{ 0 };
+			FbxVector2 uv{ pUV->GetDirectArray().GetAt(uvIndex) };
+
+			// mapping mode で分岐
+			switch (mappingMode)
 			{
-				static_cast<float>(pMesh->vertex_position[index].x),
-				static_cast<float>(pMesh->vertex_position[index].y),
-				static_cast<float>(pMesh->vertex_position[index].z),
-			};
-			vertex.normal =
+				break;
+			case fbxsdk::FbxLayerElement::eByControlPoint:
+				uvIndex = index;
+				break;
+			case fbxsdk::FbxLayerElement::eByPolygonVertex:
+				uvIndex = _pMesh->GetTextureUVIndex(p, v, FbxLayerElement::eTextureDiffuse);
+				break;
+			case fbxsdk::FbxLayerElement::eNone:
+			case fbxsdk::FbxLayerElement::eByPolygon:
+			case fbxsdk::FbxLayerElement::eByEdge:
+			case fbxsdk::FbxLayerElement::eAllSame:
+			default:
+				uv = { 0, 0 };
+				break;
+			}
+
+			// reference mode で分岐
+			switch (referenceMode)
 			{
-				static_cast<float>(pMesh->vertex_normal[index].x),
-				static_cast<float>(pMesh->vertex_normal[index].y),
-				static_cast<float>(pMesh->vertex_normal[index].z),
-			};
-			vertex.uv =
+			case fbxsdk::FbxLayerElement::eDirect:
+				uv = pUV->GetDirectArray().GetAt(uvIndex);
+				break;
+			case fbxsdk::FbxLayerElement::eIndexToDirect:
+				uv = pUV->GetDirectArray().GetAt(
+					pUV->GetIndexArray().GetAt(uvIndex));
+				break;
+			case fbxsdk::FbxLayerElement::eIndex:
+			default:
+				break;
+			}
+
+			// NOTE: UVの縦方向の基準が逆になるため逆にする
+			vertexes[index].uv =
 			{
-				static_cast<float>(pMesh->vertex_uv[index].x),
-				static_cast<float>(pMesh->vertex_uv[index].y),
+				static_cast<float>(uv.mData[U]),
+				1.0f - static_cast<float>(uv.mData[U])
 			};
-			vertexes.push_back(vertex);
+
+			FbxVector4 normal{};
+			_pMesh->GetPolygonVertexNormal(p, v, normal);
+			vertexes[index].normal =
+			{
+				static_cast<float>(normal[X]),
+				static_cast<float>(normal[Y]),
+				static_cast<float>(normal[Z])
+			};
 		}
 	}
 
-	indexCount_ = pPart->num_triangles * 3;
-	assert(vertexes.size() == indexCount_ && "頂点数とインデックス数が不一致");
-
-	const size_t STREAM_SIZE{ 1 };
-	ufbx_vertex_stream streams[STREAM_SIZE]
-	{
-		{ vertexes.data(), vertexes.size(), sizeof(Vertex) }
-	};
-	std::vector<uint32_t> indexes{};
-	indexes.resize(indexCount_);
-
-	size_t num_vertexes{ ufbx_generate_indices(streams, STREAM_SIZE, indexes.data(), indexCount_, nullptr, nullptr) };
-
-	vertexes.resize(num_vertexes);
-
+#pragma region 頂点バッファ作成
 	ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
 	HRESULT hResult{};
 
-#pragma region 頂点バッファ作成
 	const D3D11_BUFFER_DESC VERTEX_DESC
 	{
 		// 型の大きさ
@@ -154,32 +162,64 @@ void wtgb::Fbx::InitVertex(ufbx_mesh* pMesh, ufbx_mesh_part* pPart)
 	hResult = pDevice->CreateBuffer(&VERTEX_DESC, &VERTEX_DATA, pVertexBuffer_.GetAddressOf());
 	wassert(SUCCEEDED(hResult) && "Fbx頂点バッファ作成に失敗");
 #pragma endregion
-
-#pragma region インデックスバッファ作成
-	const D3D11_BUFFER_DESC INDEX_DESC
-	{
-		// 型の大きさ
-		.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * polygonCount_ * 3),
-		.Usage = D3D11_USAGE_DEFAULT,                // 変更するか
-		.BindFlags = D3D11_BIND_INDEX_BUFFER,        // なんのバッファか
-		.CPUAccessFlags = 0,                         // CPUからのアクセスフラグ
-		.MiscFlags = 0,                              // その他のフラグ
-		.StructureByteStride = 0,
-	};
-	const D3D11_SUBRESOURCE_DATA INDEX_DATA
-	{
-		.pSysMem = indexes.data(),
-		.SysMemPitch = {},
-		.SysMemSlicePitch = {},
-	};
-
-	hResult = pDevice->CreateBuffer(&INDEX_DESC, &INDEX_DATA, pIndexBuffer_.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "Fbxインデックスバッファ作成に失敗");
-#pragma endregion
 }
 
-void wtgb::Fbx::InitIndex(ufbx_mesh* pMesh)
+void wtgb::Fbx::InitIndex(FbxMesh* _pMesh)
 {
+	// マテリアルの数だけ作る
+	pIndexBuffers_.resize(materialCount_);  // インデックスバッファ
+	indexCounts_.resize(materialCount_);    // インデックス数
+
+	std::vector<int> indexes{};
+	indexes.resize(polygonCount_ * 3);
+
+	// 各マテリアルごとに
+	for (int i = 0; i < materialCount_; i++)
+	{
+		int count{ 0 };
+
+		for (int p = 0; p < polygonCount_; p++)
+		{
+			FbxLayerElementMaterial* pMaterial{ _pMesh->GetLayer(0)->GetMaterials() };
+			int materialId{ pMaterial->GetIndexArray().GetAt(p) };
+
+			if (materialId == i)
+			{
+				for (int vertex = 0; vertex < 3; vertex++)
+				{
+					indexes[count] = _pMesh->GetPolygonVertex(p, vertex);
+					count++;
+				}
+			}
+		}
+
+		indexCounts_[i] = count;
+
+#pragma region 各マテリアル - インデックスバッファ作成
+		ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+		HRESULT hResult{};
+
+		const D3D11_BUFFER_DESC INDEX_DESC
+		{
+			// 型の大きさ
+			.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * polygonCount_ * 3),
+			.Usage = D3D11_USAGE_DEFAULT,                // 変更するか
+			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // なんのバッファか
+			.CPUAccessFlags = 0,                         // CPUからのアクセスフラグ
+			.MiscFlags = 0,                              // その他のフラグ
+			.StructureByteStride = 0,
+		};
+		const D3D11_SUBRESOURCE_DATA INDEX_DATA
+		{
+			.pSysMem = indexes.data(),
+			.SysMemPitch = {},
+			.SysMemSlicePitch = {},
+		};
+
+		hResult = pDevice->CreateBuffer(&INDEX_DESC, &INDEX_DATA, pIndexBuffers_[i].GetAddressOf());
+		wassert(SUCCEEDED(hResult) && "Fbxインデックスバッファ作成に失敗");
+#pragma endregion
+	}
 }
 
 void wtgb::Fbx::InitConstant()
@@ -200,5 +240,10 @@ void wtgb::Fbx::InitConstant()
 
 	hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
 	wassert(SUCCEEDED(hResult) && "Fbxコンスタントバッファ作成に失敗");
+
+}
+
+void wtgb::Fbx::InitMaterial(FbxNode* _pNode)
+{
 
 }

@@ -29,6 +29,15 @@ namespace wtgb
 			BOOL materialFLag;  // 16byte単位で送られるから仕方ない
 		};
 
+		/// <summary>
+		/// マテリアル情報
+		/// </summary>
+		struct Material
+		{
+			std::string textureFile;
+
+		};
+
 	public:
 		using ModelResource::ModelResource;
 		~Fbx();
@@ -64,21 +73,20 @@ namespace wtgb
 		/// </summary>
 		void Release() override;
 
-		void InitTest(ufbx_mesh* pMesh);
-
-		void InitVertex(ufbx_mesh* pMesh, ufbx_mesh_part* pPart);
-		void InitIndex(ufbx_mesh* pMesh);
+		void InitVertex(FbxMesh* _pMesh);
+		void InitIndex(FbxMesh* _pMesh);
 		void InitConstant();
+		void InitMaterial(FbxNode* _pNode);
 
 	private:
-		size_t vertexCount_;  // 頂点数
-		size_t polygonCount_;  // ポリゴン数
-		size_t materialCount_;  // マテリアルの個数
-		size_t indexCount_;  // インデックス数
+		size_t vertexCount_;               // 頂点数
+		size_t polygonCount_;              // ポリゴン数
+		size_t materialCount_;             // マテリアルの個数
+		std::vector<size_t> indexCounts_;  // インデックス数
 
-		ComPtr<ID3D11Buffer> pVertexBuffer_;    // 頂点バッファ
-		ComPtr<ID3D11Buffer> pIndexBuffer_;     // いんでっくすバッファ
-		ComPtr<ID3D11Buffer> pConstantBuffer_;  // コンスタントバッファ
-
+		ComPtr<ID3D11Buffer> pVertexBuffer_;               // 頂点バッファ
+		std::vector<ComPtr<ID3D11Buffer>> pIndexBuffers_;  // インデックスバッファ
+		ComPtr<ID3D11Buffer> pConstantBuffer_;             // コンスタントバッファ
+		std::vector<Material> materials_;                  // マテリアル情報
 	};
 }

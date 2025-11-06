@@ -33,5 +33,21 @@
 #include <DirectXTex.h>
 #pragma comment(lib, "DirectXTex.lib")
 
+
+#define USE_FBX_SDK
+
+#ifdef USE_FBX_SDK
+
+// FbxSDK
+#include <fbxsdk.h>
+
+#pragma comment(lib, "LibFbxSDK-MD.lib")
+#pragma comment(lib, "LibXml2-MD.lib")
+#pragma comment(lib, "zlib-MD.lib")
+
+#else
+
 // ufbx
 #include "Library/ufbx/ufbx.h"
+
+#endif
