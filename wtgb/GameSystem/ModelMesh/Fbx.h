@@ -34,8 +34,8 @@ namespace wtgb
 		/// </summary>
 		struct Material
 		{
-			std::string textureFile;
-
+			std::string textureFileName;
+			Color diffuse;
 		};
 
 	public:

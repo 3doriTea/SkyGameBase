@@ -120,6 +120,7 @@ void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
 				break;
 			}
 
+			// UV‚ğæ“¾
 			// NOTE: UV‚Ìc•ûŒü‚ÌŠî€‚ª‹t‚É‚È‚é‚½‚ß‹t‚É‚·‚é
 			vertexes[index].uv =
 			{
@@ -127,6 +128,7 @@ void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
 				1.0f - static_cast<float>(uv.mData[U])
 			};
 
+			// –@ü‚ğæ“¾
 			FbxVector4 normal{};
 			_pMesh->GetPolygonVertexNormal(p, v, normal);
 			vertexes[index].normal =
@@ -245,5 +247,23 @@ void wtgb::Fbx::InitConstant()
 
 void wtgb::Fbx::InitMaterial(FbxNode* _pNode)
 {
+	enum { R, G, B };
 
+	materials_.resize(materialCount_);
+
+	for (int i = 0; i < materialCount_; i++)
+	{
+		FbxSurfaceMaterial* pMaterial{ _pNode->GetMaterial(i) };
+		FbxProperty fbxProperty{ pMaterial->FindProperty(FbxSurfaceMaterial::sDiffuse) };
+
+#pragma region ƒeƒNƒXƒ`ƒƒŠÖŒW
+		int fileTextureCount{ fbxProperty.GetSrcObjectCount<FbxFileTexture>(0) };
+
+		if (fileTextureCount > 0)
+		{
+			FbxFileTexture* pTextureInfo{ fbxProperty.GetSrcObject<FbxFileTexture>(0) };
+			materials_[i].textureFileName = pTextureInfo->GetRelativeFileName();
+		}
+#pragma endregion
+	}
 }

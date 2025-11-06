@@ -33,6 +33,7 @@
     <ClInclude Include="Source\SampleSkyCombat.h" />
     <ClInclude Include="Source\SkyGameBase.h" />
     <ClInclude Include="wtgb\CoreType\Collection\HandlerCollection.h" />
+    <ClInclude Include="wtgb\CoreType\Color.h" />
     <ClInclude Include="wtgb\CoreType\CoreType.h" />
     <ClInclude Include="wtgb\CoreType\Handler.h" />
     <ClInclude Include="wtgb\CoreType\ICoreType.h" />
