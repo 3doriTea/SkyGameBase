@@ -21,6 +21,8 @@
 #include "GameComponent/ModelMesh.h"
 #include "GameComponent/MeshRenderer.h"
 
+#include "GameSystem/GameTime.h"
+
 using wtgb::IGame;
 using wtgb::IGameSystem;
 using wtgb::GameSystemCollection;

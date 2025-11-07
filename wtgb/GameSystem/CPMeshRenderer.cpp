@@ -8,6 +8,7 @@
 #include "GameSystem/ModelMesh/Fbx.h"
 #include "GameSystem/Camera.h"
 #include "GameSystem/ResourceSystem.h"
+#include "GameSystem/CPTransform.h"
 #include "WTGBAssert.h"
 
 wtgb::CPMeshRenderer::CPMeshRenderer()
@@ -34,6 +35,13 @@ void wtgb::CPMeshRenderer::Update()
 		size_t index{ itr.GetIndex() };
 		EntityId entityId{ System().Get<CPGameObject>().GetEntityId(index) };
 		ModelHandle hModel{ System().Get<CPModelMesh>().Get(entityId)->hModel_ };
+		Transform* pTransform{ System().Get<CPTransform>().Get(entityId) };
+
+		if (pTransform == nullptr)
+		{
+			wassert(false && "Transformの取得に失敗");
+			continue;
+		}
 
 		Model& model{ System().Get<Model>() };
 		ModelResource* pModel{ model.GetModel(hModel) };
@@ -45,8 +53,8 @@ void wtgb::CPMeshRenderer::Update()
 		}
 
 		Fbx::ConstantBuffer constantBuffer{};
-		constantBuffer.matWVP = XMMatrixTranspose(XMMatrixTranslation(0, -10, 20) * camera.GetViewMatrix() * camera.GetProjectionMatrix());
-		constantBuffer.matNormal = XMMatrixTranspose(XMMatrixIdentity());
+		constantBuffer.matWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
+		constantBuffer.matNormal = XMMatrixTranspose(pTransform->GetNormalMatrix());
 
 		// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 		System().Get<Direct3D>().SetShader((*itr).hShader_);

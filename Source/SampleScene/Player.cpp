@@ -42,4 +42,15 @@ void Player::Init()
 
 void Player::Update()
 {
+	float dt{ System().Get<GameTime>().GetDeltaTime() };
+
+	angle_ += DirectX::XM_PI / 60.0f * dt;
+	if (angle_ >= DirectX::XM_PI)
+	{
+		angle_ -= DirectX::XM_PI;
+	}
+
+	Vector3 rotation{ Transform().GetRotation() };
+	rotation.y = angle_;
+	Transform().SetRotation(rotation);
 }
