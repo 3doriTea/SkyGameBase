@@ -21,11 +21,11 @@ void wtgb::Fbx::Draw(Transform& transform)
 void wtgb::Fbx::Init()
 {
 	fs::path current{ fs::current_path() };
-	fs::path subPath{ current / FileName() };
+	modelFile_ = current / FileName();
 
 	FbxManager* pFbxManager{ FbxManager::Create() };
 	FbxImporter* pFbxImporter{ FbxImporter::Create(pFbxManager, "importer") };
-	pFbxImporter->Initialize(subPath.filename().string().c_str(), -1, pFbxManager->GetIOSettings());
+	pFbxImporter->Initialize(modelFile_.string().c_str(), -1, pFbxManager->GetIOSettings());
 
 	FbxScene* pFbxScene{ FbxScene::Create(pFbxManager, "fbx-scene")};
 	pFbxImporter->Import(pFbxScene);
@@ -38,6 +38,10 @@ void wtgb::Fbx::Init()
 	polygonCount_ = pMesh->GetPolygonCount();       // ポリゴン数
 	materialCount_ = pNode->GetMaterialCount();     // マテリアル数
 
+	InitVertex(pMesh);
+	InitIndex(pMesh);
+	InitConstant();
+	InitMaterial(pNode);
 
 	pFbxScene->Destroy();
 	pFbxImporter->Destroy();
@@ -254,16 +258,64 @@ void wtgb::Fbx::InitMaterial(FbxNode* _pNode)
 	for (int i = 0; i < materialCount_; i++)
 	{
 		FbxSurfaceMaterial* pMaterial{ _pNode->GetMaterial(i) };
-		FbxProperty fbxProperty{ pMaterial->FindProperty(FbxSurfaceMaterial::sDiffuse) };
+		if (pMaterial == nullptr)
+		{
+			wassert(false && "マテリアルの取得に失敗");
+			continue;
+		}
+
+		fbxsdk::FbxProperty fbxProperty{ pMaterial->FindProperty(FbxSurfaceMaterial::sDiffuse) };
+		if (!fbxProperty.IsValid())
+		{
+			wassert(false && "無効なプロパティ値");
+			continue;
+		}
 
 #pragma region テクスチャ関係
-		int fileTextureCount{ fbxProperty.GetSrcObjectCount<FbxFileTexture>(0) };
+		int fileTextureCount{ fbxProperty.GetSrcObjectCount<FbxFileTexture>() };
 
-		if (fileTextureCount > 0)
+		materials_[i].textureFile = "";
+		
+		if (fileTextureCount > 0)  // テクスチャが貼ってあるなら
 		{
 			FbxFileTexture* pTextureInfo{ fbxProperty.GetSrcObject<FbxFileTexture>(0) };
-			materials_[i].textureFileName = pTextureInfo->GetRelativeFileName();
+			fs::path textureFile{ modelFile_.parent_path() / pTextureInfo->GetRelativeFileName() };
+
+
+			// NOTE: シンボリックリンクやディレクトリを除外するためにis_regular_fileを使うようにする
+			//  BAD: fs::exists(materials_[i].textureFile)
+			// GOOD: fs::is_regular_file(materials_[i].textureFile)
+			if (fs::is_regular_file(textureFile))
+			{
+				materials_[i].textureFile = textureFile;
+			}
+			else
+			{
+				wassert(false && "テクスチャファイルが存在しない");
+			}
+			
+			materials_[i].diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
 		}
+		else  // テクスチャがないなら
+		{
+			if (pMaterial->GetClassId().Is(FbxSurfaceLambert::ClassId) == false)
+			{
+				wassert(false && "ランバートシェーダ以外対応していません");
+				return;
+			}
+
+			pMaterial->FindProperty(FbxSurfaceLambert::sDiffuse);
+
+			FbxDouble3 color{ reinterpret_cast<FbxSurfaceLambert*>(pMaterial)->Diffuse.Get() };
+			materials_[i].diffuse =
+			{
+				static_cast<float>(color[R]),
+				static_cast<float>(color[G]),
+				static_cast<float>(color[B]),
+				1.0f  // アルファ値は 1.0f
+			};
+		}
+
 #pragma endregion
 	}
 }

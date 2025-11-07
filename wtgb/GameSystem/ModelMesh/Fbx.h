@@ -34,7 +34,7 @@ namespace wtgb
 		/// </summary>
 		struct Material
 		{
-			std::string textureFileName;
+			fs::path textureFile;
 			Color diffuse;
 		};
 
@@ -49,7 +49,7 @@ namespace wtgb
 		void Draw(Transform& _transform);
 
 		ComPtr<ID3D11Buffer>& GetVertexBuffer() { return pVertexBuffer_; }
-		ComPtr<ID3D11Buffer>& GetIndexBuffer() { return pIndexBuffer_; }
+		ComPtr<ID3D11Buffer>& GetIndexBufferAt(const size_t _index) { return pIndexBuffers_.at(_index); }
 		ComPtr<ID3D11Buffer>& GetConstantBuffer() { return pConstantBuffer_; }
 		/// <summary>
 		/// Fbxにアタッチされているマテリアル数を取得
@@ -60,7 +60,9 @@ namespace wtgb
 		/// インデックス数を取得する
 		/// </summary>
 		/// <returns>インデックス数</returns>
-		size_t GetIndexCount() const { return indexCount_; }
+		size_t GetIndexCountAt(const size_t _index) const { return indexCounts_.at(_index); }
+
+		Material& GetMaterialAt(const size_t _index) { return materials_.at(_index); }
 
 	private:
 		/// <summary>
@@ -79,6 +81,8 @@ namespace wtgb
 		void InitMaterial(FbxNode* _pNode);
 
 	private:
+		fs::path modelFile_;  // ファイルパス
+
 		size_t vertexCount_;               // 頂点数
 		size_t polygonCount_;              // ポリゴン数
 		size_t materialCount_;             // マテリアルの個数

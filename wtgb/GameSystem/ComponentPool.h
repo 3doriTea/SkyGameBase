@@ -39,10 +39,11 @@ namespace wtgb
 			// 前置インクリメント
 			ComponentPoolIterator& operator++()
 			{
-				while (itr_ != itrEnd_)
+				++itr_;
+				/*while (true)
 				{
 					++itr_;
-					if (itr_ != itrEnd_)
+					if (itr_ == itrEnd_)
 					{
 						break;
 					}
@@ -55,7 +56,16 @@ namespace wtgb
 					{
 						break;
 					}
+				}*/
+				/*do
+				{
+					++itr_;
 				}
+				while (itr_ != itrEnd_ && (
+					GetIndex() >= useFlag_.size() || !useFlag_[GetIndex()]
+					));
+				return *this;*/
+
 				return *this;
 			}
 
@@ -101,6 +111,84 @@ namespace wtgb
 			Pool::iterator itrBegin_;
 		};
 
+		class PoolIterator
+		{
+		public:
+			PoolIterator(Pool& _pool, std::bitset<ENTITY_CAPACITY>& _used, Pool::iterator _itr) :
+				pool_{ _pool },
+				used_{ _used },
+				itr_{ _itr }
+			{}
+			~PoolIterator() {}
+
+			size_t GetIndex() { return itr_ - pool_.begin(); }
+
+			// 前置インクリメント
+			PoolIterator& operator++()
+			{
+				while (true)
+				{
+					itr_++;
+					if (itr_ == pool_.end())
+					{
+						break;
+					}
+
+					if (used_[GetIndex()])
+					{
+						break;
+					}
+				}
+
+				return *this;
+			}
+
+			// 後置インクリメント
+			PoolIterator operator++(int)
+			{
+				while (true)
+				{
+					itr_++;
+					if (itr_ == pool_.end())
+					{
+						break;
+					}
+
+					if (used_[GetIndex()])
+					{
+						break;
+					}
+				}
+
+				return *this;
+			}
+
+			bool operator==(const PoolIterator& _other)
+			{
+				return this->itr_ == _other.itr_;
+			}
+
+			bool operator!=(const PoolIterator& _other)
+			{
+				return !(*this == _other);
+			}
+
+			ComponentT& operator*() const
+			{
+				return *itr_;
+			}
+
+			PoolIterator operator+(const size_t _index)
+			{
+				itr_ += _index;
+				return *this;
+			}
+
+		private:
+			Pool::iterator itr_;
+			Pool& pool_;
+			std::bitset<ENTITY_CAPACITY>& used_;
+		};
 	protected:
 		ComponentPool() : system_{ nullptr }, pool_{} {}
 		virtual ~ComponentPool() {}
@@ -156,8 +244,8 @@ namespace wtgb
 		ViewerCached& System() { return system_; }
 
 	protected:
-		ComponentPoolIterator begin() { return { pool_.begin(), pool_.begin(), pool_.end(), useFlag_ }; }
-		ComponentPoolIterator end() { return { pool_.end(), pool_.begin(), pool_.end(), useFlag_ }; }
+		PoolIterator begin() { return { pool_, useFlag_, pool_.begin() }; }
+		PoolIterator end() { return { pool_, useFlag_, pool_.end() }; }
 		Pool::const_iterator begin() const { return pool_.begin(); }
 		Pool::const_iterator end() const { return pool_.end(); }
 

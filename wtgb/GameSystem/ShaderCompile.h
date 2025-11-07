@@ -68,7 +68,7 @@ namespace wtgb
 
 
 		const ShaderHandle Compile(const CompileConfig& _config);
-		Shader::ShaderAccessor GetShader(const ShaderHandle _hShader);
+		Shader::ShaderAccessor& GetShader(const ShaderHandle _hShader);
 
 	private:
 		HandlerCollection<Shader, ShaderHandle> shaders_;  // シェーダコレクション

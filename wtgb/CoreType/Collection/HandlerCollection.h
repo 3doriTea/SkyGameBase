@@ -45,15 +45,15 @@ namespace wtgb
 		/// 頭イテレータ取得
 		/// </summary>
 		/// <returns>頭イテレータ</returns>
-		std::map<HandleT, ValueT>::iterator begin() { return innerMap.begin(); }
+		InnerMap::iterator begin() { return innerMap.begin(); }
 		/// <summary>
 		/// 尾イテレータ取得
 		/// </summary>
 		/// <returns>尾イテレータ</returns>
-		std::map<HandleT, ValueT>::iterator end() { return innerMap.end(); }
+		InnerMap::iterator end() { return innerMap.end(); }
 
 		std::remove_pointer_t<ValueT>& At(const HandleT _handle);
-		const ValueT& At(const HandleT _handle) const;
+		const std::remove_pointer_t<ValueT>& At(const HandleT _handle) const;
 	private:
 		InnerMap innerMap{};
 		HandleT counter_{};
@@ -117,8 +117,24 @@ inline std::remove_pointer_t<ValueT>& wtgb::HandlerCollection<ValueT, HandleT>::
 }
 
 template<typename ValueT, std::unsigned_integral HandleT>
-inline const ValueT& wtgb::HandlerCollection<ValueT, HandleT>::At(const HandleT _handle) const
+inline const std::remove_pointer_t<ValueT>& wtgb::HandlerCollection<ValueT, HandleT>::At(const HandleT _handle) const
 {
-	return innerMap.at(_handle);
+	assert(_handle != INVALID_HANDLE && "無効なハンドル値に参照されました");
+	if (_handle == INVALID_HANDLE)
+	{
+		throw "無効なハンドル値に参照されました";
+	}
+
+	auto& valueRef{ innerMap.at(_handle) };
+	if constexpr (std::is_pointer_v<ValueT>)
+	{
+		// ValueTがポインタの場合は実態を返す
+		return *valueRef;
+	}
+	else
+	{
+		// ポインタでなければそのまま返す
+		return valueRef;
+	}
 }
 

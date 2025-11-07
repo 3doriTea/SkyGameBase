@@ -264,12 +264,12 @@ void wtgb::Direct3D::Render()
 
 void wtgb::Direct3D::SetShader(const ShaderHandle _hShader)
 {
-	Shader::ShaderAccessor accessor{ system_.Get<ShaderCompile>().GetShader(_hShader) };
+	/*Shader::ShaderAccessor& accessor{ system_.Get<ShaderCompile>().GetShader(_hShader) };
 	ID3D11VertexShader* pVS{ accessor.VertexShader().Get() };
-	pResource_->Context()->VSSetShader(accessor.VertexShader().Get(), nullptr, 0);
-	pResource_->Context()->PSSetShader(accessor.PixelShader().Get(), nullptr, 0);
-	pResource_->Context()->IASetInputLayout(accessor.InputLayout().Get());
-	pResource_->Context()->RSSetState(accessor.RasterizerState().Get());
+	pResource_->Context().Get()->VSSetShader(accessor.VertexShader().Get(), nullptr, 0);
+	pResource_->Context().Get()->PSSetShader(accessor.PixelShader().Get(), nullptr, 0);
+	pResource_->Context().Get()->IASetInputLayout(accessor.InputLayout().Get());
+	pResource_->Context().Get()->RSSetState(accessor.RasterizerState().Get());*/
 }
 
 ID3D11Device* wtgb::Direct3D::ResourceAccessor::Device()

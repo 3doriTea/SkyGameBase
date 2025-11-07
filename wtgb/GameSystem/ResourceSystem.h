@@ -39,7 +39,19 @@ namespace wtgb
 		/// <returns>テクスチャのハンドル</returns>
 		TextureHandle LoadTexture(const std::string& _fileName);
 
+		/// <summary>
+		/// ファイル名からテクスチャを取得
+		/// </summary>
+		/// <param name="_fileName">ファイル名</param>
+		/// <returns>テクスチャのポインタ / なければ nullptr</returns>
+		Texture* GetTexture(const std::string& _fileName);
 
+		/// <summary>
+		/// ハンドルからテクスチャを取得
+		/// </summary>
+		/// <param name="_hTexture">テクスチャのハンドル</param>
+		/// <returns>テクスチャのポインタ / なければ nullptr</returns>
+		Texture* GetTexture(const TextureHandle _hTexture);
 
 	private:
 		HandlerCollection<Texture, TextureHandle> textures_;

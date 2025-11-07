@@ -35,7 +35,7 @@ namespace wtgb
 		ComPtr<ID3D11PixelShader>& PixelShader() { return pPixelShader_; }
 		ComPtr<ID3D11InputLayout>& VertexLayout() { return pVertexLayout_; }
 		ComPtr<ID3D11RasterizerState>& RasterizerState() { return pRasterizerState_; }
-		ShaderAccessor GetAccessor() { return accessor_; }
+		ShaderAccessor& GetAccessor() { return accessor_; }
 
 	private:
 		/// <summary>

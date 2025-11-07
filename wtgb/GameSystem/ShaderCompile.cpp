@@ -4,6 +4,8 @@
 #include "WTGBAssert.h"
 #include "Direct3D.h"
 
+#include "Direct3D.h"
+
 wtgb::ShaderCompile::ShaderCompile() :
 	system_{ nullptr }
 {
@@ -153,10 +155,17 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 	pCompileVS.Reset();
 	pCompilePS.Reset();
 
+	system_.Get<Direct3D>().Resource().Context()->VSSetShader(shaders_.At(hShader).VertexShader().Get(), nullptr, 0);
+	system_.Get<Direct3D>().Resource().Context()->PSSetShader(shaders_.At(hShader).PixelShader().Get(), nullptr, 0);
+	system_.Get<Direct3D>().Resource().Context()->IASetInputLayout(shaders_.At(hShader).VertexLayout().Get());
+	system_.Get<Direct3D>().Resource().Context()->RSSetState(shaders_.At(hShader).RasterizerState().Get());
+
+	
+
 	return hShader;
 }
 
-wtgb::Shader::ShaderAccessor wtgb::ShaderCompile::GetShader(const ShaderHandle _hShader)
+wtgb::Shader::ShaderAccessor& wtgb::ShaderCompile::GetShader(const ShaderHandle _hShader)
 {
 	return shaders_.At(_hShader).GetAccessor();
 }

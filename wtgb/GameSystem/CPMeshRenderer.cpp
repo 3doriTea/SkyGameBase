@@ -7,6 +7,8 @@
 #include "GameSystem/Direct3D.h"
 #include "GameSystem/ModelMesh/Fbx.h"
 #include "GameSystem/Camera.h"
+#include "GameSystem/ResourceSystem.h"
+#include "WTGBAssert.h"
 
 wtgb::CPMeshRenderer::CPMeshRenderer()
 {
@@ -43,7 +45,7 @@ void wtgb::CPMeshRenderer::Update()
 		}
 
 		Fbx::ConstantBuffer constantBuffer{};
-		constantBuffer.matWVP = XMMatrixTranspose(XMMatrixIdentity() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
+		constantBuffer.matWVP = XMMatrixTranspose(XMMatrixTranslation(0, -10, 20) * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 		constantBuffer.matNormal = XMMatrixTranspose(XMMatrixIdentity());
 
 		// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
@@ -54,31 +56,46 @@ void wtgb::CPMeshRenderer::Update()
 		// 頂点バッファをセット
 		pContext->IASetVertexBuffers(0, 1, pFbxModel->GetVertexBuffer().GetAddressOf(), &stride, &offset);
 
+		// 各マテリアル分
+		for (int i = 0; i < pFbxModel->GetMaterialCount(); i++)
 		{
-			constantBuffer.diffuse = { 1, 1, 1, 1 };
-			constantBuffer.materialFLag = 0;
+			constantBuffer.diffuse = pFbxModel->GetMaterialAt(i).diffuse;
+			constantBuffer.materialFLag = pFbxModel->GetMaterialAt(i).textureFile != "";
 
-			pContext->IASetIndexBuffer(pFbxModel->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+			// インデックスバッファをセット
+			stride = sizeof(int);
+			offset = 0;
+			pContext->IASetIndexBuffer(pFbxModel->GetIndexBufferAt(i).Get(), DXGI_FORMAT_R32_UINT, 0);
 
-			pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());
-			pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());
+			// コンスタントバッファをセット
+			pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
+			pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
 
-			if (false)
+			if (constantBuffer.materialFLag)
 			{
-				ID3D11SamplerState* pSampler{ nullptr };
-				pContext->PSSetSamplers(0, 1, &pSampler);
+				Texture* pTexture{ System().Get<ResourceSystem>().GetTexture((*itr).hTexture_) };
+				wassert(pTexture != nullptr);
+				if (pTexture)
+				{
+					ID3D11SamplerState* pSampler{ pTexture->GetSamplerState() };
+					pContext->PSSetSamplers(0, 1, &pSampler);
 
-				ID3D11ShaderResourceView* pSRV{ nullptr };
-				pContext->PSSetShaderResources(0, 1, &pSRV);
+					ID3D11ShaderResourceView* pSRV{ pTexture->GetShaderResourceView() };
+					pContext->PSSetShaderResources(0, 1, &pSRV);
+				}
 			}
 
-			pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCount()), 0, 0);
-		}
+			D3D11_MAPPED_SUBRESOURCE data{};
 
-		// 各マテリアル分
-		//for (int i = 0; i < pFbxModel->GetMaterialCount(); i)
-		//{
-		//	//ID3D11
-		//}
+			pContext->Map(pFbxModel->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+			memcpy_s(
+				data.pData,
+				data.RowPitch,
+				reinterpret_cast<void*>(&constantBuffer),
+				sizeof(Fbx::ConstantBuffer));
+			pContext->Unmap(pFbxModel->GetConstantBuffer().Get(), 0);
+
+			pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
+		}
 	}
 }

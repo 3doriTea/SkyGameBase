@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "ResourceSystem.h"
 #include "Direct3D.h"
+#include "WTGBAssert.h"
 
 wtgb::ResourceSystem::ResourceSystem() :
 	system_{ nullptr }
@@ -45,4 +46,26 @@ wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const std::string& _fileNa
 	textures_.At(hTexture).CreateShaderResourceView(pDevice);
 
 	return hTexture;
+}
+
+wtgb::Texture* wtgb::ResourceSystem::GetTexture(const std::string& _fileName)
+{
+	// TODO: ファイル名をmapで保存しておく
+	wassert(false && "早く実装してください");
+
+	return nullptr;
+}
+
+wtgb::Texture* wtgb::ResourceSystem::GetTexture(const TextureHandle _hTexture)
+{
+	try
+	{
+		return &textures_.At(_hTexture);
+	}
+	catch (const std::string& e)
+	{
+		(void)e;  // 明示的に使用
+		wassert(false && "無効なテクスチャハンドルが指定された");
+		return nullptr;
+	}
 }
