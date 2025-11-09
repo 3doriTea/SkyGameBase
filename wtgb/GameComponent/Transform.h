@@ -31,7 +31,7 @@ namespace wtgb
 		Vector3 GetRotation() const                { return rotation_; }
 		Vector3 GetScale() const                   { return scale_; }
 
-		Matrix4x4 GetWorldMatrix() const { return worldMatrix_; }
+		Matrix4x4 GetWorldMatrix() const { return localMatrix_; }
 		Matrix4x4 GetNormalMatrix() const { return rotateMatrix_; }
 
 	private:

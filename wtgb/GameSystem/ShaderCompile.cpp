@@ -170,3 +170,23 @@ wtgb::Shader::ShaderAccessor& wtgb::ShaderCompile::GetShader(const ShaderHandle 
 {
 	return shaders_.At(_hShader).GetAccessor();
 }
+
+ID3D11VertexShader* wtgb::ShaderCompile::GetVertexShader(const ShaderHandle _hShader)
+{
+	return shaders_.At(_hShader).VertexShader().Get();
+}
+
+ID3D11PixelShader* wtgb::ShaderCompile::GetPixelShader(const ShaderHandle _hShader)
+{
+	return shaders_.At(_hShader).PixelShader().Get();
+}
+
+ID3D11InputLayout* wtgb::ShaderCompile::GetInputLayout(const ShaderHandle _hShader)
+{
+	return shaders_.At(_hShader).VertexLayout().Get();
+}
+
+ID3D11RasterizerState* wtgb::ShaderCompile::GetRasterizerState(const ShaderHandle _hShader)
+{
+	return shaders_.At(_hShader).RasterizerState().Get();
+}

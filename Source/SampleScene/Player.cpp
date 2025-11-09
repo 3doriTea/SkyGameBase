@@ -12,8 +12,8 @@ Player::Player() : GameObject
 			.EndSetter()
 		.AddComponent<wtgb::Transform>()
 			.BeginSetter()
-				.position({ 0, 2, 4 })
-				.rotation({ 0, 0, 0 })
+				.position({ 0, 0, 20 })
+				.rotation({ 0, 90, 0 })
 				.scale({ 1, 1, 1 })
 			.EndSetter()
 		.AddComponent<ModelMesh>()
@@ -37,6 +37,7 @@ Player::~Player()
 
 void Player::Init()
 {
+	angle_ = 0.0f;
 	//GetComponent<ModelMesh>().Load();
 }
 
@@ -44,7 +45,7 @@ void Player::Update()
 {
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 
-	angle_ += DirectX::XM_PI / 60.0f * dt;
+	angle_ += DirectX::XM_PI / 30.0f * dt;
 	if (angle_ >= DirectX::XM_PI)
 	{
 		angle_ -= DirectX::XM_PI;

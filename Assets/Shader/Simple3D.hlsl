@@ -48,6 +48,7 @@ VS_OUT VS(
 float4 PS(VS_OUT inData) : SV_TARGET
 {
     float4 textureColor = g_texture.Sample(g_sampler, inData.uv.xy);
+    return textureColor;
     float4 ambient = textureColor * float4(ambientValue, ambientValue, ambientValue, 1.0f);
     float4 diffuse = textureColor * inData.color;
     

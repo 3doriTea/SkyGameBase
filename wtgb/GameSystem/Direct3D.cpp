@@ -1,4 +1,4 @@
-#include "pch\pch.h"
+ï»¿#include "pch\pch.h"
 #include "Direct3D.h"
 #include "Direct3D/Direct3DResource.h"
 #include "WTGBAssert.h"
@@ -31,7 +31,7 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 {
 	system_ = _viewer.GetCache();
 
-	wassert(pResource_ && "ƒŠƒ\[ƒX‚Ìƒ|ƒCƒ“ƒ^‚ª“ü‚Á‚Ä‚È‚¢");
+	wassert(pResource_ && "ãƒªã‚½ãƒ¼ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ãŒå…¥ã£ã¦ãªã„");
 
 	if (pResource_ == nullptr)
 	{
@@ -42,41 +42,41 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 
 	HRESULT hResult{};
 
-#pragma region D3D11ƒfƒoƒCƒX‚Ìì¬
+#pragma region D3D11ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
 	D3D_FEATURE_LEVEL featureLevel{};
 
 	hResult = D3D11CreateDevice(
-		nullptr,                                // ‚Ç‚ÌƒrƒfƒIƒAƒ_ƒvƒ^‚ğg—p‚·‚é‚©
-		D3D_DRIVER_TYPE_HARDWARE,               // ƒhƒ‰ƒCƒo‚Ìƒ^ƒCƒv‚ğ“n‚·
-		nullptr,                                // ã‹L‚ğD3D_DRIVER_TYPE_SOFTWARE‚Éİ’è‚µ‚È‚¢ŒÀ‚è nullptr
+		nullptr,                                // ã©ã®ãƒ“ãƒ‡ã‚ªã‚¢ãƒ€ãƒ—ã‚¿ã‚’ä½¿ç”¨ã™ã‚‹ã‹
+		D3D_DRIVER_TYPE_HARDWARE,               // ãƒ‰ãƒ©ã‚¤ãƒã®ã‚¿ã‚¤ãƒ—ã‚’æ¸¡ã™
+		nullptr,                                // ä¸Šè¨˜ã‚’D3D_DRIVER_TYPE_SOFTWAREã«è¨­å®šã—ãªã„é™ã‚Š nullptr
 		D3D11_CREATE_DEVICE_DEBUG
-		| D3D11_CREATE_DEVICE_BGRA_SUPPORT,     // ƒfƒoƒbƒOƒ‚[ƒh‚ğ•t‚¯‚Ä‚¨‚­
-		nullptr,                                // ƒfƒoƒCƒXAƒRƒ“ƒeƒLƒXƒg‚ÌƒŒƒxƒ‹İ’èA nullptr‚ÅŸè‚É”z—ñ‚ğ“n‚·
-		0,                                      // ã‹L‚Ìˆø”‚ÅƒŒƒxƒ‹‚ğ‰½—v‘fw’è‚µ‚½‚©
-		D3D11_SDK_VERSION,                      // SDK‚Ìƒo[ƒWƒ‡ƒ“A•K‚¸‚±‚Ì’l‚ÉI
-		pResource_->Device().GetAddressOf(),    // ƒfƒoƒCƒX‚ğw’è
-		&featureLevel,                          // ¬Œ÷‚µ‚½ê‡ƒTƒ|[ƒg‚·‚éƒo[ƒWƒ‡ƒ“‚ğ•Ô‚·
-		pResource_->Context().GetAddressOf());  // ƒRƒ“ƒeƒLƒXƒg‚ğw’è
+		| D3D11_CREATE_DEVICE_BGRA_SUPPORT,     // ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’ä»˜ã‘ã¦ãŠã
+		nullptr,                                // ãƒ‡ãƒã‚¤ã‚¹ã€ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã®ãƒ¬ãƒ™ãƒ«è¨­å®šã€ nullptrã§å‹æ‰‹ã«é…åˆ—ã‚’æ¸¡ã™
+		0,                                      // ä¸Šè¨˜ã®å¼•æ•°ã§ãƒ¬ãƒ™ãƒ«ã‚’ä½•è¦ç´ æŒ‡å®šã—ãŸã‹
+		D3D11_SDK_VERSION,                      // SDKã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã€å¿…ãšã“ã®å€¤ã«ï¼
+		pResource_->Device().GetAddressOf(),    // ãƒ‡ãƒã‚¤ã‚¹ã‚’æŒ‡å®š
+		&featureLevel,                          // æˆåŠŸã—ãŸå ´åˆã‚µãƒãƒ¼ãƒˆã™ã‚‹ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’è¿”ã™
+		pResource_->Context().GetAddressOf());  // ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã‚’æŒ‡å®š
 
-	wassert(SUCCEEDED(hResult) && "D3D11CreateDevice‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "D3D11CreateDeviceã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
 	}
 #pragma endregion
 
-#pragma region ƒXƒƒbƒvƒ`ƒF[ƒ“‚Ìì¬
+#pragma region ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ãƒ¼ãƒ³ã®ä½œæˆ
 	hResult = pResource_->Device().Get()->QueryInterface(
 		__uuidof(IDXGIDevice),
 		reinterpret_cast<void**>(pResource_->DXGIDevice().GetAddressOf()));
-	wassert(SUCCEEDED(hResult) && "DXGIDevice‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "DXGIDeviceã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
 	}
 
 	hResult = pResource_->DXGIDevice().Get()->GetAdapter(pResource_->DXGIAdapter().GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "DXGIAdapter‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "DXGIAdapterã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
@@ -85,7 +85,7 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 	hResult = pResource_->DXGIAdapter().Get()->GetParent(
 		__uuidof(IDXGIFactory),
 		reinterpret_cast<void**>(pResource_->DXGIFactory().GetAddressOf()));
-	wassert(SUCCEEDED(hResult) && "DXGIFactory‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "DXGIFactoryã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
@@ -98,24 +98,24 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 	{
 		.BufferDesc
 		{
-			.Width = static_cast<UINT>(SCREEN_SIZE.x),   // •`‰æ—Ìˆæ‚Ì‰¡•
-			.Height = static_cast<UINT>(SCREEN_SIZE.y),  // •`‰æ—Ìˆæ‚Ì‚‚³
-			.RefreshRate  // ‰æ–Ê‚ğXV‚·‚éŠÔŠu (•b)
+			.Width = static_cast<UINT>(SCREEN_SIZE.x),   // æç”»é ˜åŸŸã®æ¨ªå¹…
+			.Height = static_cast<UINT>(SCREEN_SIZE.y),  // æç”»é ˜åŸŸã®é«˜ã•
+			.RefreshRate  // ç”»é¢ã‚’æ›´æ–°ã™ã‚‹é–“éš” (ç§’)
 			{
-				.Numerator = SCREEN_REFRESH_RATE.numerator,      // ƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg‚Ì•ª•ê
-				.Denominator = SCREEN_REFRESH_RATE.denominator,  // ƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg‚Ì•ªq
+				.Numerator = SCREEN_REFRESH_RATE.numerator,      // ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆã®åˆ†æ¯
+				.Denominator = SCREEN_REFRESH_RATE.denominator,  // ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆã®åˆ†å­
 			},
-			.Format = DXGI_FORMAT_R8G8B8A8_UNORM,  // ‰½Fg‚¦‚é‚©
+			.Format = DXGI_FORMAT_R8G8B8A8_UNORM,  // ä½•è‰²ä½¿ãˆã‚‹ã‹
 			.ScanlineOrdering = {},
 			.Scaling = {}
 		},
 		.SampleDesc
 		{
-			.Count = 1,    // MSAA (ƒAƒ“ƒ`ƒGƒCƒŠƒAƒX) ‚Ìİ’è
+			.Count = 1,    // MSAA (ã‚¢ãƒ³ãƒã‚¨ã‚¤ãƒªã‚¢ã‚¹) ã®è¨­å®š
 			.Quality = 0,  // 
 		},
-		.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,  // ƒoƒbƒNƒoƒbƒtƒ@‚Ìg‚¢“¹‚Í‰æ–Ê‚É•`‰æ‚·‚é‚±‚Æ
-		.BufferCount = 1,  // ƒoƒbƒtƒ@‚Ì–‡”
+		.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,  // ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®ä½¿ã„é“ã¯ç”»é¢ã«æç”»ã™ã‚‹ã“ã¨
+		.BufferCount = 1,  // ãƒãƒƒãƒ•ã‚¡ã®æšæ•°
 		.OutputWindow = _viewer.Get<GameWindow>().GetMainWindowHandle(),
 		.Windowed = _viewer.Get<GameWindow>().GetMainWindowIsWindowed(),
 		.SwapEffect = {},
@@ -126,67 +126,67 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 		pResource_->Device().Get(),
 		const_cast<DXGI_SWAP_CHAIN_DESC*>(&SWAP_CHAIN_DESC),
 		pResource_->SwapChain().GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "SwapChain‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "SwapChainã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
 	}
 #pragma endregion
 
-#pragma region ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒgƒrƒ…[‚Ìì¬
-	// •`‰æ‚·‚éƒoƒbƒNƒoƒbƒtƒ@‚ğˆê“I‚Éæ“¾
+#pragma region ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ“ãƒ¥ãƒ¼ã®ä½œæˆ
+	// æç”»ã™ã‚‹ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã‚’ä¸€æ™‚çš„ã«å–å¾—
 	ComPtr<ID3D11Texture2D> pBackBuffer{ nullptr };
 	hResult = pResource_->SwapChain().Get()->GetBuffer(
 		0,
 		__uuidof(ID3D11Texture2D),
 		reinterpret_cast<void**>(pBackBuffer.GetAddressOf()));
-	wassert(SUCCEEDED(hResult) && "ƒoƒbƒNƒoƒbƒtƒ@‚Ìæ“¾‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®å–å¾—ã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
 	}
 
-	// ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒgƒrƒ…[‚ğì¬
+	// ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ“ãƒ¥ãƒ¼ã‚’ä½œæˆ
 	hResult = pResource_->Device().Get()->CreateRenderTargetView(
 		pBackBuffer.Get(),
 		nullptr,
 		pResource_->RenderTargetView().GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒgƒrƒ…[‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ“ãƒ¥ãƒ¼ã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
 	}
 
-	// ˆê“I‚Éæ“¾‚µ‚½ƒoƒbƒNƒoƒbƒtƒ@‚ğ–¾¦“I‚É‰ğ•ú
+	// ä¸€æ™‚çš„ã«å–å¾—ã—ãŸãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã‚’æ˜ç¤ºçš„ã«è§£æ”¾
 	pBackBuffer.Reset();
 #pragma endregion
 
-#pragma region [“xƒXƒeƒ“ƒVƒ‹ƒrƒ…[([“xƒoƒbƒtƒ@)‚Ìì¬
+#pragma region æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ãƒ“ãƒ¥ãƒ¼(æ·±åº¦ãƒãƒƒãƒ•ã‚¡)ã®ä½œæˆ
 	//TODO: const Vector2Int SCREEN_SIZE{ _viewer.Get<GameWindow>().GetMainWindowSize() };
 
 	const D3D11_TEXTURE2D_DESC DEPTH_BUFFER_DESC
 	{
-		.Width = static_cast<UINT>(SCREEN_SIZE.x),   // ‰¡•
-		.Height = static_cast<UINT>(SCREEN_SIZE.y),  // ‚‚³
-		.MipLevels = 1,                              // ƒeƒNƒXƒ`ƒƒ“à‚Ìƒ~ƒbƒvƒ}ƒbƒvƒŒƒxƒ‹ (‚±‚±‚Å‚ÍŠÖŒW–³‚¢?)
-		.ArraySize = 1,                              // ƒeƒNƒXƒ`ƒƒ“à‚Ì”z—ñƒTƒCƒY (‚±‚±‚Å‚ÍŠÖŒW–³‚¢?)
-		.Format = DXGI_FORMAT_D32_FLOAT,             // ƒeƒNƒXƒ`ƒƒ‚ÌŒ`®
+		.Width = static_cast<UINT>(SCREEN_SIZE.x),   // æ¨ªå¹…
+		.Height = static_cast<UINT>(SCREEN_SIZE.y),  // é«˜ã•
+		.MipLevels = 1,                              // ãƒ†ã‚¯ã‚¹ãƒãƒ£å†…ã®ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ãƒ¬ãƒ™ãƒ« (ã“ã“ã§ã¯é–¢ä¿‚ç„¡ã„?)
+		.ArraySize = 1,                              // ãƒ†ã‚¯ã‚¹ãƒãƒ£å†…ã®é…åˆ—ã‚µã‚¤ã‚º (ã“ã“ã§ã¯é–¢ä¿‚ç„¡ã„?)
+		.Format = DXGI_FORMAT_D32_FLOAT,             // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å½¢å¼
 		.SampleDesc
 		{
-			.Count = 1,    // MSAA (ƒAƒ“ƒ`ƒGƒCƒŠƒAƒX) ‚Ìİ’è
+			.Count = 1,    // MSAA (ã‚¢ãƒ³ãƒã‚¨ã‚¤ãƒªã‚¢ã‚¹) ã®è¨­å®š
 			.Quality = 0,  // 
 		},
-		.Usage = D3D11_USAGE_DEFAULT,           // “Ç‚İ‘‚«‚Ì¯•Ê
-		.BindFlags = D3D11_BIND_DEPTH_STENCIL,  // [“xƒXƒeƒ“ƒVƒ‹‚Æ‚µ‚Äg‚¤I
-		.CPUAccessFlags = 0,                    // CPUƒAƒNƒZƒX‚Ìí—Ş
-		.MiscFlags = 0,                         // ‚»‚Ì‘¼ƒtƒ‰ƒO
+		.Usage = D3D11_USAGE_DEFAULT,           // èª­ã¿æ›¸ãã®è­˜åˆ¥
+		.BindFlags = D3D11_BIND_DEPTH_STENCIL,  // æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã¨ã—ã¦ä½¿ã†ï¼
+		.CPUAccessFlags = 0,                    // CPUã‚¢ã‚¯ã‚»ã‚¹ã®ç¨®é¡
+		.MiscFlags = 0,                         // ãã®ä»–ãƒ•ãƒ©ã‚°
 	};
 
 	hResult = pResource_->Device().Get()->CreateTexture2D(
 		&DEPTH_BUFFER_DESC,
 		nullptr,
 		pResource_->DepthBuffer().GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "[“xƒoƒbƒtƒ@—pƒoƒbƒtƒ@‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "æ·±åº¦ãƒãƒƒãƒ•ã‚¡ç”¨ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
@@ -196,26 +196,26 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 		pResource_->DepthBuffer().Get(),
 		nullptr,
 		pResource_->DepthStencilView().GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "[“xƒXƒeƒ“ƒVƒ‹ƒrƒ…[‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ãƒ“ãƒ¥ãƒ¼ã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
 	}
 #pragma endregion
 
-#pragma region ƒrƒ…[ƒ|[ƒg (•`‰æ”ÍˆÍ) İ’è
-	// ƒrƒ…[ƒ|[ƒg‚Ìî•ñ
+#pragma region ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆ (æç”»ç¯„å›²) è¨­å®š
+	// ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã®æƒ…å ±
 	D3D11_VIEWPORT viewport
 	{
-		.TopLeftX = 0,                                // ¶’[
-		.TopLeftY = 0,                                // ã’[
-		.Width = static_cast<float>(SCREEN_SIZE.x),   // ‰¡•
-		.Height = static_cast<float>(SCREEN_SIZE.y),  // ‚‚³
-		.MinDepth = 0.0f,                             // è‘O
-		.MaxDepth = 1.0f,                             // ‰œ
+		.TopLeftX = 0,                                // å·¦ç«¯
+		.TopLeftY = 0,                                // ä¸Šç«¯
+		.Width = static_cast<float>(SCREEN_SIZE.x),   // æ¨ªå¹…
+		.Height = static_cast<float>(SCREEN_SIZE.y),  // é«˜ã•
+		.MinDepth = 0.0f,                             // æ‰‹å‰
+		.MaxDepth = 1.0f,                             // å¥¥
 	};
 
-	// ƒf[ƒ^‚ğ‰æ–Ê‚É•`‰æ‚·‚é‚½‚ß‚Ìˆê’Ê‚è‚Ìİ’è (ƒpƒCƒvƒ‰ƒCƒ“)
+	// ãƒ‡ãƒ¼ã‚¿ã‚’ç”»é¢ã«æç”»ã™ã‚‹ãŸã‚ã®ä¸€é€šã‚Šã®è¨­å®š (ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³)
 	pResource_->Context().Get()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	pResource_->Context().Get()->OMSetRenderTargets(
 		1,
@@ -229,14 +229,14 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 void wtgb::Direct3D::Update(const ViewerUpdate& _system)
 {
 	float backgroundColor[4]{ 0.0f, 1.0f, 1.0f, 1.0f };
-	// ‰æ–ÊƒNƒŠƒA
+	// ç”»é¢ã‚¯ãƒªã‚¢
 	pResource_->Context().Get()->ClearRenderTargetView(
 		pResource_->RenderTargetView().Get(),
 		backgroundColor);
-	// [“xƒoƒbƒtƒ@
+	// æ·±åº¦ãƒãƒƒãƒ•ã‚¡
 	pResource_->Context().Get()->ClearDepthStencilView(
 		pResource_->DepthStencilView().Get(),
-		D3D11_CLEAR_DEPTH,  // [“x‚ğƒNƒŠƒA‚·‚é
+		D3D11_CLEAR_DEPTH,  // æ·±åº¦ã‚’ã‚¯ãƒªã‚¢ã™ã‚‹
 		1.0f,
 		0);
 }
@@ -248,7 +248,7 @@ void wtgb::Direct3D::End()
 
 void wtgb::Direct3D::Render()
 {
-	// ƒoƒbƒNƒoƒbƒtƒ@‚Æ”½“]‚µ‚Ä•`‰æ
+	// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã¨åè»¢ã—ã¦æç”»
 	HRESULT hResult{ pResource_->SwapChain().Get()->Present(0, 0) };
 	static const int ERROR_TOLERANCE_COUNT{ 3 };
 	static int swapMissCount{ 0 };
@@ -256,7 +256,7 @@ void wtgb::Direct3D::Render()
 	{
 		swapMissCount++;
 		wassert(swapMissCount > ERROR_TOLERANCE_COUNT
-			&& "ƒXƒƒbƒvƒ`ƒF[ƒ“‚ÌƒXƒƒbƒv‚É¸”s");
+			&& "ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ãƒ¼ãƒ³ã®ã‚¹ãƒ¯ãƒƒãƒ—ã«å¤±æ•—");
 
 		Game::Exit();
 	}
@@ -264,12 +264,13 @@ void wtgb::Direct3D::Render()
 
 void wtgb::Direct3D::SetShader(const ShaderHandle _hShader)
 {
-	Shader::ShaderAccessor& accessor{ system_.Get<ShaderCompile>().GetShader(_hShader) };
-	ID3D11VertexShader* pVS{ accessor.VertexShader().Get() };
-	pResource_->Context().Get()->VSSetShader(accessor.VertexShader().Get(), nullptr, 0);
-	pResource_->Context().Get()->PSSetShader(accessor.PixelShader().Get(), nullptr, 0);
-	pResource_->Context().Get()->IASetInputLayout(accessor.InputLayout().Get());
-	pResource_->Context().Get()->RSSetState(accessor.RasterizerState().Get());
+	ShaderCompile& shaderCompiler{ system_.Get<ShaderCompile>() };
+	ID3D11DeviceContext* pContext{ pResource_->Context().Get() };
+
+	pContext->VSSetShader(shaderCompiler.GetVertexShader(_hShader), nullptr, 0);
+	pContext->PSSetShader(shaderCompiler.GetPixelShader(_hShader), nullptr, 0);
+	pContext->IASetInputLayout(shaderCompiler.GetInputLayout(_hShader));
+	pContext->RSSetState(shaderCompiler.GetRasterizerState(_hShader));
 }
 
 ID3D11Device* wtgb::Direct3D::ResourceAccessor::Device()

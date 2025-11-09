@@ -24,6 +24,8 @@ void wtgb::CPTransform::Update()
 			* XMMatrixRotationY((*itr).rotation_.y);
 		(*itr).scaleMatrix_ = XMMatrixScaling((*itr).scale_.x, (*itr).scale_.y, (*itr).scale_.z);
 
-		(*itr).localMatrix_ = (*itr).scaleMatrix_ * (*itr).rotateMatrix_ * (*itr).translateMatrix_;
+		Transform& transform{ (*itr) };
+
+		transform.localMatrix_ = (*itr).scaleMatrix_ * (*itr).rotateMatrix_ * (*itr).translateMatrix_;
 	}
 }

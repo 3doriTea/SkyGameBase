@@ -70,6 +70,11 @@ namespace wtgb
 		const ShaderHandle Compile(const CompileConfig& _config);
 		Shader::ShaderAccessor& GetShader(const ShaderHandle _hShader);
 
+		ID3D11VertexShader* GetVertexShader(const ShaderHandle _hShader);
+		ID3D11PixelShader* GetPixelShader(const ShaderHandle _hShader);
+		ID3D11InputLayout* GetInputLayout(const ShaderHandle _hShader);
+		ID3D11RasterizerState* GetRasterizerState(const ShaderHandle _hShader);
+
 	private:
 		HandlerCollection<Shader, ShaderHandle> shaders_;  // シェーダコレクション
 		ViewerCached system_;  // システムにアクセスするようのキャッシュ

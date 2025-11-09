@@ -53,8 +53,8 @@ void wtgb::CPMeshRenderer::Update()
 		}
 
 		Fbx::ConstantBuffer constantBuffer{};
-		constantBuffer.matWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
-		constantBuffer.matNormal = XMMatrixTranspose(pTransform->GetNormalMatrix());
+		constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
+		constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 
 		// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 		System().Get<Direct3D>().SetShader((*itr).hShader_);
@@ -67,8 +67,8 @@ void wtgb::CPMeshRenderer::Update()
 		// 各マテリアル分
 		for (int i = 0; i < pFbxModel->GetMaterialCount(); i++)
 		{
-			constantBuffer.diffuse = pFbxModel->GetMaterialAt(i).diffuse;
-			constantBuffer.materialFLag = pFbxModel->GetMaterialAt(i).textureFile != "";
+			//constantBuffer.diffuse = pFbxModel->GetMaterialAt(i).diffuse;
+			bool useTexture{ pFbxModel->GetMaterialAt(i).textureFile != "" };
 
 			// インデックスバッファをセット
 			stride = sizeof(int);
@@ -79,7 +79,7 @@ void wtgb::CPMeshRenderer::Update()
 			pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
 			pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
 
-			if (constantBuffer.materialFLag)
+			if (useTexture)
 			{
 				Texture* pTexture{ System().Get<ResourceSystem>().GetTexture((*itr).hTexture_) };
 				wassert(pTexture != nullptr);
@@ -92,6 +92,7 @@ void wtgb::CPMeshRenderer::Update()
 					pContext->PSSetShaderResources(0, 1, &pSRV);
 				}
 			}
+			//constantBuffer.materialFLag = useTexture;
 
 			D3D11_MAPPED_SUBRESOURCE data{};
 

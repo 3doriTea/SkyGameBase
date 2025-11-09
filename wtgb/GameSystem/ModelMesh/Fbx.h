@@ -23,10 +23,18 @@ namespace wtgb
 		/// </summary>
 		struct ConstantBuffer
 		{
-			DirectX::XMMATRIX matWVP;
-			DirectX::XMMATRIX matNormal;
-			DirectX::XMFLOAT4 diffuse;
-			BOOL materialFLag;  // 16byte単位で送られるから仕方ない
+			//DirectX::XMMATRIX matWVP;
+			//DirectX::XMMATRIX matNormal;
+			//DirectX::XMFLOAT4 diffuse;
+			//BOOL materialFLag;  // 16byte単位で送られるから仕方ない
+
+			Matrix4x4 matrixWVP;          // ワールドビュープロジェクションの合成行列
+			Matrix4x4 matrixUV;           // UV変換行列
+			Matrix4x4 matrixWorld;        // ワールド行列
+			Matrix4x4 matrixRotateWorld;  // ワールド回転行列
+			Vector3 lightDirection;       // ライトの向き
+			Vector3 lightColor;           // ライトの色
+			float ambientValue;          // 環境光の量
 		};
 
 		/// <summary>
