@@ -153,10 +153,12 @@ void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
 		// 型の大きさ
 		.ByteWidth = static_cast<UINT>(sizeof(Vertex) * vertexCount_),
 		.Usage = D3D11_USAGE_DEFAULT,                // 変更するか
+		//.Usage = D3D11_USAGE_STAGING,                // 変更するか
 		.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // なんのバッファか
 		.CPUAccessFlags = 0,                         // CPUからのアクセスフラグ
+		//.CPUAccessFlags = D3D11_CPU_ACCESS_READ,    // TODO: テスト用                     // CPUからのアクセスフラグ
 		.MiscFlags = 0,                              // その他のフラグ
-		.StructureByteStride = 0,
+		.StructureByteStride = sizeof(Vertex),
 	};
 	const D3D11_SUBRESOURCE_DATA VERTEX_DATA
 	{

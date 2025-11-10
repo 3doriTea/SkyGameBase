@@ -55,6 +55,7 @@ void wtgb::CPMeshRenderer::Update()
 		Fbx::ConstantBuffer constantBuffer{};
 		constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 		constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
+		constantBuffer.matrixUV = XMMatrixIdentity();
 
 		// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 		System().Get<Direct3D>().SetShader((*itr).hShader_);
@@ -94,15 +95,45 @@ void wtgb::CPMeshRenderer::Update()
 			}
 			//constantBuffer.materialFLag = useTexture;
 
-			D3D11_MAPPED_SUBRESOURCE data{};
 
-			pContext->Map(pFbxModel->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
-			memcpy_s(
-				data.pData,
-				data.RowPitch,
-				reinterpret_cast<void*>(&constantBuffer),
-				sizeof(Fbx::ConstantBuffer));
-			pContext->Unmap(pFbxModel->GetConstantBuffer().Get(), 0);
+			{
+				size_t vertexCount = pFbxModel->GetIndexCountAt();// TODO 頂点数取得
+
+				// 1. 元バッファの情報取得
+				D3D11_BUFFER_DESC desc{};
+				pFbxModel->GetVertexBuffer()->GetDesc(&desc);
+
+				// 2. 読み取り用ステージングバッファの設定
+				D3D11_BUFFER_DESC stagingDesc = desc;
+				stagingDesc.Usage = D3D11_USAGE_STAGING;
+				stagingDesc.BindFlags = 0;
+				stagingDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+				stagingDesc.MiscFlags = 0;
+
+				// 3. ステージングバッファを作成
+				ID3D11Buffer* pStagingBuffer = nullptr;
+				HRESULT hr = pDevice->CreateBuffer(&stagingDesc, nullptr, &pStagingBuffer);
+				if (FAILED(hr))
+				{
+					// 作成失敗例外やエラーハンドリング
+					return;
+				}
+
+				// 4. GPUバッファからステージングバッファにコピー
+				pContext->CopyResource(pStagingBuffer, pFbxModel->GetVertexBuffer().Get());
+
+				// 5. ステージングバッファをマップしてCPUで読み込み
+				D3D11_MAPPED_SUBRESOURCE mapped{};
+				hr = pContext->Map(pStagingBuffer, 0, D3D11_MAP_READ, 0, &mapped);
+				if (SUCCEEDED(hr))
+				{
+					// バッファの内容をコピー
+					memcpy(outData, mapped.pData, sizeof(Fbx::Vertex) * vertexCount);
+					pContext->Unmap(pStagingBuffer, 0);
+				}
+
+				pStagingBuffer->Release();
+			}
 
 			pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
 		}

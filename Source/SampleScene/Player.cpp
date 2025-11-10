@@ -26,7 +26,8 @@ Player::Player() : GameObject
 		.AddComponent<MeshRenderer>()
 			.BeginSetter()
 				.shader("Shader/Simple3D.hlsl")
-				.texture("Models/TestCube/TestCubeTexture.png")
+				//.texture("Models/TestCube/TestCubeTexture.png")
+				.texture("Models/TestCube/UVChecker.jpg")
 			.EndSetter()
 		.Build();
 	}
@@ -50,10 +51,10 @@ void Player::Update()
 
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 
-	angle_ += DirectX::XM_PI / 10.0f * dt;
-	if (angle_ >= DirectX::XM_PI)
+	angle_ += DirectX::XM_2PI / 20.0f * dt;
+	if (angle_ >= DirectX::XM_2PI)
 	{
-		angle_ -= DirectX::XM_PI;
+		angle_ -= DirectX::XM_2PI;
 	}
 
 	Vector3 rotation{ Transform().GetRotation() };
