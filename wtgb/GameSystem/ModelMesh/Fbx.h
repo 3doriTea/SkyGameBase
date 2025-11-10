@@ -13,9 +13,9 @@ namespace wtgb
 		/// </summary>
 		struct Vertex
 		{
-			Vector3 position;  // 座標
-			Vector3 normal;    // 法線
-			Vector2 uv;        // UV座標
+			DirectX::XMVECTOR position;  // 座標
+			DirectX::XMVECTOR normal;    // 法線
+			DirectX::XMVECTOR uv;        // UV座標
 		};
 
 		/// <summary>
@@ -44,6 +44,7 @@ namespace wtgb
 		{
 			fs::path textureFile;
 			Color diffuse;
+			ComPtr<ID3D11SamplerState> textureSamplerState;
 		};
 
 	public:

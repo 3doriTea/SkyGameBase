@@ -45,7 +45,7 @@ void Player::Update()
 {
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 
-	angle_ += DirectX::XM_PI / 30.0f * dt;
+	angle_ += DirectX::XM_PI / 10.0f * dt;
 	if (angle_ >= DirectX::XM_PI)
 	{
 		angle_ -= DirectX::XM_PI;

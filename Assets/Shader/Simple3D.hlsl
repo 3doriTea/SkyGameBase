@@ -47,14 +47,15 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
-    float4 textureColor = g_texture.Sample(g_sampler, inData.uv.xy);
-    return textureColor;
+    float4 textureColor = float4(0, 1, 0, 1); //g_texture.Sample(g_sampler, inData.uv.xy);
+    //return textureColor;
     float4 ambient = textureColor * float4(ambientValue, ambientValue, ambientValue, 1.0f);
     float4 diffuse = textureColor * inData.color;
     
     diffuse = saturate(diffuse * (lightColor + float4(1, 1, 1, 1)));
     float4 color = diffuse + ambient;
     
+    //return color;
     return g_texture.Sample(g_sampler, inData.uv.xy);
 
 }
