@@ -95,9 +95,12 @@ void wtgb::CPMeshRenderer::Update()
 			}
 			//constantBuffer.materialFLag = useTexture;
 
+			pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
 
 			{
-				size_t vertexCount = pFbxModel->GetIndexCountAt();// TODO 頂点数取得
+				size_t vertexCount = pFbxModel->GetVertexCount();// TODO 頂点数取得
+				std::vector<Fbx::Vertex> vertexes{};
+				vertexes.resize(vertexCount);
 
 				// 1. 元バッファの情報取得
 				D3D11_BUFFER_DESC desc{};
@@ -128,14 +131,19 @@ void wtgb::CPMeshRenderer::Update()
 				if (SUCCEEDED(hr))
 				{
 					// バッファの内容をコピー
-					memcpy(outData, mapped.pData, sizeof(Fbx::Vertex) * vertexCount);
+					memcpy(vertexes.data(), mapped.pData, sizeof(Fbx::Vertex) * vertexCount);
 					pContext->Unmap(pStagingBuffer, 0);
+				}
+
+				LOGFLN("----------------------------");
+				for (auto& vertex : vertexes)
+				{
+					LOGFLN("UV:({},{})", vertex.uv.m128_f32[0], vertex.uv.m128_f32[1]);
 				}
 
 				pStagingBuffer->Release();
 			}
 
-			pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
 		}
 	}
 }

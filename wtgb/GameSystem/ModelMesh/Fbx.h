@@ -70,7 +70,16 @@ namespace wtgb
 		/// </summary>
 		/// <returns>インデックス数</returns>
 		size_t GetIndexCountAt(const size_t _index) const { return indexCounts_.at(_index); }
-
+		/// <summary>
+		/// 頂点数を取得する
+		/// </summary>
+		/// <returns>頂点数</returns>
+		size_t GetVertexCount() const { return vertexCount_; }
+		/// <summary>
+		/// 複数あるマテリアルの1つを取得
+		/// </summary>
+		/// <param name="_index">インデックス</param>
+		/// <returns>マテリアルの参照ポインタ</returns>
 		Material& GetMaterialAt(const size_t _index) { return materials_.at(_index); }
 
 	private:
