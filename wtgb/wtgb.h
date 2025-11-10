@@ -22,6 +22,8 @@
 #include "GameComponent/MeshRenderer.h"
 
 #include "GameSystem/GameTime.h"
+#include "GameSystem/Camera.h"
+#include "GameSystem/Input.h"
 
 using wtgb::IGame;
 using wtgb::IGameSystem;
