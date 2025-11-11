@@ -71,6 +71,10 @@ namespace wtgb
 		/// <returns>法線の変換行列</returns>
 		Matrix4x4 GetNormalMatrix() const { return rotateMatrix_; }
 
+#pragma region 方向ベクトルの取得
+		Vector3 GetForward() const { return Vector3::Forward() *= worldRotateMatrix_; }
+#pragma endregion
+
 	private:
 		Vector3 position_;  // ローカル座標
 		Vector3 rotation_;  // ローカル回転角度 (ラジアンのオイラー角)
@@ -82,5 +86,6 @@ namespace wtgb
 
 		Matrix4x4 localMatrix_;      // ローカル行列
 		Matrix4x4 worldMatrix_;      // ワールド行列
+		Matrix4x4 worldRotateMatrix_;  // ワールド回転行列
 	};
 }

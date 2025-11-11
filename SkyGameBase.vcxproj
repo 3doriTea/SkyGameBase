@@ -23,6 +23,7 @@
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
+    <ClInclude Include="Source\PlayScene\CameraController.h" />
     <ClInclude Include="Source\Systems\FirstSceneRegister.h" />
     <ClInclude Include="Source\Systems\MainWindow.h" />
     <ClInclude Include="Source\PlayScene\PlayScene.h" />
@@ -111,6 +112,7 @@
   <ItemGroup>
     <ClCompile Include="Library\ufbx\ufbx.cpp" />
     <ClCompile Include="pch\pch.cpp" />
+    <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />

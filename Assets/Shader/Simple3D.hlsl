@@ -49,16 +49,17 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
-    float4 color;
+    float4 diffuse;
+
     if (hasTexture)
     {
-        color = g_texture.Sample(g_sampler, inData.uv.xy);
+        diffuse = g_texture.Sample(g_sampler, inData.uv.xy);
     }
     else
     {
-        color = diffuseColor;
+        diffuse = diffuseColor;
     }
-    return color * inData.color;
+    return diffuse; // * inData.color;
     
     
     //    float4 textureColor = g_texture.Sample(g_sampler, inData.uv.xy);
