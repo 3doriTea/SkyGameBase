@@ -55,6 +55,7 @@ void SampleGame::StartRegister(
 		// シーンマネージを登録したあとで最初のシーンを登録
 		.Register<FirstSceneRegister>()
 
+		// NOTE: ComponentManagerを追加してから 各ComponentPoolシステムを追加する
 		.Register<ComponentManager>()
 
 		.Register<CPGameObject>()

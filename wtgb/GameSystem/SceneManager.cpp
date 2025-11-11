@@ -28,6 +28,8 @@ void wtgb::SceneManager::Update(const ViewerUpdate& _system)
 		pCurrent_ = pToNext_;
 		pToNext_ = nullptr;
 
+		system_.Get<ComponentManager>();
+
 		pCurrent_->cachedSystem_ = system_;
 		pCurrent_->Start();  // シーン開始処理
 	}

@@ -169,6 +169,7 @@
     <None Include="packages.config" />
     <None Include="wtgb\Core\ComponentSetter.inl" />
     <None Include="wtgb\Core\GameObjectBuilder.inl" />
+    <None Include="wtgb\Core\GameSystemCollection.inl" />
     <None Include="wtgb\GameSystem\ComponentManager.inl" />
     <None Include="wtgb\GameSystem\ComponentPool.inl" />
   </ItemGroup>
