@@ -10,6 +10,7 @@
 #include "GameSystem/ResourceSystem.h"
 #include "GameSystem/CPTransform.h"
 #include "WTGBAssert.h"
+#define WTGB_CPMR_USE_VERTEX_LOG 0
 
 wtgb::CPMeshRenderer::CPMeshRenderer()
 {
@@ -117,7 +118,7 @@ void wtgb::CPMeshRenderer::Update()
 
 			pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
 
-			#if 1
+			#if WTGB_CPMR_USE_VERTEX_LOG
 			{
 				size_t vertexCount = pFbxModel->GetVertexCount();
 				std::vector<Fbx::Vertex> vertexes{};

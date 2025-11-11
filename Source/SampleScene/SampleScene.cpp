@@ -4,6 +4,7 @@
 #include "GameSystem/Camera.h"
 
 #include "Player.h"
+#include "../PlayScene/PlayScene.h"
 
 using namespace wtgb;
 
@@ -22,5 +23,13 @@ void SampleScene::Start()
 	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };
 
 	Instantiate<Player>();
+}
 
+void SampleScene::Update()
+{
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+	if (input.IsKeyDown(KeyCode::F))
+	{
+		System().Get<SceneManager>().Move<PlayScene>();
+	}
 }

@@ -2,6 +2,7 @@
 #include "PlayScene.h"
 
 #include "../SampleScene/Player.h"
+#include "CameraController.h"
 
 PlayScene::PlayScene() : GameScene
 {
@@ -19,7 +20,8 @@ PlayScene::~PlayScene()
 
 void PlayScene::Start()
 {
-	Instantiate<Player>();
+	//Instantiate<Player>();
+	Instantiate<CameraController>();
 }
 
 void PlayScene::Update()

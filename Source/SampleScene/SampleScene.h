@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/GameScene.h"
+#include "wtgb.h"
 
 class SampleScene : public wtgb::GameScene
 {
@@ -8,4 +8,5 @@ public:
 	~SampleScene() {}
 
 	void Start() override;
+	void Update() override;
 };

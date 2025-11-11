@@ -37,8 +37,10 @@ void CameraController::Init()
 
 void CameraController::Update()
 {
+	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	Camera& camera{ System().Get<Camera>() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+
 
 	Vector2Int currMousePos{ input.GetMousePosition() };
 	Vector2Int mouseMove{ currMousePos - prevMousePos_ };
@@ -50,5 +52,18 @@ void CameraController::Update()
 	angles.y += mouseMove.x;
 	Transform().SetRotation(angles);
 
+	LOGFLN("move({}, {})", angles.x, angles.y);
+	
+	Vector3 cameraPos{ Transform().GetPosition() };
+
+	//LOGFLN("campos:({}, {}, {})", cameraPos.x, cameraPos.y, cameraPos.z);
+
+	cameraPos.x += (input.IsKey(KeyCode::D) ? 1.0f : 0.0f + input.IsKey(KeyCode::A) ? -1.0f : 0.0f) * dt * 10.0f;
+	cameraPos.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f) * dt * 10.0f;
+	cameraPos.z += (input.IsKey(KeyCode::W) ? 1.0f : 0.0f + input.IsKey(KeyCode::S) ? -1.0f : 0.0f) * dt * 10.0f;
+
+	Transform().SetPosition(cameraPos);
+
 	camera.targetPosition_ = Transform().GetForward() + Transform().GetPosition();
+	camera.position_ = Transform().GetPosition();
 }
