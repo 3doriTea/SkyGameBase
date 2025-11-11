@@ -21,23 +21,60 @@ namespace wtgb
 		Transform() {}
 		~Transform() {}
 
+		/// <summary>
+		/// 初期化処理
+		/// </summary>
 		void Init(ViewerCached system_) override {}
+		/// <summary>
+		/// 更新処理
+		/// </summary>
 		void Update(ViewerCached system_) override {}
 
+		/// <summary>
+		/// ローカル座標をセットする
+		/// </summary>
 		void SetPosition(const Vector3& _position) { position_ = _position; }
+		/// <summary>
+		/// ローカル回転角度をセットする
+		/// </summary>
+		/// <param name="_rotation">ラジアンオイラー角</param>
 		void SetRotation(const Vector3& _rotation) { rotation_ = _rotation; }
+		/// <summary>
+		/// ローカルスケールをセットする
+		/// </summary>
+		/// <param name="_scale">スケール</param>
 		void SetScale(const Vector3& _scale)       { scale_ = _scale; }
+		/// <summary>
+		/// ローカル座標を取得する
+		/// </summary>
+		/// <returns>ローカル座標</returns>
 		Vector3 GetPosition() const                { return position_; }
+		/// <summary>
+		/// ローカル回転角度を取得する
+		/// </summary>
+		/// <returns>ラジアンオイラー角</returns>
 		Vector3 GetRotation() const                { return rotation_; }
+		/// <summary>
+		/// ローカルスケールを取得する
+		/// </summary>
+		/// <returns>スケール</returns>
 		Vector3 GetScale() const                   { return scale_; }
 
-		Matrix4x4 GetWorldMatrix() const { return localMatrix_; }
+		/// <summary>
+		/// ワールド行列を取得する
+		/// </summary>
+		/// <returns>ワールド変換行列</returns>
+		Matrix4x4 GetWorldMatrix() const;
+		/// <summary>
+		/// 法線の変換行列 (回転行列) を取得する
+		/// </summary>
+		/// <returns>法線の変換行列</returns>
 		Matrix4x4 GetNormalMatrix() const { return rotateMatrix_; }
 
 	private:
-		Vector3 position_;  // 座標
-		Vector3 rotation_;  // 回転
-		Vector3 scale_;     // 大きさ
+		Vector3 position_;  // ローカル座標
+		Vector3 rotation_;  // ローカル回転角度 (ラジアンのオイラー角)
+		Vector3 scale_;     // ローカルスケール
 
 		Matrix4x4 translateMatrix_;  // 移動行列
 		Matrix4x4 rotateMatrix_;     // 回転行列

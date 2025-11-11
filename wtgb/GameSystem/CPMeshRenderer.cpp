@@ -55,7 +55,7 @@ void wtgb::CPMeshRenderer::Update()
 		Fbx::ConstantBuffer constantBuffer{};
 		constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 		constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
-		constantBuffer.matrixUV = XMMatrixIdentity();
+		//constantBuffer.matrixUV = XMMatrixIdentity();
 
 		// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 		System().Get<Direct3D>().SetShader((*itr).hShader_);
@@ -68,8 +68,13 @@ void wtgb::CPMeshRenderer::Update()
 		// 各マテリアル分
 		for (int i = 0; i < pFbxModel->GetMaterialCount(); i++)
 		{
+			constantBuffer.diffuseColor = pFbxModel->GetMaterialAt(i).diffuse;
+
 			//constantBuffer.diffuse = pFbxModel->GetMaterialAt(i).diffuse;
-			bool useTexture{ pFbxModel->GetMaterialAt(i).textureFile != "" };
+			//bool useTexture{ pFbxModel->GetMaterialAt(i).textureFile != "" };
+			//bool useTexture{ pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE };
+			TextureHandle hTexture{ pFbxModel->GetMaterialAt(i).hTexture_ };
+
 
 			// インデックスバッファをセット
 			stride = sizeof(int);
@@ -80,9 +85,10 @@ void wtgb::CPMeshRenderer::Update()
 			pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
 			pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
 
-			if (useTexture)
+			if (hTexture)
 			{
-				Texture* pTexture{ System().Get<ResourceSystem>().GetTexture((*itr).hTexture_) };
+				constantBuffer.hasTexture = TRUE;
+				Texture* pTexture{ System().Get<ResourceSystem>().GetTexture(hTexture) };
 				wassert(pTexture != nullptr);
 				if (pTexture)
 				{
@@ -93,12 +99,27 @@ void wtgb::CPMeshRenderer::Update()
 					pContext->PSSetShaderResources(0, 1, &pSRV);
 				}
 			}
+			else
+			{
+				constantBuffer.hasTexture = FALSE;
+			}
 			//constantBuffer.materialFLag = useTexture;
+
+			D3D11_MAPPED_SUBRESOURCE data{};
+
+			pContext->Map(pFbxModel->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+			memcpy_s(
+				data.pData,
+				data.RowPitch,
+				reinterpret_cast<void*>(&constantBuffer),
+				sizeof(Fbx::ConstantBuffer));
+			pContext->Unmap(pFbxModel->GetConstantBuffer().Get(), 0);
 
 			pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
 
+			#if 1
 			{
-				size_t vertexCount = pFbxModel->GetVertexCount();// TODO 頂点数取得
+				size_t vertexCount = pFbxModel->GetVertexCount();
 				std::vector<Fbx::Vertex> vertexes{};
 				vertexes.resize(vertexCount);
 
@@ -114,25 +135,25 @@ void wtgb::CPMeshRenderer::Update()
 				stagingDesc.MiscFlags = 0;
 
 				// 3. ステージングバッファを作成
-				ID3D11Buffer* pStagingBuffer = nullptr;
+				ComPtr<ID3D11Buffer> pStagingBuffer{};
 				HRESULT hr = pDevice->CreateBuffer(&stagingDesc, nullptr, &pStagingBuffer);
 				if (FAILED(hr))
 				{
-					// 作成失敗例外やエラーハンドリング
+					wassert(false && "ステージングバッファの作成に失敗");
 					return;
 				}
 
 				// 4. GPUバッファからステージングバッファにコピー
-				pContext->CopyResource(pStagingBuffer, pFbxModel->GetVertexBuffer().Get());
+				pContext->CopyResource(pStagingBuffer.Get(), pFbxModel->GetVertexBuffer().Get());
 
 				// 5. ステージングバッファをマップしてCPUで読み込み
 				D3D11_MAPPED_SUBRESOURCE mapped{};
-				hr = pContext->Map(pStagingBuffer, 0, D3D11_MAP_READ, 0, &mapped);
+				hr = pContext->Map(pStagingBuffer.Get(), 0, D3D11_MAP_READ, 0, &mapped);
 				if (SUCCEEDED(hr))
 				{
 					// バッファの内容をコピー
 					memcpy(vertexes.data(), mapped.pData, sizeof(Fbx::Vertex) * vertexCount);
-					pContext->Unmap(pStagingBuffer, 0);
+					pContext->Unmap(pStagingBuffer.Get(), 0);
 				}
 
 				LOGFLN("----------------------------");
@@ -141,9 +162,9 @@ void wtgb::CPMeshRenderer::Update()
 					LOGFLN("UV:({},{})", vertex.uv.m128_f32[0], vertex.uv.m128_f32[1]);
 				}
 
-				pStagingBuffer->Release();
+				pStagingBuffer.Reset();
 			}
-
+			#endif
 		}
 	}
 }

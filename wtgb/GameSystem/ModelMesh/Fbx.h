@@ -32,9 +32,11 @@ namespace wtgb
 			Matrix4x4 matrixUV;           // UV変換行列
 			Matrix4x4 matrixWorld;        // ワールド行列
 			Matrix4x4 matrixRotateWorld;  // ワールド回転行列
-			Vector3 lightDirection;       // ライトの向き
-			Vector3 lightColor;           // ライトの色
+			Color lightDirection;        // ライトの向き
+			Color lightColor;            // ライトの色
+			Color diffuseColor;           // ディフューズカラー
 			float ambientValue;          // 環境光の量
+			BOOL hasTexture;             // テクスチャを持っているか
 		};
 
 		/// <summary>
@@ -42,7 +44,8 @@ namespace wtgb
 		/// </summary>
 		struct Material
 		{
-			fs::path textureFile;
+			//fs::path textureFile;
+			TextureHandle hTexture_;
 			Color diffuse;
 			ComPtr<ID3D11SamplerState> textureSamplerState;
 		};

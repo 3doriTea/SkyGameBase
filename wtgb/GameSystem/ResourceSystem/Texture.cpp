@@ -62,7 +62,13 @@ void wtgb::Texture::CreateShaderResourceView(ID3D11Device* _pDevice)
 
 	std::wstring fileNameW{ config_.fileName.begin(), config_.fileName.end() };
 
-	Path::Current::Exists(fileNameW);
+	bool existFile{ Path::Current::Exists(fileNameW) };
+
+	if (existFile == false)
+	{
+		wassert(false && "ì«Ç›çûÇﬁÉtÉ@ÉCÉãÇ™ë∂ç›ÇµÇ»Ç¢");
+		return;
+	}
 
 	hResult = LoadFromWICFile(
 		fileNameW.c_str(),

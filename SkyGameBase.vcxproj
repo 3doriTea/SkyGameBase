@@ -123,6 +123,7 @@
     <ClCompile Include="wtgb\GameComponent\GameObject.cpp" />
     <ClCompile Include="wtgb\GameComponent\MeshRenderer.cpp" />
     <ClCompile Include="wtgb\GameComponent\ModelMesh.cpp" />
+    <ClCompile Include="wtgb\GameComponent\Transform.cpp" />
     <ClCompile Include="wtgb\GameSystem\Camera.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager.cpp" />
     <ClCompile Include="wtgb\Core\Game.cpp" />

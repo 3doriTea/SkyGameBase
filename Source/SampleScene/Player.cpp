@@ -21,13 +21,15 @@ Player::Player() : GameObject
 		.AddComponent<ModelMesh>()
 			.BeginSetter()
 				//.fileName("Models/Oden.fbx")
-				.fileName("Models/TestCube/TestCube.fbx")
+				//.fileName("Models/TestCube/TestCube.fbx")
+				.fileName("Models/Neko/NekoSphere.fbx")
 			.EndSetter()
 		.AddComponent<MeshRenderer>()
 			.BeginSetter()
 				.shader("Shader/Simple3D.hlsl")
 				//.texture("Models/TestCube/TestCubeTexture.png")
-				.texture("Models/TestCube/UVChecker.jpg")
+				//.texture("Models/Oden.jpg")
+				//.texture("Models/TestCube/UVChecker.jpg")
 			.EndSetter()
 		.Build();
 	}
@@ -62,6 +64,8 @@ void Player::Update()
 	Transform().SetRotation(rotation);
 
 	Vector3 cameraPos{ System().Get<wtgb::Camera>().position_ };
+
+	LOGFLN("campos:({}, {}, {})", cameraPos.x, cameraPos.y, cameraPos.z);
 
 	cameraPos.x += (input.IsKey(KeyCode::D) ? 1.0f : 0.0f + input.IsKey(KeyCode::A) ? -1.0f : 0.0f) * dt * 10.0f;
 	cameraPos.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f) * dt * 10.0f;

@@ -155,14 +155,6 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 	pCompileVS.Reset();
 	pCompilePS.Reset();
 
-	// TODO:
-	/*system_.Get<Direct3D>().Resource().Context()->VSSetShader(shaders_.At(hShader).VertexShader().Get(), nullptr, 0);
-	system_.Get<Direct3D>().Resource().Context()->PSSetShader(shaders_.At(hShader).PixelShader().Get(), nullptr, 0);
-	system_.Get<Direct3D>().Resource().Context()->IASetInputLayout(shaders_.At(hShader).VertexLayout().Get());
-	system_.Get<Direct3D>().Resource().Context()->RSSetState(shaders_.At(hShader).RasterizerState().Get());*/
-
-	
-
 	return hShader;
 }
 

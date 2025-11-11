@@ -13,7 +13,9 @@ cbuffer global
     float4x4 matrixRotateWorld;  // ワールド回転行列
     float4 lightDirection;       // ライトの向き
     float4 lightColor;           // ライトの色
+    float4 diffuseColor;         // 元の色
     float ambientValue;          // 環境光の量
+    bool hasTexture;             // テクスチャを持っている true / false
 };
 
 struct VS_OUT
@@ -47,15 +49,26 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
-    float4 textureColor = float4(0, 1, 0, 1); //g_texture.Sample(g_sampler, inData.uv.xy);
-    //return textureColor;
-    float4 ambient = textureColor * float4(ambientValue, ambientValue, ambientValue, 1.0f);
-    float4 diffuse = textureColor * inData.color;
+    float4 color;
+    if (hasTexture)
+    {
+        color = g_texture.Sample(g_sampler, inData.uv.xy);
+    }
+    else
+    {
+        color = diffuseColor;
+    }
+    return color * inData.color;
     
-    diffuse = saturate(diffuse * (lightColor + float4(1, 1, 1, 1)));
-    float4 color = diffuse + ambient;
+    
+    //    float4 textureColor = g_texture.Sample(g_sampler, inData.uv.xy);
+    //float4 ambient = textureColor * float4(ambientValue, ambientValue, ambientValue, 1.0f);
+    //float4 diffuse = textureColor * inData.color;
+    
+    //diffuse = saturate(diffuse * (lightColor + float4(1, 1, 1, 1)));
+    //float4 color = diffuse + ambient;
     
     //return color;
-    return g_texture.Sample(g_sampler, inData.uv.xy);
+    //return g_texture.Sample(g_sampler, inData.uv.xy);
 
 }

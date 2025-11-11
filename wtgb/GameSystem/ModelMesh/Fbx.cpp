@@ -5,6 +5,7 @@
 #include "GameSystem/Direct3D.h"
 
 #include "GameSystem/Debug.h"
+#include "GameSystem/ResourceSystem.h"
 
 wtgb::Fbx::~Fbx()
 {
@@ -87,11 +88,13 @@ void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
 				static_cast<float>(position[Z])
 			};
 
-			int uvIndex{ 0 };
+			// 頂点のUV
+			FbxLayerElementUV* pUV = _pMesh->GetLayer(0)->GetUVs();
+			int uvIndex{ _pMesh->GetTextureUVIndex(p, v, FbxLayerElement::eTextureDiffuse) };
 			FbxVector2 uv{ pUV->GetDirectArray().GetAt(uvIndex) };
 
 			// mapping mode で分岐
-			switch (mappingMode)
+			/*switch (mappingMode)
 			{
 				break;
 			case fbxsdk::FbxLayerElement::eByControlPoint:
@@ -107,10 +110,10 @@ void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
 			default:
 				uv = { 0, 0 };
 				break;
-			}
+			}*/
 
 			// reference mode で分岐
-			switch (referenceMode)
+			/*switch (referenceMode)
 			{
 			case fbxsdk::FbxLayerElement::eDirect:
 				uv = pUV->GetDirectArray().GetAt(uvIndex);
@@ -122,14 +125,14 @@ void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
 			case fbxsdk::FbxLayerElement::eIndex:
 			default:
 				break;
-			}
+			}*/
 
 			// UVを取得
 			// NOTE: UVの縦方向の基準が逆になるため逆にする
 			vertexes[index].uv =
 			{
 				static_cast<float>(uv.mData[U]),
-				1.0f - static_cast<float>(uv.mData[U])
+				1.0f - static_cast<float>(uv.mData[V])
 			};
 
 			// 法線を取得
@@ -257,6 +260,8 @@ void wtgb::Fbx::InitMaterial(FbxNode* _pNode)
 
 	materials_.resize(materialCount_);
 
+	ResourceSystem& resourceSystem{ System().Get<ResourceSystem>() };
+
 	for (int i = 0; i < materialCount_; i++)
 	{
 		FbxSurfaceMaterial* pMaterial{ _pNode->GetMaterial(i) };
@@ -276,7 +281,7 @@ void wtgb::Fbx::InitMaterial(FbxNode* _pNode)
 #pragma region テクスチャ関係
 		int fileTextureCount{ fbxProperty.GetSrcObjectCount<FbxFileTexture>() };
 
-		materials_[i].textureFile = "";
+		//materials_[i].textureFile = "";
 		
 		if (fileTextureCount > 0)  // テクスチャが貼ってあるなら
 		{
@@ -289,7 +294,8 @@ void wtgb::Fbx::InitMaterial(FbxNode* _pNode)
 			// GOOD: fs::is_regular_file(materials_[i].textureFile)
 			if (fs::is_regular_file(textureFile))
 			{
-				materials_[i].textureFile = textureFile;
+				//materials_[i].textureFile = textureFile;
+				materials_[i].hTexture_ = resourceSystem.LoadTexture(textureFile.string());
 			}
 			else
 			{

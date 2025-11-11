@@ -6,7 +6,8 @@
 
 wtgb::MeshRenderer::MeshRenderer() :
 	hShader_{ INVALID_HANDLE },
-	hTexture_{ INVALID_HANDLE }
+	hTexture_{ INVALID_HANDLE },
+	texture_{}
 {
 }
 
@@ -35,5 +36,8 @@ void wtgb::MeshRenderer::Init(ViewerCached _system)
 			.cullMode = D3D11_CULL_BACK,   // âBñ è¡ãé
 			.backIsClockwise = false,
 		});
-	hTexture_ = _system.Get<ResourceSystem>().LoadTexture(texture_);
+	if (texture_.empty() == false)
+	{
+		hTexture_ = _system.Get<ResourceSystem>().LoadTexture(texture_);
+	}
 }
