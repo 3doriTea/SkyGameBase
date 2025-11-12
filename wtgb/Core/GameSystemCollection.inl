@@ -1,5 +1,3 @@
-#include "GameSystem/ComponentManager.h"
-
 template<wtgb::GameSystemT T, typename ...Args>
 inline const wtgb::GameSystemCollection::GameSystemAdder&
 wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
@@ -11,22 +9,26 @@ wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
 	GameSystems& gameSystems{ GetAccess()->gameSystems_ };
 	Indexes& callFrameIndexes{ GetAccess()->callFrameIndexes_ };
 	Indexes& callCycleIndexes{ GetAccess()->callCycleIndexes_ };
+	
+	// TODO: コンポーネントプール関連は別クラスに移す
+	Indexes& componentPoolIndexes{ GetAccess()->componentPoolIndexes_ };
 
 	IGameSystem* pGameSystem{ new T{ args... } };
 
-	const Index index{ gameSystems.size() };
+	// 登録するゲームシステムに割り当てる要素番号
+	const Index INDEX{ gameSystems.size() };
 
 	gameSystems.push_back(pGameSystem);
-	gameSystemTypeKey.emplace(typeid(T), index);
+	gameSystemTypeKey.emplace(typeid(T), INDEX);
 
 	// 呼び出すタイミング別で要素番号を保存しておく
 	switch (pGameSystem->GetCallType())
 	{
 	case IGameSystem::CallType::Frame:  // フレーム毎の呼び出しコレクションに追加
-		callFrameIndexes.push_back(index);
+		callFrameIndexes.push_back(INDEX);
 		break;
 	case IGameSystem::CallType::Cycle:  // サイクル毎の呼び出しコレクションに追加
-		callCycleIndexes.push_back(index);
+		callCycleIndexes.push_back(INDEX);
 		break;
 	case IGameSystem::CallType::DoNotUpdate:  // 更新不要
 	default:
@@ -36,7 +38,7 @@ wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
 	// IComponentPool なら処理する
 	if constexpr (std::is_base_of_v<IComponentPool, T>)
 	{
-		
+		componentPoolIndexes.push_back(INDEX);
 	}
 
 	return *this;

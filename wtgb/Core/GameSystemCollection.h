@@ -61,6 +61,30 @@ namespace wtgb
 		};
 
 		/// <summary>
+		/// ゲームシステムのうちコンポーネントプールにアクセスするだけのクラス
+		/// </summary>
+		class ComponentPoolAccessor : public Accessor<GameSystemCollection>
+		{
+			friend class ComponentManager;
+		public:
+			/// <summary>
+			/// <para>走査するコールバック関数</para>
+			/// <para>void(IComponentPool*)</para>
+			/// </summary>
+			using ForEachCallback = std::function<void(IComponentPool*)>;
+
+		public:
+			using Accessor<GameSystemCollection>::Accessor;
+			~ComponentPoolAccessor() {}
+
+			/// <summary>
+			/// 登録されている	全コンポーネントプールを走査
+			/// </summary>
+			/// <param name="_callback">void(IComponentPool*)</param>
+			void ForEachAll(const ForEachCallback& _callback);
+		};
+
+		/// <summary>
 		/// ゲームシステムの参照だけクラス
 		/// </summary>
 		class GameSystemViewer : public GameSystemAccessor
@@ -153,6 +177,9 @@ namespace wtgb
 		GameSystems gameSystems_;     // 登録したゲームシステム
 		Indexes callFrameIndexes_;    // 描画フレームで呼び出すゲームシステムの要素番号
 		Indexes callCycleIndexes_;    // ゲームループサイクルで呼び出すゲームシステムの要素番号
+
+		// TODO: クラス分けする
+		Indexes componentPoolIndexes_;  // コンポーネントプールの要素番号
 	};
 }
 

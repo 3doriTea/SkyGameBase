@@ -50,9 +50,6 @@ void wtgb::Game::RunProcess()
 	pGameLoop_->RunLoop(pGameSystemRegister);
 
 	pGameSystemRegister->End();
-
-	//SAFE_DELETE(pGameLoop_);
-	//SAFE_DELETE(pGameSystemRegister);
 }
 
 wtgb::IGame* wtgb::Game::pGame_{ nullptr };

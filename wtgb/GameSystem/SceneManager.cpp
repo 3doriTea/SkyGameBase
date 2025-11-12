@@ -28,8 +28,6 @@ void wtgb::SceneManager::Update(const ViewerUpdate& _system)
 		pCurrent_ = pToNext_;
 		pToNext_ = nullptr;
 
-		system_.Get<ComponentManager>();
-
 		pCurrent_->cachedSystem_ = system_;
 		pCurrent_->Start();  // シーン開始処理
 	}
@@ -43,4 +41,9 @@ void wtgb::SceneManager::End()
 {
 	SAFE_DELETE(pCurrent_);
 	SAFE_DELETE(pToNext_);
+}
+
+void wtgb::SceneManager::RequestClearComponents()
+{
+	system_.Get<ComponentManager>().ClearComponents();
 }

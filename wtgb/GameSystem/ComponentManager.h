@@ -85,12 +85,26 @@ namespace wtgb
 		template<typename T>
 		const T& Get(const EntityId _entityId) const;
 
+		/// <summary>
+		/// コンポーネントプールの破棄が必要か
+		/// </summary>
+		/// <returns>必要である true / false</returns>
+		const bool NeedsClearComponents() const { return needsClearComponents_; }
+
+		/// <summary>
+		/// <para>全コンポーネントの破棄依頼をする</para>
+		/// <para>NOTE: 全Updateが終わったあとに処理される → 早めの呼び出しが必要</para>
+		/// </summary>
+		void ClearComponents() { needsClearComponents_ = true; }
+
 	private:
 		std::vector<IComponentPool*> pools_;  // コンポーネントプールの順番を持っておく
 		std::map<std::type_index, IComponentPool*> typeToPools_;  // コンポーネントプールの型変換用
 		EntityGenerator entityGenerator_;  // エンティティ生成
 		ViewerCached system_;    // システムビューアのキャッシュ
 		EntityId prevEntityId_;  // 前に生成したエンティティのId
+		GameSystemCollection::ComponentPoolAccessor componentPoolAccessor_;
+		bool needsClearComponents_;
 	};
 }
 

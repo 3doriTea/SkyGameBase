@@ -35,7 +35,11 @@ namespace wtgb
 			{
 				pToNext_ = new SceneT{};
 			}
+			RequestClearComponents();  // コンポーネントの破棄依頼をする
 		}
+
+	private:
+		void RequestClearComponents();
 
 	private:
 		GameScene* pCurrent_;  // 現在のシーン

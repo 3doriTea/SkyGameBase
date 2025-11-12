@@ -1,7 +1,9 @@
 #include "pch\pch.h"
 #include "GameSystemCollection.h"
 #include "IGameSystem.h"
+#include "WTGBAssert.h"
 
+#include "GameSystem/ComponentManager.h"
 #include "GameSystem/Debug.h"
 
 wtgb::GameSystemCollection::GameSystemCollection()
@@ -50,4 +52,16 @@ wtgb::GameSystemCollection::GameSystemCachedViewer
 	wtgb::GameSystemCollection::GameSystemInitViewer::GetCache() const
 {
 	return { GetAccess() };
+}
+
+void wtgb::GameSystemCollection::ComponentPoolAccessor::ForEachAll(const ForEachCallback& _callback)
+{
+	// コンポーネントプールだけアクセス
+	for (const auto index : GetAccess()->componentPoolIndexes_)
+	{
+		IComponentPool* pComponentPool{ dynamic_cast<IComponentPool*>(GetAccess()->gameSystems_[index]) };
+		wassert(pComponentPool != nullptr && "ComponentPoolではないゲームシステムにアクセスしようとした");
+
+		_callback(pComponentPool);
+	}
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include "Core/IGameSystem.h"
 
 namespace wtgb
 {
@@ -11,5 +10,10 @@ namespace wtgb
 	public:
 		IComponentPool() {}
 		virtual ~IComponentPool() {}
+
+		/// <summary>
+		/// コンポーネントプール内を破棄する
+		/// </summary>
+		virtual void Clear() = 0;
 	};
 }

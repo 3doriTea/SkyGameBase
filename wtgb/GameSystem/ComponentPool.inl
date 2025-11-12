@@ -47,6 +47,12 @@ inline void wtgb::ComponentPool<ComponentT>::Remove(const EntityId _entityId)
 }
 
 template<typename ComponentT>
+inline void wtgb::ComponentPool<ComponentT>::Clear()
+{
+	useFlag_.reset();
+}
+
+template<typename ComponentT>
 inline bool wtgb::ComponentPool<ComponentT>::IsInvalidEntity(const EntityId _entityId)
 {
 	return System().Get<ComponentManager>().IsInvalidId(_entityId);

@@ -39,7 +39,14 @@
 #ifdef USE_FBX_SDK
 
 // FbxSDK
+
+#pragma warning(disable:26812)  // enum class関連
+#pragma warning(disable:26495)  // メンバ初期化
+#pragma warning(disable:26451)  // 演算オーバーフロー
 #include <fbxsdk.h>
+#pragma warning(default:26812)
+#pragma warning(default:26451)
+#pragma warning(default:26495)
 
 #pragma comment(lib, "LibFbxSDK-MD.lib")
 #pragma comment(lib, "LibXml2-MD.lib")

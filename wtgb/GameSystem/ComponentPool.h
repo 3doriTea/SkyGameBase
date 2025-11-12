@@ -40,32 +40,6 @@ namespace wtgb
 			ComponentPoolIterator& operator++()
 			{
 				++itr_;
-				/*while (true)
-				{
-					++itr_;
-					if (itr_ == itrEnd_)
-					{
-						break;
-					}
-					size_t index{ GetIndex() };
-					if (index >= useFlag_.size())
-					{
-						break;
-					}
-					if (useFlag_[index])
-					{
-						break;
-					}
-				}*/
-				/*do
-				{
-					++itr_;
-				}
-				while (itr_ != itrEnd_ && (
-					GetIndex() >= useFlag_.size() || !useFlag_[GetIndex()]
-					));
-				return *this;*/
-
 				return *this;
 			}
 
@@ -230,6 +204,8 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_entityId">外すエンティティId</param>
 		void Remove(const EntityId _entityId);
+
+		void Clear() override;
 
 	protected:
 		/// <summary>

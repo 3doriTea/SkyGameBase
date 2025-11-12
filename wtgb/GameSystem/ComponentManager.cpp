@@ -3,7 +3,8 @@
 
 wtgb::ComponentManager::ComponentManager() :
 	system_{ nullptr },
-	prevEntityId_{ wtgb::INVALIED_ID }
+	prevEntityId_{ wtgb::INVALIED_ID },
+	componentPoolAccessor_{ nullptr }
 {
 }
 
