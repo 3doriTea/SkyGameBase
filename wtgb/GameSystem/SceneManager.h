@@ -35,7 +35,10 @@ namespace wtgb
 			{
 				pToNext_ = new SceneT{};
 			}
-			RequestClearComponents();  // コンポーネントの破棄依頼をする
+			if (pCurrent_)  // 今のシーンが動いているなら
+			{
+				RequestClearComponents();  // コンポーネントの破棄依頼をする
+			}
 		}
 
 	private:

@@ -23,79 +23,17 @@ namespace wtgb
 		/// <summary>
 		/// コンポーネントプールへのイテレータ
 		/// </summary>
-		class ComponentPoolIterator
-		{
-		public:
-			ComponentPoolIterator(Pool::iterator&& _itr, Pool::iterator&& _itrBegin, Pool::iterator&& _itrEnd, std::bitset<ENTITY_CAPACITY>& _useFlag) :
-				itr_{ std::move(_itr) },
-				itrBegin_{ std::move(_itrBegin) },
-				itrEnd_{ std::move(_itrEnd) },
-				useFlag_{ _useFlag }
-			{}
-			~ComponentPoolIterator() {}
-
-			size_t GetIndex() const { return itr_ - itrBegin_; }
-
-			// 前置インクリメント
-			ComponentPoolIterator& operator++()
-			{
-				++itr_;
-				return *this;
-			}
-
-			// 後置インクリメント
-			ComponentPoolIterator operator++(int)
-			{
-				ComponentPoolIterator itr{ *this };
-				++itr;
-				return itr;
-			}
-
-			bool operator==(const ComponentPoolIterator& _other)
-			{
-				return this->itr_ == _other.itr_;
-			}
-
-			bool operator!=(const ComponentPoolIterator& _other)
-			{
-				return !(*this == _other);
-			}
-
-			ComponentT& operator*() const
-			{
-				return *itr_;
-			}
-
-			ComponentPoolIterator operator+(const size_t _index)
-			{
-				itr_ += _index;
-				return *this;
-			}
-
-			ComponentPoolIterator operator-(const size_t _index)
-			{
-				itr_ -= _index;
-				return *this;
-			}
-
-		private:
-			std::bitset<ENTITY_CAPACITY>& useFlag_;
-			Pool::iterator itr_;
-			Pool::iterator itrEnd_;
-			Pool::iterator itrBegin_;
-		};
-
 		class PoolIterator
 		{
 		public:
-			PoolIterator(Pool& _pool, std::bitset<ENTITY_CAPACITY>& _used, Pool::iterator _itr) :
+			PoolIterator(const Pool& _pool, const std::bitset<ENTITY_CAPACITY>& _used, Pool::iterator _itr) :
 				pool_{ _pool },
 				used_{ _used },
 				itr_{ _itr }
 			{}
 			~PoolIterator() {}
 
-			size_t GetIndex() { return itr_ - pool_.begin(); }
+			size_t GetIndex() const { return itr_ - pool_.begin(); }
 
 			// 前置インクリメント
 			PoolIterator& operator++()
@@ -137,12 +75,12 @@ namespace wtgb
 				return *this;
 			}
 
-			bool operator==(const PoolIterator& _other)
+			bool operator==(const PoolIterator& _other) const
 			{
 				return this->itr_ == _other.itr_;
 			}
 
-			bool operator!=(const PoolIterator& _other)
+			bool operator!=(const PoolIterator& _other) const
 			{
 				return !(*this == _other);
 			}
@@ -152,17 +90,26 @@ namespace wtgb
 				return *itr_;
 			}
 
-			PoolIterator operator+(const size_t _index)
+			PoolIterator operator+(const size_t _index) const
 			{
 				itr_ += _index;
 				return *this;
 			}
 
-		private:
+		protected:
 			Pool::iterator itr_;
-			Pool& pool_;
-			std::bitset<ENTITY_CAPACITY>& used_;
+			const Pool& pool_;
+			const std::bitset<ENTITY_CAPACITY>& used_;
 		};
+		class ConstPoolIterator : public PoolIterator
+		{
+		public:
+			using PoolIterator::PoolIterator;
+			~ConstPoolIterator() {}
+
+
+		};
+
 	protected:
 		ComponentPool() : system_{ nullptr }, pool_{} {}
 		virtual ~ComponentPool() {}
@@ -222,8 +169,8 @@ namespace wtgb
 	protected:
 		PoolIterator begin() { return { pool_, useFlag_, pool_.begin() }; }
 		PoolIterator end() { return { pool_, useFlag_, pool_.end() }; }
-		Pool::const_iterator begin() const { return pool_.begin(); }
-		Pool::const_iterator end() const { return pool_.end(); }
+		Pool::const_iterator begin() const { return { pool_, useFlag_, pool_.begin() }; }
+		Pool::const_iterator end() const { return { pool_, useFlag_, pool_.end() }; }
 
 		ComponentT& at(const size_t _index) { return pool_.at(_index); }
 		const ComponentT& at(const size_t _index) const { return pool_.at(_index); }

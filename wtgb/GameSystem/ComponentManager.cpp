@@ -4,7 +4,8 @@
 wtgb::ComponentManager::ComponentManager() :
 	system_{ nullptr },
 	prevEntityId_{ wtgb::INVALIED_ID },
-	componentPoolAccessor_{ nullptr }
+	componentPoolAccessor_{ nullptr },
+	needsClearComponents_{ false }
 {
 }
 
