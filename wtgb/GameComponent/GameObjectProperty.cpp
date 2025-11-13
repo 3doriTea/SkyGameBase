@@ -1,13 +1,24 @@
 #include "pch\pch.h"
 #include "GameObjectProperty.h"
+#include "GameSystem/CPGameObject.h"
 #include "WTGBAssert.h"
 
-wtgb::GameObjectProperty::GameObjectProperty()
+wtgb::GameObjectProperty::GameObjectProperty() :
+	name_{},
+	parent_{ INVALID_ENTITY },
+	childsCount_{ 0 },
+	childs_{},
+	system_{ nullptr }
 {
 }
 
 wtgb::GameObjectProperty::~GameObjectProperty()
 {
+}
+
+void wtgb::GameObjectProperty::Init(ViewerCached _system)
+{
+	system_ = _system;
 }
 
 void wtgb::GameObjectProperty::SetName(const std::string& _name)
@@ -23,17 +34,13 @@ void wtgb::GameObjectProperty::SetName(const std::string& _name)
 	}
 }
 
-void wtgb::GameObjectProperty::SetParent(const EntityId _parent)
-{
-}
-
 void wtgb::GameObjectProperty::CountChilds() const
 {
 }
 
 void wtgb::GameObjectProperty::SetParent(const EntityId _parent)
 {
-	//system_.Get<CPGameObjectProperty>().
+	system_.Get<CPGameObjectProperty>().SetFamily(_parent, GetEntityId());
 }
 
 void wtgb::GameObjectProperty::AddChild(const EntityId _entityId)
@@ -43,6 +50,7 @@ void wtgb::GameObjectProperty::AddChild(const EntityId _entityId)
 		if ((*itr) == INVALID_ENTITY)
 		{
 			*itr = _entityId;
+			childsCount_++;
 			return;  // ãÛÇÃèÍèäÇå©Ç¬ÇØÇΩÇÁÇªÇ±Ç…ì¸ÇÍÇƒâÒãA
 		}
 	}
@@ -57,6 +65,7 @@ void wtgb::GameObjectProperty::RemoveChild(const EntityId _entityId)
 		if ((*itr) == _entityId)
 		{
 			(*itr) = INVALID_ENTITY;
+			childsCount_--;
 			return;
 		}
 	}
@@ -69,5 +78,6 @@ void wtgb::GameObjectProperty::RemoveAllChild()
 	for (auto itr = childs_.begin(); itr != childs_.end(); itr++)
 	{
 		(*itr) == INVALID_ENTITY;
+		childsCount_--;
 	}
 }

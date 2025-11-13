@@ -1,5 +1,8 @@
 #include "pch\pch.h"
 #include "CPTransform.h"
+#include "GameSystem/CPGameObject.h"
+#include "GameSystem/CPGameObjectProperty.h"
+#include "WTGBAssert.h"
 
 wtgb::CPTransform::CPTransform()
 {
@@ -36,9 +39,32 @@ void wtgb::CPTransform::Update()
 				* _transform.translateMatrix_;
 		});
 
-	ForEach([](Transform& _transform)
+	CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+	CPGameObjectProperty& cpGameObjectProperty{ System().Get<CPGameObjectProperty>() };
+
+	ForEach([&cpGameObject, &cpGameObjectProperty, this](Transform& _transform, const size_t _index)
 		{
-			_transform.
-			at()
+			EntityId entityId{ cpGameObject.GetEntityId(_index) };
+			GameObjectProperty* pGameObjectProperty{ cpGameObjectProperty.Get(entityId) };
+			wassert(pGameObjectProperty && "ゲームプロパティのコンポーネントの取得に失敗");
+
+			std::stack<GameObjectProperty*> st{};
+			st.push(pGameObjectProperty);
+			while (true)
+			{
+				EntityId entityId{ st.top()->GetParent()};
+				if (entityId == INVALID_ENTITY)
+				{
+					break;
+				}
+				GameObjectProperty* pGameObjectProperty{ cpGameObjectProperty.Get(entityId) };
+				st.push(pGameObjectProperty);
+			}
+
+			while (!st.empty())
+			{
+				_transform.worldMatrix_ *= at(st.top()->GetEntityId()).localMatrix_;
+				st.pop();
+			}
 		});
 }

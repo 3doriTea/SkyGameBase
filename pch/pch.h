@@ -20,6 +20,7 @@
 #include <functional>
 #include <array>
 #include <bitset>
+#include <stack>
 
 #include <typeindex>
 

@@ -21,26 +21,34 @@ void wtgb::CPGameObjectProperty::SetFamily(const EntityId _parent, const EntityI
 {
 	if (_parent == INVALID_ENTITY && _child == INVALID_ENTITY)
 	{
+		assert(false && "親子ともに無効な値が指定された");
 		return;  // 無意味なので無視
+	}
+
+	if (_child == INVALID_ENTITY)
+	{
+		// MEMO: 子の指定が無効値の場合、すべての子を切り離すようにしていたが、危険なため例外スローにした。
+		assert(false && "子が無効な値");
+		throw "子の指定がありません";
+		// 子を切り離す
+		//at(_parent).RemoveAllChild();
 	}
 
 	if (_parent == INVALID_ENTITY)
 	{
 		// 親を切り離す
 		at(_child).parent_ = INVALID_ENTITY;
+		return;
 	}
 
-	if (_child == INVALID_ENTITY)
-	{
-		throw "子の指定がありません";
-		// 子を切り離す
-		//at(_parent).RemoveAllChild();
-	}
 
 	if (at(_child).parent_ != INVALID_ENTITY)
 	{
 		// 親がいるなら切り離す
 		SetFamily(INVALID_ENTITY, _child);
 	}
-	at(_child).parent_ = _child;
+
+	// 親子関係を結ぶ
+	at(_child).parent_ = _parent;
+	at(_parent).AddChild(_child);
 }

@@ -25,8 +25,8 @@ namespace wtgb
 		GameObjectProperty();
 		~GameObjectProperty();
 
-		void Init(ViewerCached system_) override {}
-		void Update(ViewerCached system_) override {}
+		void Init(ViewerCached _system) override;
+		void Update(ViewerCached _system) override {}
 
 		/// <summary>
 		/// 名前を取得する
@@ -43,6 +43,12 @@ namespace wtgb
 		void SetParent(const EntityId _parent);
 
 		const EntityId GetParent() const { return parent_; }
+
+		/// <summary>
+		/// ゲームオブジェクトに割り当てられたエンティティIdを取得する
+		/// </summary>
+		/// <returns>エンティティId</returns>
+		const EntityId GetEntityId() const { assert(self_ != INVALID_ENTITY); return self_; }
 
 		void CountChilds() const;
 
@@ -62,6 +68,10 @@ namespace wtgb
 		void RemoveAllChild();
 
 	private:
+		ViewerCached& System() { return system_; }
+
+	private:
+		EntityId self_;         // このゲームオブジェクトのエンティティId
 		char name_[NAME_SIZE];  // オブジェクトの名前
 		EntityId parent_;       // 親のエンティティId
 		int childsCount_;       // 子のエンティティの数
