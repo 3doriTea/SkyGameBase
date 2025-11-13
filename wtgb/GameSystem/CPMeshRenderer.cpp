@@ -33,9 +33,13 @@ void wtgb::CPMeshRenderer::Update()
 	CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
 	CPTransform& cpTransform{ System().Get<CPTransform>() };
 	CPModelMesh& cpModelMesh{ System().Get<CPModelMesh>() };
+	Model& model{ System().Get<Model>() };
+	Direct3D& d3d{ System().Get<Direct3D>() };
+	ResourceSystem& resource{ System().Get<ResourceSystem>() };
 	ID3D11DeviceContext* pContext{ System().Get<Direct3D>().Resource().Context() };
 	
-	ForEach([&camera, &pDevice, &cpGameObject, &cpTransform, &cpModelMesh, pContext](MeshRenderer& meshRenderer, const size_t _index)
+	ForEach([&camera, &pDevice, &cpGameObject, &cpTransform, &cpModelMesh, &model, &d3d, &resource, pContext]
+		(MeshRenderer& meshRenderer, const size_t _index)
 		{
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
 			if (entityId.index == 2)
@@ -45,7 +49,7 @@ void wtgb::CPMeshRenderer::Update()
 			ModelMesh* pModelMesh{ cpModelMesh.Get(entityId) };
 			if (pModelMesh == nullptr)  // 無効なメッシュコンポーネントを取得してしまったら回帰
 			{
-				continue;
+				return;
 			}
 			ModelHandle hModel{ pModelMesh->hModel_ };
 			Transform* pTransform{ cpTransform.Get(entityId) };
@@ -53,10 +57,9 @@ void wtgb::CPMeshRenderer::Update()
 			if (pTransform == nullptr)
 			{
 				wassert(false && "Transformの取得に失敗");
-				continue;
+				return;
 			}
 
-			Model& model{ System().Get<Model>() };
 			ModelResource* pModel{ model.GetModel(hModel) };
 			Fbx* pFbxModel{ dynamic_cast<Fbx*>(pModel) };
 			if (pFbxModel == nullptr)
@@ -71,7 +74,7 @@ void wtgb::CPMeshRenderer::Update()
 			//constantBuffer.matrixUV = XMMatrixIdentity();
 
 			// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
-			System().Get<Direct3D>().SetShader((*itr).hShader_);
+			d3d.SetShader(meshRenderer.hShader_);
 
 			UINT stride{ sizeof(Fbx::Vertex) };
 			UINT offset{ 0 };
@@ -101,7 +104,7 @@ void wtgb::CPMeshRenderer::Update()
 				if (hTexture)
 				{
 					constantBuffer.hasTexture = TRUE;
-					Texture* pTexture{ System().Get<ResourceSystem>().GetTexture(hTexture) };
+					Texture* pTexture{ resource.GetTexture(hTexture) };
 					wassert(pTexture != nullptr);
 					if (pTexture)
 					{
@@ -180,5 +183,4 @@ void wtgb::CPMeshRenderer::Update()
 				#endif
 			}
 		});
-	}
 }

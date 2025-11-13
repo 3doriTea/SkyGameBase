@@ -52,8 +52,6 @@ void CameraController::Update()
 	angles.y += mouseMove.x;
 	Transform().SetRotation(angles);
 
-	LOGFLN("move({}, {})", angles.x, angles.y);
-	
 	Vector3 cameraPos{ Transform().GetPosition() };
 
 	//LOGFLN("campos:({}, {}, {})", cameraPos.x, cameraPos.y, cameraPos.z);

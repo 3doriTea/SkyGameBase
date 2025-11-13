@@ -41,6 +41,8 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 
 		if (gameSystemViewer.Get<ComponentManager>().NeedsClearComponents())
 		{
+			gameSystemViewer.Get<ComponentManager>().RemoveAllEntity();
+
 			componentPools.ForEachAll([](IComponentPool* pComponentPool)
 				{
 					pComponentPool->Clear();

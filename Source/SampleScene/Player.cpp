@@ -65,8 +65,6 @@ void Player::Update()
 
 	Vector3 cameraPos{ System().Get<wtgb::Camera>().position_ };
 
-	LOGFLN("campos:({}, {}, {})", cameraPos.x, cameraPos.y, cameraPos.z);
-
 	cameraPos.x += (input.IsKey(KeyCode::D) ? 1.0f : 0.0f + input.IsKey(KeyCode::A) ? -1.0f : 0.0f) * dt * 10.0f;
 	cameraPos.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f) * dt * 10.0f;
 	cameraPos.z += (input.IsKey(KeyCode::W) ? 1.0f : 0.0f + input.IsKey(KeyCode::S) ? -1.0f : 0.0f) * dt * 10.0f;

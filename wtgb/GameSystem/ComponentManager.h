@@ -87,6 +87,11 @@ namespace wtgb
 		const T& Get(const EntityId _entityId) const;
 
 		/// <summary>
+		/// 全エンティティを除去する
+		/// </summary>
+		void RemoveAllEntity();
+
+		/// <summary>
 		/// コンポーネントプールの破棄が必要か
 		/// </summary>
 		/// <returns>必要である true / false</returns>

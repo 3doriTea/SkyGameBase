@@ -1,8 +1,8 @@
 // REF: https://learn.microsoft.com/ja-jp/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
 
 // テクスチャ&サンプラーデータのグローバル変数定義
-Texture2D g_texture : register(t0);  // テクスチャ
-SamplerState g_sampler : register(s0);  // サンプラー
+//Texture2D g_texture : register(t0);  // テクスチャ
+//SamplerState g_sampler : register(s0);  // サンプラー
 
 // コンスタントバッファ
 cbuffer global
@@ -53,7 +53,7 @@ float4 PS(VS_OUT inData) : SV_TARGET
 
     if (hasTexture)
     {
-        diffuse = g_texture.Sample(g_sampler, inData.uv.xy);
+        //diffuse = g_texture.Sample(g_sampler, inData.uv.xy);
     }
     else
     {

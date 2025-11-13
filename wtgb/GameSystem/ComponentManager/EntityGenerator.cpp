@@ -1,8 +1,9 @@
 #include "pch\pch.h"
 #include "EntityGenerator.h"
+//#include "GameSystem/Debug.h"
 
 wtgb::EntityGenerator::EntityGenerator() :
-	nextIndex_{ 0 },
+	//nextIndex_{ 0 },
 	// NOTE: 無効なEntityIdにならないように最初のバージョンは1
 	versions_(ENTITY_CAPACITY, 1),
 	useFlag_{}
@@ -17,6 +18,7 @@ wtgb::EntityId wtgb::EntityGenerator::Generate()
 {
 	EntityId entityId{ wtgb::INVALIED_ID };
 
+
 	// TODO: アルゴリズム改善が必要
 	for (uint32_t i = 0; i < UINT32_MAX; i++)
 	{
@@ -26,9 +28,11 @@ wtgb::EntityId wtgb::EntityGenerator::Generate()
 			entityId.version = versions_[i];
 
 			useFlag_[i] = true;
+			LOGF("\nEID:{} v:{}, i:{}\n", entityId.id, entityId.version, entityId.index);
 			return entityId;
 		}
 	}
+
 
 	return entityId;
 }
@@ -55,4 +59,16 @@ const bool wtgb::EntityGenerator::IsInvalidId(const EntityId _checkId) const
 	}
 
 	return false;
+}
+
+void wtgb::EntityGenerator::RemoveAll()
+{
+	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
+	{
+		if (useFlag_[i])
+		{
+			useFlag_[i] = FALSE;
+			versions_[i]++;
+		}
+	}
 }

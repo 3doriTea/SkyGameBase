@@ -33,11 +33,16 @@ namespace wtgb
 		/// <returns>無効である true / false</returns>
 		const bool IsInvalidId(const EntityId _checkId) const;
 
+		/// <summary>
+		/// すべてのエンティティを除去する
+		/// </summary>
+		void RemoveAll();
+
 	private:
 		//const bool IsEmpty(const EntityId)
 
 	private:
-		uint32_t nextIndex_;  // 次生成するときのエンティティId
+		//uint32_t nextIndex_;  // 次生成するときのエンティティId
 		std::vector<uint32_t> versions_;  // エンティティの最新バージョン
 		std::bitset<ENTITY_CAPACITY> useFlag_;  // エンティティが存在しているかのフラグ
 	};

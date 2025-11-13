@@ -21,10 +21,6 @@ wtgb::Result wtgb::ComponentManager::Init(const ViewerInit& _viewer)
 
 void wtgb::ComponentManager::Update(const ViewerUpdate& _system)
 {
-	//for (auto& pool : pools_)
-	//{
-	//	//pool->;
-	//}
 }
 
 void wtgb::ComponentManager::End()
@@ -40,4 +36,10 @@ wtgb::EntityId wtgb::ComponentManager::GenerateEntity()
 void wtgb::ComponentManager::RemoveEntity(const EntityId _entityId)
 {
 	entityGenerator_.Remove(_entityId);
+}
+
+void wtgb::ComponentManager::RemoveAllEntity()
+{
+	entityGenerator_.RemoveAll();
+	needsClearComponents_ = false;
 }

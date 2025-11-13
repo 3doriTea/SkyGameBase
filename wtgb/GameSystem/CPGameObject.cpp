@@ -27,13 +27,13 @@ void wtgb::CPGameObject::Update()
 
 void wtgb::CPGameObject::End()
 {
-	for (auto& gameObject : *this)
-	{
-		if (gameObject)
+	ForEach([](GameObject* _pGameObject)
 		{
-			SAFE_DELETE(gameObject);
-		}
-	}
+			if (_pGameObject)
+			{
+				SAFE_DELETE(_pGameObject);
+			}
+		});
 }
 
 wtgb::EntityId wtgb::CPGameObject::GetEntityId(const size_t _index)
@@ -43,7 +43,7 @@ wtgb::EntityId wtgb::CPGameObject::GetEntityId(const size_t _index)
 
 void wtgb::CPGameObject::Draw() const
 {
-	ForEach([](const GameObject*& _pGameObject)
+	ForEach([](GameObject* _pGameObject)
 		{
 			if (_pGameObject)
 			{
