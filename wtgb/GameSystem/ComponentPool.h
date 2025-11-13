@@ -248,7 +248,9 @@ namespace wtgb
 		ConstPoolIterator end() const { return { pool_, useFlag_, pool_.end() }; }*/
 
 		ComponentT& at(const size_t _index) { return pool_.at(_index); }
+		ComponentT& at(const EntityId _entityId) { assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); return pool_.at(_entityId._index); }
 		const ComponentT& at(const size_t _index) const { return pool_.at(_index); }
+		const ComponentT& at(const EntityId _entityId) const { return assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); pool_.at(_entityId._index); }
 
 		void ForEach(const std::function<void(ComponentT&)>& _callback);
 		void ForEach(const std::function<void(ComponentT&, const size_t)>& _callback);

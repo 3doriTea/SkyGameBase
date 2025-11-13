@@ -7,9 +7,11 @@
 namespace wtgb
 {
 	constexpr size_t NAME_SIZE{ 16 };
+	const size_t CHILD_COUNT_MAX{ 32 };
 
 	class COMPONENT(GameObjectProperty)
 	{
+		friend class CPGameObjectProperty;
 	public:
 		class SETTER(GameObjectProperty)
 		{
@@ -44,10 +46,27 @@ namespace wtgb
 
 		void CountChilds() const;
 
+		/// <summary>
+		/// 子を追加する
+		/// </summary>
+		/// <param name="_entityId">子のエンティティId</param>
+		void AddChild(const EntityId _entityId);
+		/// <summary>
+		/// 子を除去する
+		/// </summary>
+		/// <param name="_entityId">子のエンティティId</param>
+		void RemoveChild(const EntityId _entityId);
+		/// <summary>
+		/// すべての子を除去する
+		/// </summary>
+		void RemoveAllChild();
+
 	private:
 		char name_[NAME_SIZE];  // オブジェクトの名前
-		EntityId next_;         // 次の兄弟のエンティティId
 		EntityId parent_;       // 親のエンティティId
-		EntityId child_;        // 子のエンティティId
+		int childsCount_;       // 子のエンティティの数
+		std::array<EntityId, CHILD_COUNT_MAX> childs_;  // 子のエンティティ数
+
+		ViewerCached system_;
 	};
 }

@@ -20,5 +20,12 @@ namespace wtgb
 		/// 更新処理
 		/// </summary>
 		void Update() override;
+
+		/// <summary>
+		/// 親子関係をセットする
+		/// </summary>
+		/// <param name="_parent">親のエンティティId</param>
+		/// <param name="_child">子のエンティティId</param>
+		void SetFamily(const EntityId _parent, const EntityId _child);
 	};
 }

@@ -35,4 +35,10 @@ void wtgb::CPTransform::Update()
 				* _transform.rotateMatrix_
 				* _transform.translateMatrix_;
 		});
+
+	ForEach([](Transform& _transform)
+		{
+			_transform.
+			at()
+		});
 }
