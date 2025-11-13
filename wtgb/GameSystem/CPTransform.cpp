@@ -16,16 +16,23 @@ void wtgb::CPTransform::Init()
 void wtgb::CPTransform::Update()
 {
 	using namespace DirectX;
-	for (auto itr = this->begin(); itr != this->end(); itr++)
-	{
-		(*itr).translateMatrix_ = XMMatrixTranslation((*itr).position_.x, (*itr).position_.y, (*itr).position_.z);
-		(*itr).rotateMatrix_ = XMMatrixRotationZ((*itr).rotation_.z)
-			* XMMatrixRotationX((*itr).rotation_.x)
-			* XMMatrixRotationY((*itr).rotation_.y);
-		(*itr).scaleMatrix_ = XMMatrixScaling((*itr).scale_.x, (*itr).scale_.y, (*itr).scale_.z);
 
-		Transform& transform{ (*itr) };
+	ForEach([](Transform& _transform)
+		{
+			_transform.translateMatrix_ = XMMatrixTranslation(
+				_transform.position_.x,
+				_transform.position_.y,
+				_transform.position_.z);
+			_transform.rotateMatrix_ = XMMatrixRotationZ(_transform.rotation_.z)
+				* XMMatrixRotationX(_transform.rotation_.x)
+				* XMMatrixRotationY(_transform.rotation_.y);
+			_transform.scaleMatrix_ = XMMatrixScaling(
+				_transform.scale_.x,
+				_transform.scale_.y,
+				_transform.scale_.z);
 
-		transform.localMatrix_ = (*itr).scaleMatrix_ * (*itr).rotateMatrix_ * (*itr).translateMatrix_;
-	}
+			_transform.localMatrix_ = _transform.scaleMatrix_
+				* _transform.rotateMatrix_
+				* _transform.translateMatrix_;
+		});
 }

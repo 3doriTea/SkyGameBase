@@ -45,8 +45,5 @@ namespace wtgb
 		/// I—¹ˆ—
 		/// </summary>
 		virtual void End() = 0;
-
-	protected:
-		//void 
 	};
 }

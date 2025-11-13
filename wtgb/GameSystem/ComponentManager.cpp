@@ -31,14 +31,6 @@ void wtgb::ComponentManager::End()
 {
 }
 
-void wtgb::ComponentManager::ReleaseAll()
-{
-}
-
-void wtgb::ComponentManager::UpdateAll()
-{
-}
-
 wtgb::EntityId wtgb::ComponentManager::GenerateEntity()
 {
 	prevEntityId_ = entityGenerator_.Generate();

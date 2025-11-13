@@ -3,6 +3,7 @@
 
 #include "../SampleScene/Player.h"
 #include "CameraController.h"
+#include "../SampleScene/SampleScene.h"
 
 PlayScene::PlayScene() : GameScene
 {
@@ -20,10 +21,15 @@ PlayScene::~PlayScene()
 
 void PlayScene::Start()
 {
-	//Instantiate<Player>();
+	Instantiate<Player>();
 	Instantiate<CameraController>();
 }
 
 void PlayScene::Update()
 {
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+	if (input.IsKeyDown(KeyCode::F))
+	{
+		System().Get<SceneManager>().Move<SampleScene>();
+	}
 }

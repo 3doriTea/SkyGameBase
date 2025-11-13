@@ -49,7 +49,100 @@ inline void wtgb::ComponentPool<ComponentT>::Remove(const EntityId _entityId)
 template<typename ComponentT>
 inline void wtgb::ComponentPool<ComponentT>::Clear()
 {
+	ForEach([](ComponentT& component)
+		{
+			// 終了処理呼び出していく
+			if constexpr (std::is_pointer_v<ComponentT>)
+			{
+				component->End();
+			}
+			else
+			{
+				component.End();
+			}
+		});
+
 	useFlag_.reset();
+}
+
+template<typename ComponentT>
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<void(ComponentT&)>& _callback)
+{
+	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
+	{
+		if (useFlag_[i])
+		{
+			_callback(pool_.at(i));
+		}
+	}
+}
+
+template<typename ComponentT>
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<void(ComponentT&, const size_t)>& _callback)
+{
+	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
+	{
+		if (useFlag_[i])
+		{
+			_callback(pool_.at(i), i);
+		}
+	}
+}
+
+template<typename ComponentT>
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<void(const ComponentT&)>& _callback) const
+{
+	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
+	{
+		if (useFlag_[i])
+		{
+			_callback(pool_.at(i));
+		}
+	}
+}
+
+template<typename ComponentT>
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<void(const ComponentT&, const size_t)>& _callback) const
+{
+	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
+	{
+		if (useFlag_[i])
+		{
+			_callback(pool_.at(i), i);
+		}
+	}
+}
+
+template<typename ComponentT>
+inline wtgb::ComponentPool<ComponentT>::Pool::iterator wtgb::ComponentPool<ComponentT>::GetUsedBeginItr()
+{
+	// 使われているコンポーネントまで走査する
+	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
+	{
+		if (useFlag_[i])
+		{
+			return pool_.begin() + i;
+		}
+	}
+	
+	// 見つからなければ end を返す
+	return pool_.end();
+}
+
+template<typename ComponentT>
+inline wtgb::ComponentPool<ComponentT>::Pool::const_iterator wtgb::ComponentPool<ComponentT>::GetUsedBeginItr() const
+{
+	// 使われているコンポーネントまで走査する
+	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
+	{
+		if (useFlag_[i])
+		{
+			return pool_.begin() + i;
+		}
+	}
+
+	// 見つからなければ end を返す
+	return pool_.end();
 }
 
 template<typename ComponentT>

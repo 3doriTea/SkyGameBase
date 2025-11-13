@@ -54,6 +54,8 @@ namespace wtgb
 		virtual void Draw() const {}
 		virtual void Release() {}
 
+		void End() override;
+
 		/// <summary>
 		/// このゲームオブジェクトを削除する
 		/// </summary>

@@ -18,6 +18,7 @@ namespace wtgb
 		friend ComponentT;
 		//using Pool = std::array<ComponentT, wtgb::ENTITY_CAPACITY>;
 		using Pool = std::vector<ComponentT>;
+		using UsingFlag = std::bitset<ENTITY_CAPACITY>;
 
 	protected:
 		/// <summary>
@@ -92,8 +93,9 @@ namespace wtgb
 
 			PoolIterator operator+(const size_t _index) const
 			{
-				itr_ += _index;
-				return *this;
+				PoolIterator itr{ *this };
+				itr.itr_ += _index;
+				return itr;
 			}
 
 		protected:
@@ -101,13 +103,86 @@ namespace wtgb
 			const Pool& pool_;
 			const std::bitset<ENTITY_CAPACITY>& used_;
 		};
-		class ConstPoolIterator : public PoolIterator
+
+		class ConstPoolIterator
 		{
 		public:
-			using PoolIterator::PoolIterator;
+			ConstPoolIterator(const Pool& _pool, const std::bitset<ENTITY_CAPACITY>& _used, Pool::const_iterator _itr) :
+				pool_{ _pool },
+				used_{ _used },
+				itr_{ _itr }
+			{
+			}
 			~ConstPoolIterator() {}
 
+			size_t GetIndex() const { return itr_ - pool_.begin(); }
 
+			// 前置インクリメント
+			ConstPoolIterator& operator++()
+			{
+				while (true)
+				{
+					itr_++;
+					if (itr_ == pool_.end())
+					{
+						break;
+					}
+
+					if (used_[GetIndex()])
+					{
+						break;
+					}
+				}
+
+				return *this;
+			}
+
+			// 後置インクリメント
+			ConstPoolIterator operator++(int)
+			{
+				while (true)
+				{
+					itr_++;
+					if (itr_ == pool_.end())
+					{
+						break;
+					}
+
+					if (used_[GetIndex()])
+					{
+						break;
+					}
+				}
+
+				return *this;
+			}
+
+			bool operator==(const ConstPoolIterator& _other) const
+			{
+				return this->itr_ == _other.itr_;
+			}
+
+			bool operator!=(const ConstPoolIterator& _other) const
+			{
+				return !(*this == _other);
+			}
+
+			const ComponentT& operator*() const
+			{
+				return *itr_;
+			}
+
+			ConstPoolIterator operator+(const size_t _index) const
+			{
+				ConstPoolIterator itr{ *this };
+				itr.itr_ += _index;
+				return itr;
+			}
+
+		protected:
+			Pool::const_iterator itr_;
+			const Pool& pool_;
+			const std::bitset<ENTITY_CAPACITY>& used_;
 		};
 
 	protected:
@@ -167,15 +242,31 @@ namespace wtgb
 		ViewerCached& System() { return system_; }
 
 	protected:
-		PoolIterator begin() { return { pool_, useFlag_, pool_.begin() }; }
+		/*PoolIterator begin() { return { pool_, useFlag_, GetUsedBeginItr() }; }
 		PoolIterator end() { return { pool_, useFlag_, pool_.end() }; }
-		Pool::const_iterator begin() const { return { pool_, useFlag_, pool_.begin() }; }
-		Pool::const_iterator end() const { return { pool_, useFlag_, pool_.end() }; }
+		ConstPoolIterator begin() const { return { pool_, useFlag_, GetUsedBeginItr() }; }
+		ConstPoolIterator end() const { return { pool_, useFlag_, pool_.end() }; }*/
 
 		ComponentT& at(const size_t _index) { return pool_.at(_index); }
 		const ComponentT& at(const size_t _index) const { return pool_.at(_index); }
 
+		void ForEach(const std::function<void(ComponentT&)>& _callback);
+		void ForEach(const std::function<void(ComponentT&, const size_t)>& _callback);
+		void ForEach(const std::function<void(const ComponentT&)>& _callback) const;
+		void ForEach(const std::function<void(const ComponentT&, const size_t)>& _callback) const;
+
 	private:
+		/// <summary>
+		/// 使われている itr begin を取得する
+		/// </summary>
+		/// <returns>プールのイテレータ</returns>
+		Pool::iterator GetUsedBeginItr();
+		/// <summary>
+		/// 使われている itr begin を取得する
+		/// </summary>
+		/// <returns>プールのイテレータ</returns>
+		Pool::const_iterator GetUsedBeginItr() const;
+
 		bool IsInvalidEntity(const EntityId _entityId);
 
 	private:

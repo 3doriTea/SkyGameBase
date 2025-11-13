@@ -15,5 +15,6 @@ namespace wtgb
 
 		virtual void Init(ViewerCached system_) override {};
 		virtual void Update(ViewerCached system_) override {};
+		virtual void End() override{};
 	};
 }

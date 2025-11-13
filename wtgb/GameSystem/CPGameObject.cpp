@@ -16,13 +16,13 @@ void wtgb::CPGameObject::Init()
 
 void wtgb::CPGameObject::Update()
 {
-	for (auto& gameObject : *this)
-	{
-		if (gameObject)
+	ForEach([](GameObject*& _pGameObject)
 		{
-			gameObject->Update();
-		}
-	}
+			if (_pGameObject)
+			{
+				_pGameObject->Update();
+			}
+		});
 }
 
 void wtgb::CPGameObject::End()
@@ -38,17 +38,16 @@ void wtgb::CPGameObject::End()
 
 wtgb::EntityId wtgb::CPGameObject::GetEntityId(const size_t _index)
 {
-	auto itr{ begin() + _index };
-	return (*itr)->entityId_;
+	return at(_index)->entityId_;
 }
 
 void wtgb::CPGameObject::Draw() const
 {
-	for (const auto& gameObject : *this)
-	{
-		if (gameObject)
+	ForEach([](const GameObject*& _pGameObject)
 		{
-			gameObject->Draw();
-		}
-	}
+			if (_pGameObject)
+			{
+				_pGameObject->Draw();
+			}
+		});
 }
