@@ -67,17 +67,15 @@ void wtgb::CPTransform::Update()
 
 			Matrix4x4 matrix{};
 
+			LOGFLN("trans stack size = {}", st.size());
+
 			while (!st.empty())
 			{
-				if (st.size() == 2)
-				{
-					LOGFLN("size={}", st.size());
-				}
 				matrix *= at(st.top()->GetEntityId()).localMatrix_;
 				_transform.worldRotateMatrix_ *= at(st.top()->GetEntityId()).rotateMatrix_;
 				st.pop();
 			}
 
-			
+			_transform.worldMatrix_ = matrix;
 		});
 }

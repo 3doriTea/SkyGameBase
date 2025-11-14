@@ -24,7 +24,10 @@ void SampleScene::Start()
 	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };*/
 
 	EntityId pRoot = Instantiate<Player>(INVALID_ENTITY, Vector3::Zero());
-	Instantiate<Player>(pRoot, Vector3{ 3.0f, 2.0f, 0.0 });
+	//pRoot = INVALID_ENTITY;
+	EntityId pChild1 = Instantiate<Player>(pRoot, Vector3{ 3.0f, 2.0f, 0.0 });
+	//pChild1 = INVALID_ENTITY;
+	EntityId pChild2 = Instantiate<Player>(pChild1, Vector3{ 3.0f, 2.0f, 0.0 });
 	Instantiate<CameraController>();
 }
 
