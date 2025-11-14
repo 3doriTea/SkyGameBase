@@ -239,6 +239,7 @@ namespace wtgb
 		/// </summary>
 		virtual void Update() = 0;
 
+		const ViewerCached& System() const { return system_; }
 		ViewerCached& System() { return system_; }
 
 	protected:
@@ -247,10 +248,12 @@ namespace wtgb
 		ConstPoolIterator begin() const { return { pool_, useFlag_, GetUsedBeginItr() }; }
 		ConstPoolIterator end() const { return { pool_, useFlag_, pool_.end() }; }*/
 
-		ComponentT& at(const size_t _index) { return pool_.at(_index); }
-		ComponentT& at(const EntityId _entityId) { assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); return pool_.at(_entityId.index); }
-		const ComponentT& at(const size_t _index) const { return pool_.at(_index); }
-		const ComponentT& at(const EntityId _entityId) const { return assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); pool_.at(_entityId.index); }
+		inline ComponentT& at(const size_t _index) { return pool_.at(_index); }
+		inline ComponentT& at(const EntityId _entityId) { assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); return pool_.at(_entityId.index); }
+		inline const ComponentT& at(const size_t _index) const { return pool_.at(_index); }
+		inline const ComponentT& at(const EntityId _entityId) const { return assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); pool_.at(_entityId.index); }
+
+		inline const ComponentT* DataBegin() const { return pool_.data(); }
 
 		void ForEach(const std::function<void(ComponentT&)>& _callback);
 		void ForEach(const std::function<void(ComponentT&, const size_t)>& _callback);

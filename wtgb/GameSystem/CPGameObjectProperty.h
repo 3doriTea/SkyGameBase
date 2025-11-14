@@ -27,5 +27,7 @@ namespace wtgb
 		/// <param name="_parent">親のエンティティId</param>
 		/// <param name="_child">子のエンティティId</param>
 		void SetFamily(const EntityId _parent, const EntityId _child);
+
+		const EntityId GetEntityId(const GameObjectProperty* _p) const;
 	};
 }

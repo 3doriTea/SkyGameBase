@@ -35,7 +35,7 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_index">インデックス</param>
 		/// <returns>エンティティId</returns>
-		EntityId GetEntityId(const size_t _index);
+		const EntityId GetEntityId(const size_t _index) const;
 
 		/// <summary>
 		/// 描画処理

@@ -34,7 +34,7 @@ namespace wtgb
 		/// システムへのアクセス
 		/// </summary>
 		/// <returns></returns>
-		const ViewerCached& System() { return SYSTEM_; }
+		inline const ViewerCached& System() const { return SYSTEM_; }
 
 	private:
 		const std::string FILE_NAME_;

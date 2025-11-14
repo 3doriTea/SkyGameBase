@@ -1,5 +1,6 @@
 #include "GameComponent/GameObject.h"
 
+// TODO: ‰Â•Ï’·ˆø”‚ğó‚¯æ‚é
 template<typename ComponentT>
 wtgb::ComponentOption<ComponentT>& wtgb::GameObjectBuilder::AddComponent()
 {

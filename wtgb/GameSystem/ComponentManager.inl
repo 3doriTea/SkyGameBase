@@ -1,5 +1,6 @@
 #include <cassert>
 
+// TODO: ‰Â•Ï’·ˆø”‚ğó‚¯æ‚é
 template<typename T>
 inline T& wtgb::ComponentManager::Add(const EntityId _entityId)
 {

@@ -1,5 +1,6 @@
 #include "pch\pch.h"
 #include "CPGameObjectProperty.h"
+#include "CPGameObject.h"
 
 wtgb::CPGameObjectProperty::CPGameObjectProperty()
 {
@@ -51,4 +52,10 @@ void wtgb::CPGameObjectProperty::SetFamily(const EntityId _parent, const EntityI
 	// êeéqä÷åWÇåãÇ‘
 	at(_child).parent_ = _parent;
 	at(_parent).AddChild(_child);
+}
+
+const wtgb::EntityId wtgb::CPGameObjectProperty::GetEntityId(const GameObjectProperty* _p) const
+{
+	size_t index{ static_cast<size_t>(_p - DataBegin()) };
+	return System().Get<CPGameObject>().GetEntityId(index);
 }

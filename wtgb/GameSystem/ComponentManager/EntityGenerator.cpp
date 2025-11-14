@@ -46,6 +46,12 @@ void wtgb::EntityGenerator::Remove(const EntityId _entityId)
 
 const bool wtgb::EntityGenerator::IsInvalidId(const EntityId _checkId) const
 {
+	// エンティティキャパシティ以上の値なら無効
+	if (_checkId.index >= ENTITY_CAPACITY)
+	{
+		return true;
+	}
+
 	// 現在使われていないエンティティなら無効
 	if (!useFlag_[_checkId.index])
 	{

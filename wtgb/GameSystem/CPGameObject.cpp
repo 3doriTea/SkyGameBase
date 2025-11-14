@@ -36,7 +36,7 @@ void wtgb::CPGameObject::End()
 		});
 }
 
-wtgb::EntityId wtgb::CPGameObject::GetEntityId(const size_t _index)
+const wtgb::EntityId wtgb::CPGameObject::GetEntityId(const size_t _index) const
 {
 	return at(_index)->entityId_;
 }

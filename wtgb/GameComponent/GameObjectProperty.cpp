@@ -8,7 +8,8 @@ wtgb::GameObjectProperty::GameObjectProperty() :
 	parent_{ INVALID_ENTITY },
 	childsCount_{ 0 },
 	childs_{},
-	system_{ nullptr }
+	system_{ nullptr },
+	self_{ INVALID_ENTITY }
 {
 }
 
@@ -80,4 +81,17 @@ void wtgb::GameObjectProperty::RemoveAllChild()
 		(*itr) == INVALID_ENTITY;
 		childsCount_--;
 	}
+}
+
+void wtgb::GameObjectProperty::Update(ViewerCached _system)
+{
+}
+
+const wtgb::EntityId wtgb::GameObjectProperty::GetEntityId()
+{
+	if (self_ == INVALID_ENTITY)
+	{
+		self_ = System().Get<CPGameObjectProperty>().GetEntityId(this);
+	}
+	return self_;
 }
