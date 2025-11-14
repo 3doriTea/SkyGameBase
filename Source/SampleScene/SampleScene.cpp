@@ -5,6 +5,7 @@
 
 #include "Player.h"
 #include "../PlayScene/PlayScene.h"
+#include "../PlayScene/CameraController.h"
 
 using namespace wtgb;
 
@@ -19,10 +20,12 @@ SampleScene::SampleScene() : GameScene
 
 void SampleScene::Start()
 {
-	System().Get<Camera>().position_ = { 0, 0, -10.0f };
-	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };
+	/*System().Get<Camera>().position_ = { 0, 0, -10.0f };
+	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };*/
 
-	Instantiate<Player>();
+	EntityId pRoot = Instantiate<Player>(INVALID_ENTITY, Vector3::Zero());
+	Instantiate<Player>(pRoot, Vector3{ 3.0f, 2.0f, 0.0 });
+	Instantiate<CameraController>();
 }
 
 void SampleScene::Update()

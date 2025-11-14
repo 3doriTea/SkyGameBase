@@ -1,8 +1,9 @@
 #include "pch\pch.h"
 #include "Shader.h"
 
-wtgb::Shader::Shader() :
-	accessor_{ this }
+wtgb::Shader::Shader(const std::string& _fileName) :
+	accessor_{ this },
+	fileName_{ _fileName }
 {
 }
 

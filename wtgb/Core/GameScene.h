@@ -38,7 +38,7 @@ namespace wtgb
 		/// <param name="..._args">可変長引数</param>
 		/// <returns>インスタンスされたゲームオブジェクトの ptr / nullptr</returns>
 		template<typename T, typename ...Args>
-		GameObject* Instantiate(Args... _args)
+		EntityId Instantiate(Args... _args)
 		{
 			EntityId entityId{ cachedSystem_.Get<ComponentManager>().GenerateEntity() };
 
@@ -51,7 +51,7 @@ namespace wtgb
 
 			pGameObject->Init();  // 初期化はすぐ呼ぶ
 
-			return pGameObject;
+			return entityId;
 		}
 
 		ViewerCached System() { return cachedSystem_; }

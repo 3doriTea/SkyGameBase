@@ -31,7 +31,24 @@ void wtgb::ShaderCompile::End()
 
 const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _config)
 {
-	ShaderHandle hShader{ shaders_.Emplace() };
+	std::string_view fileName{ _config.fileName };
+	
+	// 重複を探す
+	ShaderHandle foundHandle
+	{
+		shaders_.GetContainsDuplicate([&fileName](Shader& _shader) -> bool
+		{
+			return _shader.GetFileName() == fileName;
+		})
+	};
+
+	if (foundHandle != INVALID_HANDLE)
+	{
+		// 重複があるならそのハンドルを返す
+		return foundHandle;
+	}
+
+	ShaderHandle hShader{ shaders_.Emplace(_config.fileName) };
 
 	ID3D11Device* pDevice{ system_.Get<Direct3D>().Resource().Device() };
 

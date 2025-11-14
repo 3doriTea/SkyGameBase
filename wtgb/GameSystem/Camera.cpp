@@ -23,7 +23,7 @@ wtgb::Result wtgb::Camera::Init(const ViewerInit& _viewer)
 		XM_PIDIV4,
 		static_cast<float>(SCREEN_SIZE.x) / static_cast<float>(SCREEN_SIZE.y),
 		0.1f,
-		100.0f);
+		1000.0f);
 
 	return Result::Code::Ok;
 }

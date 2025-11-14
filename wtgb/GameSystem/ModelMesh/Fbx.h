@@ -30,13 +30,12 @@ namespace wtgb
 
 			Matrix4x4 matrixWVP;          // ワールドビュープロジェクションの合成行列
 			Matrix4x4 matrixUV;           // UV変換行列
-			Matrix4x4 matrixWorld;        // ワールド行列
 			Matrix4x4 matrixRotateWorld;  // ワールド回転行列
-			Color lightDirection;        // ライトの向き
-			Color lightColor;            // ライトの色
+			Color lightDirection;         // ライトの向き
+			Color lightColor;             // ライトの色
 			Color diffuseColor;           // ディフューズカラー
-			float ambientValue;          // 環境光の量
-			BOOL hasTexture;             // テクスチャを持っているか
+			float ambientValue;           // 環境光の量
+			BOOL hasTexture;              // テクスチャを持っているか
 		};
 
 		/// <summary>

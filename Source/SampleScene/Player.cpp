@@ -3,18 +3,19 @@
 
 using namespace wtgb;
 
-Player::Player() : GameObject
+Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 {
-	[this](GameObjectBuilder& _builder) -> void
+	[this, &_parentId, &_localPos](GameObjectBuilder& _builder) -> void
 	{
 		_builder
 		.AddComponent<GameObjectProperty>()
 			.BeginSetter()
 				.name("Player")
+				.parent(_parentId)
 			.EndSetter()
 		.AddComponent<wtgb::Transform>()
 			.BeginSetter()
-				.position({ 0, 0, 0 })
+				.position(_localPos)
 				.rotation({ 0, 90, 0 })
 				.scale({ 1, 1, 1 })
 			.EndSetter()
@@ -49,11 +50,9 @@ void Player::Init()
 
 void Player::Update()
 {
-	const Input::InputGetter& input{ System().Get<Input>().Getter() };
-
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 
-	angle_ += DirectX::XM_2PI / 20.0f * dt;
+	angle_ += DirectX::XM_2PI / 10.0f * dt;
 	if (angle_ >= DirectX::XM_2PI)
 	{
 		angle_ -= DirectX::XM_2PI;
@@ -62,12 +61,4 @@ void Player::Update()
 	Vector3 rotation{ Transform().GetRotation() };
 	rotation.y = angle_;
 	Transform().SetRotation(rotation);
-
-	Vector3 cameraPos{ System().Get<wtgb::Camera>().position_ };
-
-	cameraPos.x += (input.IsKey(KeyCode::D) ? 1.0f : 0.0f + input.IsKey(KeyCode::A) ? -1.0f : 0.0f) * dt * 10.0f;
-	cameraPos.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f) * dt * 10.0f;
-	cameraPos.z += (input.IsKey(KeyCode::W) ? 1.0f : 0.0f + input.IsKey(KeyCode::S) ? -1.0f : 0.0f) * dt * 10.0f;
-
-	System().Get<wtgb::Camera>().position_ = cameraPos;
 }

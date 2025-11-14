@@ -71,7 +71,7 @@ void wtgb::CPMeshRenderer::Update()
 			Fbx::ConstantBuffer constantBuffer{};
 			constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 			constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
-			//constantBuffer.matrixUV = XMMatrixIdentity();
+			constantBuffer.matrixUV = XMMatrixIdentity();
 
 			// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 			d3d.SetShader(meshRenderer.hShader_);

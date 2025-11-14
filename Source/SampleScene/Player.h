@@ -4,7 +4,7 @@
 class Player : public GameObject
 {
 public:
-	Player();
+	Player(const EntityId _parentId, const Vector3 _localPos);
 	~Player();
 
 	void Init() override;

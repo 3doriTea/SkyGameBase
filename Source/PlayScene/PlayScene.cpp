@@ -21,8 +21,33 @@ PlayScene::~PlayScene()
 
 void PlayScene::Start()
 {
-	Instantiate<Player>();
 	Instantiate<CameraController>();
+	
+	EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3::Zero()) };
+	for (int k = 0; k < 3; k++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				Instantiate<Player>(pRootPlayer, Vector3{ i * 3.0f, k * 5.0f + 10.0f, j * 3.0f });
+				//Instantiate<Player>(pRootPlayer, Vector3{ -i * 3.0f, k * 5.0f, -j * 3.0f });
+			}
+		}
+	}
+	
+	//for (int k = 0; k < 20; k++)
+	//{
+	//	for (int j = 0; j < 20; j++)
+	//	{
+	//		for (int i = 0; i < 20; i++)
+	//		{
+	//			Instantiate<Player>(pRootPlayer, Vector3{ i * 3.0f, k * 5.0f, j * 3.0f });
+	//			//Instantiate<Player>(pRootPlayer, Vector3{ -i * 3.0f, k * 5.0f, -j * 3.0f });
+	//		}
+	//	}
+	//}
+
 }
 
 void PlayScene::Update()

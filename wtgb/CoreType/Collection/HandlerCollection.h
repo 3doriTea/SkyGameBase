@@ -40,6 +40,12 @@ namespace wtgb
 		/// </summary>
 		/// <returns>空っぽである true / false</returns>
 		bool IsEmpty() const { return this->counter_ <= 0; }
+		/// <summary>
+		/// 重複する要素ハンドルを取得
+		/// </summary>
+		/// <param name="_callback">重複をチェックするコールバック関数</param>
+		/// <returns>重複するハンドル / 見つからなければ無効ハンドル</returns>
+		HandleT GetContainsDuplicate(const std::function<bool(ValueT& _value)>& _callback);
 
 		/// <summary>
 		/// 頭イテレータ取得
@@ -92,6 +98,19 @@ void wtgb::HandlerCollection<ValueT, HandleT>::Release(const std::function<void(
 	{
 		_callback(pair.second);
 	}
+}
+
+template<typename ValueT, std::unsigned_integral HandleT>
+inline HandleT wtgb::HandlerCollection<ValueT, HandleT>::GetContainsDuplicate(const std::function<bool(ValueT& _value)>& _callback)
+{
+	for (auto& pair : *this)
+	{
+		if (_callback(pair.second))
+		{
+			return pair.first;
+		}
+	}
+	return wtgb::INVALID_HANDLE;
 }
 
 template<typename ValueT, std::unsigned_integral HandleT>

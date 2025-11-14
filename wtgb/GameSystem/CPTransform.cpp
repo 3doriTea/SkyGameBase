@@ -4,6 +4,7 @@
 #include "GameSystem/CPGameObjectProperty.h"
 #include "WTGBAssert.h"
 
+
 wtgb::CPTransform::CPTransform()
 {
 }
@@ -37,6 +38,8 @@ void wtgb::CPTransform::Update()
 			_transform.localMatrix_ = _transform.scaleMatrix_
 				* _transform.rotateMatrix_
 				* _transform.translateMatrix_;
+
+			_transform.worldMatrix_ = XMMatrixIdentity();
 		});
 
 	CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
@@ -61,10 +64,20 @@ void wtgb::CPTransform::Update()
 				st.push(pGameObjectProperty);
 			}
 
+
+			Matrix4x4 matrix{};
+
 			while (!st.empty())
 			{
-				_transform.worldMatrix_ *= at(st.top()->GetEntityId()).localMatrix_;
+				if (st.size() == 2)
+				{
+					LOGFLN("size={}", st.size());
+				}
+				matrix *= at(st.top()->GetEntityId()).localMatrix_;
+				_transform.worldRotateMatrix_ *= at(st.top()->GetEntityId()).rotateMatrix_;
 				st.pop();
 			}
+
+			
 		});
 }

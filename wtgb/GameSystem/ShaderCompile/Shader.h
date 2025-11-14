@@ -28,7 +28,7 @@ namespace wtgb
 			ComPtr<ID3D11RasterizerState>& RasterizerState() const { return GetAccess()->RasterizerState(); }
 		};
 	public:
-		Shader();
+		Shader(const std::string& _fileName);
 		~Shader();
 
 		ComPtr<ID3D11VertexShader>& VertexShader() { return pVertexShader_; }
@@ -36,6 +36,8 @@ namespace wtgb
 		ComPtr<ID3D11InputLayout>& VertexLayout() { return pVertexLayout_; }
 		ComPtr<ID3D11RasterizerState>& RasterizerState() { return pRasterizerState_; }
 		ShaderAccessor& GetAccessor() { return accessor_; }
+
+		std::string_view GetFileName() { return fileName_; }
 
 	private:
 		/// <summary>
@@ -53,5 +55,6 @@ namespace wtgb
 		ComPtr<ID3D11InputLayout> pVertexLayout_;         // 頂点インプットレイアウト
 		ComPtr<ID3D11RasterizerState> pRasterizerState_;  // ラスタライザステート
 		ShaderAccessor accessor_;  // アクセッサ
+		std::string fileName_;  // ファイル名
 	};
 }

@@ -42,19 +42,17 @@ void CameraController::Update()
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 
 
-	Vector2Int currMousePos{ input.GetMousePosition() };
-	Vector2Int mouseMove{ currMousePos - prevMousePos_ };
-	prevMousePos_ = currMousePos;
+	//Vector2Int currMousePos{ input.GetMousePosition() };
+	//Vector2Int mouseMove{ currMousePos - prevMousePos_ };
+	//prevMousePos_ = currMousePos;
 
-	// マウス移動量をカメラの角度に適用
-	Vector3 angles{ Transform().GetRotation() };
-	angles.x -= mouseMove.y;
-	angles.y += mouseMove.x;
-	Transform().SetRotation(angles);
+	//// マウス移動量をカメラの角度に適用
+	//Vector3 angles{ Transform().GetRotation() };
+	//angles.x -= mouseMove.y;
+	//angles.y += mouseMove.x;
+	//Transform().SetRotation(angles);
 
 	Vector3 cameraPos{ Transform().GetPosition() };
-
-	//LOGFLN("campos:({}, {}, {})", cameraPos.x, cameraPos.y, cameraPos.z);
 
 	cameraPos.x += (input.IsKey(KeyCode::D) ? 1.0f : 0.0f + input.IsKey(KeyCode::A) ? -1.0f : 0.0f) * dt * 10.0f;
 	cameraPos.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f) * dt * 10.0f;

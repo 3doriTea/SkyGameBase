@@ -32,6 +32,22 @@ void wtgb::Model::End()
 
 wtgb::ModelHandle wtgb::Model::Load(const std::string& _fileName)
 {
+	std::string_view fileName{ _fileName };
+
+	ModelHandle foundHandle
+	{
+		models_.GetContainsDuplicate([&fileName](ModelResource*& _pModelResource) -> bool
+			{
+				return _pModelResource->FileName() == fileName;
+			})
+	};
+
+	if (foundHandle != INVALID_HANDLE)
+	{
+		// Šù‚É“Ç‚İ‚İÏ‚İ‚È‚ç‚»‚Ìƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+		return foundHandle;
+	}
+
 	ModelHandle hModel{ models_.Emplace(new Fbx{ _fileName, system_ }) };
 	HRESULT hResult{};
 	models_.At(hModel).CallInit();
