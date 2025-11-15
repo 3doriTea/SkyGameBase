@@ -40,42 +40,53 @@ void wtgb::CPTransform::Update()
 				* _transform.translateMatrix_;
 
 			_transform.worldMatrix_ = XMMatrixIdentity();
+			_transform.worldRotateMatrix_ = XMMatrixIdentity();
 		});
 
 	CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
 	CPGameObjectProperty& cpGameObjectProperty{ System().Get<CPGameObjectProperty>() };
 
-	ForEach([&cpGameObject, &cpGameObjectProperty, this](Transform& _transform, const size_t _index)
+	// 親情報を取得していく
+	std::map<EntityId, EntityId> parentMap{};
+	std::map<EntityId, bool> check{};
+
+	ForEach([&cpGameObject, &cpGameObjectProperty, &parentMap, &check, this](Transform& _transform, const size_t _index)
 		{
-			EntityId entityId{ cpGameObject.GetEntityId(_index) };
-			GameObjectProperty* pGameObjectProperty{ cpGameObjectProperty.Get(entityId) };
-			wassert(pGameObjectProperty && "ゲームプロパティのコンポーネントの取得に失敗");
-
-			std::stack<GameObjectProperty*> st{};
-			st.push(pGameObjectProperty);
-			while (true)
-			{
-				EntityId entityId{ st.top()->GetParent()};
-				if (entityId == INVALID_ENTITY)
-				{
-					break;
-				}
-				GameObjectProperty* pGameObjectProperty{ cpGameObjectProperty.Get(entityId) };
-				st.push(pGameObjectProperty);
-			}
-
-
-			Matrix4x4 matrix{};
-
-			LOGFLN("trans stack size = {}", st.size());
-
-			while (!st.empty())
-			{
-				matrix *= at(st.top()->GetEntityId()).localMatrix_;
-				_transform.worldRotateMatrix_ *= at(st.top()->GetEntityId()).rotateMatrix_;
-				st.pop();
-			}
-
-			_transform.worldMatrix_ = matrix;
+			EntityId currentId{ cpGameObject.GetEntityId(_index) };
+			GameObjectProperty* pCurrentProperty{ cpGameObjectProperty.Get(currentId) };
+			
+			wassert(!check.count(currentId) && "既に同じEntityIdがある");
+			wassert(!parentMap.count(currentId) && "既に同じEntityIdがある");
+			
+			parentMap.insert({ currentId, pCurrentProperty->GetParent() });
+			check.insert({ currentId, false });
 		});
+
+	std::stack<EntityId> calculateStack{};
+	for (auto itr = parentMap.begin(); itr != parentMap.end(); itr++)
+	{
+		if (check[itr->first])
+		{
+			continue;
+		}
+		calculateStack.push(itr->first);
+		while (parentMap[calculateStack.top()] != INVALID_ENTITY)
+		{
+			calculateStack.push(parentMap[calculateStack.top()]);
+		}
+
+		while (!calculateStack.empty())
+		{
+			if (parentMap[calculateStack.top()] == INVALID_ENTITY)
+			{
+				at(calculateStack.top()).worldMatrix_ = at(calculateStack.top()).localMatrix_;
+			}
+			else
+			{
+				at(calculateStack.top()).worldMatrix_ *= at(calculateStack.top()).localMatrix_ * at(parentMap[calculateStack.top()]).worldMatrix_;
+			}
+			check[calculateStack.top()] = true;
+			calculateStack.pop();
+		}
+	}
 }

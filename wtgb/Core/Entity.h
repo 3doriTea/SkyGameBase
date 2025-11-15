@@ -25,6 +25,7 @@ namespace wtgb
 
 	inline bool operator==(const EntityId _left, const EntityId _right) { return _left.id == _right.id; }
 	inline bool operator!=(const EntityId _left, const EntityId _right) { return !(_left.id == _right.id); }
+	inline bool operator<(const EntityId _left, const EntityId _right)  { return _left.id < _right.id; }
 
 	const EntityId INVALID_ENTITY  { INVALIED_ID };
 }

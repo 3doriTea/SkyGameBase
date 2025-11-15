@@ -21,6 +21,7 @@
 #include <array>
 #include <bitset>
 #include <stack>
+#include <queue>
 
 #include <typeindex>
 
@@ -38,7 +39,6 @@
 #include "CoreType/Color.h"
 #include "CoreType/Collection/HandlerCollection.h"
 #include "CoreType/Handler.h"
-
 
 #include <wrl/client.h>
 using Microsoft::WRL::ComPtr;

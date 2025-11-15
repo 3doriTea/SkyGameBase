@@ -1,9 +1,10 @@
 #pragma once
-#include "GameComponent/GameObject.h"
+#include "ComponentPool.h"
 #include "GameComponent/Transform.h"
 
 namespace wtgb
 {
+	class Transform;
 	/// <summary>
 	/// コンポーネントプール : 座標変換(Transform)
 	/// </summary>

@@ -67,6 +67,8 @@ namespace wtgb
 		/// </summary>
 		void RemoveAllChild();
 
+		const std::array<EntityId, CHILD_COUNT_MAX>& GetChilds() const { return childs_; }
+
 	private:
 		const ViewerCached& System() const { return system_; }
 
