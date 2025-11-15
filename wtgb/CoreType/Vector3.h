@@ -25,12 +25,17 @@ namespace wtgb
 		/// 零ベクトルを取得する
 		/// </summary>
 		/// <returns>(0, 0, 0)</returns>
-		static Vector3 Zero() { return { 0, 0, 0 }; }
+		inline static Vector3 Zero() { return { 0, 0, 0 }; }
 		/// <summary>
 		/// Zだけ+1のベクトルを取得する
 		/// </summary>
 		/// <returns>(0, 0, 1)</returns>
-		static Vector3 Forward() { return { 0, 0, 1.0f }; }
+		inline static Vector3 Forward() { return { 0, 0, 1.0f }; }
+		/// <summary>
+		/// 全成分が1のベクトルを取得する
+		/// </summary>
+		/// <returns>(1, 1, 1)</returns>
+		inline static Vector3 One() { return { 1.0f, 1.0f, 1.0f }; }
 
 		/// <summary>
 		/// 行列との掛け算

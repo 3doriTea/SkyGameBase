@@ -61,4 +61,6 @@ void Player::Update()
 	Vector3 rotation{ Transform().GetRotation() };
 	rotation.y = angle_;
 	Transform().SetRotation(rotation);
+
+	Transform().SetScale((std::sinf(angle_) * 3.0f) * Vector3::One() + Vector3::One());
 }
