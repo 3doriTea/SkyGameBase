@@ -72,9 +72,9 @@ void wtgb::CPMeshRenderer::Update()
 			constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 			constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 			constantBuffer.matrixUV = XMMatrixIdentity();
-			constantBuffer.lightDirection = { 0.5f, 0.5f, 5.0f, 0.0f };
+			constantBuffer.lightDirection = { -0.5f, -0.5f, -0.5f, 0.0f };
 			constantBuffer.lightColor = 0xffffff;
-			constantBuffer.ambientValue = 1.0f;
+			constantBuffer.ambientValue = 0.3f;
 
 			// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 			d3d.SetShader(meshRenderer.hShader_);
@@ -87,7 +87,7 @@ void wtgb::CPMeshRenderer::Update()
 			// 各マテリアル分
 			for (int i = 0; i < pFbxModel->GetMaterialCount(); i++)
 			{
-				constantBuffer.diffuseColor = pFbxModel->GetMaterialAt(i).diffuse;
+				constantBuffer.hasTexture = pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE;
 
 				//constantBuffer.diffuse = pFbxModel->GetMaterialAt(i).diffuse;
 				//bool useTexture{ pFbxModel->GetMaterialAt(i).textureFile != "" };
@@ -106,9 +106,8 @@ void wtgb::CPMeshRenderer::Update()
 				pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
 				pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
 
-				if (hTexture)
+				if (constantBuffer.hasTexture)
 				{
-					constantBuffer.hasTexture = TRUE;
 					Texture* pTexture{ resource.GetTexture(hTexture) };
 					wassert(pTexture != nullptr);
 					if (pTexture)
@@ -122,7 +121,7 @@ void wtgb::CPMeshRenderer::Update()
 				}
 				else
 				{
-					constantBuffer.hasTexture = FALSE;
+					constantBuffer.diffuseColor = pFbxModel->GetMaterialAt(i).diffuse;
 				}
 				//constantBuffer.materialFLag = useTexture;
 

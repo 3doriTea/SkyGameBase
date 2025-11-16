@@ -34,7 +34,7 @@ namespace wtgb
 			Vector4 lightDirection;       // ライトの向き
 			Color lightColor;             // ライトの色
 			Color diffuseColor;           // ディフューズカラー
-			float ambientValue;           // 環境光の量
+			FLOAT ambientValue;           // 環境光の量
 			BOOL hasTexture;              // テクスチャを持っているか
 		};
 

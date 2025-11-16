@@ -40,6 +40,7 @@ VS_OUT VS(
     
     normal = mul(normal, matrixRotateWorld);
     normal.w = 0;
+    
     outData.color = saturate(dot(normal, light));
     
     return outData;
@@ -58,19 +59,7 @@ float4 PS(VS_OUT inData) : SV_TARGET
     {
         diffuse = diffuseColor;
     }
-    float4 ambient = float4(ambientValue, ambientValue, ambientValue, 1.0f);
-    float color = diffuse * inData.color + diffuse * ambient;
+    float4 color = diffuse * inData.color + diffuse * ambientValue;
     
     return color;
-    
-    
-    //    float4 textureColor = g_texture.Sample(g_sampler, inData.uv.xy);
-    //float4 diffuse = textureColor * inData.color;
-    
-    //diffuse = saturate(diffuse * (lightColor + float4(1, 1, 1, 1)));
-    //float4 color = diffuse + ambient;
-    
-    //return color;
-    //return g_texture.Sample(g_sampler, inData.uv.xy);
-
 }
