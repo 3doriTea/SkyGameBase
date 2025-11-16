@@ -38,8 +38,8 @@ namespace wtgb
 		void Release() override;
 
 	public:
-		ID3D11SamplerState* GetSamplerState() const { return pSamplerState_.Get(); }
-		ID3D11ShaderResourceView* GetShaderResourceView() const { return pShaderResourceView_.Get(); }
+		ComPtr<ID3D11SamplerState>& GetSamplerState() { return pSamplerState_; }
+		ComPtr<ID3D11ShaderResourceView>& GetShaderResourceView() { return pShaderResourceView_; }
 
 	// TODO: アクセッサーに任せる アクセッサに作成処理させる
 	public:

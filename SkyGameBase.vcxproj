@@ -42,6 +42,7 @@
     <ClInclude Include="wtgb\CoreType\Vector2.h" />
     <ClInclude Include="wtgb\CoreType\Vector2Int.h" />
     <ClInclude Include="wtgb\CoreType\Vector3.h" />
+    <ClInclude Include="wtgb\CoreType\Vector4.h" />
     <ClInclude Include="wtgb\Core\Component.h" />
     <ClInclude Include="wtgb\Core\ComponentOption.h" />
     <ClInclude Include="wtgb\Core\EntityCapacity.h" />

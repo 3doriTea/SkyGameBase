@@ -80,10 +80,12 @@ void wtgb::CPTransform::Update()
 			if (parentMap[calculateStack.top()] == INVALID_ENTITY)
 			{
 				at(calculateStack.top()).worldMatrix_ = at(calculateStack.top()).localMatrix_;
+				at(calculateStack.top()).worldRotateMatrix_ = at(calculateStack.top()).rotateMatrix_;
 			}
 			else
 			{
 				at(calculateStack.top()).worldMatrix_ *= at(calculateStack.top()).localMatrix_ * at(parentMap[calculateStack.top()]).worldMatrix_;
+				at(calculateStack.top()).worldRotateMatrix_ = at(calculateStack.top()).rotateMatrix_ * at(parentMap[calculateStack.top()]).worldRotateMatrix_;
 			}
 			check[calculateStack.top()] = true;
 			calculateStack.pop();

@@ -22,7 +22,7 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 		.AddComponent<ModelMesh>()
 			.BeginSetter()
 				//.fileName("Models/Oden.fbx")
-				//.fileName("Models/TestCube/TestCube.fbx")
+				.fileName("Models/TestCube/TestCube.fbx")
 				.fileName("Models/Neko/NekoSphere.fbx")
 			.EndSetter()
 		.AddComponent<MeshRenderer>()
@@ -62,5 +62,5 @@ void Player::Update()
 	rotation.y = angle_;
 	Transform().SetRotation(rotation);
 
-	Transform().SetScale((std::sinf(angle_) * 3.0f) * Vector3::One() + Vector3::One());
+	Transform().SetScale((std::sinf(angle_) * std::sinf(angle_) * 3.0f) * Vector3::One() + Vector3::One());
 }

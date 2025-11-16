@@ -90,50 +90,44 @@ void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
 
 			// 頂点のUV
 			FbxLayerElementUV* pUV = _pMesh->GetLayer(0)->GetUVs();
-			int uvIndex{ _pMesh->GetTextureUVIndex(p, v, FbxLayerElement::eTextureDiffuse) };
-			FbxVector2 uv{ pUV->GetDirectArray().GetAt(uvIndex) };
 
-			// mapping mode で分岐
-			/*switch (mappingMode)
+			switch (pUV->GetReferenceMode())
 			{
+			case FbxLayerElement::eIndexToDirect:
+			{
+				int uvIndex{ _pMesh->GetTextureUVIndex(p, v, FbxLayerElement::eTextureDiffuse) };
+				FbxVector2 uv{ pUV->GetDirectArray().GetAt(uvIndex) };
+				
+				// UVを取得
+				// NOTE: UVの縦方向の基準が逆になるため逆にする
+				vertexes[index].uv =
+				{
+					static_cast<float>(uv.mData[U]),
+					static_cast<float>(1.0 - uv.mData[V])
+				};
 				break;
-			case fbxsdk::FbxLayerElement::eByControlPoint:
-				uvIndex = index;
+			}
+			case FbxLayerElement::eDirect:
+			{
+
+				bool unmapped{ true };
+				FbxVector2 uv{};
+				FbxStringList uvSetNames{};
+				_pMesh->GetUVSetNames(uvSetNames);
+				FbxString uvSetName{ uvSetNames.GetStringAt(0) };
+				_pMesh->GetPolygonVertexUV(p, v, uvSetName, uv, unmapped);
+				int uvIndex{ _pMesh->GetTextureUVIndex(p, v, FbxLayerElement::eTextureDiffuse) };
+				vertexes[index].uv =
+				{
+					static_cast<float>(uv[U]),
+					static_cast<float>(1.0 - uv[V])
+				};
 				break;
-			case fbxsdk::FbxLayerElement::eByPolygonVertex:
-				uvIndex = _pMesh->GetTextureUVIndex(p, v, FbxLayerElement::eTextureDiffuse);
-				break;
-			case fbxsdk::FbxLayerElement::eNone:
-			case fbxsdk::FbxLayerElement::eByPolygon:
-			case fbxsdk::FbxLayerElement::eByEdge:
-			case fbxsdk::FbxLayerElement::eAllSame:
+			}
 			default:
-				uv = { 0, 0 };
+				wassert(false && "対応していないUVのマッピング方法");
 				break;
-			}*/
-
-			// reference mode で分岐
-			/*switch (referenceMode)
-			{
-			case fbxsdk::FbxLayerElement::eDirect:
-				uv = pUV->GetDirectArray().GetAt(uvIndex);
-				break;
-			case fbxsdk::FbxLayerElement::eIndexToDirect:
-				uv = pUV->GetDirectArray().GetAt(
-					pUV->GetIndexArray().GetAt(uvIndex));
-				break;
-			case fbxsdk::FbxLayerElement::eIndex:
-			default:
-				break;
-			}*/
-
-			// UVを取得
-			// NOTE: UVの縦方向の基準が逆になるため逆にする
-			vertexes[index].uv =
-			{
-				static_cast<float>(uv.mData[U]),
-				1.0f - static_cast<float>(uv.mData[V])
-			};
+			}
 
 			// 法線を取得
 			FbxVector4 normal{};
@@ -181,13 +175,12 @@ void wtgb::Fbx::InitIndex(FbxMesh* _pMesh)
 	pIndexBuffers_.resize(materialCount_);  // インデックスバッファ
 	indexCounts_.resize(materialCount_);    // インデックス数
 
-	std::vector<int> indexes{};
-	indexes.resize(polygonCount_ * 3);
-
 	// 各マテリアルごとに
 	for (int i = 0; i < materialCount_; i++)
 	{
 		int count{ 0 };
+		std::vector<uint32_t> indexes{};
+		indexes.resize(polygonCount_ * 3);
 
 		for (int p = 0; p < polygonCount_; p++)
 		{

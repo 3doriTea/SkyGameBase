@@ -1,8 +1,8 @@
 // REF: https://learn.microsoft.com/ja-jp/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
 
 // テクスチャ&サンプラーデータのグローバル変数定義
-//Texture2D g_texture : register(t0);  // テクスチャ
-//SamplerState g_sampler : register(s0);  // サンプラー
+Texture2D g_texture : register(t0);  // テクスチャ
+SamplerState g_sampler : register(s0);  // サンプラー
 
 // コンスタントバッファ
 cbuffer global
@@ -52,17 +52,19 @@ float4 PS(VS_OUT inData) : SV_TARGET
 
     if (hasTexture)
     {
-        //diffuse = g_texture.Sample(g_sampler, inData.uv.xy);
+        diffuse = g_texture.Sample(g_sampler, inData.uv.xy);
     }
     else
     {
         diffuse = diffuseColor;
     }
-    return diffuse; // * inData.color;
+    float4 ambient = float4(ambientValue, ambientValue, ambientValue, 1.0f);
+    float color = diffuse * inData.color + diffuse * ambient;
+    
+    return color;
     
     
     //    float4 textureColor = g_texture.Sample(g_sampler, inData.uv.xy);
-    //float4 ambient = textureColor * float4(ambientValue, ambientValue, ambientValue, 1.0f);
     //float4 diffuse = textureColor * inData.color;
     
     //diffuse = saturate(diffuse * (lightColor + float4(1, 1, 1, 1)));

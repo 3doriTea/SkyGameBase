@@ -72,6 +72,9 @@ void wtgb::CPMeshRenderer::Update()
 			constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 			constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 			constantBuffer.matrixUV = XMMatrixIdentity();
+			constantBuffer.lightDirection = { 0.5f, 0.5f, 5.0f, 0.0f };
+			constantBuffer.lightColor = 0xffffff;
+			constantBuffer.ambientValue = 1.0f;
 
 			// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 			d3d.SetShader(meshRenderer.hShader_);
@@ -91,6 +94,8 @@ void wtgb::CPMeshRenderer::Update()
 				//bool useTexture{ pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE };
 				TextureHandle hTexture{ pFbxModel->GetMaterialAt(i).hTexture_ };
 
+				hTexture = meshRenderer.hTexture_;
+
 
 				// インデックスバッファをセット
 				stride = sizeof(int);
@@ -108,11 +113,11 @@ void wtgb::CPMeshRenderer::Update()
 					wassert(pTexture != nullptr);
 					if (pTexture)
 					{
-						ID3D11SamplerState* pSampler{ pTexture->GetSamplerState() };
-						pContext->PSSetSamplers(0, 1, &pSampler);
+						//ID3D11SamplerState* pSampler{ pTexture->GetSamplerState() };
+						pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
 
-						ID3D11ShaderResourceView* pSRV{ pTexture->GetShaderResourceView() };
-						pContext->PSSetShaderResources(0, 1, &pSRV);
+						//ID3D11ShaderResourceView* pSRV{ };
+						pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
 					}
 				}
 				else
@@ -133,7 +138,7 @@ void wtgb::CPMeshRenderer::Update()
 
 				pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
 
-				#if WTGB_CPMR_USE_VERTEX_LOG
+#if WTGB_CPMR_USE_VERTEX_LOG
 				{
 					size_t vertexCount = pFbxModel->GetVertexCount();
 					std::vector<Fbx::Vertex> vertexes{};
@@ -180,7 +185,7 @@ void wtgb::CPMeshRenderer::Update()
 
 					pStagingBuffer.Reset();
 				}
-				#endif
+#endif
 			}
 		});
 }
