@@ -24,6 +24,7 @@
 #include "GameSystem/GameTime.h"
 #include "GameSystem/Camera.h"
 #include "GameSystem/Input.h"
+#include "GameSystem/Cursor.h"
 #include "GameSystem/SceneManager.h"
 
 using wtgb::IGame;

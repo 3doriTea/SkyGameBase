@@ -4,6 +4,7 @@
 #include "WTGBAssert.h"
 
 #include "GameSystem/Input.h"
+#include "GameSystem/Cursor.h"
 
 using namespace wtgb;
 
@@ -32,6 +33,7 @@ void wtgb::GameWindow::Update(const ViewerUpdate& _system)
 
 	// マウス座標を更新する
 	_system.Get<Input>().GetMouseUpdater().SetMousePosition(mousePosition_);
+	_system.Get<Cursor>().GetUpdater().UpdatePosition(mousePosition_);
 }
 
 void wtgb::GameWindow::End()
@@ -150,7 +152,7 @@ LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 		break;
 	case WM_MOUSEMOVE:
 		mousePosition_.x = LOWORD(lParam);
-		mousePosition_.y = LOWORD(lParam);
+		mousePosition_.y = HIWORD(lParam);
 		return 0;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);

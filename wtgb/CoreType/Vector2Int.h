@@ -17,6 +17,14 @@ namespace wtgb
 		inline Vector2Int& operator+=(const Vector2Int& _other) { x += _other.x; y += _other.y; return *this; }
 		inline Vector2Int& operator-=(const Vector2Int& _other) { x -= _other.x; y -= _other.y; return *this; }
 #pragma endregion
+
+#pragma region よく使うベクトル
+		/// <summary>
+		/// 零ベクトル
+		/// </summary>
+		/// <returns>(0, 0)</returns>
+		inline static Vector2Int Zero() { return { 0, 0 }; }
+#pragma endregion
 	};
 
 #pragma region グローバルオペレーターオーバーロード - 四則演算

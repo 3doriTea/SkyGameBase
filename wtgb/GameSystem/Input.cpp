@@ -60,8 +60,8 @@ void wtgb::Input::Update(const ViewerUpdate& _system)
 {
 	// TODO: 順番によってマウス移動量がフレーム上書きされる
 	inputData_.mousePositionPrev_ = inputData_.mousePosition_;
-
 	inputData_.keyBoardStatePrev_ = inputData_.keyBoardState_;
+	inputData_.mouseStatePrev_ = inputData_.mouseState_;
 
 	pResource_->GetKeyDevice()->Acquire();
 	pResource_->GetKeyDevice()->GetDeviceState(
@@ -70,8 +70,8 @@ void wtgb::Input::Update(const ViewerUpdate& _system)
 
 	pResource_->GetMouseDevice()->Acquire();
 	pResource_->GetMouseDevice()->GetDeviceState(
-		static_cast<DWORD>(inputData_.keyBoardState_.size()),
-		inputData_.keyBoardState_.data());
+		sizeof(inputData_.mouseState_),
+		&inputData_.mouseState_);
 }
 
 void wtgb::Input::End()
@@ -95,6 +95,38 @@ bool wtgb::Input::InputGetter::IsKeyDown(const KeyCode _keyCode) const
 bool wtgb::Input::InputGetter::IsKeyUp(const KeyCode _keyCode) const
 {
 	return GetAccess()->isKeyUp_(_keyCode);
+}
+
+bool wtgb::Input::InputGetter::IsMouse(const MouseCode _mouseCode) const
+{
+	InputData& inputData{ GetAccess()->inputData_ };
+	if (inputData.mouseState_.rgbButtons[static_cast<int>(_mouseCode)])
+	{
+		return true;
+	}
+	return false;
+}
+
+bool wtgb::Input::InputGetter::IsMouseDown(const MouseCode _mouseCode) const
+{
+	InputData& inputData{ GetAccess()->inputData_ };
+	if (inputData.mouseState_.rgbButtons[static_cast<int>(_mouseCode)]
+		&& !inputData.mouseStatePrev_.rgbButtons[static_cast<int>(_mouseCode)])
+	{
+		return true;
+	}
+	return false;
+}
+
+bool wtgb::Input::InputGetter::IsMouseUp(const MouseCode _mouseCode) const
+{
+	InputData& inputData{ GetAccess()->inputData_ };
+	if (!inputData.mouseState_.rgbButtons[static_cast<int>(_mouseCode)]
+		&& inputData.mouseStatePrev_.rgbButtons[static_cast<int>(_mouseCode)])
+	{
+		return true;
+	}
+	return false;
 }
 
 void wtgb::Input::MouseUpdater::SetMousePosition(const Vector2Int _position)

@@ -39,18 +39,28 @@ void CameraController::Update()
 {
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	Camera& camera{ System().Get<Camera>() };
+	Cursor& cursor{ System().Get<Cursor>() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+
+	if (input.IsMouseDown(MouseCode::Left))
+	{
+		cursor.SetCenterLock(true);
+	}
+	if (input.IsKeyDown(KeyCode::Escape))
+	{
+		cursor.SetCenterLock(false);
+	}
 
 
 	//Vector2Int currMousePos{ input.GetMousePosition() };
 	//Vector2Int mouseMove{ currMousePos - prevMousePos_ };
 	//prevMousePos_ = currMousePos;
 
-	//// マウス移動量をカメラの角度に適用
-	//Vector3 angles{ Transform().GetRotation() };
-	//angles.x -= mouseMove.y;
-	//angles.y += mouseMove.x;
-	//Transform().SetRotation(angles);
+	// マウス移動量をカメラの角度に適用
+	Vector3 angles{ Transform().GetRotation() };
+	angles.x -= cursor.GetFrameMove().y / 1000.0f;
+	angles.y += cursor.GetFrameMove().x / 1000.0f;
+	Transform().SetRotation(angles);
 
 	Vector3 cameraPos{ Transform().GetPosition() };
 

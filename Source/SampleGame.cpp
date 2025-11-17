@@ -5,6 +5,7 @@
 #include "GameSystem/Debug.h"
 #include "GameSystem/Direct3D.h"
 #include "GameSystem/GameWindow.h"
+#include "GameSystem/Cursor.h"
 #include "GameSystem/Input.h"
 #include "GameSystem/SceneManager.h"
 #include "GameSystem/ComponentManager.h"
@@ -44,6 +45,7 @@ void SampleGame::StartRegister(
 
 		// メインウィンドウを登録したあとで ウィンドウハンドルを使うシステムを登録
 		.Register<Direct3D>()
+		.Register<Cursor>()
 		.Register<Input>()
 
 		.Register<SceneManager>()

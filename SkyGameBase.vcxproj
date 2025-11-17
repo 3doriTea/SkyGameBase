@@ -72,6 +72,7 @@
     <ClInclude Include="wtgb\GameSystem\CPMeshRenderer.h" />
     <ClInclude Include="wtgb\GameSystem\CPModelMesh.h" />
     <ClInclude Include="wtgb\GameSystem\CPTransform.h" />
+    <ClInclude Include="wtgb\GameSystem\Cursor.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D\Direct3DResource.h" />
@@ -140,6 +141,7 @@
     <ClCompile Include="wtgb\GameSystem\CPMeshRenderer.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPModelMesh.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPTransform.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Cursor.cpp" />
     <ClCompile Include="wtgb\GameSystem\Debug.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3D.cpp" />
     <ClCompile Include="wtgb\GameSystem\Direct3D\Direct3DResource.cpp" />
