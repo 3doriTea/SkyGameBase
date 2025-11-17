@@ -73,6 +73,17 @@ namespace wtgb
 		/// <returns>カーソルの座標更新処理のアクセッサ</returns>
 		CursorUpdater& GetUpdater() { return updater_; }
 
+		/// <summary>
+		/// カーソルの表示を設定する
+		/// </summary>
+		/// <param name="_isShow">カーソルを表示する</param>
+		void SetShow(const bool _isShow);
+		/// <summary>
+		/// カーソルを表示しているかを取得
+		/// </summary>
+		/// <returns>表示している true / false</returns>
+		bool IsShow() const { return isShow_; }
+
 	private:
 		/// <summary>
 		/// カーソルの座標を中央にする
@@ -90,6 +101,7 @@ namespace wtgb
 		Vector2Int previousPosition_;  // 前回のフレームでのカーソル座標
 		bool isCenterLock_;  // カーソルを画面中央に固定するか
 		bool isIgnoreMoveFlag_;  // 1回だけ移動量を無視するフラグ
+		bool isShow_;  // 表示されているか
 		ViewerCached system_;  // システムアクセス用
 		Vector2Int frameMoveDelta_;  // 1フレーム間の移動加算
 		Vector2Int frameMove_;     // 1フレームでの移動量

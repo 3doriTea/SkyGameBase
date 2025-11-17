@@ -9,7 +9,8 @@ wtgb::Cursor::Cursor() :
 	previousPosition_{ -1, -1 },
 	isIgnoreMoveFlag_{ true },
 	clientSize_{ Vector2Int::Zero() },
-	updater_{ this }
+	updater_{ this },
+	isShow_{ true }
 {
 }
 
@@ -31,11 +32,21 @@ void wtgb::Cursor::Update(const ViewerUpdate& _system)
 
 void wtgb::Cursor::End()
 {
+	if (!isShow_)
+	{
+		ShowCursor(true);
+	}
 }
 
 void wtgb::Cursor::SetCenterLock(const bool _isCenterLock)
 {
 	isCenterLock_ = _isCenterLock;
+}
+
+void wtgb::Cursor::SetShow(const bool _isShow)
+{
+	ShowCursor(_isShow);
+	isShow_ = _isShow;
 }
 
 void wtgb::Cursor::SetPositionCenter()

@@ -45,19 +45,19 @@ void CameraController::Update()
 	if (input.IsMouseDown(MouseCode::Left))
 	{
 		cursor.SetCenterLock(true);
+		cursor.SetShow(false);
 	}
 	if (input.IsKeyDown(KeyCode::Escape))
 	{
 		cursor.SetCenterLock(false);
+		cursor.SetShow(true);
 	}
-
-
-	//Vector2Int currMousePos{ input.GetMousePosition() };
-	//Vector2Int mouseMove{ currMousePos - prevMousePos_ };
-	//prevMousePos_ = currMousePos;
 
 	// マウス移動量をカメラの角度に適用
 	Vector3 angles{ Transform().GetRotation() };
+
+	LOGFLN("({}, {})", cursor.GetFrameMove().x, cursor.GetFrameMove().y);
+
 	angles.x -= cursor.GetFrameMove().y / 1000.0f;
 	angles.y += cursor.GetFrameMove().x / 1000.0f;
 	Transform().SetRotation(angles);
