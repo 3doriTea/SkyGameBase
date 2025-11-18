@@ -58,8 +58,43 @@ void CameraController::Update()
 
 	LOGFLN("({}, {})", cursor.GetFrameMove().x, cursor.GetFrameMove().y);
 
-	angles.x -= cursor.GetFrameMove().y / 1000.0f;
-	angles.y += cursor.GetFrameMove().x / 1000.0f;
+	// angles.x += (DirectX::XM_2PI / 360.0f) * cursor.GetFrameMove().y * 1.0f * dt;
+	// angles.y += (DirectX::XM_2PI / 360.0f) * cursor.GetFrameMove().x * 1.0f * dt;
+
+	const float DEG_TO_RAD{ DirectX::XM_2PI / 360.0f };
+
+	angles.x += cursor.GetFrameMove().y / 100.0f * dt;
+
+	if (angles.x < -DEG_TO_RAD * 70.0f)
+	{
+		angles.x = -DEG_TO_RAD * 70.0f;
+	}
+	if (angles.x > DEG_TO_RAD * 80.0f)
+	{
+		angles.x = DEG_TO_RAD * 80.0f;
+	}
+
+	LOGFLN("angles.x={}", angles.x);
+
+	angles.y += cursor.GetFrameMove().x / 100.0f * dt;
+
+	/*if (input.IsKey(KeyCode::Up))
+	{
+		angles.x -= (DirectX::XM_2PI / 360.0f) * 10.0f * dt;
+	}
+	if (input.IsKey(KeyCode::Down))
+	{
+		angles.x += (DirectX::XM_2PI / 360.0f) * 10.0f * dt;
+	}
+	if (input.IsKey(KeyCode::Left))
+	{
+		angles.x += (DirectX::XM_2PI / 360.0f) * 10.0f * dt;
+	}
+	if (input.IsKey(KeyCode::Right))
+	{
+		angles.x -= (DirectX::XM_2PI / 360.0f) * 10.0f * dt;
+	}*/
+
 	Transform().SetRotation(angles);
 
 	Vector3 cameraPos{ Transform().GetPosition() };
