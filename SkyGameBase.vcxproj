@@ -24,6 +24,8 @@
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
     <ClInclude Include="Source\PlayScene\CameraController.h" />
+    <ClInclude Include="Source\PlayScene\Stage.h" />
+    <ClInclude Include="Source\PlayScene\StageMesh\StageMesh.h" />
     <ClInclude Include="Source\Systems\FirstSceneRegister.h" />
     <ClInclude Include="Source\Systems\MainWindow.h" />
     <ClInclude Include="Source\PlayScene\PlayScene.h" />
@@ -52,6 +54,8 @@
     <ClInclude Include="wtgb\GameComponent\CommonGameComponent.h" />
     <ClInclude Include="wtgb\GameComponent\MeshRenderer.h" />
     <ClInclude Include="wtgb\GameComponent\ModelMesh.h" />
+    <ClInclude Include="wtgb\GameComponent\RigidBody.h" />
+    <ClInclude Include="wtgb\GameComponent\SphereCollider.h" />
     <ClInclude Include="wtgb\GameComponent\Transform.h" />
     <ClInclude Include="wtgb\GameSystem\Camera.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager.h" />
@@ -71,6 +75,7 @@
     <ClInclude Include="wtgb\GameSystem\CPGameObjectProperty.h" />
     <ClInclude Include="wtgb\GameSystem\CPMeshRenderer.h" />
     <ClInclude Include="wtgb\GameSystem\CPModelMesh.h" />
+    <ClInclude Include="wtgb\GameSystem\CPRigidBody.h" />
     <ClInclude Include="wtgb\GameSystem\CPTransform.h" />
     <ClInclude Include="wtgb\GameSystem\Cursor.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
@@ -84,6 +89,7 @@
     <ClInclude Include="wtgb\GameSystem\Input\InputResource.h" />
     <ClInclude Include="wtgb\GameSystem\Input\KeyCode.h" />
     <ClInclude Include="wtgb\GameSystem\Input\MouseCode.h" />
+    <ClInclude Include="wtgb\GameSystem\MeshRenderer\IMeshSimple.h" />
     <ClInclude Include="wtgb\GameSystem\Model.h" />
     <ClInclude Include="wtgb\GameSystem\Path.h" />
     <ClInclude Include="wtgb\GameSystem\ResourceSystem.h" />
@@ -115,6 +121,7 @@
     <ClCompile Include="Library\ufbx\ufbx.cpp" />
     <ClCompile Include="pch\pch.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
+    <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />
@@ -140,6 +147,7 @@
     <ClCompile Include="wtgb\GameSystem\CPGameObjectProperty.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPMeshRenderer.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPModelMesh.cpp" />
+    <ClCompile Include="wtgb\GameSystem\CPRigidBody.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPTransform.cpp" />
     <ClCompile Include="wtgb\GameSystem\Cursor.cpp" />
     <ClCompile Include="wtgb\GameSystem\Debug.cpp" />
@@ -150,6 +158,7 @@
     <ClCompile Include="wtgb\GameSystem\IComponentPool.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
+    <ClCompile Include="wtgb\GameSystem\MeshRenderer\IMeshSimple.cpp" />
     <ClCompile Include="wtgb\GameSystem\Model.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\ModelResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\Path.cpp" />

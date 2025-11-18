@@ -24,11 +24,11 @@ namespace wtgb
 		/// <summary>
 		/// 初期化処理
 		/// </summary>
-		void Init(ViewerCached system_) override {}
+		void Init(ViewerCached _system) override {}
 		/// <summary>
 		/// 更新処理
 		/// </summary>
-		void Update(ViewerCached system_) override {}
+		void Update(ViewerCached _system) override {}
 
 		/// <summary>
 		/// ローカル座標をセットする
