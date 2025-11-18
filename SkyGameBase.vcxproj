@@ -24,7 +24,7 @@
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
     <ClInclude Include="Source\PlayScene\CameraController.h" />
-    <ClInclude Include="Source\PlayScene\Stage.h" />
+    <ClInclude Include="Source\PlayScene\StageLine.h" />
     <ClInclude Include="Source\PlayScene\StageMesh\StageMesh.h" />
     <ClInclude Include="Source\Systems\FirstSceneRegister.h" />
     <ClInclude Include="Source\Systems\MainWindow.h" />
@@ -89,7 +89,7 @@
     <ClInclude Include="wtgb\GameSystem\Input\InputResource.h" />
     <ClInclude Include="wtgb\GameSystem\Input\KeyCode.h" />
     <ClInclude Include="wtgb\GameSystem\Input\MouseCode.h" />
-    <ClInclude Include="wtgb\GameSystem\MeshRenderer\IMeshSimple.h" />
+    <ClInclude Include="wtgb\GameSystem\ModelMesh\IMeshSimple.h" />
     <ClInclude Include="wtgb\GameSystem\Model.h" />
     <ClInclude Include="wtgb\GameSystem\Path.h" />
     <ClInclude Include="wtgb\GameSystem\ResourceSystem.h" />
@@ -121,6 +121,7 @@
     <ClCompile Include="Library\ufbx\ufbx.cpp" />
     <ClCompile Include="pch\pch.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
+    <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
@@ -158,7 +159,7 @@
     <ClCompile Include="wtgb\GameSystem\IComponentPool.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
-    <ClCompile Include="wtgb\GameSystem\MeshRenderer\IMeshSimple.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshSimple.cpp" />
     <ClCompile Include="wtgb\GameSystem\Model.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\ModelResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\Path.cpp" />

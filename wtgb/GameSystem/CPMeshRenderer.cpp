@@ -52,6 +52,15 @@ void wtgb::CPMeshRenderer::Update()
 				return;
 			}
 			ModelHandle hModel{ pModelMesh->hModel_ };
+
+			if (hModel == INVALID_HANDLE)
+			{
+				if (pModelMesh->pOriginalMesh_)
+				{
+
+				}
+			}
+
 			Transform* pTransform{ cpTransform.Get(entityId) };
 
 			if (pTransform == nullptr)
