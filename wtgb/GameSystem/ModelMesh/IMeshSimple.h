@@ -9,10 +9,9 @@ namespace wtgb
 		IMeshSimple();
 		virtual ~IMeshSimple();
 
-		virtual void Init() = 0;
-		virtual void Release() = 0;
+		virtual void Init() override = 0;
+		virtual void Release() override = 0;
 
-protected:
 		/// <summary>
 		/// 頂点バッファを取得する
 		/// </summary>

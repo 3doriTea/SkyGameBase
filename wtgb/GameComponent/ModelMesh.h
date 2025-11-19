@@ -27,7 +27,7 @@ namespace wtgb
 			SETTER_HEAD(ModelMesh)
 
 			SETTER_PARAM(std::string, fileName)
-			SETTER_PARAM(std::string, pOriginalMesh)
+			SETTER_PARAM_PTR(IMeshSimple, pOriginalMesh)
 		};
 
 	public:

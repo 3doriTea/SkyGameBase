@@ -5,12 +5,12 @@ using namespace wtgb;
 
 StageLine::StageLine() : GameObject(
 	{
-		[](GameObjectBuilder& _builder)
+		[this](GameObjectBuilder& _builder)
 		{
 			_builder
 				.AddComponent<ModelMesh>()
 					.BeginSetter()
-						.
+						.pOriginalMesh(&this->stageMesh_)
 					.EndSetter()
 				.AddComponent<MeshRenderer>()
 				.BeginSetter()

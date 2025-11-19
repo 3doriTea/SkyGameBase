@@ -17,3 +17,6 @@ public:\
 
 #define SETTER_PARAM(TYPE, UNIT_NAME)\
 	Setter& UNIT_NAME(const TYPE& _##UNIT_NAME) { GetAccess()->UNIT_NAME##_ = _##UNIT_NAME; return *this; }
+
+#define SETTER_PARAM_PTR(TYPE, UNIT_NAME)\
+	Setter& UNIT_NAME(TYPE* _##UNIT_NAME) { GetAccess()->UNIT_NAME##_ = _##UNIT_NAME; return *this; }
