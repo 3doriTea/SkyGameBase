@@ -9,6 +9,7 @@ public:
 
 	void Init() override;
 	void Update() override;
+	void Release() override {}
 
 private:
 	float angle_;

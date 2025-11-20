@@ -5,6 +5,7 @@
 #include "CameraController.h"
 #include "../SampleScene/SampleScene.h"
 #include "StageLine.h"
+#include "TestBillBoard.h"
 
 PlayScene::PlayScene() : GameScene
 {
@@ -23,7 +24,8 @@ PlayScene::~PlayScene()
 void PlayScene::Start()
 {
 	Instantiate<CameraController>();
-	Instantiate<StageLine>();
+	//Instantiate<StageLine>();
+	Instantiate<TestBillBoard>();
 	
 	//EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3::Zero()) };
 	//for (int k = 0; k < 3; k++)

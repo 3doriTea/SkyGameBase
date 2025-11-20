@@ -26,6 +26,7 @@
     <ClInclude Include="Source\PlayScene\CameraController.h" />
     <ClInclude Include="Source\PlayScene\StageLine.h" />
     <ClInclude Include="Source\PlayScene\StageMesh\StageMesh.h" />
+    <ClInclude Include="Source\PlayScene\TestBillBoard.h" />
     <ClInclude Include="Source\Systems\FirstSceneRegister.h" />
     <ClInclude Include="Source\Systems\MainWindow.h" />
     <ClInclude Include="Source\PlayScene\PlayScene.h" />
@@ -123,6 +124,7 @@
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />
+    <ClCompile Include="Source\PlayScene\TestBillBoard.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />
@@ -187,6 +189,16 @@
     <None Include="wtgb\GameSystem\ComponentPool.inl" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Assets\Shader\BillBoard.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>

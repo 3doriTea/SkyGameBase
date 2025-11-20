@@ -3,8 +3,13 @@
 
 namespace
 {
+	// デグリをラジアンに変換する
+	const float DEG_TO_RAD{ DirectX::XM_2PI / 360.0f };
+
 	// マウススクリーン移動に対する1秒間当たりのカメラ回転角度(Degree)
 	const float CAMERA_ROTATE_DEG_SEC{ 10.0f };
+	const float UPPER_ANGLE{ 80.0f };
+	const float LOWER_ANGLE{ -70.0f };
 }
 
 CameraController::CameraController() : GameObject
@@ -42,6 +47,11 @@ void CameraController::Update()
 	Cursor& cursor{ System().Get<Cursor>() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 
+	camera.position_ = { 0, 0, -10 };
+	camera.targetPosition_ = { 0, 0, 0 };
+
+	return;
+
 	//if (input.IsMouseDown(MouseCode::Left))
 	if (input.IsKeyDown(KeyCode::B))
 	{
@@ -57,25 +67,18 @@ void CameraController::Update()
 	// マウス移動量をカメラの角度に適用
 	Vector3 angles{ Transform().GetRotation() };
 
-	LOGFLN("({}, {})", cursor.GetFrameMove().x, cursor.GetFrameMove().y);
-
-	// angles.x += (DirectX::XM_2PI / 360.0f) * cursor.GetFrameMove().y * 1.0f * dt;
-	// angles.y += (DirectX::XM_2PI / 360.0f) * cursor.GetFrameMove().x * 1.0f * dt;
-
-	const float DEG_TO_RAD{ DirectX::XM_2PI / 360.0f };
 
 	angles.x += cursor.GetFrameMove().y / 100.0f * dt;
 
-	if (angles.x < -DEG_TO_RAD * 70.0f)
+	// 上下の角度に制限を付ける
+	if (angles.x < DEG_TO_RAD * LOWER_ANGLE)
 	{
-		angles.x = -DEG_TO_RAD * 70.0f;
+		angles.x = DEG_TO_RAD * LOWER_ANGLE;
 	}
-	if (angles.x > DEG_TO_RAD * 80.0f)
+	if (angles.x > DEG_TO_RAD * UPPER_ANGLE)
 	{
-		angles.x = DEG_TO_RAD * 80.0f;
+		angles.x = DEG_TO_RAD * UPPER_ANGLE;
 	}
-
-	LOGFLN("angles.x={}", angles.x);
 
 	angles.y += cursor.GetFrameMove().x / 100.0f * dt;
 

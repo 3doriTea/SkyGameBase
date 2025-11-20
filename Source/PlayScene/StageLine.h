@@ -11,6 +11,7 @@ public:
 
 	void Init() override;
 	void Update() override;
+	void Release() override;
 
 private:
 	std::vector<Vector2> points_;  // 各頂点の座標 (xy平面で考える)

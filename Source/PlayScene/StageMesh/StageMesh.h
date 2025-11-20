@@ -23,6 +23,12 @@ public:
 	size_t GetVertexSize() const override { return sizeof(Vertex); }
 
 	/// <summary>
+	/// 頂点数を取得する
+	/// </summary>
+	/// <returns></returns>
+	uint32_t GetVertexCount() const override { return vertexCount_; }
+
+	/// <summary>
 	/// インデックス数を取得する
 	/// </summary>
 	/// <returns>インデックス数</returns>
@@ -43,6 +49,7 @@ private:
 	StagePoints& points_;
 	ViewerCached system_;
 
+	uint32_t vertexCount_;
 	uint32_t indexCount_;
 
 	ComPtr<ID3D11Buffer> pVertexBuffer_;    // 頂点バッファ

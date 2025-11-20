@@ -31,7 +31,7 @@ void wtgb::CPGameObject::End()
 		{
 			if (_pGameObject)
 			{
-				SAFE_DELETE(_pGameObject);
+				_pGameObject->End();
 			}
 		});
 }

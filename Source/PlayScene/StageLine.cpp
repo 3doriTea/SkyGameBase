@@ -3,29 +3,29 @@
 
 using namespace wtgb;
 
-StageLine::StageLine() : GameObject(
+StageLine::StageLine() : GameObject
+{
+	[this](GameObjectBuilder& _builder)
 	{
-		[this](GameObjectBuilder& _builder)
-		{
-			_builder
-				.AddComponent<GameObjectProperty>()
-					.BeginSetter()
-						.name("StageLine")
-					.EndSetter()
-				.AddComponent<wtgb::Transform>()
-					.BeginSetter()
-					.EndSetter()
-				.AddComponent<ModelMesh>()
-					.BeginSetter()
-						.pOriginalMesh(&this->stageMesh_)
-					.EndSetter()
-				.AddComponent<MeshRenderer>()
+		_builder
+			.AddComponent<GameObjectProperty>()
 				.BeginSetter()
-					.shader("Shader/StageMesh.hlsl")
+					.name("StageLine")
 				.EndSetter()
-			.Build();
-		}
-	}),
+			.AddComponent<wtgb::Transform>()
+				.BeginSetter()
+				.EndSetter()
+			.AddComponent<ModelMesh>()
+				.BeginSetter()
+					.pOriginalMesh(&this->stageMesh_)
+				.EndSetter()
+			.AddComponent<MeshRenderer>()
+			.BeginSetter()
+				.shader("Shader/StageMesh.hlsl")
+			.EndSetter()
+		.Build();
+	}
+},
 	stageMesh_{ System(), points_ }
 {
 }
@@ -51,8 +51,8 @@ void StageLine::Init()
 
 	points_ = 
 	{
-		{ 0, 0 },
-		{ 5, 0 },
+		{ 3, 2 },
+		{ 5, 2 },
 	};
 
 	// ‘S‚Ä‚Ì y Ž²‚ð - ‚É‚·‚é
@@ -65,6 +65,11 @@ void StageLine::Init()
 }
 
 void StageLine::Update()
+{
+	//stageMesh_.CallRelease();
+}
+
+void StageLine::Release()
 {
 	stageMesh_.CallRelease();
 }

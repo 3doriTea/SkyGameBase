@@ -52,9 +52,9 @@ namespace wtgb
 		virtual void Update() {}
 		virtual void Update(ViewerUpdate& _system) {}
 		virtual void Draw() const {}
-		virtual void Release() {}
+		virtual void Release() = 0;
 
-		void End() override;
+		void End() override final;
 
 		/// <summary>
 		/// このゲームオブジェクトを削除する

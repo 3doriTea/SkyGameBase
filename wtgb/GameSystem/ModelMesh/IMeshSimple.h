@@ -47,12 +47,17 @@ namespace wtgb
 		/// 頂点構造体のサイズを取得する
 		/// </summary>
 		/// <returns>頂点構造体のサイズ(byte)</returns>
-		virtual size_t GetVertexSize() const = 0;
+		virtual size_t GetVertexSize() const { return sizeof(Vertex); };
 		/// <summary>
 		/// インデクスの数を取得する
 		/// </summary>
 		/// <returns>インデックス数</returns>
 		virtual uint32_t GetIndexCount() const = 0;
+		/// <summary>
+		/// 頂点数を取得する
+		/// </summary>
+		/// <returns>頂点数</returns>
+		virtual uint32_t GetVertexCount() const = 0;
 
 		/// <summary>
 		/// 頂点バッファを取得する

@@ -49,5 +49,6 @@ wtgb::ViewerCached* wtgb::GameObject::pCachedSystem_{ nullptr };
 
 void wtgb::GameObject::End()
 {
+	this->Release();
 	delete this;
 }

@@ -36,7 +36,7 @@ void StageMesh::Init()
 			Vertex v
 			{
 				.position = { 0.0f, pos2D.y, pos2D.x },
-				.normal = { 0.0f, 0.0f, 0.0f },
+				.normal = { 0.0f, 1.0f, 0.0f },
 				.uv = { 0.0f, static_cast<float>(i) }
 			};
 			if (i == 0)  // 最初のポイントなら
@@ -46,7 +46,7 @@ void StageMesh::Init()
 				Vector2 toNext2D{ posNext2D - pos2D };
 
 				Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toNext2D) };
-				v.normal = { 0.0f, normal2D.y, normal2D.x };
+				//v.normal = { 0.0f, normal2D.y, normal2D.x };
 
 				// 下向きの法線ができてしまったら上向きに変換
 				if (v.normal.y <= 0.0f)
@@ -66,7 +66,7 @@ void StageMesh::Init()
 				Vector2 toNext2D{ 0.0f, 1.0f };
 
 				Vector2 normal2D{ XMVector3Normalize(toPrev2D + toNext2D) };
-				v.normal = { 0.0f, normal2D.y, normal2D.x };
+				//v.normal = { 0.0f, normal2D.y, normal2D.x };
 
 				// 下向きの法線ができてしまったら上向きに変換
 				if (v.normal.y <= 0.0f)
@@ -87,7 +87,7 @@ void StageMesh::Init()
 				Vector2 toNext2D{ posNext2D - pos2D };
 
 				Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toNext2D) };
-				v.normal = { 0.0f, normal2D.y, normal2D.x };
+				//v.normal = { 0.0f, normal2D.y, normal2D.x };
 
 				// 下向きの法線ができてしまったら上向きに変換
 				if (v.normal.y <= 0.0f)
@@ -101,6 +101,9 @@ void StageMesh::Init()
 				vertices.push_back(v);
 			}
 		}
+
+		vertexCount_ = vertices.size();
+
 		// バッファ作成
 		ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};
@@ -108,7 +111,7 @@ void StageMesh::Init()
 		const D3D11_BUFFER_DESC VERTEX_DESC
 		{
 			// 型の大きさ
-			.ByteWidth = static_cast<UINT>(sizeof(Vertex) * vertices.size()),
+			.ByteWidth = static_cast<UINT>(sizeof(Vertex) * vertexCount_),
 			.Usage = D3D11_USAGE_DEFAULT,                // 変更するか
 			.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // なんのバッファか
 			.CPUAccessFlags = 0,                         // CPUからのアクセスフラグ
