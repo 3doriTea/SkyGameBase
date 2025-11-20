@@ -46,8 +46,4 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 
 void wtgb::ModelMesh::End()
 {
-	if (pOriginalMesh_)
-	{
-		pOriginalMesh_->CallRelease();
-	}
 }

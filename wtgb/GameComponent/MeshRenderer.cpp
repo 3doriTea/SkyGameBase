@@ -33,7 +33,8 @@ void wtgb::MeshRenderer::Init(ViewerCached _system)
 				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },      // UVç¿ïW
 			},
 			.fillMode = D3D11_FILL_SOLID,  // ìhÇËÇ¬Ç‘Çµ
-			.cullMode = D3D11_CULL_BACK,   // âBñ è¡ãé
+			//.cullMode = D3D11_CULL_BACK,   // âBñ è¡ãé
+			.cullMode = D3D11_CULL_NONE,   // âBñ è¡ãé
 			.backIsClockwise = false,
 		});
 	if (texture_.empty() == false)

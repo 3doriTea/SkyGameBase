@@ -7,24 +7,6 @@ using StagePoints = std::vector<Vector2>;
 class StageMesh : public wtgb::IMeshSimple
 {
 public:
-	/// <summary>
-	/// 頂点情報
-	/// </summary>
-	struct Vertex
-	{
-		Vector4 position;
-		Vector4 normal;
-		Vector4 uv;
-	};
-
-	struct ConstantBuffer
-	{
-		Matrix4x4 matrixWVP;      // ワールドビュープロジェクションの合成行列
-		Vector4 lightDirection;   // ライトの向き
-		FLOAT ambientValue;       // 環境光の量
-	};
-
-public:
 	StageMesh(ViewerCached _system, StagePoints& _points);
 	~StageMesh();
 	
@@ -38,7 +20,13 @@ public:
 	/// 頂点のサイズを取得
 	/// </summary>
 	/// <returns>頂点の構造体サイズ(byte)</returns>
-	size_t GetVertexSize() override { return sizeof(Vertex); }
+	size_t GetVertexSize() const override { return sizeof(Vertex); }
+
+	/// <summary>
+	/// インデックス数を取得する
+	/// </summary>
+	/// <returns>インデックス数</returns>
+	uint32_t GetIndexCount() const override { return indexCount_; }
 
 private:
 	/// <summary>
@@ -54,6 +42,8 @@ private:
 private:
 	StagePoints& points_;
 	ViewerCached system_;
+
+	uint32_t indexCount_;
 
 	ComPtr<ID3D11Buffer> pVertexBuffer_;    // 頂点バッファ
 	ComPtr<ID3D11Buffer> pIndexBuffer_;    // インデックスバッファ

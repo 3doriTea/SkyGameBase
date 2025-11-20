@@ -24,9 +24,9 @@ void StageMesh::Init()
 
 #pragma endregion ’¸“_‚ð‹‚ß‚é
 	{
-		if (points_.size() > 3)
+		if (points_.size() < 2)
 		{
-			wassert(false && "•½–Ê’¸“_”‚ª3ˆÈã‚Å‚È‚¢‚Æ•`‰æ‚Å‚«‚È‚¢");
+			wassert(false && "•½–Ê’¸“_”‚ª2ˆÈã‚Å‚È‚¢‚Æ•`‰æ‚Å‚«‚È‚¢");
 			throw -1;
 		}
 
@@ -133,6 +133,8 @@ void StageMesh::Init()
 		static const size_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(int) };
 
 		size_t polyCount{ (vertices.size() - 1) / 2 };
+
+		polyCount = 6;
 
 		std::vector<uint32_t> indexes{};
 		for (int i = 0; i < polyCount; i++)

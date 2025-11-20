@@ -52,16 +52,15 @@ void wtgb::CPMeshRenderer::Update()
 				return;
 			}
 
+			Transform* pTransform{ cpTransform.Get(entityId) };
+			if (pTransform == nullptr)
+			{
+				wassert(false && "Transformの取得に失敗");
+				return;
+			}
+
 			if (pModelMesh->GetType() == ModelMesh::Type::Fbx)
 			{
-				Transform* pTransform{ cpTransform.Get(entityId) };
-
-				if (pTransform == nullptr)
-				{
-					wassert(false && "Transformの取得に失敗");
-					return;
-				}
-
 				ModelHandle hModel{ pModelMesh->hModel_ };
 				ModelResource* pModel{ model.GetModel(hModel) };
 				Fbx* pFbxModel{ dynamic_cast<Fbx*>(pModel) };
@@ -195,6 +194,18 @@ void wtgb::CPMeshRenderer::Update()
 				IMeshSimple* pMesh{ pModelMesh->pOriginalMesh_ };
 				wassert(pMesh && "メッシュがない！");
 
+				IMeshSimple::ConstantBuffer constantBuffer{};
+				constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
+				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
+				constantBuffer.matrixUV = XMMatrixIdentity();
+				// TODO: この辺は統一するためにライトオブジェクトを検出して同期させるシステムを作る light system
+				constantBuffer.lightDirection = { -0.5f, -0.5f, -0.5f, 0.0f };
+				constantBuffer.lightColor = 0xffffff;
+				constantBuffer.ambientValue = 0.3f;
+				constantBuffer.diffuseColor = { 0.0f, 0.7f, 0.0f, 1.0f };
+				
+				constantBuffer.hasTexture = FALSE;
+
 				// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 				d3d.SetShader(meshRenderer.hShader_);
 
@@ -212,6 +223,18 @@ void wtgb::CPMeshRenderer::Update()
 				pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
 				pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
 
+
+				D3D11_MAPPED_SUBRESOURCE data{};
+
+				pContext->Map(pMesh->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+				memcpy_s(
+					data.pData,
+					data.RowPitch,
+					reinterpret_cast<void*>(&constantBuffer),
+					sizeof(Fbx::ConstantBuffer));
+				pContext->Unmap(pMesh->GetConstantBuffer().Get(), 0);
+
+				pContext->DrawIndexed(pMesh->GetIndexCount(), 0, 0);
 			}
 		});
 }

@@ -8,13 +8,20 @@ StageLine::StageLine() : GameObject(
 		[this](GameObjectBuilder& _builder)
 		{
 			_builder
+				.AddComponent<GameObjectProperty>()
+					.BeginSetter()
+						.name("StageLine")
+					.EndSetter()
+				.AddComponent<wtgb::Transform>()
+					.BeginSetter()
+					.EndSetter()
 				.AddComponent<ModelMesh>()
 					.BeginSetter()
 						.pOriginalMesh(&this->stageMesh_)
 					.EndSetter()
 				.AddComponent<MeshRenderer>()
 				.BeginSetter()
-					.shader("Shader/Simple3D.hlsl")
+					.shader("Shader/StageMesh.hlsl")
 				.EndSetter()
 			.Build();
 		}
@@ -29,7 +36,7 @@ StageLine::~StageLine()
 
 void StageLine::Init()
 {
-	points_ =
+	/*points_ =
 	{
 		{ 0, 0 },
 		{ 80, 40 },
@@ -40,6 +47,12 @@ void StageLine::Init()
 		{ 350, 210 },
 		{ 430, 310 },
 		{ 620, 320 },
+	};*/
+
+	points_ = 
+	{
+		{ 0, 0 },
+		{ 30, 0 },
 	};
 
 	// ‘S‚Ä‚Ì y Ž²‚ð - ‚É‚·‚é
@@ -53,4 +66,5 @@ void StageLine::Init()
 
 void StageLine::Update()
 {
+	stageMesh_.CallRelease();
 }

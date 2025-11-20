@@ -42,7 +42,8 @@ void CameraController::Update()
 	Cursor& cursor{ System().Get<Cursor>() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 
-	if (input.IsMouseDown(MouseCode::Left))
+	//if (input.IsMouseDown(MouseCode::Left))
+	if (input.IsKeyDown(KeyCode::B))
 	{
 		cursor.SetCenterLock(true);
 		cursor.SetShow(false);
