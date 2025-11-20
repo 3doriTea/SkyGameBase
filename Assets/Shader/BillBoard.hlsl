@@ -51,11 +51,7 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
-    if (inData.pos.x <= 0.1f)
-    {
-        return float4(1.0f, 0.0f, 0.0f, 1.0f);
-    }
-        return float4(0.0f, 1.0f, 1.0f, 1.0f);
+    return float4(0.0f, 0.0f, 1.0f, 1.0f);
     
     float4 diffuse;
 

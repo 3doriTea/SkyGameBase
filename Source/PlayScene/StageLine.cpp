@@ -14,6 +14,7 @@ StageLine::StageLine() : GameObject
 				.EndSetter()
 			.AddComponent<wtgb::Transform>()
 				.BeginSetter()
+					.scale({ 1, 1, 1 })
 				.EndSetter()
 			.AddComponent<ModelMesh>()
 				.BeginSetter()
