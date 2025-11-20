@@ -127,20 +127,33 @@ void StageMesh::Init()
 	}
 #pragma endregion
 
+	for (int i = 0; i < vertices.size(); i++)
+	{
+		LOGFLN("{}: p({}, {}, {}), uv({}, {}, {}) norm({}, {}, {})",
+			i,
+			vertices[i].position.x, vertices[i].position.y, vertices[i].position.z,
+			vertices[i].uv.x, vertices[i].uv.y, vertices[i].uv.z,
+			vertices[i].normal.x, vertices[i].normal.y, vertices[i].normal.z);
+	}
+
 #pragma region インデックスを求める
 	{
 		static const uint32_t INDEX_SET_ARRAY[]{ 0, 2, 3, 0, 1, 2 };
 		static const size_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(int) };
 
-		size_t polyCount{ (vertices.size() - 1) / 2 };
+		size_t polyCount{ (points_.size() - 1) * 2 };
 
-		polyCount = 6;
+		//polyCount = 6;
 
 		std::vector<uint32_t> indexes{};
-		for (int i = 0; i < polyCount; i++)
+		for (int poly = 0; poly < polyCount; poly++)
 		{
-			indexes.push_back(INDEX_SET_ARRAY[i % INDEX_SET_ARRAY_SIZE]);
+			for (int index = 0; index < 3; index++)
+			{
+				indexes.push_back(INDEX_SET_ARRAY[index % INDEX_SET_ARRAY_SIZE]);
+			}
 		}
+		indexCount_ = indexes.size();
 
 
 		ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
@@ -149,7 +162,7 @@ void StageMesh::Init()
 		const D3D11_BUFFER_DESC INDEX_DESC
 		{
 			// 型の大きさ
-			.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * indexes.size()),
+			.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * indexCount_),
 			.Usage = D3D11_USAGE_DEFAULT,                // 変更するか
 			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // なんのバッファか
 			.CPUAccessFlags = 0,                         // CPUからのアクセスフラグ

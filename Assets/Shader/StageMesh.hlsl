@@ -33,11 +33,8 @@ VS_OUT VS(
     // ピクセルシェーダに渡す情報
     VS_OUT outData;
     
-    //outData.pos = mul(pos, matrixWVP);
-    //outData.uv = mul(uv, matrixUV);
-    
-    outData.pos = pos;
-    outData.uv = uv;
+    outData.pos = mul(pos, matrixWVP);
+    outData.uv = mul(uv, matrixUV);
     
     float4 light = normalize(lightDirection);
     
