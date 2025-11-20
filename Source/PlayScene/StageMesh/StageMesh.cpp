@@ -136,21 +136,37 @@ void StageMesh::Init()
 			vertices[i].normal.x, vertices[i].normal.y, vertices[i].normal.z);
 	}
 
+	// インデクスたち
+	std::vector<uint32_t> indexes{};
+
 #pragma region インデックスを求める
 	{
-		static const uint32_t INDEX_SET_ARRAY[]{ 0, 2, 3, 0, 1, 2 };
+		static const uint32_t INDEX_SET_ARRAY[]
+		{
+			/*0,
+			2,
+			3,
+			0,
+			1,
+			2*/
+			2,
+			1,
+			0,
+			2,
+			3,
+			1,
+		};
 		static const size_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(int) };
 
 		size_t polyCount{ (points_.size() - 1) * 2 };
 
 		//polyCount = 6;
 
-		std::vector<uint32_t> indexes{};
 		for (int poly = 0; poly < polyCount; poly++)
 		{
 			for (int index = 0; index < 3; index++)
 			{
-				indexes.push_back(INDEX_SET_ARRAY[index % INDEX_SET_ARRAY_SIZE]);
+				indexes.push_back(INDEX_SET_ARRAY[(poly * 3 + index) % INDEX_SET_ARRAY_SIZE]);
 			}
 		}
 		indexCount_ = indexes.size();
@@ -180,6 +196,11 @@ void StageMesh::Init()
 		wassert(SUCCEEDED(hResult) && "ステージメッシュのインデックスバッファ作成に失敗");
 	}
 #pragma endregion
+
+	for (int i = 0; i < indexes.size(); i++)
+	{
+		LOGFLN("{}, {}", i, indexes[i]);
+	}
 
 #pragma region コンスタントバッファを作っておく
 	{
