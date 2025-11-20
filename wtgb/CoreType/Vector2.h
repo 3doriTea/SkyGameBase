@@ -10,5 +10,16 @@ namespace wtgb
 	{
 		// コンストラクタもそのまま継承
 		using DirectX::XMFLOAT2::XMFLOAT2;
+
+		Vector2(const DirectX::XMVECTOR& _xmV)
+		{
+			DirectX::XMStoreFloat2(this, _xmV);
+		}
+
+		/// <summary>
+		/// XMVECTORに暗黙的変換する
+		/// </summary>
+		inline operator DirectX::XMVECTOR() const { return DirectX::XMLoadFloat2(this); }
+
 	};
 }

@@ -35,7 +35,7 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 		hModel_ = system_.Get<Model>().Load(fileName_);
 		break;
 	case wtgb::ModelMesh::Type::SimpleMesh:
-		pOriginalMesh_->CallInit();
+		//pOriginalMesh_->CallInit();
 		break;
 	case wtgb::ModelMesh::Type::Other:
 	default:

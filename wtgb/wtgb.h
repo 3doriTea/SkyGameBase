@@ -27,6 +27,8 @@
 #include "GameSystem/Cursor.h"
 #include "GameSystem/SceneManager.h"
 
+#include "GameSystem/Direct3D.h"
+
 using wtgb::IGame;
 using wtgb::IGameSystem;
 using wtgb::GameSystemCollection;

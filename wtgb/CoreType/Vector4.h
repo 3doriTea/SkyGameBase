@@ -15,6 +15,18 @@ namespace wtgb
 		{
 			DirectX::XMStoreFloat4(this, _xmV);
 		}
+		Vector4(const DirectX::XMFLOAT3& _v3) :
+			XMFLOAT4{ _v3.x, _v3.y, _v3.z, 0.0f }
+		{
+		}
+		Vector4(const float _x, const float _y, const float _z) :
+			Vector4{ _x, _y, _z, 0.0f }
+		{
+		}
+		Vector4(const float _x, const float _y ) :
+			Vector4{ _x, _y, 0.0f, 0.0f }
+		{
+		}
 
 		/// <summary>
 		/// XMVECTOR‚ÉˆÃ–Ù“I•ÏŠ·‚·‚é

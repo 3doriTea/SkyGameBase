@@ -18,7 +18,8 @@ StageLine::StageLine() : GameObject(
 				.EndSetter()
 			.Build();
 		}
-	})
+	}),
+	stageMesh_{ points_ }
 {
 }
 
@@ -46,6 +47,8 @@ void StageLine::Init()
 	{
 		point.y = -point.y;
 	}
+
+	stageMesh_.CallInit();
 }
 
 void StageLine::Update()

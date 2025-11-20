@@ -1,7 +1,13 @@
 #include "pch\pch.h"
 #include "StageMesh.h"
+#include "WTGBAssert.h"
 
-StageMesh::StageMesh()
+using namespace wtgb;
+
+
+StageMesh::StageMesh(ViewerCached _system, StagePoints& _points) :
+	system_{ _system },
+	points_{ _points }
 {
 }
 
@@ -11,8 +17,180 @@ StageMesh::~StageMesh()
 
 void StageMesh::Init()
 {
+	using namespace DirectX;
+
+#pragma endregion 頂点を求める
+	// 頂点ず
+	std::vector<Vertex> vertices;
+
+	if (points_.size() > 3)
+	{
+		wassert(false && "平面頂点数が3以上でないと描画できない");
+		throw -1;
+	}
+
+	for (int i = 0; i < points_.size(); i++)
+	{
+		Vector2 pos2D{ static_cast<float>(points_[i].x), static_cast<float>(points_[i].y) };
+		Vertex v
+		{
+			.position = { 0.0f, pos2D.y, pos2D.x },
+			.normal = { 0.0f, 0.0f, 0.0f },
+			.uv = { 0.0f, static_cast<float>(i) }
+		};
+		if (i == 0)  // 最初のポイントなら
+		{
+			Vector2 toPrev2D{ 0.0f, 1.0f };
+			Vector2 posNext2D{ static_cast<float>(points_[i + 1].x), static_cast<float>(points_[i + 1].y) };
+			Vector2 toPrev2D{ posNext2D - pos2D };
+
+			Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toPrev2D) };
+			v.normal = { 0.0f, normal2D.y, normal2D.x };
+
+			// 下向きの法線ができてしまったら上向きに変換
+			if (v.normal.y <= 0.0f)
+			{
+				v.normal = v.normal * -1.0f;
+			}
+
+			SetPosXValue(0.0f, &v);
+			vertices.push_back(v);
+			SetPosXValue(1.0f, &v);
+			vertices.push_back(v);
+		}
+		else if (i == points_.size() - 1)  // 最後のポイントなら
+		{
+			Vector2 posPrev2D{ static_cast<float>(points_[i - 1].x), static_cast<float>(points_[i - 1].y) };
+			Vector2 toPrev2D{ posPrev2D - pos2D };
+			Vector2 toPrev2D{ 0.0f, 1.0f };
+
+			Vector2 normal2D{ XMVector3Normalize(toPrev2D + toPrev2D) };
+			v.normal = { 0.0f, normal2D.y, normal2D.x };
+
+			// 下向きの法線ができてしまったら上向きに変換
+			if (v.normal.y <= 0.0f)
+			{
+				v.normal = v.normal * -1.0f;
+			}
+
+			SetPosXValue(0.0f, &v);
+			vertices.push_back(v);
+			SetPosXValue(1.0f, &v);
+			vertices.push_back(v);
+		}
+		else  // 最初以外の中間ポイント
+		{
+			Vector2 posPrev2D{ static_cast<float>(points_[i - 1].x), static_cast<float>(points_[i - 1].y) };
+			Vector2 toPrev2D{ posPrev2D - pos2D };
+			Vector2 posNext2D{ static_cast<float>(points_[i + 1].x), static_cast<float>(points_[i + 1].y) };
+			Vector2 toPrev2D{ posNext2D - pos2D };
+
+			Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toPrev2D) };
+			v.normal = { 0.0f, normal2D.y, normal2D.x };
+
+			// 下向きの法線ができてしまったら上向きに変換
+			if (v.normal.y <= 0.0f)
+			{
+				v.normal = v.normal * -1.0f;
+			}
+
+			SetPosXValue(0.0f, &v);
+			vertices.push_back(v);
+			SetPosXValue(1.0f, &v);
+			vertices.push_back(v);
+		}
+	}
+	// バッファ作成
+	ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+	HRESULT hResult{};
+
+	const D3D11_BUFFER_DESC VERTEX_DESC
+	{
+		// 型の大きさ
+		.ByteWidth = static_cast<UINT>(sizeof(Vertex) * vertices.size()),
+		.Usage = D3D11_USAGE_DEFAULT,                // 変更するか
+		.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // なんのバッファか
+		.CPUAccessFlags = 0,                         // CPUからのアクセスフラグ
+		.MiscFlags = 0,                              // その他のフラグ
+		.StructureByteStride = sizeof(Vertex),
+	};
+	const D3D11_SUBRESOURCE_DATA VERTEX_DATA
+	{
+		.pSysMem = vertices.data(),
+		.SysMemPitch = {},
+		.SysMemSlicePitch = {},
+	};
+
+	hResult = pDevice->CreateBuffer(&VERTEX_DESC, &VERTEX_DATA, pVertexBuffer_.GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "ステージメッシュ頂点バッファ作成に失敗");
+#pragma endregion
+
+#pragma region インデックスを求める
+
+	static const uint32_t INDEX_SET_ARRAY[]{ 0, 2, 3, 0, 1, 2 };
+	static const size_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(int) };
+
+	size_t polyCount{ (vertices.size() - 1) / 2 };
+
+	std::vector<uint32_t> indexes{};
+	for (int i = 0; i < polyCount; i++)
+	{
+		indexes.push_back(INDEX_SET_ARRAY[i % INDEX_SET_ARRAY_SIZE]);
+	}
+
+	ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+	HRESULT hResult{};
+
+	const D3D11_BUFFER_DESC INDEX_DESC
+	{
+		// 型の大きさ
+		.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * indexes.size()),
+		.Usage = D3D11_USAGE_DEFAULT,                // 変更するか
+		.BindFlags = D3D11_BIND_INDEX_BUFFER,        // なんのバッファか
+		.CPUAccessFlags = 0,                         // CPUからのアクセスフラグ
+		.MiscFlags = 0,                              // その他のフラグ
+		.StructureByteStride = 0,
+	};
+	const D3D11_SUBRESOURCE_DATA INDEX_DATA
+	{
+		.pSysMem = indexes.data(),
+		.SysMemPitch = {},
+		.SysMemSlicePitch = {},
+	};
+
+	hResult = pDevice->CreateBuffer(&INDEX_DESC, &INDEX_DATA, pIndexBuffer_.GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "ステージメッシュのインデックスバッファ作成に失敗");
+
+#pragma endregion
+
+#pragma region コンスタントバッファを作っておく
+
+	const D3D11_BUFFER_DESC CONSTANT_DESC
+	{
+		// 型の大きさ
+		.ByteWidth = static_cast<UINT>(sizeof(ConstantBuffer)),
+		.Usage = D3D11_USAGE_DYNAMIC,                // 変更するか
+		.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // なんのバッファか
+		.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPUからのアクセスフラグ
+		.MiscFlags = 0,                              // その他のフラグ
+		.StructureByteStride = 0,
+	};
+
+	ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+	HRESULT hResult{};
+
+	hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "ステージメッシュコンスタントバッファ作成に失敗");
+
+#pragma endregion
 }
 
 void StageMesh::Release()
 {
+}
+
+void StageMesh::SetPosXValue(const float _xValue, Vertex* _vertex)
+{
+	_vertex->position.x = _xValue;
+	_vertex->uv.x = _xValue;
 }

@@ -38,6 +38,12 @@ namespace wtgb
 		void Update(ViewerCached system_) override {}
 		void End() override;
 
+		/// <summary>
+		/// モデルメッシュの種類を取得
+		/// </summary>
+		/// <returns>モデルメッシュの種類</returns>
+		Type GetType() const { return modelMeshType_; }
+
 	private:
 		std::string fileName_;  // モデルのファイル名
 		IMeshSimple* pOriginalMesh_;  // シンプルならオリジナルメッシュ

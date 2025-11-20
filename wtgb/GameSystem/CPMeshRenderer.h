@@ -24,6 +24,6 @@ namespace wtgb
 		/// </summary>
 		void Update() override;
 
-		void 
+		//void 
 	};
 }

@@ -51,101 +51,95 @@ void wtgb::CPMeshRenderer::Update()
 			{
 				return;
 			}
-			ModelHandle hModel{ pModelMesh->hModel_ };
 
-			if (hModel == INVALID_HANDLE)
+			if (pModelMesh->GetType() == ModelMesh::Type::Fbx)
 			{
-				if (pModelMesh->pOriginalMesh_)
-				{
+				Transform* pTransform{ cpTransform.Get(entityId) };
 
+				if (pTransform == nullptr)
+				{
+					wassert(false && "Transformの取得に失敗");
+					return;
 				}
-			}
 
-			Transform* pTransform{ cpTransform.Get(entityId) };
-
-			if (pTransform == nullptr)
-			{
-				wassert(false && "Transformの取得に失敗");
-				return;
-			}
-
-			ModelResource* pModel{ model.GetModel(hModel) };
-			Fbx* pFbxModel{ dynamic_cast<Fbx*>(pModel) };
-			if (pFbxModel == nullptr)
-			{
-				LOGFLN("Warn:Fbx以外のモデルが読み込まれた！");
-				return;
-			}
-
-			Fbx::ConstantBuffer constantBuffer{};
-			constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
-			constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
-			constantBuffer.matrixUV = XMMatrixIdentity();
-			constantBuffer.lightDirection = { -0.5f, -0.5f, -0.5f, 0.0f };
-			constantBuffer.lightColor = 0xffffff;
-			constantBuffer.ambientValue = 0.3f;
-
-			// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
-			d3d.SetShader(meshRenderer.hShader_);
-
-			UINT stride{ sizeof(Fbx::Vertex) };
-			UINT offset{ 0 };
-			// 頂点バッファをセット
-			pContext->IASetVertexBuffers(0, 1, pFbxModel->GetVertexBuffer().GetAddressOf(), &stride, &offset);
-
-			// 各マテリアル分
-			for (int i = 0; i < pFbxModel->GetMaterialCount(); i++)
-			{
-				constantBuffer.hasTexture = pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE;
-
-				//constantBuffer.diffuse = pFbxModel->GetMaterialAt(i).diffuse;
-				//bool useTexture{ pFbxModel->GetMaterialAt(i).textureFile != "" };
-				//bool useTexture{ pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE };
-				TextureHandle hTexture{ pFbxModel->GetMaterialAt(i).hTexture_ };
-
-				hTexture = meshRenderer.hTexture_;
-
-
-				// インデックスバッファをセット
-				stride = sizeof(int);
-				offset = 0;
-				pContext->IASetIndexBuffer(pFbxModel->GetIndexBufferAt(i).Get(), DXGI_FORMAT_R32_UINT, 0);
-
-				// コンスタントバッファをセット
-				pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
-				pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
-
-				if (constantBuffer.hasTexture)
+				ModelHandle hModel{ pModelMesh->hModel_ };
+				ModelResource* pModel{ model.GetModel(hModel) };
+				Fbx* pFbxModel{ dynamic_cast<Fbx*>(pModel) };
+				if (pFbxModel == nullptr)
 				{
-					Texture* pTexture{ resource.GetTexture(hTexture) };
-					wassert(pTexture != nullptr);
-					if (pTexture)
+					LOGFLN("Warn:Fbx以外のモデルが読み込まれた！");
+					return;
+				}
+
+				Fbx::ConstantBuffer constantBuffer{};
+				constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
+				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
+				constantBuffer.matrixUV = XMMatrixIdentity();
+				constantBuffer.lightDirection = { -0.5f, -0.5f, -0.5f, 0.0f };
+				constantBuffer.lightColor = 0xffffff;
+				constantBuffer.ambientValue = 0.3f;
+
+				// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
+				d3d.SetShader(meshRenderer.hShader_);
+
+				UINT stride{ sizeof(Fbx::Vertex) };
+				UINT offset{ 0 };
+				// 頂点バッファをセット
+				pContext->IASetVertexBuffers(0, 1, pFbxModel->GetVertexBuffer().GetAddressOf(), &stride, &offset);
+
+				// 各マテリアル分
+				for (int i = 0; i < pFbxModel->GetMaterialCount(); i++)
+				{
+					constantBuffer.hasTexture = pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE;
+
+					//constantBuffer.diffuse = pFbxModel->GetMaterialAt(i).diffuse;
+					//bool useTexture{ pFbxModel->GetMaterialAt(i).textureFile != "" };
+					//bool useTexture{ pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE };
+					TextureHandle hTexture{ pFbxModel->GetMaterialAt(i).hTexture_ };
+
+					hTexture = meshRenderer.hTexture_;
+
+
+					// インデックスバッファをセット
+					stride = sizeof(int);
+					offset = 0;
+					pContext->IASetIndexBuffer(pFbxModel->GetIndexBufferAt(i).Get(), DXGI_FORMAT_R32_UINT, 0);
+
+					// コンスタントバッファをセット
+					pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
+					pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
+
+					if (constantBuffer.hasTexture)
 					{
-						//ID3D11SamplerState* pSampler{ pTexture->GetSamplerState() };
-						pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
+						Texture* pTexture{ resource.GetTexture(hTexture) };
+						wassert(pTexture != nullptr);
+						if (pTexture)
+						{
+							//ID3D11SamplerState* pSampler{ pTexture->GetSamplerState() };
+							pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
 
-						//ID3D11ShaderResourceView* pSRV{ };
-						pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
+							//ID3D11ShaderResourceView* pSRV{ };
+							pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
+						}
 					}
-				}
-				else
-				{
-					constantBuffer.diffuseColor = pFbxModel->GetMaterialAt(i).diffuse;
-				}
-				//constantBuffer.materialFLag = useTexture;
+					else
+					{
+						constantBuffer.diffuseColor = pFbxModel->GetMaterialAt(i).diffuse;
+					}
+					//constantBuffer.materialFLag = useTexture;
 
-				D3D11_MAPPED_SUBRESOURCE data{};
+					D3D11_MAPPED_SUBRESOURCE data{};
 
-				pContext->Map(pFbxModel->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
-				memcpy_s(
-					data.pData,
-					data.RowPitch,
-					reinterpret_cast<void*>(&constantBuffer),
-					sizeof(Fbx::ConstantBuffer));
-				pContext->Unmap(pFbxModel->GetConstantBuffer().Get(), 0);
+					pContext->Map(pFbxModel->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+					memcpy_s(
+						data.pData,
+						data.RowPitch,
+						reinterpret_cast<void*>(&constantBuffer),
+						sizeof(Fbx::ConstantBuffer));
+					pContext->Unmap(pFbxModel->GetConstantBuffer().Get(), 0);
 
-				pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
-
+					pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
+				
 #if WTGB_CPMR_USE_VERTEX_LOG
 				{
 					size_t vertexCount = pFbxModel->GetVertexCount();
@@ -194,6 +188,11 @@ void wtgb::CPMeshRenderer::Update()
 					pStagingBuffer.Reset();
 				}
 #endif
+			}
+			else if (pModelMesh->GetType() == ModelMesh::Type::SimpleMesh)
+			{
+
+			}
 			}
 		});
 }

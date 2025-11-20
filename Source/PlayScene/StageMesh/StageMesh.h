@@ -2,6 +2,8 @@
 #include <wtgb.h>
 #include "GameSystem/ModelMesh/IMeshSimple.h"
 
+using StagePoints = std::vector<Vector2>;
+
 class StageMesh : public wtgb::IMeshSimple
 {
 public:
@@ -23,7 +25,7 @@ public:
 	};
 
 public:
-	StageMesh();
+	StageMesh(ViewerCached _system, StagePoints& _points);
 	~StageMesh();
 	
 	void Init() override;
@@ -34,6 +36,20 @@ public:
 	ComPtr<ID3D11Buffer>& GetConstantBuffer() override { return pConstantBuffer_; }
 
 private:
+	/// <summary>
+	/// <para>頂点のx"座標"の値をまとめてセットする</para>
+	/// <para>position.xと uv.x　※法線のxは座標ではないため除く</para>
+	/// </summary>
+	/// <param name="_xValue">xの値</param>
+	/// <param name="_vertex">セットしたい頂点</param>
+	static void SetPosXValue(const float _xValue, Vertex* _vertex);
+
+	ViewerCached& System() { return system_; }
+
+private:
+	StagePoints& points_;
+	ViewerCached system_;
+
 	ComPtr<ID3D11Buffer> pVertexBuffer_;    // 頂点バッファ
 	ComPtr<ID3D11Buffer> pIndexBuffer_;    // インデックスバッファ
 	ComPtr<ID3D11Buffer> pConstantBuffer_;  // コンスタントバッファ
