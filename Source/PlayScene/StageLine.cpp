@@ -19,7 +19,7 @@ StageLine::StageLine() : GameObject(
 			.Build();
 		}
 	}),
-	stageMesh_{ points_ }
+	stageMesh_{ System(), points_ }
 {
 }
 

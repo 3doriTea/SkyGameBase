@@ -11,6 +11,7 @@ namespace wtgb
 
 		virtual void Init() override = 0;
 		virtual void Release() override = 0;
+		virtual size_t GetVertexSize() = 0;
 
 		/// <summary>
 		/// 頂点バッファを取得する

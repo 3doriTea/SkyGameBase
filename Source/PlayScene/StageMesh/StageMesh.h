@@ -34,6 +34,11 @@ public:
 	ComPtr<ID3D11Buffer>& GetVertexBuffer() override   { return pVertexBuffer_; }
 	ComPtr<ID3D11Buffer>& GetIndexBuffer() override    { return pIndexBuffer_; }
 	ComPtr<ID3D11Buffer>& GetConstantBuffer() override { return pConstantBuffer_; }
+	/// <summary>
+	/// 頂点のサイズを取得
+	/// </summary>
+	/// <returns>頂点の構造体サイズ(byte)</returns>
+	size_t GetVertexSize() override { return sizeof(Vertex); }
 
 private:
 	/// <summary>

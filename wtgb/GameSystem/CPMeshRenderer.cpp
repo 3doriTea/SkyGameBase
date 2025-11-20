@@ -188,11 +188,30 @@ void wtgb::CPMeshRenderer::Update()
 					pStagingBuffer.Reset();
 				}
 #endif
+				}
 			}
 			else if (pModelMesh->GetType() == ModelMesh::Type::SimpleMesh)
 			{
+				IMeshSimple* pMesh{ pModelMesh->pOriginalMesh_ };
+				wassert(pMesh && "メッシュがない！");
 
-			}
+				// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
+				d3d.SetShader(meshRenderer.hShader_);
+
+				UINT stride{ static_cast<UINT>(pMesh->GetVertexSize()) };
+				UINT offset{ 0 };
+				// 頂点バッファをセット
+				pContext->IASetVertexBuffers(0, 1, pMesh->GetVertexBuffer().GetAddressOf(), &stride, &offset);
+
+				// インデックスバッファをセット
+				stride = sizeof(uint32_t);
+				offset = 0;
+				pContext->IASetIndexBuffer(pMesh->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+
+				// コンスタントバッファをセット
+				pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
+				pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
+
 			}
 		});
 }

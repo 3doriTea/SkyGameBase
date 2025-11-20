@@ -49,7 +49,7 @@ namespace wtgb
 
 		virtual void Init() {}
 		virtual void Init(ViewerUpdate& _system) {}
-		virtual void Update() = 0;
+		virtual void Update() {}
 		virtual void Update(ViewerUpdate& _system) {}
 		virtual void Draw() const {}
 		virtual void Release() {}
