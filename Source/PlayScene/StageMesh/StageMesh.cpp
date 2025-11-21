@@ -165,13 +165,27 @@ void StageMesh::Init()
 
 		//polyCount = 6;
 
-		for (int poly = 0; poly < polyCount; poly++)
+		int indexCount{ 0 };
+		for (int p = 0; p < polyCount; p++)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				indexes.push_back(
+					INDEX_SET_ARRAY[(p * 3 + i) % INDEX_SET_ARRAY_SIZE]
+					+ (indexCount / INDEX_SET_ARRAY_SIZE)
+					);
+				indexCount++;
+			}
+		}
+
+		/*for (int poly = 0; poly < polyCount; poly++)
 		{
 			for (int index = 0; index < 3; index++)
 			{
-				indexes.push_back(INDEX_SET_ARRAY[(poly * 3 + index) % INDEX_SET_ARRAY_SIZE]);
+				indexes.push_back(
+					INDEX_SET_ARRAY[(poly * 3 + index) % INDEX_SET_ARRAY_SIZE]);
 			}
-		}
+		}*/
 		indexCount_ = indexes.size();
 
 

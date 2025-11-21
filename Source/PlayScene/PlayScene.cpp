@@ -35,7 +35,6 @@ void PlayScene::Start()
 			for (int i = 0; i < 3; i++)
 			{
 				Instantiate<Player>(pRootPlayer, Vector3{ i * 3.0f, k * 5.0f + 10.0f, j * 3.0f });
-				//Instantiate<Player>(pRootPlayer, Vector3{ -i * 3.0f, k * 5.0f, -j * 3.0f });
 			}
 		}
 	}

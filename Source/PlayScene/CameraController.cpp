@@ -47,12 +47,6 @@ void CameraController::Update()
 	Cursor& cursor{ System().Get<Cursor>() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 
-	/*camera.position_ = { 0, 0, -10 };
-	camera.targetPosition_ = { 0, 0, 0 };
-
-	return;*/
-
-	//if (input.IsMouseDown(MouseCode::Left))
 	if (input.IsKeyDown(KeyCode::B))
 	{
 		cursor.SetCenterLock(true);
@@ -81,23 +75,6 @@ void CameraController::Update()
 	}
 
 	angles.y += cursor.GetFrameMove().x / 100.0f * dt;
-
-	/*if (input.IsKey(KeyCode::Up))
-	{
-		angles.x -= (DirectX::XM_2PI / 360.0f) * 10.0f * dt;
-	}
-	if (input.IsKey(KeyCode::Down))
-	{
-		angles.x += (DirectX::XM_2PI / 360.0f) * 10.0f * dt;
-	}
-	if (input.IsKey(KeyCode::Left))
-	{
-		angles.x += (DirectX::XM_2PI / 360.0f) * 10.0f * dt;
-	}
-	if (input.IsKey(KeyCode::Right))
-	{
-		angles.x -= (DirectX::XM_2PI / 360.0f) * 10.0f * dt;
-	}*/
 
 	Transform().SetRotation(angles);
 
