@@ -37,7 +37,7 @@ void StageMesh::Init()
 			Vertex v
 			{
 				.position = { 0.0f, pos2D.y, pos2D.x },
-				.normal = { 0.0f, 1.0f, 0.0f },
+				.normal = { 0.0f, 0.0f, 0.0f },
 				.uv = { 0.0f, static_cast<float>(i) }
 			};
 			if (i == 0)  // 最初のポイントなら
@@ -47,7 +47,7 @@ void StageMesh::Init()
 				Vector2 toNext2D{ posNext2D - pos2D };
 
 				Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toNext2D) };
-				//v.normal = { 0.0f, normal2D.y, normal2D.x };
+				v.normal = { 0.0f, normal2D.y, normal2D.x };
 
 				// 下向きの法線ができてしまったら上向きに変換
 				if (v.normal.y <= 0.0f)
@@ -67,7 +67,7 @@ void StageMesh::Init()
 				Vector2 toNext2D{ 0.0f, 1.0f };
 
 				Vector2 normal2D{ XMVector3Normalize(toPrev2D + toNext2D) };
-				//v.normal = { 0.0f, normal2D.y, normal2D.x };
+				v.normal = { 0.0f, normal2D.y, normal2D.x };
 
 				// 下向きの法線ができてしまったら上向きに変換
 				if (v.normal.y <= 0.0f)
@@ -88,7 +88,7 @@ void StageMesh::Init()
 				Vector2 toNext2D{ posNext2D - pos2D };
 
 				Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toNext2D) };
-				//v.normal = { 0.0f, normal2D.y, normal2D.x };
+				v.normal = { 0.0f, normal2D.y, normal2D.x };
 
 				// 下向きの法線ができてしまったら上向きに変換
 				if (v.normal.y <= 0.0f)
@@ -146,26 +146,10 @@ void StageMesh::Init()
 
 #pragma region インデックスを求める
 	{
-		static const uint32_t INDEX_SET_ARRAY[]
-		{
-			/*0,
-			2,
-			3,
-			0,
-			1,
-			2*/
-			2,
-			1,
-			0,
-			2,
-			3,
-			1,
-		};
+		static const uint32_t INDEX_SET_ARRAY[] { 0,2,1,2,3,1 };
 		static const size_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(int) };
 
 		size_t polyCount{ (points_.size() - 1) * 2 };
-
-		//polyCount = 6;
 
 		int indexCount{ 0 };
 		for (int p = 0; p < polyCount; p++)
@@ -179,18 +163,6 @@ void StageMesh::Init()
 				indexCount++;
 			}
 		}
-
-		/*for (int poly = 0; poly < polyCount; poly++)
-		{
-			for (int index = 0; index < 3; index++)
-			{
-				indexes.push_back(INDEX_SET_ARRAY[(poly * 3 + index) % INDEX_SET_ARRAY_SIZE]);
-			}
-		}
-				indexes.push_back(
-					INDEX_SET_ARRAY[(poly * 3 + index) % INDEX_SET_ARRAY_SIZE]);
-			}
-		}*/
 		indexCount_ = static_cast<uint32_t>(indexes.size());
 		
 
