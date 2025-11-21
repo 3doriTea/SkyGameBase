@@ -24,8 +24,8 @@ PlayScene::~PlayScene()
 void PlayScene::Start()
 {
 	Instantiate<CameraController>();
-	//Instantiate<StageLine>();
-	Instantiate<TestBillBoard>();
+	Instantiate<StageLine>();
+	//Instantiate<TestBillBoard>();
 	
 	EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3::Zero()) };
 	for (int k = 0; k < 3; k++)

@@ -68,7 +68,7 @@ void CameraController::Update()
 	Vector3 angles{ Transform().GetRotation() };
 
 
-	angles.x += cursor.GetFrameMove().y / 100.0f * dt;
+	angles.x += cursor.GetFrameMove().y / 10.0f * dt;
 
 	// ã‰º‚ÌŠp“x‚É§ŒÀ‚ğ•t‚¯‚é
 	if (angles.x < DEG_TO_RAD * LOWER_ANGLE)
@@ -80,7 +80,7 @@ void CameraController::Update()
 		angles.x = DEG_TO_RAD * UPPER_ANGLE;
 	}
 
-	angles.y += cursor.GetFrameMove().x / 100.0f * dt;
+	angles.y += cursor.GetFrameMove().x / 10.0f * dt;
 
 	/*if (input.IsKey(KeyCode::Up))
 	{
@@ -103,9 +103,13 @@ void CameraController::Update()
 
 	Vector3 cameraPos{ Transform().GetPosition() };
 
-	cameraPos.x += (input.IsKey(KeyCode::D) ? 1.0f : 0.0f + input.IsKey(KeyCode::A) ? -1.0f : 0.0f) * dt * 10.0f;
-	cameraPos.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f) * dt * 10.0f;
-	cameraPos.z += (input.IsKey(KeyCode::W) ? 1.0f : 0.0f + input.IsKey(KeyCode::S) ? -1.0f : 0.0f) * dt * 10.0f;
+	Vector3 move{ Vector3::Zero() };
+
+	move.x += (input.IsKey(KeyCode::D) ? 1.0f : 0.0f + input.IsKey(KeyCode::A) ? -1.0f : 0.0f) * dt * 10.0f;
+	move.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f) * dt * 10.0f;
+	move.z += (input.IsKey(KeyCode::W) ? 1.0f : 0.0f + input.IsKey(KeyCode::S) ? -1.0f : 0.0f) * dt * 10.0f;
+
+	cameraPos = cameraPos + DirectX::XMVector3TransformCoord(move, Transform().GetWorldMatrix());
 
 	Transform().SetPosition(cameraPos);
 
