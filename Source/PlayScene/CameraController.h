@@ -12,5 +12,6 @@ public:
 	void Release() override {}
 
 private:
+	float speedBoost_;
 	Vector2Int prevMousePos_;  // 前フレームのマウススクリーン座標
 };

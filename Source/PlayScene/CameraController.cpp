@@ -28,7 +28,8 @@ CameraController::CameraController() : GameObject
 			.EndSetter()
 		.Build();
 	}
-}
+},
+	speedBoost_{ 0.0f }
 {
 }
 
@@ -78,15 +79,26 @@ void CameraController::Update()
 
 	Transform().SetRotation(angles);
 
+	if (input.IsKey(KeyCode::LeftShift))
+	{
+		speedBoost_ += dt;
+	}
+	else
+	{
+		speedBoost_ = 0.0f;
+	}
+
 	Vector3 cameraPos{ Transform().GetPosition() };
 
 	Vector3 move{ Vector3::Zero() };
 
-	move.x += (input.IsKey(KeyCode::D) ? 1.0f : 0.0f + input.IsKey(KeyCode::A) ? -1.0f : 0.0f) * dt * 10.0f;
-	move.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f) * dt * 10.0f;
-	move.z += (input.IsKey(KeyCode::W) ? 1.0f : 0.0f + input.IsKey(KeyCode::S) ? -1.0f : 0.0f) * dt * 10.0f;
+	move.x += (input.IsKey(KeyCode::D) ? 1.0f : 0.0f + input.IsKey(KeyCode::A) ? -1.0f : 0.0f);
+	move.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f);
+	move.z += (input.IsKey(KeyCode::W) ? 1.0f : 0.0f + input.IsKey(KeyCode::S) ? -1.0f : 0.0f);
 
-	cameraPos = cameraPos + DirectX::XMVector3TransformCoord(move, Transform().GetWorldMatrix());
+	LOGFLN("move({},{},{})", move.x, move.y, move.z);
+
+	cameraPos = cameraPos + DirectX::XMVector3TransformCoord(move * (dt * (10.0f + (10.0f * speedBoost_))), Transform().GetNormalMatrix());
 
 	Transform().SetPosition(cameraPos);
 

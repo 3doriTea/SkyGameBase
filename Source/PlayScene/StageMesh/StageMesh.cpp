@@ -30,6 +30,7 @@ void StageMesh::Init()
 			throw -1;
 		}
 
+		int size = 0;
 		for (int i = 0; i < points_.size(); i++)
 		{
 			Vector2 pos2D{ static_cast<float>(points_[i].x), static_cast<float>(points_[i].y) };
@@ -100,6 +101,7 @@ void StageMesh::Init()
 				SetPosXValue(1.0f, &v);
 				vertices.push_back(v);
 			}
+			size++;
 		}
 
 		vertexCount_ = static_cast<uint32_t>(vertices.size());
