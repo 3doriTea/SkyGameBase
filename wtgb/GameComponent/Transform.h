@@ -18,7 +18,7 @@ namespace wtgb
 		};
 
 	public:
-		Transform() {}
+		Transform();
 		~Transform() {}
 
 		/// <summary>

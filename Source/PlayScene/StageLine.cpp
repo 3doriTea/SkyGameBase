@@ -37,7 +37,7 @@ StageLine::~StageLine()
 
 void StageLine::Init()
 {
-	/*points_ =
+	points_ =
 	{
 		{ 0, 0 },
 		{ 80, 40 },
@@ -48,13 +48,13 @@ void StageLine::Init()
 		{ 350, 210 },
 		{ 430, 310 },
 		{ 620, 320 },
-	};*/
+	};
 
-	points_ = 
+	/*points_ = 
 	{
 		{ 3, 2 },
 		{ 5, 2 },
-	};
+	};*/
 
 	// ‘S‚Ä‚Ì y Ž²‚ð - ‚É‚·‚é
 	for (auto& point : points_)
