@@ -102,7 +102,7 @@ void StageMesh::Init()
 			}
 		}
 
-		vertexCount_ = vertices.size();
+		vertexCount_ = static_cast<uint32_t>(vertices.size());
 
 		// バッファ作成
 		ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
@@ -172,7 +172,7 @@ void StageMesh::Init()
 				indexes.push_back(INDEX_SET_ARRAY[(poly * 3 + index) % INDEX_SET_ARRAY_SIZE]);
 			}
 		}
-		indexCount_ = indexes.size();
+		indexCount_ = static_cast<uint32_t>(indexes.size());
 
 
 		ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
