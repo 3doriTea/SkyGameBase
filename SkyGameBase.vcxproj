@@ -52,6 +52,7 @@
     <ClInclude Include="wtgb\Core\GameObjectBuilder.h" />
     <ClInclude Include="wtgb\Core\ComponentSetter.h" />
     <ClInclude Include="wtgb\Core\GameSystemViewer.h" />
+    <ClInclude Include="wtgb\GameComponent\Collider.h" />
     <ClInclude Include="wtgb\GameComponent\CommonGameComponent.h" />
     <ClInclude Include="wtgb\GameComponent\MeshRenderer.h" />
     <ClInclude Include="wtgb\GameComponent\ModelMesh.h" />
@@ -72,6 +73,7 @@
     <ClInclude Include="wtgb\GameSystem\ComponentManager\EntityGenerator.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentPool.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentPool\ComponentPoolIterator.h" />
+    <ClInclude Include="wtgb\GameSystem\CPCollider.h" />
     <ClInclude Include="wtgb\GameSystem\CPGameObject.h" />
     <ClInclude Include="wtgb\GameSystem\CPGameObjectProperty.h" />
     <ClInclude Include="wtgb\GameSystem\CPMeshRenderer.h" />
@@ -134,6 +136,7 @@
     <ClCompile Include="Source\SkyGameBase.cpp" />
     <ClCompile Include="wtgb\Core\GameObjectBuilder.cpp" />
     <ClCompile Include="wtgb\Core\GameScene.cpp" />
+    <ClCompile Include="wtgb\GameComponent\Collider.cpp" />
     <ClCompile Include="wtgb\GameComponent\GameObject.cpp" />
     <ClCompile Include="wtgb\GameComponent\MeshRenderer.cpp" />
     <ClCompile Include="wtgb\GameComponent\ModelMesh.cpp" />
@@ -146,6 +149,7 @@
     <ClCompile Include="wtgb\GameComponent\GameObjectProperty.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager\EntityGenerator.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentPool.cpp" />
+    <ClCompile Include="wtgb\GameSystem\CPCollider.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPGameObject.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPGameObjectProperty.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPMeshRenderer.cpp" />

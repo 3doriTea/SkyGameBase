@@ -11,7 +11,6 @@ namespace wtgb
 	/// </summary>
 	class CPRigidBody : public ComponentPool<RigidBody>
 	{
-		friend class CPRigidBody;
 	public:
 		CPRigidBody();
 		~CPRigidBody();

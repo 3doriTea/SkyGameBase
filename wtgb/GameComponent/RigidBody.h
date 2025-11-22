@@ -4,7 +4,7 @@
 
 namespace wtgb
 {
-	class CPRigidBody; class RigidBody : public Component<CPRigidBody>
+	class COMPONENT(RigidBody)
 	{
 		friend class CPRigidBody;
 	public:
