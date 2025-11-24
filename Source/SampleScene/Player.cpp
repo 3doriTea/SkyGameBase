@@ -31,9 +31,10 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 				.shader("Shader/Simple3D.hlsl")
 				//.texture("Models/TestCube/TestCubeTexture.png")
 				//.texture("Models/Oden.jpg")
-				.texture("Models/TextureSphereNeko.png")
+				.texture("Models/Neko/TextureSphereNeko.png")
 				//.texture("Models/TestCube/UVChecker.jpg")
 			.EndSetter()
+		//.AddComponent<RigidBody>()
 		.Build();
 	}
 }
@@ -53,6 +54,8 @@ void Player::Init()
 void Player::Update()
 {
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
+
+	return;
 
 	angle_ += DirectX::XM_2PI / 10.0f * dt;
 	if (angle_ >= DirectX::XM_2PI)

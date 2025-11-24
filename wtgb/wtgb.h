@@ -29,6 +29,8 @@
 
 #include "GameSystem/Direct3D.h"
 
+#include "WTGBAssert.h"
+
 using wtgb::IGame;
 using wtgb::IGameSystem;
 using wtgb::GameSystemCollection;

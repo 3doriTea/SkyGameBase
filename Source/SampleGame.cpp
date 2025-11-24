@@ -22,6 +22,8 @@
 #include "GameSystem/CPTransform.h"
 #include "GameSystem/CPModelMesh.h"
 #include "GameSystem/CPMeshRenderer.h"
+#include "GameSystem/CPCollider.h"
+#include "GameSystem/CPRigidBody.h"
 
 #include "GameSystem/Camera.h"
 
@@ -63,6 +65,10 @@ void SampleGame::StartRegister(
 		.Register<CPGameObject>()
 		.Register<CPGameObjectProperty>()
 		.Register<CPTransform>()
+
+		// •¨—‰‰ZŒn
+		.Register<CPCollider>()
+		.Register<CPRigidBody>()
 
 		// •`‰æŒn
 		.Register<Camera>()

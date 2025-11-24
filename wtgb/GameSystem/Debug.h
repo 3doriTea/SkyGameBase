@@ -30,5 +30,8 @@ namespace wtgb
 		/// I—¹ˆ—
 		/// </summary>
 		void End() override;
+
+	private:
+		ModelHandle hSphere_;
 	};
 }

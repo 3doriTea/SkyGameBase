@@ -267,9 +267,6 @@
     <ClInclude Include="wtgb\CoreType\Handler.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Library\ufbx\ufbx.h">
-      <Filter>C++未分類ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="wtgb\GameSystem\Model.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
@@ -313,6 +310,12 @@
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\PlayScene\TestBillBoard.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameComponent\Collider.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\CPCollider.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -449,9 +452,6 @@
     <ClCompile Include="wtgb\GameSystem\ShaderCompile\Shader.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Library\ufbx\ufbx.cpp">
-      <Filter>C++未分類ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="wtgb\GameSystem\Model.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
@@ -483,6 +483,12 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Source\PlayScene\TestBillBoard.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameComponent\Collider.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\CPCollider.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>

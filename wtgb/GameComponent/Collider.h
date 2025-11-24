@@ -27,7 +27,7 @@ namespace wtgb
 
 	public:
 		Collider();
-		Collider(Collider& _other);
+		Collider(const Collider& _other);
 		~Collider() {}
 
 	private:

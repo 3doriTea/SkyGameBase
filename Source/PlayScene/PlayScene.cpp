@@ -28,7 +28,7 @@ void PlayScene::Start()
 	//Instantiate<TestBillBoard>();
 	
 	EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3::Zero()) };
-	for (int k = 0; k < 3; k++)
+	/*for (int k = 0; k < 3; k++)
 	{
 		for (int j = 0; j < 3; j++)
 		{
@@ -37,7 +37,7 @@ void PlayScene::Start()
 				Instantiate<Player>(pRootPlayer, Vector3{ i * 3.0f, k * 5.0f + 10.0f, j * 3.0f });
 			}
 		}
-	}
+	}*/
 	
 	//for (int k = 0; k < 20; k++)
 	//{

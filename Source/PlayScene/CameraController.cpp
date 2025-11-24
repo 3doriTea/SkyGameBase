@@ -29,7 +29,8 @@ CameraController::CameraController() : GameObject
 		.Build();
 	}
 },
-	speedBoost_{ 0.0f }
+	speedBoost_{ 0.0f },
+	mode_{ Mode::Free }
 {
 }
 
@@ -43,10 +44,27 @@ void CameraController::Init()
 
 void CameraController::Update()
 {
+	switch (mode_)
+	{
+	case CameraController::Mode::Free:
+		UpdateFree();
+		break;
+	case CameraController::Mode::GamePlay:
+		UpdateGamePlay();
+		break;
+	default:
+		wassert(false && "ñ¢èàóùÇÃÉJÉÅÉâÉÇÅ[Éh");
+		break;
+	}
+}
+
+void CameraController::UpdateFree()
+{
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	Camera& camera{ System().Get<Camera>() };
 	Cursor& cursor{ System().Get<Cursor>() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+
 
 	if (input.IsKeyDown(KeyCode::B))
 	{
@@ -104,4 +122,8 @@ void CameraController::Update()
 
 	camera.targetPosition_ = Transform().GetForward() + Transform().GetPosition();
 	camera.position_ = Transform().GetPosition();
+}
+
+void CameraController::UpdateGamePlay()
+{
 }
