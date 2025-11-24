@@ -61,6 +61,17 @@ namespace wtgb
 		inline Vector3 GetScale() const                   { return scale_; }
 
 		/// <summary>
+		/// ワールド座標をセットする
+		/// </summary>
+		/// <param name="_worldPosition">ワールド座標</param>
+		void SetPositionWorld(const Vector3& _worldPosition);
+		/// <summary>
+		/// ワールド座標を取得する
+		/// </summary>
+		/// <returns>ワールド座標</returns>
+		Vector3 GetPositionWorld() const;
+
+		/// <summary>
 		/// ワールド行列を取得する
 		/// </summary>
 		/// <returns>ワールド変換行列</returns>

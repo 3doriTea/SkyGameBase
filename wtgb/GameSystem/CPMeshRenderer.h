@@ -17,6 +17,12 @@ namespace wtgb
 		CPMeshRenderer();
 		~CPMeshRenderer();
 
+		/// <summary>
+		/// シンプルメッシュを単体で描画する
+		/// </summary>
+		/// <param name="_pMeshSimple">シンプルメッシュの派生</param>
+		/// <param name="_pTransform">座標系</param>
+		/// <param name="_hShader">シェーダ</param>
 		void Render(IMeshSimple* _pMeshSimple, Transform* _pTransform, const ShaderHandle _hShader);
 
 	private:

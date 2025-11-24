@@ -108,10 +108,7 @@ void wtgb::CPMeshRenderer::Update()
 		(MeshRenderer& meshRenderer, const size_t _index)
 		{
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
-			if (entityId.index == 2)
-			{
-				EntityId entityId{ cpGameObject.GetEntityId(_index) };
-			}
+
 			ModelMesh* pModelMesh{ cpModelMesh.Get(entityId) };
 			if (pModelMesh == nullptr)  // 無効なメッシュコンポーネントを取得してしまったら回帰
 			{
