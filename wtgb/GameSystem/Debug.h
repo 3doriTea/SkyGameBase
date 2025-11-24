@@ -34,6 +34,12 @@ namespace wtgb
 
 		void DrawSphere();
 
+	#pragma region コンポーネントオプションのカウント
+		static size_t& ComponentOptInstanceCount() { return componentOptInstanceCount_; }
+
+		static size_t componentOptInstanceCount_;
+	#pragma endregion
+
 	private:
 		ModelHandle hSphere_;  // デバッグ用球モデル
 		ShaderHandle hShader_;  // デバッグ用シェーダ

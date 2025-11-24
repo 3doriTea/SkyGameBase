@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObjectBuilder.h"
 
+#include "GameSystem/Debug.h"
+
 namespace wtgb
 {
 	class GameObjectBuilder;
@@ -16,8 +18,13 @@ namespace wtgb
 		ComponentOption(GameObjectBuilder& _builder, ComponentT* _pComponent) :
 			Accessor<ComponentT>::Accessor{ _pComponent },
 			builder_{ _builder }
-		{}
-		~ComponentOption() {}
+		{
+			Debug::ComponentOptInstanceCount()++;
+		}
+		~ComponentOption()
+		{
+			Debug::ComponentOptInstanceCount()--;
+		}
 
 		/// <summary>
 		/// 設定はせずにコンポーネントを追加

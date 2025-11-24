@@ -39,7 +39,6 @@ void SampleGame::StartRegister(
 	_gameSystemRegister
 		.Register<GameTime>()
 		.Register<Path>()
-		.Register<Debug>()
 		.Register<GameWindow>()
 
 		// ゲームウィンドウシステムを登録したあとでメインウィンドウを登録
@@ -77,6 +76,9 @@ void SampleGame::StartRegister(
 
 
 		.Register<Rendering>()
+
+		// デバッグ系は一番最後
+		.Register<Debug>()
 	;
 }
 

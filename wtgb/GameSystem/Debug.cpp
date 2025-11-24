@@ -13,6 +13,8 @@
 
 #include "WTGBAssert.h"
 
+size_t wtgb::Debug::componentOptInstanceCount_{};
+
 wtgb::Debug::Debug() :
 	hSphere_{ INVALID_HANDLE }
 {
@@ -24,7 +26,7 @@ wtgb::Debug::~Debug()
 
 wtgb::Result wtgb::Debug::Init(const ViewerInit& _viewer)
 {
-	hSphere_ = _viewer.Get<Model>().Load("Models/Debug/DebugSphere.fbx");
+	hSphere_ = _viewer.Get<Model>().Load("Models/DebModel/DebugSphere.fbx");
 	hShader_ = _viewer.Get<ShaderCompile>().Compile(
 		{
 			.fileName = "Shader/Debug.hlsl",

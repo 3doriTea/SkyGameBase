@@ -24,6 +24,8 @@ void wtgb::Fbx::Init()
 	fs::path current{ fs::current_path() };
 	modelFile_ = current / FileName();
 
+	wassert(fs::is_regular_file(modelFile_) == true && "ƒtƒ@ƒCƒ‹‚ª‘¶Ý‚µ‚È‚¢");
+
 	FbxManager* pFbxManager{ FbxManager::Create() };
 	FbxImporter* pFbxImporter{ FbxImporter::Create(pFbxManager, "importer") };
 	pFbxImporter->Initialize(modelFile_.string().c_str(), -1, pFbxManager->GetIOSettings());
