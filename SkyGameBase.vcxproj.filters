@@ -520,5 +520,6 @@
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
     <FxCompile Include="Assets\Shader\StageMesh.hlsl" />
     <FxCompile Include="Assets\Shader\BillBoard.hlsl" />
+    <FxCompile Include="Assets\Shader\Debug.hlsl" />
   </ItemGroup>
 </Project>

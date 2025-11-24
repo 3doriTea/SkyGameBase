@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/IGameSystem.h"
+#include "GameSystem/ModelMesh/IMeshSimple.h"
 
 namespace wtgb
 {
@@ -31,7 +32,10 @@ namespace wtgb
 		/// </summary>
 		void End() override;
 
+		void DrawSphere();
+
 	private:
-		ModelHandle hSphere_;
+		ModelHandle hSphere_;  // デバッグ用球モデル
+		ShaderHandle hShader_;  // デバッグ用シェーダ
 	};
 }

@@ -15,9 +15,75 @@
 wtgb::CPMeshRenderer::CPMeshRenderer()
 {
 }
-
 wtgb::CPMeshRenderer::~CPMeshRenderer()
 {
+}
+
+void wtgb::CPMeshRenderer::Render(IMeshSimple* _pMeshSimple, Transform* _pTransform, const ShaderHandle _hShader)
+{
+	using namespace DirectX;
+
+	Camera& camera{ System().Get<Camera>() };
+	ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+	Direct3D& d3d{ System().Get<Direct3D>() };
+	ID3D11DeviceContext* pContext{ System().Get<Direct3D>().Resource().Context() };
+
+
+	IMeshSimple* pMesh{ _pMeshSimple };
+	wassert(pMesh && "メッシュがない！");
+	if (pMesh == nullptr)
+	{
+		return;
+	}
+
+	Transform* pTransform{ _pTransform };
+	wassert(pTransform && "座標系がない！");
+	if (pTransform == nullptr)
+	{
+		return;
+	}
+
+	IMeshSimple::ConstantBuffer constantBuffer{};
+	constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
+	constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
+	constantBuffer.matrixUV = XMMatrixIdentity();
+	// TODO: この辺は統一するためにライトオブジェクトを検出して同期させるシステムを作る light system
+	constantBuffer.lightDirection = { -0.5f, -0.5f, -0.5f, 0.0f };
+	constantBuffer.lightColor = 0xffffff;
+	constantBuffer.ambientValue = 0.3f;
+	constantBuffer.diffuseColor = { 0.0f, 0.7f, 0.0f, 1.0f };
+
+	constantBuffer.hasTexture = FALSE;
+
+	// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
+	d3d.SetShader(_hShader);
+
+	UINT stride{ static_cast<UINT>(pMesh->GetVertexSize()) };
+	UINT offset{ 0 };
+	// 頂点バッファをセット
+	pContext->IASetVertexBuffers(0, 1, pMesh->GetVertexBuffer().GetAddressOf(), &stride, &offset);
+
+	// インデックスバッファをセット
+	stride = sizeof(uint32_t);
+	offset = 0;
+	pContext->IASetIndexBuffer(pMesh->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+
+	// コンスタントバッファをセット
+	pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
+	pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
+
+
+	D3D11_MAPPED_SUBRESOURCE data{};
+
+	pContext->Map(pMesh->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+	memcpy_s(
+		data.pData,
+		data.RowPitch,
+		reinterpret_cast<void*>(&constantBuffer),
+		sizeof(IMeshSimple::ConstantBuffer));
+	pContext->Unmap(pMesh->GetConstantBuffer().Get(), 0);
+
+	pContext->DrawIndexed(pMesh->GetIndexCount(), 0, 0);
 }
 
 void wtgb::CPMeshRenderer::Init()

@@ -4,7 +4,10 @@
 
 namespace wtgb
 {
+	class IMeshSimple;
 	class MeshRenderer;
+	class Transform;
+
 	/// <summary>
 	/// コンポーネントプール : メッシュ描画
 	/// </summary>
@@ -13,6 +16,8 @@ namespace wtgb
 	public:
 		CPMeshRenderer();
 		~CPMeshRenderer();
+
+		void Render(IMeshSimple* _pMeshSimple, Transform* _pTransform, const ShaderHandle _hShader);
 
 	private:
 		/// <summary>

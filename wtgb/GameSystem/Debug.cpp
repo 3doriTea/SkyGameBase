@@ -4,12 +4,17 @@
 #include "Core/Game.h"
 #include "Input.h"
 
-//#include "ResourceSystem/Texture.h"
+#include "GameSystem/Model.h"
+#include "GameSystem/ShaderCompile.h"
+
+//#include 
+
 #include "ResourceSystem.h"
 
 #include "WTGBAssert.h"
 
-wtgb::Debug::Debug()
+wtgb::Debug::Debug() :
+	hSphere_{ INVALID_HANDLE }
 {
 }
 
@@ -19,19 +24,34 @@ wtgb::Debug::~Debug()
 
 wtgb::Result wtgb::Debug::Init(const ViewerInit& _viewer)
 {
+	hSphere_ = _viewer.Get<Model>().Load("Models/Debug/DebugSphere.fbx");
+	hShader_ = _viewer.Get<ShaderCompile>().Compile(
+		{
+			.fileName = "Shader/Debug.hlsl",
+			.vertexShader
+			{
+				.entryPointName = "VS",
+				.compileVersion = "vs_5_0",
+			},
+			.pixelShader
+			{
+				.entryPointName = "PS",
+				.compileVersion = "ps_5_0",
+			},
+			.vertexInputLayout
+			{
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // 位置
+			},
+			.fillMode = D3D11_FILL_WIREFRAME,  // ワイヤーフレーム
+			.cullMode = D3D11_CULL_NONE,       // 隠面消去しない
+			.backIsClockwise = false,
+		});
 	return Result::Code::Ok;
 }
 
 void wtgb::Debug::Update(const ViewerUpdate& _system)
 {
 	Input::InputGetter input{ _system.Get<Input>().Getter() };
-
-	if (input.IsKeyDown(KeyCode::L))
-	{
-		TextureHandle hTexture = _system.Get<ResourceSystem>().LoadTexture("Assets/Models/Oden.jpg");
-
-		LOGFLN("読み込んだ！{}", hTexture);
-	}
 }
 
 void wtgb::Debug::End()
