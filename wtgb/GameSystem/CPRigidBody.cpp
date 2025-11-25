@@ -66,7 +66,7 @@ void wtgb::CPRigidBody::Update()
 			case Collider::Type::Section:
 				break;
 			case Collider::Type::Sphere:
-				cpCollider.ForEach([&pCollider, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex)
+				cpCollider.ForEach([&_rb, &pCollider, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex)
 					{
 						EntityId entityId{ cpGameObject.GetEntityId(_index) };
 
@@ -78,9 +78,12 @@ void wtgb::CPRigidBody::Update()
 						Transform* pOtherTransform{ cpTransform.Get(entityId) };
 						wassert(pOtherTransform && "コライダー付きの相手にTransformがついていなかったよ");
 
-							ColliderSet otherSet{ .pCollider = &_otherCollider, .pTransform = pOtherTransform };
+						ColliderSet otherSet{ .pCollider = &_otherCollider, .pTransform = pOtherTransform };
 
-							PhysicsUtil::IsHitFromSphere(&selfSet, )
+						if (PhysicsUtil::IsHitFromSphere(&selfSet, &otherSet))
+						{
+							_rb.AddHitCollider(otherSet.pCollider);
+						}
 					});
 				break;
 			default:
