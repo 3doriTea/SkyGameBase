@@ -4,6 +4,7 @@
 #include "CPRigidBody.h"
 #include "CPGameObject.h"
 #include "CPTransform.h"
+#include "CPCollider.h"
 
 wtgb::CPRigidBody::CPRigidBody()
 {
@@ -21,10 +22,11 @@ void wtgb::CPRigidBody::Update()
 {
 	CPTransform& cpTransform{ System().Get<CPTransform>() };
 	CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+	CPCollider& cpCollider{ System().Get<CPCollider>() };
 	// delta time
 	const float DT{ System().Get<GameTime>().GetDeltaTime() };
 
-	ForEach([&cpTransform, &cpGameObject, DT](RigidBody& _rb, const size_t _index)
+	ForEach([&cpTransform, &cpGameObject, &cpCollider, DT](RigidBody& _rb, const size_t _index)
 		{
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
 
@@ -47,5 +49,21 @@ void wtgb::CPRigidBody::Update()
 			rotation = rotation + _rb.angularVelocity_ * DT;
 			pTransform->SetRotationWorld(rotation);
 			_rb.angularVelocity_ = _rb.angularVelocity_ * _rb.drag_;
+
+			Collider* pCollider{ cpCollider.Get(entityId) };
+			if (pCollider == nullptr)
+			{
+				// コライダーがついていないなら無視
+				return;
+			}
+
+			wassert(false && "コライダついてないよー");
+
+			switch (pCollider->GetColliderType())
+			{
+
+			default:
+				break;
+			}
 		});
 }

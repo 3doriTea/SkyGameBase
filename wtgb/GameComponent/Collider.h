@@ -50,6 +50,12 @@ namespace wtgb
 			return *this;
 		}
 
+		/// <summary>
+		/// “–‚½‚è”»’è‚ÌŒ`óí—Ş‚ğæ“¾‚·‚é
+		/// </summary>
+		/// <returns>“–‚½‚è”»’è‚ÌŒ`óí—Ş</returns>
+		Type GetColliderType() const { return colliderType_; }
+
 	private:
 		Type colliderType_;
 		union
