@@ -8,6 +8,8 @@ namespace wtgb
 	class COMPONENT(Collider)
 	{
 		friend class CPCollider;
+		friend class CPRigidBody;
+		friend class PhysicsUtil;
 	public:
 		/// <summary>
 		/// “–‚½‚è”»’èŒ`ó‚Ìí—Ş

@@ -1,6 +1,8 @@
 #include "pch/pch.h"
 #include "Collider.h"
 #include "WTGBAssert.h"
+#include "GameSystem/CPRigidBody.h"
+#include "GameSystem/CPRigidBody/PhysicsUtil.h"
 
 wtgb::Collider::Collider() :
 	section{},

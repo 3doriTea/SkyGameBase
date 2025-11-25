@@ -229,6 +229,11 @@ namespace wtgb
 
 		void Clear() override;
 
+		void ForEach(const std::function<void(ComponentT&)>& _callback);
+		void ForEach(const std::function<void(ComponentT&, const size_t)>& _callback);
+		void ForEach(const std::function<void(const ComponentT&)>& _callback) const;
+		void ForEach(const std::function<void(const ComponentT&, const size_t)>& _callback) const;
+
 	protected:
 		/// <summary>
 		/// 初期化処理
@@ -254,12 +259,6 @@ namespace wtgb
 		inline const ComponentT& at(const EntityId _entityId) const { return assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); pool_.at(_entityId.index); }
 
 		inline const ComponentT* DataBegin() const { return pool_.data(); }
-
-		void ForEach(const std::function<void(ComponentT&)>& _callback);
-		void ForEach(const std::function<void(ComponentT&, const size_t)>& _callback);
-		void ForEach(const std::function<void(const ComponentT&)>& _callback) const;
-		void ForEach(const std::function<void(const ComponentT&, const size_t)>& _callback) const;
-
 	private:
 		/// <summary>
 		/// 使われている itr begin を取得する

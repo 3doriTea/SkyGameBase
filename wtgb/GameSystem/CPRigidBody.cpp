@@ -5,6 +5,7 @@
 #include "CPGameObject.h"
 #include "CPTransform.h"
 #include "CPCollider.h"
+#include "CPRigidBody/PhysicsUtil.h"
 
 wtgb::CPRigidBody::CPRigidBody()
 {
@@ -56,12 +57,32 @@ void wtgb::CPRigidBody::Update()
 				// コライダーがついていないなら無視
 				return;
 			}
+			wassert(pCollider && "コライダついてないよー");
 
-			wassert(false && "コライダついてないよー");
+			ColliderSet selfSet{ .pCollider = pCollider, .pTransform = pTransform };
 
 			switch (pCollider->GetColliderType())
 			{
+			case Collider::Type::Section:
+				break;
+			case Collider::Type::Sphere:
+				cpCollider.ForEach([&pCollider, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex)
+					{
+						EntityId entityId{ cpGameObject.GetEntityId(_index) };
 
+						if (_index == _otherIndex)
+						{
+							return;  // 自分自身のと衝突を排除
+						}
+
+						Transform* pOtherTransform{ cpTransform.Get(entityId) };
+						wassert(pOtherTransform && "コライダー付きの相手にTransformがついていなかったよ");
+
+							ColliderSet otherSet{ .pCollider = &_otherCollider, .pTransform = pOtherTransform };
+
+							PhysicsUtil::IsHitFromSphere(&selfSet, )
+					});
+				break;
 			default:
 				break;
 			}

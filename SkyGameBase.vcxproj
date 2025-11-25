@@ -78,6 +78,7 @@
     <ClInclude Include="wtgb\GameSystem\CPMeshRenderer.h" />
     <ClInclude Include="wtgb\GameSystem\CPModelMesh.h" />
     <ClInclude Include="wtgb\GameSystem\CPRigidBody.h" />
+    <ClInclude Include="wtgb\GameSystem\CPRigidBody\PhysicsUtil.h" />
     <ClInclude Include="wtgb\GameSystem\CPTransform.h" />
     <ClInclude Include="wtgb\GameSystem\Cursor.h" />
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="wtgb\GameSystem\CPMeshRenderer.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPModelMesh.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPRigidBody.cpp" />
+    <ClCompile Include="wtgb\GameSystem\CPRigidBody\PhysicsUtil.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPTransform.cpp" />
     <ClCompile Include="wtgb\GameSystem\Cursor.cpp" />
     <ClCompile Include="wtgb\GameSystem\Debug.cpp" />

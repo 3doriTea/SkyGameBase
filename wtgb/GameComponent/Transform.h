@@ -93,6 +93,11 @@ namespace wtgb
 		/// <returns>法線の変換行列</returns>
 		inline Matrix4x4 GetNormalMatrix() const { return worldRotateMatrix_; }
 
+		/// <summary>
+		/// ローカル行列を取得する
+		/// </summary>
+		/// <returns>ローカル変換行列</returns>
+		inline Matrix4x4 GetLocalMatrix() const { return localMatrix_; }
 #pragma region 方向ベクトルの取得
 		inline Vector3 GetForward() const { return Vector3::Forward() *= worldRotateMatrix_; }
 #pragma endregion
