@@ -2,13 +2,14 @@
 #include "pch/pch.h"
 #include "Utility/IResource.h"
 #include "Core/GameSystemViewer.h"
+#include "GameSystem/ModelMesh/IMeshSimple.h"
 
 namespace wtgb
 {
 	/// <summary>
 	/// ƒ‚ƒfƒ‹‚Ì’ŠÛƒNƒ‰ƒX
 	/// </summary>
-	class ModelResource : public IResource
+	class ModelResource : public IMeshSimple
 	{
 	public:
 		ModelResource(const std::string& _fileName, const ViewerCached _system);

@@ -34,7 +34,17 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 				.texture("Models/Neko/TextureSphereNeko.png")
 				//.texture("Models/TestCube/UVChecker.jpg")
 			.EndSetter()
-		//.AddComponent<RigidBody>()
+		.AddComponent<RigidBody>()
+			.BeginSetter()
+				.useGravity(false)
+				.useSphereCollider(true)
+				.velocity({ 0, 0, 1.0f })
+				.angularVelocity({ 0.5f, 0, 0 })
+			.EndSetter()
+		.AddComponent<Collider>()
+			.BeginSetter()
+				.colliderType(Collider::Type::Sphere)
+			.EndSetter()
 		.Build();
 	}
 }

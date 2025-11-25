@@ -59,30 +59,36 @@ namespace wtgb
 		/// <param name="_transform">描画するモデルの座標系</param>
 		void Draw(Transform& _transform);
 
-		ComPtr<ID3D11Buffer>& GetVertexBuffer() { return pVertexBuffer_; }
-		ComPtr<ID3D11Buffer>& GetIndexBufferAt(const size_t _index) { return pIndexBuffers_.at(_index); }
-		ComPtr<ID3D11Buffer>& GetConstantBuffer() { return pConstantBuffer_; }
+		inline ComPtr<ID3D11Buffer>& GetVertexBuffer() { return pVertexBuffer_; }
+		inline ComPtr<ID3D11Buffer>& GetIndexBufferAt(const size_t _index) { return pIndexBuffers_.at(_index); }
+		inline ComPtr<ID3D11Buffer>& GetIndexBuffer() { return GetIndexBufferAt(0); }
+		inline ComPtr<ID3D11Buffer>& GetConstantBuffer() { return pConstantBuffer_; }
 		/// <summary>
 		/// Fbxにアタッチされているマテリアル数を取得
 		/// </summary>
 		/// <returns>マテリアル数</returns>
-		size_t GetMaterialCount() const { return materialCount_; }
+		inline size_t GetMaterialCount() const { return materialCount_; }
 		/// <summary>
 		/// インデックス数を取得する
 		/// </summary>
 		/// <returns>インデックス数</returns>
-		size_t GetIndexCountAt(const size_t _index) const { return indexCounts_.at(_index); }
+		inline size_t GetIndexCountAt(const size_t _index) const { return indexCounts_.at(_index); }
 		/// <summary>
 		/// 頂点数を取得する
 		/// </summary>
 		/// <returns>頂点数</returns>
-		size_t GetVertexCount() const { return vertexCount_; }
+		inline uint32_t GetVertexCount() const override { return static_cast<uint32_t>(vertexCount_); }
 		/// <summary>
 		/// 複数あるマテリアルの1つを取得
 		/// </summary>
 		/// <param name="_index">インデックス</param>
 		/// <returns>マテリアルの参照ポインタ</returns>
-		Material& GetMaterialAt(const size_t _index) { return materials_.at(_index); }
+		inline Material& GetMaterialAt(const size_t _index) { return materials_.at(_index); }
+		/// <summary>
+		/// インデックス数を取得する
+		/// </summary>
+		/// <returns>インデックス数</returns>
+		inline uint32_t GetIndexCount() const override { return static_cast<uint32_t>(GetIndexCountAt(0)); }
 
 	private:
 		/// <summary>
@@ -111,6 +117,6 @@ namespace wtgb
 		ComPtr<ID3D11Buffer> pVertexBuffer_;               // 頂点バッファ
 		std::vector<ComPtr<ID3D11Buffer>> pIndexBuffers_;  // インデックスバッファ
 		ComPtr<ID3D11Buffer> pConstantBuffer_;             // コンスタントバッファ
-		std::vector<Material> materials_;                  // マテリアル情報
+		std::vector<Material> materials_;  // マテリアル情報
 	};
 }

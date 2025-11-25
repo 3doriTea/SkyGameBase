@@ -1,5 +1,6 @@
 #include "pch/pch.h"
 #include "Collider.h"
+#include "WTGBAssert.h"
 
 wtgb::Collider::Collider() :
 	section{},
@@ -20,6 +21,7 @@ wtgb::Collider::Collider(const Collider& _other) :
 		sphere = _other.sphere;
 		break;
 	default:
+		wassert(false && "–¢ŽÀ‘•‚Ì“–‚½‚è”»’èƒ^ƒCƒv");
 		break;
 	}
 }

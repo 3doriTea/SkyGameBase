@@ -20,6 +20,8 @@
 #include "GameComponent/Transform.h"
 #include "GameComponent/ModelMesh.h"
 #include "GameComponent/MeshRenderer.h"
+#include "GameComponent/Collider.h"
+#include "GameComponent/RigidBody.h"
 
 #include "GameSystem/GameTime.h"
 #include "GameSystem/Camera.h"

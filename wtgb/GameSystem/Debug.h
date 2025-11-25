@@ -1,9 +1,10 @@
 #pragma once
 #include "Core/IGameSystem.h"
-#include "GameSystem/ModelMesh/IMeshSimple.h"
 
 namespace wtgb
 {
+	class IMeshSimple;
+
 	/// <summary>
 	/// デバッグを管理するシステム
 	/// </summary>
@@ -32,7 +33,18 @@ namespace wtgb
 		/// </summary>
 		void End() override;
 
-		void DrawSphere();
+		ViewerCached& System() { return system_; }
+
+		/// <summary>
+		/// デバッグ用球体モデルを取得
+		/// </summary>
+		/// <returns></returns>
+		IMeshSimple* GetDebugSphere();
+		/// <summary>
+		/// デバッグ用シェーダを取得
+		/// </summary>
+		/// <returns>デバッグシェーダの取得</returns>
+		inline ShaderHandle GetDebugShader() const { return hShader_; }
 
 	#pragma region コンポーネントオプションのカウント
 		static size_t& ComponentOptInstanceCount() { return componentOptInstanceCount_; }
@@ -43,5 +55,7 @@ namespace wtgb
 	private:
 		ModelHandle hSphere_;  // デバッグ用球モデル
 		ShaderHandle hShader_;  // デバッグ用シェーダ
+
+		ViewerCached system_;  // システムのキャッシュ
 	};
 }

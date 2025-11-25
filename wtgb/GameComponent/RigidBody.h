@@ -13,10 +13,15 @@ namespace wtgb
 			SETTER_HEAD(RigidBody)
 
 			SETTER_PARAM(Vector3, velocity)
+			SETTER_PARAM(float, drag)
+			SETTER_PARAM(Vector3, angularVelocity)
+			SETTER_PARAM(float, angularDrag)
+			SETTER_PARAM(bool, useSphereCollider)
+			SETTER_PARAM(bool, useGravity)
 		};
 
 	public:
-		RigidBody() {}
+		RigidBody();
 		~RigidBody() {}
 
 		/// <summary>
@@ -29,7 +34,14 @@ namespace wtgb
 		void Update(ViewerCached _system) override {}
 
 	private:
-		Vector3 velocity_;
+		Vector3 velocity_;  // Œü‚«‚ğ‚Á‚½‘¬“x (m/s)
+		float drag_;      // R—Í
+		
+		Vector3 angularVelocity_;  // ‰ñ“]‘¬“x (r/s)
+		float angularDrag_;      // ‰ñ“]R—Í
+
 		bool useSphereCollider_;  // ‹…‚Ì“–‚½‚è”»’è‚ğg‚¤‚©
+		bool useGravity_;  // d—Í‚ª‚©‚©‚é‚©‚Ç‚¤‚©
+
 	};
 }

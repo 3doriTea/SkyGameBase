@@ -36,8 +36,16 @@ void wtgb::CPRigidBody::Update()
 				return;
 			}
 
+			// 剛体速度の適用
 			Vector3 position{ pTransform->GetPositionWorld() };
 			position = position + _rb.velocity_ * DT;
 			pTransform->SetPositionWorld(position);
+			_rb.velocity_ = _rb.velocity_ * _rb.drag_;
+
+			// ラジアンオイラー回転角速度の適用
+			Vector3 rotation{ pTransform->GetRotationWorld() };
+			rotation = rotation + _rb.angularVelocity_ * DT;
+			pTransform->SetRotationWorld(rotation);
+			_rb.angularVelocity_ = _rb.angularVelocity_ * _rb.drag_;
 		});
 }

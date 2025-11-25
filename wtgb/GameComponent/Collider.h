@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 #include "CommonGameComponent.h"
 #include "GameSystem/CPCollider.h"
 
@@ -29,6 +30,25 @@ namespace wtgb
 		Collider();
 		Collider(const Collider& _other);
 		~Collider() {}
+
+		inline Collider& operator=(const Collider& _other)
+		{
+			colliderType_ = _other.colliderType_;
+			switch (_other.colliderType_)
+			{
+			case Type::Section:
+				section = _other.section;
+				break;
+			case Type::Sphere:
+				sphere = _other.sphere;
+				break;
+			default:
+				assert(false && "–¢ŽÀ‘•‚Ì“–‚½‚è”»’èƒ^ƒCƒv");
+				break;
+			}
+
+			return *this;
+		}
 
 	private:
 		Type colliderType_;

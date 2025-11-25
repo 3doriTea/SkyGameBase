@@ -72,6 +72,17 @@ namespace wtgb
 		Vector3 GetPositionWorld() const;
 
 		/// <summary>
+		/// ワールドラジアンオイラー角をセットする
+		/// </summary>
+		/// <param name="_worldPosition">ワールドラジアンオイラー角</param>
+		void SetRotationWorld(const Vector3& _worldRotation);
+		/// <summary>
+		/// ワールドラジアンオイラー角を取得する
+		/// </summary>
+		/// <returns>ワールドラジアンオイラー角</returns>
+		Vector3 GetRotationWorld() const;
+
+		/// <summary>
 		/// ワールド行列を取得する
 		/// </summary>
 		/// <returns>ワールド変換行列</returns>

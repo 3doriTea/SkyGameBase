@@ -7,6 +7,10 @@
 #include "GameSystem/Model.h"
 #include "GameSystem/ShaderCompile.h"
 
+#include "GameSystem/ModelMesh/Fbx.h"
+
+#include "GameSystem/ModelMesh/IMeshSimple.h"
+
 //#include 
 
 #include "ResourceSystem.h"
@@ -16,7 +20,8 @@
 size_t wtgb::Debug::componentOptInstanceCount_{};
 
 wtgb::Debug::Debug() :
-	hSphere_{ INVALID_HANDLE }
+	hSphere_{ INVALID_HANDLE },
+	system_{ nullptr }
 {
 }
 
@@ -26,6 +31,8 @@ wtgb::Debug::~Debug()
 
 wtgb::Result wtgb::Debug::Init(const ViewerInit& _viewer)
 {
+	system_ = _viewer.GetCache();
+
 	hSphere_ = _viewer.Get<Model>().Load("Models/DebModel/DebugSphere.fbx");
 	hShader_ = _viewer.Get<ShaderCompile>().Compile(
 		{
@@ -58,4 +65,10 @@ void wtgb::Debug::Update(const ViewerUpdate& _system)
 
 void wtgb::Debug::End()
 {
+}
+
+wtgb::IMeshSimple* wtgb::Debug::GetDebugSphere()
+{
+	IMeshSimple* pMeshSimple{ System().Get<Model>().GetModel(hSphere_) };
+	return pMeshSimple;
 }
