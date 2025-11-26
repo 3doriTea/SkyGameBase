@@ -37,7 +37,6 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 		.AddComponent<RigidBody>()
 			.BeginSetter()
 				.useGravity(true)
-				.useSphereCollider(true)
 				.velocity({ 0, 0, 1.0f })
 				.angularVelocity({ 0.5f, 0, 0 })
 			.EndSetter()
@@ -64,8 +63,9 @@ void Player::Init()
 void Player::Update()
 {
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
-
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	RigidBody& rb{ GetComponent<RigidBody>() };
+
 	LOGFLN("当たって{}", rb.IsHit() ? "いる" : "いない");
 
 	std::vector<Collider*> hitColliders{};
@@ -77,6 +77,12 @@ void Player::Update()
 		{
 			LOGFLN("Type:{}", pColl->GetColliderType() == Collider::Type::Sphere ? "球体" : "セクション");
 		}
+	}
+
+	// MEMO: 簡易的ジャンプ
+	if (input.IsKeyDown(KeyCode::Space))
+	{
+		rb.AddVelocity({ 0.0f, 3.0f, 0.0f });
 	}
 
 	return;

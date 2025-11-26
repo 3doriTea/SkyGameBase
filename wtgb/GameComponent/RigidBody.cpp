@@ -9,7 +9,7 @@ wtgb::RigidBody::RigidBody() :
 	drag_{ 1.0f },
 	angularVelocity_{ Vector3::Zero() },
 	angularDrag_{ 1.0f },
-	useSphereCollider_{ false },
+	bounciness_{ 1.0f },
 	useGravity_{ false },
 	onHitCollidersCount_{ 0 },
 	onHitColliders_{}

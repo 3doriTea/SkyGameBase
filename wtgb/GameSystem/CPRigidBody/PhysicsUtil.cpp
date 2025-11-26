@@ -276,7 +276,9 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 				if (_pCollisionInfo->distance > FLT_EPSILON)
 				{
-					_pCollisionInfo->normal = { D / _pCollisionInfo->distance };
+					// 2D‚©‚ç3D‚Ö•ÏŠ·‚·‚é
+					Vector2 normal2D{ D / _pCollisionInfo->distance };
+					_pCollisionInfo->normal = { 0.0f, normal2D.y, normal2D.x };
 				}
 				else  // Š®‘S‚Éd‚È‚Á‚¿‚á‚Á‚½‚Æ‚«‚ÍãŒü‚«‚É‚µ‚Ä’u‚­
 				{

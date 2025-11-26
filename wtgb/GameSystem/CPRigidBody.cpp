@@ -32,6 +32,8 @@ void wtgb::CPRigidBody::Init()
 
 void wtgb::CPRigidBody::Update()
 {
+	using namespace DirectX;
+
 	CPTransform& cpTransform{ System().Get<CPTransform>() };
 	CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
 	CPCollider& cpCollider{ System().Get<CPCollider>() };
@@ -80,8 +82,8 @@ void wtgb::CPRigidBody::Update()
 				return;
 			}
 
+			// 当たり判定
 			ColliderSet selfSet{ .pCollider = pCollider, .pTransform = pTransform };
-
 			switch (pCollider->GetColliderType())
 			{
 			case Collider::Type::Section:
@@ -101,9 +103,24 @@ void wtgb::CPRigidBody::Update()
 
 						ColliderSet otherSet{ .pCollider = &_otherCollider, .pTransform = pOtherTransform };
 
-						if (PhysicsUtil::IsHitFromSphere(&selfSet, &otherSet))
+						CollisionInfo collisionInfo{};
+						if (PhysicsUtil::IsHitFromSphere(&selfSet, &otherSet, &collisionInfo))
 						{
+							// 当たったコライダーとして追加
 							_rb.AddHitCollider(otherSet.pCollider);
+
+							// 壁の法線
+							const Vector3 N{ XMVector3Normalize(collisionInfo.normal) };
+							// 反発係数
+							const float E{ std::clamp(_rb.bounciness_, 0.0f, 1.0f) };
+							// 進入速度
+							const Vector3 V{ _rb.velocity_ };
+
+							// TODO: 回転を入れた反射をさせる
+
+							const float K{ (1.0f + E) * XMVectorGetX(XMVector3Dot(V, N)) };
+							
+							_rb.velocity_ = V - N * K;
 						}
 					});
 				break;

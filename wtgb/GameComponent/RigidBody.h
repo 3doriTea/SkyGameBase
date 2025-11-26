@@ -22,9 +22,9 @@ namespace wtgb
 			SETTER_PARAM(float, mass)
 			SETTER_PARAM(Vector3, velocity)
 			SETTER_PARAM(float, drag)
+			SETTER_PARAM(float, bounciness)
 			SETTER_PARAM(Vector3, angularVelocity)
 			SETTER_PARAM(float, angularDrag)
-			SETTER_PARAM(bool, useSphereCollider)
 			SETTER_PARAM(bool, useGravity)
 		};
 
@@ -51,7 +51,18 @@ namespace wtgb
 		/// </summary>
 		/// <returns>当たっている true / false</returns>
 		inline bool IsHit() const { return GetHitCount() > 0; }
+
+		/// <summary>
+		/// 当たっている全コライダを取得する
+		/// </summary>
+		/// <param name="_pHitColliderVector">当たっているコライダ格納用vectorのポインタ渡し</param>
 		void GetHitColliders(std::vector<Collider*>* _pHitColliderVector);
+
+		/// <summary>
+		/// 速度を加える
+		/// </summary>
+		/// <param name="_addV">ワールド座標系での速度</param>
+		inline void AddVelocity(const Vector3& _addV) { velocity_ = velocity_ + _addV; }
 
 	private:
 		/// <summary>
@@ -74,6 +85,11 @@ namespace wtgb
 
 		bool useSphereCollider_;  // 球の当たり判定を使うか
 		bool useGravity_;  // 重力がかかるかどうか
+
+		// MEMO: e = 1     : 完全弾性衝突 ﾊﾞﾝ
+		//     : 0 < e < 1 : 弾性 ﾎﾞｲﾝ
+		//     : e = 0     : 完全非弾性 ﾍﾟﾀｯ
+		float bounciness_;  // 反発係数 = e
 
 		size_t onHitCollidersCount_;  // 当たっているコライダ数
 		// 当たっているコライダ一覧
