@@ -21,9 +21,13 @@ StageLine::StageLine() : GameObject
 					.pOriginalMesh(&this->stageMesh_)
 				.EndSetter()
 			.AddComponent<MeshRenderer>()
-			.BeginSetter()
-				.shader("Shader/StageMesh.hlsl")
-			.EndSetter()
+				.BeginSetter()
+					.shader("Shader/StageMesh.hlsl")
+				.EndSetter()
+			.AddComponent<Collider>()
+				.BeginSetter()
+					.colliderType(Collider::Type::Section)
+				.EndSetter()
 		.Build();
 	}
 },
@@ -37,6 +41,8 @@ StageLine::~StageLine()
 
 void StageLine::Init()
 {
+	Collider& collider{ GetComponent<Collider>() };
+
 	points_ =
 	{
 		{ 0, 0 },
@@ -62,6 +68,7 @@ void StageLine::Init()
 		point.y = -point.y;
 	}
 
+	collider.SetPoints2D(points_);
 	stageMesh_.CallInit();
 }
 

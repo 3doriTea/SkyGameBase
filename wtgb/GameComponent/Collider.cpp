@@ -38,3 +38,8 @@ wtgb::Collider::Collider(const Collider& _other) :
 		break;
 	}
 }
+
+void wtgb::Collider::SetPoints2D(const std::vector<Vector2>& _src)
+{
+	section.points2D = _src;
+}

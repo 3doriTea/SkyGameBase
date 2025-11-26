@@ -58,6 +58,12 @@ namespace wtgb
 		/// <returns>当たり判定の形状種類</returns>
 		Type GetColliderType() const { return colliderType_; }
 
+		/// <summary>
+		/// 2Dでの断面xy頂点をセットする
+		/// </summary>
+		/// <param name="_src">ソースとなるxy頂点</param>
+		void SetPoints2D(const std::vector<Vector2>& _src);
+
 	private:
 		Type colliderType_;
 		//union

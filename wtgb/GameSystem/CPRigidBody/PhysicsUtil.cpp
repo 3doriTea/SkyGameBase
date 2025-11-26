@@ -209,12 +209,13 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		return false;
 	}
 
+	Vector3 worldCenterPos{ XMVector3TransformCoord(_pSphere->pCollider->sphere.center, _pSphere->pTransform->GetWorldMatrix()) };
 	std::vector<Vector2>& points{ _pSection->pCollider->section.points2D };
 	const float RADIUS{ _pSphere->pCollider->sphere.radius };
 
 	for (int i = 0; i < points.size() - 1; i++)
 	{
-		const Vector2 C{ _pSphere->pCollider->sphere.center.z, _pSphere->pCollider->sphere.center.y };
+		const Vector2 C{ worldCenterPos.z, worldCenterPos.y };
 		const Vector2 P1{ points[i] };
 		const Vector2 P2{ points[i + 1] };
 

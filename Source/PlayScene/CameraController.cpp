@@ -26,6 +26,9 @@ CameraController::CameraController() : GameObject
 				.position({ 0, 0, -10 })
 				.rotation(Vector3::Zero())
 			.EndSetter()
+		.AddComponent<RigidBody>()
+			.BeginSetter()
+			.EndSetter()
 		.AddComponent<Collider>()
 			.BeginSetter()
 				.colliderType(Collider::Type::Sphere)
@@ -48,6 +51,20 @@ void CameraController::Init()
 
 void CameraController::Update()
 {
+	RigidBody& rb{ GetComponent<RigidBody>() };
+	LOGFLN("“–‚½‚Á‚Ä{}", rb.IsHit() ? "‚¢‚é" : "‚¢‚È‚¢");
+
+	std::vector<Collider*> hitColliders{};
+	rb.GetHitColliders(&hitColliders);
+
+	for (Collider* pColl : hitColliders)
+	{
+		if (pColl)
+		{
+			LOGFLN("Type:{}", pColl->GetColliderType() == Collider::Type::Sphere ? "‹…‘Ì" : "ƒZƒNƒVƒ‡ƒ“");
+		}
+	}
+
 	switch (mode_)
 	{
 	case CameraController::Mode::Free:
