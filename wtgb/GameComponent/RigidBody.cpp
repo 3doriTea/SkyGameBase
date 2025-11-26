@@ -4,12 +4,15 @@
 #include "WTGBAssert.h"
 
 wtgb::RigidBody::RigidBody() :
+	mass_{ 1.0f },
 	velocity_{ Vector3::Zero() },
 	drag_{ 1.0f },
 	angularVelocity_{ Vector3::Zero() },
 	angularDrag_{ 1.0f },
 	useSphereCollider_{ false },
-	useGravity_{ false }
+	useGravity_{ false },
+	onHitCollidersCount_{ 0 },
+	onHitColliders_{}
 {
 
 }
@@ -32,4 +35,13 @@ void wtgb::RigidBody::ClearHitCollider()
 		onHitColliders_[i] = nullptr;
 	}
 	onHitCollidersCount_ = 0;
+}
+
+void wtgb::RigidBody::GetHitColliders(std::vector<Collider*>* _pHitColliderVector)
+{
+	_pHitColliderVector->clear();
+	for (auto& hitCollider : onHitColliders_)
+	{
+		_pHitColliderVector->push_back(hitCollider);
+	}
 }

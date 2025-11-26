@@ -60,8 +60,8 @@ namespace wtgb
 
 	private:
 		Type colliderType_;
-		union
-		{
+		//union
+		//{
 			struct
 			{
 				float radius;    // ‹…‚Ì”¼Œa
@@ -71,6 +71,6 @@ namespace wtgb
 			{
 				std::vector<Vector2> points2D;  // ’f–Êxy’¸“_
 			} section;
-		};
+		//};
 	};
 }

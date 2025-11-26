@@ -26,6 +26,10 @@ CameraController::CameraController() : GameObject
 				.position({ 0, 0, -10 })
 				.rotation(Vector3::Zero())
 			.EndSetter()
+		.AddComponent<Collider>()
+			.BeginSetter()
+				.colliderType(Collider::Type::Sphere)
+			.EndSetter()
 		.Build();
 	}
 },

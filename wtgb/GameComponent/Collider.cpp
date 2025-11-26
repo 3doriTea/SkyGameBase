@@ -5,15 +5,26 @@
 #include "GameSystem/CPRigidBody/PhysicsUtil.h"
 
 wtgb::Collider::Collider() :
-	section{},
 	colliderType_{}
 {
+	sphere =
+	{
+		.radius = 1.0f,
+		.center = Vector3::Zero(),
+	};
+	section = {};
 }
 
 wtgb::Collider::Collider(const Collider& _other) :
-	section{},
 	colliderType_{ _other.colliderType_ }
 {
+	sphere =
+	{
+		.radius = 1.0f,
+		.center = Vector3::Zero(),
+	};
+	section = {};
+
 	switch (_other.colliderType_)
 	{
 	case Type::Section:

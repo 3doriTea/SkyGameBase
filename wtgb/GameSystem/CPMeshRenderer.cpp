@@ -294,13 +294,13 @@ void wtgb::CPMeshRenderer::Update()
 						pContext->Unmap(pStagingBuffer.Get(), 0);
 					}
 
-					LOGFLN("----------------------------");
+					/*LOGFLN("----------------------------");
 					for (auto& vertex : vertexes)
 					{
 						LOGFLN("POS:({},{},{})", vertex.position.x, vertex.position.y, vertex.position.z);
 						LOGFLN("NORM:({},{},{})", vertex.normal.x, vertex.normal.y, vertex.normal.z);
 						LOGFLN("UV:({},{})", vertex.uv.x, vertex.uv.y);
-					}
+					}*/
 
 					pStagingBuffer.Reset();
 				}
@@ -345,11 +345,11 @@ void wtgb::CPMeshRenderer::Update()
 						pContext->Unmap(pStagingBuffer.Get(), 0);
 					}
 
-					LOGFLN("----------------------------");
+					/*LOGFLN("----------------------------");
 					for (int i = 0; i < indexes.size(); i++)
 					{
 						LOGFLN("index[{}]:{}", i, indexes[i]);
-					}
+					}*/
 
 					pStagingBuffer.Reset();
 				}

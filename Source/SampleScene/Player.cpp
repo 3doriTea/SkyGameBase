@@ -65,6 +65,20 @@ void Player::Update()
 {
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 
+	RigidBody& rb{ GetComponent<RigidBody>() };
+	LOGFLN("“–‚½‚Á‚Ä{}", rb.IsHit() ? "‚¢‚é" : "‚¢‚È‚¢");
+
+	std::vector<Collider*> hitColliders{};
+	rb.GetHitColliders(&hitColliders);
+
+	for (Collider* pColl : hitColliders)
+	{
+		if (pColl)
+		{
+			LOGFLN("Type:{}", pColl->GetColliderType() == Collider::Type::Sphere ? "‹…‘Ì" : "ƒZƒNƒVƒ‡ƒ“");
+		}
+	}
+
 	return;
 
 	angle_ += DirectX::XM_2PI / 10.0f * dt;

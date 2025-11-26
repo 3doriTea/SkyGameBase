@@ -41,6 +41,8 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 	switch (_pOther->pCollider->GetColliderType())
 	{
 	case Collider::Type::Sphere:
+	{
+
 		Matrix4x4 toLocalMatrix
 		{
 			XMMatrixInverse(
@@ -109,6 +111,7 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 		}
 		*/
 		break;
+	}
 	case Collider::Type::Section:
 		wassert(false && "セクション同士の当たり判定はできません。");
 		break;
@@ -121,6 +124,32 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 
 bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* _pOther)
 {
+	if (!_pSelfSphere || !_pOther)
+	{
+		wassert(false && "コライダセットがnullptrだった");
+		return false;
+	}
+
+	if (_pSelfSphere == _pOther)
+	{
+		wassert(false && "自身と相手のコライダセットが同じ");
+		return false;
+	}
+
+	if (!_pSelfSphere->pCollider || !_pOther->pCollider)
+	{
+		wassert(false && "コライダがnullptrだった");
+		return false;
+	}
+
+	if (_pSelfSphere->pCollider == _pOther->pCollider)
+	{
+		wassert(false && "自身と相手のコライダが同じ");
+		return false;
+	}
+
+	wassert(_pSelfSphere->pTransform != _pOther->pTransform && "Transform一緒だった");
+
 	wassert(_pSelfSphere->pCollider->GetColliderType() == Collider::Type::Sphere
 		&& "自身のコライダーは球である必要がある");
 
@@ -133,28 +162,153 @@ bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* 
 	switch (_pOther->pCollider->GetColliderType())
 	{
 	case Collider::Type::Section:
-		return IsHitFromSection(_pOther, _pSelfSphere);
+		return IsHitSphereVSSection(_pSelfSphere, _pOther);
 	case Collider::Type::Sphere:
-		Vector3 selfCenterWorld{ XMVector3TransformCoord(_pSelfSphere->pCollider->sphere.center, _pSelfSphere->pTransform->GetWorldMatrix()) };
-		Vector3 otherCenterWorld{ XMVector3TransformCoord(_pOther->pCollider->sphere.center, _pOther->pTransform->GetWorldMatrix()) };
-		
-		// 距離
-		float distanceSq{ XMVector3LengthSq(selfCenterWorld - otherCenterWorld).m128_f32[0] };
-		// 当たっている閾値
-		float threshold{ _pSelfSphere->pCollider->sphere.radius + _pOther->pCollider->sphere.radius };
-		float thresholdSq{ threshold * threshold };
-
-		// 二乗同士で判定
-		if (distanceSq <= thresholdSq)
-		{
-			// 当たっている
-			return true;
-		}
-		break;
+		return IsHitSphereVSSphere(_pSelfSphere, _pOther);
 	default:
 		break;
 	}
 
+	return false;
+}
+
+bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet* _pSection)
+{
+	using namespace DirectX;
+
+	if (!_pSphere || !_pSection)
+	{
+		wassert(false && "コライダセットがnullptrだった");
+		return false;
+	}
+
+	if (_pSphere == _pSection)
+	{
+		wassert(false && "自身と相手のコライダセットが同じ");
+		return false;
+	}
+
+	if (!_pSphere->pCollider || !_pSection->pCollider)
+	{
+		wassert(false && "コライダがnullptrだった");
+		return false;
+	}
+
+	if (_pSphere->pCollider == _pSection->pCollider)
+	{
+		wassert(false && "自身と相手のコライダが同じ");
+		return false;
+	}
+
+	wassert(_pSphere->pTransform != _pSection->pTransform && "Transform一緒だった");
+
+	if (_pSphere->pCollider->GetColliderType() != Collider::Type::Sphere
+		|| _pSection->pCollider->GetColliderType() != Collider::Type::Section)
+	{
+		wassert(false && "コライダタイプが不一致");
+		return false;
+	}
+
+	std::vector<Vector2>& points{ _pSection->pCollider->section.points2D };
+	const float RADIUS{ _pSphere->pCollider->sphere.radius };
+
+	for (int i = 0; i < points.size() - 1; i++)
+	{
+		const Vector2 C{ _pSphere->pCollider->sphere.center.z, _pSphere->pCollider->sphere.center.y };
+		const Vector2 P1{ points[i] };
+		const Vector2 P2{ points[i + 1] };
+
+		const Vector2 V{ P2 - P1 };
+		const Vector2 W{ C - P1 };
+
+		Vector2 p{};
+		const float V_LEN_SQ{ XMVectorGetX(XMVector3LengthSq(V)) };
+		if (V_LEN_SQ <= FLT_EPSILON)
+		{
+			p = P1;
+		}
+		else
+		{
+			float t { (W.x * V.x + W.y * V.y) / V_LEN_SQ };
+			if (t < 0.0f)
+			{
+				t = 0.0f;
+			}
+			else if(t > 1.0f)
+			{
+				t = 1.0f;
+			}
+			p = P1 + Vector2{ t, t } * V;
+		}
+
+		const Vector2 D{ C - p };
+		const float DIST2{ XMVectorGetX(XMVector3LengthSq(D)) };
+		const float R2{ RADIUS * RADIUS };
+
+		bool isHit{ DIST2 <= R2 + FLT_EPSILON };
+		if (isHit)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet* _pSphereB)
+{
+	using namespace DirectX;
+
+	if (!_pSphereA || !_pSphereB)
+	{
+		wassert(false && "コライダセットがnullptrだった");
+		return false;
+	}
+
+	if (_pSphereA == _pSphereB)
+	{
+		wassert(false && "自身と相手のコライダセットが同じ");
+		return false;
+	}
+
+	if (!_pSphereA->pCollider || !_pSphereB->pCollider)
+	{
+		wassert(false && "コライダがnullptrだった");
+		return false;
+	}
+
+	if (_pSphereA->pCollider == _pSphereB->pCollider)
+	{
+		wassert(false && "自身と相手のコライダが同じ");
+		return false;
+	}
+
+	wassert(_pSphereA->pTransform != _pSphereB->pTransform && "Transform一緒だった");
+
+	if (_pSphereA->pCollider->GetColliderType() != Collider::Type::Sphere
+		|| _pSphereB->pCollider->GetColliderType() != Collider::Type::Sphere)
+	{
+		wassert(false && "コライダタイプが不一致");
+		return false;
+	}
+
+	Vector3 selfCenterWorld{ XMVector3TransformCoord(_pSphereA->pCollider->sphere.center, _pSphereA->pTransform->GetWorldMatrix()) };
+	Vector3 otherCenterWorld{ XMVector3TransformCoord(_pSphereB->pCollider->sphere.center, _pSphereB->pTransform->GetWorldMatrix()) };
+
+	Vector3 diff{ selfCenterWorld - otherCenterWorld };
+
+	// 距離
+	float distanceSq{ XMVector3LengthSq(diff).m128_f32[0] };
+	// 当たっている閾値
+	float threshold{ _pSphereA->pCollider->sphere.radius + _pSphereB->pCollider->sphere.radius };
+	float thresholdSq{ threshold * threshold };
+
+	// 二乗同士で判定
+	if (distanceSq <= thresholdSq)
+	{
+		// 当たっている
+		return true;
+	}
 	return false;
 }
 

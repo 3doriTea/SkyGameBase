@@ -29,6 +29,8 @@ void wtgb::CPRigidBody::Update()
 
 	ForEach([&cpTransform, &cpGameObject, &cpCollider, DT](RigidBody& _rb, const size_t _index)
 		{
+			_rb.ClearHitCollider();
+
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
 
 			Transform* pTransform{ cpTransform.Get(entityId) };
@@ -52,12 +54,12 @@ void wtgb::CPRigidBody::Update()
 			_rb.angularVelocity_ = _rb.angularVelocity_ * _rb.drag_;
 
 			Collider* pCollider{ cpCollider.Get(entityId) };
+			wassert(pCollider && "コライダついてないよー");
 			if (pCollider == nullptr)
 			{
 				// コライダーがついていないなら無視
 				return;
 			}
-			wassert(pCollider && "コライダついてないよー");
 
 			ColliderSet selfSet{ .pCollider = pCollider, .pTransform = pTransform };
 
@@ -66,16 +68,16 @@ void wtgb::CPRigidBody::Update()
 			case Collider::Type::Section:
 				break;
 			case Collider::Type::Sphere:
-				cpCollider.ForEach([&_rb, &pCollider, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex)
+				cpCollider.ForEach([&_rb, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex)
 					{
-						EntityId entityId{ cpGameObject.GetEntityId(_index) };
-
 						if (_index == _otherIndex)
 						{
 							return;  // 自分自身のと衝突を排除
 						}
 
-						Transform* pOtherTransform{ cpTransform.Get(entityId) };
+						EntityId otherEntityId{ cpGameObject.GetEntityId(_otherIndex) };
+
+						Transform* pOtherTransform{ cpTransform.Get(otherEntityId) };
 						wassert(pOtherTransform && "コライダー付きの相手にTransformがついていなかったよ");
 
 						ColliderSet otherSet{ .pCollider = &_otherCollider, .pTransform = pOtherTransform };

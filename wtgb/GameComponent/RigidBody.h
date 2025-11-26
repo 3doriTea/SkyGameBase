@@ -19,6 +19,7 @@ namespace wtgb
 		{
 			SETTER_HEAD(RigidBody)
 
+			SETTER_PARAM(float, mass)
 			SETTER_PARAM(Vector3, velocity)
 			SETTER_PARAM(float, drag)
 			SETTER_PARAM(Vector3, angularVelocity)
@@ -41,10 +42,16 @@ namespace wtgb
 		void Update(ViewerCached _system) override {}
 
 		/// <summary>
+		/// 何かしらに当たっているコライダ数
+		/// </summary>
+		/// <returns></returns>
+		inline int GetHitCount() const { return static_cast<int>(onHitCollidersCount_); }
+		/// <summary>
 		/// 何かしらに当たっているか
 		/// </summary>
 		/// <returns>当たっている true / false</returns>
-		bool IsHit() const { return onHitCollidersCount_ > 0; }
+		inline bool IsHit() const { return GetHitCount() > 0; }
+		void GetHitColliders(std::vector<Collider*>* _pHitColliderVector);
 
 	private:
 		/// <summary>
@@ -57,6 +64,8 @@ namespace wtgb
 		void ClearHitCollider();
 
 	private:
+		float mass_;  // 質量 (kg)
+
 		Vector3 velocity_;  // 向きを持った速度 (m/s)
 		float drag_;      // 抗力
 		

@@ -43,6 +43,22 @@ namespace wtgb
 		static bool IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* _pOther);
 
 		/// <summary>
+		/// セクションと球が当たっているか
+		/// </summary>
+		/// <param name="_pSphere">球コライダ</param>
+		/// <param name="_pSection">セクションコライダ</param>
+		/// <returns>当たっている true / false</returns>
+		static bool IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet* _pSection);
+
+		/// <summary>
+		/// 球と球が当たっているか
+		/// </summary>
+		/// <param name="_pSphereA">球コライダA</param>
+		/// <param name="_pSphereB">球コライダB</param>
+		/// <returns>当たっている true / false</returns>
+		static bool IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet* _pSphereB);
+
+		/// <summary>
 		/// 押し出しを取得
 		/// </summary>
 		/// <param name="_pSelf">自身のコライダー</param>
