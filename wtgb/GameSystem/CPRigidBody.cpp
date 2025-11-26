@@ -7,7 +7,18 @@
 #include "CPCollider.h"
 #include "CPRigidBody/PhysicsUtil.h"
 
-wtgb::CPRigidBody::CPRigidBody()
+namespace
+{
+	// TODO: ソースとリソースを分ける → jsonで管理する
+	const wtgb::PhysicsConfig PHYSICS_CONFIG_DEFAULT
+	{
+		.gravity = 9.8f,  // 重力加速度
+		.gravityDirection = wtgb::Vector3::Down(),  // 重力の向き
+	};
+}
+
+wtgb::CPRigidBody::CPRigidBody() :
+	physicsConfig_{ PHYSICS_CONFIG_DEFAULT }
 {
 }
 
@@ -27,7 +38,7 @@ void wtgb::CPRigidBody::Update()
 	// delta time
 	const float DT{ System().Get<GameTime>().GetDeltaTime() };
 
-	ForEach([&cpTransform, &cpGameObject, &cpCollider, DT](RigidBody& _rb, const size_t _index)
+	ForEach([this, &cpTransform, &cpGameObject, &cpCollider, DT](RigidBody& _rb, const size_t _index)
 		{
 			_rb.ClearHitCollider();
 
@@ -39,6 +50,14 @@ void wtgb::CPRigidBody::Update()
 			if (pTransform == nullptr)
 			{
 				return;
+			}
+
+			// 重力の適用
+			if (_rb.useGravity_)
+			{
+				// MEMO: v = v + GDir * G * dt
+				_rb.velocity_ = _rb.velocity_ 
+					+ (physicsConfig_.gravityDirection * (physicsConfig_.gravity * DT));
 			}
 
 			// 剛体速度の適用

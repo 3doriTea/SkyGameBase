@@ -36,7 +36,7 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 			.EndSetter()
 		.AddComponent<RigidBody>()
 			.BeginSetter()
-				.useGravity(false)
+				.useGravity(true)
 				.useSphereCollider(true)
 				.velocity({ 0, 0, 1.0f })
 				.angularVelocity({ 0.5f, 0, 0 })

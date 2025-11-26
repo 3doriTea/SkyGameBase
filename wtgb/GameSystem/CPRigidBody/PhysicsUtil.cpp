@@ -27,7 +27,7 @@ bool wtgb::PhysicsUtil::IsHit(ColliderSet* _pSelf, ColliderSet* _pOther)
 	return false;
 }
 
-bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet* _pOther)
+bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet* _pOther, CollisionInfo* _pCollisionInfo)
 {
 	wassert(_pSelfSection->pCollider->GetColliderType() == Collider::Type::Section
 		&& "自身のコライダーはセクションである必要がある");
@@ -122,7 +122,7 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 	return false;
 }
 
-bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* _pOther)
+bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* _pOther, CollisionInfo* _pCollisionInfo)
 {
 	if (!_pSelfSphere || !_pOther)
 	{
@@ -162,9 +162,9 @@ bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* 
 	switch (_pOther->pCollider->GetColliderType())
 	{
 	case Collider::Type::Section:
-		return IsHitSphereVSSection(_pSelfSphere, _pOther);
+		return IsHitSphereVSSection(_pSelfSphere, _pOther, _pCollisionInfo);
 	case Collider::Type::Sphere:
-		return IsHitSphereVSSphere(_pSelfSphere, _pOther);
+		return IsHitSphereVSSphere(_pSelfSphere, _pOther, _pCollisionInfo);
 	default:
 		break;
 	}
@@ -172,7 +172,7 @@ bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* 
 	return false;
 }
 
-bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet* _pSection)
+bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet* _pSection, CollisionInfo* _pCollisionInfo)
 {
 	using namespace DirectX;
 
@@ -209,19 +209,28 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		return false;
 	}
 
+	// 円の中心ワールド座標
 	Vector3 worldCenterPos{ XMVector3TransformCoord(_pSphere->pCollider->sphere.center, _pSphere->pTransform->GetWorldMatrix()) };
+	// 線分たち
 	std::vector<Vector2>& points{ _pSection->pCollider->section.points2D };
+	// 円の半径
 	const float RADIUS{ _pSphere->pCollider->sphere.radius };
 
 	for (int i = 0; i < points.size() - 1; i++)
 	{
+		// 円中心座標
 		const Vector2 C{ worldCenterPos.z, worldCenterPos.y };
+		// 線分始点座標
 		const Vector2 P1{ points[i] };
+		// 線分終点座標
 		const Vector2 P2{ points[i + 1] };
 
+		// 線分ベクトル
 		const Vector2 V{ P2 - P1 };
+		// 始点から円中心へのベクトル
 		const Vector2 W{ C - P1 };
 
+		// 接点座標
 		Vector2 p{};
 		const float V_LEN_SQ{ XMVectorGetX(XMVector3LengthSq(V)) };
 		if (V_LEN_SQ <= FLT_EPSILON)
@@ -242,13 +251,38 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			p = P1 + Vector2{ t, t } * V;
 		}
 
+		// 接点から円中心への差分ベクトル
 		const Vector2 D{ C - p };
+		// 距離の2乗
 		const float DIST2{ XMVectorGetX(XMVector3LengthSq(D)) };
+		// 半径の2乗
 		const float R2{ RADIUS * RADIUS };
 
 		bool isHit{ DIST2 <= R2 + FLT_EPSILON };
 		if (isHit)
 		{
+			if (_pCollisionInfo)
+			{
+				_pCollisionInfo->isHit = true;
+				if (DIST2 > FLT_EPSILON)
+				{
+					_pCollisionInfo->distance = std::sqrtf(DIST2);
+				}
+				else
+				{
+					_pCollisionInfo->distance = 0.0f;
+				}
+				_pCollisionInfo->depth = RADIUS - _pCollisionInfo->distance;
+
+				if (_pCollisionInfo->distance > FLT_EPSILON)
+				{
+					_pCollisionInfo->normal = { D / _pCollisionInfo->distance };
+				}
+				else  // 完全に重なっちゃったときは上向きにして置く
+				{
+					_pCollisionInfo->normal = Vector3::Up();
+				}
+			}
 			return true;
 		}
 	}
@@ -256,7 +290,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 	return false;
 }
 
-bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet* _pSphereB)
+bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet* _pSphereB, CollisionInfo* _pCollisionInfo)
 {
 	using namespace DirectX;
 
@@ -296,7 +330,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet*
 	Vector3 selfCenterWorld{ XMVector3TransformCoord(_pSphereA->pCollider->sphere.center, _pSphereA->pTransform->GetWorldMatrix()) };
 	Vector3 otherCenterWorld{ XMVector3TransformCoord(_pSphereB->pCollider->sphere.center, _pSphereB->pTransform->GetWorldMatrix()) };
 
-	Vector3 diff{ selfCenterWorld - otherCenterWorld };
+	Vector3 diff{ otherCenterWorld - selfCenterWorld };
 
 	// 距離
 	float distanceSq{ XMVector3LengthSq(diff).m128_f32[0] };
@@ -308,6 +342,13 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet*
 	if (distanceSq <= thresholdSq)
 	{
 		// 当たっている
+		if (_pCollisionInfo)
+		{
+			_pCollisionInfo->isHit = true;
+			_pCollisionInfo->distance = std::sqrtf(distanceSq);
+			_pCollisionInfo->normal = diff / _pCollisionInfo->distance;
+			_pCollisionInfo->hitPoint = Vector3::Zero();
+		}
 		return true;
 	}
 	return false;

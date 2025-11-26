@@ -21,5 +21,10 @@ namespace wtgb
 		/// </summary>
 		inline operator DirectX::XMVECTOR() const { return DirectX::XMLoadFloat2(this); }
 
+		/// <summary>
+		/// Y‚¾‚¯+1‚ÌƒxƒNƒgƒ‹‚ðŽæ“¾‚·‚é
+		/// </summary>
+		/// <returns>(0, 1)</returns>
+		inline static Vector2 Up() { return { 0.0f, 1.0f }; }
 	};
 }

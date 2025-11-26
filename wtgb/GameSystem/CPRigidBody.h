@@ -1,6 +1,7 @@
 #pragma once
 #include "ComponentPool.h"
 #include "GameComponent/RigidBody.h"
+#include "CPRigidBody/PhysicsConfig.h"
 
 namespace wtgb
 {
@@ -23,5 +24,8 @@ namespace wtgb
 		/// çXêVèàóù
 		/// </summary>
 		void Update() override;
+
+	private:
+		PhysicsConfig physicsConfig_;
 	};
 }

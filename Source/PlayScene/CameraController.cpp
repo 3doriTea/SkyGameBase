@@ -51,7 +51,7 @@ void CameraController::Init()
 
 void CameraController::Update()
 {
-	RigidBody& rb{ GetComponent<RigidBody>() };
+	/*RigidBody& rb{ GetComponent<RigidBody>() };
 	LOGFLN("“–‚½‚Á‚Ä{}", rb.IsHit() ? "‚¢‚é" : "‚¢‚È‚¢");
 
 	std::vector<Collider*> hitColliders{};
@@ -63,7 +63,7 @@ void CameraController::Update()
 		{
 			LOGFLN("Type:{}", pColl->GetColliderType() == Collider::Type::Sphere ? "‹…‘Ì" : "ƒZƒNƒVƒ‡ƒ“");
 		}
-	}
+	}*/
 
 	switch (mode_)
 	{
