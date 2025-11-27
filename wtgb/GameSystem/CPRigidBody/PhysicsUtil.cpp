@@ -215,20 +215,35 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 	// 円の半径
 	const float RADIUS{ _pSphere->pCollider->sphere.radius };
 
+	bool isHit{ false };
 	for (int i = 0; i < points.size() - 1; i++)
 	{
-
 		// 円中心座標
 		const Vector2 C{ worldCenterPos.z, worldCenterPos.y };
 		// 線分始点座標
 		const Vector2 P1{ points[i] };
 		// 線分終点座標
 		const Vector2 P2{ points[i + 1] };
-		
-		// yで区切ったときの区画フィルタ
-		if ((C.x - RADIUS) < P1.x || P2.x < (C.x + RADIUS))
+
+		if (isHit)
 		{
-			continue;  // 範囲外なら確実に当たらない
+			// 当たっているならこの周回で最後にする
+			i = points.size();
+
+			// Z+の方向だけ半径プラスして当たり判定
+			if ((C.x + RADIUS) < P1.x || P2.x < (C.x - RADIUS))
+			{
+				// 広めにしても当っていないなら無視
+				continue;
+			}
+		}
+		else
+		{
+			// yで区切ったときの区画フィルタ
+			if ((C.x - RADIUS) < P1.x || P2.x < (C.x + RADIUS))
+			{
+				continue;  // 範囲外なら確実に当たらない
+			}
 		}
 
 		// 線分ベクトル
@@ -264,8 +279,6 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		// 半径の2乗
 		const float R2{ RADIUS * RADIUS };
 
-		bool isHit{ false };
-
 		if (_pCollisionInfo)
 		{
 			_pCollisionInfo->isHit = false;
@@ -283,6 +296,10 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			{
 				// 2Dから3Dへ変換する
 				Vector2 normal2D{ D / _pCollisionInfo->distance };
+				if (normal2D.y < 0)
+				{
+					normal2D.y *= -1.0f;
+				}
 				_pCollisionInfo->normal = { 0.0f, normal2D.y, normal2D.x };
 			}
 			else  // 完全に重なっちゃったときは上向きにして置く
@@ -297,10 +314,9 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			LOGFLN("線分に当たっている");
 			if (_pCollisionInfo)
 			{
-				_pCollisionInfo->normal = _pCollisionInfo->normal * -1.0f;
 				_pCollisionInfo->isHit = true;
 			}
-			return true;
+			continue;
 		}
 
 		if (C.y < min(P1.y, P2.y))
@@ -309,10 +325,9 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			LOGFLN("区間内の下にいる");
 			if (_pCollisionInfo)
 			{
-				_pCollisionInfo->normal = _pCollisionInfo->normal * -1.0f;
 				_pCollisionInfo->isHit = true;
 			}
-			return true;
+			continue;
 			//return true;  // 当たっている
 		}
 
@@ -326,12 +341,12 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 				_pCollisionInfo->normal = _pCollisionInfo->normal * -1.0f;
 				_pCollisionInfo->isHit = true;
 			}
-			return true;
+			continue;
 			//return true;  // 埋まっているなら当たっている
 		}
 	}
 
-	return false;
+	return isHit;
 }
 
 bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet* _pSphereB, CollisionInfo* _pCollisionInfo)

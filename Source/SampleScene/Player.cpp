@@ -36,10 +36,11 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 			.EndSetter()
 		.AddComponent<RigidBody>()
 			.BeginSetter()
-				.bounciness(0.5f)
+				.bounciness(1.0f)
 				.useGravity(true)
-				.velocity({ 0, 0, 1.0f })
-				.angularVelocity({ 0.5f, 0, 0 })
+				//.drag(0.981f)
+				.velocity({ 0, 0, 0.0f })
+				.angularVelocity({ 0.0f, 0, 0 })
 			.EndSetter()
 		.AddComponent<Collider>()
 			.BeginSetter()
@@ -76,7 +77,7 @@ void Player::Update()
 	{
 		if (pColl && pColl->GetColliderType() == Collider::Type::Section)
 		{
-			rb.AddTorque({ 3.0f, 0.0f, 0.0f });
+			rb.AddTorque({ 0.03f, 0.0f, 0.0f });
 			//LOGFLN("Type:{}", pColl->GetColliderType() == Collider::Type::Sphere ? "‹…‘Ì" : "ƒZƒNƒVƒ‡ƒ“");
 		}
 	}

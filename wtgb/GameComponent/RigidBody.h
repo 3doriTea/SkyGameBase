@@ -96,6 +96,8 @@ namespace wtgb
 		//     : e = 0     : 完全非弾性 ﾍﾟﾀｯ
 		float bounciness_;  // 反発係数 = e
 
+		Vector3 push_;  // 内部計算用押し出し
+
 		size_t onHitCollidersCount_;  // 当たっているコライダ数
 		// 当たっているコライダ一覧
 		std::array<Collider*, HIT_COLLIDER_BUFFER_SIZE> onHitColliders_;

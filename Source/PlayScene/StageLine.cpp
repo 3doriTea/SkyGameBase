@@ -60,7 +60,7 @@ void StageLine::Init()
 	{
 		Vector2 last{ points_.at(points_.size() - 1) };
 		last.x += 10.0f;
-		last.y += 10.0f;
+		last.y -= 10.0f;
 		points_.push_back(last);
 	}
 

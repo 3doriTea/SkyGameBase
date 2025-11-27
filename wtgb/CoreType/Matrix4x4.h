@@ -12,6 +12,9 @@ namespace wtgb
 			XMMATRIX{ DirectX::XMMatrixIdentity() }
 		{}
 
+		Matrix4x4(const Vector4& _l0, const Vector4& _l1, const Vector4& _l2, const Vector4& _l3) :
+			XMMATRIX{ _l0, _l1, _l2, _l3 }
+		{}
 		Matrix4x4(const Matrix4x4& _other) = default;
 		Matrix4x4(const DirectX::XMMATRIX& _xmMatrix) :
 			XMMATRIX{ _xmMatrix }

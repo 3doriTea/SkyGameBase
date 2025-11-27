@@ -43,6 +43,7 @@ void wtgb::CPRigidBody::Update()
 	ForEach([this, &cpTransform, &cpGameObject, &cpCollider, DT](RigidBody& _rb, const size_t _index)
 		{
 			_rb.ClearHitCollider();
+			_rb.push_ = Vector3::Zero();
 
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
 
@@ -126,25 +127,28 @@ void wtgb::CPRigidBody::Update()
 							// MEMO: r = v + 2 * a * n(normal)
 							Vector3 r{ V + 2.0f * E * N };
 
+							//float cos{ XMVectorGetX(XMVector3Dot(_rb.velocity_, r)) };
+							//if (cos < 0.9f)
+							//{
+							//	//float length{ XMVectorGetX(XMVector3Length(_rb.velocity_)) };
+							//	//_rb.velocity_ = Vector3{ XMVector3Normalize(_rb.velocity_ + r) } * length;
+							//}
+							//else
 							_rb.velocity_ = r;
 
-							//const float K{ (1.0f + E) * XMVectorGetX(XMVector3Dot(V, N)) };
-
-							//Vector3 position{ selfSet.pTransform->GetPositionWorld() };
-
-							if (collisionInfo.depth > 3.0f)
-							{
-								Vector3 position{ selfSet.pTransform->GetPosition()};
-								position = position + N * collisionInfo.depth;
-								selfSet.pTransform->SetPosition(position);
-							}
-
-							//_rb.velocity_ = V - N * K;*/
+							_rb.push_ = N * collisionInfo.depth;
 						}
 					});
 				break;
 			default:
 				break;
+			}
+
+			//if (collisionInfo.depth > FLT_EPSILON)
+			{
+				Vector3 position{ selfSet.pTransform->GetPosition() };
+				position = position + _rb.push_;
+				selfSet.pTransform->SetPosition(position);
 			}
 		});
 }

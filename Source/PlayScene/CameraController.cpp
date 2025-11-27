@@ -53,6 +53,9 @@ void CameraController::Init()
 
 void CameraController::Update()
 {
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+	Cursor& cursor{ System().Get<Cursor>() };
+
 	/*RigidBody& rb{ GetComponent<RigidBody>() };
 	LOGFLN("当たって{}", rb.IsHit() ? "いる" : "いない");
 
@@ -66,6 +69,17 @@ void CameraController::Update()
 			LOGFLN("Type:{}", pColl->GetColliderType() == Collider::Type::Sphere ? "球体" : "セクション");
 		}
 	}*/
+
+	if (input.IsKeyDown(KeyCode::B))
+	{
+		cursor.SetCenterLock(true);
+		cursor.SetShow(false);
+	}
+	if (input.IsKeyDown(KeyCode::Escape))
+	{
+		cursor.SetCenterLock(false);
+		cursor.SetShow(true);
+	}
 
 	switch (mode_)
 	{
@@ -92,18 +106,6 @@ void CameraController::UpdateFree()
 	{
 		SetMode(Mode::GamePlay);
 		return;
-	}
-
-
-	if (input.IsKeyDown(KeyCode::B))
-	{
-		cursor.SetCenterLock(true);
-		cursor.SetShow(false);
-	}
-	if (input.IsKeyDown(KeyCode::Escape))
-	{
-		cursor.SetCenterLock(false);
-		cursor.SetShow(true);
 	}
 
 	// マウス移動量をカメラの角度に適用
@@ -155,6 +157,8 @@ void CameraController::UpdateFree()
 
 void CameraController::UpdateGamePlay()
 {
+	using namespace DirectX;
+
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	Camera& camera{ System().Get<Camera>() };
 	Cursor& cursor{ System().Get<Cursor>() };
@@ -162,12 +166,42 @@ void CameraController::UpdateGamePlay()
 
 	if (input.IsKeyDown(KeyCode::R))
 	{
+		Vector3 rotation{ Transform().GetRotation() };
+		rotation.z = 0.0f;
+		Transform().SetRotation(rotation);
 		SetMode(Mode::Free);
 		return;
 	}
 	
 	GameObject* pPlayer{ FindGameObject("Player") };
 
-	camera.targetPosition_ =
-	pPlayer->Transform().GetPositionWorld();
+	{
+		Vector3 forward{ pPlayer->Transform().GetPositionWorld() - Transform().GetPosition() };
+		Vector3 up{ XMVector3Normalize(Vector3::Up()) };
+
+		Vector3 right{ XMVector3Normalize(XMVector3Cross(up, forward)) };
+
+		Vector3 verticalUp{ XMVector3Cross(forward, right) };
+
+		Matrix4x4 lookMatrix
+		{
+			right,
+			verticalUp,
+			forward,
+			Vector4{ 0, 0, 0, 1.0f },
+		};
+
+		Vector3 rotation{ Transform().GetRotation() };
+
+		//using Quaternion = XMVECTOR;
+		/*Quaternion qua{ XMQuaternionRotationRollPitchYawFromVector(rotation) };*/
+
+		rotation = XMVector3TransformCoord(rotation, lookMatrix);
+		Transform().SetRotation(rotation);
+
+		LOGFLN("Rot({}, {}, {})", rotation.x, rotation.y, rotation.z);
+	}
+
+	camera.targetPosition_ = Transform().GetPosition() + Transform().GetForward();
+	camera.position_ = Transform().GetPosition();
 }
