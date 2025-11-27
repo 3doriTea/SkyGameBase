@@ -37,7 +37,8 @@ CameraController::CameraController() : GameObject
 	}
 },
 	speedBoost_{ 0.0f },
-	mode_{ Mode::Free }
+	mode_{ Mode::Free },
+	lookTarget_{ INVALID_ENTITY }
 {
 }
 
@@ -47,6 +48,7 @@ CameraController::~CameraController()
 
 void CameraController::Init()
 {
+	
 }
 
 void CameraController::Update()
@@ -85,6 +87,12 @@ void CameraController::UpdateFree()
 	Camera& camera{ System().Get<Camera>() };
 	Cursor& cursor{ System().Get<Cursor>() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+
+	if (input.IsKeyDown(KeyCode::R))
+	{
+		SetMode(Mode::GamePlay);
+		return;
+	}
 
 
 	if (input.IsKeyDown(KeyCode::B))
@@ -147,4 +155,19 @@ void CameraController::UpdateFree()
 
 void CameraController::UpdateGamePlay()
 {
+	float dt{ System().Get<GameTime>().GetDeltaTime() };
+	Camera& camera{ System().Get<Camera>() };
+	Cursor& cursor{ System().Get<Cursor>() };
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+
+	if (input.IsKeyDown(KeyCode::R))
+	{
+		SetMode(Mode::Free);
+		return;
+	}
+	
+	GameObject* pPlayer{ FindGameObject("Player") };
+
+	camera.targetPosition_ =
+	pPlayer->Transform().GetPositionWorld();
 }

@@ -20,7 +20,7 @@ void wtgb::ComponentPool<ComponentT>::Update(const ViewerUpdate& _system)
 }
 
 template<typename ComponentT>
-inline ComponentT* wtgb::ComponentPool<ComponentT>::Get(const EntityId _entityId)
+inline std::remove_pointer_t<ComponentT>* wtgb::ComponentPool<ComponentT>::Get(const EntityId _entityId)
 {
 	// 無効なEntityId なら取得しない
 	if (IsInvalidEntity(_entityId))
@@ -31,7 +31,16 @@ inline ComponentT* wtgb::ComponentPool<ComponentT>::Get(const EntityId _entityId
 
 	if (useFlag_[_entityId.index])
 	{
-		return &pool_[_entityId.index];
+		if constexpr (std::is_pointer_v<ComponentT>)
+		{
+			// コンポーネントがポインタで保存されているならそのまま返す
+			return pool_[_entityId.index];
+		}
+		else
+		{
+			// コンポーネントが実体のまま保存されているならそのポインタを返す
+			return &pool_[_entityId.index];
+		}
 	}
 	else
 	{

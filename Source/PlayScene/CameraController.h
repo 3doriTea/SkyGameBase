@@ -41,6 +41,8 @@ private:
 	void UpdateGamePlay();
 
 private:
+	EntityId lookTarget_;  // カメラの注視点となるターゲットエンティティ
+
 	Mode mode_;
 
 	float speedBoost_;

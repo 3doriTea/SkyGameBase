@@ -52,3 +52,27 @@ void wtgb::GameObject::End()
 	this->Release();
 	delete this;
 }
+
+wtgb::GameObject* wtgb::GameObject::FindGameObject(const EntityId _entityId)
+{
+	return System().Get<CPGameObject>().Get(_entityId);
+}
+
+wtgb::GameObject* wtgb::GameObject::FindGameObject(const std::string& _name)
+{
+	wtgb::EntityId foundEntityId{ INVALID_ENTITY };
+	System().Get<CPGameObjectProperty>().ForEach([&_name, &foundEntityId](GameObjectProperty& _gameObjectProperty)
+		{
+			if (_gameObjectProperty.GetName() == _name)
+			{
+				foundEntityId = _gameObjectProperty.GetEntityId();
+			}
+		});
+
+	if (foundEntityId == INVALID_ENTITY)
+	{
+		return nullptr;  // –¼‘O‚ÅŒ©‚Â‚©‚ç‚È‚¯‚ê‚Î nullptr •Ô‚·
+	}
+	// –¼‘O‚ÅŒ©‚Â‚©‚Á‚½‚È‚çŽæ“¾‚µ‚Ä‚­‚é
+	return System().Get<CPGameObject>().Get(foundEntityId);
+}

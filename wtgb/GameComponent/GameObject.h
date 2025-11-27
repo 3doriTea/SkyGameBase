@@ -54,6 +54,10 @@ namespace wtgb
 		virtual void Draw() const {}
 		virtual void Release() = 0;
 
+		/// <summary>
+		/// <para>コンポーネントとしての終了処理</para>
+		/// <para>NOTE: 終了処理をオーバーライドする場合はRelease関数を使う</para>
+		/// </summary>
 		void End() override final;
 
 		/// <summary>
@@ -71,6 +75,20 @@ namespace wtgb
 
 		template<typename ComponentT>
 		ComponentT& AddComponent() { return System().Get<ComponentManager>().Add<ComponentT>(entityId_); }
+
+		/// <summary>
+		/// エンティティIdからゲームオブジェクトを探す
+		/// </summary>
+		/// <param name="_entityId">エンティティId</param>
+		/// <returns>見つかったゲームオブジェクトのポインタ / 見つからなければ nullptr</returns>
+		GameObject* FindGameObject(const EntityId _entityId);
+
+		/// <summary>
+		/// 名前からゲームオブジェクトを探す
+		/// </summary>
+		/// <param name="_name">名前</param>
+		/// <returns>見つかったゲームオブジェクトのポインタ / 見つからなければ nullptr</returns>
+		GameObject* FindGameObject(const std::string& _name);
 
 		GameObjectProperty& Property();
 		Transform& Transform();

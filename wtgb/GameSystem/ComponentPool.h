@@ -219,7 +219,7 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_entityId">エンティティId</param>
 		/// <returns>コンポーネントのポインタ / なければ nullptr</returns>
-		ComponentT* Get(const EntityId _entityId);
+		std::remove_pointer_t<ComponentT>* Get(const EntityId _entityId);
 
 		/// <summary>
 		/// エンティティのコンポーネントをはずす
