@@ -63,6 +63,11 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_addV">ワールド座標系での速度</param>
 		inline void AddVelocity(const Vector3& _addV) { velocity_ = velocity_ + _addV; }
+		/// <summary>
+		/// 回転速度を加える
+		/// </summary>
+		/// <param name="_addT">ワールド座標系での速度</param>
+		inline void AddTorque(const Vector3& _addT) { angularVelocity_ = angularVelocity_ + _addT; }
 
 	private:
 		/// <summary>

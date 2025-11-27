@@ -56,6 +56,14 @@ void StageLine::Init()
 		{ 620, 320 },
 	};
 
+	for (int i = 0; i < 100; i++)
+	{
+		Vector2 last{ points_.at(points_.size() - 1) };
+		last.x += 10.0f;
+		last.y += 10.0f;
+		points_.push_back(last);
+	}
+
 	/*points_ = 
 	{
 		{ 3, 2 },

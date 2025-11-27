@@ -118,9 +118,28 @@ void wtgb::CPRigidBody::Update()
 
 							// TODO: 回転を入れた反射をさせる
 
-							const float K{ (1.0f + E) * XMVectorGetX(XMVector3Dot(V, N)) };
-							
-							_rb.velocity_ = V - N * K;
+							// 壁刷りベクトル
+							//Vector3 r{ V - 2.0f * XMVectorGetX(XMVector3Dot(V, N)) * N };
+
+							// 反射ベクトル
+							// REF: http://marupeke296.com/COL_Basic_No5_WallVector.html
+							// MEMO: r = v + 2 * a * n(normal)
+							Vector3 r{ V + 2.0f * E * N };
+
+							_rb.velocity_ = r;
+
+							//const float K{ (1.0f + E) * XMVectorGetX(XMVector3Dot(V, N)) };
+
+							//Vector3 position{ selfSet.pTransform->GetPositionWorld() };
+
+							if (collisionInfo.depth > 3.0f)
+							{
+								Vector3 position{ selfSet.pTransform->GetPosition()};
+								position = position + N * collisionInfo.depth;
+								selfSet.pTransform->SetPosition(position);
+							}
+
+							//_rb.velocity_ = V - N * K;*/
 						}
 					});
 				break;

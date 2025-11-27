@@ -42,7 +42,6 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 	{
 	case Collider::Type::Sphere:
 	{
-
 		Matrix4x4 toLocalMatrix
 		{
 			XMMatrixInverse(
@@ -218,12 +217,19 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 	for (int i = 0; i < points.size() - 1; i++)
 	{
+
 		// 円中心座標
 		const Vector2 C{ worldCenterPos.z, worldCenterPos.y };
 		// 線分始点座標
 		const Vector2 P1{ points[i] };
 		// 線分終点座標
 		const Vector2 P2{ points[i + 1] };
+		
+		// yで区切ったときの区画フィルタ
+		if ((C.x - RADIUS) < P1.x || P2.x < (C.x + RADIUS))
+		{
+			continue;  // 範囲外なら確実に当たらない
+		}
 
 		// 線分ベクトル
 		const Vector2 V{ P2 - P1 };
@@ -258,34 +264,70 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		// 半径の2乗
 		const float R2{ RADIUS * RADIUS };
 
-		bool isHit{ DIST2 <= R2 + FLT_EPSILON };
-		if (isHit)
+		bool isHit{ false };
+
+		if (_pCollisionInfo)
 		{
+			_pCollisionInfo->isHit = false;
+			if (DIST2 > FLT_EPSILON)
+			{
+				_pCollisionInfo->distance = std::sqrtf(DIST2);
+			}
+			else
+			{
+				_pCollisionInfo->distance = 0.0f;
+			}
+			_pCollisionInfo->depth = RADIUS - _pCollisionInfo->distance;
+
+			if (_pCollisionInfo->distance > FLT_EPSILON)
+			{
+				// 2Dから3Dへ変換する
+				Vector2 normal2D{ D / _pCollisionInfo->distance };
+				_pCollisionInfo->normal = { 0.0f, normal2D.y, normal2D.x };
+			}
+			else  // 完全に重なっちゃったときは上向きにして置く
+			{
+				_pCollisionInfo->normal = Vector3::Up();
+			}
+		}
+
+		if (DIST2 <= R2 + FLT_EPSILON)
+		{
+			isHit = true;
+			LOGFLN("線分に当たっている");
 			if (_pCollisionInfo)
 			{
+				_pCollisionInfo->normal = _pCollisionInfo->normal * -1.0f;
 				_pCollisionInfo->isHit = true;
-				if (DIST2 > FLT_EPSILON)
-				{
-					_pCollisionInfo->distance = std::sqrtf(DIST2);
-				}
-				else
-				{
-					_pCollisionInfo->distance = 0.0f;
-				}
-				_pCollisionInfo->depth = RADIUS - _pCollisionInfo->distance;
-
-				if (_pCollisionInfo->distance > FLT_EPSILON)
-				{
-					// 2Dから3Dへ変換する
-					Vector2 normal2D{ D / _pCollisionInfo->distance };
-					_pCollisionInfo->normal = { 0.0f, normal2D.y, normal2D.x };
-				}
-				else  // 完全に重なっちゃったときは上向きにして置く
-				{
-					_pCollisionInfo->normal = Vector3::Up();
-				}
 			}
 			return true;
+		}
+
+		if (C.y < min(P1.y, P2.y))
+		{
+			isHit = true;
+			LOGFLN("区間内の下にいる");
+			if (_pCollisionInfo)
+			{
+				_pCollisionInfo->normal = _pCollisionInfo->normal * -1.0f;
+				_pCollisionInfo->isHit = true;
+			}
+			return true;
+			//return true;  // 当たっている
+		}
+
+		// 球が下にいるかフィルタ
+		if (C.y <= p.y)
+		{
+			isHit = true;
+			LOGFLN("下にいる");
+			if (_pCollisionInfo)
+			{
+				_pCollisionInfo->normal = _pCollisionInfo->normal * -1.0f;
+				_pCollisionInfo->isHit = true;
+			}
+			return true;
+			//return true;  // 埋まっているなら当たっている
 		}
 	}
 
