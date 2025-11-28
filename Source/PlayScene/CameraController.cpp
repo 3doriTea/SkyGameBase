@@ -145,7 +145,10 @@ void CameraController::UpdateFree()
 	move.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f);
 	move.z += (input.IsKey(KeyCode::W) ? 1.0f : 0.0f + input.IsKey(KeyCode::S) ? -1.0f : 0.0f);
 
-	LOGFLN("move({},{},{})", move.x, move.y, move.z);
+	Vector3 dir{ Transform().GetForward() };
+
+	//LOGFLN("move({},{},{})", move.x, move.y, move.z);
+	LOGFLN("dir({},{},{})", dir.x, dir.y, dir.z);
 
 	cameraPos = cameraPos + DirectX::XMVector3TransformCoord(move * (dt * (10.0f + (10.0f * speedBoost_))), Transform().GetNormalMatrix());
 
@@ -175,8 +178,9 @@ void CameraController::UpdateGamePlay()
 	
 	GameObject* pPlayer{ FindGameObject("Player") };
 
-	{
-		Vector3 forward{ pPlayer->Transform().GetPositionWorld() - Transform().GetPosition() };
+#if 0
+	{  // 振動
+		Vector3 forward{ XMVector3Normalize(pPlayer->Transform().GetPositionWorld() - Transform().GetPosition()) };
 		Vector3 up{ XMVector3Normalize(Vector3::Up()) };
 
 		Vector3 right{ XMVector3Normalize(XMVector3Cross(up, forward)) };
@@ -200,6 +204,53 @@ void CameraController::UpdateGamePlay()
 		Transform().SetRotation(rotation);
 
 		LOGFLN("Rot({}, {}, {})", rotation.x, rotation.y, rotation.z);
+	}
+#endif
+
+	{
+		// MEMO: あるベクトルからあるベクトルへの回転は必ず2回の操作で完結する
+		//     : 2つに垂直な1つの軸ベクトルを見つけ
+		//     : その軸で回転させる
+
+		Vector3 forward{ Vector3::Forward() };
+
+		Vector3 direction{ XMVector3Normalize(pPlayer->Transform().GetPositionWorld() - Transform().GetPositionWorld()) };
+
+		// 2軸平面に垂直なベクトル = 回転軸となる法線ベクトル
+		Vector3 normal{ XMVector3Cross(forward, direction) };
+
+		if (XMVectorGetX(XMVector3Length(normal)) <= FLT_EPSILON)
+		{
+			return;  // ほぼ0なら法線が無限にあるため計算できない
+		}
+
+		float rotationAngle  // 回転角度 (ラジアン)
+		{
+			XMVectorGetX(XMVector3AngleBetweenVectors(forward, direction))
+		};
+
+		Matrix4x4 rotationMatrix{ XMMatrixRotationAxis(normal, rotationAngle) };
+
+
+		XMFLOAT4X4 m{};
+		XMStoreFloat4x4(&m, rotationMatrix);
+
+		Vector3 rotation{ Transform().GetRotation() };
+
+		if (std::abs(m._32) < 0.99999f)
+		{
+			rotation.x = std::asin(-m._32);
+			rotation.y = std::atan2(m._31, m._33);
+			rotation.z = std::atan2(m._12, m._22);
+		}
+		else  // ジンバルロック回避する
+		{
+			rotation.x = std::copysign(XM_PIDIV2, -m._32);
+			rotation.y = std::atan2(-m._13, m._11);
+			rotation.z = 0.0f;
+		}
+
+		Transform().SetRotation(rotation);
 	}
 
 	camera.targetPosition_ = Transform().GetPosition() + Transform().GetForward();
