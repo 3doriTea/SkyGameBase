@@ -13,7 +13,7 @@ void CameraMoveFree::Start()
 {
 }
 
-void CameraMoveFree::Update()
+void CameraMoveFree::Update(ViewerCached& _system)
 {
 }
 

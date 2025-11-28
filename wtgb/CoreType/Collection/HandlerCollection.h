@@ -94,20 +94,20 @@ bool wtgb::HandlerCollection<ValueT, HandleT>::Remove(const HandleT _handle)
 template<typename ValueT, std::unsigned_integral HandleT>
 void wtgb::HandlerCollection<ValueT, HandleT>::Release(const std::function<void(ValueT& _value)>& _callback)
 {
-	for (auto& pair : *this)
+	for (auto& [handle, value] : *this)
 	{
-		_callback(pair.second);
+		_callback(value);
 	}
 }
 
 template<typename ValueT, std::unsigned_integral HandleT>
 inline HandleT wtgb::HandlerCollection<ValueT, HandleT>::GetContainsDuplicate(const std::function<bool(ValueT& _value)>& _callback)
 {
-	for (auto& pair : *this)
+	for (auto& [handle, value] : *this)
 	{
-		if (_callback(pair.second))
+		if (_callback(value))
 		{
-			return pair.first;
+			return handle;
 		}
 	}
 	return wtgb::INVALID_HANDLE;

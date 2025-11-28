@@ -65,11 +65,13 @@ void wtgb::CPTransform::Update()
 	std::stack<EntityId> calculateStack{};
 	for (auto itr = parentMap.begin(); itr != parentMap.end(); itr++)
 	{
-		if (check[itr->first])
+		const auto [self, parent]{ *itr };
+
+		if (check[self])
 		{
 			continue;
 		}
-		calculateStack.push(itr->first);
+		calculateStack.push(self);
 		while (parentMap[calculateStack.top()] != INVALID_ENTITY)
 		{
 			calculateStack.push(parentMap[calculateStack.top()]);
