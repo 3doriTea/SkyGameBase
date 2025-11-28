@@ -207,6 +207,11 @@ void CameraController::UpdateGamePlay()
 	}
 #endif
 
+	// プレイヤーまでの差分ベクトル
+	Vector3 toPlayerDiff{ pPlayer->Transform().GetPositionWorld() - Transform().GetPositionWorld() };
+	// プレイヤーを向く方向ベクトル
+	Vector3 toPlayerDir{ XMVector3Normalize(toPlayerDiff) };
+
 	{
 		// MEMO: あるベクトルからあるベクトルへの回転は必ず2回の操作で完結する
 		//     : 2つに垂直な1つの軸ベクトルを見つけ
@@ -214,7 +219,7 @@ void CameraController::UpdateGamePlay()
 
 		Vector3 forward{ Vector3::Forward() };
 
-		Vector3 direction{ XMVector3Normalize(pPlayer->Transform().GetPositionWorld() - Transform().GetPositionWorld()) };
+		Vector3 direction{ toPlayerDir };
 
 		// 2軸平面に垂直なベクトル = 回転軸となる法線ベクトル
 		Vector3 normal{ XMVector3Cross(forward, direction) };
@@ -251,6 +256,15 @@ void CameraController::UpdateGamePlay()
 		}
 
 		Transform().SetRotation(rotation);
+	}
+
+	if (XMVectorGetX(XMVector3Length(toPlayerDiff)) > 30.0f)
+	{
+		Vector3 position{ Transform().GetPositionWorld() };
+
+		position = position + toPlayerDir;
+
+		Transform().SetPositionWorld(position);
 	}
 
 	camera.targetPosition_ = Transform().GetPosition() + Transform().GetForward();
