@@ -90,8 +90,22 @@ namespace wtgb
 		/// <returns>見つかったゲームオブジェクトのポインタ / 見つからなければ nullptr</returns>
 		GameObject* FindGameObject(const std::string& _name);
 
+		/// <summary>
+		/// ゲームオブジェクトプロパティを参照する
+		/// </summary>
+		/// <returns>ゲームオブジェクトプロパティの参照</returns>
 		GameObjectProperty& Property();
+		/// <summary>
+		/// 座標系コンポーネントを参照する
+		/// </summary>
+		/// <returns>座標系コンポーネントの参照</returns>
 		Transform& Transform();
+
+		/// <summary>
+		/// ゲームオブジェクトのエンティティIdを取得する
+		/// </summary>
+		/// <returns>エンティティId</returns>
+		inline EntityId GetEntityId() const { return entityId_; }
 
 	protected:
 		ViewerCached& System() const;
@@ -99,9 +113,9 @@ namespace wtgb
 	private:
 		EntityId entityId_;  // エンティティのId
 
+		// TODO: entityIdのみにする
 		bool toDestroy_;  // 削除予定のゲームオブジェクトか true / false
 
-		// TODO: entityIdのみにする
 		static ViewerCached* pCachedSystem_;  // cache済みのゲームシステム
 	};
 }

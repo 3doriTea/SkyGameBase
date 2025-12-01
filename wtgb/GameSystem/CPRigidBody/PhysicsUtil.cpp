@@ -228,7 +228,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		if (isHit)
 		{
 			// “–‚½‚Á‚Ä‚¢‚é‚È‚ç‚±‚Ìü‰ñ‚ÅÅŒã‚É‚·‚é
-			i = points.size();
+			i = static_cast<int>(points.size());
 
 			// Z+‚Ì•ûŒü‚¾‚¯”¼Œaƒvƒ‰ƒX‚µ‚Ä“–‚½‚è”»’è
 			if ((C.x + RADIUS) < P1.x || P2.x < (C.x - RADIUS))

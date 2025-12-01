@@ -28,35 +28,6 @@ void CameraMoveFree::Start()
 {
 }
 
-void CameraMoveFree::Update(ViewerCached& _system)
-{
-	float dt{ _system.Get<GameTime>().GetDeltaTime() };
-	Camera& camera{ _system.Get<Camera>() };
-	Cursor& cursor{ _system.Get<Cursor>() };
-	const Input::InputGetter& input{ _system.Get<Input>().Getter() };
-
-	if (input.IsKeyDown(KeyCode::R))
-	{
-		SetMode(Mode::GamePlay);
-		return;
-	}
-
-	// マウス移動量をカメラの角度に適用
-	Vector3 angles{ Transform().GetRotation() };
-
-
-	angles.x += cursor.GetFrameMove().y / 10.0f * dt;
-
-	// 上下の角度に制限を付ける
-	if (angles.x < DEG_TO_RAD * LOWER_ANGLE)
-	{
-		angles.x = DEG_TO_RAD * LOWER_ANGLE;
-	}
-	if (angles.x > DEG_TO_RAD * UPPER_ANGLE)
-	{
-		angles.x = DEG_TO_RAD * UPPER_ANGLE;
-	}
-
 void CameraMoveFree::Update(ViewerCached& _system, const EntityId _entityId)
 {
 	float dt{ _system.Get<GameTime>().GetDeltaTime() };
