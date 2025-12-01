@@ -13,6 +13,9 @@ namespace
 	const float UPPER_ANGLE{ 80.0f };
 	// ƒJƒƒ‰‰º‚ÌŠp“x‚Ì§ŒÀ
 	const float LOWER_ANGLE{ -70.0f };
+
+	// 1•bŠÔ‚ ‚½‚è‚ÌˆÚ“®‘¬“x
+	const float MOVE_SPEED_PER_SEC{ 10.0f };
 }
 
 CameraMoveFree::CameraMoveFree() :
@@ -76,7 +79,9 @@ void CameraMoveFree::Update(ViewerCached& _system, const EntityId _entityId)
 
 	Vector3 dir{ pTransform->GetForward() };
 
-	cameraPos = cameraPos + DirectX::XMVector3TransformCoord(move * (dt * (10.0f + (10.0f * speedBoost_))), Transform().GetNormalMatrix());
+	cameraPos = cameraPos + DirectX::XMVector3TransformCoord(
+		move * (dt * (MOVE_SPEED_PER_SEC + (MOVE_SPEED_PER_SEC * speedBoost_))),
+		Transform().GetNormalMatrix());
 
 	pTransform->SetPosition(cameraPos);
 
