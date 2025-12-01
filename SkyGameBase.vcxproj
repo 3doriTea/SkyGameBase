@@ -24,6 +24,7 @@
     <ClInclude Include="pch\targetver.h" />
     <ClInclude Include="Source\PlayScene\CameraController.h" />
     <ClInclude Include="Source\PlayScene\CameraController\CameraMoveFree.h" />
+    <ClInclude Include="Source\PlayScene\CameraController\CameraMovePlay.h" />
     <ClInclude Include="Source\PlayScene\CameraController\ICameraMove.h" />
     <ClInclude Include="Source\PlayScene\StageLine.h" />
     <ClInclude Include="Source\PlayScene\StageMesh\StageMesh.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="pch\pch.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMoveFree.cpp" />
+    <ClCompile Include="Source\PlayScene\CameraController\CameraMovePlay.cpp" />
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />
     <ClCompile Include="Source\PlayScene\TestBillBoard.cpp" />
