@@ -51,7 +51,7 @@ void CameraMovePlay::Update(ViewerCached& _system, const EntityId _entityId)
 #endif
 
 	// プレイヤーまでの差分ベクトル
-	Vector3 toPlayerDiff{ pPlayer->Transform().GetPositionWorld() - Transform().GetPositionWorld() };
+	Vector3 toPlayerDiff{ pPlayer->Transform().GetPositionWorld() - pTransform->GetPositionWorld() };
 	// プレイヤーを向く方向ベクトル
 	Vector3 toPlayerDir{ XMVector3Normalize(toPlayerDiff) };
 
@@ -83,7 +83,7 @@ void CameraMovePlay::Update(ViewerCached& _system, const EntityId _entityId)
 		XMFLOAT4X4 m{};
 		XMStoreFloat4x4(&m, rotationMatrix);
 
-		Vector3 rotation{ Transform().GetRotation() };
+		Vector3 rotation{ pTransform->GetRotation() };
 
 		if (std::abs(m._32) < 0.99999f)
 		{
@@ -98,20 +98,20 @@ void CameraMovePlay::Update(ViewerCached& _system, const EntityId _entityId)
 			rotation.z = 0.0f;
 		}
 
-		Transform().SetRotation(rotation);
+		pTransform->SetRotation(rotation);
 	}
 
 	if (XMVectorGetX(XMVector3Length(toPlayerDiff)) > 30.0f)
 	{
-		Vector3 position{ Transform().GetPositionWorld() };
+		Vector3 position{ pTransform->GetPositionWorld() };
 
 		position = position + toPlayerDir;
 
-		Transform().SetPositionWorld(position);
+		pTransform->SetPositionWorld(position);
 	}
 
-	camera.targetPosition_ = Transform().GetPosition() + Transform().GetForward();
-	camera.position_ = Transform().GetPosition();
+	camera.targetPosition_ = pTransform->GetPosition() + pTransform->GetForward();
+	camera.position_ = pTransform->GetPosition();
 }
 
 void CameraMovePlay::End()
