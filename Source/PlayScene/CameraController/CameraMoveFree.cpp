@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "CameraMoveFree.h"
 
+
 namespace
 {
 	// デグリをラジアンに変換する
@@ -8,11 +9,14 @@ namespace
 
 	// マウススクリーン移動に対する1秒間当たりのカメラ回転角度(Degree)
 	const float CAMERA_ROTATE_DEG_SEC{ 10.0f };
+	// カメラ上の角度の制限
 	const float UPPER_ANGLE{ 80.0f };
+	// カメラ下の角度の制限
 	const float LOWER_ANGLE{ -70.0f };
 }
 
-CameraMoveFree::CameraMoveFree()
+CameraMoveFree::CameraMoveFree() :
+	speedBoost_{ 0.0f }
 {
 }
 
@@ -53,12 +57,37 @@ void CameraMoveFree::Update(ViewerCached& _system)
 		angles.x = DEG_TO_RAD * UPPER_ANGLE;
 	}
 
+void CameraMoveFree::Update(ViewerCached& _system, const EntityId _entityId)
+{
+	float dt{ _system.Get<GameTime>().GetDeltaTime() };
+	Camera& camera{ _system.Get<Camera>() };
+	Cursor& cursor{ _system.Get<Cursor>() };
+	const Input::InputGetter& input{ _system.Get<Input>().Getter() };
+	Transform* pTransform{ _system.Get<CPTransform>().Get(_entityId) };
+
+	// マウス移動量をカメラの角度に適用
+	Vector3 angles{ pTransform->GetRotation() };
+
+
+	angles.x += cursor.GetFrameMove().y / 10.0f * dt;
+
+	// 上下の角度に制限を付ける
+	if (angles.x < DEG_TO_RAD * LOWER_ANGLE)
+	{
+		angles.x = DEG_TO_RAD * LOWER_ANGLE;
+	}
+	if (angles.x > DEG_TO_RAD * UPPER_ANGLE)
+	{
+		angles.x = DEG_TO_RAD * UPPER_ANGLE;
+	}
+
 	angles.y += cursor.GetFrameMove().x / 10.0f * dt;
 
-	Transform().SetRotation(angles);
+	pTransform->SetRotation(angles);
 
 	if (input.IsKey(KeyCode::LeftShift))
 	{
+		// 左シフトキー長押しで加速
 		speedBoost_ += dt;
 	}
 	else
@@ -66,7 +95,7 @@ void CameraMoveFree::Update(ViewerCached& _system)
 		speedBoost_ = 0.0f;
 	}
 
-	Vector3 cameraPos{ Transform().GetPosition() };
+	Vector3 cameraPos{ pTransform->GetPosition() };
 
 	Vector3 move{ Vector3::Zero() };
 
@@ -74,17 +103,14 @@ void CameraMoveFree::Update(ViewerCached& _system)
 	move.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f);
 	move.z += (input.IsKey(KeyCode::W) ? 1.0f : 0.0f + input.IsKey(KeyCode::S) ? -1.0f : 0.0f);
 
-	Vector3 dir{ Transform().GetForward() };
-
-	//LOGFLN("move({},{},{})", move.x, move.y, move.z);
-	LOGFLN("dir({},{},{})", dir.x, dir.y, dir.z);
+	Vector3 dir{ pTransform->GetForward() };
 
 	cameraPos = cameraPos + DirectX::XMVector3TransformCoord(move * (dt * (10.0f + (10.0f * speedBoost_))), Transform().GetNormalMatrix());
 
-	Transform().SetPosition(cameraPos);
+	pTransform->SetPosition(cameraPos);
 
-	camera.targetPosition_ = Transform().GetForward() + Transform().GetPosition();
-	camera.position_ = Transform().GetPosition();
+	camera.targetPosition_ = pTransform->GetForward() + pTransform->GetPosition();
+	camera.position_ = pTransform->GetPosition();
 }
 
 void CameraMoveFree::End()

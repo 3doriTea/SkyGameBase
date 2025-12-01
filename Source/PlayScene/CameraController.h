@@ -1,13 +1,15 @@
 #pragma once
 #include <wtgb.h>
 
+class ICameraMove;
+
 class CameraController : public GameObject
 {
 public:
 	enum struct Mode
 	{
 		Free,      // 自由移動
-		GamePlay,  // プレイする
+		Play,  // プレイする
 	};
 
 public:
@@ -16,13 +18,13 @@ public:
 
 	void Init() override;
 	void Update() override;
-	void Release() override {}
+	void Release() override;
 
 	/// <summary>
 	/// カメラモードをセットする
 	/// </summary>
 	/// <param name="_mode">カメラモード</param>
-	void SetMode(const Mode _mode) { mode_ = _mode; }
+	void SetMode(const Mode _mode);
 
 	/// <summary>
 	/// 現在のカメラモードを取得する
@@ -31,20 +33,11 @@ public:
 	inline Mode GetMode() const { return mode_; }
 
 private:
-	/// <summary>
-	/// 自由に動き回る
-	/// </summary>
-	void UpdateFree();
-	/// <summary>
-	/// ゲームプレイ時の動き
-	/// </summary>
-	void UpdateGamePlay();
-
-private:
 	EntityId lookTarget_;  // カメラの注視点となるターゲットエンティティ
 
 	Mode mode_;
 
-	float speedBoost_;
 	Vector2Int prevMousePos_;  // 前フレームのマウススクリーン座標
+
+	ICameraMove* pCameraMove_;  // カメラの移動方法
 };
