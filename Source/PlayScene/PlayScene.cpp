@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "PlayScene.h"
 
+#include "WaterSphere.h"
 #include "../SampleScene/Player.h"
 #include "CameraController.h"
 #include "../SampleScene/SampleScene.h"
@@ -44,11 +45,11 @@ void PlayScene::Start()
 
 	Mathf::Randomer random{};
 
-	/*for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		float r{ random.Rand() };
-		Instantiate<Player>(INVALID_ENTITY, Vector3{ r * 300.0f + 50.0f, 5.0f, 5.0f });
-	}*/
+		Instantiate<WaterSphere>(Vector3{ r * 300.0f + 50.0f, 5.0f, 5.0f });
+	}
 
 	//for (int k = 0; k < 20; k++)
 	//{
