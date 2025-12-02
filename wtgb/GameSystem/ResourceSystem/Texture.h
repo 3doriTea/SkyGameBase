@@ -24,7 +24,7 @@ namespace wtgb
 		};
 
 	public:
-		Texture(Config& _config);
+		Texture(const Config& _config);
 		~Texture();
 
 	private:

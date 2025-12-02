@@ -23,6 +23,7 @@ StageLine::StageLine() : GameObject
 			.AddComponent<MeshRenderer>()
 				.BeginSetter()
 					.shader("Shader/StageMesh.hlsl")
+					.texture("GroundTexture.png")
 				.EndSetter()
 			.AddComponent<Collider>()
 				.BeginSetter()

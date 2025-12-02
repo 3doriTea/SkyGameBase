@@ -7,7 +7,8 @@ using namespace wtgb;
 
 StageMesh::StageMesh(ViewerCached _system, StagePoints& _points) :
 	system_{ _system },
-	points_{ _points }
+	points_{ _points },
+	hTexture_{ INVALID_HANDLE }
 {
 }
 

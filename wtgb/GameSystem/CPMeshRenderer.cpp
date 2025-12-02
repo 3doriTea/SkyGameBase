@@ -92,6 +92,8 @@ void wtgb::CPMeshRenderer::Init()
 
 void wtgb::CPMeshRenderer::Update()
 {
+	// TODO: それぞれのレンダリング処理を分ける
+
 	using namespace DirectX;
 
 	Camera& camera{ System().Get<Camera>() };
@@ -241,6 +243,20 @@ void wtgb::CPMeshRenderer::Update()
 				pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
 				pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
 
+				// テクスチャが指定されているなら使う
+				if (meshRenderer.hTexture_ != INVALID_HANDLE)
+				{
+					Texture* pTexture{ resource.GetTexture(meshRenderer.hTexture_) };
+					wassert(pTexture != nullptr);
+					if (pTexture)
+					{
+						constantBuffer.hasTexture = TRUE;  // テクスチャあるよ
+
+						pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
+
+						pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
+					}
+				}
 
 				D3D11_MAPPED_SUBRESOURCE data{};
 

@@ -60,6 +60,12 @@ namespace wtgb
 		virtual uint32_t GetVertexCount() const = 0;
 
 		/// <summary>
+		/// テクスチャハンドルを取得する (任意)
+		/// </summary>
+		/// <returns>テクスチャがある場合ハンドル / なければ無効ハンドル</returns>
+		virtual TextureHandle GetTextureHandle() const { return INVALID_HANDLE; }
+
+		/// <summary>
 		/// 頂点バッファを取得する
 		/// </summary>
 		/// <returns>頂点バッファ</returns>

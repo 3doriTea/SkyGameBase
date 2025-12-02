@@ -15,6 +15,7 @@ namespace wtgb
 
 			SETTER_PARAM(std::string, shader)
 			SETTER_PARAM(std::string, texture)
+			SETTER_PARAM(TextureHandle, hTexture)
 		};
 
 	public:	

@@ -34,6 +34,12 @@ public:
 	/// <returns>インデックス数</returns>
 	uint32_t GetIndexCount() const override { return indexCount_; }
 
+	/// <summary>
+	/// テクスチャハンドルを取得する
+	/// </summary>
+	/// <returns></returns>
+	TextureHandle GetTextureHandle() const override { return hTexture_; }
+
 private:
 	/// <summary>
 	/// <para>頂点のx"座標"の値をまとめてセットする</para>
@@ -51,6 +57,8 @@ private:
 
 	uint32_t vertexCount_;
 	uint32_t indexCount_;
+
+	TextureHandle hTexture_;  // テクスチャのハンドル
 
 	ComPtr<ID3D11Buffer> pVertexBuffer_;    // 頂点バッファ
 	ComPtr<ID3D11Buffer> pIndexBuffer_;    // インデックスバッファ

@@ -3,7 +3,7 @@
 #include "WTGBAssert.h"
 #include "GameSystem/Path.h"
 
-wtgb::Texture::Texture(Config& _config) :
+wtgb::Texture::Texture(const Config& _config) :
 	config_{ _config },
 	imageSize_{ 0, 0 }
 {

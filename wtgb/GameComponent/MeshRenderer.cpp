@@ -37,6 +37,8 @@ void wtgb::MeshRenderer::Init(ViewerCached _system)
 			//.cullMode = D3D11_CULL_NONE,   // 隠面消去
 			.backIsClockwise = false,
 		});
+
+	// テクスチャのファイル名が指定されているなら自動読み込み
 	if (texture_.empty() == false)
 	{
 		hTexture_ = _system.Get<ResourceSystem>().LoadTexture(texture_);

@@ -40,6 +40,13 @@ namespace wtgb
 		TextureHandle LoadTexture(const std::string& _fileName);
 
 		/// <summary>
+		/// テクスチャを設定
+		/// </summary>
+		/// <param name="_config">テクスチャの詳細設定</param>
+		/// <returns>テクスチャのハンドル</returns>
+		TextureHandle LoadTexture(const Texture::Config& _config);
+
+		/// <summary>
 		/// ファイル名からテクスチャを取得
 		/// </summary>
 		/// <param name="_fileName">ファイル名</param>
