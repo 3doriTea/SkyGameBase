@@ -29,6 +29,7 @@
     <ClInclude Include="Source\PlayScene\StageLine.h" />
     <ClInclude Include="Source\PlayScene\StageMesh\StageMesh.h" />
     <ClInclude Include="Source\PlayScene\TestBillBoard.h" />
+    <ClInclude Include="Source\PlayScene\WaterSphere.h" />
     <ClInclude Include="Source\Systems\FirstSceneRegister.h" />
     <ClInclude Include="Source\Systems\MainWindow.h" />
     <ClInclude Include="Source\PlayScene\PlayScene.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="wtgb\Utility\Accessor.h" />
     <ClInclude Include="wtgb\Utility\InitSequence.h" />
     <ClInclude Include="wtgb\Utility\InputChecker.h" />
+    <ClInclude Include="wtgb\Utility\Mathf.h" />
     <ClInclude Include="wtgb\wtgb.h" />
     <ClInclude Include="wtgb\WTGBAssert.h" />
     <ClInclude Include="wtgb\WTGBResult.h" />
@@ -134,6 +136,7 @@
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />
     <ClCompile Include="Source\PlayScene\TestBillBoard.cpp" />
+    <ClCompile Include="Source\PlayScene\WaterSphere.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />
@@ -189,6 +192,7 @@
     <ClCompile Include="wtgb\GameSystem\ShaderCompile.cpp" />
     <ClCompile Include="wtgb\Utility\InitSequence.cpp" />
     <ClCompile Include="wtgb\Utility\InputChecker.cpp" />
+    <ClCompile Include="wtgb\Utility\Mathf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc" />

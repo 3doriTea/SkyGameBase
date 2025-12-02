@@ -14,7 +14,7 @@ StageLine::StageLine() : GameObject
 				.EndSetter()
 			.AddComponent<wtgb::Transform>()
 				.BeginSetter()
-					.scale({ 20.0f, 1, 1 })
+					.scale({ 400.0f, 1, 1 })
 				.EndSetter()
 			.AddComponent<ModelMesh>()
 				.BeginSetter()
@@ -51,6 +51,7 @@ void StageLine::Init()
 {
 	Collider& collider{ GetComponent<Collider>() };
 
+	// TODO: データはちゃんと移す
 	points_ =
 	{
 		{ 0, 0 },
@@ -71,12 +72,6 @@ void StageLine::Init()
 		last.y -= 10.0f;
 		points_.push_back(last);
 	}
-
-	/*points_ = 
-	{
-		{ 3, 2 },
-		{ 5, 2 },
-	};*/
 
 	// 全ての y 軸を - にする
 	for (auto& point : points_)

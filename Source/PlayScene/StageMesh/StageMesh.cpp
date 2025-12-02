@@ -39,7 +39,7 @@ void StageMesh::Init()
 			{
 				.position = { 0.0f, pos2D.y, pos2D.x },
 				.normal = { 0.0f, 0.0f, 0.0f },
-				.uv = { 0.0f, static_cast<float>(i) }
+				.uv = { 0.0f, static_cast<float>(pos2D.x) / 20.0f }
 			};
 			if (i == 0)  // ç≈èâÇÃÉ|ÉCÉìÉgÇ»ÇÁ
 			{
@@ -98,8 +98,10 @@ void StageMesh::Init()
 				}
 
 				SetPosXValue(0.0f, &v);
+				v.uv.x = 0.0f;
 				vertices.push_back(v);
 				SetPosXValue(1.0f, &v);
+				v.uv.x = 20.0f;
 				vertices.push_back(v);
 			}
 			size++;
