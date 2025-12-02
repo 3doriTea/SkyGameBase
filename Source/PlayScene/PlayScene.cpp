@@ -8,7 +8,7 @@
 #include "StageLine.h"
 #include "TestBillBoard.h"
 
-#include "Utility/Mathf.h";
+#include "Utility/Mathf.h"
 
 PlayScene::PlayScene() : GameScene
 {
