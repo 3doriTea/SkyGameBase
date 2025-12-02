@@ -8,7 +8,7 @@ class CameraController : public GameObject
 public:
 	enum struct Mode
 	{
-		Free,      // 自由移動
+		Free,  // 自由移動
 		Play,  // プレイする
 	};
 

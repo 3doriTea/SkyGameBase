@@ -149,7 +149,8 @@ void StageMesh::Init()
 
 #pragma region インデックスを求める
 	{
-		static const uint32_t INDEX_SET_ARRAY[] { 0,2,1,2,3,1 };
+		//static const uint32_t INDEX_SET_ARRAY[] { 0,2,1,2,3,1 };
+		static const uint32_t INDEX_SET_ARRAY[] { 0,2,3, 0,1,2 };
 		static const size_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(int) };
 
 		size_t polyCount{ (points_.size() - 1) * 2 };

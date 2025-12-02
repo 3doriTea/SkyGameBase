@@ -53,7 +53,7 @@ void CameraController::Update()
 		cursor.SetShow(true);
 	}
 
-	pCameraMove_->Update(System(), GetEntityId());
+	pCameraMove_->Update({ System(), GetEntityId() });
 
 	switch (mode_)
 	{
@@ -90,7 +90,7 @@ void CameraController::SetMode(const Mode _mode)
 
 	if (pCameraMove_)
 	{
-		pCameraMove_->End();
+		pCameraMove_->End({ System(), GetEntityId() });
 	}
 
 	SAFE_DELETE(pCameraMove_);
@@ -109,6 +109,6 @@ void CameraController::SetMode(const Mode _mode)
 
 	if (pCameraMove_)
 	{
-		pCameraMove_->Start();
+		pCameraMove_->Start({ System(), GetEntityId() });
 	}
 }

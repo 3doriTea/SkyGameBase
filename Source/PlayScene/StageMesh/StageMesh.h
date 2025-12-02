@@ -4,6 +4,9 @@
 
 using StagePoints = std::vector<Vector2>;
 
+/// <summary>
+/// 坂ステージのメッシュ情報
+/// </summary>
 class StageMesh : public wtgb::IMeshSimple
 {
 public:
@@ -61,6 +64,6 @@ private:
 	TextureHandle hTexture_;  // テクスチャのハンドル
 
 	ComPtr<ID3D11Buffer> pVertexBuffer_;    // 頂点バッファ
-	ComPtr<ID3D11Buffer> pIndexBuffer_;    // インデックスバッファ
+	ComPtr<ID3D11Buffer> pIndexBuffer_;     // インデックスバッファ
 	ComPtr<ID3D11Buffer> pConstantBuffer_;  // コンスタントバッファ
 };
