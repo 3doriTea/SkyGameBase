@@ -1,23 +1,25 @@
 #include "pch\pch.h"
 #include "CameraMovePlay.h"
 
-void CameraMovePlay::Start()
+void CameraMovePlay::Start(GameObjectReference _ref)
 {
 }
 
-void CameraMovePlay::Update(ViewerCached& _system, const EntityId _entityId)
+void CameraMovePlay::Update(GameObjectReference _ref)
 {
 	using namespace DirectX;
 
-	float dt{ _system.Get<GameTime>().GetDeltaTime() };
-	Camera& camera{ _system.Get<Camera>() };
-	Cursor& cursor{ _system.Get<Cursor>() };
-	const Input::InputGetter& input{ _system.Get<Input>().Getter() };
+	auto [systemView, entityId]{ _ref };
+
+	float dt{ systemView.Get<GameTime>().GetDeltaTime() };
+	Camera& camera{ systemView.Get<Camera>() };
+	Cursor& cursor{ systemView.Get<Cursor>() };
+	const Input::InputGetter& input{ systemView.Get<Input>().Getter() };
 
 	// カメラコントローラのゲームオブジェクトの情報
 
-	Transform* pTransform{ _system.Get<CPTransform>().Get(_entityId) };
-	GameObject* pGameObject{ _system.Get<CPGameObject>().Get(_entityId) };
+	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
+	GameObject* pGameObject{ systemView.Get<CPGameObject>().Get(entityId) };
 
 	GameObject* pPlayer{ pGameObject->FindGameObject("Player") };
 
@@ -114,6 +116,6 @@ void CameraMovePlay::Update(ViewerCached& _system, const EntityId _entityId)
 	camera.position_ = pTransform->GetPosition();
 }
 
-void CameraMovePlay::End()
+void CameraMovePlay::End(GameObjectReference _ref)
 {
 }

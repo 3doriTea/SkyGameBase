@@ -10,9 +10,9 @@ public:
 	CameraMovePlay() {}
 	~CameraMovePlay() {}
 
-	void Start() override;
-	void Update(ViewerCached& _system, const EntityId _entityId) override;
-	void End() override;
+	void Start(GameObjectReference _ref) override;
+	void Update(GameObjectReference _ref) override;
+	void End(GameObjectReference _ref) override;
 
 private:
 	

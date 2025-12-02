@@ -26,7 +26,7 @@ WaterSphere::WaterSphere(const Vector3 _localPos) : GameObject
 			.EndSetter()
 		.AddComponent<MeshRenderer>()
 			.BeginSetter()
-				.shader("Shader/Simple3D.hlsl")
+				.shader("Shader/WaterBall.hlsl")
 			.EndSetter()
 		.AddComponent<RigidBody>()
 			.BeginSetter()

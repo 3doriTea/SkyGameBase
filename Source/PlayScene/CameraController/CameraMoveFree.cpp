@@ -27,17 +27,44 @@ CameraMoveFree::~CameraMoveFree()
 {
 }
 
-void CameraMoveFree::Start()
+void CameraMoveFree::Start(GameObjectReference _ref)
 {
+	auto [systemView, entityId]{ _ref };
+
+	Cursor& cursor{ systemView.Get<Cursor>() };
+	cursor.SetCenterLock(false);
+	cursor.SetShow(true);
 }
 
-void CameraMoveFree::Update(ViewerCached& _system, const EntityId _entityId)
+void CameraMoveFree::Update(GameObjectReference _ref)
 {
-	float dt{ _system.Get<GameTime>().GetDeltaTime() };
-	Camera& camera{ _system.Get<Camera>() };
-	Cursor& cursor{ _system.Get<Cursor>() };
-	const Input::InputGetter& input{ _system.Get<Input>().Getter() };
-	Transform* pTransform{ _system.Get<CPTransform>().Get(_entityId) };
+	auto [systemView, entityId]{ _ref };
+
+	float dt{ systemView.Get<GameTime>().GetDeltaTime() };
+	Camera& camera{ systemView.Get<Camera>() };
+	Cursor& cursor{ systemView.Get<Cursor>() };
+	const Input::InputGetter& input{ systemView.Get<Input>().Getter() };
+	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
+
+	// マウスカーソルの制御
+	
+	if (input.IsMouseDown(MouseCode::Left))
+	{
+		cursor.SetCenterLock(true);
+		cursor.SetShow(false);
+		isDragging_ = true;
+
+	}
+	if (input.IsMouseUp(MouseCode::Left))
+	{
+		isDragging_ = false;
+	}
+	if (input.IsKeyDown(KeyCode::Escape))
+	{
+		cursor.SetCenterLock(false);
+		cursor.SetShow(true);
+	}
+
 
 	// マウス移動量をカメラの角度に適用
 	Vector3 angles{ pTransform->GetRotation() };
@@ -89,6 +116,6 @@ void CameraMoveFree::Update(ViewerCached& _system, const EntityId _entityId)
 	camera.position_ = pTransform->GetPosition();
 }
 
-void CameraMoveFree::End()
+void CameraMoveFree::End(GameObjectReference _ref)
 {
 }
