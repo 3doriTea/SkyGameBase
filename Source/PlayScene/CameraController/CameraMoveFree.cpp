@@ -81,7 +81,7 @@ void CameraMoveFree::Update(ViewerCached& _system, const EntityId _entityId)
 
 	cameraPos = cameraPos + DirectX::XMVector3TransformCoord(
 		move * (dt * (MOVE_SPEED_PER_SEC + (MOVE_SPEED_PER_SEC * speedBoost_))),
-		Transform().GetNormalMatrix());
+		pTransform->GetNormalMatrix());
 
 	pTransform->SetPosition(cameraPos);
 

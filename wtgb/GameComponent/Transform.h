@@ -7,6 +7,7 @@ namespace wtgb
 	class COMPONENT(Transform)
 	{
 		friend CPTransform;
+		friend ComponentPool<Transform>;
 	public:
 		class SETTER(Transform)
 		{

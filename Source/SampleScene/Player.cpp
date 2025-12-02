@@ -68,7 +68,7 @@ void Player::Update()
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	RigidBody& rb{ GetComponent<RigidBody>() };
 
-	LOGFLN("“–‚½‚Á‚Ä{}", rb.IsHit() ? "‚¢‚é" : "‚¢‚È‚¢");
+	//LOGFLN("“–‚½‚Á‚Ä{}", rb.IsHit() ? "‚¢‚é" : "‚¢‚È‚¢");
 
 	std::vector<Collider*> hitColliders{};
 	rb.GetHitColliders(&hitColliders);

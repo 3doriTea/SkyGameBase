@@ -253,7 +253,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 		// 接点座標
 		Vector2 p{};
-		const float V_LEN_SQ{ XMVectorGetX(XMVector3LengthSq(V)) };
+		const float V_LEN_SQ{ XMVectorGetX(XMVector2LengthSq(V)) };
 		if (V_LEN_SQ <= FLT_EPSILON)
 		{
 			p = P1;
@@ -275,7 +275,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		// 接点から円中心への差分ベクトル
 		const Vector2 D{ C - p };
 		// 距離の2乗
-		const float DIST2{ XMVectorGetX(XMVector3LengthSq(D)) };
+		const float DIST2{ XMVectorGetX(XMVector2LengthSq(D)) };
 		// 半径の2乗
 		const float R2{ RADIUS * RADIUS };
 
@@ -291,6 +291,11 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 				_pCollisionInfo->distance = 0.0f;
 			}
 			_pCollisionInfo->depth = RADIUS - _pCollisionInfo->distance;
+
+			/*if (_pCollisionInfo->depth < 0.0f)
+			{
+				_pCollisionInfo->depth = -_pCollisionInfo->depth;
+			}*/
 
 			if (_pCollisionInfo->distance > FLT_EPSILON)
 			{
@@ -311,7 +316,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		if (DIST2 <= R2 + FLT_EPSILON)
 		{
 			isHit = true;
-			LOGFLN("線分に当たっている");
+			LOGFLN("線分に当たっている({}to{})", i, i + 1);
 			if (_pCollisionInfo)
 			{
 				_pCollisionInfo->isHit = true;
@@ -322,27 +327,69 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		if (C.y < min(P1.y, P2.y))
 		{
 			isHit = true;
-			LOGFLN("区間内の下にいる");
+			LOGFLN("区間内の下にいる({}to{})", i, i + 1);
 			if (_pCollisionInfo)
 			{
+				_pCollisionInfo->normal = Vector3::Up();
+				_pCollisionInfo->depth = 
 				_pCollisionInfo->isHit = true;
 			}
 			continue;
 			//return true;  // 当たっている
 		}
 
-		// 球が下にいるかフィルタ
-		if (C.y <= p.y)
+		//// 球が下にいるかフィルタ
+		//if (C.y <= p.y)
+		//{
+		//	isHit = true;
+		//	LOGFLN("下にいる");
+		//	if (_pCollisionInfo)
+		//	{
+		//		_pCollisionInfo->normal = _pCollisionInfo->normal * -1.0f;
+		//		_pCollisionInfo->isHit = true;
+		//	}
+		//	continue;
+		//	//return true;  // 埋まっているなら当たっている
+		//}
+
+		// 線分に垂直な上方向ベクトル
+		Vector2 vertical{ -V.y, V.x };
+
+		// 垂直な上方向ベクトルと球へのベクトルの内積で上下判定
+		/*if (XMVectorGetX(XMVector2Dot(W, vertical)) <= 0.0f)
 		{
 			isHit = true;
-			LOGFLN("下にいる");
+			LOGFLN("下にいるよ 内積");
 			if (_pCollisionInfo)
 			{
 				_pCollisionInfo->normal = _pCollisionInfo->normal * -1.0f;
 				_pCollisionInfo->isHit = true;
 			}
 			continue;
-			//return true;  // 埋まっているなら当たっている
+		}*/
+
+		{
+			const Vector2 AC = W;
+			const Vector2 D = V;
+
+			float signedDistance{ (AC.x * D.y - AC.y * D.x) / XMVectorGetX(XMVector2Length(D)) };
+			if (signedDistance > 0.0f)  // 線分の下に居る
+			{
+				const float MOVE_DELTA{ RADIUS - signedDistance };
+
+				const Vector2 NORM_2D{ XMVector2Normalize(Vector2{ -D.y, D.x }) };
+				isHit = true;
+
+				// 当たり判定情報があるなら返す
+				if (_pCollisionInfo)
+				{
+					_pCollisionInfo->normal = { 0.0f, NORM_2D.y, NORM_2D.x };
+					_pCollisionInfo->depth = MOVE_DELTA;
+					_pCollisionInfo->isHit = true;
+				}
+
+				continue;
+			}
 		}
 	}
 

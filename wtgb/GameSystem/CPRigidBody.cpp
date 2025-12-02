@@ -137,6 +137,7 @@ void wtgb::CPRigidBody::Update()
 							_rb.velocity_ = r;
 
 							_rb.push_ = N * collisionInfo.depth;
+							LOGFLN("depth={}", collisionInfo.depth);
 						}
 					});
 				break;
