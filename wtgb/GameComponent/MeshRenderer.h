@@ -1,6 +1,7 @@
 #pragma once
 #include "CommonGameComponent.h"
 #include "GameSystem/CPMeshRenderer.h"
+#include "GameSystem/ResourceSystem/TextureConfig.h"
 
 namespace wtgb
 {
@@ -15,7 +16,7 @@ namespace wtgb
 
 			SETTER_PARAM(std::string, shader)
 			SETTER_PARAM(std::string, texture)
-			SETTER_PARAM(TextureHandle, hTexture)
+			SETTER_PARAM(TextureConfig, textureConfig)
 		};
 
 	public:	
@@ -31,5 +32,7 @@ namespace wtgb
 
 		ShaderHandle  hShader_;
 		TextureHandle hTexture_;
+
+		TextureConfig textureConfig_;
 	};
 }

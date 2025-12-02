@@ -23,7 +23,14 @@ StageLine::StageLine() : GameObject
 			.AddComponent<MeshRenderer>()
 				.BeginSetter()
 					.shader("Shader/StageMesh.hlsl")
-					.texture("GroundTexture.png")
+					.textureConfig(
+						{
+							.fileName = "GroundTexture.png",
+							.filer = D3D11_FILTER_MIN_MAG_MIP_POINT,
+							.addressMode = D3D11_TEXTURE_ADDRESS_WRAP,
+							.format = DXGI_FORMAT_R8G8B8A8_UNORM,
+							.dimension = D3D11_SRV_DIMENSION_TEXTURE2D,
+						})
 				.EndSetter()
 			.AddComponent<Collider>()
 				.BeginSetter()

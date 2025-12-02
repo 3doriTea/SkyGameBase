@@ -101,6 +101,7 @@
     <ClInclude Include="wtgb\GameSystem\Model.h" />
     <ClInclude Include="wtgb\GameSystem\Path.h" />
     <ClInclude Include="wtgb\GameSystem\ResourceSystem.h" />
+    <ClInclude Include="wtgb\GameSystem\ResourceSystem\TextureConfig.h" />
     <ClInclude Include="wtgb\GameSystem\ShaderCompile\Shader.h" />
     <ClInclude Include="wtgb\Utility\IResource.h" />
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\Material.h" />

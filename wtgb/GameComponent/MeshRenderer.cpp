@@ -7,7 +7,8 @@
 wtgb::MeshRenderer::MeshRenderer() :
 	hShader_{ INVALID_HANDLE },
 	hTexture_{ INVALID_HANDLE },
-	texture_{}
+	texture_{},
+	textureConfig_{}
 {
 }
 
@@ -38,9 +39,14 @@ void wtgb::MeshRenderer::Init(ViewerCached _system)
 			.backIsClockwise = false,
 		});
 
-	// テクスチャのファイル名が指定されているなら自動読み込み
+	// テクスチャのファイル名が"指定されている"なら設定して読み込み
 	if (texture_.empty() == false)
 	{
 		hTexture_ = _system.Get<ResourceSystem>().LoadTexture(texture_);
+	}
+	// テクスチャ読み込み設定がされているなら、設定から読み込む
+	else if (textureConfig_.fileName.empty() == false)
+	{
+		hTexture_ = _system.Get<ResourceSystem>().LoadTexture(textureConfig_);
 	}
 }
