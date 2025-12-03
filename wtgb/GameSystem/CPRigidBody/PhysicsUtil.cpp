@@ -222,6 +222,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 	float time{};
 	CollisionInfo collisionInfo{};
 
+	LOGF("区間");
 	for (int i = 0; i < points.size() - 1; i++)
 	{
 		// 円中心座標
@@ -236,6 +237,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		{
 			continue;  // 範囲外なら確実に当たらない
 		}
+		LOGF("{},", i);
 
 		// 線分ベクトル
 		const Vector2 V{ P2 - P1 };
