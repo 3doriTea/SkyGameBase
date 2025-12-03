@@ -34,7 +34,7 @@ void WaterMesh::Init()
 
 #pragma region インデックス
 	
-	for (int i = 0; i < indexCount_; i++)
+	for (uint32_t i = 0; i < indexCount_; i++)
 	{
 		
 	}
@@ -54,15 +54,15 @@ void WaterMesh::UpdateWaveVertex()
 	// 頂点ず
 	vertices.resize(SIZE_.x * SIZE_.y, Vertex{});
 
-	for (int y = 0; y < SIZE_.y; y++)
-	{
-		for (int x = 0; x < SIZE_.x; x++)
-		{
-			Vertex v
-			{
-				//.normal =
-			};
-			points_[y * SIZE_.x + x];
-		}
-	}
+	//for (int y = 0; y < SIZE_.y; y++)
+	//{
+	//	for (int x = 0; x < SIZE_.x; x++)
+	//	{
+	//		Vertex v
+	//		{
+	//			//.normal =
+	//		};
+	//		points_[y * SIZE_.x + x];
+	//	}
+	//}
 }
