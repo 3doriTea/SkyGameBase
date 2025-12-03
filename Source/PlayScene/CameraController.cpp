@@ -29,7 +29,8 @@ CameraController::CameraController() : GameObject
 	}
 },
 	mode_{ Mode::Free },
-	lookTarget_{ INVALID_ENTITY }
+	lookTarget_{ INVALID_ENTITY },
+	pCameraMove_{ nullptr }
 {
 }
 

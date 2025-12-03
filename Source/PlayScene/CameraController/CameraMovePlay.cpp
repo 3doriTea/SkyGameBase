@@ -1,6 +1,12 @@
 #include "pch\pch.h"
 #include "CameraMovePlay.h"
 
+namespace
+{
+	// プレイヤーまでの距離
+	const float TO_PLAYER_DISTANCE{ 30.0f };
+}
+
 void CameraMovePlay::Start(GameObjectReference _ref)
 {
 }
@@ -22,6 +28,22 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	GameObject* pGameObject{ systemView.Get<CPGameObject>().Get(entityId) };
 
 	GameObject* pPlayer{ pGameObject->FindGameObject("Player") };
+
+	// マウスカーソルの制御
+	if (input.IsMouseDown(MouseCode::Left))
+	{
+		cursor.SetCenterLock(true);
+		cursor.SetShow(false);
+		isDragging_ = true;
+
+	}
+	if (input.IsMouseUp(MouseCode::Left) || input.IsKeyDown(KeyCode::Escape))
+	{
+		cursor.SetCenterLock(false);
+		cursor.SetShow(true);
+		isDragging_ = false;
+	}
+
 
 #if 0
 	{  // 振動
@@ -103,7 +125,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		pTransform->SetRotation(rotation);
 	}
 
-	if (XMVectorGetX(XMVector3Length(toPlayerDiff)) > 30.0f)
+	if (XMVectorGetX(XMVector3Length(toPlayerDiff)) > TO_PLAYER_DISTANCE)
 	{
 		Vector3 position{ pTransform->GetPositionWorld() };
 

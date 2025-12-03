@@ -6,6 +6,13 @@
 /// </summary>
 class CameraMovePlay : public ICameraMove
 {
+private:
+	enum struct ControlMode
+	{
+		MoveView,    // 視点移動
+		MovePlayer,  // プレイヤー操作
+	};
+
 public:
 	CameraMovePlay() {}
 	~CameraMovePlay() {}
@@ -15,5 +22,6 @@ public:
 	void End(GameObjectReference _ref) override;
 
 private:
-	
+	bool isDragging_;          // マウスがドラッグ中か
+	ControlMode controlMode_;  // マウスをドラッグ中の操作モード
 };

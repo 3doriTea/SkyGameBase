@@ -44,25 +44,15 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 	Camera& camera{ systemView.Get<Camera>() };
 	Cursor& cursor{ systemView.Get<Cursor>() };
 	const Input::InputGetter& input{ systemView.Get<Input>().Getter() };
+
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
 
 	// マウスカーソルの制御
-	
-	if (input.IsMouseDown(MouseCode::Left))
+	if (input.IsKeyDown(KeyCode::B))
 	{
 		cursor.SetCenterLock(true);
 		cursor.SetShow(false);
-		isDragging_ = true;
 
-	}
-	if (input.IsMouseUp(MouseCode::Left))
-	{
-		isDragging_ = false;
-	}
-	if (input.IsKeyDown(KeyCode::Escape))
-	{
-		cursor.SetCenterLock(false);
-		cursor.SetShow(true);
 	}
 
 

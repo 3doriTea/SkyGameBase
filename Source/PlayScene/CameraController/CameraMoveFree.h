@@ -6,12 +6,6 @@
 /// </summary>
 class CameraMoveFree : public ICameraMove
 {
-private:
-	enum struct ControlMode
-	{
-		MoveView,    // 視点移動
-		MovePlayer,  // プレイヤー操作
-	};
 public:
 	CameraMoveFree();
 	~CameraMoveFree();
@@ -30,7 +24,5 @@ public:
 	void End(GameObjectReference _ref) override;
 
 private:
-	bool isDragging_;          // マウスがドラッグ中か
-	ControlMode controlMode_;  // マウスをドラッグ中の操作モード
 	float speedBoost_;         // 左シフトキー押しながらで加速する倍率
 };
