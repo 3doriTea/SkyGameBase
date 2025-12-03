@@ -31,6 +31,13 @@ wtgb::Result wtgb::Camera::Init(const ViewerInit& _viewer)
 void wtgb::Camera::Update(const ViewerUpdate& _system)
 {
 	using DirectX::XMMatrixLookAtLH;
+	using DirectX::XMVectorGetX;
+	using DirectX::XMVector3Length;
+
+	if (XMVectorGetX(XMVector3Length(position_ - targetPosition_)) <= FLT_EPSILON)
+	{
+		return;  // カメラと注視点の距離がほぼ0なら更新しない
+	}
 
 	viewMatrix_ = XMMatrixLookAtLH(
 		position_,

@@ -39,7 +39,7 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 				.bounciness(1.0f)
 				.useGravity(true)
 				//.drag(0.981f)
-				.velocity({ 0, 0, 0.0f })
+				.velocity({ 0, 0.0f, 0.0f })
 				.angularVelocity({ 0.0f, 0, 0 })
 			.EndSetter()
 		.AddComponent<Collider>()
@@ -69,6 +69,11 @@ void Player::Update()
 	RigidBody& rb{ GetComponent<RigidBody>() };
 
 	//LOGFLN("“–‚½‚Á‚Ä{}", rb.IsHit() ? "‚¢‚é" : "‚¢‚È‚¢");
+
+	if (input.IsKeyDown(KeyCode::Space))
+	{
+		rb.AddVelocity({ 0.0f, -500.0f, 0.0f });
+	}
 
 	std::vector<Collider*> hitColliders{};
 	rb.GetHitColliders(&hitColliders);

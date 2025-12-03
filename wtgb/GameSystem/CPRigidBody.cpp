@@ -43,6 +43,8 @@ void wtgb::CPRigidBody::Update()
 	ForEach([this, &cpTransform, &cpGameObject, &cpCollider, DT](RigidBody& _rb, const size_t _index)
 		{
 			_rb.ClearHitCollider();
+			float prevT{ FLT_MAX };
+
 			_rb.push_ = Vector3::Zero();
 
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
@@ -90,7 +92,7 @@ void wtgb::CPRigidBody::Update()
 			case Collider::Type::Section:
 				break;
 			case Collider::Type::Sphere:
-				cpCollider.ForEach([&_rb, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex)
+				cpCollider.ForEach([&_rb, &prevT, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex)
 					{
 						if (_index == _otherIndex)
 						{
@@ -107,6 +109,9 @@ void wtgb::CPRigidBody::Update()
 						CollisionInfo collisionInfo{};
 						if (PhysicsUtil::IsHitFromSphere(&selfSet, &otherSet, &collisionInfo))
 						{
+							// 2次元で当たり判定をしているため、x軸に関しては別
+							collisionInfo.hitPoint.x = _rb.prevPosition_.x;
+
 							// 当たったコライダーとして追加
 							_rb.AddHitCollider(otherSet.pCollider);
 
@@ -122,22 +127,37 @@ void wtgb::CPRigidBody::Update()
 							// 壁刷りベクトル
 							//Vector3 r{ V - 2.0f * XMVectorGetX(XMVector3Dot(V, N)) * N };
 
+							// 進入中の座標
+							const Vector3 CURR_POS{ selfSet.pTransform->GetPositionWorld() };
+
+							// 当たった座標
+							const Vector3 POS{ collisionInfo.hitPoint };
+							// 侵入する前の座標
+							const Vector3 P0{ _rb.prevPosition_ };
+
+							// 壁に当たるまでのベクトル
+							Vector3 diff{ POS - P0 };
+
+							//float t{ XMVectorGetX(XMVector3Length(diff)) / XMVectorGetX(XMVector3Length(V)) };
+							
+							// 当たった先まで進んだベクトル
+							Vector3 ret{ V - diff };
+
+							float currT{ XMVectorGetX(XMVector3Length(ret)) };
+							if (prevT >= currT)
+							{
+								prevT = currT;
+								_rb.push_ = N * collisionInfo.depth;
+							}
+
 							// 反射ベクトル
 							// REF: http://marupeke296.com/COL_Basic_No5_WallVector.html
 							// MEMO: r = v + 2 * a * n(normal)
-							Vector3 r{ V + 2.0f * E * N };
+							//Vector3 r{ V + 2.0f * E * N };
+							Vector3 r{ ret + 2.0f * E * N };
 
-							//float cos{ XMVectorGetX(XMVector3Dot(_rb.velocity_, r)) };
-							//if (cos < 0.9f)
-							//{
-							//	//float length{ XMVectorGetX(XMVector3Length(_rb.velocity_)) };
-							//	//_rb.velocity_ = Vector3{ XMVector3Normalize(_rb.velocity_ + r) } * length;
-							//}
-							//else
 							_rb.velocity_ = r;
 
-							_rb.push_ = N * collisionInfo.depth;
-							LOGFLN("depth={}", collisionInfo.depth);
 						}
 					});
 				break;
@@ -148,6 +168,7 @@ void wtgb::CPRigidBody::Update()
 			//if (collisionInfo.depth > FLT_EPSILON)
 			{
 				Vector3 position{ selfSet.pTransform->GetPosition() };
+				_rb.prevPosition_ = position;
 				position = position + _rb.push_;
 				selfSet.pTransform->SetPosition(position);
 			}

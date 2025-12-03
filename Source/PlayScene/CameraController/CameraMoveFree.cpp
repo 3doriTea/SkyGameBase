@@ -52,7 +52,6 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 	{
 		cursor.SetCenterLock(true);
 		cursor.SetShow(false);
-
 	}
 
 

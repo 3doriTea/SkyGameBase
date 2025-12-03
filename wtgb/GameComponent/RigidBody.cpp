@@ -12,7 +12,8 @@ wtgb::RigidBody::RigidBody() :
 	bounciness_{ 1.0f },
 	useGravity_{ false },
 	onHitCollidersCount_{ 0 },
-	onHitColliders_{}
+	onHitColliders_{},
+	prevPosition_{ Vector3::Zero() }
 {
 
 }

@@ -46,12 +46,22 @@ void PlayScene::Start()
 
 	Mathf::Randomer random{};
 
-	for (int i = 0; i < 10; i++)
+#if 1
+	for (int i = 0; i < 0; i++)
 	{
-		float r{ random.Rand() };
-		Instantiate<WaterSphere>(Vector3{ r * 300.0f + 50.0f, 5.0f, 5.0f });
+		float r1{ random.Rand() };
+		float r2{ random.Rand() };
+		Instantiate<WaterSphere>(Vector3{ r1 * 300.0f + 50.0f, 5.0f, r2 * 10.0f });
+	}
+#else
+	for (int i = 0; i < 100; i++)
+	{
+		float r1{ random.Rand() };
+		float r2{ random.Rand() };
+		Instantiate<WaterSphere>(Vector3{ r1 * 300.0f + 50.0f, 5.0f, r2 * 10.0f });
 		//Instantiate<WaterSphere>(Vector3{ 50.0f, 5.0f + i, 5.0f });
 	}
+#endif
 
 	//for (int k = 0; k < 20; k++)
 	//{

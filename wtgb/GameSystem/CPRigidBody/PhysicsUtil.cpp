@@ -281,6 +281,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 		if (_pCollisionInfo)
 		{
+			_pCollisionInfo->hitPoint = { 0.0f, p.y, p.x };
 			_pCollisionInfo->isHit = false;
 			if (DIST2 > FLT_EPSILON)
 			{
@@ -331,7 +332,9 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			if (_pCollisionInfo)
 			{
 				_pCollisionInfo->normal = Vector3::Up();
-				_pCollisionInfo->depth = 
+				
+				//_pCollisionInfo->depth = 
+				//_pCollisionInfo->hitPoint =   // TODO: ‹æŠÔ“à‚Ì‰º‚É‚¢‚éê‡A’¼ã‚ÌÀ•W‚ð“–‚½‚Á‚½À•W‚É‚·‚é
 				_pCollisionInfo->isHit = true;
 			}
 			continue;

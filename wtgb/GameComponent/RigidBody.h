@@ -101,5 +101,7 @@ namespace wtgb
 		size_t onHitCollidersCount_;  // 当たっているコライダ数
 		// 当たっているコライダ一覧
 		std::array<Collider*, HIT_COLLIDER_BUFFER_SIZE> onHitColliders_;
+
+		Vector3 prevPosition_;  // 前回計算時のワールド座標
 	};
 }
