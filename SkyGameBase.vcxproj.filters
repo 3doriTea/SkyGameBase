@@ -339,6 +339,21 @@
     <ClInclude Include="wtgb\GameSystem\ResourceSystem\TextureConfig.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\WaterPlane.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\WaterPlane\WaterMesh.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\WaterSphere.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Utility\Mathf.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\DebugPoint.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -527,6 +542,21 @@
     <ClCompile Include="Source\PlayScene\CameraController\CameraMovePlay.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\WaterPlane.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\WaterPlane\WaterMesh.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\WaterSphere.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\Utility\Mathf.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\DebugPoint.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -557,5 +587,6 @@
     <FxCompile Include="Assets\Shader\StageMesh.hlsl" />
     <FxCompile Include="Assets\Shader\BillBoard.hlsl" />
     <FxCompile Include="Assets\Shader\Debug.hlsl" />
+    <FxCompile Include="Assets\Shader\WaterBall.hlsl" />
   </ItemGroup>
 </Project>

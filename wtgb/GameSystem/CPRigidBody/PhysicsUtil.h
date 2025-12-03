@@ -25,6 +25,8 @@ namespace wtgb
 		Vector3 hitPoint;  // Ú“_
 		Vector3 normal;    // “–‚½‚Á‚½‚Æ‚«‚Ì–@ü
 		float depth;       // –„‚ß‚İ[‚³
+
+		Vector3 push;  // ‰Ÿ‚µo‚µ
 	};
 
 	class PhysicsUtil

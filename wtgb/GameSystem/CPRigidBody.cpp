@@ -136,9 +136,11 @@ void wtgb::CPRigidBody::Update()
 							const Vector3 P0{ _rb.prevPosition_ };
 
 							// 壁に当たるまでのベクトル
-							Vector3 diff{ POS - P0 };
+							Vector3 diff{ POS - CURR_POS };
 
-							//float t{ XMVectorGetX(XMVector3Length(diff)) / XMVectorGetX(XMVector3Length(V)) };
+
+							// 進入t
+							float t{ XMVectorGetX(XMVector3Length(diff)) / XMVectorGetX(XMVector3Length(V)) };
 							
 							// 当たった先まで進んだベクトル
 							Vector3 ret{ V - diff };

@@ -123,6 +123,7 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 
 bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* _pOther, CollisionInfo* _pCollisionInfo)
 {
+#pragma region コライダーセット確認
 	if (!_pSelfSphere || !_pOther)
 	{
 		wassert(false && "コライダセットがnullptrだった");
@@ -157,6 +158,7 @@ bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* 
 		// 自身のコライダーが不一致
 		return IsHit(_pSelfSphere, _pOther);
 	}
+#pragma endregion
 
 	switch (_pOther->pCollider->GetColliderType())
 	{
@@ -173,6 +175,7 @@ bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* 
 
 bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet* _pSection, CollisionInfo* _pCollisionInfo)
 {
+#pragma region コライダーセット確認
 	using namespace DirectX;
 
 	if (!_pSphere || !_pSection)
@@ -207,6 +210,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		wassert(false && "コライダタイプが不一致");
 		return false;
 	}
+#pragma endregion
 
 	// 円の中心ワールド座標
 	Vector3 worldCenterPos{ XMVector3TransformCoord(_pSphere->pCollider->sphere.center, _pSphere->pTransform->GetWorldMatrix()) };
@@ -215,7 +219,9 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 	// 円の半径
 	const float RADIUS{ _pSphere->pCollider->sphere.radius };
 
-	bool isHit{ false };
+	float time{};
+	CollisionInfo collisionInfo{};
+
 	for (int i = 0; i < points.size() - 1; i++)
 	{
 		// 円中心座標
@@ -225,25 +231,89 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		// 線分終点座標
 		const Vector2 P2{ points[i + 1] };
 
-		if (isHit)
+		// yで区切ったときの区画フィルタ
+		if ((C.x - RADIUS) < P1.x || P2.x < (C.x + RADIUS))
 		{
-			// 当たっているならこの周回で最後にする
-			i = static_cast<int>(points.size());
+			continue;  // 範囲外なら確実に当たらない
+		}
 
-			// Z+の方向だけ半径プラスして当たり判定
-			if ((C.x + RADIUS) < P1.x || P2.x < (C.x - RADIUS))
-			{
-				// 広めにしても当っていないなら無視
-				continue;
-			}
+		// 線分ベクトル
+		const Vector2 V{ P2 - P1 };
+		// 始点から円中心へのベクトル
+		const Vector2 W{ C - P1 };
+
+		// 接点座標
+		Vector2 p{};
+		const float V_LEN_SQ{ XMVectorGetX(XMVector2LengthSq(V)) };
+		if (V_LEN_SQ <= FLT_EPSILON)
+		{
+			p = P1;
 		}
 		else
 		{
-			// yで区切ったときの区画フィルタ
-			if ((C.x - RADIUS) < P1.x || P2.x < (C.x + RADIUS))
+			float t{ (W.x * V.x + W.y * V.y) / V_LEN_SQ };
+			if (t < 0.0f)
 			{
-				continue;  // 範囲外なら確実に当たらない
+				t = 0.0f;
 			}
+			else if (t > 1.0f)
+			{
+				t = 1.0f;
+			}
+			p = P1 + Vector2{ t, t } * V;
+		}
+
+		// 接点のワールド座標
+		collisionInfo.hitPoint = { worldCenterPos.x, p.y, p.x };
+
+		// 接点から円中心への差分ベクトル
+		const Vector2 D{ C - p };
+		// 距離の2乗
+		const float DIST2{ XMVectorGetX(XMVector2LengthSq(D)) };
+		// 半径の2乗
+		const float R2{ RADIUS * RADIUS };
+
+		// 距離が ほぼ0 ではないなら
+		if (DIST2 > FLT_EPSILON)
+		{
+			// 平方根とって距離求める
+			collisionInfo.distance = std::sqrtf(DIST2);
+		}
+		else
+		{
+			collisionInfo.distance = 0.0f;
+		}
+
+
+	}
+
+	for (int i = 0; i < points.size() - 1; i++)
+	{
+		// 円中心座標
+		const Vector2 C{ worldCenterPos.z, worldCenterPos.y };
+		// 線分始点座標
+		const Vector2 P1{ points[i] };
+		// 線分終点座標
+		const Vector2 P2{ points[i + 1] };
+
+		//if (isHit)
+		//{
+		//	// 当たっているならこの周回で最後にする
+		//	i = static_cast<int>(points.size());
+		//
+		//	// Z+の方向だけ半径プラスして当たり判定
+		//	if ((C.x + RADIUS) < P1.x || P2.x < (C.x - RADIUS))
+		//	{
+		//		// 広めにしても当っていないなら無視
+		//		continue;
+		//	}
+		//}
+		//else
+			
+		// yで区切ったときの区画フィルタ
+		if ((C.x - RADIUS) < P1.x || P2.x < (C.x + RADIUS))
+		{
+			continue;  // 範囲外なら確実に当たらない
 		}
 
 		// 線分ベクトル
@@ -293,11 +363,6 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			}
 			_pCollisionInfo->depth = RADIUS - _pCollisionInfo->distance;
 
-			/*if (_pCollisionInfo->depth < 0.0f)
-			{
-				_pCollisionInfo->depth = -_pCollisionInfo->depth;
-			}*/
-
 			if (_pCollisionInfo->distance > FLT_EPSILON)
 			{
 				// 2Dから3Dへ変換する
@@ -316,60 +381,30 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 		if (DIST2 <= R2 + FLT_EPSILON)
 		{
-			isHit = true;
 			LOGFLN("線分に当たっている({}to{})", i, i + 1);
 			if (_pCollisionInfo)
 			{
 				_pCollisionInfo->isHit = true;
 			}
-			continue;
 		}
 
-		if (C.y < min(P1.y, P2.y))
+		float minY{ min(P1.y, P2.y) };
+		if (C.y < minY)
 		{
-			isHit = true;
 			LOGFLN("区間内の下にいる({}to{})", i, i + 1);
 			if (_pCollisionInfo)
 			{
 				_pCollisionInfo->normal = Vector3::Up();
 				
-				//_pCollisionInfo->depth = 
+				_pCollisionInfo->depth = C.y - RADIUS - minY;
+				//_pCollisionInfo->distance
 				//_pCollisionInfo->hitPoint =   // TODO: 区間内の下にいる場合、直上の座標を当たった座標にする
 				_pCollisionInfo->isHit = true;
 			}
-			continue;
-			//return true;  // 当たっている
 		}
-
-		//// 球が下にいるかフィルタ
-		//if (C.y <= p.y)
-		//{
-		//	isHit = true;
-		//	LOGFLN("下にいる");
-		//	if (_pCollisionInfo)
-		//	{
-		//		_pCollisionInfo->normal = _pCollisionInfo->normal * -1.0f;
-		//		_pCollisionInfo->isHit = true;
-		//	}
-		//	continue;
-		//	//return true;  // 埋まっているなら当たっている
-		//}
 
 		// 線分に垂直な上方向ベクトル
 		Vector2 vertical{ -V.y, V.x };
-
-		// 垂直な上方向ベクトルと球へのベクトルの内積で上下判定
-		/*if (XMVectorGetX(XMVector2Dot(W, vertical)) <= 0.0f)
-		{
-			isHit = true;
-			LOGFLN("下にいるよ 内積");
-			if (_pCollisionInfo)
-			{
-				_pCollisionInfo->normal = _pCollisionInfo->normal * -1.0f;
-				_pCollisionInfo->isHit = true;
-			}
-			continue;
-		}*/
 
 		{
 			const Vector2 AC = W;
@@ -381,7 +416,6 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 				const float MOVE_DELTA{ RADIUS - signedDistance };
 
 				const Vector2 NORM_2D{ XMVector2Normalize(Vector2{ -D.y, D.x }) };
-				isHit = true;
 
 				// 当たり判定情報があるなら返す
 				if (_pCollisionInfo)
@@ -396,7 +430,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		}
 	}
 
-	return isHit;
+	return collisionInfo.isHit;
 }
 
 bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet* _pSphereB, CollisionInfo* _pCollisionInfo)
