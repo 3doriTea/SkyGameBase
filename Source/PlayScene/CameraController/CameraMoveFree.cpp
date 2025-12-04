@@ -54,6 +54,13 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 		cursor.SetShow(false);
 	}
 
+	if (cursor.IsCenterLock() == false || cursor.IsShow())
+	{
+		// 片方がうまく動作していないならカメラ移動無効化
+		/*cursor.SetShow(true);
+		cursor.SetCenterLock(false);*/
+		return;
+	}
 
 	// マウス移動量をカメラの角度に適用
 	Vector3 angles{ pTransform->GetRotation() };

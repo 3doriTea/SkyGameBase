@@ -262,25 +262,34 @@ void CircleBodyVSSegment(
 
 	info.hitPoint = { 0.0f, point2D.y, point2D.x };
 
-	// 当たっているなら押し出しと時刻を返す
-	Vector2 push2D{};
-
 	if (info.isHit)
 	{
+		// 当たっているなら押し出しと時刻を返す
+		Vector2 push2D{};
+
+
 		// 1フレームで移動
 		const Vector2 MOVE{ NEXT_CENTER - CURR_CENTER };
 		
 		// 円の中心から最近接点
 		const Vector2 CENTER_TO_POINT{ point2D - CURR_CENTER };
 
+		// 反発する方向
+		Vector2 retDir{ XMVector2Normalize(CENTER_TO_POINT * -1.0f) };
+
+		if (XMVectorGetX(XMVector2LengthSq(retDir)) <= FLT_EPSILON)
+		{
+			retDir = Vector2::Up();
+		}
+
 		// 半径分戻すベクトル
-		const Vector2 RET_RADIUS{ XMVector2Normalize(CENTER_TO_POINT * -1.0f) * _circleBody.radius };
+		const Vector2 RET_RADIUS{ retDir * _circleBody.radius };
 
 		// 半径分戻したベクトル
 		const Vector2 TO_HIT_POS{ CENTER_TO_POINT + RET_RADIUS };
 
 		// 当たることが予定されるため動かす分
-		push2D = CURR_CENTER + TO_HIT_POS;
+		push2D = (NEXT_CENTER + TO_HIT_POS) - CURR_CENTER;
 
 		// 当たるまでの時間を取っておく
 		info.time = XMVectorGetX(XMVector2Length(MOVE - push2D));
@@ -295,6 +304,7 @@ void CircleBodyVSSegment(
 		const Vector2 R{ F - 2.0f * XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM)) * SEGMENT_NORM };
 
 		info.reflectionVelocity = { 0.0f, R.y, R.x };
+		info.push = { 0.0f, push2D.y, push2D.x };
 	}
 
 	// 当たり判定情報が必要なら渡す
@@ -360,6 +370,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 	float time{};
 	CollisionInfo bestInfo{};
+	bestInfo.time = FLT_MAX;
 
 	CircleBody circleBody
 	{
@@ -368,10 +379,8 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		.radius = _pSphere->pCollider->sphere.radius,
 	};
 
-	LOGFLN("区間");
 	for (int i = 0; i < points.size() - 1; i++)
 	{
-		LOGF(", {}:", i);
 		CollisionInfo info{};
 
 		CircleBodyVSSegment(
@@ -383,20 +392,25 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			},
 			&info);
 
-		if (info.depth >= 0.0f)
+		if (info.isHit)
 		{
-			LOGF("info.depth={}, .isHit={}", info.depth, info.isHit);
-		}
+			// 当たっているなら
 
-		if (info.time < bestInfo.time)  // 当たるまでの時間が短い方を適用
-		{
-			bestInfo = info;
+			if (info.time < bestInfo.time)  // 当たるまでの時間が短い方を適用
+			{
+				bestInfo = info;
+			}
+			else if (std::fabsf(info.time - bestInfo.time) <= FLT_EPSILON)  // 当たるまでの時間が同じなら
+			{
+				// TODO: いったんは無視
+				LOGF("同時に衝突");
+			}
 		}
-		else if (info.time == bestInfo.time)  // 当たるまでの時間が同じなら
-		{
-			// TODO: いったんは無視
-		}
-		LOGF("\n");
+	}
+
+	if (_pCollisionInfo)
+	{
+		*_pCollisionInfo = bestInfo;
 	}
 
 	return bestInfo.isHit;

@@ -37,7 +37,7 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 		.AddComponent<RigidBody>()
 			.BeginSetter()
 				.bounciness(1.0f)
-				.useGravity(false)
+				.useGravity(true)
 				//.drag(0.981f)
 				.velocity({ 0, 0.0f, 0.0f })
 				.angularVelocity({ 0.0f, 0, 0 })
