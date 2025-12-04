@@ -15,6 +15,12 @@ using DirectX::XMMatrixInverse;
 
 using DirectX::XMFLOAT3;
 
+namespace
+{
+	// 同時と判定する時間差 (秒)
+	const float SIMULTANEOUS_THRESHOLD_SEC{ 1.0f };
+}
+
 bool wtgb::PhysicsUtil::IsHit(ColliderSet* _pSelf, ColliderSet* _pOther)
 {
 	switch (_pSelf->pCollider->GetColliderType())
@@ -211,8 +217,8 @@ void CircleBodyVSSegment(
 	const Vector2 NEXT_CENTER{ CURR_CENTER + _circleBody.velocity };
 
 #pragma region 絶対に当たらない場合除外
-	const float CIRCLE_MAX_X{ max(CURR_CENTER.x, NEXT_CENTER.x) + _circleBody.radius };
-	const float CIRCLE_MIN_X{ min(CURR_CENTER.x, NEXT_CENTER.x) - _circleBody.radius };
+	const float CIRCLE_MAX_X{ max(CURR_CENTER.x, NEXT_CENTER.x) + (_circleBody.radius * 2.0f) };
+	const float CIRCLE_MIN_X{ min(CURR_CENTER.x, NEXT_CENTER.x) - (_circleBody.radius * 2.0f) };
 
 	if (CIRCLE_MAX_X < _section.begin.x || _section.end.x < CIRCLE_MIN_X)
 	{
@@ -416,8 +422,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 		if (info.isHit)  // 当たっているなら
 		{
-			//if (bestInfo.isHit == false)
-			if (!bestInfo.isHit)
+			if (bestInfo.isHit == false)
 			{
 				// 前の情報が当たっていないときなら必ず上書き
 				bestInfo = info;
@@ -426,12 +431,12 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			{
 				LOGFLN("時間差:{}", std::fabsf(info.time - bestInfo.time));
 
-				if (std::fabsf(info.time - bestInfo.time) <= 1.0f / 60.0f)  // 当たるまでの時間がほぼ同じなら
+				if (std::fabsf(info.time - bestInfo.time) <= SIMULTANEOUS_THRESHOLD_SEC)  // 当たるまでの時間がほぼ同じなら
 				{
 					// TODO: いったんは無視
 					LOGF("同時に衝突");
-					//bestInfo.push = bestInfo.push + info.push;
-					bestInfo.push = bestInfo.normal + info.normal;
+
+					bestInfo.push = bestInfo.push + info.push;
 					bestInfo.normal = XMVector3Normalize(bestInfo.normal + info.normal);
 					// ここはハーフいらないかも？
 					//bestInfo.push = XMVectorScale((bestInfo.push + info.push), 0.5f);
