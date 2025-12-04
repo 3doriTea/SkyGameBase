@@ -49,6 +49,8 @@ void CameraController::Update()
 {
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	Cursor& cursor{ System().Get<Cursor>() };
+	Camera& camera{ System().Get<Camera>() };
+
 
 	if (input.IsKeyDown(KeyCode::Escape))
 	{
@@ -57,6 +59,9 @@ void CameraController::Update()
 	}
 
 	pCameraMove_->Update({ System(), GetEntityId() });
+
+	camera.targetPosition_ = Transform().GetPosition() + Transform().GetForward();
+	camera.position_ = Transform().GetPosition();
 
 	switch (mode_)
 	{

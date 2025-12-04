@@ -5,6 +5,8 @@
 #include "GameComponent/RigidBody.h"
 #include "WTGBAssert.h"
 
+#include "GameSystem/Debug.h"
+
 using DirectX::XMVector3TransformCoord;
 //using DirectX::XMVector3Length;
 using DirectX::XMVector3LengthSq;  // ŒvZ‚ğÈ‚­
@@ -306,6 +308,8 @@ void CircleBodyVSSegment(
 		info.reflectionVelocity = { 0.0f, R.y, R.x };
 		info.push = { 0.0f, push2D.y, push2D.x };
 	}
+
+	Debug::DrawPoint(info.hitPoint);
 
 	// “–‚½‚è”»’èî•ñ‚ª•K—v‚È‚ç“n‚·
 	if (_pCollisionInfo)

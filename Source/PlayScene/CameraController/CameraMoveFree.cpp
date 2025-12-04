@@ -41,7 +41,6 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 	auto [systemView, entityId]{ _ref };
 
 	float dt{ systemView.Get<GameTime>().GetDeltaTime() };
-	Camera& camera{ systemView.Get<Camera>() };
 	Cursor& cursor{ systemView.Get<Cursor>() };
 	const Input::InputGetter& input{ systemView.Get<Input>().Getter() };
 
@@ -107,9 +106,6 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 		pTransform->GetNormalMatrix());
 
 	pTransform->SetPosition(cameraPos);
-
-	camera.targetPosition_ = pTransform->GetForward() + pTransform->GetPosition();
-	camera.position_ = pTransform->GetPosition();
 }
 
 void CameraMoveFree::End(GameObjectReference _ref)

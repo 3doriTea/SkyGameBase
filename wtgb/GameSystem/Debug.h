@@ -46,6 +46,10 @@ namespace wtgb
 		/// <returns>デバッグシェーダの取得</returns>
 		inline ShaderHandle GetDebugShader() const { return hShader_; }
 
+	#pragma region 任意の点についてのデバッグ
+		static void DrawPoint(const Vector3& _position);
+	#pragma endregion
+
 	#pragma region コンポーネントオプションのカウント
 		static size_t& ComponentOptInstanceCount() { return componentOptInstanceCount_; }
 
@@ -53,9 +57,14 @@ namespace wtgb
 	#pragma endregion
 
 	private:
+		ModelHandle hTestPointSphere_;   // テスト用球モデル
+		ShaderHandle hTestPointShader_;  // デバッグ用シェーダ
+
 		ModelHandle hSphere_;  // デバッグ用球モデル
 		ShaderHandle hShader_;  // デバッグ用シェーダ
 
 		ViewerCached system_;  // システムのキャッシュ
+
+		static Debug* pInstance_;  // デバッグ時のみシングルトン
 	};
 }

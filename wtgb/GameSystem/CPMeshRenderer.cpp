@@ -19,7 +19,11 @@ wtgb::CPMeshRenderer::~CPMeshRenderer()
 {
 }
 
-void wtgb::CPMeshRenderer::Render(IMeshSimple* _pMeshSimple, Transform* _pTransform, const ShaderHandle _hShader)
+void wtgb::CPMeshRenderer::Render(
+	IMeshSimple* _pMeshSimple,
+	Transform* _pTransform,
+	const ShaderHandle _hShader,
+	const Color& _diffuseColor)
 {
 	using namespace DirectX;
 
@@ -51,7 +55,7 @@ void wtgb::CPMeshRenderer::Render(IMeshSimple* _pMeshSimple, Transform* _pTransf
 	constantBuffer.lightDirection = { -0.5f, -0.5f, -0.5f, 0.0f };
 	constantBuffer.lightColor = 0xffffff;
 	constantBuffer.ambientValue = 0.3f;
-	constantBuffer.diffuseColor = { 0.0f, 0.7f, 0.0f, 1.0f };
+	constantBuffer.diffuseColor = _diffuseColor;
 
 	constantBuffer.hasTexture = FALSE;
 

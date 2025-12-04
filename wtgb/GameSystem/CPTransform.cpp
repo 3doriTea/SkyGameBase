@@ -21,23 +21,9 @@ void wtgb::CPTransform::Update()
 {
 	using namespace DirectX;
 
-	ForEach([](Transform& _transform)
+	ForEach([this](Transform& _transform)
 		{
-			_transform.translateMatrix_ = XMMatrixTranslation(
-				_transform.position_.x,
-				_transform.position_.y,
-				_transform.position_.z);
-			_transform.rotateMatrix_ = XMMatrixRotationZ(_transform.rotation_.z)
-				* XMMatrixRotationX(_transform.rotation_.x)
-				* XMMatrixRotationY(_transform.rotation_.y);
-			_transform.scaleMatrix_ = XMMatrixScaling(
-				_transform.scale_.x,
-				_transform.scale_.y,
-				_transform.scale_.z);
-
-			_transform.localMatrix_ = _transform.scaleMatrix_
-				* _transform.rotateMatrix_
-				* _transform.translateMatrix_;
+			CalculateLocalTransform(&_transform);
 
 			_transform.worldMatrix_ = XMMatrixIdentity();
 			_transform.worldRotateMatrix_ = XMMatrixIdentity();
@@ -81,11 +67,12 @@ void wtgb::CPTransform::Update()
 		{
 			if (parentMap[calculateStack.top()] == INVALID_ENTITY)
 			{
-				at(calculateStack.top()).worldMatrix_ = at(calculateStack.top()).localMatrix_;
-				at(calculateStack.top()).worldRotateMatrix_ = at(calculateStack.top()).rotateMatrix_;
+				// 親がいないなら
+				CalculateTransformRoot(&at(calculateStack.top()));
 			}
 			else
 			{
+				// 親がいるなら親との計算をする
 				at(calculateStack.top()).worldMatrix_ *= at(calculateStack.top()).localMatrix_ * at(parentMap[calculateStack.top()]).worldMatrix_;
 				at(calculateStack.top()).worldRotateMatrix_ = at(calculateStack.top()).rotateMatrix_ * at(parentMap[calculateStack.top()]).worldRotateMatrix_;
 			}
@@ -93,4 +80,34 @@ void wtgb::CPTransform::Update()
 			calculateStack.pop();
 		}
 	}
+}
+
+void wtgb::CPTransform::CalculateLocalTransform(Transform* _pTransform)
+{
+	using namespace DirectX;
+
+	_pTransform->translateMatrix_ = XMMatrixTranslation(
+		_pTransform->position_.x,
+		_pTransform->position_.y,
+		_pTransform->position_.z);
+	
+	_pTransform->rotateMatrix_ = XMMatrixRotationZ(_pTransform->rotation_.z)
+		* XMMatrixRotationX(_pTransform->rotation_.x)
+		* XMMatrixRotationY(_pTransform->rotation_.y);
+	
+	_pTransform->scaleMatrix_ = XMMatrixScaling(
+		_pTransform->scale_.x,
+		_pTransform->scale_.y,
+		_pTransform->scale_.z);
+
+	_pTransform->localMatrix_ = _pTransform->scaleMatrix_
+		* _pTransform->rotateMatrix_
+		* _pTransform->translateMatrix_;
+}
+
+void wtgb::CPTransform::CalculateTransformRoot(Transform* _pRoot)
+{
+	// ルートは自身のローカル行列がワールド行列として使える
+	_pRoot->worldMatrix_ = _pRoot->localMatrix_;
+	_pRoot->worldRotateMatrix_ = _pRoot->rotateMatrix_;
 }

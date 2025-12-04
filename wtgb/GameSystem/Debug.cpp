@@ -11,6 +11,8 @@
 
 #include "GameSystem/ModelMesh/IMeshSimple.h"
 
+#include "GameSystem/CPMeshRenderer.h"
+
 //#include 
 
 #include "ResourceSystem.h"
@@ -19,10 +21,13 @@
 
 size_t wtgb::Debug::componentOptInstanceCount_{};
 
+wtgb::Debug* wtgb::Debug::pInstance_{ nullptr };
+
 wtgb::Debug::Debug() :
 	hSphere_{ INVALID_HANDLE },
 	system_{ nullptr }
 {
+	pInstance_ = this;
 }
 
 wtgb::Debug::~Debug()
@@ -32,6 +37,29 @@ wtgb::Debug::~Debug()
 wtgb::Result wtgb::Debug::Init(const ViewerInit& _viewer)
 {
 	system_ = _viewer.GetCache();
+
+	hTestPointSphere_ = _viewer.Get<Model>().Load("Models/TestSphere/TestPoint.fbx");
+	hTestPointShader_ = _viewer.Get<ShaderCompile>().Compile(
+		{
+			.fileName = "Shader/TestPoint.hlsl",
+			.vertexShader
+			{
+				.entryPointName = "VS",
+				.compileVersion = "vs_5_0",
+			},
+			.pixelShader
+			{
+				.entryPointName = "PS",
+				.compileVersion = "ps_5_0",
+			},
+			.vertexInputLayout
+			{
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // à íu
+			},
+			.fillMode = D3D11_FILL_SOLID,  // ìhÇËÇ¬Ç‘Çµ
+			.cullMode = D3D11_CULL_NONE,   // âBñ è¡ãéÇµÇ»Ç¢
+			.backIsClockwise = false,
+		});
 
 	hSphere_ = _viewer.Get<Model>().Load("Models/DebModel/DebugSphere.fbx");
 	hShader_ = _viewer.Get<ShaderCompile>().Compile(
@@ -71,4 +99,20 @@ wtgb::IMeshSimple* wtgb::Debug::GetDebugSphere()
 {
 	IMeshSimple* pMeshSimple{ System().Get<Model>().GetModel(hSphere_) };
 	return pMeshSimple;
+}
+
+void wtgb::Debug::DrawPoint(const Vector3& _position)
+{
+	IMeshSimple* pMeshSimple{ pInstance_->System().Get<Model>().GetModel(pInstance_->hTestPointSphere_) };
+
+	Transform transform{};
+	transform.SetPosition(_position);
+
+	pInstance_->System().Get<CPTransform>().CalculateLocalTransform(&transform);
+	pInstance_->System().Get<CPTransform>().CalculateTransformRoot(&transform);
+
+	pInstance_->System().Get<CPMeshRenderer>().Render(
+		pMeshSimple,
+		&transform,
+		pInstance_->hTestPointShader_);
 }

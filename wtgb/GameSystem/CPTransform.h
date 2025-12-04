@@ -22,5 +22,17 @@ namespace wtgb
 		/// 更新処理
 		/// </summary>
 		void Update() override;
+
+		/// <summary>
+		/// 座標系のローカル要素だけ計算をする
+		/// </summary>
+		/// <param name="_pTransform">計算する座標系のポインタ</param>
+		void CalculateLocalTransform(Transform* _pTransform);
+
+		/// <summary>
+		/// 親がいない座標系の計算をする
+		/// </summary>
+		/// <param name="_pRoot">計算する座標系のポインタ</param>
+		void CalculateTransformRoot(Transform* _pRoot);
 	};
 }
