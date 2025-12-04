@@ -28,6 +28,7 @@ namespace wtgb
 		Vector3 normal;    // 当たったときの法線
 		float depth;       // 埋め込み深さ
 
+		bool isIgnoreFar;            // 遠すぎて除外された
 		Vector3 reflectionVelocity;  // 反射ベクトル
 		Vector3 push;                // 押し出し
 		float time;                  // 当たるまでの時間

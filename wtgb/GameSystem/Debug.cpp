@@ -57,7 +57,7 @@ wtgb::Result wtgb::Debug::Init(const ViewerInit& _viewer)
 				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // à íu
 			},
 			.fillMode = D3D11_FILL_SOLID,  // ìhÇËÇ¬Ç‘Çµ
-			.cullMode = D3D11_CULL_NONE,   // âBñ è¡ãéÇµÇ»Ç¢
+			.cullMode = D3D11_CULL_BACK,   // âBñ è¡ãéÇµÇ»Ç¢
 			.backIsClockwise = false,
 		});
 

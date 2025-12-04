@@ -210,6 +210,17 @@ void CircleBodyVSSegment(
 	const Vector2 CURR_CENTER{ _circleBody.center };
 	const Vector2 NEXT_CENTER{ CURR_CENTER + _circleBody.velocity };
 
+#pragma region 絶対に当たらない場合除外
+	const float CIRCLE_MAX_X{ max(CURR_CENTER.x, NEXT_CENTER.x) + _circleBody.radius };
+	const float CIRCLE_MIN_X{ min(CURR_CENTER.x, NEXT_CENTER.x) - _circleBody.radius };
+
+	if (CIRCLE_MAX_X < _section.begin.x || _section.end.x < CIRCLE_MIN_X)
+	{
+		info.isHit = false;
+		info.isIgnoreFar = true;
+	}
+#pragma endregion
+
 	// 線分ベクトル
 	const Vector2 V{ _section.end - _section.begin };
 	// 線分始点から円の中心
@@ -309,8 +320,6 @@ void CircleBodyVSSegment(
 		info.push = { 0.0f, push2D.y, push2D.x };
 	}
 
-	Debug::DrawPoint(info.hitPoint);
-
 	// 当たり判定情報が必要なら渡す
 	if (_pCollisionInfo)
 	{
@@ -396,18 +405,42 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			},
 			&info);
 
-		if (info.isHit)
+		if (info.isIgnoreFar)
 		{
-			// 当たっているなら
+			continue;  // 遠すぎるなら完全無視
+		}
 
-			if (info.time < bestInfo.time)  // 当たるまでの時間が短い方を適用
+		// 接点のx座標は入っていないため入れる
+		info.hitPoint.x = _pSphere->pTransform->GetPositionWorld().x;
+		Debug::DrawPoint(info.hitPoint);
+
+		if (info.isHit)  // 当たっているなら
+		{
+			//if (bestInfo.isHit == false)
+			if (!bestInfo.isHit)
 			{
+				// 前の情報が当たっていないときなら必ず上書き
 				bestInfo = info;
 			}
-			else if (std::fabsf(info.time - bestInfo.time) <= FLT_EPSILON)  // 当たるまでの時間が同じなら
+			else
 			{
-				// TODO: いったんは無視
-				LOGF("同時に衝突");
+				LOGFLN("時間差:{}", std::fabsf(info.time - bestInfo.time));
+
+				if (std::fabsf(info.time - bestInfo.time) <= 1.0f / 60.0f)  // 当たるまでの時間がほぼ同じなら
+				{
+					// TODO: いったんは無視
+					LOGF("同時に衝突");
+					//bestInfo.push = bestInfo.push + info.push;
+					bestInfo.push = bestInfo.normal + info.normal;
+					bestInfo.normal = XMVector3Normalize(bestInfo.normal + info.normal);
+					// ここはハーフいらないかも？
+					//bestInfo.push = XMVectorScale((bestInfo.push + info.push), 0.5f);
+					bestInfo.reflectionVelocity = XMVectorScale((bestInfo.reflectionVelocity + info.reflectionVelocity), 0.5f);
+				}
+				else if (info.time < bestInfo.time)  // 当たるまでの時間が短い方を適用
+				{
+					bestInfo = info;
+				}
 			}
 		}
 	}
@@ -419,6 +452,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 	return bestInfo.isHit;
 
+	/*
 	for (int i = 0; i < points.size() - 1; i++)
 	{
 		// 円中心座標
@@ -561,6 +595,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			}
 		}
 	}
+	*/
 
 	//return collisionInfo.isHit;
 }
