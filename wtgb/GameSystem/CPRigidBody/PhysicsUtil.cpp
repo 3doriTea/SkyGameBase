@@ -2,6 +2,7 @@
 #include "PhysicsUtil.h"
 #include "GameComponent/Collider.h"
 #include "GameComponent/Transform.h"
+#include "GameComponent/RigidBody.h"
 #include "WTGBAssert.h"
 
 using DirectX::XMVector3TransformCoord;
@@ -173,6 +174,136 @@ bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* 
 	return false;
 }
 
+/// <summary>
+/// 動く円
+/// </summary>
+struct CircleBody
+{
+	wtgb::Vector2 center;      // 円の中心座標
+	wtgb::Vector2 velocity;    // 速度
+	float radius;              // 半径
+};
+
+/// <summary>
+/// 断面地形
+/// </summary>
+struct Section
+{
+	wtgb::Vector2 begin;  // 始点
+	wtgb::Vector2 end;    // 終点
+};
+
+void CircleBodyVSSegment(
+	const CircleBody& _circleBody,
+	const Section& _section,
+	wtgb::CollisionInfo* _pCollisionInfo)
+{
+	using namespace wtgb;
+	using namespace DirectX;
+
+	CollisionInfo info{};
+	info.time = FLT_MAX;  // 当たらないなら当たるまでの時間は無限にしておく
+
+	// まずは次のフレームで当たっているか
+	const Vector2 CURR_CENTER{ _circleBody.center };
+	const Vector2 NEXT_CENTER{ CURR_CENTER + _circleBody.velocity };
+
+	// 線分ベクトル
+	const Vector2 V{ _section.end - _section.begin };
+	// 線分始点から円の中心
+	const Vector2 W{ _circleBody.center - _section.begin };
+	// 円の半径の2乗
+	const float RADIUS_SQ{ _circleBody.radius * _circleBody.radius };
+
+	// 線分の長さの2乗
+	const float SEGMENT_LENGTH_SQ{ XMVectorGetX(XMVector2LengthSq(V)) };
+
+	// 最近接点
+	Vector2 point2D{};
+
+	// 線分がもうほぼ点と言って過言ではない
+	if (SEGMENT_LENGTH_SQ < FLT_EPSILON)
+	{
+		point2D = _section.begin;
+
+		// 埋め込み具合
+		info.depth = RADIUS_SQ - XMVectorGetX(XMVector2LengthSq(W));
+
+		// なら点と円の当たり判定
+		info.isHit = info.depth >= 0.0f;
+	}
+	else  // 線分としての処理
+	{
+		// 線分上での接点の割合
+		float t{ XMVectorGetX(XMVector2Dot(W, V)) / SEGMENT_LENGTH_SQ };
+
+		if (t < 0.0f)  // 始点より前にある
+		{
+			point2D = _section.begin;
+		}
+		else if (t > 1.0f)  // 終点より後にある
+		{
+			point2D = _section.end;
+		}
+		else  // 線分の間
+		{
+			point2D = V * t + _section.begin;
+		}
+
+		// 円の中心から最近接点への距離の2乗
+		const float DISTANCE_SQ{ XMVectorGetX(XMVector2LengthSq(point2D - NEXT_CENTER)) };
+
+		// 埋め込み具合
+		info.depth = std::sqrtf(RADIUS_SQ) - std::sqrtf(DISTANCE_SQ);
+
+		// なら点と円の当たり判定
+		info.isHit = DISTANCE_SQ <= RADIUS_SQ;
+	}
+
+	info.hitPoint = { 0.0f, point2D.y, point2D.x };
+
+	// 当たっているなら押し出しと時刻を返す
+	Vector2 push2D{};
+
+	if (info.isHit)
+	{
+		// 1フレームで移動
+		const Vector2 MOVE{ NEXT_CENTER - CURR_CENTER };
+		
+		// 円の中心から最近接点
+		const Vector2 CENTER_TO_POINT{ point2D - CURR_CENTER };
+
+		// 半径分戻すベクトル
+		const Vector2 RET_RADIUS{ XMVector2Normalize(CENTER_TO_POINT * -1.0f) * _circleBody.radius };
+
+		// 半径分戻したベクトル
+		const Vector2 TO_HIT_POS{ CENTER_TO_POINT + RET_RADIUS };
+
+		// 当たることが予定されるため動かす分
+		push2D = CURR_CENTER + TO_HIT_POS;
+
+		// 当たるまでの時間を取っておく
+		info.time = XMVectorGetX(XMVector2Length(MOVE - push2D));
+
+		// 線分に垂直な法線ベクトル
+		const Vector2 SEGMENT_NORM{ XMVector2Normalize(Vector2{ -V.y, V.x }) };
+
+		// 侵入速度
+		const Vector2 F{ _circleBody.velocity };
+
+		// 反射ベクトル
+		const Vector2 R{ F - 2.0f * XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM)) * SEGMENT_NORM };
+
+		info.reflectionVelocity = { 0.0f, R.y, R.x };
+	}
+
+	// 当たり判定情報が必要なら渡す
+	if (_pCollisionInfo)
+	{
+		*_pCollisionInfo = info;
+	}
+}
+
 bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet* _pSection, CollisionInfo* _pCollisionInfo)
 {
 #pragma region コライダーセット確認
@@ -210,6 +341,12 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		wassert(false && "コライダタイプが不一致");
 		return false;
 	}
+
+	if (!_pSphere->pRigidBody)
+	{
+		wassert(false && "球のRigidBodyが指定されていない");
+		return false;
+	}
 #pragma endregion
 
 	// 円の中心ワールド座標
@@ -219,75 +356,50 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 	// 円の半径
 	const float RADIUS{ _pSphere->pCollider->sphere.radius };
 
-	float time{};
-	CollisionInfo collisionInfo{};
+	const Vector3 VELOCITY{ _pSphere->pRigidBody->GetVelocity() };
 
-	LOGF("区間");
+	float time{};
+	CollisionInfo bestInfo{};
+
+	CircleBody circleBody
+	{
+		.center = { worldCenterPos.z, worldCenterPos.y },
+		.velocity = { VELOCITY.z, VELOCITY.y },
+		.radius = _pSphere->pCollider->sphere.radius,
+	};
+
+	LOGFLN("区間");
 	for (int i = 0; i < points.size() - 1; i++)
 	{
-		// 円中心座標
-		const Vector2 C{ worldCenterPos.z, worldCenterPos.y };
-		// 線分始点座標
-		const Vector2 P1{ points[i] };
-		// 線分終点座標
-		const Vector2 P2{ points[i + 1] };
+		LOGF(", {}:", i);
+		CollisionInfo info{};
 
-		// yで区切ったときの区画フィルタ
-		if ((C.x - RADIUS) < P1.x || P2.x < (C.x + RADIUS))
-		{
-			continue;  // 範囲外なら確実に当たらない
-		}
-		LOGF("{},", i);
-
-		// 線分ベクトル
-		const Vector2 V{ P2 - P1 };
-		// 始点から円中心へのベクトル
-		const Vector2 W{ C - P1 };
-
-		// 接点座標
-		Vector2 p{};
-		const float V_LEN_SQ{ XMVectorGetX(XMVector2LengthSq(V)) };
-		if (V_LEN_SQ <= FLT_EPSILON)
-		{
-			p = P1;
-		}
-		else
-		{
-			float t{ (W.x * V.x + W.y * V.y) / V_LEN_SQ };
-			if (t < 0.0f)
+		CircleBodyVSSegment(
+			circleBody,
+			Section
 			{
-				t = 0.0f;
-			}
-			else if (t > 1.0f)
-			{
-				t = 1.0f;
-			}
-			p = P1 + Vector2{ t, t } * V;
-		}
+				.begin = points[i],
+				.end = points[i + 1],
+			},
+			&info);
 
-		// 接点のワールド座標
-		collisionInfo.hitPoint = { worldCenterPos.x, p.y, p.x };
-
-		// 接点から円中心への差分ベクトル
-		const Vector2 D{ C - p };
-		// 距離の2乗
-		const float DIST2{ XMVectorGetX(XMVector2LengthSq(D)) };
-		// 半径の2乗
-		const float R2{ RADIUS * RADIUS };
-
-		// 距離が ほぼ0 ではないなら
-		if (DIST2 > FLT_EPSILON)
+		if (info.depth >= 0.0f)
 		{
-			// 平方根とって距離求める
-			collisionInfo.distance = std::sqrtf(DIST2);
+			LOGF("info.depth={}, .isHit={}", info.depth, info.isHit);
 		}
-		else
+
+		if (info.time < bestInfo.time)  // 当たるまでの時間が短い方を適用
 		{
-			collisionInfo.distance = 0.0f;
+			bestInfo = info;
 		}
-
-
+		else if (info.time == bestInfo.time)  // 当たるまでの時間が同じなら
+		{
+			// TODO: いったんは無視
+		}
+		LOGF("\n");
 	}
+
+	return bestInfo.isHit;
 
 	for (int i = 0; i < points.size() - 1; i++)
 	{
@@ -432,7 +544,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		}
 	}
 
-	return collisionInfo.isHit;
+	//return collisionInfo.isHit;
 }
 
 bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet* _pSphereB, CollisionInfo* _pCollisionInfo)

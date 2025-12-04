@@ -5,6 +5,7 @@ namespace wtgb
 {
 	class Collider;
 	class Transform;
+	class RigidBody;
 
 	/// <summary>
 	/// 当たり判定セット
@@ -13,6 +14,7 @@ namespace wtgb
 	{
 		Collider* pCollider;
 		Transform* pTransform;
+		RigidBody* pRigidBody;
 	};
 
 	/// <summary>
@@ -26,7 +28,9 @@ namespace wtgb
 		Vector3 normal;    // 当たったときの法線
 		float depth;       // 埋め込み深さ
 
-		Vector3 push;  // 押し出し
+		Vector3 reflectionVelocity;  // 反射ベクトル
+		Vector3 push;                // 押し出し
+		float time;                  // 当たるまでの時間
 	};
 
 	class PhysicsUtil

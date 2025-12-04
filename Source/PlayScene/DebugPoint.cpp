@@ -21,7 +21,7 @@ DebugPoint::DebugPoint(const Vector3& _position, const float _scale) : GameObjec
 				.EndSetter()
 		.Build();
 	}
-},
+}
 {
 }
 

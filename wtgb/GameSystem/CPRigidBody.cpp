@@ -86,7 +86,7 @@ void wtgb::CPRigidBody::Update()
 			}
 
 			// ìñÇΩÇËîªíË
-			ColliderSet selfSet{ .pCollider = pCollider, .pTransform = pTransform };
+			ColliderSet selfSet{ .pCollider = pCollider, .pTransform = pTransform, .pRigidBody = &_rb };
 			switch (pCollider->GetColliderType())
 			{
 			case Collider::Type::Section:
@@ -109,6 +109,7 @@ void wtgb::CPRigidBody::Update()
 						CollisionInfo collisionInfo{};
 						if (PhysicsUtil::IsHitFromSphere(&selfSet, &otherSet, &collisionInfo))
 						{
+						#if 0
 							// 2éüå≥Ç≈ìñÇΩÇËîªíËÇÇµÇƒÇ¢ÇÈÇΩÇﬂÅAxé≤Ç…ä÷ÇµÇƒÇÕï 
 							collisionInfo.hitPoint.x = _rb.prevPosition_.x;
 
@@ -157,8 +158,9 @@ void wtgb::CPRigidBody::Update()
 							// MEMO: r = v + 2 * a * n(normal)
 							//Vector3 r{ V + 2.0f * E * N };
 							Vector3 r{ ret + 2.0f * E * N };
-
-							_rb.velocity_ = r;
+						#endif
+							_rb.velocity_ = collisionInfo.reflectionVelocity;
+							_rb.push_ = collisionInfo.push;
 
 						}
 					});

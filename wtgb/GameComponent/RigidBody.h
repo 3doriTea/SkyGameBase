@@ -59,6 +59,11 @@ namespace wtgb
 		void GetHitColliders(std::vector<Collider*>* _pHitColliderVector);
 
 		/// <summary>
+		/// 速度ベクトルを取得する
+		/// </summary>
+		/// <returns>速度ベクトル</returns>
+		inline Vector3 GetVelocity() const { return velocity_; }
+		/// <summary>
 		/// 速度を加える
 		/// </summary>
 		/// <param name="_addV">ワールド座標系での速度</param>

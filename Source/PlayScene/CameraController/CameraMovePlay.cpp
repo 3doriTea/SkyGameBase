@@ -144,8 +144,8 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 		moveLocal = moveLocal * dt;
 		
-		LOGFLN("pos({}, {}, {})", pos.x, pos.y, pos.z);
-		LOGFLN("moveLocal({}, {}, {})", moveLocal.x, moveLocal.y, moveLocal.z);
+		/*LOGFLN("pos({}, {}, {})", pos.x, pos.y, pos.z);
+		LOGFLN("moveLocal({}, {}, {})", moveLocal.x, moveLocal.y, moveLocal.z);*/
 
 		//Vector3 moveWorld{ moveLocal };
 		Vector3 moveWorld{ XMVector3TransformCoord(moveLocal, XMMatrixRotationY(pTransform->GetRotation().y)) };

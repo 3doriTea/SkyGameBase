@@ -32,7 +32,7 @@ void PlayScene::Start()
 	//Instantiate<TestBillBoard>();
 	
 	//EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, 5.0f, 5.0f }) };
-	EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, 5.0f, 300.0f }) };
+	EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, -180.0f, 300.0f }) };
 	/*for (int k = 0; k < 3; k++)
 	{
 		for (int j = 0; j < 3; j++)
