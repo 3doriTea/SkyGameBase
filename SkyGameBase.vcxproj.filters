@@ -354,6 +354,21 @@
     <ClInclude Include="Source\PlayScene\DebugPoint.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Canvas.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Canvas\CanvasContext.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Canvas\LayoutConfig.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Canvas\Pivot.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Canvas\RenderContent.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -555,6 +570,15 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Canvas.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Canvas\LayoutConfig.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Canvas\CanvasContext.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>

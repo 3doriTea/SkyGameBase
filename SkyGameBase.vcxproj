@@ -68,6 +68,9 @@
     <ClInclude Include="wtgb\GameSystem\Camera.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\CanvasContext.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\LayoutConfig.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\Pivot.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\RenderContent.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager.h" />
     <ClInclude Include="wtgb\Core\Entity.h" />
     <ClInclude Include="wtgb\Core\Game.h" />
@@ -162,6 +165,8 @@
     <ClCompile Include="wtgb\GameComponent\Transform.cpp" />
     <ClCompile Include="wtgb\GameSystem\Camera.cpp" />
     <ClCompile Include="wtgb\GameSystem\Canvas.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Canvas\CanvasContext.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Canvas\LayoutConfig.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager.cpp" />
     <ClCompile Include="wtgb\Core\Game.cpp" />
     <ClCompile Include="wtgb\Core\GameLoop.cpp" />
