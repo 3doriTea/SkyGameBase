@@ -40,6 +40,11 @@ void wtgb::CPTransform::Update()
 		{
 			EntityId currentId{ cpGameObject.GetEntityId(_index) };
 			GameObjectProperty* pCurrentProperty{ cpGameObjectProperty.Get(currentId) };
+
+			if (pCurrentProperty == nullptr)
+			{
+				return;
+			}
 			
 			wassert(!check.count(currentId) && "Šù‚É“¯‚¶EntityId‚ª‚ ‚é");
 			wassert(!parentMap.count(currentId) && "Šù‚É“¯‚¶EntityId‚ª‚ ‚é");

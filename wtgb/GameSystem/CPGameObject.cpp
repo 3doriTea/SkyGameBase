@@ -1,5 +1,6 @@
 #include "pch\pch.h"
 #include "CPGameObject.h"
+#include "GameSystem/ComponentManager.h"
 
 wtgb::CPGameObject::CPGameObject()
 {
@@ -16,11 +17,21 @@ void wtgb::CPGameObject::Init()
 
 void wtgb::CPGameObject::Update()
 {
+	ComponentManager& componentManager{ System().Get<ComponentManager>() };
+
 	ForEach([](GameObject*& _pGameObject)
 		{
 			if (_pGameObject)
 			{
 				_pGameObject->Update();
+			}
+		});
+
+	ForEach([&componentManager](GameObject*& _pGameObject)
+		{
+			if (_pGameObject->IsToDestroy())
+			{
+				componentManager.RemoveEntity(_pGameObject->entityId_);
 			}
 		});
 }

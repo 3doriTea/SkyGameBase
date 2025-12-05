@@ -18,7 +18,8 @@ wtgb::GameObject::GameObject() :
 }
 
 wtgb::GameObject::GameObject(std::function<void(GameObjectBuilder&)> _callback) :
-	entityId_{ System().Get<ComponentManager>().GetPrevEntity() }
+	entityId_{ System().Get<ComponentManager>().GetPrevEntity() },
+	toDestroy_{ false }
 {
 	GameObjectBuilder builder{ *this };
 	_callback(builder);

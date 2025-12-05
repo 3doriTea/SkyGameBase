@@ -40,8 +40,8 @@ wtgb::EntityId wtgb::EntityGenerator::Generate()
 void wtgb::EntityGenerator::Remove(const EntityId _entityId)
 {
 	// 使っていた場所を掃除
-	versions_[_entityId.index]++;  // バージョンを上げる
-	useFlag_[_entityId.id] = false;  // 空家にする
+	versions_[_entityId.index]++;    // バージョンを上げる
+	useFlag_[_entityId.index] = false;  // 空家にする
 }
 
 const bool wtgb::EntityGenerator::IsInvalidId(const EntityId _checkId) const
@@ -73,7 +73,7 @@ void wtgb::EntityGenerator::RemoveAll()
 	{
 		if (useFlag_[i])
 		{
-			useFlag_[i] = FALSE;
+			useFlag_[i] = false;
 			versions_[i]++;
 		}
 	}
