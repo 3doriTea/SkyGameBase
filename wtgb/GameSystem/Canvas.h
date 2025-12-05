@@ -20,6 +20,12 @@ namespace wtgb
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
+		/// キャンバスへの描画用コンテキストを取得
+		/// </summary>
+		/// <returns>描画用コンテキスト</returns>
+		UI::CanvasContext GetContext() const { return context_; }
+
+		/// <summary>
 		/// 初期化処理
 		/// </summary>
 		/// <param name="_viewer">システムアクセス用</param>

@@ -5,9 +5,13 @@
 #include "RenderContent.h"
 #include "LayoutConfig.h"
 
-namespace wtgb::UI
+namespace wtgb
 {
 	class Canvas;
+}
+
+namespace wtgb::UI
+{
 
 	/// <summary>
 	/// UI描画へのアクセス
