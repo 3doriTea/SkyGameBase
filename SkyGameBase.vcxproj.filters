@@ -613,5 +613,6 @@
     <FxCompile Include="Assets\Shader\Debug.hlsl" />
     <FxCompile Include="Assets\Shader\WaterBall.hlsl" />
     <FxCompile Include="Assets\Shader\Figure2D.hlsl" />
+    <FxCompile Include="Assets\Shader\Image2D.hlsl" />
   </ItemGroup>
 </Project>
