@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/IGameSystem.h"
+#include "Canvas/CanvasContext.h"
 
 namespace wtgb
 {
@@ -33,6 +34,9 @@ namespace wtgb
 		/// 終了処理
 		/// </summary>
 		void End() override;
+
+	private:
+		UI::CanvasContext context_;  // キャンバスアクセス用コンテキスト
 	};
 }
 

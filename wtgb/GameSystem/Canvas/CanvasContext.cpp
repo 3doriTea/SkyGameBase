@@ -7,9 +7,9 @@ void wtgb::UI::CanvasContext::SetLayout(const LayoutConfig& _config)
 	currentConfig_ = _config;
 }
 
-void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture)
+void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture, const float _angle)
 {
-	
+	AddRenderOrder(RenderContent<RenderContentType::Image>{ _hTexture, _angle });
 }
 
 void wtgb::UI::CanvasContext::AddRenderOrder(const RenderContentVT& _content)
