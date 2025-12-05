@@ -69,10 +69,25 @@ namespace wtgb
 		/// <param name="_addV">ワールド座標系での速度</param>
 		inline void AddVelocity(const Vector3& _addV) { velocity_ = velocity_ + _addV; }
 		/// <summary>
+		/// 速度を設定する
+		/// </summary>
+		/// <param name="_velocity">ワールド座標系での速度</param>
+		inline void SetVelocity(const Vector3& _velocity) { velocity_ = _velocity; }
+		/// <summary>
 		/// 回転速度を加える
 		/// </summary>
 		/// <param name="_addT">ワールド座標系での速度</param>
 		inline void AddTorque(const Vector3& _addT) { angularVelocity_ = angularVelocity_ + _addT; }
+		/// <summary>
+		/// 反発力を取得する
+		/// </summary>
+		/// <returns>反発力(侵入速度の何倍で反射するか)</returns>
+		inline float GetBounciness() const { return bounciness_; }
+		/// <summary>
+		/// 反発力を設定する
+		/// </summary>
+		/// <param name="_bounciness">反発力(侵入速度の何倍で反射するか)</param>
+		inline void SetBounciness(const float _bounciness) { bounciness_ = _bounciness; }
 
 	private:
 		/// <summary>

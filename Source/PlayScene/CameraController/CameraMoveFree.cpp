@@ -45,12 +45,26 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 	const Input::InputGetter& input{ systemView.Get<Input>().Getter() };
 
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
+	wassert(pTransform && "Transformコンポーネントの取得に失敗");
+	RigidBody* pRigidBody{ systemView.Get<CPRigidBody>().Get(entityId) };
+	wassert(pRigidBody && "RigidBodyコンポーネントの取得に失敗");
+
 
 	// マウスカーソルの制御
 	if (input.IsKeyDown(KeyCode::B))
 	{
 		cursor.SetCenterLock(true);
 		cursor.SetShow(false);
+	}
+
+	if (input.IsKey(KeyCode::K))
+	{
+		pRigidBody->SetVelocity(Vector3::Zero());
+	}
+
+	if (input.IsKey(KeyCode::G))
+	{
+		pRigidBody->SetVelocity(Vector3::Down() * 20.0f);
 	}
 
 	if (cursor.IsCenterLock() == false || cursor.IsShow())
@@ -101,11 +115,17 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 
 	Vector3 dir{ pTransform->GetForward() };
 
-	cameraPos = cameraPos + DirectX::XMVector3TransformCoord(
-		move * (dt * (MOVE_SPEED_PER_SEC + (MOVE_SPEED_PER_SEC * speedBoost_))),
-		pTransform->GetNormalMatrix());
+	Vector3 velocity
+	{
+		DirectX::XMVector3TransformCoord(
+			move * (dt * (MOVE_SPEED_PER_SEC + (MOVE_SPEED_PER_SEC * speedBoost_))),
+			pTransform->GetNormalMatrix())
+	};
 
-	pTransform->SetPosition(cameraPos);
+	/*cameraPos = cameraPos + velocity;
+	pTransform->SetPosition(cameraPos);*/
+
+	pRigidBody->AddVelocity(velocity);
 }
 
 void CameraMoveFree::End(GameObjectReference _ref)

@@ -135,14 +135,14 @@ void StageMesh::Init()
 	}
 #pragma endregion
 
-	for (int i = 0; i < vertices.size(); i++)
+	/*for (int i = 0; i < vertices.size(); i++)
 	{
 		LOGFLN("{}: p({}, {}, {}), uv({}, {}, {}) norm({}, {}, {})",
 			i,
 			vertices[i].position.x, vertices[i].position.y, vertices[i].position.z,
 			vertices[i].uv.x, vertices[i].uv.y, vertices[i].uv.z,
 			vertices[i].normal.x, vertices[i].normal.y, vertices[i].normal.z);
-	}
+	}*/
 
 	// インデクスたち
 	std::vector<uint32_t> indexes{};
@@ -193,11 +193,6 @@ void StageMesh::Init()
 		wassert(SUCCEEDED(hResult) && "ステージメッシュのインデックスバッファ作成に失敗");
 	}
 #pragma endregion
-
-	for (int i = 0; i < indexes.size(); i++)
-	{
-		LOGFLN("{}, {}", i, indexes[i]);
-	}
 
 #pragma region コンスタントバッファを作っておく
 	{

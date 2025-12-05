@@ -17,8 +17,11 @@ using DirectX::XMFLOAT3;
 
 namespace
 {
+	const float DELTA_TIME{ 1.0f / 60 };
+
 	// 同時と判定する時間差 (秒)
-	const float SIMULTANEOUS_THRESHOLD_SEC{ 1.0f };
+	//const float SIMULTANEOUS_THRESHOLD_SEC{ 1.0f };
+	const float SIMULTANEOUS_THRESHOLD_SEC{ DELTA_TIME };
 }
 
 bool wtgb::PhysicsUtil::IsHit(ColliderSet* _pSelf, ColliderSet* _pOther)
@@ -190,6 +193,7 @@ struct CircleBody
 	wtgb::Vector2 center;      // 円の中心座標
 	wtgb::Vector2 velocity;    // 速度
 	float radius;              // 半径
+	float bounciness;          // 反発力
 };
 
 /// <summary>
@@ -214,7 +218,7 @@ void CircleBodyVSSegment(
 
 	// まずは次のフレームで当たっているか
 	const Vector2 CURR_CENTER{ _circleBody.center };
-	const Vector2 NEXT_CENTER{ CURR_CENTER + _circleBody.velocity };
+	const Vector2 NEXT_CENTER{ CURR_CENTER + (_circleBody.velocity * DELTA_TIME) };
 
 #pragma region 絶対に当たらない場合除外
 	const float CIRCLE_MAX_X{ max(CURR_CENTER.x, NEXT_CENTER.x) + (_circleBody.radius * 2.0f) };
@@ -293,8 +297,12 @@ void CircleBodyVSSegment(
 		// 円の中心から最近接点
 		const Vector2 CENTER_TO_POINT{ point2D - CURR_CENTER };
 
+		// 線分に垂直な法線ベクトル
+		const Vector2 SEGMENT_NORM{ XMVector2Normalize(Vector2{ -V.y, V.x }) };
+
 		// 反発する方向
 		Vector2 retDir{ XMVector2Normalize(CENTER_TO_POINT * -1.0f) };
+		//Vector2 retDir{ SEGMENT_NORM };
 
 		if (XMVectorGetX(XMVector2LengthSq(retDir)) <= FLT_EPSILON)
 		{
@@ -313,17 +321,26 @@ void CircleBodyVSSegment(
 		// 当たるまでの時間を取っておく
 		info.time = XMVectorGetX(XMVector2Length(MOVE - push2D));
 
-		// 線分に垂直な法線ベクトル
-		const Vector2 SEGMENT_NORM{ XMVector2Normalize(Vector2{ -V.y, V.x }) };
-
 		// 侵入速度
 		const Vector2 F{ _circleBody.velocity };
 
-		// 反射ベクトル
-		const Vector2 R{ F - 2.0f * XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM)) * SEGMENT_NORM };
+		// 法線に向かってくる速度ベクトルなら反射する
+		//if (XMVectorGetX(XMVector2Dot(SEGMENT_NORM, F)) <= 0.0f)
 
-		info.reflectionVelocity = { 0.0f, R.y, R.x };
-		info.push = { 0.0f, push2D.y, push2D.x };
+		// 反射ベクトル
+		//Vector2 r{ F - 2.0f * XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM)) * SEGMENT_NORM };
+		//Vector2 r{ F + 2.0f * XMVectorGetX(XMVector2Length(F)) * SEGMENT_NORM };
+		Vector2 r{ F + 2.0f * XMVectorGetX(XMVector3Dot(-F, SEGMENT_NORM)) * SEGMENT_NORM };
+
+		LOGFLN("r=({}, {})" "p=({}, {})" "  F({}, {})", r.x, r.y, push2D.x, push2D.y, F.x, F.y);
+
+		/*if (XMVectorGetX(XMVector2Dot(SEGMENT_NORM, r)) < 0.0f)
+		{
+			r.y = r.y * -1.0f;
+		}*/
+
+		info.reflectionVelocity = { 0.0f, r.y, r.x };
+		info.push = Vector3{ 0.0f, push2D.y, push2D.x } * 1.0f;
 	}
 
 	// 当たり判定情報が必要なら渡す
@@ -396,6 +413,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 		.center = { worldCenterPos.z, worldCenterPos.y },
 		.velocity = { VELOCITY.z, VELOCITY.y },
 		.radius = _pSphere->pCollider->sphere.radius,
+		.bounciness = _pSphere->pRigidBody->GetBounciness()
 	};
 
 	for (int i = 0; i < points.size() - 1; i++)
@@ -439,7 +457,10 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 					bestInfo.normal = XMVector3Normalize(bestInfo.normal + info.normal);
 					// ここはハーフいらないかも？
 					//bestInfo.push = XMVectorScale((bestInfo.push + info.push), 0.5f);
-					bestInfo.reflectionVelocity = XMVectorScale((bestInfo.reflectionVelocity + info.reflectionVelocity), 0.5f);
+					
+					//bestInfo.reflectionVelocity = XMVectorScale((bestInfo.reflectionVelocity + info.reflectionVelocity), 0.5f);
+					float length{ XMVectorGetX(XMVector3Length(bestInfo.reflectionVelocity)) };
+					bestInfo.reflectionVelocity = XMVectorScale(XMVector3Normalize(bestInfo.reflectionVelocity + info.reflectionVelocity), length);
 				}
 				else if (info.time < bestInfo.time)  // 当たるまでの時間が短い方を適用
 				{

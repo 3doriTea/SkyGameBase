@@ -39,13 +39,12 @@ void wtgb::CPRigidBody::Update()
 	CPCollider& cpCollider{ System().Get<CPCollider>() };
 	// delta time
 	const float DT{ System().Get<GameTime>().GetDeltaTime() };
+	//LOGFLN("__update rb__");
 
 	ForEach([this, &cpTransform, &cpGameObject, &cpCollider, DT](RigidBody& _rb, const size_t _index)
 		{
 			_rb.ClearHitCollider();
 			float prevT{ FLT_MAX };
-
-			_rb.push_ = Vector3::Zero();
 
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
 
@@ -159,7 +158,9 @@ void wtgb::CPRigidBody::Update()
 							//Vector3 r{ V + 2.0f * E * N };
 							Vector3 r{ ret + 2.0f * E * N };
 						#endif
+							float velocityZ{ _rb.velocity_.z };
 							_rb.velocity_ = collisionInfo.reflectionVelocity;
+							_rb.velocity_.z = velocityZ;
 							_rb.push_ = collisionInfo.push;
 
 						}
@@ -174,6 +175,7 @@ void wtgb::CPRigidBody::Update()
 				Vector3 position{ selfSet.pTransform->GetPosition() };
 				_rb.prevPosition_ = position;
 				position = position + _rb.push_;
+				_rb.push_ = Vector3::Zero();
 				selfSet.pTransform->SetPosition(position);
 			}
 		});

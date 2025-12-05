@@ -31,7 +31,7 @@ void PlayScene::Start()
 
 	//Instantiate<TestBillBoard>();
 	
-	EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, 5.0f, 5.0f }) };
+	//EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, 5.0f, 5.0f }) };
 	//EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, -180.0f, 300.0f }) };
 	//EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, -180.0f, 300.0f }) };
 	/*for (int k = 0; k < 3; k++)
@@ -52,7 +52,7 @@ void PlayScene::Start()
 	{
 		float r1{ random.Rand() };
 		float r2{ random.Rand() };
-		Instantiate<WaterSphere>(Vector3{ r1 * 300.0f + 50.0f, 5.0f, r2 * 100.0f + 100.0f });
+	//	Instantiate<WaterSphere>(Vector3{ r1 * 300.0f + 50.0f, 5.0f, r2 * 100.0f + 100.0f });
 	}
 #else
 	for (int i = 0; i < 100; i++)
