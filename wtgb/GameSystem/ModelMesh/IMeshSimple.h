@@ -3,7 +3,7 @@
 
 namespace wtgb
 {
-	class IMeshSimple : public IResource
+	class IMeshSimple : public IResource<>
 	{
 	public:
 		/// <summary>

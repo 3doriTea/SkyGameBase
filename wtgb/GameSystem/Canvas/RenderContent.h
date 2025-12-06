@@ -31,20 +31,18 @@ namespace wtgb::UI
 	public:
 		RenderContent(const TextureHandle _hTexture, float _angle)
 			requires (Type == RenderContentType::Image) :
+			image{ .hTexture_ = _hTexture, .angle_ = _angle }
 		{
-			image.hTexture_ = _hTexture;
-			image.angle_ = _angle;
 		}
 
-		RenderContent(const TextureHandle _hTexture, float _angle)
+		RenderContent(const Color _color, float _angle)
 			requires (Type == RenderContentType::Box) :
+			box{ .color = _color, .angle_ = _angle }
 		{
-			box.hTexture_ = _hTexture;
-			box.angle_ = _angle;
 		}
 
-		void Render() requires (Type == RenderContentType::Image);
-		void Render() requires (Type == RenderContentType::Box);
+		void Render() requires (Type == RenderContentType::Image) {}
+		void Render() requires (Type == RenderContentType::Box) {}
 
 	private:
 		union

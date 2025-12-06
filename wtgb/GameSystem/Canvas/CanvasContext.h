@@ -42,6 +42,8 @@ namespace wtgb::UI
 		/// <param name="_angle">Šî€“_‚©‚ç‚Ì‰ñ“]Šp“x</param>
 		void DrawBox(const Color _color, const float _angle);
 
+
+
 	private:
 		/// <summary>
 		/// •`‰æ—v‹‚ğ’Ç‰Á‚·‚é

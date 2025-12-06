@@ -69,6 +69,7 @@
     <ClInclude Include="wtgb\GameSystem\Canvas.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\CanvasContext.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\LayoutConfig.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\Mesh2D.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\Pivot.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\RenderContent.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager.h" />

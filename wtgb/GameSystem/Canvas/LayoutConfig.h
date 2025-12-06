@@ -9,7 +9,7 @@ namespace wtgb::UI
 {
 	class LayoutConfig
 	{
-		friend CanvasContext;
+		friend class CanvasContext;
 	public:
 		LayoutConfig();
 		~LayoutConfig();

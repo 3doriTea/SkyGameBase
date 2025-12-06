@@ -7,7 +7,7 @@ namespace wtgb
 	/// <summary>
 	/// “ü—ÍƒŠƒ\[ƒX
 	/// </summary>
-	class InputResource : public IResource
+	class InputResource : public IResource<>
 	{
 	public:
 		/// <summary>

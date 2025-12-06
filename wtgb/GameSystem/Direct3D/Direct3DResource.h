@@ -4,7 +4,7 @@
 
 namespace wtgb
 {
-	class Direct3DResource : public IResource
+	class Direct3DResource : public IResource<>
 	{
 	public:
 		struct Config
