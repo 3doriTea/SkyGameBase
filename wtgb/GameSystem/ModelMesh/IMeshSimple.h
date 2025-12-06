@@ -1,9 +1,10 @@
 #pragma once
 #include "Utility/IResource.h"
+#include "Core/GameSystemViewer.h"
 
 namespace wtgb
 {
-	class IMeshSimple : public IResource<>
+	class IMeshSimple : public IResource<ViewerCached>
 	{
 	public:
 		/// <summary>
@@ -38,11 +39,11 @@ namespace wtgb
 		/// <summary>
 		/// 初期化処理
 		/// </summary>
-		virtual void Init() override = 0;
+		virtual void Init(ViewerCached _system) override = 0;
 		/// <summary>
 		/// 解放処理
 		/// </summary>
-		virtual void Release() override = 0;
+		virtual void Release(ViewerCached _system) override = 0;
 		/// <summary>
 		/// 頂点構造体のサイズを取得する
 		/// </summary>

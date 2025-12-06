@@ -12,7 +12,7 @@ namespace wtgb
 	class ModelResource : public IMeshSimple
 	{
 	public:
-		ModelResource(const std::string& _fileName, const ViewerCached _system);
+		ModelResource(const std::string& _fileName);
 		virtual ~ModelResource() {}
 
 		/// <summary>
@@ -25,20 +25,13 @@ namespace wtgb
 		/// <summary>
 		/// 初期化処理
 		/// </summary>
-		virtual void Init() override = 0;
+		virtual void Init(ViewerCached _system) override = 0;
 		/// <summary>
 		/// 解放処理
 		/// </summary>
-		virtual void Release() override = 0;
-
-		/// <summary>
-		/// システムへのアクセス
-		/// </summary>
-		/// <returns></returns>
-		inline const ViewerCached& System() const { return SYSTEM_; }
+		virtual void Release(ViewerCached _system) override = 0;
 
 	private:
 		const std::string FILE_NAME_;
-		const ViewerCached SYSTEM_;
 	};
 }

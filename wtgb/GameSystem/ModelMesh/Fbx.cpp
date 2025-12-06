@@ -19,7 +19,7 @@ void wtgb::Fbx::Draw(Transform& transform)
 	cb.matWVP = XMMatrixTranspose*/
 }
 
-void wtgb::Fbx::Init()
+void wtgb::Fbx::Init(ViewerCached _system)
 {
 	fs::path current{ fs::current_path() };
 	modelFile_ = current / FileName();
@@ -41,17 +41,17 @@ void wtgb::Fbx::Init()
 	polygonCount_ = pMesh->GetPolygonCount();       // ポリゴン数
 	materialCount_ = pNode->GetMaterialCount();     // マテリアル数
 
-	InitVertex(pMesh);
-	InitIndex(pMesh);
-	InitConstant();
-	InitMaterial(pNode);
+	InitVertex(_system, pMesh);
+	InitIndex(_system, pMesh);
+	InitConstant(_system);
+	InitMaterial(_system, pNode);
 
 	pFbxScene->Destroy();
 	pFbxImporter->Destroy();
 	pFbxManager->Destroy();
 }
 
-void wtgb::Fbx::Release()
+void wtgb::Fbx::Release(ViewerCached _system)
 {
 	// 明示的に解放
 
@@ -63,7 +63,7 @@ void wtgb::Fbx::Release()
 	pConstantBuffer_.Reset();
 }
 
-void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
+void wtgb::Fbx::InitVertex(ViewerCached _system, FbxMesh* _pMesh)
 {
 	enum { X, Y, Z };
 	enum { U, V };
@@ -144,7 +144,7 @@ void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
 	}
 
 #pragma region 頂点バッファ作成
-	ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+	ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 	HRESULT hResult{};
 
 	const D3D11_BUFFER_DESC VERTEX_DESC
@@ -171,7 +171,7 @@ void wtgb::Fbx::InitVertex(FbxMesh* _pMesh)
 #pragma endregion
 }
 
-void wtgb::Fbx::InitIndex(FbxMesh* _pMesh)
+void wtgb::Fbx::InitIndex(ViewerCached _system, FbxMesh* _pMesh)
 {
 	// マテリアルの数だけ作る
 	pIndexBuffers_.resize(materialCount_);  // インデックスバッファ
@@ -202,7 +202,7 @@ void wtgb::Fbx::InitIndex(FbxMesh* _pMesh)
 		indexCounts_[i] = count;
 
 #pragma region 各マテリアル - インデックスバッファ作成
-		ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};
 
 		const D3D11_BUFFER_DESC INDEX_DESC
@@ -228,7 +228,7 @@ void wtgb::Fbx::InitIndex(FbxMesh* _pMesh)
 	}
 }
 
-void wtgb::Fbx::InitConstant()
+void wtgb::Fbx::InitConstant(ViewerCached _system)
 {
 	const D3D11_BUFFER_DESC CONSTANT_DESC
 	{
@@ -241,7 +241,7 @@ void wtgb::Fbx::InitConstant()
 		.StructureByteStride = 0,
 	};
 
-	ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+	ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 	HRESULT hResult{};
 
 	hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
@@ -249,13 +249,13 @@ void wtgb::Fbx::InitConstant()
 
 }
 
-void wtgb::Fbx::InitMaterial(FbxNode* _pNode)
+void wtgb::Fbx::InitMaterial(ViewerCached _system, FbxNode* _pNode)
 {
 	enum { R, G, B };
 
 	materials_.resize(materialCount_);
 
-	ResourceSystem& resourceSystem{ System().Get<ResourceSystem>() };
+	ResourceSystem& resourceSystem{ _system.Get<ResourceSystem>() };
 
 	for (int i = 0; i < materialCount_; i++)
 	{

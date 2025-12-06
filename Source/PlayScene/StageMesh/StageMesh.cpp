@@ -5,8 +5,7 @@
 using namespace wtgb;
 
 
-StageMesh::StageMesh(ViewerCached _system, StagePoints& _points) :
-	system_{ _system },
+StageMesh::StageMesh(StagePoints& _points) :
 	points_{ _points },
 	hTexture_{ INVALID_HANDLE }
 {
@@ -16,7 +15,7 @@ StageMesh::~StageMesh()
 {
 }
 
-void StageMesh::Init()
+void StageMesh::Init(ViewerCached _system)
 {
 	using namespace DirectX;
 
@@ -110,7 +109,7 @@ void StageMesh::Init()
 		vertexCount_ = static_cast<uint32_t>(vertices.size());
 
 		// バッファ作成
-		ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};
 
 		const D3D11_BUFFER_DESC VERTEX_DESC
@@ -169,7 +168,7 @@ void StageMesh::Init()
 		indexCount_ = static_cast<uint32_t>(indexes.size());
 		
 
-		ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};
 
 		const D3D11_BUFFER_DESC INDEX_DESC
@@ -212,7 +211,7 @@ void StageMesh::Init()
 			.StructureByteStride = 0,
 		};
 
-		ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};
 
 		hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
@@ -221,7 +220,7 @@ void StageMesh::Init()
 #pragma endregion
 }
 
-void StageMesh::Release()
+void StageMesh::Release(ViewerCached _system)
 {
 }
 

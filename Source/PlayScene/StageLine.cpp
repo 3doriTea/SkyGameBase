@@ -39,7 +39,7 @@ StageLine::StageLine() : GameObject
 		.Build();
 	}
 },
-	stageMesh_{ System(), points_ }
+	stageMesh_{ points_ }
 {
 }
 
@@ -80,7 +80,7 @@ void StageLine::Init()
 	}
 
 	collider.SetPoints2D(points_);
-	stageMesh_.CallInit();
+	stageMesh_.CallInit(System());
 }
 
 void StageLine::Update()
@@ -89,5 +89,5 @@ void StageLine::Update()
 
 void StageLine::Release()
 {
-	stageMesh_.CallRelease();
+	stageMesh_.CallRelease(System());
 }

@@ -12,11 +12,11 @@ namespace wtgb
 		/// <summary>
 		/// ‰Šú‰»ˆ—
 		/// </summary>
-		void Init() override;
+		void Init(ViewerCached _system) override;
 		/// <summary>
 		/// ‰ğ•úˆ—
 		/// </summary>
-		void Release() override;
+		void Release(ViewerCached _system) override;
 		uint32_t GetIndexCount() const override;
 		uint32_t GetVertexCount() const override;
 		inline ComPtr<ID3D11Buffer>& GetVertexBuffer() override { return pVertexBuffer_; }

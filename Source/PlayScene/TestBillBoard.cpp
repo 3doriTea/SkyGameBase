@@ -12,7 +12,7 @@ TestBillBoard::BillBoard::~BillBoard()
 {
 }
 
-void TestBillBoard::BillBoard::Init()
+void TestBillBoard::BillBoard::Init(ViewerCached _system)
 {
 	using namespace DirectX;
 
@@ -33,7 +33,7 @@ void TestBillBoard::BillBoard::Init()
 		vertexCount_ = static_cast<uint32_t>(vertices.size());
 
 		// バッファ作成
-		ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};
 
 		const D3D11_BUFFER_DESC VERTEX_DESC
@@ -127,7 +127,7 @@ void TestBillBoard::BillBoard::Init()
 	}
 }
 
-void TestBillBoard::BillBoard::Release()
+void TestBillBoard::BillBoard::Release(ViewerCached _system)
 {
 }
 #pragma endregion
@@ -166,7 +166,7 @@ TestBillBoard::~TestBillBoard()
 
 void TestBillBoard::Init()
 {
-	billBoard_.CallInit();
+	billBoard_.CallInit(System());
 }
 
 void TestBillBoard::Update()
@@ -175,5 +175,5 @@ void TestBillBoard::Update()
 
 void TestBillBoard::Release()
 {
-	billBoard_.CallRelease();
+	billBoard_.CallRelease(System());
 }

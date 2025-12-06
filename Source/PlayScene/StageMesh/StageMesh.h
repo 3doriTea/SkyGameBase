@@ -10,11 +10,11 @@ using StagePoints = std::vector<Vector2>;
 class StageMesh : public wtgb::IMeshSimple
 {
 public:
-	StageMesh(ViewerCached _system, StagePoints& _points);
+	StageMesh(StagePoints& _points);
 	~StageMesh();
 	
-	void Init() override;
-	void Release() override;
+	void Init(ViewerCached _system) override;
+	void Release(ViewerCached _system) override;
 
 	ComPtr<ID3D11Buffer>& GetVertexBuffer() override   { return pVertexBuffer_; }
 	ComPtr<ID3D11Buffer>& GetIndexBuffer() override    { return pIndexBuffer_; }
@@ -52,11 +52,8 @@ private:
 	/// <param name="_vertex">セットしたい頂点</param>
 	static void SetPosXValue(const float _xValue, Vertex* _vertex);
 
-	ViewerCached& System() { return system_; }
-
 private:
 	StagePoints& points_;
-	ViewerCached system_;
 
 	uint32_t vertexCount_;
 	uint32_t indexCount_;

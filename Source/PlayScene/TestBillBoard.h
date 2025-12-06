@@ -11,8 +11,8 @@ public:
 		BillBoard(ViewerCached _system);
 		~BillBoard();
 
-		void Init() override;
-		void Release() override;
+		void Init(ViewerCached _system) override;
+		void Release(ViewerCached _system) override;
 
 		ComPtr<ID3D11Buffer>& GetVertexBuffer() override { return pVertexBuffer_; }
 		ComPtr<ID3D11Buffer>& GetIndexBuffer() override { return pIndexBuffer_; }
