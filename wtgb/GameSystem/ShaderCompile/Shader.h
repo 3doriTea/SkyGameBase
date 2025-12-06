@@ -8,7 +8,7 @@ namespace wtgb
 	/// <summary>
 	/// 読み込んだシェーダ
 	/// </summary>
-	class Shader : public IResource
+	class Shader : public IResource<>
 	{
 	public:
 		/// <summary>

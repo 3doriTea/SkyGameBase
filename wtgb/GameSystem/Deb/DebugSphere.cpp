@@ -1,11 +1,11 @@
 #include "pch\pch.h"
 #include "DebugSphere.h"
 
-void wtgb::DebugSphere::Init()
+void wtgb::DebugSphere::Init(ViewerCached _system)
 {
 }
 
-void wtgb::DebugSphere::Release()
+void wtgb::DebugSphere::Release(ViewerCached _system)
 {
 }
 

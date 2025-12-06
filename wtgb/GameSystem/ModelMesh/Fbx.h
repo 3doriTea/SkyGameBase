@@ -94,17 +94,17 @@ namespace wtgb
 		/// <summary>
 		/// Fbxをロードする
 		/// </summary>
-		void Init() override;
+		void Init(ViewerCached _system) override;
 
 		/// <summary>
 		/// 読み込んだモデルの解放処理
 		/// </summary>
-		void Release() override;
+		void Release(ViewerCached _system) override;
 
-		void InitVertex(FbxMesh* _pMesh);
-		void InitIndex(FbxMesh* _pMesh);
-		void InitConstant();
-		void InitMaterial(FbxNode* _pNode);
+		void InitVertex(ViewerCached _system, FbxMesh* _pMesh);
+		void InitIndex(ViewerCached _system, FbxMesh* _pMesh);
+		void InitConstant(ViewerCached _system);
+		void InitMaterial(ViewerCached _system, FbxNode* _pNode);
 
 	private:
 		fs::path modelFile_;  // ファイルパス

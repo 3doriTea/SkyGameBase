@@ -66,6 +66,12 @@
     <ClInclude Include="wtgb\GameComponent\SphereCollider.h" />
     <ClInclude Include="wtgb\GameComponent\Transform.h" />
     <ClInclude Include="wtgb\GameSystem\Camera.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\CanvasContext.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\LayoutConfig.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\Mesh2D.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\Pivot.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\RenderContent.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager.h" />
     <ClInclude Include="wtgb\Core\Entity.h" />
     <ClInclude Include="wtgb\Core\Game.h" />
@@ -159,6 +165,9 @@
     <ClCompile Include="wtgb\GameComponent\RigidBody.cpp" />
     <ClCompile Include="wtgb\GameComponent\Transform.cpp" />
     <ClCompile Include="wtgb\GameSystem\Camera.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Canvas.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Canvas\CanvasContext.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Canvas\LayoutConfig.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager.cpp" />
     <ClCompile Include="wtgb\Core\Game.cpp" />
     <ClCompile Include="wtgb\Core\GameLoop.cpp" />
@@ -226,6 +235,22 @@
     <FxCompile Include="Assets\Shader\Debug.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\Figure2D.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\Image2D.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
     </FxCompile>

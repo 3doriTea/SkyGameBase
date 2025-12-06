@@ -1,8 +1,7 @@
 #include "pch\pch.h"
 #include "WaterMesh.h"
 
-WaterMesh::WaterMesh(ViewerCached _system, WavePoints& _points, const Vector2Int _size) :
-	system_{ _system },
+WaterMesh::WaterMesh(WavePoints& _points, const Vector2Int _size) :
 	points_{ _points },
 	SIZE_{ _size }
 {
@@ -12,7 +11,7 @@ WaterMesh::~WaterMesh()
 {
 }
 
-void WaterMesh::Init()
+void WaterMesh::Init(ViewerCached _system)
 {
 	using namespace DirectX;
 
@@ -45,7 +44,7 @@ void WaterMesh::Init()
 #pragma endregion
 }
 
-void WaterMesh::Release()
+void WaterMesh::Release(ViewerCached _system)
 {
 }
 

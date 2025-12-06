@@ -24,9 +24,9 @@ void wtgb::Model::Update(const ViewerUpdate& _system)
 
 void wtgb::Model::End()
 {
-	models_.Release([](ModelResource*& modelResource)
+	models_.Release([this](ModelResource*& modelResource)
 		{
-			modelResource->CallRelease();
+			modelResource->CallRelease(system_);
 		});
 }
 
@@ -48,9 +48,9 @@ wtgb::ModelHandle wtgb::Model::Load(const std::string& _fileName)
 		return foundHandle;
 	}
 
-	ModelHandle hModel{ models_.Emplace(new Fbx{ _fileName, system_ }) };
+	ModelHandle hModel{ models_.Emplace(new Fbx{ _fileName }) };
 	HRESULT hResult{};
-	models_.At(hModel).CallInit();
+	models_.At(hModel).CallInit(system_);
 
 	return hModel;
 }

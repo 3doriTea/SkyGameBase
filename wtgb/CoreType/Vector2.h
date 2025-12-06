@@ -22,6 +22,12 @@ namespace wtgb
 		inline operator DirectX::XMVECTOR() const { return DirectX::XMLoadFloat2(this); }
 
 		/// <summary>
+		/// 零ベクトルを取得する
+		/// </summary>
+		/// <returns>(0, 0)</returns>
+		inline static Vector2 Zero() { return { 0.0f, 1.0f }; }
+
+		/// <summary>
 		/// Yだけ+1のベクトルを取得する
 		/// </summary>
 		/// <returns>(0, 1)</returns>

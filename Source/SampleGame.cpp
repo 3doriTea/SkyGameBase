@@ -27,6 +27,8 @@
 
 #include "GameSystem/Camera.h"
 
+#include "GameSystem/Canvas.h"
+
 #include "GameSystem/Path.h"
 #include "GameSystem/ShaderCompile.h"
 
@@ -73,6 +75,7 @@ void SampleGame::StartRegister(
 		.Register<Camera>()
 		.Register<CPModelMesh>()
 		.Register<CPMeshRenderer>()
+		.Register<Canvas>()  // UI‚Ì•`‰æ‚Í3D•`‰æ‚ÌŒã‚ÉI
 
 
 		.Register<Rendering>()

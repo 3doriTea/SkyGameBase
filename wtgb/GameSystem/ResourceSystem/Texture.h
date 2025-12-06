@@ -8,7 +8,7 @@ namespace wtgb
 	/// <summary>
 	/// 画像のテクスチャ
 	/// </summary>
-	class Texture : public IResource
+	class Texture : public IResource<>
 	{
 	public:
 		using Config = TextureConfig;
