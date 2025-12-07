@@ -46,8 +46,8 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
 	wassert(pTransform && "Transformコンポーネントの取得に失敗");
-	RigidBody* pRigidBody{ systemView.Get<CPRigidBody>().Get(entityId) };
-	wassert(pRigidBody && "RigidBodyコンポーネントの取得に失敗");
+	/*RigidBody* pRigidBody{ systemView.Get<CPRigidBody>().Get(entityId) };
+	wassert(pRigidBody && "RigidBodyコンポーネントの取得に失敗");*/
 
 
 	// マウスカーソルの制御
@@ -57,7 +57,7 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 		cursor.SetShow(false);
 	}
 
-	if (input.IsKey(KeyCode::K))
+	/*if (input.IsKey(KeyCode::K))
 	{
 		pRigidBody->SetVelocity(Vector3::Zero());
 	}
@@ -65,7 +65,7 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 	if (input.IsKey(KeyCode::G))
 	{
 		pRigidBody->SetVelocity(Vector3::Down() * 20.0f);
-	}
+	}*/
 
 	if (cursor.IsCenterLock() == false || cursor.IsShow())
 	{
@@ -125,7 +125,7 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 	/*cameraPos = cameraPos + velocity;
 	pTransform->SetPosition(cameraPos);*/
 
-	pRigidBody->AddVelocity(velocity);
+	//pRigidBody->AddVelocity(velocity);
 }
 
 void CameraMoveFree::End(GameObjectReference _ref)

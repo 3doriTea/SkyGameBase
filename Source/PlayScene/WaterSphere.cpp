@@ -56,7 +56,7 @@ void WaterSphere::Update()
 	Vector3 pos{ Transform().GetPosition() };
 	if (pos.x < DEAD_ZONE_X_MIN || DEAD_ZONE_X_MAX < pos.x)
 	{
-		DestroyMe();
+		//DestroyMe();
 	}
 }
 

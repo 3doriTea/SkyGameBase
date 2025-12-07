@@ -49,6 +49,11 @@ void wtgb::Cursor::SetShow(const bool _isShow)
 	isShow_ = _isShow;
 }
 
+wtgb::Vector2Int wtgb::Cursor::GetPosition() const
+{
+	return previousPosition_;
+}
+
 void wtgb::Cursor::SetPositionCenter()
 {
 	GameWindow& gameWindow{ System().Get<GameWindow>() };

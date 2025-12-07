@@ -14,7 +14,7 @@ private:
 	};
 
 public:
-	CameraMovePlay() {}
+	CameraMovePlay();
 	~CameraMovePlay() {}
 
 	void Start(GameObjectReference _ref) override;
@@ -22,6 +22,8 @@ public:
 	void End(GameObjectReference _ref) override;
 
 private:
+	float angleX_;  // x軸の回転角度
+	float angleY_;  // y軸の回転角度
 	bool isDragging_;          // マウスがドラッグ中か
 	ControlMode controlMode_;  // マウスをドラッグ中の操作モード
 };

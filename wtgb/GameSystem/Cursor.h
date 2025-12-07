@@ -84,6 +84,12 @@ namespace wtgb
 		/// <returns>表示している true / false</returns>
 		bool IsShow() const { return isShow_; }
 
+		/// <summary>
+		/// カーソルの座標を取得する
+		/// </summary>
+		/// <returns></returns>
+		Vector2Int GetPosition() const;
+
 	private:
 		/// <summary>
 		/// カーソルの座標を中央にする

@@ -205,6 +205,155 @@ struct Section
 	wtgb::Vector2 end;    // 終点
 };
 
+
+#if 1
+void CircleBodyVSSegment(
+	const CircleBody& _circleBody,
+	const Section& _section,
+	wtgb::CollisionInfo* _pCollisionInfo)
+{
+	using namespace wtgb;
+	using namespace DirectX;
+
+	CollisionInfo info{};
+	info.time = FLT_MAX;
+
+	// 現在の円の中心座標
+	const Vector2 CURR_CENTER{ _circleBody.center };
+
+#pragma region 絶対に当たらない場合除外 (簡易なBounding Boxチェックはそのまま)
+	// 衝突応答は現在の位置で行うため、NEXT_CENTERは一旦使わずCURR_CENTERのみで境界チェックを行う
+	const float CIRCLE_MAX_X{ CURR_CENTER.x + _circleBody.radius };
+	const float CIRCLE_MIN_X{ CURR_CENTER.x - _circleBody.radius };
+
+	// 線分の端点のX座標が円の境界から大きく離れていたら無視（より厳密なチェックが望ましいがここでは単純化）
+	// この簡易なチェックは、トンネリングを防ぐ連続的衝突検出の補助としては不十分ですが、今回は単純な埋まり込み解消に焦点を当てます。
+	// (次のフレーム位置を含めたチェックは削除し、現在の位置のみで判定します)
+	// (コード内の定数定義が不完全なため、この除外判定は一旦コメントアウト、または調整が必要です)
+	
+	const float SECTION_MAX_X{ max(_section.begin.x, _section.end.x) };
+	const float SECTION_MIN_X{ min(_section.begin.x, _section.end.x) };
+	if (SECTION_MAX_X < CIRCLE_MIN_X || CIRCLE_MAX_X < SECTION_MIN_X)
+	{
+		info.isHit = false;
+		info.isIgnoreFar = true;
+		if (_pCollisionInfo)
+		{
+			*_pCollisionInfo = info;
+		}
+		return; // 早期リターン
+	}
+#pragma endregion
+
+	// 線分ベクトル
+	const Vector2 V{ _section.end - _section.begin };
+	// 線分始点から円の中心
+	const Vector2 W{ CURR_CENTER - _section.begin };
+	// 円の半径
+	const float RADIUS{ _circleBody.radius };
+
+	// 線分の長さの2乗
+	const float SEGMENT_LENGTH_SQ{ XMVectorGetX(XMVector2LengthSq(V)) };
+
+	// 最近接点
+	Vector2 point2D{};
+
+	// 線分に垂直な法線ベクトル（仮）
+	Vector2 SEGMENT_NORM{ XMVector2Normalize(Vector2{ -V.y, V.x }) };
+
+	// 法線が上を向くように調整 (地形として扱うため、常に円が存在すべき側を指すようにする)
+	// 一般に+Yが上であれば、法線のY成分が負なら反転させる
+	if (SEGMENT_NORM.y < 0.0f)
+	{
+		SEGMENT_NORM = SEGMENT_NORM * -1.0f;
+	}
+
+	// 線分がもうほぼ点と言って過言ではない (端点衝突)
+	if (SEGMENT_LENGTH_SQ < FLT_EPSILON)
+	{
+		point2D = _section.begin;
+	}
+	else // 線分としての処理
+	{
+		// 線分上での接点の割合 t
+		float t{ XMVectorGetX(XMVector2Dot(W, V)) / SEGMENT_LENGTH_SQ };
+
+		if (t < 0.0f) // 始点より前にある -> 始点が最近接点
+		{
+			point2D = _section.begin;
+		}
+		else if (t > 1.0f) // 終点より後にある -> 終点が最近接点
+		{
+			point2D = _section.end;
+		}
+		else // 線分の間 -> 垂直な点が最近接点
+		{
+			point2D = V * t + _section.begin;
+		}
+	}
+
+	// 円の中心から最近接点へのベクトル
+	const Vector2 CENTER_TO_POINT{ point2D - CURR_CENTER };
+	// 距離
+	const float DISTANCE{ XMVectorGetX(XMVector2Length(CENTER_TO_POINT)) };
+
+	// 埋め込み具合 (負の値なら埋まっている)
+	info.depth = RADIUS - DISTANCE;
+
+	// 当たっているか（埋まり込みがあるか）
+	info.isHit = info.depth >= 0.0f;
+
+	// 衝突点は最近接点
+	info.hitPoint = { 0.0f, point2D.y, point2D.x };
+
+	if (info.isHit)
+	{
+		// 押し出しベクトル (法線方向に埋まり込み量分押し戻す)
+		// ここで使う法線は、セグメントの「上向き」法線を使用
+		const Vector2 push2D = SEGMENT_NORM * info.depth;
+
+		// 押し出し方向の確認: 
+		// 実際の埋まり込み方向は CENTER_TO_POINT の逆方向ですが、
+		// 地形衝突ではSEGMENT_NORMの方向に押し出すことで「地形の外側」に出します。
+
+		// 押し出し
+		info.push = Vector3{ 0.0f, push2D.y, push2D.x };
+
+		// 衝突が現在の位置で検出されたため、当たるまでの時間は 0 と見なす
+		info.time = 0.0f;
+
+		// 侵入速度
+		const Vector2 F{ _circleBody.velocity };
+
+		// 法線(SEGMENT_NORM)に向かってくる速度成分の内積
+		const float DOT_FN = XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM));
+
+		// 速度がめり込み方向(DOT_FN < 0.0f)でなければ反射処理は不要（離れていっているため）
+		if (DOT_FN < 0.0f)
+		{
+			// 反発力 e を考慮した反射係数
+			const float E = 1.0f + _circleBody.bounciness;
+
+			// 反射ベクトル (R) の計算: R = F - (1 + e) * (F . N) * N
+			// DOT_FNは負の値なので、-DOT_FNはめり込み方向の速度の大きさ（正の値）になる
+			Vector2 r{ F - E * DOT_FN * SEGMENT_NORM };
+
+			info.reflectionVelocity = { 0.0f, r.y, r.x };
+		}
+		else
+		{
+			// 離れ方向または接線方向の速度成分のみ、そのまま次の速度とする
+			info.reflectionVelocity = { 0.0f, F.y, F.x };
+		}
+	}
+
+	// 当たり判定情報が必要なら渡す
+	if (_pCollisionInfo)
+	{
+		*_pCollisionInfo = info;
+	}
+}
+#else
 void CircleBodyVSSegment(
 	const CircleBody& _circleBody,
 	const Section& _section,
@@ -285,62 +434,113 @@ void CircleBodyVSSegment(
 
 	info.hitPoint = { 0.0f, point2D.y, point2D.x };
 
+	// 円の中心から最近接点へのベクトル
+	const Vector2 CENTER_TO_POINT_P{ point2D - CURR_CENTER };
+	const float DISTANCE{ XMVectorGetX(XMVector2Length(CENTER_TO_POINT_P)) };
+
+	// 押し出し方向 (法線ベクトル N) - 常に円の中心から外側を指す
+	Vector2 norm{ XMVector2Normalize(-CENTER_TO_POINT_P) };
+
+	if (DISTANCE <= FLT_EPSILON)
+	{
+		norm = XMVector2Normalize(Vector2{ -V.y, V.x });
+		if (norm.y < 0)
+		{
+			//norm.y *= -1;
+		}
+	}
+
+	// 埋め込み量
+	info.depth = _circleBody.radius - DISTANCE;
+
 	if (info.isHit)
 	{
-		// 当たっているなら押し出しと時刻を返す
-		Vector2 push2D{};
+		// 押し出しベクトルを計算
+		const Vector2 push2D = norm * info.depth;
+		info.push = Vector3{ 0.0f, push2D.y, push2D.x };
 
+		// 衝突時刻は、この「押し出し」ベースの処理では厳密に求まりません。
+		// info.timeを0にして、「衝突はすでに起こっている」と見なすのが一般的です。
+		info.time = 0.0f;
 
-		// 1フレームで移動
-		const Vector2 MOVE{ NEXT_CENTER - CURR_CENTER };
-		
-		// 円の中心から最近接点
-		const Vector2 CENTER_TO_POINT{ point2D - CURR_CENTER };
-
-		// 線分に垂直な法線ベクトル
-		const Vector2 SEGMENT_NORM{ XMVector2Normalize(Vector2{ -V.y, V.x }) };
-
-		// 反発する方向
-		Vector2 retDir{ XMVector2Normalize(CENTER_TO_POINT * -1.0f) };
-		//Vector2 retDir{ SEGMENT_NORM };
-
-		if (XMVectorGetX(XMVector2LengthSq(retDir)) <= FLT_EPSILON)
-		{
-			retDir = Vector2::Up();
-		}
-
-		// 半径分戻すベクトル
-		const Vector2 RET_RADIUS{ retDir * _circleBody.radius };
-
-		// 半径分戻したベクトル
-		const Vector2 TO_HIT_POS{ CENTER_TO_POINT + RET_RADIUS };
-
-		// 当たることが予定されるため動かす分
-		push2D = (NEXT_CENTER + TO_HIT_POS) - CURR_CENTER;
-
-		// 当たるまでの時間を取っておく
-		info.time = XMVectorGetX(XMVector2Length(MOVE - push2D));
-
-		// 侵入速度
+		// 入射速度 (F)
 		const Vector2 F{ _circleBody.velocity };
 
-		// 法線に向かってくる速度ベクトルなら反射する
-		//if (XMVectorGetX(XMVector2Dot(SEGMENT_NORM, F)) <= 0.0f)
+		// 法線(N)と速度の内積
+		const float DOT_FN = XMVectorGetX(XMVector2Dot(F, norm));
 
-		// 反射ベクトル
-		//Vector2 r{ F - 2.0f * XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM)) * SEGMENT_NORM };
-		//Vector2 r{ F + 2.0f * XMVectorGetX(XMVector2Length(F)) * SEGMENT_NORM };
-		Vector2 r{ F + 2.0f * XMVectorGetX(XMVector3Dot(-F, SEGMENT_NORM)) * SEGMENT_NORM };
-
-		LOGFLN("r=({}, {})" "p=({}, {})" "  F({}, {})", r.x, r.y, push2D.x, push2D.y, F.x, F.y);
-
-		/*if (XMVectorGetX(XMVector2Dot(SEGMENT_NORM, r)) < 0.0f)
+		// 法線方向への速度（めり込み速度）が正（離れる方向）なら反射しない
+		if (DOT_FN < 0.0f)
 		{
-			r.y = r.y * -1.0f;
-		}*/
+			// 衝突係数（1 + 反発力）
+			const float E = 1.0f + _circleBody.bounciness;
 
-		info.reflectionVelocity = { 0.0f, r.y, r.x };
-		info.push = Vector3{ 0.0f, push2D.y, push2D.x } * 1.0f;
+			// 反射ベクトル (R)
+			// R = F - (1 + bounciness) * (F . N) * N
+			Vector2 r{ F - E * DOT_FN * norm };
+
+			info.reflectionVelocity = { 0.0f, r.y, r.x };
+		}
+		else
+		{
+			// 離れていく方向なので、反射は起こさず現在の速度のまま
+			info.reflectionVelocity = { 0.0f, F.y, F.x };
+		}
+
+		//// 当たっているなら押し出しと時刻を返す
+		//Vector2 push2D{};
+
+
+		//// 1フレームで移動
+		//const Vector2 MOVE{ NEXT_CENTER - CURR_CENTER };
+		//
+		//// 円の中心から最近接点
+		//const Vector2 CENTER_TO_POINT{ point2D - CURR_CENTER };
+
+		//// 線分に垂直な法線ベクトル
+		//const Vector2 SEGMENT_NORM{ XMVector2Normalize(Vector2{ -V.y, V.x }) };
+
+		//// 反発する方向
+		//Vector2 retDir{ XMVector2Normalize(CENTER_TO_POINT * -1.0f) };
+		////Vector2 retDir{ SEGMENT_NORM };
+
+		//if (XMVectorGetX(XMVector2LengthSq(retDir)) <= FLT_EPSILON)
+		//{
+		//	retDir = Vector2::Up();
+		//}
+
+		//// 半径分戻すベクトル
+		//const Vector2 RET_RADIUS{ retDir * _circleBody.radius };
+
+		//// 半径分戻したベクトル
+		//const Vector2 TO_HIT_POS{ CENTER_TO_POINT + RET_RADIUS };
+
+		//// 当たることが予定されるため動かす分
+		//push2D = (NEXT_CENTER + TO_HIT_POS) - CURR_CENTER;
+
+		//// 当たるまでの時間を取っておく
+		//info.time = XMVectorGetX(XMVector2Length(MOVE - push2D));
+
+		//// 侵入速度
+		//const Vector2 F{ _circleBody.velocity };
+
+		//// 法線に向かってくる速度ベクトルなら反射する
+		////if (XMVectorGetX(XMVector2Dot(SEGMENT_NORM, F)) <= 0.0f)
+
+		//// 反射ベクトル
+		////Vector2 r{ F - 2.0f * XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM)) * SEGMENT_NORM };
+		////Vector2 r{ F + 2.0f * XMVectorGetX(XMVector2Length(F)) * SEGMENT_NORM };
+		//Vector2 r{ F + 2.0f * XMVectorGetX(XMVector3Dot(-F, SEGMENT_NORM)) * SEGMENT_NORM };
+
+		//LOGFLN("r=({}, {})" "p=({}, {})" "  F({}, {})", r.x, r.y, push2D.x, push2D.y, F.x, F.y);
+
+		///*if (XMVectorGetX(XMVector2Dot(SEGMENT_NORM, r)) < 0.0f)
+		//{
+		//	r.y = r.y * -1.0f;
+		//}*/
+
+		//info.reflectionVelocity = { 0.0f, r.y, r.x };
+		//info.push = Vector3{ 0.0f, push2D.y, push2D.x } * 1.0f;
 	}
 
 	// 当たり判定情報が必要なら渡す
@@ -349,6 +549,7 @@ void CircleBodyVSSegment(
 		*_pCollisionInfo = info;
 	}
 }
+#endif
 
 bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet* _pSection, CollisionInfo* _pCollisionInfo)
 {
