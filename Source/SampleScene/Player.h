@@ -15,7 +15,7 @@ public:
 	/// ƒvƒŒƒCƒ„[‚ğˆÚ“®‚³‚¹‚é
 	/// </summary>
 	/// <param name="_move">ˆÚ“®</param>
-	void AddMove(const Vector2 _move);
+	void AddMove(const Vector3 _move);
 
 private:
 	float angle_;

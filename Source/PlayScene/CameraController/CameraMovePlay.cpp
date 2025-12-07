@@ -8,7 +8,7 @@ namespace
 	const float TO_PLAYER_DISTANCE{ 30.0f };
 
 	// プレイヤーのドラッグ範囲 (ピクセル)
-	const int PLAYER_DRAG_RADIUS_PIX{ 50.0f };
+	const int PLAYER_DRAG_RADIUS_PIX{ 50 };
 	// プレイヤーのドラッグ範囲の2以上 (ピクセル)
 	const int PLAYER_DRAG_RADIUS_PIX_SQ{ PLAYER_DRAG_RADIUS_PIX * PLAYER_DRAG_RADIUS_PIX };
 }
@@ -17,7 +17,9 @@ CameraMovePlay::CameraMovePlay() :
 	angleY_{ 0.0f },
 	angleX_{ 0.0f },
 	isDragging_{ false },
-	controlMode_{ ControlMode::MoveView }
+	controlMode_{ ControlMode::MoveView },
+	previous_{ Vector2Int::Zero() },
+	diffValue_{ Vector2Int::Zero() }
 {
 }
 
@@ -57,6 +59,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		if (radiusSq <= PLAYER_DRAG_RADIUS_PIX_SQ)
 		{
 			controlMode_ = ControlMode::MovePlayer;
+			previous_ = cursor.GetPosition();
 		}
 		else
 		{
@@ -73,6 +76,29 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		{
 			cursor.SetCenterLock(false);
 			cursor.SetShow(true);
+		}
+		else  // プレイヤー操作の状態だったら
+		{
+			const float MOVE_MAX_SPEED{ 10.0f };
+			const float CURSOR_MOVE_TO_VELOCITY{ 0.1f };
+
+			Player* pp{ dynamic_cast<Player*>(pPlayer) };
+
+			// マウスの移動量から速度を求める
+			Vector3 velocity
+			{
+				Vector3{ static_cast<float>(diffValue_.x), 0.0f, static_cast<float>(diffValue_.y) }
+				* CURSOR_MOVE_TO_VELOCITY
+			};
+
+			LOGFLN("v({}, {}, {})", velocity.x, velocity.y, velocity.z);
+
+			// プレイヤーのローカル方向へ変換
+			velocity = XMVector3TransformCoord(velocity, XMMatrixRotationY(angleY_));
+
+			pp->AddMove(velocity);
+
+			diffValue_ = Vector2Int::Zero();
 		}
 		isDragging_ = false;
 	}
@@ -152,8 +178,10 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		}
 		case CameraMovePlay::ControlMode::MovePlayer:
 		{
-			Player* pp { dynamic_cast<Player*>(pPlayer) };
-			pp->AddMove(Vector2{ move.x, move.y });
+			Vector2Int current{ cursor.GetPosition() };
+			diffValue_ += current - previous_;
+			LOGFLN("diffValue_:({}, {})", diffValue_.x, diffValue_.y);
+			previous_ = current;
 			break;
 		}
 		default:
