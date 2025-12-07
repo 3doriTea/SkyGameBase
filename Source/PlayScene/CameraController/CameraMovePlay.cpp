@@ -1,10 +1,16 @@
 #include "pch\pch.h"
 #include "CameraMovePlay.h"
+#include "../../SampleScene/Player.h"
 
 namespace
 {
 	// プレイヤーまでの距離
 	const float TO_PLAYER_DISTANCE{ 30.0f };
+
+	// プレイヤーのドラッグ範囲 (ピクセル)
+	const int PLAYER_DRAG_RADIUS_PIX{ 50.0f };
+	// プレイヤーのドラッグ範囲の2以上 (ピクセル)
+	const int PLAYER_DRAG_RADIUS_PIX_SQ{ PLAYER_DRAG_RADIUS_PIX * PLAYER_DRAG_RADIUS_PIX };
 }
 
 CameraMovePlay::CameraMovePlay() :
@@ -27,6 +33,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 	float dt{ systemView.Get<GameTime>().GetDeltaTime() };
 	Cursor& cursor{ systemView.Get<Cursor>() };
+	GameWindow& gameWindow{ systemView.Get<GameWindow>() };
 	const Input::InputGetter& input{ systemView.Get<Input>().Getter() };
 
 	// カメラコントローラのゲームオブジェクトの情報
@@ -38,15 +45,35 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	// マウスカーソルの制御
 	if (input.IsMouseDown(MouseCode::Left))
 	{
-		cursor.SetCenterLock(true);
-		cursor.SetShow(false);
 		isDragging_ = true;
-		LOGFLN("pos:({}, {})", cursor.GetPosition().x, cursor.GetPosition().y);
+
+		Vector2Int windowSize{ gameWindow.GetMainWindowSize() };
+		Vector2Int halfWindowSize{ windowSize / 2 };
+		Vector2Int cursorPosition{ cursor.GetPosition() };
+		
+		Vector2Int offsetPos{ cursorPosition - halfWindowSize };
+		int radiusSq{ offsetPos.x * offsetPos.x + offsetPos.y * offsetPos.y };
+
+		if (radiusSq <= PLAYER_DRAG_RADIUS_PIX_SQ)
+		{
+			controlMode_ = ControlMode::MovePlayer;
+		}
+		else
+		{
+			controlMode_ = ControlMode::MoveView;
+			cursor.SetCenterLock(true);
+			cursor.SetShow(false);
+		}
+		
+		//LOGFLN("pos:({}, {})", cursor.GetPosition().x, cursor.GetPosition().y);
 	}
 	if (input.IsMouseUp(MouseCode::Left))
 	{
-		cursor.SetCenterLock(false);
-		cursor.SetShow(true);
+		if (controlMode_ == ControlMode::MoveView)
+		{
+			cursor.SetCenterLock(false);
+			cursor.SetShow(true);
+		}
 		isDragging_ = false;
 	}
 
@@ -115,8 +142,23 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	// ドラッグ中の処理
 	if (isDragging_)
 	{
-		angleX_ += static_cast<float>(move.y) * ((XM_PI / 180.0f) * 3.0f) * dt;
-		angleY_ += static_cast<float>(move.x) * ((XM_PI / 180.0f) * 3.0f) * dt;
+		switch (controlMode_)
+		{
+		case CameraMovePlay::ControlMode::MoveView:
+		{
+			angleX_ += static_cast<float>(move.y) * ((XM_PI / 180.0f) * 3.0f) * dt;
+			angleY_ += static_cast<float>(move.x) * ((XM_PI / 180.0f) * 3.0f) * dt;
+			break;
+		}
+		case CameraMovePlay::ControlMode::MovePlayer:
+		{
+			Player* pp { dynamic_cast<Player*>(pPlayer) };
+			pp->AddMove(Vector2{ move.x, move.y });
+			break;
+		}
+		default:
+			break;
+		}
 
 		//Vector3 pos{ pTransform->GetPosition() };
 		//Vector3 pos{ pTransform->GetPosition() };

@@ -107,3 +107,11 @@ void Player::Update()
 
 	Transform().SetScale((std::sinf(angle_) * std::sinf(angle_) * 3.0f) * Vector3::One() + Vector3::One());
 }
+
+void Player::AddMove(const Vector2 _move)
+{
+	float dt{ System().Get<GameTime>().GetDeltaTime() };
+	RigidBody& rb{ GetComponent<RigidBody>() };
+
+	rb.AddVelocity({ _move.x, 0.0f, _move.y });
+}

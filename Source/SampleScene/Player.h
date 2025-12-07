@@ -11,6 +11,12 @@ public:
 	void Update() override;
 	void Release() override {}
 
+	/// <summary>
+	/// ƒvƒŒƒCƒ„[‚ğˆÚ“®‚³‚¹‚é
+	/// </summary>
+	/// <param name="_move">ˆÚ“®</param>
+	void AddMove(const Vector2 _move);
+
 private:
 	float angle_;
 };

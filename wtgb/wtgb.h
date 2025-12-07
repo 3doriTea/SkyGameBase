@@ -24,6 +24,7 @@
 #include "GameComponent/RigidBody.h"
 
 #include "GameSystem/GameTime.h"
+#include "GameSystem/GameWindow.h"
 #include "GameSystem/Camera.h"
 #include "GameSystem/Input.h"
 #include "GameSystem/Cursor.h"
