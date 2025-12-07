@@ -23,7 +23,7 @@ namespace wtgb
 		inline virtual ~IResource()
 		{
 #ifdef _DEBUG
-			if (isReleased_)
+			if (!isReleased_)
 			{
 				LOGFLN("::warn::" "リソースを解放せずにデストラクタが呼ばれている" "\n" "{}", GetStackTrace(2));
 				wassert(isReleased_ && "リソースを解放せずにデストラクタが呼ばれている");
