@@ -113,6 +113,7 @@
     <ClInclude Include="wtgb\GameSystem\ResourceSystem.h" />
     <ClInclude Include="wtgb\GameSystem\ResourceSystem\TextureConfig.h" />
     <ClInclude Include="wtgb\GameSystem\ShaderCompile\Shader.h" />
+    <ClInclude Include="wtgb\Utility\CallStackViewer.h" />
     <ClInclude Include="wtgb\Utility\IResource.h" />
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\Material.h" />
     <ClInclude Include="wtgb\GameSystem\ModelMesh\Fbx.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="wtgb\GameSystem\ResourceSystem.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem\Texture.cpp" />
     <ClCompile Include="wtgb\GameSystem\ShaderCompile\Shader.cpp" />
+    <ClCompile Include="wtgb\Utility\CallStackViewer.cpp" />
     <ClCompile Include="wtgb\Utility\IResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\Fbx.cpp" />
     <ClCompile Include="wtgb\GameSystem\Rendering.cpp" />

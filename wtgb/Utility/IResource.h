@@ -1,5 +1,9 @@
 #pragma once
+#ifdef _DEBUG
+#include "CallStackViewer.h"
 #include "WTGBAssert.h"
+#include "GameSystem/Debug.h"
+#endif
 
 namespace wtgb
 {
@@ -19,7 +23,11 @@ namespace wtgb
 		inline virtual ~IResource()
 		{
 #ifdef _DEBUG
-			wassert(isReleased_ && "リソースを解放せずにデストラクタが呼ばれている");
+			if (isReleased_)
+			{
+				LOGFLN("::warn::" "リソースを解放せずにデストラクタが呼ばれている" "\n" "{}", GetStackTrace(2));
+				wassert(isReleased_ && "リソースを解放せずにデストラクタが呼ばれている");
+			}
 #endif
 		}
 

@@ -9,12 +9,10 @@ wtgb::InitSequence& wtgb::InitSequence::Begin()
 wtgb::InitSequence::InitSequence() :
 	hResult_{}
 {
-	LOGFW("初期化シーケンスイニット\n");
 }
 
 wtgb::InitSequence::~InitSequence()
 {
-	LOGFW("初期化シーケンスデストロイ\n");
 }
 
 wtgb::InitSequence& wtgb::InitSequence::TryRun(const std::function<HRESULT()>& _callback)
