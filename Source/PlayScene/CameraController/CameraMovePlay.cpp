@@ -187,23 +187,6 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		default:
 			break;
 		}
-
-		//Vector3 pos{ pTransform->GetPosition() };
-		//Vector3 pos{ pTransform->GetPosition() };
-
-		//Vector3 moveLocal{ static_cast<float>(move.x), static_cast<float>(move.y), -TO_PLAYER_DISTANCE };
-
-		//moveLocal = moveLocal * dt;
-		
-		/*LOGFLN("pos({}, {}, {})", pos.x, pos.y, pos.z);
-		LOGFLN("moveLocal({}, {}, {})", moveLocal.x, moveLocal.y, moveLocal.z);*/
-
-		//Vector3 moveWorld{ moveLocal };
-		//Vector3 moveWorld{ XMVector3TransformCoord(moveLocal, XMMatrixRotationY(pTransform->GetRotation().y)) };
-
-		//pTransform->SetPosition(pos + moveWorld);
-
-
 	}
 }
 
