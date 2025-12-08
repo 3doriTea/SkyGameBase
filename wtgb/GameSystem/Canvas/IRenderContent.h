@@ -7,12 +7,19 @@ namespace wtgb::UI
 	/// <summary>
 	/// 描画内容のインタフェース
 	/// </summary>
-	class IRenderContent
+	struct IRenderContent
 	{
-	public:
-		IRenderContent() {}
-		virtual ~IRenderContent() {}
-
-		virtual void Render(CPMeshRenderer& _meshRenderer, const LayoutConfig& _layoutConfig) const = 0;
+		IRenderContent() = default;
+		virtual ~IRenderContent() = default;
+		
+		/// <summary>
+		/// 描画処理
+		/// </summary>
+		virtual void Render(
+			const Vector2Int _screenSize,
+			const Matrix4x4& _matrixProjection,
+			IMeshSimple2D* _pMeshSimple2D,
+			CPMeshRenderer& _meshRenderer,
+			const LayoutConfig& _layoutConfig) const = 0;
 	};
 }

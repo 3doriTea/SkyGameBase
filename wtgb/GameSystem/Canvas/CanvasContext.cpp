@@ -8,7 +8,7 @@ void wtgb::UI::CanvasContext::SetLayout(const LayoutConfig& _config)
 
 void wtgb::UI::CanvasContext::DrawBox(const Color _color, const float _angle)  
 {
-	AddRenderOrder(RenderContent<RenderContentType::Box> boxContent{ _color, _angle });
+	AddRenderOrder(RenderContentBox{ _color, _angle });
 }
 
 void wtgb::UI::CanvasContext::DrawBox(const Color _color, const float _angle)  
