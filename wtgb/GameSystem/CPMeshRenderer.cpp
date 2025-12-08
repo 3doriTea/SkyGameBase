@@ -96,8 +96,8 @@ void wtgb::CPMeshRenderer::Render2D(
 	const Matrix4x4& _matrixProjection,
 	const Matrix4x4& _matrixUV,
 	const ShaderHandle _hShader,
-	const TextureHandle _hTexture,
-	const Color& _color)
+	const Color& _color,
+	const TextureHandle _hTexture)
 {
 	using namespace DirectX;
 

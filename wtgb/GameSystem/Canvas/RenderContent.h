@@ -1,11 +1,13 @@
 #pragma once
 #include <variant>
 #include "pch/pch.h"
+#include "IRenderContent.h"
 
 namespace wtgb
 {
 	class CPMeshRenderer;
 	class LayoutConfig;
+	class IMeshSimple2D;
 }
 
 namespace wtgb::UI
@@ -20,6 +22,8 @@ namespace wtgb::UI
 	{
 		TextureHandle hTexture_;  // テクスチャハンドル
 		float angle_;  // 回転角度
+		RectF cut_;
+		Vector2Int imageSize_;  // 画像サイズ
 	};
 
 	struct RenderContentBox
@@ -47,8 +51,48 @@ namespace wtgb::UI
 		{
 		}
 
-		void Render(CPMeshRenderer& _meshRenderer, const LayoutConfig& _layoutConfig) const requires (Type == RenderContentType::Image);
-		void Render(CPMeshRenderer& _meshRenderer, const LayoutConfig& _layoutConfig) const requires (Type == RenderContentType::Box);
+		inline RenderContent<Type>& operator=(const RenderContent<Type>& _other)
+			requires (Type == RenderContentType::Image) :
+			image{ _other.image },
+			hShader2D_{ _other.hShader2D_ }
+		{}
+
+		inline RenderContent<Type>& operator=(const RenderContent<Type>& _other)
+			requires (Type == RenderContentType::Box) :
+			box{ _other.box },
+			hShader2D_{ _other.hShader2D_ }
+		{
+		}
+
+
+		inline RenderContent<Type>& operator=(const RenderContent<Type>& _other)
+			requires (Type == RenderContentType::Image)
+		{
+			hShader2D_ = _other.hShader2D_;
+			image = _other.image;
+		}
+
+		inline RenderContent<Type>& operator=(const RenderContent<Type>& _other)
+			requires (Type == RenderContentType::Box)
+		{
+			hShader2D_ = _other.hShader2D_;
+			box = _other.box;
+		}
+
+		void Render(
+			const Vector2Int _screenSize,
+			const Matrix4x4& _matrixProjection,
+			IMeshSimple2D* _pMeshSimple2D,
+			CPMeshRenderer& _meshRenderer,
+			const LayoutConfig& _layoutConfig) const
+			requires (Type == RenderContentType::Image);
+		void Render(
+			const Vector2Int _screenSize,
+			const Matrix4x4& _matrixProjection,
+			IMeshSimple2D* _pMeshSimple2D,
+			CPMeshRenderer& _meshRenderer,
+			const LayoutConfig& _layoutConfig) const
+			requires (Type == RenderContentType::Box);
 
 	private:
 		union

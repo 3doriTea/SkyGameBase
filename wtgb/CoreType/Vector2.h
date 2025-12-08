@@ -1,5 +1,6 @@
 #pragma once
 #include <DirectXMath.h>
+#include "Vector2T.h"
 
 namespace wtgb
 {
@@ -16,10 +17,20 @@ namespace wtgb
 			DirectX::XMStoreFloat2(this, _xmV);
 		}
 
+		Vector2(const mtgb::Vector2T<float> _v2) :
+			DirectX::XMFLOAT2{ _v2.x, _v2.y }
+		{
+		}
+
 		/// <summary>
 		/// XMVECTORに暗黙的変換する
 		/// </summary>
 		inline operator DirectX::XMVECTOR() const { return DirectX::XMLoadFloat2(this); }
+		
+		/// <summary>
+		/// mtgb::Vector2T<float> に暗黙的変換する
+		/// </summary>
+		inline operator mtgb::Vector2T<float>() const { return { x, y }; }
 
 		/// <summary>
 		/// 零ベクトルを取得する
@@ -32,5 +43,11 @@ namespace wtgb
 		/// </summary>
 		/// <returns>(0, 1)</returns>
 		inline static Vector2 Up() { return { 0.0f, 1.0f }; }
+
+		/// <summary>
+		/// XYともに+1のベクトルを取得する
+		/// </summary>
+		/// <returns>(1, 1)</returns>
+		inline static Vector2 One() { return { 1.0f, 1.0f }; }
 	};
 }

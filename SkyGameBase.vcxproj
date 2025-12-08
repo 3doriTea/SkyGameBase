@@ -48,8 +48,11 @@
     <ClInclude Include="wtgb\CoreType\Handler.h" />
     <ClInclude Include="wtgb\CoreType\ICoreType.h" />
     <ClInclude Include="wtgb\CoreType\Matrix4x4.h" />
+    <ClInclude Include="wtgb\CoreType\RectF.h" />
+    <ClInclude Include="wtgb\CoreType\RectT.h" />
     <ClInclude Include="wtgb\CoreType\Vector2.h" />
     <ClInclude Include="wtgb\CoreType\Vector2Int.h" />
+    <ClInclude Include="wtgb\CoreType\Vector2T.h" />
     <ClInclude Include="wtgb\CoreType\Vector3.h" />
     <ClInclude Include="wtgb\CoreType\Vector4.h" />
     <ClInclude Include="wtgb\Core\Component.h" />
@@ -68,6 +71,8 @@
     <ClInclude Include="wtgb\GameSystem\Camera.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\CanvasContext.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\ContentAndConfig.h" />
+    <ClInclude Include="wtgb\GameSystem\Canvas\IRenderContent.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\LayoutConfig.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\Mesh2D.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\Pivot.h" />
@@ -171,6 +176,7 @@
     <ClCompile Include="wtgb\GameSystem\Canvas\CanvasContext.cpp" />
     <ClCompile Include="wtgb\GameSystem\Canvas\LayoutConfig.cpp" />
     <ClCompile Include="wtgb\GameSystem\Canvas\Mesh2D.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Canvas\RenderContent.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager.cpp" />
     <ClCompile Include="wtgb\Core\Game.cpp" />
     <ClCompile Include="wtgb\Core\GameLoop.cpp" />

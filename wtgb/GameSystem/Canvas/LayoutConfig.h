@@ -7,6 +7,9 @@
 
 namespace wtgb::UI
 {
+	/// <summary>
+	/// 配置の設定
+	/// </summary>
 	class LayoutConfig
 	{
 		friend class CanvasContext;
@@ -17,14 +20,24 @@ namespace wtgb::UI
 		/// <summary>
 		/// 指定座標の基準点
 		/// </summary>
-		LAYOUT_BUILDER_SETTER_PARAM(Pivot, pivot)
+		LAYOUT_BUILDER_SETTER_PARAM(Pivot, positionPivot)
 		/// <summary>
-		/// 基準点に影響される座標
+		/// 矩形の基準点座標
 		/// </summary>
 		LAYOUT_BUILDER_SETTER_PARAM(Vector2, position)
+		/// <summary>
+		/// 矩形の基準点からの大きさ
+		/// </summary>
+		LAYOUT_BUILDER_SETTER_PARAM(Vector2, scale)
+
+		/// <summary>
+		/// スクリーンサイズから矩形の行列を取得する
+		/// </summary>
+		Matrix4x4 GetProjectionMatrix(const Vector2Int _screenSize) const;
 
 	private:
-		Pivot pivot_;
-		Vector2 position_;
+		Pivot positionPivot_;  // 矩形の始点は画面のどこ基準か
+		Vector2 position_;     // 矩形の始点
+		Vector2 scale_;        // 矩形の大きさ
 	};
 }

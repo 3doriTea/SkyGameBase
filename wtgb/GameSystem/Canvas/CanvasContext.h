@@ -2,8 +2,7 @@
 #include "pch/pch.h"
 #include "Utility/Accessor.h"
 #include "CoreType/Handler.h"
-#include "LayoutConfig.h"
-#include "CanvasContext.h"
+#include "ContentAndConfig.h"
 
 
 namespace wtgb
@@ -13,8 +12,6 @@ namespace wtgb
 
 namespace wtgb::UI
 {
-	class CanvasContext;
-
 	/// <summary>
 	/// UI描画へのアクセス
 	/// </summary>

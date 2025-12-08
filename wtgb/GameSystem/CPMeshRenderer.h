@@ -31,8 +31,8 @@ namespace wtgb
 			const Matrix4x4& _matrixProjection,
 			const Matrix4x4& _matrixUV,
 			const ShaderHandle _hShader,
-			const TextureHandle _hTexture = INVALID_HANDLE,
-			const Color& _diffuseColor = Color::GREEN);
+			const Color& _diffuseColor = Color::GREEN,
+			const TextureHandle _hTexture = INVALID_HANDLE);
 	private:
 		/// <summary>
 		/// ‰Šú‰»ˆ—
