@@ -1,10 +1,10 @@
 #pragma once
 #include "pch/pch.h"
-#include "../ModelMesh/IMeshSimple.h"
+#include "../ModelMesh/IMeshSimple2D.h"
 
 namespace wtgb
 {
-	class Mesh2D : public IMeshSimple
+	class Mesh2D : public IMeshSimple2D
 	{
 	public:
 		Mesh2D();
@@ -40,8 +40,9 @@ namespace wtgb
 		/// <returns></returns>
 		TextureHandle GetTextureHandle() const override { return hTexture_; }
 
-		uint32_t vertexCount_;
-		uint32_t indexCount_;
+	private:
+		uint32_t vertexCount_;  // 頂点数
+		uint32_t indexCount_;   // インデックス数
 
 		TextureHandle hTexture_;  // テクスチャのハンドル
 

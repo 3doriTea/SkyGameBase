@@ -10,6 +10,7 @@
 #include "GameSystem/ResourceSystem.h"
 #include "GameSystem/CPTransform.h"
 #include "WTGBAssert.h"
+#include "ModelMesh/IMeshSimple2D.h"
 #define WTGB_CPMR_USE_VERTEX_LOG 1
 
 wtgb::CPMeshRenderer::CPMeshRenderer()
@@ -76,6 +77,75 @@ void wtgb::CPMeshRenderer::Render(
 	pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
 	pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
 
+
+	D3D11_MAPPED_SUBRESOURCE data{};
+
+	pContext->Map(pMesh->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+	memcpy_s(
+		data.pData,
+		data.RowPitch,
+		reinterpret_cast<void*>(&constantBuffer),
+		sizeof(IMeshSimple::ConstantBuffer));
+	pContext->Unmap(pMesh->GetConstantBuffer().Get(), 0);
+
+	pContext->DrawIndexed(pMesh->GetIndexCount(), 0, 0);
+}
+
+void wtgb::CPMeshRenderer::Render2D(
+	IMeshSimple2D* _pMeshSimple,
+	const Matrix4x4& _matrixProjection,
+	const Matrix4x4& _matrixUV,
+	const ShaderHandle _hShader,
+	const TextureHandle _hTexture,
+	const Color& _color)
+{
+	using namespace DirectX;
+
+	Camera& camera{ System().Get<Camera>() };
+	ResourceSystem& resource{ System().Get<ResourceSystem>() };
+	ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
+	Direct3D& d3d{ System().Get<Direct3D>() };
+	ID3D11DeviceContext* pContext{ System().Get<Direct3D>().Resource().Context() };
+
+
+	IMeshSimple2D* pMesh{ _pMeshSimple };
+	wassert(pMesh && "メッシュがない！");
+	if (pMesh == nullptr)
+	{
+		return;
+	}
+
+	IMeshSimple2D::ConstantBuffer constantBuffer{};
+
+	constantBuffer.color = _color;
+	constantBuffer.matrixProj = _matrixProjection;
+	constantBuffer.matrixUV = _matrixUV;
+	
+	// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
+	d3d.SetShader(_hShader);
+
+	UINT stride{ static_cast<UINT>(pMesh->GetVertexSize()) };
+	UINT offset{ 0 };
+	// 頂点バッファをセット
+	pContext->IASetVertexBuffers(0, 1, pMesh->GetVertexBuffer().GetAddressOf(), &stride, &offset);
+
+	// インデックスバッファをセット
+	stride = sizeof(uint32_t);
+	offset = 0;
+	pContext->IASetIndexBuffer(pMesh->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+
+	// コンスタントバッファをセット
+	pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
+	pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
+
+	Texture* pTexture{ resource.GetTexture(_hTexture) };
+	// テクスチャが指定されているなら
+	if (pTexture)
+	{
+		pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
+
+		pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
+	}
 
 	D3D11_MAPPED_SUBRESOURCE data{};
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "Core/IGameSystem.h"
 #include "Canvas/CanvasContext.h"
+#include "Canvas/RenderContent.h"
+#include "Canvas/Mesh2D.h"
 
 namespace wtgb
 {
@@ -9,6 +11,7 @@ namespace wtgb
 	/// </summary>
 	class Canvas : public IGameSystem
 	{
+		friend class CanvasContext;
 	public:
 		Canvas();
 		~Canvas();
@@ -42,7 +45,11 @@ namespace wtgb
 		void End() override;
 
 	private:
+		Mesh2D mesh2D_;
+		ViewerCached* pSystem_;
+		
 		UI::CanvasContext context_;  // キャンバスアクセス用コンテキスト
+		std::vector<std::tuple<UI::LayoutConfig, UI::RenderContentVT>> renderOrder_;  // 描画オーダー
 	};
 }
 

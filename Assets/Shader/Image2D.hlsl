@@ -7,7 +7,7 @@ SamplerState g_sampler : register(s0); // サンプラー
 // コンスタントバッファ
 cbuffer global
 {
-    float4x4 matrixWVP; // ワールドビュープロジェクションの合成行列
+    float4x4 matrixProj; // プロジェクションの合成行列
     float4x4 matrixUV; // UV変換行列
     float4 color; // 塗りつぶす色
 };
@@ -26,7 +26,7 @@ VS_OUT VS(
     // ピクセルシェーダに渡す情報
     VS_OUT outData;
     
-    outData.pos = mul(pos, matrixWVP);
+    outData.pos = mul(pos, matrixProj);
     outData.uv = mul(uv, matrixUV);
     
     return outData;

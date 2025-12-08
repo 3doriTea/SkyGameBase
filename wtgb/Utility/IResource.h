@@ -20,16 +20,7 @@ namespace wtgb
 			isReleased_ = true;
 #endif
 		}
-		inline virtual ~IResource()
-		{
-#ifdef _DEBUG
-			if (!isReleased_)
-			{
-				LOGFLN("::warn::" "リソースを解放せずにデストラクタが呼ばれている" "\n" "{}", GetStackTrace(2));
-				wassert(isReleased_ && "リソースを解放せずにデストラクタが呼ばれている");
-			}
-#endif
-		}
+		virtual ~IResource();
 
 		/// <summary>
 		/// 初期化処理 (外部から呼び出し用)
@@ -68,3 +59,5 @@ protected:
 #endif
 	};
 }
+
+#include "IResource.inl"

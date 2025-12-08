@@ -2,8 +2,9 @@
 #include "pch/pch.h"
 #include "Utility/Accessor.h"
 #include "CoreType/Handler.h"
-#include "RenderContent.h"
 #include "LayoutConfig.h"
+#include "CanvasContext.h"
+
 
 namespace wtgb
 {
@@ -12,6 +13,7 @@ namespace wtgb
 
 namespace wtgb::UI
 {
+	class CanvasContext;
 
 	/// <summary>
 	/// UI描画へのアクセス
@@ -42,8 +44,6 @@ namespace wtgb::UI
 		/// <param name="_angle">基準点からの回転角度</param>
 		void DrawBox(const Color _color, const float _angle);
 
-
-
 	private:
 		/// <summary>
 		/// 描画要求を追加する
@@ -53,7 +53,5 @@ namespace wtgb::UI
 
 	private:
 		LayoutConfig currentConfig_;  // 現在の設定
-
-		std::vector<std::tuple<LayoutConfig, RenderContentVT>> renderOrder_;  // 描画オーダー
 	};
 }

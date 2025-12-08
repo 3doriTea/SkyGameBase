@@ -2,6 +2,12 @@
 #include <variant>
 #include "pch/pch.h"
 
+namespace wtgb
+{
+	class CPMeshRenderer;
+	class LayoutConfig;
+}
+
 namespace wtgb::UI
 {
 	enum struct RenderContentType
@@ -41,8 +47,8 @@ namespace wtgb::UI
 		{
 		}
 
-		void Render() requires (Type == RenderContentType::Image) {}
-		void Render() requires (Type == RenderContentType::Box) {}
+		void Render(CPMeshRenderer& _meshRenderer, const LayoutConfig& _layoutConfig) const requires (Type == RenderContentType::Image);
+		void Render(CPMeshRenderer& _meshRenderer, const LayoutConfig& _layoutConfig) const requires (Type == RenderContentType::Box);
 
 	private:
 		union
@@ -50,6 +56,8 @@ namespace wtgb::UI
 			RenderContentImage image;  // 画像
 			RenderContentBox box;      // 四角形
 		};
+
+		ShaderHandle hShader2D_;  // 描画用シェーダのハンドル
 	};
 
 	/// <summary>
@@ -59,3 +67,5 @@ namespace wtgb::UI
 		RenderContent<RenderContentType::Image>,
 		RenderContent<RenderContentType::Box>>;
 }
+
+#include "RenderContent.inl"
