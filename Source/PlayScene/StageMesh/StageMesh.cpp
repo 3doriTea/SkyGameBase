@@ -134,6 +134,17 @@ void StageMesh::Init(ViewerCached _system)
 	}
 #pragma endregion
 
+	int index{ 0 };
+	for (auto& vertex : vertices)
+	{
+		LOGF("[{:<2}]{:<3},{:<3}     ", index, vertex.position.x, vertex.position.z);
+		if (vertex.position.x > 0)
+		{
+			LOGF("\n\n");
+		}
+		index++;
+	}
+
 	/*for (int i = 0; i < vertices.size(); i++)
 	{
 		LOGFLN("{}: p({}, {}, {}), uv({}, {}, {}) norm({}, {}, {})",
@@ -152,6 +163,8 @@ void StageMesh::Init(ViewerCached _system)
 		static const size_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(int) };
 
 		size_t polyCount{ (points_.size() - 1) * 2 };
+
+		LOGFLN("polyCount:{}", polyCount);
 
 		int indexCount{ 0 };
 		for (int p = 0; p < polyCount; p++)
@@ -192,6 +205,17 @@ void StageMesh::Init(ViewerCached _system)
 		wassert(SUCCEEDED(hResult) && "ステージメッシュのインデックスバッファ作成に失敗");
 	}
 #pragma endregion
+
+	int count{ 0 };
+	for (auto& index : indexes)
+	{
+		LOGF("{},", index);
+		count++;
+		if (count % 3 == 0)
+		{
+			LOGF("\n");
+		}
+	}
 
 #pragma region コンスタントバッファを作っておく
 	{
