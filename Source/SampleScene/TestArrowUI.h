@@ -4,7 +4,7 @@
 class TestArrowUI : public GameObject
 {
 public:
-	TestArrowUI();
+	TestArrowUI(const EntityId _numberPlate);
 	~TestArrowUI();
 
 	void Init() override;
@@ -13,4 +13,6 @@ public:
 
 private:
 	TextureHandle hArrowTexture_;  // テスト用矢印の画像
+
+	EntityId numberPlate_;  // ナンバープレート
 };

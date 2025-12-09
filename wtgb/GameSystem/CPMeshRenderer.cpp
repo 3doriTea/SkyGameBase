@@ -119,7 +119,7 @@ void wtgb::CPMeshRenderer::Render2D(
 
 	constantBuffer.color = _color;
 	constantBuffer.matrixProj = _matrixProjection;
-	constantBuffer.matrixUV = _matrixUV;
+	constantBuffer.matrixUV = XMMatrixTranspose(_matrixUV);
 	
 	// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 	d3d.SetShader(_hShader);
@@ -165,6 +165,7 @@ void wtgb::CPMeshRenderer::Render2D(
 
 	pContext->DrawIndexed(pMesh->GetIndexCount(), 0, 0);
 
+#if 0
 	{
 		size_t vertexCount = pMesh->GetVertexCount();
 		std::vector<IMeshSimple2D::Vertex> vertexes{};
@@ -258,6 +259,7 @@ void wtgb::CPMeshRenderer::Render2D(
 
 		pStagingBuffer.Reset();
 	}
+#endif
 }
 
 void wtgb::CPMeshRenderer::Init()
