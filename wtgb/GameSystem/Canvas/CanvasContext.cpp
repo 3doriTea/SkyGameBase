@@ -1,5 +1,5 @@
-#include "pch\pch.h"  
-#include "../Canvas.h"  
+#include "pch\pch.h"
+#include "../Canvas.h"
 #include "GameSystem/ShaderCompile.h"
 #include "GameSystem/ResourceSystem.h"
 

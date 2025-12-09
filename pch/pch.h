@@ -50,4 +50,9 @@ using Microsoft::WRL::ComPtr;
 #include <filesystem>
 namespace fs = std::filesystem;
 
+#ifdef _DEBUG
+#else
+	#define wassert(expression)
+#endif
+
 #endif //PCH_H
