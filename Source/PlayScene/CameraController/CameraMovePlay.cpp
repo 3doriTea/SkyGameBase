@@ -38,6 +38,8 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	GameWindow& gameWindow{ systemView.Get<GameWindow>() };
 	const Input::InputGetter& input{ systemView.Get<Input>().Getter() };
 
+	LOGFLN("dt:{}", dt);
+
 	// カメラコントローラのゲームオブジェクトの情報
 
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
@@ -172,8 +174,11 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		{
 		case CameraMovePlay::ControlMode::MoveView:
 		{
-			angleX_ += static_cast<float>(move.y) * ((XM_PI / 180.0f) * 3.0f) * dt;
-			angleY_ += static_cast<float>(move.x) * ((XM_PI / 180.0f) * 3.0f) * dt;
+			float addY{ static_cast<float>(move.y) * dt * ((XM_PI / 180.0f) * 3.0f) * 0.01f };
+			angleX_ += addY;
+			float addX{ static_cast<float>(move.x) * dt * ((XM_PI / 180.0f) * 3.0f) * 0.01f };
+			angleY_ += addX;
+			LOGFLN("addY:{}, addX:{}", addY, addX);
 			break;
 		}
 		case CameraMovePlay::ControlMode::MovePlayer:

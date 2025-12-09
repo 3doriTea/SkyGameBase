@@ -1,7 +1,7 @@
 #pragma once
 #include "pch/pch.h"
 
-#ifdef _DEBUG
+#if 1 //_DEBUG
 
 #define LOGF(fmt, ...)\
 OutputDebugString(std::format(fmt, __VA_ARGS__).c_str())
