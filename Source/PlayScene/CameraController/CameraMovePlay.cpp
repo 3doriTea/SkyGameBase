@@ -45,7 +45,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	GameObject* pPlayer{ pGameObject->FindGameObject("Player") };
 
 	// マウスカーソルの制御
-	if (input.IsMouseDown(MouseCode::Left))
+	if (input.IsMouseDown(MouseCode::Left) && input.IsKey(KeyCode::G))
 	{
 		isDragging_ = true;
 

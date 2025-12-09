@@ -171,10 +171,12 @@ void StageMesh::Init(ViewerCached _system)
 		{
 			for (int i = 0; i < 3; i++)
 			{
+				/*indexes.push_back(
+					INDEX_SET_ARRAY[(p * 3 + i) % INDEX_SET_ARRAY_SIZE]
+					+ (indexCount / INDEX_SET_ARRAY_SIZE));*/
 				indexes.push_back(
 					INDEX_SET_ARRAY[(p * 3 + i) % INDEX_SET_ARRAY_SIZE]
-					+ (indexCount / INDEX_SET_ARRAY_SIZE)
-					);
+					+ 2 * (indexCount / INDEX_SET_ARRAY_SIZE));
 				indexCount++;
 			}
 		}
