@@ -119,7 +119,7 @@ void wtgb::CPMeshRenderer::Render2D(
 
 	constantBuffer.color = _color;
 	constantBuffer.matrixProj = _matrixProjection;
-	constantBuffer.matrixUV = XMMatrixTranspose(_matrixUV);
+	constantBuffer.matrixUV = _matrixUV;
 	
 	// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 	d3d.SetShader(_hShader);

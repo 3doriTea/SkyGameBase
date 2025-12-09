@@ -57,8 +57,6 @@ void wtgb::UI::RenderContentImage::Render(
 		const Vector2 CUT_BEGIN{ cut.GetBegin() };
 		const Vector2 CUT_END{ cut.GetEnd() };
 
-		LOGFLN("CUT_BEGIN({}, {}), CUT_END({}, {})", CUT_BEGIN.x, CUT_BEGIN.y, CUT_END.x, CUT_END.y);
-
 		// トリミング矩形の左上点を並行移動
 		Matrix4x4 uvMove = XMMatrixTranslation(
 			CUT_BEGIN.x * 1.0f / imageSize.x,
@@ -67,8 +65,8 @@ void wtgb::UI::RenderContentImage::Render(
 
 		// トリミング矩形の拡縮
 		Matrix4x4 uvScaling = XMMatrixScaling(
-			static_cast<float>(CUT_END.x) / imageSize.x,
-			static_cast<float>(CUT_END.y) / imageSize.y,
+			static_cast<float>(CUT_END.x - CUT_BEGIN.x) / imageSize.x,
+			static_cast<float>(CUT_END.y - CUT_BEGIN.y) / imageSize.y,
 			1.0f);
 
 		// uv 行列
