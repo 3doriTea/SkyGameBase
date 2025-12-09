@@ -20,7 +20,10 @@ wtgb::Canvas::~Canvas()
 wtgb::Result wtgb::Canvas::Init(const ViewerInit& _viewer)
 {
 	system_ = _viewer.GetCache();
+	
 	mesh2D_.CallInit(system_);
+	context_.CallInit(system_);
+
 	return Result::Code::Ok;
 }
 
@@ -51,5 +54,6 @@ void wtgb::Canvas::Update(const ViewerUpdate& _system)
 
 void wtgb::Canvas::End()
 {
+	context_.CallRelease(system_);
 	mesh2D_.CallRelease(system_);
 }

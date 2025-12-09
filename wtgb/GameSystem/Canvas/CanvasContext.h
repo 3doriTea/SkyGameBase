@@ -3,11 +3,13 @@
 #include "Utility/Accessor.h"
 #include "CoreType/Handler.h"
 #include "ContentAndConfig.h"
+#include "Utility/IResource.h"
 
 
 namespace wtgb
 {
 	class Canvas;
+	class ResourceSystem;
 }
 
 namespace wtgb::UI
@@ -15,11 +17,22 @@ namespace wtgb::UI
 	/// <summary>
 	/// UI描画へのアクセス
 	/// </summary>
-	class CanvasContext : public Accessor<Canvas>
+	class CanvasContext : public Accessor<Canvas>, public IResource<ViewerCached>
 	{
 	public:
-		using Accessor<Canvas>::Accessor;
+		CanvasContext(Canvas* _pCanvas);
 		~CanvasContext() {}
+
+		/// <summary>
+		/// 初期化処理
+		/// </summary>
+		/// <param name="_system">システムアクセス</param>
+		void Init(ViewerCached _system) override;
+		/// <summary>
+		/// 解放処理
+		/// </summary>
+		/// <param name="_system">システムアクセス</param>
+		void Release(ViewerCached _system) override;
 
 		/// <summary>
 		/// レイアウトのセットをする
@@ -32,7 +45,7 @@ namespace wtgb::UI
 		/// </summary>
 		/// <param name="_hTexture">テクスチャのハンドル</param>
 		/// <param name="_angle">基準点からの回転角度</param>
-		void DrawImage(const TextureHandle _hTexture, const float _angle);
+		void DrawImage(const TextureHandle _hTexture, const float _angle, const RectF& _cut);
 
 		/// <summary>
 		/// 四角形を描画する
@@ -50,5 +63,9 @@ namespace wtgb::UI
 
 	private:
 		LayoutConfig currentConfig_;  // 現在の設定
+
+		ViewerCached system_;  // システムへのアクセス用
+		ShaderHandle hBoxShader_;    // ボックス描画用シェーダ
+		ShaderHandle hImageShader_;  // 画像描画用シェーダ
 	};
 }

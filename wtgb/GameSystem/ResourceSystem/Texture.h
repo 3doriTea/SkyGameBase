@@ -28,8 +28,8 @@ namespace wtgb
 		void Release() override;
 
 	public:
-		ComPtr<ID3D11SamplerState>& GetSamplerState() { return pSamplerState_; }
-		ComPtr<ID3D11ShaderResourceView>& GetShaderResourceView() { return pShaderResourceView_; }
+		inline ComPtr<ID3D11SamplerState>& GetSamplerState() { return pSamplerState_; }
+		inline ComPtr<ID3D11ShaderResourceView>& GetShaderResourceView() { return pShaderResourceView_; }
 
 	// TODO: アクセッサーに任せる アクセッサに作成処理させる
 	public:
@@ -43,6 +43,12 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_pDevice">デバイス</param>
 		void CreateShaderResourceView(ID3D11Device* _pDevice);
+
+		/// <summary>
+		/// 画像のサイズピクセルを取得する
+		/// </summary>
+		/// <returns>画像のサイズ</returns>
+		inline Vector2Int GetImageSizePix() const { return imageSize_; }
 
 	private:
 		Config config_;  // 設定
