@@ -15,6 +15,11 @@ wtgb::Direct3DResource::~Direct3DResource()
 {
 }
 
+ComPtr<ID3D11BlendState>& wtgb::Direct3DResource::BlendStateAt(const BlendMode _blendMode)
+{
+	return pBlendStates_.at(static_cast<size_t>(_blendMode));
+}
+
 void wtgb::Direct3DResource::Init()
 {
 	// pDevice_->QueryInterface(__uuidof(IDXGIDevice1), reinterpret_cast<void**>(&pDXGI_));
@@ -24,13 +29,6 @@ void wtgb::Direct3DResource::Init()
 
 void wtgb::Direct3DResource::Release()
 {
-	/*SAFE_RELEASE(pFactory_);
-	SAFE_RELEASE(pAdapter_);
-	SAFE_RELEASE(pDXGI_);*/
-
-	/*SAFE_RELEASE(pContext_);
-	SAFE_RELEASE(pDevice_);*/
-
 	pContext_.Reset();
 	pDevice_.Reset();
 
@@ -43,4 +41,9 @@ void wtgb::Direct3DResource::Release()
 	pRenderTargetView_.Reset();
 	pDepthBuffer_.Reset();
 	pDepthStencilView_.Reset();
+
+	for (auto& pBlendState : pBlendStates_)
+	{
+		pBlendState.Reset();
+	}
 }

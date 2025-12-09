@@ -41,7 +41,8 @@ void wtgb::Canvas::Update(const ViewerUpdate& _system)
 	meshRenderer.Render();*/
 
 	direct3D.SetUseDepthBuffer(false);
-	
+	direct3D.SetBlend(BlendMode::Alpha);
+
 	const Vector2Int SCREEN_SIZE{ _system.Get<GameWindow>().GetMainWindowSize() };
 	for (auto& [config, contentVar] : renderOrder_)
 	{
@@ -59,6 +60,7 @@ void wtgb::Canvas::Update(const ViewerUpdate& _system)
 	renderOrder_.clear();
 
 	direct3D.SetUseDepthBuffer(true);
+	direct3D.SetBlend(BlendMode::None);
 }
 
 void wtgb::Canvas::End()

@@ -104,6 +104,7 @@
     <ClInclude Include="wtgb\GameSystem\Debug.h" />
     <ClInclude Include="wtgb\GameSystem\Deb\DebugSphere.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D.h" />
+    <ClInclude Include="wtgb\GameSystem\Direct3D\BlendMode.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D\Direct3DResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameWindow.h" />
     <ClInclude Include="wtgb\GameSystem\IComponentPool.h" />

@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/IGameSystem.h"
 #include "Utility/Accessor.h"
+#include "Direct3D/BlendMode.h"
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -65,6 +66,12 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_useDepthBuffer">深度バッファを使う true / false</param>
 		void SetUseDepthBuffer(const bool _useDepthBuffer);
+
+		/// <summary>
+		/// ブレンドモードを設定する
+		/// </summary>
+		/// <param name="_mode">ブレンドモード</param>
+		void SetBlend(const BlendMode _mode);
 
 		/// <summary>
 		/// リソースアクセッサを取得

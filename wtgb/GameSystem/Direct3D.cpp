@@ -220,6 +220,39 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 	SetUseDepthBuffer(true);
 	pResource_->Context().Get()->RSSetViewports(1, &viewport);
 #pragma endregion
+
+#pragma region ブレンドモードの作成
+
+	const D3D11_RENDER_TARGET_BLEND_DESC RENDER_TARGET_BLEND_DESC_0
+	{
+		.BlendEnable = TRUE,
+		.SrcBlend = D3D11_BLEND_SRC_ALPHA,
+		.DestBlend = D3D11_BLEND_INV_SRC_ALPHA,
+		.BlendOp = D3D11_BLEND_OP_ADD,
+		.SrcBlendAlpha = D3D11_BLEND_ONE,
+		.DestBlendAlpha = D3D11_BLEND_ZERO,
+		.BlendOpAlpha = D3D11_BLEND_OP_ADD,
+		.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL,
+	};
+
+	const D3D11_BLEND_DESC BLEND_DESC
+	{
+		.AlphaToCoverageEnable = FALSE,
+		.IndependentBlendEnable = FALSE,
+		.RenderTarget = { RENDER_TARGET_BLEND_DESC_0 },
+	};
+	hResult = pResource_->Device().Get()->CreateBlendState(&BLEND_DESC, pResource_->BlendStateAt(BlendMode::Alpha).GetAddressOf());
+
+	wassert(SUCCEEDED(hResult) && "深度バッファ用バッファの作成に失敗");
+	if (FAILED(hResult))
+	{
+		return Result::Code::Failed;
+	}
+
+	SetBlend(BlendMode::None);  // デフォルトの指定
+
+#pragma endregion
+
 	return Result::Code::Ok;
 }
 
@@ -279,11 +312,41 @@ void wtgb::Direct3D::SetUseDepthBuffer(const bool _useDepthBuffer)
 		? pResource_->DepthStencilView().Get()
 		: nullptr
 	};
-
 	pResource_->Context().Get()->OMSetRenderTargets(
 		1,
 		pResource_->RenderTargetView().GetAddressOf(),
 		pDepthStencilView);
+}
+
+void wtgb::Direct3D::SetBlend(const BlendMode _mode)
+{
+	wassert(_mode != BlendMode::Max && "BlendModeにMaxは指定できない");
+
+	if (_mode == BlendMode::Max || _mode == BlendMode::None)
+	{
+		// ブレンドモードを特に指定しない
+		pResource_->Context().Get()->OMSetBlendState(nullptr, nullptr, Color::NONE);
+	}
+	
+	switch (_mode)
+	{
+	case BlendMode::Alpha:
+	{
+		float blendFactor[]{ 1, 1, 1, 1 };
+
+		// ブレンドモードをセットする
+		pResource_->Context().Get()->OMSetBlendState(
+			pResource_->BlendStateAt(_mode).Get(),
+			blendFactor,
+			Color::NONE);
+		break;
+	}
+	case BlendMode::None:
+		break;
+	default:
+		wassert(false && "未実装のブレンドモード");
+		break;
+	}
 }
 
 ID3D11Device* wtgb::Direct3D::ResourceAccessor::Device()

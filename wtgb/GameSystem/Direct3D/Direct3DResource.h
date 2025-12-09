@@ -1,6 +1,7 @@
 #pragma once
 #include "pch/pch.h"
 #include "Utility/IResource.h"
+#include "BlendMode.h"
 
 namespace wtgb
 {
@@ -29,6 +30,13 @@ namespace wtgb
 		ComPtr<ID3D11Texture2D>& DepthBuffer() { return pDepthBuffer_; }
 		ComPtr<ID3D11DepthStencilView>& DepthStencilView() { return pDepthStencilView_; }
 
+		/// <summary>
+		/// ブレンドステートを取得する
+		/// </summary>
+		/// <param name="_blendMode">ブレンドモード</param>
+		/// <returns>ブレンドステートを取得する</returns>
+		ComPtr<ID3D11BlendState>& BlendStateAt(const BlendMode _blendMode);
+
 	private:
 		/// <summary>
 		/// 初期化処理
@@ -55,5 +63,7 @@ namespace wtgb
 		ComPtr<ID3D11RenderTargetView> pRenderTargetView_;  // レンダーターゲットビュー
 		ComPtr<ID3D11Texture2D> pDepthBuffer_;              // 深度バッファ
 		ComPtr<ID3D11DepthStencilView> pDepthStencilView_;  // 深度ステンシルビュー
+
+		std::array<ComPtr<ID3D11BlendState>, BLEND_MODE_MAX> pBlendStates_;  // ブレンドステート
 	};
 }
