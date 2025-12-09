@@ -217,10 +217,7 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 
 	// データを画面に描画するための一通りの設定 (パイプライン)
 	pResource_->Context().Get()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	pResource_->Context().Get()->OMSetRenderTargets(
-		1,
-		pResource_->RenderTargetView().GetAddressOf(),
-		pResource_->DepthStencilView().Get());
+	SetUseDepthBuffer(true);
 	pResource_->Context().Get()->RSSetViewports(1, &viewport);
 #pragma endregion
 	return Result::Code::Ok;
@@ -271,6 +268,22 @@ void wtgb::Direct3D::SetShader(const ShaderHandle _hShader)
 	pContext->PSSetShader(shaderCompiler.GetPixelShader(_hShader), nullptr, 0);
 	pContext->IASetInputLayout(shaderCompiler.GetInputLayout(_hShader));
 	pContext->RSSetState(shaderCompiler.GetRasterizerState(_hShader));
+}
+
+void wtgb::Direct3D::SetUseDepthBuffer(const bool _useDepthBuffer)
+{
+	// 深度バッファを使うならビューのポインタを取得、使わないなら nullptr
+	ID3D11DepthStencilView* pDepthStencilView
+	{
+		_useDepthBuffer
+		? pResource_->DepthStencilView().Get()
+		: nullptr
+	};
+
+	pResource_->Context().Get()->OMSetRenderTargets(
+		1,
+		pResource_->RenderTargetView().GetAddressOf(),
+		pDepthStencilView);
 }
 
 ID3D11Device* wtgb::Direct3D::ResourceAccessor::Device()

@@ -6,7 +6,9 @@
 wtgb::UI::CanvasContext::CanvasContext(Canvas* _pCanvas) :
 	Accessor{ _pCanvas },
 	IResource{},
-	system_{ nullptr }
+	system_{ nullptr },
+	hBoxShader_{ INVALID_HANDLE },
+	hImageShader_{ INVALID_HANDLE }
 {
 }
 
@@ -40,7 +42,7 @@ void wtgb::UI::CanvasContext::Init(ViewerCached _system)
 					{ "TEXCOORD", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },   // UV
 				},
 				.fillMode = D3D11_FILL_SOLID,  // ìhÇËÇ¬Ç‘Çµ
-				.cullMode = D3D11_CULL_BACK,   // âBñ è¡ãéÇµÇ»Ç¢
+				.cullMode = D3D11_CULL_NONE,   // âBñ è¡ãéÇµÇ»Ç¢
 				.backIsClockwise = false,
 			};
 		}
@@ -68,6 +70,10 @@ void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture, const flo
 {
 	Texture* pTexture{ system_.Get<ResourceSystem>().GetTexture(_hTexture) };
 	wassert(pTexture && "ÉeÉNÉXÉ`ÉÉÇÃéÊìæÇ…é∏îs");
+	if (pTexture == nullptr)
+	{
+		return;
+	}
 
 	const Vector2Int IMAGE_SIZE_PIX{ pTexture->GetImageSizePix() };
 

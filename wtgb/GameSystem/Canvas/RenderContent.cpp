@@ -5,8 +5,8 @@ wtgb::UI::RenderContentBox::RenderContentBox(
 	const Color& _color,
 	const float _angle,
 	const ShaderHandle _hShader) :
-	color{ Color::GREEN },
-	angle{ 0.0f },
+	color{ _color },
+	angle{ _angle },
 	hShader{ _hShader }
 {
 }

@@ -118,7 +118,7 @@ void wtgb::CPMeshRenderer::Render2D(
 	IMeshSimple2D::ConstantBuffer constantBuffer{};
 
 	constantBuffer.color = _color;
-	constantBuffer.matrixProj = XMMatrixIdentity(); _matrixProjection;
+	constantBuffer.matrixProj = _matrixProjection;
 	constantBuffer.matrixUV = _matrixUV;
 	
 	// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
@@ -203,13 +203,58 @@ void wtgb::CPMeshRenderer::Render2D(
 			pContext->Unmap(pStagingBuffer.Get(), 0);
 		}
 
-		/*LOGFLN("----------------------------");
+		LOGFLN("----------------------------");
 		for (auto& vertex : vertexes)
 		{
 			LOGFLN("POS:({},{},{})", vertex.position.x, vertex.position.y, vertex.position.z);
-			LOGFLN("NORM:({},{},{})", vertex.normal.x, vertex.normal.y, vertex.normal.z);
 			LOGFLN("UV:({},{})", vertex.uv.x, vertex.uv.y);
-		}*/
+		}
+
+		pStagingBuffer.Reset();
+	}
+	{
+		size_t indexCount = pMesh->GetIndexCount();
+		std::vector<uint32_t> indexes{};
+		indexes.resize(indexCount);
+
+		// 1. 元バッファの情報取得
+		D3D11_BUFFER_DESC desc{};
+		pMesh->GetIndexBuffer()->GetDesc(&desc);
+
+		// 2. 読み取り用ステージングバッファの設定
+		D3D11_BUFFER_DESC stagingDesc = desc;
+		stagingDesc.Usage = D3D11_USAGE_STAGING;
+		stagingDesc.BindFlags = 0;
+		stagingDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+		stagingDesc.MiscFlags = 0;
+
+		// 3. ステージングバッファを作成
+		ComPtr<ID3D11Buffer> pStagingBuffer{};
+		HRESULT hr = pDevice->CreateBuffer(&stagingDesc, nullptr, &pStagingBuffer);
+		if (FAILED(hr))
+		{
+			wassert(false && "ステージングバッファの作成に失敗");
+			return;
+		}
+
+		// 4. GPUバッファからステージングバッファにコピー
+		pContext->CopyResource(pStagingBuffer.Get(), pMesh->GetIndexBuffer().Get());
+
+		// 5. ステージングバッファをマップしてCPUで読み込み
+		D3D11_MAPPED_SUBRESOURCE mapped{};
+		hr = pContext->Map(pStagingBuffer.Get(), 0, D3D11_MAP_READ, 0, &mapped);
+		if (SUCCEEDED(hr))
+		{
+			// バッファの内容をコピー
+			memcpy(indexes.data(), mapped.pData, sizeof(uint32_t) * indexCount);
+			pContext->Unmap(pStagingBuffer.Get(), 0);
+		}
+
+		LOGFLN("----------------------------");
+		for (int i = 0; i < indexes.size(); i++)
+		{
+			LOGFLN("index[{}]:{}", i, indexes[i]);
+		}
 
 		pStagingBuffer.Reset();
 	}

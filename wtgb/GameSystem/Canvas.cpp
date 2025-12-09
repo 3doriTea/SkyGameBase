@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "Canvas.h"
 #include "GameSystem/GameWindow.h"
+#include "GameSystem/Direct3D.h"
 #include "CPMeshRenderer.h"
 #include "Canvas/CanvasContext.h"
 #include "Canvas/LayoutConfig.h"
@@ -31,12 +32,16 @@ void wtgb::Canvas::Update(const ViewerUpdate& _system)
 {
 	using namespace UI;
 
+
 	CPMeshRenderer& meshRenderer{ _system.Get<CPMeshRenderer>() };
+	Direct3D& direct3D{ _system.Get<Direct3D>() };
 
 	/*context_.renderOrder_
 
 	meshRenderer.Render();*/
 
+	direct3D.SetUseDepthBuffer(false);
+	
 	const Vector2Int SCREEN_SIZE{ _system.Get<GameWindow>().GetMainWindowSize() };
 	for (auto& [config, contentVar] : renderOrder_)
 	{
@@ -50,6 +55,10 @@ void wtgb::Canvas::Update(const ViewerUpdate& _system)
 					config);
 			}, contentVar);
 	}
+
+	renderOrder_.clear();
+
+	direct3D.SetUseDepthBuffer(true);
 }
 
 void wtgb::Canvas::End()

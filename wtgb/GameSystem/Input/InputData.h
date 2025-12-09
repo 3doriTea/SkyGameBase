@@ -19,7 +19,14 @@ namespace wtgb
 		using KeyBoardStateArray = std::array<BYTE, KEY_BOARD_STATE_SIZE>;
 
 	private:
-		InputData() {}
+		InputData() :
+			keyBoardState_{},
+			keyBoardStatePrev_{},
+			mousePosition_{},
+			mousePositionPrev_{},
+			mouseState_{},
+			mouseStatePrev_{}
+		{}
 		~InputData() {}
 
 	private:

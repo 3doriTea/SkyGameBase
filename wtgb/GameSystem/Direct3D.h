@@ -61,6 +61,12 @@ namespace wtgb
 		void SetShader(const ShaderHandle _hShader);
 
 		/// <summary>
+		/// 深度バッファを使うかを設定する
+		/// </summary>
+		/// <param name="_useDepthBuffer">深度バッファを使う true / false</param>
+		void SetUseDepthBuffer(const bool _useDepthBuffer);
+
+		/// <summary>
 		/// リソースアクセッサを取得
 		/// </summary>
 		/// <returns>リソースへのアクセッサ</returns>

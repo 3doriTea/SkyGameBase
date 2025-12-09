@@ -5,7 +5,7 @@
 wtgb::UI::LayoutConfig::LayoutConfig() :
 	positionPivot_{ Pivot::TopLeft },
 	position_{ Vector2::Zero() },
-	scale_{ Vector2::One() }
+	scale_{ Vector2::Zero() }
 {
 }
 
