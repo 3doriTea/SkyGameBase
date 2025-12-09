@@ -86,7 +86,7 @@ void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture, const flo
 		cut.size = { IMAGE_SIZE_PIX.x, IMAGE_SIZE_PIX.y };
 	}
 
-	AddRenderOrder(RenderContentImage{ _hTexture, _angle, _cut, { IMAGE_SIZE_PIX.x, IMAGE_SIZE_PIX.y }, hImageShader_});
+	AddRenderOrder(RenderContentImage{ _hTexture, _angle, cut, { IMAGE_SIZE_PIX.x, IMAGE_SIZE_PIX.y }, hImageShader_});
 }
 
 void wtgb::UI::CanvasContext::AddRenderOrder(const RenderContentVT& _content) const

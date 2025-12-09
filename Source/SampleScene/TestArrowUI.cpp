@@ -34,24 +34,29 @@ void TestArrowUI::Init()
 
 void TestArrowUI::Update()
 {
+	ResourceSystem& resourceSystem{ System().Get<ResourceSystem>() };
 	const Canvas::Context& context{ System().Get<Canvas>().GetContext() };
 	Cursor& cursor{ System().Get<Cursor>() };
 
-	context.SetLayout(
+	Texture* pArrowTexture{ resourceSystem.GetTexture(hArrowTexture_) };
+
+	/*context.SetLayout(
 		Canvas::LayoutConfig{}
 		.position({ static_cast<float>(cursor.GetPosition().x), static_cast<float>(cursor.GetPosition().y) })
-		.positionPivot(UI::Pivot::TopLeft));
+		.positionPivot(UI::Pivot::TopLeft));*/
 
-	context.DrawImage(hArrowTexture_);
+	//context.DrawBox(Color::BLUE);
 	
+	Vector2Int size{ pArrowTexture->GetImageSizePix() };
 
 	context.SetLayout(
 		Canvas::LayoutConfig{}
 		.position({ static_cast<float>(cursor.GetPosition().x), static_cast<float>(cursor.GetPosition().y) })
 		.positionPivot(UI::Pivot::TopLeft)
-		.scale({ 30, 30 }));
+		.scale({ static_cast<float>(size.x), static_cast<float>(size.y) }));
 	
-	//context.DrawBox(Color::BLUE);
+	context.DrawImage(hArrowTexture_);
+	
 }
 
 void TestArrowUI::Release()

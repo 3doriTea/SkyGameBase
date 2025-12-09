@@ -35,5 +35,6 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
+    //return float4(1, 1, 0, 1);
     return g_texture.Sample(g_sampler, inData.uv.xy);
 }
