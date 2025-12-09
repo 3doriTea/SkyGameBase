@@ -33,6 +33,7 @@
     <ClInclude Include="Source\PlayScene\WaterPlane.h" />
     <ClInclude Include="Source\PlayScene\WaterPlane\WaterMesh.h" />
     <ClInclude Include="Source\PlayScene\WaterSphere.h" />
+    <ClInclude Include="Source\SampleScene\TestArrowUI.h" />
     <ClInclude Include="Source\Systems\FirstSceneRegister.h" />
     <ClInclude Include="Source\Systems\MainWindow.h" />
     <ClInclude Include="Source\PlayScene\PlayScene.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Source\PlayScene\WaterPlane.cpp" />
     <ClCompile Include="Source\PlayScene\WaterPlane\WaterMesh.cpp" />
     <ClCompile Include="Source\PlayScene\WaterSphere.cpp" />
+    <ClCompile Include="Source\SampleScene\TestArrowUI.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />

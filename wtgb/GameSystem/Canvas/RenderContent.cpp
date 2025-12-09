@@ -7,7 +7,7 @@ wtgb::UI::RenderContentBox::RenderContentBox(
 	const ShaderHandle _hShader) :
 	color{ Color::GREEN },
 	angle{ 0.0f },
-	hShader{ INVALID_HANDLE }
+	hShader{ _hShader }
 {
 }
 
@@ -18,6 +18,14 @@ void wtgb::UI::RenderContentBox::Render(
 	CPMeshRenderer& _meshRenderer,
 	const LayoutConfig& _layoutConfig) const
 {
+	using namespace DirectX;
+
+	_meshRenderer.Render2D(
+		_pMeshSimple2D,
+		_matrixProjection,
+		XMMatrixIdentity(),
+		hShader,
+		color);
 }
 
 wtgb::UI::RenderContentImage::RenderContentImage(

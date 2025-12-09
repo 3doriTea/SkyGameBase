@@ -12,6 +12,11 @@ namespace wtgb
 	class Canvas : public IGameSystem
 	{
 		friend class wtgb::UI::CanvasContext;
+	
+	public:
+		using Context = wtgb::UI::CanvasContext;
+		using LayoutConfig = wtgb::UI::LayoutConfig;
+	
 	public:
 		Canvas();
 		~Canvas();
@@ -26,7 +31,7 @@ namespace wtgb
 		/// キャンバスへの描画用コンテキストを取得
 		/// </summary>
 		/// <returns>描画用コンテキスト</returns>
-		UI::CanvasContext GetContext() const { return context_; }
+		const UI::CanvasContext& GetContext() const { return context_; }
 
 		/// <summary>
 		/// 初期化処理
@@ -47,7 +52,9 @@ namespace wtgb
 	private:
 		Mesh2D mesh2D_;
 		ViewerCached system_;
-		
+
+		UI::LayoutConfig currentConfig_;  // 現在のレイアウト設定
+
 		UI::CanvasContext context_;  // キャンバスアクセス用コンテキスト
 		std::vector<UI::ContentAndConfig> renderOrder_;  // 描画オーダー
 	};

@@ -38,28 +38,28 @@ namespace wtgb::UI
 		/// レイアウトのセットをする
 		/// </summary>
 		/// <param name="_config">レイアウト設定</param>
-		void SetLayout(const LayoutConfig& _config);
+		void SetLayout(const LayoutConfig& _config) const;
 
 		/// <summary>
 		/// 画像の描画をする
 		/// </summary>
 		/// <param name="_hTexture">テクスチャのハンドル</param>
 		/// <param name="_angle">基準点からの回転角度</param>
-		void DrawImage(const TextureHandle _hTexture, const float _angle, const RectF& _cut);
+		void DrawImage(const TextureHandle _hTexture, const float _angle = 0.0f, const RectF& _cut = {}) const;
 
 		/// <summary>
 		/// 四角形を描画する
 		/// </summary>
 		/// <param name="_color">四角形の塗りつぶし色</param>
 		/// <param name="_angle">基準点からの回転角度</param>
-		void DrawBox(const Color _color, const float _angle);
+		void DrawBox(const Color _color, const float _angle = 0.0f) const;
 
 	private:
 		/// <summary>
 		/// 描画要求を追加する
 		/// </summary>
 		/// <param name="_content">要求する描画内容</param>
-		void AddRenderOrder(const RenderContentVT& _content);
+		void AddRenderOrder(const RenderContentVT& _content) const;
 
 	private:
 		LayoutConfig currentConfig_;  // 現在の設定

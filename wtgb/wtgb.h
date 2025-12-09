@@ -29,6 +29,11 @@
 #include "GameSystem/Input.h"
 #include "GameSystem/Cursor.h"
 #include "GameSystem/SceneManager.h"
+#include "GameSystem/ResourceSystem.h"
+
+#include "GameSystem/Canvas.h"
+#include "GameSystem/Canvas/CanvasContext.h"
+#include "GameSystem/Canvas/LayoutConfig.h"
 
 #include "GameSystem/Direct3D.h"
 

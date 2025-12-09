@@ -54,25 +54,36 @@ void wtgb::UI::CanvasContext::Release(ViewerCached _system)
 {
 }
 
-void wtgb::UI::CanvasContext::SetLayout(const LayoutConfig& _config)
-{  
-   currentConfig_ = _config;  
-}  
+void wtgb::UI::CanvasContext::SetLayout(const LayoutConfig& _config) const
+{
+	GetAccess()->currentConfig_ = _config;
+}
 
-void wtgb::UI::CanvasContext::DrawBox(const Color _color, const float _angle)  
+void wtgb::UI::CanvasContext::DrawBox(const Color _color, const float _angle) const
 {
 	AddRenderOrder(RenderContentBox{ _color, _angle, hBoxShader_ });
 }
 
-void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture, const float _angle, const RectF& _cut)
+void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture, const float _angle, const RectF& _cut) const
 {
 	Texture* pTexture{ system_.Get<ResourceSystem>().GetTexture(_hTexture) };
 	wassert(pTexture && "テクスチャの取得に失敗");
 
-	AddRenderOrder(RenderContentImage{ _hTexture, _angle, _cut, pTexture->GetImageSizePix(), hImageShader_ });
+	const Vector2Int IMAGE_SIZE_PIX{ pTexture->GetImageSizePix() };
+
+	RectF cut{ _cut };
+
+	// カットサイズが無効なら元の画像サイズそのまま提供する
+	if (cut.size.x <= 0.0f || cut.size.y <= 0.0f)
+	{
+		cut.point = Vector2::Zero();
+		cut.size = { IMAGE_SIZE_PIX.x, IMAGE_SIZE_PIX.y };
+	}
+
+	AddRenderOrder(RenderContentImage{ _hTexture, _angle, _cut, { IMAGE_SIZE_PIX.x, IMAGE_SIZE_PIX.y }, hImageShader_});
 }
 
-void wtgb::UI::CanvasContext::AddRenderOrder(const RenderContentVT& _content)  
-{  
-   GetAccess()->renderOrder_.push_back({ currentConfig_, _content });  
+void wtgb::UI::CanvasContext::AddRenderOrder(const RenderContentVT& _content) const
+{
+	GetAccess()->renderOrder_.push_back({ GetAccess()->currentConfig_, _content });
 }

@@ -4,6 +4,7 @@
 #include "GameSystem/Camera.h"
 
 #include "Player.h"
+#include "TestArrowUI.h"
 #include "../PlayScene/PlayScene.h"
 #include "../PlayScene/CameraController.h"
 
@@ -22,6 +23,8 @@ void SampleScene::Start()
 {
 	/*System().Get<Camera>().position_ = { 0, 0, -10.0f };
 	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };*/
+
+	Instantiate<TestArrowUI>();
 
 	EntityId pRoot = Instantiate<Player>(INVALID_ENTITY, Vector3::Zero());
 	//pRoot = INVALID_ENTITY;

@@ -118,7 +118,7 @@ void wtgb::CPMeshRenderer::Render2D(
 	IMeshSimple2D::ConstantBuffer constantBuffer{};
 
 	constantBuffer.color = _color;
-	constantBuffer.matrixProj = _matrixProjection;
+	constantBuffer.matrixProj = XMMatrixIdentity(); _matrixProjection;
 	constantBuffer.matrixUV = _matrixUV;
 	
 	// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
@@ -138,13 +138,19 @@ void wtgb::CPMeshRenderer::Render2D(
 	pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
 	pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
 
-	Texture* pTexture{ resource.GetTexture(_hTexture) };
-	// テクスチャが指定されているなら
-	if (pTexture)
+	if (_hTexture != INVALID_HANDLE)
 	{
-		pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
+		Texture* pTexture{ resource.GetTexture(_hTexture) };
+	
+		wassert(pTexture && "テクスチャの読み込みに失敗");
+		
+		// テクスチャが指定されているなら
+		if (pTexture)
+		{
+			pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
 
-		pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
+			pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
+		}
 	}
 
 	D3D11_MAPPED_SUBRESOURCE data{};
@@ -154,10 +160,59 @@ void wtgb::CPMeshRenderer::Render2D(
 		data.pData,
 		data.RowPitch,
 		reinterpret_cast<void*>(&constantBuffer),
-		sizeof(IMeshSimple::ConstantBuffer));
+		sizeof(IMeshSimple2D::ConstantBuffer));
 	pContext->Unmap(pMesh->GetConstantBuffer().Get(), 0);
 
 	pContext->DrawIndexed(pMesh->GetIndexCount(), 0, 0);
+
+	{
+		size_t vertexCount = pMesh->GetVertexCount();
+		std::vector<IMeshSimple2D::Vertex> vertexes{};
+		vertexes.resize(vertexCount);
+
+		// 1. 元バッファの情報取得
+		D3D11_BUFFER_DESC desc{};
+		pMesh->GetVertexBuffer()->GetDesc(&desc);
+
+		// 2. 読み取り用ステージングバッファの設定
+		D3D11_BUFFER_DESC stagingDesc = desc;
+		stagingDesc.Usage = D3D11_USAGE_STAGING;
+		stagingDesc.BindFlags = 0;
+		stagingDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+		stagingDesc.MiscFlags = 0;
+
+		// 3. ステージングバッファを作成
+		ComPtr<ID3D11Buffer> pStagingBuffer{};
+		HRESULT hr = pDevice->CreateBuffer(&stagingDesc, nullptr, &pStagingBuffer);
+		if (FAILED(hr))
+		{
+			wassert(false && "ステージングバッファの作成に失敗");
+			return;
+		}
+
+		// 4. GPUバッファからステージングバッファにコピー
+		pContext->CopyResource(pStagingBuffer.Get(), pMesh->GetVertexBuffer().Get());
+
+		// 5. ステージングバッファをマップしてCPUで読み込み
+		D3D11_MAPPED_SUBRESOURCE mapped{};
+		hr = pContext->Map(pStagingBuffer.Get(), 0, D3D11_MAP_READ, 0, &mapped);
+		if (SUCCEEDED(hr))
+		{
+			// バッファの内容をコピー
+			memcpy(vertexes.data(), mapped.pData, sizeof(IMeshSimple2D::Vertex) * vertexCount);
+			pContext->Unmap(pStagingBuffer.Get(), 0);
+		}
+
+		/*LOGFLN("----------------------------");
+		for (auto& vertex : vertexes)
+		{
+			LOGFLN("POS:({},{},{})", vertex.position.x, vertex.position.y, vertex.position.z);
+			LOGFLN("NORM:({},{},{})", vertex.normal.x, vertex.normal.y, vertex.normal.z);
+			LOGFLN("UV:({},{})", vertex.uv.x, vertex.uv.y);
+		}*/
+
+		pStagingBuffer.Reset();
+	}
 }
 
 void wtgb::CPMeshRenderer::Init()
