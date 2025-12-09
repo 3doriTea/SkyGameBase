@@ -216,6 +216,7 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 	};
 
 	// データを画面に描画するための一通りの設定 (パイプライン)
+	//pResource_->Context().Get()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 	pResource_->Context().Get()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	SetUseDepthBuffer(true);
 	pResource_->Context().Get()->RSSetViewports(1, &viewport);

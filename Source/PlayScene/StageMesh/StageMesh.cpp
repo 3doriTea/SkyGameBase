@@ -137,7 +137,7 @@ void StageMesh::Init(ViewerCached _system)
 	int index{ 0 };
 	for (auto& vertex : vertices)
 	{
-		LOGF("[{:<2}]{:<3},{:<3}     ", index, vertex.position.x, vertex.position.z);
+		LOGF("[{:<2}]pos:({:<3},{:<3}), uv:({:<3},{:<3}),     ", index, vertex.position.x, vertex.position.z, vertex.uv.x, vertex.uv.y);
 		if (vertex.position.x > 0)
 		{
 			LOGF("\n\n");
