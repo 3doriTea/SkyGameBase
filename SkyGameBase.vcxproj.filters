@@ -402,6 +402,12 @@
     <ClInclude Include="wtgb\Utility\CallStackViewer.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\SpecialBall.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\StageObjectManager.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -632,6 +638,12 @@
     <ClCompile Include="wtgb\Utility\CallStackViewer.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\SpecialBall.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\StageObjectManager.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -673,5 +685,6 @@
     <FxCompile Include="Assets\Shader\Figure2D.hlsl" />
     <FxCompile Include="Assets\Shader\Image2D.hlsl" />
     <FxCompile Include="Assets\Shader\TestPoint.hlsl" />
+    <FxCompile Include="Assets\Shader\SpecialBall.hlsl" />
   </ItemGroup>
 </Project>

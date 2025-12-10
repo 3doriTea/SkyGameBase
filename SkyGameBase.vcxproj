@@ -29,6 +29,8 @@
     <ClInclude Include="Source\PlayScene\CameraController\ICameraMove.h" />
     <ClInclude Include="Source\PlayScene\StageLine.h" />
     <ClInclude Include="Source\PlayScene\StageMesh\StageMesh.h" />
+    <ClInclude Include="Source\PlayScene\SpecialBall.h" />
+    <ClInclude Include="Source\PlayScene\StageObjectManager.h" />
     <ClInclude Include="Source\PlayScene\TestBillBoard.h" />
     <ClInclude Include="Source\PlayScene\WaterPlane.h" />
     <ClInclude Include="Source\PlayScene\WaterPlane\WaterMesh.h" />
@@ -155,6 +157,8 @@
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />
+    <ClCompile Include="Source\PlayScene\SpecialBall.cpp" />
+    <ClCompile Include="Source\PlayScene\StageObjectManager.cpp" />
     <ClCompile Include="Source\PlayScene\TestBillBoard.cpp" />
     <ClCompile Include="Source\PlayScene\WaterPlane.cpp" />
     <ClCompile Include="Source\PlayScene\WaterPlane\WaterMesh.cpp" />
@@ -278,6 +282,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\SpecialBall.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
