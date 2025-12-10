@@ -33,6 +33,8 @@
 #include <DirectXTex.h>
 #pragma comment(lib, "DirectXTex.lib")
 
+// json
+#include "Library/nlohmann/json.hpp"
 
 #define USE_FBX_SDK
 
