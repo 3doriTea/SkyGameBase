@@ -16,7 +16,7 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 		.AddComponent<wtgb::Transform>()
 			.BeginSetter()
 				.position(_localPos)
-				.rotation({ 0, 90, 0 })
+				.rotation({ 0, 0, 0 })
 				.scale({ 1, 1, 1 })
 			.EndSetter()
 		.AddComponent<ModelMesh>()

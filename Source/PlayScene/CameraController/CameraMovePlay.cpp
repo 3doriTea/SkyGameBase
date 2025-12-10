@@ -89,7 +89,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 			// マウスの移動量から速度を求める
 			Vector3 velocity
 			{
-				Vector3{ static_cast<float>(diffValue_.x), 0.0f, static_cast<float>(diffValue_.y) }
+				Vector3{ static_cast<float>(diffValue_.x), 0.0f, -static_cast<float>(diffValue_.y) }
 				* CURSOR_MOVE_TO_VELOCITY
 			};
 

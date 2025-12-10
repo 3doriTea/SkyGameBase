@@ -51,8 +51,24 @@ void StageLine::Init()
 {
 	Collider& collider{ GetComponent<Collider>() };
 
+	std::ifstream ifs{ "StageData.json" };
+	json j{};
+
+	ifs >> j;
+
+	const size_t POINTS_SIZE{ j["points"].size() };
+
+	points_.resize(POINTS_SIZE);
+
+	for (size_t i = 0; i < POINTS_SIZE; i++)
+	{
+		Vector2 pos{ j["points"][i]["x"].get<float>(), j["points"][i]["y"].get<float>() };
+		points_.push_back(pos);
+	}
+
+
 	// TODO: ÉfÅ[É^ÇÕÇøÇ·ÇÒÇ∆à⁄Ç∑
-	points_ =
+	/*points_ =
 	{
 		{ 0, 0 },
 		{ 80, 40 },
@@ -63,7 +79,7 @@ void StageLine::Init()
 		{ 350, 210 },
 		{ 430, 310 },
 		{ 620, 320 },
-	};
+	};*/
 
 
 	/*for (int i = 0; i < 100; i++)

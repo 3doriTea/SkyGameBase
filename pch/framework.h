@@ -36,6 +36,8 @@
 // json
 #include "Library/nlohmann/json.hpp"
 
+using json = nlohmann::json;
+
 #define USE_FBX_SDK
 
 #ifdef USE_FBX_SDK
