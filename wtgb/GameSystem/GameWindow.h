@@ -116,6 +116,12 @@ namespace wtgb
 		/// <returns>ウィンドウである true / false</returns>
 		BOOL GetMainWindowIsWindowed();
 
+		/// <summary>
+		/// メインウィンドウがアクティブ(選択中のウィンドウ)かどうか
+		/// </summary>
+		/// <returns>アクティブである true / false</returns>
+		BOOL IsActiveMainWindow();
+
 	private:
 		const CreateWindowConfig& GetMainWindowData();
 

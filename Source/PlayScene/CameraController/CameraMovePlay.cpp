@@ -47,7 +47,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	GameObject* pPlayer{ pGameObject->FindGameObject("Player") };
 
 	// マウスカーソルの制御
-	if (input.IsMouseDown(MouseCode::Left) && input.IsKey(KeyCode::G))
+	if (input.IsMouseDown(MouseCode::Left) && gameWindow.IsActiveMainWindow())
 	{
 		isDragging_ = true;
 
@@ -174,9 +174,9 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		{
 		case CameraMovePlay::ControlMode::MoveView:
 		{
-			float addY{ static_cast<float>(move.y) * dt * ((XM_PI / 180.0f) * 3.0f) * 0.01f };
+			float addY{ static_cast<float>(move.y) * dt * ((XM_PI / 180.0f) * 3.0f) };
 			angleX_ += addY;
-			float addX{ static_cast<float>(move.x) * dt * ((XM_PI / 180.0f) * 3.0f) * 0.01f };
+			float addX{ static_cast<float>(move.x) * dt * ((XM_PI / 180.0f) * 3.0f) };
 			angleY_ += addX;
 			LOGFLN("addY:{}, addX:{}", addY, addX);
 			break;

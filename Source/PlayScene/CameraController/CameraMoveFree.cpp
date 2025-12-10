@@ -46,7 +46,7 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
 	wassert(pTransform && "Transformコンポーネントの取得に失敗");
-	/*RigidBody* pRigidBody{ systemView.Get<CPRigidBody>().Get(entityId) };
+	/*RigidBody* pRigidBody{systemView.Get<CPRigidBody>().Get(entityId)};
 	wassert(pRigidBody && "RigidBodyコンポーネントの取得に失敗");*/
 
 
@@ -122,10 +122,10 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 			pTransform->GetNormalMatrix())
 	};
 
-	/*cameraPos = cameraPos + velocity;
-	pTransform->SetPosition(cameraPos);*/
+	cameraPos = cameraPos + velocity;
+	pTransform->SetPosition(cameraPos);
 
-	//pRigidBody->AddVelocity(velocity);
+	/*pRigidBody->AddVelocity(velocity); */
 }
 
 void CameraMoveFree::End(GameObjectReference _ref)

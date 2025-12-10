@@ -32,7 +32,6 @@
 #include "LogUtility.h"
 #include "WTGBResult.h"
 
-//#include "CoreType/CoreType.h"
 #include "CoreType/Vector2Int.h"
 #include "CoreType/Vector4.h"
 #include "CoreType/Vector3.h"
@@ -52,6 +51,7 @@ namespace fs = std::filesystem;
 
 #ifdef _DEBUG
 #else
+	// リリースモードで wassert 未定義エラーを消すために
 	#define wassert(expression)
 #endif
 

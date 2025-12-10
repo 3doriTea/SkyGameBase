@@ -122,6 +122,11 @@ BOOL wtgb::GameWindow::GetMainWindowIsWindowed()
 	return GetMainWindowData().windowed;
 }
 
+BOOL wtgb::GameWindow::IsActiveMainWindow()
+{
+	return GetMainWindowHandle() == GetForegroundWindow();
+}
+
 const wtgb::GameWindow::CreateWindowConfig& wtgb::GameWindow::GetMainWindowData()
 {
 	wassert(!windowHandles_.IsEmpty() && "ウィンドウハンドルが1つも登録されていない");
