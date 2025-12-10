@@ -5,6 +5,7 @@
 #include "GameSystem/ComponentManager.h"
 #include "CommonGameComponent.h"
 #include "GameSystem/CPGameObject.h"
+#include "GameSystem/SceneManager.h"
 
 // TODO: GameObjectは名ばかり、スクリプトコンポーネントだ！
 
@@ -75,6 +76,21 @@ namespace wtgb
 
 		template<typename ComponentT>
 		ComponentT& AddComponent() { return System().Get<ComponentManager>().Add<ComponentT>(entityId_); }
+
+		/// <summary>
+		/// ゲームオブジェクトが所属する現在のシーンを取得する
+		/// </summary>
+		/// <typeparam name="GameSceneT">シーンの型</typeparam>
+		/// <returns>シーンの参照</returns>
+		template<typename GameSceneT>
+		inline GameSceneT& GetScene()
+		{
+			static_assert(
+				std::is_base_of_v<GameScene, GameSceneT>
+				&& "指定する型はGameSceneを継承している必要があります。");
+
+			return *(dynamic_cast<GameSceneT*>(System().Get<SceneManager>().GetCurrentScene()));
+		}
 
 		/// <summary>
 		/// エンティティIdからゲームオブジェクトを探す

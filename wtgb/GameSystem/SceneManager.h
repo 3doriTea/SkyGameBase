@@ -12,7 +12,7 @@ namespace wtgb
 		SceneManager();
 		~SceneManager();
 
-		const CallType GetCallType() override { return CallType::Frame; }
+		inline const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
 		/// 初期化処理
@@ -27,8 +27,12 @@ namespace wtgb
 		/// </summary>
 		void End() override;
 
+		/// <summary>
+		/// シーン遷移する
+		/// </summary>
+		/// <typeparam name="SceneT">次のシーンの型</typeparam>
 		template<typename SceneT>
-		void Move()
+		inline void Move()
 		{
 			assert(pToNext_ == nullptr && "既に次のシーン遷移が呼ばれている");
 			if (pToNext_ == nullptr)
@@ -40,6 +44,12 @@ namespace wtgb
 				RequestClearComponents();  // コンポーネントの破棄依頼をする
 			}
 		}
+
+		/// <summary>
+		/// 現在のゲームシーンを取得する
+		/// </summary>
+		/// <returns>現在のゲームシーンのポインタ</returns>
+		inline GameScene* GetCurrentScene() const { return pCurrent_; }
 
 	private:
 		void RequestClearComponents();

@@ -1,3 +1,4 @@
+#include "pch/pch.h"
 #include "SpecialBall.h"
 
 SpecialBall::SpecialBall(const Vector3& _position) : GameObject

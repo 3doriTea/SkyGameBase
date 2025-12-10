@@ -1,7 +1,9 @@
+#include "pch/pch.h"
 #include "StageObjectManager.h"
 #include "../SampleScene/Player.h"
 #include "StageLine.h"
 #include "SpecialBall.h"
+
 
 StageObjectManager::StageObjectManager(const EntityId _stageLine, const EntityId _player) : GameObject
 {

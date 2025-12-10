@@ -22,14 +22,6 @@ namespace wtgb
 		};
 
 	public:
-		GameScene(Config&& _config);
-		virtual ~GameScene();
-
-		virtual void Start() {}
-		virtual void Update() {}
-		virtual void Draw() {}
-
-	protected:
 		/// <summary>
 		/// ゲームオブジェクトをインスタンスする
 		/// </summary>
@@ -53,6 +45,14 @@ namespace wtgb
 
 			return entityId;
 		}
+
+	protected:
+		GameScene(Config&& _config);
+		virtual ~GameScene();
+
+		virtual void Start() {}
+		virtual void Update() {}
+		virtual void Draw() {}
 
 		ViewerCached System() { return cachedSystem_; }
 
