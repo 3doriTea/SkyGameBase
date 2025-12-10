@@ -60,11 +60,23 @@ void StageLine::Init()
 
 	points_.resize(POINTS_SIZE);
 
+	// jsonから一部ステージを読み取ってくる
 	for (size_t i = 0; i < POINTS_SIZE; i++)
 	{
 		Vector2 pos{ j["points"][i]["x"].get<float>(), j["points"][i]["y"].get<float>() };
 		points_.push_back(pos);
 	}
+
+	Mathf::Randomer random{ 0 };
+
+	Vector2 last{};
+	while (last.y < 5000.0f)
+	{
+		last = points_.at(points_.size() - 1);
+		points_.push_back({ last.x + (random.Rand() * 100.0f), last.y + random.Rand() * 30.0f });
+	}
+
+	points_.at(points_.size() - 1).y = 5000.0f;
 
 	// 全ての y 軸を - にする
 	for (auto& point : points_)

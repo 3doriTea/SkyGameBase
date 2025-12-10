@@ -38,6 +38,7 @@
 #include "GameSystem/Direct3D.h"
 
 #include "WTGBAssert.h"
+#include "Utility/Mathf.h"
 
 using wtgb::IGame;
 using wtgb::IGameSystem;

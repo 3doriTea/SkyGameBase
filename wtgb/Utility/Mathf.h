@@ -2,8 +2,14 @@
 #include <random>
 #include <cstdint>
 
+/// <summary>
+/// 32bit浮動小数点数の数学ユーティリティ
+/// </summary>
 namespace wtgb::Mathf
 {
+	/// <summary>
+	/// 乱数を作るやつ
+	/// </summary>
 	class Randomer
 	{
 	public:
