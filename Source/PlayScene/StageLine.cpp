@@ -3,6 +3,14 @@
 
 using namespace wtgb;
 
+namespace
+{
+	const float GOAL_HEIGHT{ 5000.0f };
+	const float GOAL_POS_Y{ -GOAL_HEIGHT };
+	const float RAND_RANGE_X{ 100.0f };
+	const float RAND_RANGE_Y{ 30.0f };
+}
+
 StageLine::StageLine() : GameObject
 {
 	[this](GameObjectBuilder& _builder)
@@ -63,20 +71,24 @@ void StageLine::Init()
 	// jsonから一部ステージを読み取ってくる
 	for (size_t i = 0; i < POINTS_SIZE; i++)
 	{
-		Vector2 pos{ j["points"][i]["x"].get<float>(), j["points"][i]["y"].get<float>() };
+		Vector2 pos
+		{
+			j["points"][i]["x"].get<float>(),
+			j["points"][i]["y"].get<float>()
+		};
 		points_.push_back(pos);
 	}
 
 	Mathf::Randomer random{ 0 };
 
 	Vector2 last{};
-	while (last.y < 5000.0f)
+	while (last.y < GOAL_HEIGHT)
 	{
 		last = points_.at(points_.size() - 1);
-		points_.push_back({ last.x + (random.Rand() * 100.0f), last.y + random.Rand() * 30.0f });
+		points_.push_back({ last.x + (random.Rand() * RAND_RANGE_X), last.y + random.Rand() * RAND_RANGE_Y });
 	}
 
-	points_.at(points_.size() - 1).y = 5000.0f;
+	points_.at(points_.size() - 1).y = GOAL_HEIGHT;
 
 	// 全ての y 軸を - にする
 	for (auto& point : points_)
@@ -95,4 +107,9 @@ void StageLine::Update()
 void StageLine::Release()
 {
 	stageMesh_.CallRelease(System());
+}
+
+float StageLine::GetPosY(const Vector3& _worldPosition)
+{
+	
 }
