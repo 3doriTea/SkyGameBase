@@ -158,11 +158,10 @@ void wtgb::CPRigidBody::Update()
 							//Vector3 r{ V + 2.0f * E * N };
 							Vector3 r{ ret + 2.0f * E * N };
 						#endif
-							float velocityZ{ _rb.velocity_.z };
+							float velocityX{ _rb.velocity_.x };
 							_rb.velocity_ = collisionInfo.reflectionVelocity;
-							_rb.velocity_.z = velocityZ;
+							_rb.velocity_.x = velocityX;
 							_rb.push_ = collisionInfo.push;
-
 						}
 					});
 				break;

@@ -48,7 +48,7 @@ void PlayScene::Start()
 	Mathf::Randomer random{};
 
 #if 1
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 0; i++)
 	{
 		float r1{ random.Rand() };
 		float r2{ random.Rand() };

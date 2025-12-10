@@ -64,6 +64,8 @@ namespace wtgb
 		/// <param name="_src">ソースとなるxy頂点</param>
 		void SetPoints2D(const std::vector<Vector2>& _src);
 
+		void SetRadius(const float _radius) { sphere.radius = _radius; }
+
 	private:
 		Type colliderType_;
 		//union

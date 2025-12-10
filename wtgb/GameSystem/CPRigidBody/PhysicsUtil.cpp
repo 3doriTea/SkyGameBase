@@ -221,15 +221,9 @@ void CircleBodyVSSegment(
 	// 現在の円の中心座標
 	const Vector2 CURR_CENTER{ _circleBody.center };
 
-#pragma region 絶対に当たらない場合除外 (簡易なBounding Boxチェックはそのまま)
-	// 衝突応答は現在の位置で行うため、NEXT_CENTERは一旦使わずCURR_CENTERのみで境界チェックを行う
+#pragma region 絶対に当たらない場合除外
 	const float CIRCLE_MAX_X{ CURR_CENTER.x + _circleBody.radius };
 	const float CIRCLE_MIN_X{ CURR_CENTER.x - _circleBody.radius };
-
-	// 線分の端点のX座標が円の境界から大きく離れていたら無視（より厳密なチェックが望ましいがここでは単純化）
-	// この簡易なチェックは、トンネリングを防ぐ連続的衝突検出の補助としては不十分ですが、今回は単純な埋まり込み解消に焦点を当てます。
-	// (次のフレーム位置を含めたチェックは削除し、現在の位置のみで判定します)
-	// (コード内の定数定義が不完全なため、この除外判定は一旦コメントアウト、または調整が必要です)
 	
 	const float SECTION_MAX_X{ max(_section.begin.x, _section.end.x) };
 	const float SECTION_MIN_X{ min(_section.begin.x, _section.end.x) };
@@ -241,7 +235,7 @@ void CircleBodyVSSegment(
 		{
 			*_pCollisionInfo = info;
 		}
-		return; // 早期リターン
+		return; // 絶対に当たらないから早期リターン
 	}
 #pragma endregion
 
@@ -308,9 +302,17 @@ void CircleBodyVSSegment(
 
 	if (info.isHit)
 	{
+		Vector2 hitNormal = XMVector2Normalize(CURR_CENTER - point2D);
+
+		const float SKIN_WIDTH = 0.001f; // 状況に応じて 0.01f ～ 0.1f に調整
+		float pushAmount = info.depth + SKIN_WIDTH;
+
 		// 押し出しベクトル (法線方向に埋まり込み量分押し戻す)
 		// ここで使う法線は、セグメントの「上向き」法線を使用
-		const Vector2 push2D = SEGMENT_NORM * info.depth;
+		//const Vector2 push2D = SEGMENT_NORM * info.depth;
+
+		// 法線方向に押し出す
+		Vector2 push2D = hitNormal * pushAmount;
 
 		// 押し出し方向の確認: 
 		// 実際の埋まり込み方向は CENTER_TO_POINT の逆方向ですが、
@@ -325,6 +327,42 @@ void CircleBodyVSSegment(
 		// 侵入速度
 		const Vector2 F{ _circleBody.velocity };
 
+		// 法線(SEGMENT_NORM)に向かってくる速度成分の内積 + fの長さ
+		const float DOT_FN = XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM));
+
+		// 速度がめり込み方向(DOT_FN < 0.0f)でなければ反射処理は不要
+		if (DOT_FN < 0.0f)
+		{
+			// 反発力 e を考慮した反射係数
+			const float E = 1.0f + _circleBody.bounciness;
+
+			// 反射ベクトル (R) の計算: R = F - (1 + e) * (F . N) * N
+			Vector2 r{ F - E * DOT_FN * SEGMENT_NORM };
+
+			// 【修正】角度判定(ang)や速度差判定(speedDiff)を削除し、
+			// 計算した反射ベクトル r をそのまま適用する
+
+			// Vector2(x, y) を Vector3(0, y, x) に変換して格納
+			//info.reflectionVelocity = Vector3{ 0.0f, r.y, r.x };
+
+			//if (XMVectorGetX(XMVector2Length(r)) < 5.0f)
+			//{
+			//	// ログ出力が必要であればここで r の値を出力
+			//	//LOGFLN("Reflect: ({}, {})", r.x, r.y);
+			//}
+			//else
+			//{
+				//LOGFLN("Reflect: ({}, {})", r.x, r.y);
+				info.reflectionVelocity = Vector3{ 0.0f, r.y, r.x };
+			//}
+		}
+		else
+		{
+			// 離れ方向または接線方向の速度成分のみ、そのまま次の速度とする
+			info.reflectionVelocity = Vector3{ 0.0f, F.y, F.x };
+		}
+
+		/*
 		// 法線(SEGMENT_NORM)に向かってくる速度成分の内積
 		const float DOT_FN = XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM));
 
@@ -338,13 +376,43 @@ void CircleBodyVSSegment(
 			// DOT_FNは負の値なので、-DOT_FNはめり込み方向の速度の大きさ（正の値）になる
 			Vector2 r{ F - E * DOT_FN * SEGMENT_NORM };
 
-			info.reflectionVelocity = { 0.0f, r.y, r.x };
+			Vector3 r3{ 0.0f, r.y, r.x };
+
+			float ang{ XMVectorGetX(XMVector2Dot(XMVector2Normalize(r), XMVector2Normalize(F))) };
+
+			// 速度の差がありすぎるなら無視する
+
+			float speedDiff{ XMVectorGetX(XMVector2Length(XMVector2Normalize(F))) - XMVectorGetX(XMVector2Length(XMVector2Normalize(r))) };
+
+			LOGFLN("{}", speedDiff);
+
+			if (ang < 0.9f)
+			{
+				info.reflectionVelocity;// =
+			}
+			else
+			{
+				info.reflectionVelocity = r3;
+			}
+			LOGFLN("ang:{}", ang);
+
+			float len = XMVectorGetX(XMVector3Length(info.reflectionVelocity));
+			if (len < 1.0f)
+			{
+				LOGFLN("len:{}", len);
+			}
+			else
+			{
+				LOGFLN("v:({}, {}, {})", info.reflectionVelocity.x, info.reflectionVelocity.y, info.reflectionVelocity.z);
+				LOGFLN("len:{}", len);
+			}
 		}
 		else
 		{
 			// 離れ方向または接線方向の速度成分のみ、そのまま次の速度とする
 			info.reflectionVelocity = { 0.0f, F.y, F.x };
 		}
+		*/
 	}
 
 	// 当たり判定情報が必要なら渡す

@@ -38,8 +38,6 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	GameWindow& gameWindow{ systemView.Get<GameWindow>() };
 	const Input::InputGetter& input{ systemView.Get<Input>().Getter() };
 
-	LOGFLN("dt:{}", dt);
-
 	// カメラコントローラのゲームオブジェクトの情報
 
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
@@ -93,7 +91,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 				* CURSOR_MOVE_TO_VELOCITY
 			};
 
-			LOGFLN("v({}, {}, {})", velocity.x, velocity.y, velocity.z);
+			//LOGFLN("v({}, {}, {})", velocity.x, velocity.y, velocity.z);
 
 			// プレイヤーのローカル方向へ変換
 			velocity = XMVector3TransformCoord(velocity, XMMatrixRotationY(angleY_));
@@ -178,14 +176,12 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 			angleX_ += addY;
 			float addX{ static_cast<float>(move.x) * dt * ((XM_PI / 180.0f) * 3.0f) };
 			angleY_ += addX;
-			LOGFLN("addY:{}, addX:{}", addY, addX);
 			break;
 		}
 		case CameraMovePlay::ControlMode::MovePlayer:
 		{
 			Vector2Int current{ cursor.GetPosition() };
 			diffValue_ += current - previous_;
-			LOGFLN("diffValue_:({}, {})", diffValue_.x, diffValue_.y);
 			previous_ = current;
 			break;
 		}

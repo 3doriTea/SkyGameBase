@@ -36,7 +36,7 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
 			.EndSetter()
 		.AddComponent<RigidBody>()
 			.BeginSetter()
-				.bounciness(1.0f)
+				.bounciness(0.5f)
 				.useGravity(true)
 				//.drag(0.981f)
 				.velocity({ 0, 0.0f, 0.0f })
@@ -58,6 +58,10 @@ Player::~Player()
 
 void Player::Init()
 {
+	Collider& collider{ GetComponent<Collider>() };
+
+	collider.SetRadius(2.0f);
+
 	angle_ = 0.0f;
 	//GetComponent<ModelMesh>().Load();
 }
