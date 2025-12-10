@@ -372,6 +372,36 @@
     <ClInclude Include="wtgb\GameSystem\Canvas\Mesh2D.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SampleScene\TestArrowUI.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\NumberPlate.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\CoreType\RectF.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\CoreType\RectT.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\CoreType\Vector2T.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Canvas\ContentAndConfig.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Canvas\IRenderContent.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Direct3D\BlendMode.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\ModelMesh\IMeshSimple2D.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Utility\CallStackViewer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -584,6 +614,24 @@
     <ClCompile Include="wtgb\GameSystem\Canvas\CanvasContext.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SampleScene\TestArrowUI.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\NumberPlate.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Canvas\Mesh2D.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Canvas\RenderContent.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshSimple2D.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\Utility\CallStackViewer.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -608,6 +656,13 @@
     <None Include="wtgb\Core\GameSystemCollection.inl">
       <Filter>C++未分類ファイル</Filter>
     </None>
+    <None Include="wtgb\GameSystem\Canvas\RenderContent.inl">
+      <Filter>C++未分類ファイル</Filter>
+    </None>
+    <None Include="wtgb\Utility\IResource.inl">
+      <Filter>C++未分類ファイル</Filter>
+    </None>
+    <None Include="Assets\StageData.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
@@ -617,5 +672,6 @@
     <FxCompile Include="Assets\Shader\WaterBall.hlsl" />
     <FxCompile Include="Assets\Shader\Figure2D.hlsl" />
     <FxCompile Include="Assets\Shader\Image2D.hlsl" />
+    <FxCompile Include="Assets\Shader\TestPoint.hlsl" />
   </ItemGroup>
 </Project>
