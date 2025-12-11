@@ -24,10 +24,10 @@ CameraController::CameraController() : GameObject
 				.drag(0.999f)
 				.bounciness(1.0f)
 			.EndSetter()*/
-		.AddComponent<Collider>()
+		/*.AddComponent<Collider>()
 			.BeginSetter()
 				.colliderType(Collider::Type::Sphere)
-			.EndSetter()
+			.EndSetter()*/
 		.Build();
 	}
 },

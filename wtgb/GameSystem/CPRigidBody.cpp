@@ -12,7 +12,8 @@ namespace
 	// TODO: ソースとリソースを分ける → jsonで管理する
 	const wtgb::PhysicsConfig PHYSICS_CONFIG_DEFAULT
 	{
-		.gravity = 9.8f,  // 重力加速度
+		//.gravity = 9.8f,  // 重力加速度
+		.gravity = 13.0f,  // 重力加速度
 		.gravityDirection = wtgb::Vector3::Down(),  // 重力の向き
 	};
 }
