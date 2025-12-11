@@ -4,7 +4,7 @@
 
 namespace
 {
-	const float GET_DISTANCE{ 3.0f };
+	const float GET_DISTANCE{ 6.0f };
 }
 
 SpecialBoom::SpecialBoom(const Vector3& _position, const EntityId _stageObjManager, const EntityId _player) : GameObject
@@ -19,10 +19,11 @@ SpecialBoom::SpecialBoom(const Vector3& _position, const EntityId _stageObjManag
 			.AddComponent<wtgb::Transform>()
 				.BeginSetter()
 					.position(_position)
+					.scale(Vector3::One() * 10.0f)
 				.EndSetter()
 			.AddComponent<ModelMesh>()
 				.BeginSetter()
-					.fileName("Models/Sphere/Sphere.fbx")
+					.fileName("Models/Ring/Ring.fbx")
 				.EndSetter()
 			.AddComponent<MeshRenderer>()
 				.BeginSetter()
