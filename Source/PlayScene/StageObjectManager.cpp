@@ -11,7 +11,7 @@ namespace
 	const float SPAWN_INTERVAL_SEC{ 5.0f };
 
 	// ŠgŽU‚·‚éŠp“x (degree)
-	const float CONE_ANGLE_DEG{ 30.0f };
+	const float CONE_ANGLE_DEG{ 10.0f };
 
 	// ŠgŽU‚·‚é‰~‚Ì“™•ªŠ„Šp“x (degree)
 	const float DIVISION_ANGLE{ 30.0f };
@@ -72,7 +72,7 @@ void StageObjectManager::Update()
 
 
 	Vector3 playerPos{ pPlayer->Transform().GetPosition() };
-	Vector3 targetPos{ playerPos + Vector3::Forward() * 30.0f };
+	Vector3 targetPos{ playerPos + Vector3::Forward() * 5.0f };
 	targetPos.y = pStageLine->GetPosY(targetPos);
 
 	Matrix4x4 mRotX{ XMMatrixRotationX(XMConvertToRadians(CONE_ANGLE_DEG)) };

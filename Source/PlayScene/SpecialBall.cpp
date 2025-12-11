@@ -27,7 +27,7 @@ SpecialBall::SpecialBall(const Vector3& _position, const Vector3& _velocity) : G
 			.AddComponent<RigidBody>()
 				.BeginSetter()
 					.velocity(_velocity)
-					.useGravity(false)
+					.useGravity(true)
 					.bounciness(1.0f)
 				.EndSetter()
 			.AddComponent<ModelMesh>()
@@ -57,7 +57,12 @@ void SpecialBall::Update()
 	Vector3 pos{ Transform().GetPosition() };
 	if (pos.x < SAFE_ZONE_X_MIN || SAFE_ZONE_X_MAX < pos.x)
 	{
-		DestroyMe();
+		RigidBody& rb{ GetComponent<RigidBody>() };
+		//DestroyMe();
+
+		Vector3 v{ rb.GetVelocity() };
+		v.x *= -1.0f;
+		rb.SetVelocity(v);
 	}
 }
 

@@ -5,10 +5,13 @@ using namespace wtgb;
 
 namespace
 {
-	const float GOAL_HEIGHT{ 5000.0f };
+	const float GOAL_HEIGHT{ 3000.0f };
 	const float GOAL_POS_Y{ -GOAL_HEIGHT };
 	const float RAND_RANGE_X{ 100.0f };
 	const float RAND_RANGE_Y{ 30.0f };
+
+	const float GOAL_SIZE_Z{ 300.0f };
+	const float GOAL_WALL_HEIGHT{ 300.0f };
 }
 
 StageLine::StageLine() : GameObject
@@ -89,6 +92,16 @@ void StageLine::Init()
 	}
 
 	points_.at(points_.size() - 1).y = GOAL_HEIGHT;
+	last = points_.at(points_.size() - 1);
+
+
+	// è∞ÇçÏÇÈ
+	last.x += GOAL_SIZE_Z;
+	points_.push_back(last);
+
+	// ï«ÇçÏÇÈ
+	last.y -= GOAL_WALL_HEIGHT;
+	points_.push_back(last);
 
 	// ëSÇƒÇÃ y é≤Ç - Ç…Ç∑ÇÈ
 	for (auto& point : points_)
