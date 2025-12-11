@@ -16,6 +16,18 @@ namespace
 
 	// 拡散する円の等分割角度 (degree)
 	const float DIVISION_ANGLE{ 30.0f };
+
+	// 出現する最低限の距離
+	const float SPAWN_DISTANCE_OFFSET{ 100.0f };
+
+	// 出現する距離でスピードの係数
+	const float SPAWN_DISTANCE_PER_SPEED{ 10.0f };
+
+	// 出現する地面からの高さ
+	const float SPAWN_HEIGHT{ 20.0f };
+
+	// ボールが出現する距離
+	const float SPECIAL_BALL_DINSTANCE{ 5.0f };
 }
 
 
@@ -74,8 +86,8 @@ void StageObjectManager::Update()
 	float speed{ XMVectorGetX(XMVector3Length(playerRB.GetVelocity())) };
 
 	Vector3 playerPos{ pPlayer->Transform().GetPosition() };
-	Vector3 targetPos{ playerPos + Vector3::Forward() * (speed * 10.0f + 100.0f) };
-	targetPos.y = pStageLine->GetPosY(targetPos) + 30.0f;
+	Vector3 targetPos{ playerPos + Vector3::Forward() * (speed * SPAWN_DISTANCE_PER_SPEED + SPAWN_DISTANCE_OFFSET) };
+	targetPos.y = pStageLine->GetPosY(targetPos) + SPAWN_HEIGHT;
 
 	GetScene<PlayScene>().Instantiate<SpecialBoom>(targetPos, GetEntityId(), player_);
 
@@ -98,7 +110,7 @@ void StageObjectManager::Fire()
 
 
 	Vector3 playerPos{ pPlayer->Transform().GetPosition() };
-	Vector3 targetPos{ playerPos + Vector3::Forward() * 5.0f };
+	Vector3 targetPos{ playerPos + Vector3::Forward() * SPECIAL_BALL_DINSTANCE };
 
 	Matrix4x4 mRotX{ XMMatrixRotationX(XMConvertToRadians(CONE_ANGLE_DEG)) };
 

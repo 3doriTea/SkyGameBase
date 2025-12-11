@@ -11,6 +11,12 @@ namespace
 	const int PLAYER_DRAG_RADIUS_PIX{ 130 };
 	// プレイヤーのドラッグ範囲の2以上 (ピクセル)
 	const int PLAYER_DRAG_RADIUS_PIX_SQ{ PLAYER_DRAG_RADIUS_PIX * PLAYER_DRAG_RADIUS_PIX };
+
+	// 回転速度
+	const float MOVE_ANGLE_DEG{ 3.0f };
+
+	const float ANGLE_MAX_DEG{ 80.0f };
+	const float ANGLE_MIN_DEG{ -80.0f };
 }
 
 CameraMovePlay::CameraMovePlay() :
@@ -172,9 +178,18 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		{
 		case CameraMovePlay::ControlMode::MoveView:
 		{
-			float addY{ static_cast<float>(move.y) * dt * ((XM_PI / 180.0f) * 3.0f) };
+			float addY{ static_cast<float>(move.y) * dt * (XMConvertToRadians(MOVE_ANGLE_DEG)) };
 			angleX_ += addY;
-			float addX{ static_cast<float>(move.x) * dt * ((XM_PI / 180.0f) * 3.0f) };
+
+			/*if (angleX_ > XMConvertToRadians(ANGLE_MAX_DEG))
+			{
+				angleX_ = XMConvertToRadians(ANGLE_MAX_DEG);
+			}
+			if (angleX_ < XMConvertToRadians(ANGLE_MIN_DEG))
+			{
+				angleX_ = XMConvertToRadians(ANGLE_MIN_DEG);
+			}*/
+			float addX{ static_cast<float>(move.x) * dt * (XMConvertToRadians(MOVE_ANGLE_DEG)) };
 			angleY_ += addX;
 			break;
 		}

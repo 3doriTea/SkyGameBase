@@ -31,7 +31,7 @@ CameraController::CameraController() : GameObject
 		.Build();
 	}
 },
-	mode_{ Mode::Free },
+	mode_{ Mode::Play },
 	lookTarget_{ INVALID_ENTITY },
 	pCameraMove_{ nullptr }
 {
@@ -43,7 +43,7 @@ CameraController::~CameraController()
 
 void CameraController::Init()
 {
-	SetMode(Mode::Free);  // 最初は自由カメラ
+	SetMode(Mode::Play);  // 最初は自由カメラ
 }
 
 void CameraController::Update()
