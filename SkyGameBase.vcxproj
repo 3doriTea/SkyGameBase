@@ -27,6 +27,7 @@
     <ClInclude Include="Source\PlayScene\CameraController\CameraMoveFree.h" />
     <ClInclude Include="Source\PlayScene\CameraController\CameraMovePlay.h" />
     <ClInclude Include="Source\PlayScene\CameraController\ICameraMove.h" />
+    <ClInclude Include="Source\PlayScene\SpecialBoom.h" />
     <ClInclude Include="Source\PlayScene\StageLine.h" />
     <ClInclude Include="Source\PlayScene\StageMesh\StageMesh.h" />
     <ClInclude Include="Source\PlayScene\SpecialBall.h" />
@@ -157,6 +158,7 @@
     <ClCompile Include="Source\PlayScene\ControlUI.cpp" />
     <ClCompile Include="Source\PlayScene\ControlUI.h" />
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
+    <ClCompile Include="Source\PlayScene\SpecialBoom.cpp" />
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />
     <ClCompile Include="Source\PlayScene\SpecialBall.cpp" />

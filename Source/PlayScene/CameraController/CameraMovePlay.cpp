@@ -64,7 +64,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		else
 		{
 			controlMode_ = ControlMode::MoveView;
-			cursor.SetCenterLock(true);
+			cursor.SetLock(true, cursor.GetPosition());
 			cursor.SetShow(false);
 		}
 		

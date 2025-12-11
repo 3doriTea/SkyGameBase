@@ -4,6 +4,7 @@
 #include "StageLine.h"
 #include "SpecialBall.h"
 #include "PlayScene.h"
+#include "SpecialBoom.h"
 
 namespace
 {
@@ -46,7 +47,6 @@ void StageObjectManager::Init()
 
 void StageObjectManager::Update()
 {
-	using namespace DirectX;
 
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 
@@ -66,14 +66,37 @@ void StageObjectManager::Update()
 
 	GameObject* pPlayerObj{ FindGameObject(player_) };
 	Player* pPlayer{ dynamic_cast<Player*>(pPlayerObj) };
-	wassert(pStageLine && "プレイヤーの取得に失敗");
+	wassert(pPlayer && "プレイヤーの取得に失敗");
+
+	RigidBody& playerRB{ pPlayer->GetComponent<RigidBody>() };
+
+
+	Vector3 playerPos{ pPlayer->Transform().GetPosition() };
+	Vector3 targetPos{ playerPos + Vector3::Forward() * 300.0f };
+	targetPos.y = pStageLine->GetPosY(targetPos) + 0.0f;
+
+	GetScene<PlayScene>().Instantiate<SpecialBoom>(targetPos, GetEntityId(), player_);
+
+	Fire();
+}
+
+void StageObjectManager::Release()
+{
+}
+
+void StageObjectManager::Fire()
+{
+	using namespace DirectX;
+
+	GameObject* pPlayerObj{ FindGameObject(player_) };
+	Player* pPlayer{ dynamic_cast<Player*>(pPlayerObj) };
+	wassert(pPlayer && "プレイヤーの取得に失敗");
 
 	RigidBody& playerRB{ pPlayer->GetComponent<RigidBody>() };
 
 
 	Vector3 playerPos{ pPlayer->Transform().GetPosition() };
 	Vector3 targetPos{ playerPos + Vector3::Forward() * 5.0f };
-	targetPos.y = pStageLine->GetPosY(targetPos);
 
 	Matrix4x4 mRotX{ XMMatrixRotationX(XMConvertToRadians(CONE_ANGLE_DEG)) };
 
@@ -88,8 +111,4 @@ void StageObjectManager::Update()
 
 		GetScene<PlayScene>().Instantiate<SpecialBall>(targetPos, v);
 	}
-}
-
-void StageObjectManager::Release()
-{
 }

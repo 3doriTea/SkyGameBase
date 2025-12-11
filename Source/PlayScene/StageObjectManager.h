@@ -14,6 +14,11 @@ public:
 	void Update() override;
 	void Release() override;
 
+	/// <summary>
+	/// 爆発させる
+	/// </summary>
+	void Fire();
+
 private:
 	float spawnTimeLeftSec_;  // スポーンまでのカウントダウンタイマ
 	EntityId stageLine_;  // ステージラインのエンティティId
