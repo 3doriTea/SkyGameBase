@@ -47,6 +47,7 @@ void StageObjectManager::Init()
 
 void StageObjectManager::Update()
 {
+	using namespace DirectX;
 
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 
@@ -70,10 +71,11 @@ void StageObjectManager::Update()
 
 	RigidBody& playerRB{ pPlayer->GetComponent<RigidBody>() };
 
+	float speed{ XMVectorGetX(XMVector3Length(playerRB.GetVelocity())) };
 
 	Vector3 playerPos{ pPlayer->Transform().GetPosition() };
-	Vector3 targetPos{ playerPos + Vector3::Forward() * 300.0f };
-	targetPos.y = pStageLine->GetPosY(targetPos) + 0.0f;
+	Vector3 targetPos{ playerPos + Vector3::Forward() * (speed * 10.0f + 100.0f) };
+	targetPos.y = pStageLine->GetPosY(targetPos) + 30.0f;
 
 	GetScene<PlayScene>().Instantiate<SpecialBoom>(targetPos, GetEntityId(), player_);
 

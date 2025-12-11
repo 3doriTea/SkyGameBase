@@ -4,7 +4,7 @@
 
 namespace
 {
-	const float GET_DISTANCE{ 6.0f };
+	const float GET_DISTANCE{ 10.0f };
 }
 
 SpecialBoom::SpecialBoom(const Vector3& _position, const EntityId _stageObjManager, const EntityId _player) : GameObject
