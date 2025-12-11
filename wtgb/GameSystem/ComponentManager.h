@@ -90,7 +90,7 @@ namespace wtgb
 		/// 削除予定のエンティティインデックスを取得する
 		/// </summary>
 		/// <returns>エンティティインデックス</returns>
-		const std::vector<size_t>& GetToRemoveEntityIndices() const { return toRemoveEntityIndices_; }
+		const std::vector<uint32_t>& GetToRemoveEntityIndices() const { return toRemoveEntityIndices_; }
 
 		/// <summary>
 		/// 削除予定のエンティティインデックスをリセットする
@@ -115,7 +115,7 @@ namespace wtgb
 		void ClearComponents() { needsClearComponents_ = true; }
 
 	private:
-		std::vector<size_t> toRemoveEntityIndices_;  // 削除対象のエンティティId
+		std::vector<uint32_t> toRemoveEntityIndices_;  // 削除対象のエンティティId
 		std::vector<IComponentPool*> pools_;  // コンポーネントプールの順番を持っておく
 		std::map<std::type_index, IComponentPool*> typeToPools_;  // コンポーネントプールの型変換用
 		EntityGenerator entityGenerator_;  // エンティティ生成

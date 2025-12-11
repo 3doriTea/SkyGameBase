@@ -41,7 +41,7 @@ void wtgb::ComponentManager::RemoveEntity(const EntityId _entityId)
 
 void wtgb::ComponentManager::ResetToRemoveEntityIndices()
 {
-	for (const size_t index : toRemoveEntityIndices_)
+	for (const uint32_t index : toRemoveEntityIndices_)
 	{
 		entityGenerator_.RemoveAt(index);
 	}

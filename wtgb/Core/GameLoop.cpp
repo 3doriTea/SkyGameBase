@@ -51,7 +51,7 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 		}
 		else  // 破棄対象のエンティティが存在するなら破棄処理していく
 		{
-			const std::vector<size_t>& toRemoveEntityIndices
+			const std::vector<uint32_t>& toRemoveEntityIndices
 			{
 				gameSystemViewer.Get<ComponentManager>().GetToRemoveEntityIndices()
 			};
@@ -59,7 +59,7 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 			// 破棄処理していく
 			componentPools.ForEachAll([&toRemoveEntityIndices](IComponentPool* pComponentPool)
 				{
-					for (const size_t i : toRemoveEntityIndices)
+					for (const uint32_t i : toRemoveEntityIndices)
 					{
 						pComponentPool->ClearAt(i);
 					}

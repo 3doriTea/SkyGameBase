@@ -51,15 +51,23 @@ namespace wtgb
 		void End() override;
 
 		/// <summary>
+		/// マウスカーソルをその場に固定するか
+		/// </summary>
+		/// <param name="_isLock">固定する true / false</param>
+		/// <param name="_lockPosition">固定する座標</param>
+		void SetLock(const bool _isLock, const Vector2Int _lockPosition);
+
+		/// <summary>
 		/// 画面の中心にマウスカーソルを固定するか
 		/// </summary>
 		/// <param name="_isCenterLock">固定する true / false</param>
 		void SetCenterLock(const bool _isCenterLock);
+
 		/// <summary>
-		/// 画面の中心にマウスカーソルが固定されているか
+		/// マウスカーソルが固定されているか
 		/// </summary>
 		/// <returns>固定されている true / false</returns>
-		inline bool IsCenterLock() const { return isCenterLock_; }
+		inline bool IsLock() const { return isLock_; }
 
 		/// <summary>
 		/// 1フレーム間でのカーソルの動きを取得する
@@ -96,6 +104,11 @@ namespace wtgb
 		/// </summary>
 		void SetPositionCenter();
 
+		/// <summary>
+		/// カーソルの座標をロック座標にする
+		/// </summary>
+		void SetPosition(const Vector2Int _position);
+
 	private:
 		/// <summary>
 		/// システムにアクセス
@@ -105,15 +118,14 @@ namespace wtgb
 
 	private:
 		Vector2Int previousPosition_;  // 前回のフレームでのカーソル座標
-		bool isCenterLock_;  // カーソルを画面中央に固定するか
+		bool isLock_;  // カーソルを固定するか
+		Vector2Int lockPosition_;  // 固定するカーソル座標
+		//bool isCenterLock_;  // カーソルを画面中央に固定するか
 		bool isIgnoreMoveFlag_;  // 1回だけ移動量を無視するフラグ
 		bool isShow_;  // 表示されているか
 		ViewerCached system_;  // システムアクセス用
 		Vector2Int frameMoveDelta_;  // 1フレーム間の移動加算
 		Vector2Int frameMove_;     // 1フレームでの移動量
-
-		// TODO: 不要
-		Vector2Int clientSize_;  // ウィンドウクライアントの大きさ
 
 		CursorUpdater updater_;  // カーソルの座標更新処理アクセス用
 	};

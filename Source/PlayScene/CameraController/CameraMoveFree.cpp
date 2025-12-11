@@ -67,7 +67,7 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 		pRigidBody->SetVelocity(Vector3::Down() * 20.0f);
 	}*/
 
-	if (cursor.IsCenterLock() == false || cursor.IsShow())
+	if (cursor.IsLock() == false || cursor.IsShow())
 	{
 		// •Ğ•û‚ª‚¤‚Ü‚­“®ì‚µ‚Ä‚¢‚È‚¢‚È‚çƒJƒƒ‰ˆÚ“®–³Œø‰»
 		/*cursor.SetShow(true);

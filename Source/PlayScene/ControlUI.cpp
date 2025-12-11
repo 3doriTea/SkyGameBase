@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "ControlUI.h"
 
+
 ControlUI::ControlUI() : GameObject
 {
 	[this](GameObjectBuilder& _builder)

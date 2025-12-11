@@ -5,12 +5,12 @@
 
 wtgb::Cursor::Cursor() :
 	system_{ nullptr },
-	isCenterLock_{ false },
 	previousPosition_{ -1, -1 },
 	isIgnoreMoveFlag_{ true },
-	clientSize_{ Vector2Int::Zero() },
 	updater_{ this },
-	isShow_{ true }
+	isShow_{ true },
+	isLock_{ false },
+	lockPosition_{ Vector2Int::Zero() }
 {
 }
 
@@ -27,6 +27,7 @@ wtgb::Result wtgb::Cursor::Init(const ViewerInit& _viewer)
 void wtgb::Cursor::Update(const ViewerUpdate& _system)
 {
 	frameMove_ = frameMoveDelta_;
+	LOGFLN("frameMove_:({}, {})", frameMove_.x, frameMove_.y);
 	frameMoveDelta_ = Vector2Int::Zero();
 }
 
@@ -38,9 +39,17 @@ void wtgb::Cursor::End()
 	}
 }
 
+void wtgb::Cursor::SetLock(const bool _isLock, const Vector2Int _lockPosition)
+{
+	isLock_ = _isLock;
+	lockPosition_ = _lockPosition;
+}
+
 void wtgb::Cursor::SetCenterLock(const bool _isCenterLock)
 {
-	isCenterLock_ = _isCenterLock;
+	GameWindow& gameWindow{ System().Get<GameWindow>() };
+
+	SetLock(_isCenterLock, gameWindow.GetMainWindowSize() / 2);
 }
 
 void wtgb::Cursor::SetShow(const bool _isShow)
@@ -58,18 +67,25 @@ void wtgb::Cursor::SetPositionCenter()
 {
 	GameWindow& gameWindow{ System().Get<GameWindow>() };
 
-	POINT center  // ウィンドウクライアント内の中心座標
+	// ウィンドウクライアント内の中心座標
+	SetPosition(gameWindow.GetMainWindowSize() / 2);
+}
+
+void wtgb::Cursor::SetPosition(const Vector2Int _position)
+{
+	GameWindow& gameWindow{ System().Get<GameWindow>() };
+
+	POINT position  // ウィンドウクライアント内の中心座標
 	{
-		gameWindow.GetMainWindowSize().x / 2,
-		gameWindow.GetMainWindowSize().y / 2,
+		_position.x, _position.y
 	};
-	Vector2Int moveDiff{ Vector2Int{ center.x - previousPosition_.x, center.y - previousPosition_.y } };
+	Vector2Int moveDiff{ Vector2Int{ position.x - previousPosition_.x, position.y - previousPosition_.y } };
 	frameMoveDelta_ -= moveDiff;
-	
+
 	// スクリーン内の座標へ変換
-	ClientToScreen(gameWindow.GetMainWindowHandle(), &center);
+	ClientToScreen(gameWindow.GetMainWindowHandle(), &position);
 	// カーソル座標をセット
-	SetCursorPos(center.x, center.y);
+	SetCursorPos(position.x, position.y);
 }
 
 void wtgb::Cursor::CursorUpdater::UpdatePosition(const Vector2Int& _clientPos)
@@ -86,10 +102,12 @@ void wtgb::Cursor::CursorUpdater::UpdatePosition(const Vector2Int& _clientPos)
 		// 移動量を加算する
 		cursor.frameMoveDelta_ += _clientPos - cursor.previousPosition_;
 
-		if (cursor.isCenterLock_)
+		//LOGFLN("frameMoveDelta:({}, {})", cursor.frameMoveDelta_.x, cursor.frameMoveDelta_.y);
+
+		if (cursor.isLock_)
 		{
-			// 中心ロックモードなら中心にカーソルロック
-			cursor.SetPositionCenter();
+			// ロックモードならロックする座標へセット
+			cursor.SetPosition(cursor.lockPosition_);
 		}
 	}
 
