@@ -111,5 +111,5 @@ void StageLine::Release()
 
 float StageLine::GetPosY(const Vector3& _worldPosition)
 {
-	
+	return _worldPosition.y;
 }

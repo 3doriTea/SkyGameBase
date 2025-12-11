@@ -3,8 +3,8 @@
 
 namespace
 {
-	const float DEAD_ZONE_X_MIN{ -0.5f };
-	const float DEAD_ZONE_X_MAX{ 300.5f };
+	const float SAFE_ZONE_X_MIN{ -0.5f };
+	const float SAFE_ZONE_X_MAX{ 300.5f };
 }
 
 WaterSphere::WaterSphere(const Vector3 _localPos) : GameObject
@@ -54,7 +54,7 @@ void WaterSphere::Init()
 void WaterSphere::Update()
 {
 	Vector3 pos{ Transform().GetPosition() };
-	if (pos.x < DEAD_ZONE_X_MIN || DEAD_ZONE_X_MAX < pos.x)
+	if (pos.x < SAFE_ZONE_X_MIN || SAFE_ZONE_X_MAX < pos.x)
 	{
 		//DestroyMe();
 	}

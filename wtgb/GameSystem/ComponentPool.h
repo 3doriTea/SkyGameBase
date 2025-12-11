@@ -228,7 +228,16 @@ namespace wtgb
 		/// <param name="_entityId">外すエンティティId</param>
 		void Remove(const EntityId _entityId);
 
+		/// <summary>
+		/// 全コンポーネントを破棄する
+		/// </summary>
 		void Clear() override;
+
+		/// <summary>
+		/// 指定のコンポーネントを破棄する
+		/// </summary>
+		/// <param name="_index">指定のインデクス</param>
+		void ClearAt(const size_t _index) override;
 
 		void ForEach(const std::function<void(ComponentT&)>& _callback);
 		void ForEach(const std::function<void(ComponentT&, const size_t)>& _callback);

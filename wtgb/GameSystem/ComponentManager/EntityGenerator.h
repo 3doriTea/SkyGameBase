@@ -25,6 +25,11 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_entityId">無効となるエンティティId</param>
 		void Remove(const EntityId _entityId);
+		/// <summary>
+		/// エンティティを除去する
+		/// </summary>
+		/// <param name="_index">エンティティのインデクス</param>
+		void RemoveAt(const uint32_t _index);
 
 		/// <summary>
 		/// 無効なエンティティIdか確認する

@@ -7,7 +7,7 @@
 class SpecialBall : public GameObject
 {
 public:
-	SpecialBall(const Vector3& _position);
+	SpecialBall(const Vector3& _position, const Vector3& _velocity);
 	~SpecialBall();
 
 	void Init() override;

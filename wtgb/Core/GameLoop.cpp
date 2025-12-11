@@ -39,6 +39,7 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 			_pGameSystemRegister->UpdateFrame();
 		}
 
+		// 全消しが発生したら
 		if (gameSystemViewer.Get<ComponentManager>().NeedsClearComponents())
 		{
 			gameSystemViewer.Get<ComponentManager>().RemoveAllEntity();
@@ -47,6 +48,24 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 				{
 					pComponentPool->Clear();
 				});
+		}
+		else  // 破棄対象のエンティティが存在するなら破棄処理していく
+		{
+			const std::vector<size_t>& toRemoveEntityIndices
+			{
+				gameSystemViewer.Get<ComponentManager>().GetToRemoveEntityIndices()
+			};
+
+			// 破棄処理していく
+			componentPools.ForEachAll([&toRemoveEntityIndices](IComponentPool* pComponentPool)
+				{
+					for (const size_t i : toRemoveEntityIndices)
+					{
+						pComponentPool->ClearAt(i);
+					}
+				});
+
+			gameSystemViewer.Get<ComponentManager>().ResetToRemoveEntityIndices();
 		}
 	}
 

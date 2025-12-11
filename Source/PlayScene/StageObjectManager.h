@@ -15,6 +15,7 @@ public:
 	void Release() override;
 
 private:
+	float spawnTimeLeftSec_;  // スポーンまでのカウントダウンタイマ
 	EntityId stageLine_;  // ステージラインのエンティティId
 	EntityId player_;     // プレイヤーのエンティティId
 };

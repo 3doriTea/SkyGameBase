@@ -7,6 +7,7 @@
 #include "../SampleScene/SampleScene.h"
 #include "StageLine.h"
 #include "TestBillBoard.h"
+#include "StageObjectManager.h"
 
 #include "Utility/Mathf.h"
 
@@ -27,23 +28,12 @@ PlayScene::~PlayScene()
 void PlayScene::Start()
 {
 	Instantiate<CameraController>();
-	Instantiate<StageLine>();
+	EntityId stageLine{ Instantiate<StageLine>() };
 
 	//Instantiate<TestBillBoard>();
 	
-	EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, 5.0f, 5.0f }) };
-	//EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, -180.0f, 300.0f }) };
-	//EntityId pRootPlayer{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, -180.0f, 300.0f }) };
-	/*for (int k = 0; k < 3; k++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			for (int i = 0; i < 3; i++)
-			{
-				Instantiate<Player>(pRootPlayer, Vector3{ i * 3.0f, k * 5.0f + 10.0f, j * 3.0f });
-			}
-		}
-	}*/
+	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, 5.0f, 5.0f }) };
+	Instantiate<StageObjectManager>(stageLine, player);
 
 	Mathf::Randomer random{};
 

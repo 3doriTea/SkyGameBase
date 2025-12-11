@@ -75,6 +75,22 @@ inline void wtgb::ComponentPool<ComponentT>::Clear()
 }
 
 template<typename ComponentT>
+inline void wtgb::ComponentPool<ComponentT>::ClearAt(const size_t _index)
+{
+	// I—¹ˆ—ŒÄ‚Ño‚µ‚Ä‚¢‚­
+	if constexpr (std::is_pointer_v<ComponentT>)
+	{
+		at(_index)->End();
+	}
+	else
+	{
+		at(_index).End();
+	}
+
+	useFlag_[_index] = false;
+}
+
+template<typename ComponentT>
 inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<void(ComponentT&)>& _callback)
 {
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)

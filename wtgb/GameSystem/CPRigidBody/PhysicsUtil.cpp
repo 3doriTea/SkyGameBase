@@ -749,6 +749,7 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet* _pSphereB, CollisionInfo* _pCollisionInfo)
 {
+	return false;  // TODO: collision チェックレイヤー式にする
 	using namespace DirectX;
 
 	if (!_pSphereA || !_pSphereB)
