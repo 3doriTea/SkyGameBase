@@ -84,6 +84,7 @@ void StageObjectManager::Update()
 		Matrix4x4 mRotZ{ XMMatrixRotationZ(angle) };
 
 		Vector3 v{ XMVector3TransformCoord(vSrc, mRotX * mRotZ) };
+		v.z = vSrc.z;
 
 		GetScene<PlayScene>().Instantiate<SpecialBall>(targetPos, v);
 	}

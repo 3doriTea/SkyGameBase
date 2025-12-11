@@ -705,7 +705,6 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 		// Ú“_‚ÌxÀ•W‚Í“ü‚Á‚Ä‚¢‚È‚¢‚½‚ß“ü‚ê‚é
 		info.hitPoint.x = _pSphere->pTransform->GetPositionWorld().x;
-		Debug::DrawPoint(info.hitPoint);
 
 		if (info.isHit)  // “–‚½‚Á‚Ä‚¢‚é‚È‚ç
 		{

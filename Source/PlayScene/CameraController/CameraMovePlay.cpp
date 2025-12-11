@@ -8,7 +8,7 @@ namespace
 	const float TO_PLAYER_DISTANCE{ 30.0f };
 
 	// プレイヤーのドラッグ範囲 (ピクセル)
-	const int PLAYER_DRAG_RADIUS_PIX{ 50 };
+	const int PLAYER_DRAG_RADIUS_PIX{ 130 };
 	// プレイヤーのドラッグ範囲の2以上 (ピクセル)
 	const int PLAYER_DRAG_RADIUS_PIX_SQ{ PLAYER_DRAG_RADIUS_PIX * PLAYER_DRAG_RADIUS_PIX };
 }

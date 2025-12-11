@@ -154,6 +154,8 @@
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMoveFree.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMovePlay.cpp" />
+    <ClCompile Include="Source\PlayScene\ControlUI.cpp" />
+    <ClCompile Include="Source\PlayScene\ControlUI.h" />
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />

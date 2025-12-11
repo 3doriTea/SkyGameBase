@@ -8,6 +8,7 @@
 #include "StageLine.h"
 #include "TestBillBoard.h"
 #include "StageObjectManager.h"
+#include "ControlUI.h"
 
 #include "Utility/Mathf.h"
 
@@ -27,6 +28,8 @@ PlayScene::~PlayScene()
 
 void PlayScene::Start()
 {
+	Instantiate<ControlUI>();
+
 	Instantiate<CameraController>();
 	EntityId stageLine{ Instantiate<StageLine>() };
 
