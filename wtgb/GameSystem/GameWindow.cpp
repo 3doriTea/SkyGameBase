@@ -143,9 +143,9 @@ const wtgb::GameWindow::CreateWindowConfig& wtgb::GameWindow::GetMainWindowData(
 LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	// システムが受け取りたい処理を先にする
-	for (auto& _callback : winProcCallbacks_)
+	for (auto& callback : winProcCallbacks_)
 	{
-		if (_callback(hWnd, message, wParam, lParam))
+		if (callback(hWnd, message, wParam, lParam))
 		{
 			// 受け取れたなら回帰
 			return true;

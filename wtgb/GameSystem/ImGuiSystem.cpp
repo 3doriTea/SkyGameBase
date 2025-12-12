@@ -7,8 +7,7 @@
 // ImGuiÇÃWinProcópÉCÉxÉìÉg
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-wtgb::ImGuiSystem::ImGuiSystem() :
-	firstFrame_{ true }
+wtgb::ImGuiSystem::ImGuiSystem()
 {
 }
 
@@ -19,7 +18,8 @@ wtgb::ImGuiSystem::~ImGuiSystem()
 wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 {
 	GameWindow& gameWindow{ _system.Get<GameWindow>() };
-	Direct3D::ResourceAccessor& direct3DResource{ _system.Get<Direct3D>().Resource() };
+	Direct3D& direct3D{ _system.Get<Direct3D>() };
+	Direct3D::ResourceAccessor& direct3DResource{ direct3D.Resource() };
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -39,7 +39,7 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 	succeed = ImGui_ImplWin32_Init(gameWindow.GetMainWindowHandle());
 	wassert(succeed && "ImGui Win32èâä˙âªÇ…é∏îs");
 
-	succeed = ImGui_ImplDX11_Init(direct3DResource.Device(), direct3DResource.Context());
+	succeed = ImGui_ImplDX11_Init(direct3D.Resource().Device(), direct3D.Resource().Context());
 	wassert(succeed && "ImGui DX11èâä˙âªÇ…é∏îs");
 
 	// winprocÇ…Ç‡ìoò^Ç∑ÇÈ
@@ -49,21 +49,17 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 			return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 		});
 
+	direct3D.AddRenderListener(
+		[this]()
+		{
+			Render();
+		});
+
 	return Result::Code::Ok;
 }
 
 void wtgb::ImGuiSystem::Update(const ViewerUpdate& _system)
 {
-	if (firstFrame_ == false)
-	{
-		ImGui::Render();
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	}
-	else
-	{
-		firstFrame_ = false;
-	}
-
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
@@ -74,4 +70,10 @@ void wtgb::ImGuiSystem::End()
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
+}
+
+void wtgb::ImGuiSystem::Render()
+{
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }

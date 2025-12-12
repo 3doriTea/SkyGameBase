@@ -34,6 +34,9 @@ namespace wtgb
 		void End() override;
 
 	private:
-		bool firstFrame_;
+		/// <summary>
+		/// •`‰æˆ—
+		/// </summary>
+		void Render();
 	};
 }
