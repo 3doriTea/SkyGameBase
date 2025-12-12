@@ -2,6 +2,10 @@
 #include "ImGuiSystem.h"
 #include "GameWindow.h"
 #include "Direct3D.h"
+#include "WTGBAssert.h"
+
+// ImGui‚ÌWinProc—pƒCƒxƒ“ƒg
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 wtgb::ImGuiSystem::ImGuiSystem() :
 	firstFrame_{ true }
@@ -30,8 +34,20 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 	//style.ScaleAllSizes();
 	//style.FontScaleDpi();
 
-	ImGui_ImplWin32_Init(gameWindow.GetMainWindowHandle());
-	ImGui_ImplDX11_Init(direct3DResource.Device(), direct3DResource.Context());
+	bool succeed{ false };
+
+	succeed = ImGui_ImplWin32_Init(gameWindow.GetMainWindowHandle());
+	wassert(succeed && "ImGui Win32‰Šú‰»‚ÉŽ¸”s");
+
+	succeed = ImGui_ImplDX11_Init(direct3DResource.Device(), direct3DResource.Context());
+	wassert(succeed && "ImGui DX11‰Šú‰»‚ÉŽ¸”s");
+
+	// winproc‚É‚à“o˜^‚·‚é
+	gameWindow.AddWinProcListener(
+		[](HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT
+		{
+			return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
+		});
 
 	return Result::Code::Ok;
 }
@@ -41,6 +57,7 @@ void wtgb::ImGuiSystem::Update(const ViewerUpdate& _system)
 	if (firstFrame_ == false)
 	{
 		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	}
 	else
 	{

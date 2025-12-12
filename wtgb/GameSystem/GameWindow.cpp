@@ -44,6 +44,8 @@ void wtgb::GameWindow::End()
 		CloseWindow(_data.hWnd);
 		DestroyWindow(_data.hWnd);
 	});
+
+	winProcCallbacks_.clear();
 }
 
 wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _config)
@@ -127,6 +129,11 @@ BOOL wtgb::GameWindow::IsActiveMainWindow()
 	return GetMainWindowHandle() == GetForegroundWindow();
 }
 
+void wtgb::GameWindow::AddWinProcListener(const std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>& _callback)
+{
+	winProcCallbacks_.push_back(_callback);
+}
+
 const wtgb::GameWindow::CreateWindowConfig& wtgb::GameWindow::GetMainWindowData()
 {
 	wassert(!windowHandles_.IsEmpty() && "ウィンドウハンドルが1つも登録されていない");
@@ -135,6 +142,16 @@ const wtgb::GameWindow::CreateWindowConfig& wtgb::GameWindow::GetMainWindowData(
 
 LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	// システムが受け取りたい処理を先にする
+	for (auto& _callback : winProcCallbacks_)
+	{
+		if (_callback(hWnd, message, wParam, lParam))
+		{
+			// 受け取れたなら回帰
+			return true;
+		}
+	}
+
 	switch (message)
 	{
 	case WM_COMMAND:  // メニューとかのコマンド
@@ -167,3 +184,4 @@ LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 }
 
 wtgb::Vector2Int wtgb::GameWindow::mousePosition_{};
+std::list<std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>> wtgb::GameWindow::winProcCallbacks_{};
