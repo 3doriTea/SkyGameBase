@@ -408,6 +408,12 @@
     <ClInclude Include="Source\PlayScene\StageObjectManager.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\SpecialBoom.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\ImGuiSystem.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -642,6 +648,18 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Source\PlayScene\StageObjectManager.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\ControlUI.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\ControlUI.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\SpecialBoom.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\ImGuiSystem.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>

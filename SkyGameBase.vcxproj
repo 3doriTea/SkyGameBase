@@ -112,6 +112,7 @@
     <ClInclude Include="wtgb\GameSystem\Direct3D\Direct3DResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameWindow.h" />
     <ClInclude Include="wtgb\GameSystem\IComponentPool.h" />
+    <ClInclude Include="wtgb\GameSystem\ImGuiSystem.h" />
     <ClInclude Include="wtgb\GameSystem\Input.h" />
     <ClInclude Include="wtgb\GameSystem\Input\InputData.h" />
     <ClInclude Include="wtgb\GameSystem\Input\PadCode.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="wtgb\GameSystem\GameTime.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameWindow.cpp" />
     <ClCompile Include="wtgb\GameSystem\IComponentPool.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ImGuiSystem.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshSimple.cpp" />
