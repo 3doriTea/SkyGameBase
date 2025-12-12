@@ -14,5 +14,5 @@ namespace wtgb
 	/// <summary>
 	/// ブレンドモードの総数
 	/// </summary>
-	constexpr size_t BLEND_MODE_MAX{ static_cast<size_t>(BlendMode::Max) };
+	static constexpr size_t BLEND_MODE_MAX{ static_cast<size_t>(BlendMode::Max) };
 }

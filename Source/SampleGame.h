@@ -11,5 +11,4 @@ public:
 	const char* GetVersion() const override { return "0.0.1"; }
 
 	void StartRegister(const GameSystemCollection::GameSystemAdder& _pGameSystemAdder) override;
-	void StartSetup(const GameSystemCollection::GameSystemInitViewer& _pGameSystemsViewer) override;
 };

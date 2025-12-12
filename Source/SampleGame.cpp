@@ -10,6 +10,8 @@
 #include "GameSystem/SceneManager.h"
 #include "GameSystem/ComponentManager.h"
 
+#include "GameSystem/ImGuiSystem.h"
+
 #include "GameSystem/Rendering.h"
 #include "GameSystem/ResourceSystem.h"
 #include "GameSystem/Model.h"
@@ -48,8 +50,14 @@ void SampleGame::StartRegister(
 
 		// メインウィンドウを登録したあとで ウィンドウハンドルを使うシステムを登録
 		.Register<Direct3D>()
+
+		// ImGui
+		.Register<ImGuiSystem>()
+
+		// 入力系
 		.Register<Cursor>()
 		.Register<Input>()
+
 
 		.Register<SceneManager>()
 		.Register<ResourceSystem>()
@@ -83,27 +91,4 @@ void SampleGame::StartRegister(
 		// デバッグ系は一番最後
 		.Register<Debug>()
 	;
-}
-
-void SampleGame::StartSetup(
-	const GameSystemCollection::GameSystemInitViewer& _viewer)
-{
-	//GameWindowHandle hGameWindow
-	//{
-	//	_viewer.Get<GameWindow>().Create(
-	//	{
-	//		.title = Game::Title(),
-	//		.classStyle = CS_VREDRAW | CS_HREDRAW,
-	//		.icon = LoadIcon(nullptr, IDI_APPLICATION),
-	//		.iconSmile = LoadIcon(nullptr, IDI_WINLOGO),
-	//		.cursor = LoadCursor(nullptr, IDC_ARROW),
-	//		.clientStyle = WS_OVERLAPPEDWINDOW,
-	//		.clientStyleEx = WS_EX_OVERLAPPEDWINDOW,
-	//		.hasMenu = FALSE,
-	//		// TODO: スクリーンサイズをinitファイルから読み込む
-	//		.windowScreenSize = { 1600, 900 },
-	//		.initPosition = { 50, 50 },
-	//		.hWndParent = nullptr,
-	//	})
-	//};
 }

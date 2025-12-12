@@ -2,7 +2,6 @@
 #include "ImGuiSystem.h"
 #include "GameWindow.h"
 #include "Direct3D.h"
-#include "Direct3D/Direct3DResource.h"
 
 wtgb::ImGuiSystem::ImGuiSystem() :
 	firstFrame_{ true }
@@ -16,7 +15,7 @@ wtgb::ImGuiSystem::~ImGuiSystem()
 wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 {
 	GameWindow& gameWindow{ _system.Get<GameWindow>() };
-	Direct3DResource& direct3DResource{ _system.Get<Direct3D>().Resource() };
+	Direct3D::ResourceAccessor& direct3DResource{ _system.Get<Direct3D>().Resource() };
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -32,7 +31,7 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 	//style.FontScaleDpi();
 
 	ImGui_ImplWin32_Init(gameWindow.GetMainWindowHandle());
-	ImGui_ImplDX11_Init(direct3DResource.Device().Get(), direct3DResource.Context().Get());
+	ImGui_ImplDX11_Init(direct3DResource.Device(), direct3DResource.Context());
 
 	return Result::Code::Ok;
 }
@@ -42,6 +41,10 @@ void wtgb::ImGuiSystem::Update(const ViewerUpdate& _system)
 	if (firstFrame_ == false)
 	{
 		ImGui::Render();
+	}
+	else
+	{
+		firstFrame_ = false;
 	}
 
 	ImGui_ImplDX11_NewFrame();
