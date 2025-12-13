@@ -30,10 +30,15 @@
 #pragma comment(lib, "dxguid.lib")
 
 // ImGui
-
 #include "Library/ImGui/imgui.h"
 #include "Library/ImGui/imgui_impl_win32.h"
 #include "Library/ImGui/imgui_impl_dx11.h"
+
+// mtbin
+#include "Library/mtbin/BinaryReader.h"
+#include "Library/mtbin/BinaryWriter.h"
+#include "Library/mtbin/MemoryStream.h"
+#include "Library/mtbin/Util.h"
 
 // シェーダコンパイラ
 #include <d3dcompiler.h>

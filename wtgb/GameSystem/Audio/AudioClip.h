@@ -6,14 +6,14 @@ namespace wtgb
 	class AudioClip : public IResource<>
 	{
 	public:
-		AudioClip(const fs::path& _filePath);
+		AudioClip(mtbin::BinaryReader* _pReader);
 		~AudioClip();
 
 		void Init() override;
 		void Release() override;
 
 	private:
-		fs::path filePath_;  // ファイルパス
+		mtbin::BinaryReader* pReader_;  // 読み取りする
 		WAVEFORMATEX waveFormat_;  // フォーマット
 		std::vector<int8_t> buffer_;  // バッファ
 	};
