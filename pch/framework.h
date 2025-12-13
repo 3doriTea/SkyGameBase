@@ -16,6 +16,9 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 
+// XAudio2
+#include <xaudio2.h>
+
 // XInput
 #include <Xinput.h>
 #pragma comment(lib, "Xinput.lib")
