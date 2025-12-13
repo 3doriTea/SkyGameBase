@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Library\dr_libs\dr_flac.h" />
+    <ClInclude Include="Library\dr_libs\dr_mp3.h" />
+    <ClInclude Include="Library\dr_libs\dr_wav.h" />
     <ClInclude Include="Library\ImGui\imconfig.h" />
     <ClInclude Include="Library\ImGui\imgui.h" />
     <ClInclude Include="Library\ImGui\imgui_impl_dx11.h" />
@@ -27,6 +30,13 @@
     <ClInclude Include="Library\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Library\ImGui\imstb_textedit.h" />
     <ClInclude Include="Library\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Library\mtbin\BinaryReader.h" />
+    <ClInclude Include="Library\mtbin\BinaryWriter.h" />
+    <ClInclude Include="Library\mtbin\Common.h" />
+    <ClInclude Include="Library\mtbin\MemoryStream.h" />
+    <ClInclude Include="Library\mtbin\MemoryStreamCore.h" />
+    <ClInclude Include="Library\mtbin\mtbin.h" />
+    <ClInclude Include="Library\mtbin\Util.h" />
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
@@ -206,6 +216,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Library\mtbin\BinaryReader.cpp" />
+    <ClCompile Include="Library\mtbin\BinaryWriter.cpp" />
+    <ClCompile Include="Library\mtbin\MemoryStreamCore.cpp" />
     <ClCompile Include="pch\pch.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMoveFree.cpp" />

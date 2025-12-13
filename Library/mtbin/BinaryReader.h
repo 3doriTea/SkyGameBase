@@ -15,7 +15,14 @@ namespace mtbin
 
 		using MemoryStreamCore::Current;
 		using MemoryStreamCore::Seek;
+		using MemoryStreamCore::Size;
 
 		using MemoryStreamCore::Read;
+
+		/// <summary>
+		/// バッファのポインタを取得
+		/// </summary>
+		/// <returns>読み取り専用のバッファのポインタ</returns>
+		inline const mtbin::Byte* Data() { return MemoryStreamCore::Data(); }
 	};
 }

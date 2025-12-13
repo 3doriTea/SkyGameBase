@@ -15,6 +15,8 @@ namespace mtbin
 
 		using MemoryStreamCore::Current;
 		using MemoryStreamCore::Seek;
+		using MemoryStreamCore::Size;
+		using MemoryStreamCore::Data;
 
 		using MemoryStreamCore::Write;
 	};

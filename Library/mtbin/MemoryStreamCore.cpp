@@ -35,6 +35,9 @@ void mtbin::MemoryStreamCore::Seek(SeekDir _dir)
 	case SeekDir::Head:
 		currentIndex = 0;
 		break;
+	case SeekDir::Tail:
+		currentIndex = BUFFER_SIZE - 1;
+		break;
 	default:
 		break;
 	}

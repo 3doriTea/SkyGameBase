@@ -3,19 +3,22 @@
 
 namespace mtbin
 {
+	using SeekPoint = size_t;
+
+	/// <summary>
+	/// シークポイント
+	/// </summary>
+	enum struct SeekAt : SeekPoint
+	{
+		Head,  // 一番頭
+		Tail,  // 一番後
+	};
+
 	/// <summary>
 	/// <para>Byte配列のストリームの機能</para>
 	/// </summary>
 	class MemoryStreamCore
 	{
-	public:
-		using SeekPoint = size_t;
-
-		enum struct SeekDir : SeekPoint
-		{
-			Head,  // 一番頭
-		};
-
 	public:
 		MemoryStreamCore(mtbin::Byte* _pBuffer, const size_t& _bufferSize);
 		virtual ~MemoryStreamCore();
@@ -70,6 +73,18 @@ namespace mtbin
 		/// </summary>
 		/// <returns></returns>
 		inline size_t Current() const { return currentIndex; }
+		
+		/// <summary>
+		/// サイズ(byte)
+		/// </summary>
+		/// <returns></returns>
+		inline size_t Size() const { return BUFFER_SIZE; }
+
+		/// <summary>
+		/// バッファのポインタを取得
+		/// </summary>
+		/// <returns></returns>
+		inline mtbin::Byte* Data() { return pBuffer_; }
 
 	private:
 		const size_t BUFFER_SIZE;  // バッファ配列のサイズ
