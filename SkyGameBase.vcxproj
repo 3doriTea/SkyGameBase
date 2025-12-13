@@ -84,6 +84,7 @@
     <ClInclude Include="wtgb\GameComponent\Transform.h" />
     <ClInclude Include="wtgb\GameSystem\Audio.h" />
     <ClInclude Include="wtgb\GameSystem\Audio\AudioClip.h" />
+    <ClInclude Include="wtgb\GameSystem\Audio\AudioPlayer.h" />
     <ClInclude Include="wtgb\GameSystem\Camera.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\CanvasContext.h" />
@@ -239,6 +240,8 @@
     <ClCompile Include="wtgb\GameComponent\ModelMesh.cpp" />
     <ClCompile Include="wtgb\GameComponent\RigidBody.cpp" />
     <ClCompile Include="wtgb\GameComponent\Transform.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Audio.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Audio\AudioClip.cpp" />
     <ClCompile Include="wtgb\GameSystem\Camera.cpp" />
     <ClCompile Include="wtgb\GameSystem\Canvas.cpp" />
     <ClCompile Include="wtgb\GameSystem\Canvas\CanvasContext.cpp" />

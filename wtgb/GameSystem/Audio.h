@@ -44,6 +44,9 @@ namespace wtgb
 		void PlayOneShot(const fs::path& _audioFileName);
 
 	private:
-		HandlerCollection<
+		ComPtr<IXAudio2> pXAudio2_;  // XAudio2本体のインタフェース
+		ComPtr<IXAudio2MasteringVoice> pMasteringVoice_;  // 主音声
+		//std::list<
+		//HandlerCollection<
 	};
 }
