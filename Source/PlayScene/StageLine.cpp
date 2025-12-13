@@ -66,6 +66,7 @@ void StageLine::Init()
 	json j{};
 
 	ifs >> j;
+	ifs.close();
 
 	const size_t POINTS_SIZE{ j["points"].size() };
 
