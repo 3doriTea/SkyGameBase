@@ -3,9 +3,9 @@
 
 namespace wtgb
 {
-	const uint64_t INVALIED_ID     { 0 };
-	const uint32_t INVALIED_VERSION{ 0 };
-	const uint32_t INVALIED_INDEX  { 0 };
+	static const uint64_t INVALIED_ID     { 0 };
+	static const uint32_t INVALIED_VERSION{ 0 };
+	static const uint32_t INVALIED_INDEX  { 0 };
 
 	/// <summary>
 	/// エンティティの識別値

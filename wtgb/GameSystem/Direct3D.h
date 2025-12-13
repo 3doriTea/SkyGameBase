@@ -24,7 +24,9 @@ namespace wtgb
 		
 		public:
 			 ID3D11Device* Device();
+			 ComPtr<ID3D11Device>& DeviceComPtr();
 			 ID3D11DeviceContext* Context();
+			 ComPtr<ID3D11DeviceContext>& ContextComPtr();
 		};
 
 	public:
@@ -79,7 +81,15 @@ namespace wtgb
 		/// <returns>リソースへのアクセッサ</returns>
 		ResourceAccessor& Resource() { return resourceAccessor_; }
 
+		/// <summary>
+		/// 描画直前のコールバック
+		/// </summary>
+		/// <param name="_callback">描画直前に呼び出したい処理</param>
+		void AddRenderListener(const std::function<void()>& _callback);
+
 	private:
+		std::list<std::function<void()>> renderCallbacks_;  // 描画直前のコールバック処理
+
 		Direct3DResource* pResource_;  // リソースのポインタ
 
 		ViewerCached system_;  // システムアクセス用

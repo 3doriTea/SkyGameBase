@@ -122,6 +122,12 @@ namespace wtgb
 		/// <returns>アクティブである true / false</returns>
 		BOOL IsActiveMainWindow();
 
+		/// <summary>
+		/// WinProcのイベントを受け取る
+		/// </summary>
+		/// <param name="_callback"></param>
+		void AddWinProcListener(const std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>& _callback);
+
 	private:
 		const CreateWindowConfig& GetMainWindowData();
 
@@ -140,6 +146,7 @@ namespace wtgb
 		// ウィンドウハンドルのコレクション
 		HandlerCollection<CreatedWindowData, GameWindowHandle> windowHandles_;
 		MSG peekedMessage_;
+		static std::list<std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>> winProcCallbacks_;
 
 	private:
 		static Vector2Int mousePosition_;  // マウス座標 (WinProcで更新値仮置き) お好きにとって！

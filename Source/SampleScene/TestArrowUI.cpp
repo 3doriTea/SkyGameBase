@@ -51,6 +51,10 @@ void TestArrowUI::Update()
 
 	Texture* pArrowTexture{ resourceSystem.GetTexture(hArrowTexture_) };
 
+	int a{};
+	ImGui::Begin("test");
+	ImGui::InputInt("AAAA", &a);
+	ImGui::End();
 	
 	Vector2Int size{ pArrowTexture->GetImageSizePix() };
 

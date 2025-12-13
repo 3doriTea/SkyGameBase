@@ -26,7 +26,10 @@ namespace wtgb
 		/// <returns>ゲームバージョンの取得</returns>
 		virtual const char* GetVersion() const = 0;
 
+		/// <summary>
+		/// 登録開始処理
+		/// </summary>
+		/// <param name="_pGameSystemAdder">システムを登録してもらう</param>
 		virtual void StartRegister(const GameSystemCollection::GameSystemAdder& _pGameSystemAdder) = 0;
-		virtual void StartSetup(const GameSystemCollection::GameSystemInitViewer& _pGameSystemsViewer) = 0;
 	};
 }

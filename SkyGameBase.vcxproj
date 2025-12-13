@@ -19,6 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Library\ImGui\imconfig.h" />
+    <ClInclude Include="Library\ImGui\imgui.h" />
+    <ClInclude Include="Library\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="Library\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Library\ImGui\imgui_internal.h" />
+    <ClInclude Include="Library\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Library\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Library\ImGui\imstb_truetype.h" />
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
@@ -112,6 +120,7 @@
     <ClInclude Include="wtgb\GameSystem\Direct3D\Direct3DResource.h" />
     <ClInclude Include="wtgb\GameSystem\GameWindow.h" />
     <ClInclude Include="wtgb\GameSystem\IComponentPool.h" />
+    <ClInclude Include="wtgb\GameSystem\ImGuiSystem.h" />
     <ClInclude Include="wtgb\GameSystem\Input.h" />
     <ClInclude Include="wtgb\GameSystem\Input\InputData.h" />
     <ClInclude Include="wtgb\GameSystem\Input\PadCode.h" />
@@ -151,6 +160,48 @@
     <ClInclude Include="wtgb\WTGBResult.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Library\ImGui\imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_draw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_impl_dx11.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_impl_win32.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_tables.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="pch\pch.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMoveFree.cpp" />
@@ -213,6 +264,7 @@
     <ClCompile Include="wtgb\GameSystem\GameTime.cpp" />
     <ClCompile Include="wtgb\GameSystem\GameWindow.cpp" />
     <ClCompile Include="wtgb\GameSystem\IComponentPool.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ImGuiSystem.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshSimple.cpp" />
@@ -401,6 +453,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -423,6 +476,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -441,7 +495,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch\pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)wtgb</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -464,7 +518,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch\pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)wtgb</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>

@@ -32,24 +32,28 @@ void wtgb::Game::Exit()
 
 void wtgb::Game::RunProcess()
 {
-	GameSystemCollection gameSystemRegister{};
-	GameSystemCollection* pGameSystemRegister{ &gameSystemRegister };
+	// システムのまとめて動かすやつ
+	GameSystemCollection gameSystemCollection{};
+	GameSystemCollection::GameSystemAdder adder{ &gameSystemCollection };
 
-	// 登録をしてもらう
-	pGame_->StartRegister(GameSystemCollection::GameSystemAdder{ pGameSystemRegister });
+	// システムの登録をしてもらう
+	pGame_->StartRegister(adder);
 
-	// 初期化処理
-	pGameSystemRegister->Init();
+	// 登録したシステムの初期化処理
+	gameSystemCollection.Init();
 
-	// 設定をしてもらう
-	pGame_->StartSetup(GameSystemCollection::GameSystemInitViewer{ pGameSystemRegister });
-
-	GameLoop gameLoop{};
+	// ゲームループを作る
+	GameLoop gameLoop{};  // stackに作る
 	pGameLoop_ = &gameLoop;
 
-	pGameLoop_->RunLoop(pGameSystemRegister);
+	// ゲームループを実行！
+	pGameLoop_->RunLoop(&gameSystemCollection);
 
-	pGameSystemRegister->End();
+	// ゲームループが終了した
+	pGameLoop_ = nullptr;
+
+	// ゲームループが終わったらシステムの終了処理
+	gameSystemCollection.End();
 }
 
 wtgb::IGame* wtgb::Game::pGame_{ nullptr };

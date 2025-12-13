@@ -18,7 +18,8 @@ namespace
 wtgb::Direct3D::Direct3D() :
 	pResource_{ new Direct3DResource{ D3D_RESOURCE_CONFIG } },
 	resourceAccessor_{ this },
-	system_{ nullptr }
+	system_{ nullptr },
+	renderCallbacks_{}
 {
 }
 
@@ -275,10 +276,16 @@ void wtgb::Direct3D::Update(const ViewerUpdate& _system)
 void wtgb::Direct3D::End()
 {
 	pResource_->CallRelease();
+	renderCallbacks_.clear();
 }
 
 void wtgb::Direct3D::Render()
 {
+	for (auto& callback : renderCallbacks_)
+	{
+		callback();  // 描画直前の処理
+	}
+
 	// バックバッファと反転して描画
 	HRESULT hResult{ pResource_->SwapChain().Get()->Present(0, 0) };
 	static const int ERROR_TOLERANCE_COUNT{ 3 };
@@ -350,12 +357,27 @@ void wtgb::Direct3D::SetBlend(const BlendMode _mode)
 	}
 }
 
+void wtgb::Direct3D::AddRenderListener(const std::function<void()>& _callback)
+{
+	renderCallbacks_.push_back(_callback);
+}
+
 ID3D11Device* wtgb::Direct3D::ResourceAccessor::Device()
 {
 	return GetAccess()->pResource_->Device().Get();
 }
 
+ComPtr<ID3D11Device>& wtgb::Direct3D::ResourceAccessor::DeviceComPtr()
+{
+	return GetAccess()->pResource_->Device();
+}
+
 ID3D11DeviceContext* wtgb::Direct3D::ResourceAccessor::Context()
 {
 	return GetAccess()->pResource_->Context().Get();
+}
+
+ComPtr<ID3D11DeviceContext>& wtgb::Direct3D::ResourceAccessor::ContextComPtr()
+{
+	return GetAccess()->pResource_->Context();
 }

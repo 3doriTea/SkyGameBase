@@ -26,6 +26,12 @@
 
 #pragma comment(lib, "dxguid.lib")
 
+// ImGui
+
+#include "Library/ImGui/imgui.h"
+#include "Library/ImGui/imgui_impl_win32.h"
+#include "Library/ImGui/imgui_impl_dx11.h"
+
 // シェーダコンパイラ
 #include <d3dcompiler.h>
 #pragma comment(lib, "d3dcompiler.lib")
