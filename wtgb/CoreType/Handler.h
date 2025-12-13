@@ -19,4 +19,8 @@ namespace wtgb
 	/// 読み込んだモデルのハンドル
 	/// </summary>
 	using ModelHandle = uint32_t;
+	/// <summary>
+	/// 読み込んだ音声ハンドル
+	/// </summary>
+	using AudioHandle = uint32_t;
 }
