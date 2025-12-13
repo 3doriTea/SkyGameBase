@@ -51,7 +51,9 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	GameObject* pPlayer{ pGameObject->FindGameObject("Player") };
 
 	// マウスカーソルの制御
-	if (input.IsMouseDown(MouseCode::Left) && gameWindow.IsActiveMainWindow())
+	if (input.IsMouseDown(MouseCode::Left)  // マウス左押された
+		&& gameWindow.IsActiveMainWindow()  // かつウィンドウが最前面
+		&& gameWindow.IsDefaultControled())  // かつゲーム画面の操作
 	{
 		isDragging_ = true;
 
@@ -74,7 +76,6 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 			cursor.SetShow(false);
 		}
 		
-		//LOGFLN("pos:({}, {})", cursor.GetPosition().x, cursor.GetPosition().y);
 	}
 	if (input.IsMouseUp(MouseCode::Left))
 	{

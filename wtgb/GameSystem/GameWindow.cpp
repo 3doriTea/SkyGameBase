@@ -142,11 +142,14 @@ const wtgb::GameWindow::CreateWindowConfig& wtgb::GameWindow::GetMainWindowData(
 
 LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	isDefaultControled_ = true;
+
 	// システムが受け取りたい処理を先にする
 	for (auto& callback : winProcCallbacks_)
 	{
 		if (callback(hWnd, message, wParam, lParam))
 		{
+			isDefaultControled_ = false;
 			// 受け取れたなら回帰
 			return true;
 		}
@@ -185,3 +188,4 @@ LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 
 wtgb::Vector2Int wtgb::GameWindow::mousePosition_{};
 std::list<std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>> wtgb::GameWindow::winProcCallbacks_{};
+bool wtgb::GameWindow::isDefaultControled_{};

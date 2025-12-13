@@ -27,11 +27,15 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
-	ImGui::StyleColorsLight();
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
+	//ImGui::StyleColorsLight();
 
 	ImGuiStyle& style{ ImGui::GetStyle() };
 	//style.ScaleAllSizes();
 	//style.FontScaleDpi();
+	style.WindowRounding = 0.0f;
+	style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 
 	bool succeed{ false };
 
@@ -40,8 +44,6 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 
 	ID3D11Device* pDevice{ direct3D.Resource().DeviceComPtr().Get() };
 	ID3D11DeviceContext* pContext{ direct3D.Resource().ContextComPtr().Get() };
-
-	pDevice->CreateBuffer(nullptr, nullptr, nullptr);
 
 	succeed = ImGui_ImplDX11_Init(pDevice, pContext);
 	wassert(succeed && "ImGui DX11èâä˙âªÇ…é∏îs");
@@ -57,6 +59,14 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 		[this]()
 		{
 			Render();
+			ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+			if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+			{
+				ImGui::UpdatePlatformWindows();
+
+				ImGui::RenderPlatformWindowsDefault(nullptr, nullptr);
+			}
 		});
 
 	return Result::Code::Ok;

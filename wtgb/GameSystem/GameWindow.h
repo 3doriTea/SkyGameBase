@@ -127,7 +127,11 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_callback"></param>
 		void AddWinProcListener(const std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>& _callback);
-
+		/// <summary>
+		/// 今のサイクルでデフォルトの操作がされたか
+		/// </summary>
+		/// <returns></returns>
+		inline bool IsDefaultControled() const { return isDefaultControled_; }
 	private:
 		const CreateWindowConfig& GetMainWindowData();
 
@@ -146,9 +150,11 @@ namespace wtgb
 		// ウィンドウハンドルのコレクション
 		HandlerCollection<CreatedWindowData, GameWindowHandle> windowHandles_;
 		MSG peekedMessage_;
-		static std::list<std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>> winProcCallbacks_;
 
 	private:
+		// win proc で処理するコールバック
+		static std::list<std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>> winProcCallbacks_;
 		static Vector2Int mousePosition_;  // マウス座標 (WinProcで更新値仮置き) お好きにとって！
+		static bool isDefaultControled_;  // デフォルトメッセージを受け取ったか
 	};
 }
