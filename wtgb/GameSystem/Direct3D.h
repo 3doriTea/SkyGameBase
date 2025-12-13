@@ -24,7 +24,9 @@ namespace wtgb
 		
 		public:
 			 ID3D11Device* Device();
+			 ComPtr<ID3D11Device>& DeviceComPtr();
 			 ID3D11DeviceContext* Context();
+			 ComPtr<ID3D11DeviceContext>& ContextComPtr();
 		};
 
 	public:

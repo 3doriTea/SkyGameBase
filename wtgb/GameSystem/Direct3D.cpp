@@ -367,7 +367,17 @@ ID3D11Device* wtgb::Direct3D::ResourceAccessor::Device()
 	return GetAccess()->pResource_->Device().Get();
 }
 
+ComPtr<ID3D11Device>& wtgb::Direct3D::ResourceAccessor::DeviceComPtr()
+{
+	return GetAccess()->pResource_->Device();
+}
+
 ID3D11DeviceContext* wtgb::Direct3D::ResourceAccessor::Context()
 {
 	return GetAccess()->pResource_->Context().Get();
+}
+
+ComPtr<ID3D11DeviceContext>& wtgb::Direct3D::ResourceAccessor::ContextComPtr()
+{
+	return GetAccess()->pResource_->Context();
 }

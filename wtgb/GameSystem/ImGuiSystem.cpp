@@ -19,12 +19,11 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 {
 	GameWindow& gameWindow{ _system.Get<GameWindow>() };
 	Direct3D& direct3D{ _system.Get<Direct3D>() };
-	Direct3D::ResourceAccessor& direct3DResource{ direct3D.Resource() };
+	//Direct3D::ResourceAccessor& direct3DResource{ direct3D.Resource() };
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io{ ImGui::GetIO() };
-	(void)io;  // ç≈ìKâªÇ≈è¡Ç≥ÇÍÇÈÇÃÇñhé~
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
@@ -39,7 +38,12 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 	succeed = ImGui_ImplWin32_Init(gameWindow.GetMainWindowHandle());
 	wassert(succeed && "ImGui Win32èâä˙âªÇ…é∏îs");
 
-	succeed = ImGui_ImplDX11_Init(direct3D.Resource().Device(), direct3D.Resource().Context());
+	ID3D11Device* pDevice{ direct3D.Resource().DeviceComPtr().Get() };
+	ID3D11DeviceContext* pContext{ direct3D.Resource().ContextComPtr().Get() };
+
+	pDevice->CreateBuffer(nullptr, nullptr, nullptr);
+
+	succeed = ImGui_ImplDX11_Init(pDevice, pContext);
 	wassert(succeed && "ImGui DX11èâä˙âªÇ…é∏îs");
 
 	// winprocÇ…Ç‡ìoò^Ç∑ÇÈ

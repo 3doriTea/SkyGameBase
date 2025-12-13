@@ -34,9 +34,10 @@ void wtgb::Game::RunProcess()
 {
 	// システムのまとめて動かすやつ
 	GameSystemCollection gameSystemCollection{};
+	GameSystemCollection::GameSystemAdder adder{ &gameSystemCollection };
 
 	// システムの登録をしてもらう
-	pGame_->StartRegister({ &gameSystemCollection });
+	pGame_->StartRegister(adder);
 
 	// 登録したシステムの初期化処理
 	gameSystemCollection.Init();
