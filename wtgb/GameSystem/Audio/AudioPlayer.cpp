@@ -53,27 +53,40 @@ void wtgb::AudioPlayer::Clear()
 	entryQueue_.clear();
 }
 
-wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(const XAUDIO2_BUFFER& _buffer, Audio& _audioSystem)
+wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
+	const XAUDIO2_BUFFER& _buffer,
+	const WAVEFORMATEX& _format,
+	Audio& _audioSystem)
 {
-	for (SourceVoiceIndex index = 0; index < sourceVoices_.size(); index++)
+	SourceVoiceIndex index{};
+	// ƒCƒ“ƒfƒNƒX‚ð‹‚ß‚é
+	for (index = 0; index < sourceVoices_.size(); index++)
 	{
 		if (!useFlag_.at(index))
 		{
-			HRESULT hResult{};
-			hResult = sourceVoices_.at(index).Get()->SubmitSourceBuffer(&_buffer);
-
-			wassert(SUCCEEDED(hResult) && "‰¹º‚Ì“o˜^‚ÉŽ¸”s");
-			if (FAILED(hResult))
-			{
-				return -1;
-			}
-
-			sourceVoices_.at(index).Get()->Start();
-			return;  // Ä¶‚Å‚«‚½‚È‚ç‰ñ‹A
+			break;
 		}
 	}
 	// ‘S•”Žg‚í‚ê‚Ä‚¢‚½‚ç’Ç‰Á‚·‚é
-	_audioSystem.CreateSourceVoice();
+	if (index == sourceVoices_.size())
+	{
+		IXAudio2SourceVoice* pSourceVoice{};
+		_audioSystem.CreateSourceVoice(&pSourceVoice, _format);
+		sourceVoices_.emplace_back(UniqueXAudio2SourceVoice{ pSourceVoice });
+	}
+
+	HRESULT hResult{};
+	hResult = sourceVoices_.at(index)->SubmitSourceBuffer(&_buffer);
+
+	wassert(SUCCEEDED(hResult) && "‰¹º‚Ì“o˜^‚ÉŽ¸”s");
+	if (FAILED(hResult))
+	{
+		return -1;
+	}
+
+	sourceVoices_.at(index)->Start();
+
+	return index;
 }
 
 #pragma region AudioEntry

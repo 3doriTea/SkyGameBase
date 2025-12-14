@@ -1,6 +1,6 @@
 #pragma once
 #include "pch/pch.h"
-#include "Utility/IResource.h"
+#include "UniqueXAudio2SourceVoice.h"
 
 namespace wtgb
 {
@@ -42,11 +42,13 @@ namespace wtgb
 		/// 再生する
 		/// </summary>
 		/// <param name="_buffer">再生するバッファ</param>
-		SourceVoiceIndex Play(const XAUDIO2_BUFFER& _buffer, Audio& _audioSystem);
+		/// <param name="_format">再生するフォーマット</param>
+		/// <param name="_audioSystem">音声システムの参照</param>
+		SourceVoiceIndex Play(const XAUDIO2_BUFFER& _buffer, const WAVEFORMATEX& _format, Audio& _audioSystem);
 
 	private:
 		// 音声再生機
-		std::vector<ComPtr<IXAudio2SourceVoice>> sourceVoices_;
+		std::vector<UniqueXAudio2SourceVoice> sourceVoices_;
 		std::vector<bool> useFlag_;  // 再生機の使用フラグ
 
 		std::list<AudioEntry> entryQueue_;  // 再生キュー

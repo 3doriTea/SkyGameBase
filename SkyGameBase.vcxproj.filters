@@ -480,6 +480,12 @@
     <ClInclude Include="Library\dr_libs\dr_wav.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Audio\UniqueXAudio2SourceVoice.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Audio\UniqueXAudio2MasteringVoice.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">

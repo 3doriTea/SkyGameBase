@@ -26,6 +26,8 @@ namespace wtgb
 		/// <returns>Ž¯•Ê–¼</returns>
 		inline std::string_view GetName() const { return name_; }
 
+		WAVEFORMATEX GetFormat() const { return waveFormat_; }
+
 	private:
 		void LoadMp3();
 

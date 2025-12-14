@@ -35,6 +35,8 @@
 #include "GameSystem/Canvas/CanvasContext.h"
 #include "GameSystem/Canvas/LayoutConfig.h"
 
+#include "GameSystem/Audio.h"
+
 #include "GameSystem/Direct3D.h"
 
 #include "WTGBAssert.h"

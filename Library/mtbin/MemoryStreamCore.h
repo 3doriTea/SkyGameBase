@@ -66,7 +66,7 @@ namespace mtbin
 		/// “Ç‚İ‘‚«‚·‚éêŠ‚ğˆÚ“®‚·‚é
 		/// </summary>
 		/// <param name="_dir">â‘Î“I‚ÈêŠw’è</param>
-		void Seek(SeekDir _dir);
+		void Seek(SeekAt _dir);
 
 		/// <summary>
 		/// Œ»İ‚Ì“Ç‚İ‘‚«ˆÊ’u‚ğæ“¾

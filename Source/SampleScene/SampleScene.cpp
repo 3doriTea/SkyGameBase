@@ -9,6 +9,8 @@
 #include "../PlayScene/PlayScene.h"
 #include "../PlayScene/CameraController.h"
 
+#include "Piano.h"
+
 using namespace wtgb;
 
 SampleScene::SampleScene() : GameScene
@@ -25,6 +27,7 @@ void SampleScene::Start()
 	/*System().Get<Camera>().position_ = { 0, 0, -10.0f };
 	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };*/
 
+	Instantiate<Piano>();
 
 	EntityId eNumberPlate{ Instantiate<NumberPlate>() };
 

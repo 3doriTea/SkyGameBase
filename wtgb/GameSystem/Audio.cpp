@@ -4,7 +4,8 @@
 #include "GameTime.h"
 
 wtgb::Audio::Audio() :
-	audioPlayer_{}
+	audioPlayer_{},
+	pMasteringVoice_{}
 {
 }
 
@@ -30,12 +31,15 @@ wtgb::Result wtgb::Audio::Init(const ViewerInit& _viewer)
 		return Result::Code::Failed;
 	}
 
-	hResult = pXAudio2_.Get()->CreateMasteringVoice(pMasteringVoice_.GetAddressOf());
+	IXAudio2MasteringVoice* pMasteringVoice{ nullptr };
+	hResult = pXAudio2_.Get()->CreateMasteringVoice(&pMasteringVoice);
 	wassert(SUCCEEDED(hResult) && "Žå‰¹º‚Ìì¬‚ÉŽ¸”s");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
 	}
+
+	pMasteringVoice_.reset(pMasteringVoice);
 
 	return Result::Code::Ok;
 }
@@ -49,6 +53,13 @@ void wtgb::Audio::Update(const ViewerUpdate& _system)
 void wtgb::Audio::End()
 {
 	audioPlayer_.Clear();
+}
+
+void wtgb::Audio::CreateSourceVoice(IXAudio2SourceVoice** _ppSourceVoice, const WAVEFORMATEX& _format)
+{
+	HRESULT hResult{};
+	hResult = pXAudio2_->CreateSourceVoice(_ppSourceVoice, &_format);
+	wassert(SUCCEEDED(hResult) && "SourceVoice‚Ìì¬‚ÉŽ¸”s");
 }
 
 wtgb::AudioHandle wtgb::Audio::Load(const fs::path& _audioFileName)
@@ -116,7 +127,7 @@ wtgb::AudioHandle wtgb::Audio::Load(const fs::path& _audioFileName)
 
 	mtbin::BinaryReader br{ buffer.data(), buffer.size() };
 
-	AudioHandle hAudio{ audioClips_.Emplace(br, _audioFileName) };
+	AudioHandle hAudio{ audioClips_.Emplace(&br, _audioFileName.string()) };
 	audioClips_.At(hAudio).CallInit();  // ‰Šú‰» = “Ç‚ÝŽæ‚Á‚Ä‚à‚ç‚¤
 
 	return hAudio;
@@ -134,6 +145,6 @@ void wtgb::Audio::Play(const AudioHandle _hAudio)
 		.LoopCount = 0,
 	};
 
-	SourceVoiceIndex index = audioPlayer_.Play(BUFFER, *this);
+	SourceVoiceIndex index = audioPlayer_.Play(BUFFER, clip.GetFormat(), *this);
 	wassert(index > 0 && "Ä¶‚ÉŽ¸”s");
 }

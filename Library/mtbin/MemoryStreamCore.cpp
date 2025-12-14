@@ -28,14 +28,14 @@ void mtbin::MemoryStreamCore::Seek(SeekPoint _point)
 	currentIndex = _point;
 }
 
-void mtbin::MemoryStreamCore::Seek(SeekDir _dir)
+void mtbin::MemoryStreamCore::Seek(SeekAt _dir)
 {
 	switch (_dir)
 	{
-	case SeekDir::Head:
+	case SeekAt::Head:
 		currentIndex = 0;
 		break;
-	case SeekDir::Tail:
+	case SeekAt::Tail:
 		currentIndex = BUFFER_SIZE - 1;
 		break;
 	default:

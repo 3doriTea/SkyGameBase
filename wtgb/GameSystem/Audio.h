@@ -2,6 +2,7 @@
 #include "Core/IGameSystem.h"
 #include "Audio/AudioPlayer.h"
 #include "Audio/AudioClip.h"
+#include "Audio/UniqueXAudio2MasteringVoice.h"
 
 namespace wtgb
 {
@@ -29,6 +30,13 @@ namespace wtgb
 		/// 終了処理
 		/// </summary>
 		void End() override;
+
+		/// <summary>
+		/// 音声再生するやつを作成する
+		/// </summary>
+		/// <param name="_ppSourceVoice">作成先のポインタ</param>
+		/// <param name="_format">フォーマット</param>
+		void CreateSourceVoice(IXAudio2SourceVoice** _ppSourceVoice, const WAVEFORMATEX& _format);
 		/// <summary>
 		/// 音声を予め読み込んでおく
 		/// </summary>
@@ -48,7 +56,7 @@ namespace wtgb
 
 	private:
 		ComPtr<IXAudio2> pXAudio2_;  // XAudio2本体のインタフェース
-		ComPtr<IXAudio2MasteringVoice> pMasteringVoice_;  // 主音声
+		UniqueXAudio2MasteringVoice pMasteringVoice_;  // 主音声
 		AudioPlayer audioPlayer_;  // 音声再生するやつ
 		HandlerCollection<AudioClip, AudioHandle> audioClips_;  // クリップのハンドルコレクション
 	};

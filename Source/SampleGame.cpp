@@ -27,6 +27,8 @@
 #include "GameSystem/CPCollider.h"
 #include "GameSystem/CPRigidBody.h"
 
+#include "GameSystem/Audio.h"
+
 #include "GameSystem/Camera.h"
 
 #include "GameSystem/Canvas.h"
@@ -87,6 +89,8 @@ void SampleGame::StartRegister(
 
 
 		.Register<Rendering>()
+
+		.Register<Audio>()
 
 		// デバッグ系は一番最後
 		.Register<Debug>()

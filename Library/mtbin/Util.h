@@ -17,7 +17,7 @@ namespace mtbin
 		{
 			for (size_t i = 0; i < Size; i++)
 			{
-				if (_header[i] != _str[i])
+				if (_chunk[i] != _str[i])
 				{
 					return false;
 				}

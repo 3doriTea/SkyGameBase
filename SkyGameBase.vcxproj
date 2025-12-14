@@ -95,6 +95,8 @@
     <ClInclude Include="wtgb\GameSystem\Audio.h" />
     <ClInclude Include="wtgb\GameSystem\Audio\AudioClip.h" />
     <ClInclude Include="wtgb\GameSystem\Audio\AudioPlayer.h" />
+    <ClInclude Include="wtgb\GameSystem\Audio\UniqueXAudio2MasteringVoice.h" />
+    <ClInclude Include="wtgb\GameSystem\Audio\UniqueXAudio2SourceVoice.h" />
     <ClInclude Include="wtgb\GameSystem\Camera.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas.h" />
     <ClInclude Include="wtgb\GameSystem\Canvas\CanvasContext.h" />
@@ -216,9 +218,24 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Library\mtbin\BinaryReader.cpp" />
-    <ClCompile Include="Library\mtbin\BinaryWriter.cpp" />
-    <ClCompile Include="Library\mtbin\MemoryStreamCore.cpp" />
+    <ClCompile Include="Library\mtbin\BinaryReader.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Library\mtbin\BinaryWriter.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Library\mtbin\MemoryStreamCore.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="pch\pch.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMoveFree.cpp" />
