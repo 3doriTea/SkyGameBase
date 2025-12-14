@@ -10,6 +10,7 @@
 #include "../PlayScene/CameraController.h"
 
 #include "Piano.h"
+#include "../SMFPlayer.h"
 
 using namespace wtgb;
 
@@ -24,6 +25,8 @@ SampleScene::SampleScene() : GameScene
 
 void SampleScene::Start()
 {
+	Instantiate<SMFPlayer>();
+
 	/*System().Get<Camera>().position_ = { 0, 0, -10.0f };
 	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };*/
 
