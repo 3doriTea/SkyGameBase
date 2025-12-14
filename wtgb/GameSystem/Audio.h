@@ -1,5 +1,7 @@
 #pragma once
 #include "Core/IGameSystem.h"
+#include "Audio/AudioPlayer.h"
+#include "Audio/AudioClip.h"
 
 namespace wtgb
 {
@@ -31,7 +33,8 @@ namespace wtgb
 		/// 音声を予め読み込んでおく
 		/// </summary>
 		/// <param name="_audioFileName">音声ファイルパス</param>
-		void Load(const fs::path& _audioFileName);
+		[[nodiscard]]
+		AudioHandle Load(const fs::path& _audioFileName);
 		/// <summary>
 		/// 予め読み込んだ音声を再生
 		/// </summary>
@@ -46,7 +49,7 @@ namespace wtgb
 	private:
 		ComPtr<IXAudio2> pXAudio2_;  // XAudio2本体のインタフェース
 		ComPtr<IXAudio2MasteringVoice> pMasteringVoice_;  // 主音声
-		//std::list<
-		//HandlerCollection<
+		AudioPlayer audioPlayer_;  // 音声再生するやつ
+		HandlerCollection<AudioClip, AudioHandle> audioClips_;  // クリップのハンドルコレクション
 	};
 }

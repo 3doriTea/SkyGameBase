@@ -1,8 +1,9 @@
 #include "pch\pch.h"
 #include "AudioClip.h"
 
-wtgb::AudioClip::AudioClip(mtbin::BinaryReader* _pReader) :
-	pReader_{ _pReader }
+wtgb::AudioClip::AudioClip(mtbin::BinaryReader* _pReader, const std::string& _name) :
+	pReader_{ _pReader },
+	name_{ _name }
 {
 	wassert(_pReader && "_pReader‚ðnullptr‚É‚Í‚Å‚«‚È‚¢");
 }

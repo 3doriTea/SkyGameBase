@@ -255,6 +255,7 @@
     <ClCompile Include="wtgb\GameComponent\Transform.cpp" />
     <ClCompile Include="wtgb\GameSystem\Audio.cpp" />
     <ClCompile Include="wtgb\GameSystem\Audio\AudioClip.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Audio\AudioPlayer.cpp" />
     <ClCompile Include="wtgb\GameSystem\Camera.cpp" />
     <ClCompile Include="wtgb\GameSystem\Canvas.cpp" />
     <ClCompile Include="wtgb\GameSystem\Canvas\CanvasContext.cpp" />

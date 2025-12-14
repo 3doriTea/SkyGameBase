@@ -27,6 +27,7 @@ void wtgb::Model::End()
 	models_.Release([this](ModelResource*& modelResource)
 		{
 			modelResource->CallRelease(system_);
+			delete modelResource;
 		});
 }
 
