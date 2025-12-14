@@ -19,9 +19,6 @@
 // XAudio2
 #include <xaudio2.h>
 
-// dr_libs
-#include "Library/dr_libs/dr_mp3.h"
-
 // XInput
 #include <Xinput.h>
 #pragma comment(lib, "Xinput.lib")
@@ -47,6 +44,7 @@
 #include <d3dcompiler.h>
 #pragma comment(lib, "d3dcompiler.lib")
 
+// DirectXTex
 #include <DirectXTex.h>
 #pragma comment(lib, "DirectXTex.lib")
 

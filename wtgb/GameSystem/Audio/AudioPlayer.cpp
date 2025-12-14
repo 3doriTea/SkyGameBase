@@ -70,7 +70,7 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 	// ‘S•”g‚í‚ê‚Ä‚¢‚½‚ç’Ç‰Á‚·‚é
 	if (index == sourceVoices_.size())
 	{
-		IXAudio2SourceVoice* pSourceVoice{};
+		IXAudio2SourceVoice* pSourceVoice{ nullptr };
 		_audioSystem.CreateSourceVoice(&pSourceVoice, _format);
 		sourceVoices_.emplace_back(UniqueXAudio2SourceVoice{ pSourceVoice });
 	}
@@ -85,6 +85,7 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 	}
 
 	sourceVoices_.at(index)->Start();
+	entryQueue_.push_back({ *this, index });
 
 	return index;
 }

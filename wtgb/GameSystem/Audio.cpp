@@ -33,6 +33,7 @@ wtgb::Result wtgb::Audio::Init(const ViewerInit& _viewer)
 
 	IXAudio2MasteringVoice* pMasteringVoice{ nullptr };
 	hResult = pXAudio2_.Get()->CreateMasteringVoice(&pMasteringVoice);
+	//hResult = pXAudio2_.Get()->CreateMasteringVoice(pMasteringVoice_.GetAddressOf());
 	wassert(SUCCEEDED(hResult) && "Žå‰¹º‚Ìì¬‚ÉŽ¸”s");
 	if (FAILED(hResult))
 	{
@@ -58,7 +59,7 @@ void wtgb::Audio::End()
 void wtgb::Audio::CreateSourceVoice(IXAudio2SourceVoice** _ppSourceVoice, const WAVEFORMATEX& _format)
 {
 	HRESULT hResult{};
-	hResult = pXAudio2_->CreateSourceVoice(_ppSourceVoice, &_format);
+	hResult = pXAudio2_.Get()->CreateSourceVoice(_ppSourceVoice, &_format);
 	wassert(SUCCEEDED(hResult) && "SourceVoice‚Ìì¬‚ÉŽ¸”s");
 }
 
@@ -146,5 +147,5 @@ void wtgb::Audio::Play(const AudioHandle _hAudio)
 	};
 
 	SourceVoiceIndex index = audioPlayer_.Play(BUFFER, clip.GetFormat(), *this);
-	wassert(index > 0 && "Ä¶‚ÉŽ¸”s");
+	wassert(index >= 0 && "Ä¶‚ÉŽ¸”s");
 }

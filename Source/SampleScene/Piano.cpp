@@ -36,7 +36,7 @@ void Piano::Update()
 	Audio& audio{ System().Get<Audio>() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 
-	if (input.IsKeyDown(KeyCode::F))
+	if (input.IsKeyDown(KeyCode::Y))
 	{
 		audio.Play(hTestAudio_);
 	}

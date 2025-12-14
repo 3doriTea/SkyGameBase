@@ -1,5 +1,14 @@
 #include "pch\pch.h"
 #include "AudioClip.h"
+//#include "GameSystem/Audio/DrLibsInclude.h"
+
+#ifndef DR_MP3_IMPLEMENTATION
+
+#define DR_MP3_IMPLEMENTATION 1
+#include "Library/dr_libs/dr_mp3.h"
+
+#endif
+
 
 wtgb::AudioClip::AudioClip(mtbin::BinaryReader* _pReader, const std::string& _name) :
 	pReader_{ _pReader },
@@ -38,7 +47,7 @@ void wtgb::AudioClip::Init()
 	else if (  // TODO: ÇæÇ¢Ç‘Ç–Ç«Ç¢
 		std::array<Byte, 3> mp3Check{ header.at(0), header.at(1), header.at(2) };
 		CompareId(mp3Check, "ID3")
-		|| (header.at(0) == 0xFF && (header.at(1) % 0xE0) == 0xE0))
+		|| (header.at(0) == 0xFF && (header.at(1) & 0b1110'0000) == 0b1110'0000))
 	{
 		// mp3ÇæÅI
 		LoadMp3();
@@ -95,7 +104,7 @@ void wtgb::AudioClip::LoadMp3()
 	drmp3_read_pcm_frames_s16(&config, totalSamples, reinterpret_cast<drmp3_int16*>(buffer_.data()));
 
 	const WORD CHANNELS{ static_cast<WORD>(config.channels) };
-	const DWORD BITS_PER_SAMPLE{ static_cast<DWORD>(config.sampleRate) };
+	const DWORD BITS_PER_SAMPLE{ 16 };
 	const WORD BLOCK_ALIGN{ static_cast<WORD>(CHANNELS * BITS_PER_SAMPLE / 8) };
 	const DWORD SAMPLE_RATE{ static_cast<DWORD>(config.sampleRate) };
 
@@ -107,7 +116,7 @@ void wtgb::AudioClip::LoadMp3()
 		.nSamplesPerSec = SAMPLE_RATE,
 		.nAvgBytesPerSec = SAMPLE_RATE * BLOCK_ALIGN,
 		.nBlockAlign = BLOCK_ALIGN,
-		.wBitsPerSample = 16,
+		.wBitsPerSample = BITS_PER_SAMPLE,
 	};
 
 	// å„ï–ïtÇØ

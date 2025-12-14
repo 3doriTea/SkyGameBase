@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Library\dr_libs\dr_flac.h" />
-    <ClInclude Include="Library\dr_libs\dr_mp3.h" />
-    <ClInclude Include="Library\dr_libs\dr_wav.h" />
     <ClInclude Include="Library\ImGui\imconfig.h" />
     <ClInclude Include="Library\ImGui\imgui.h" />
     <ClInclude Include="Library\ImGui\imgui_impl_dx11.h" />
@@ -95,6 +92,7 @@
     <ClInclude Include="wtgb\GameSystem\Audio.h" />
     <ClInclude Include="wtgb\GameSystem\Audio\AudioClip.h" />
     <ClInclude Include="wtgb\GameSystem\Audio\AudioPlayer.h" />
+    <ClInclude Include="wtgb\GameSystem\Audio\DrLibsInclude.h" />
     <ClInclude Include="wtgb\GameSystem\Audio\UniqueXAudio2MasteringVoice.h" />
     <ClInclude Include="wtgb\GameSystem\Audio\UniqueXAudio2SourceVoice.h" />
     <ClInclude Include="wtgb\GameSystem\Camera.h" />
