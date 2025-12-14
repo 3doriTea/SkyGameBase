@@ -361,58 +361,6 @@ void CircleBodyVSSegment(
 			// 離れ方向または接線方向の速度成分のみ、そのまま次の速度とする
 			info.reflectionVelocity = Vector3{ 0.0f, F.y, F.x };
 		}
-
-		/*
-		// 法線(SEGMENT_NORM)に向かってくる速度成分の内積
-		const float DOT_FN = XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM));
-
-		// 速度がめり込み方向(DOT_FN < 0.0f)でなければ反射処理は不要（離れていっているため）
-		if (DOT_FN < 0.0f)
-		{
-			// 反発力 e を考慮した反射係数
-			const float E = 1.0f + _circleBody.bounciness;
-
-			// 反射ベクトル (R) の計算: R = F - (1 + e) * (F . N) * N
-			// DOT_FNは負の値なので、-DOT_FNはめり込み方向の速度の大きさ（正の値）になる
-			Vector2 r{ F - E * DOT_FN * SEGMENT_NORM };
-
-			Vector3 r3{ 0.0f, r.y, r.x };
-
-			float ang{ XMVectorGetX(XMVector2Dot(XMVector2Normalize(r), XMVector2Normalize(F))) };
-
-			// 速度の差がありすぎるなら無視する
-
-			float speedDiff{ XMVectorGetX(XMVector2Length(XMVector2Normalize(F))) - XMVectorGetX(XMVector2Length(XMVector2Normalize(r))) };
-
-			LOGFLN("{}", speedDiff);
-
-			if (ang < 0.9f)
-			{
-				info.reflectionVelocity;// =
-			}
-			else
-			{
-				info.reflectionVelocity = r3;
-			}
-			LOGFLN("ang:{}", ang);
-
-			float len = XMVectorGetX(XMVector3Length(info.reflectionVelocity));
-			if (len < 1.0f)
-			{
-				LOGFLN("len:{}", len);
-			}
-			else
-			{
-				LOGFLN("v:({}, {}, {})", info.reflectionVelocity.x, info.reflectionVelocity.y, info.reflectionVelocity.z);
-				LOGFLN("len:{}", len);
-			}
-		}
-		else
-		{
-			// 離れ方向または接線方向の速度成分のみ、そのまま次の速度とする
-			info.reflectionVelocity = { 0.0f, F.y, F.x };
-		}
-		*/
 	}
 
 	// 当たり判定情報が必要なら渡す

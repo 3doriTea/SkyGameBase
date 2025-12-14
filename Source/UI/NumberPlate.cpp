@@ -77,8 +77,6 @@ void NumberPlate::DrawNumber(const NUMBER _number)
 
 	RectF rect{ widthPixF * static_cast<float>(_number), 0.0f, widthPixF, widthPixF };
 
-	LOGFLN("({}, {}) ({}, {})", rect.x, rect.y, rect.width, rect.height);
-
 	context.DrawImage(
 		hNumberImage_,
 		0.0f,

@@ -27,7 +27,6 @@ wtgb::Result wtgb::Cursor::Init(const ViewerInit& _viewer)
 void wtgb::Cursor::Update(const ViewerUpdate& _system)
 {
 	frameMove_ = frameMoveDelta_;
-	LOGFLN("frameMove_:({}, {})", frameMove_.x, frameMove_.y);
 	frameMoveDelta_ = Vector2Int::Zero();
 }
 

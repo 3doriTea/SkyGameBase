@@ -53,6 +53,12 @@ void wtgb::Audio::Update(const ViewerUpdate& _system)
 
 void wtgb::Audio::End()
 {
+	// 全クリップ解放処理
+	audioClips_.Release([](AudioClip& _clip)
+		{
+			_clip.CallRelease();
+		});
+
 	audioPlayer_.Clear();
 }
 
@@ -125,7 +131,6 @@ wtgb::AudioHandle wtgb::Audio::Load(const fs::path& _audioFileName)
 
 	CloseHandle(hFile);  // ファイルを閉じる
 
-
 	mtbin::BinaryReader br{ buffer.data(), buffer.size() };
 
 	AudioHandle hAudio{ audioClips_.Emplace(&br, _audioFileName.string()) };
@@ -146,6 +151,13 @@ void wtgb::Audio::Play(const AudioHandle _hAudio)
 		.LoopCount = 0,
 	};
 
-	SourceVoiceIndex index = audioPlayer_.Play(BUFFER, clip.GetFormat(), *this);
+	SourceVoiceIndex index = audioPlayer_.Play(
+		clip.GetTotalTimeSec(),
+		BUFFER,
+		clip.GetFormat(),
+		*this);
+
+	LOGFLN("totalplaysec:{}", clip.GetTotalTimeSec());
+
 	wassert(index >= 0 && "再生に失敗");
 }

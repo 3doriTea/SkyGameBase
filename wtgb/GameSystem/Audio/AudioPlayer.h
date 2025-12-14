@@ -15,7 +15,7 @@ namespace wtgb
 	{
 		struct AudioEntry
 		{
-			AudioEntry(AudioPlayer& _audioPlayer, const SourceVoiceIndex _sourceVoiceIndex);
+			AudioEntry(const float _timeLeft, AudioPlayer& _audioPlayer, const SourceVoiceIndex _sourceVoiceIndex);
 			~AudioEntry();
 
 			float timeLeft;              // 残りの再生時間
@@ -44,7 +44,14 @@ namespace wtgb
 		/// <param name="_buffer">再生するバッファ</param>
 		/// <param name="_format">再生するフォーマット</param>
 		/// <param name="_audioSystem">音声システムの参照</param>
-		SourceVoiceIndex Play(const XAUDIO2_BUFFER& _buffer, const WAVEFORMATEX& _format, Audio& _audioSystem);
+		SourceVoiceIndex Play(
+			const float _playTimeSec,
+			const XAUDIO2_BUFFER& _buffer,
+			const WAVEFORMATEX& _format,
+			Audio& _audioSystem);
+
+	private:
+		void InsertEntryQueue(float _timeLeft, const SourceVoiceIndex _index);
 
 	private:
 		// 音声再生機

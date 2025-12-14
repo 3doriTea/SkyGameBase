@@ -54,6 +54,7 @@ void wtgb::AudioPlayer::Clear()
 }
 
 wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
+	const float _playTimeSec,
 	const XAUDIO2_BUFFER& _buffer,
 	const WAVEFORMATEX& _format,
 	Audio& _audioSystem)
@@ -73,6 +74,7 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 		IXAudio2SourceVoice* pSourceVoice{ nullptr };
 		_audioSystem.CreateSourceVoice(&pSourceVoice, _format);
 		sourceVoices_.emplace_back(UniqueXAudio2SourceVoice{ pSourceVoice });
+		useFlag_.push_back(false);
 	}
 
 	HRESULT hResult{};
@@ -84,17 +86,42 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 		return -1;
 	}
 
+
 	sourceVoices_.at(index)->Start();
-	entryQueue_.push_back({ *this, index });
+	InsertEntryQueue(_playTimeSec, index);
 
 	return index;
+}
+
+void wtgb::AudioPlayer::InsertEntryQueue(float _timeLeft, const SourceVoiceIndex _index)
+{
+	float lefter{ _timeLeft };  // 減算用
+	float righter{ 0 };         // 加算用
+
+	// 適切な挿入ポイントを見つける
+	for (auto itr = entryQueue_.begin(); itr != entryQueue_.end(); itr++)
+	{
+		if (lefter <= righter + itr->timeLeft)
+		{
+			_timeLeft = lefter - righter;
+			itr = entryQueue_.emplace(itr, _timeLeft, *this, _index);
+			itr++;
+			itr->timeLeft -= _timeLeft;
+			return;
+		}
+		righter += itr->timeLeft;
+	}
+	// 見つからなかったら末端に追加
+	entryQueue_.emplace_back(_timeLeft, *this, _index);
 }
 
 #pragma region AudioEntry
 
 wtgb::AudioPlayer::AudioEntry::AudioEntry(
+	const float _timeLeft,
 	AudioPlayer& _audioPlayer,
 	const SourceVoiceIndex _sourceVoiceIndex) :
+	timeLeft{ _timeLeft },
 	audioPlayer{ _audioPlayer },
 	sourceVoiceIndex{ _sourceVoiceIndex }
 {
