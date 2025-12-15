@@ -24,5 +24,11 @@ namespace mtbin
 			}
 			return true;
 		}
+
+		template<size_t Size>
+		inline void Reverse(std::array<Byte, Size>& _ref)
+		{
+			std::reverse(_ref.begin(), _ref.end());
+		}
 	}
 }

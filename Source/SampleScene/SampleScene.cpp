@@ -25,7 +25,7 @@ SampleScene::SampleScene() : GameScene
 
 void SampleScene::Start()
 {
-	Instantiate<SMFPlayer>();
+	Instantiate<SMFPlayer>("Sound/entertainer.mid");
 
 	/*System().Get<Camera>().position_ = { 0, 0, -10.0f };
 	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };*/

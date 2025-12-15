@@ -49,6 +49,13 @@ namespace mtbin
 		T Read();
 
 		/// <summary>
+		/// メモリストリームから任意の型サイズ分を読み取りエンディアン変換する
+		/// </summary>
+		/// <returns>読み取ったオブジェクト</returns>
+		template<typename T>
+		T ReadRev();
+
+		/// <summary>
 		/// メモリストリームから任意の型の配列を読み取る
 		/// </summary>
 		/// <param name="_pWriteBuffer">読み取って書き込む配列のポインタ</param>
@@ -132,6 +139,25 @@ namespace mtbin
 		currentIndex += sizeof(T);  // サイズ分進める
 
 		return pickBuffer;
+	}
+
+	template<typename T>
+	inline T MemoryStreamCore::ReadRev()
+	{
+
+		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // 読み込んでもアンダーランしない
+			&& "buffer under run @mtbin::MemoryStream::ReadRev");
+		
+		// 取り出し用バッファ用意
+		std::array<Byte, sizeof(T)> buffer{};
+
+		::memcpy(reinterpret_cast<void*>(&buffer.data()), &(pBuffer_[currentIndex]), sizeof(T));  // 取り出す
+		currentIndex += sizeof(T);  // サイズ分進める
+
+		// エンディアンの変換
+		std::reverse(buffer.begin(), buffer.end());
+
+		return *(reinterpret_cast<T*>(buffer.data()));
 	}
 
 	template<typename T>
