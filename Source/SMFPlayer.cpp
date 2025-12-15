@@ -27,13 +27,18 @@ void SMFPlayer::Init()
 	using mtbin::util::CompareId;
 	using mtbin::util::Reverse;
 
-	std::ifstream smf{ file_ };
+	std::ifstream smf{ file_, std::ios::binary };
 
 	if (!smf)
 	{
 		wassert(false && "ÉtÉ@ÉCÉãì«Ç›çûÇ›é∏îs");
 		return;
 	}
+
+	smf.seekg(0, std::ios_base::end);
+	size_t fileSize{ static_cast<size_t>(smf.tellg()) };
+	smf.seekg(0, std::ios_base::beg);
+
 
 	std::vector<Byte> fileBuffer
 	{
@@ -214,6 +219,11 @@ void SMFPlayer::Init()
 
 				if (status == 0xF0)
 				{
+					if (br.Peek<uint8_t>() == 0xF7)
+					{
+						br.Read<uint8_t>();
+						LOGFLN("Skepped 0xF7");
+					}
 					//size += 1;
 				}
 
