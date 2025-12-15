@@ -151,7 +151,7 @@ namespace mtbin
 		// 取り出し用バッファ用意
 		std::array<Byte, sizeof(T)> buffer{};
 
-		::memcpy(reinterpret_cast<void*>(&buffer.data()), &(pBuffer_[currentIndex]), sizeof(T));  // 取り出す
+		::memcpy(reinterpret_cast<void*>(buffer.data()), &(pBuffer_[currentIndex]), sizeof(T));  // 取り出す
 		currentIndex += sizeof(T);  // サイズ分進める
 
 		// エンディアンの変換
