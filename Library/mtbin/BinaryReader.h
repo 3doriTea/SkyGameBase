@@ -19,6 +19,7 @@ namespace mtbin
 
 		using MemoryStreamCore::Read;
 		using MemoryStreamCore::ReadRev;
+		using MemoryStreamCore::Peek;
 
 		/// <summary>
 		/// バッファのポインタを取得

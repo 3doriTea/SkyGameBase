@@ -56,6 +56,31 @@ namespace mtbin
 		T ReadRev();
 
 		/// <summary>
+		/// メモリストリームから任意の型サイズ分をチラ見する
+		/// </summary>
+		/// <typeparam name="T">任意の型</typeparam>
+		/// <returns>チラ見したオブジェクト</returns>
+		template<typename T>
+		T Peek();
+
+		/// <summary>
+		/// メモリストリームから任意の型サイズ分をチラ見しエンディアン変換する
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns>チラ見したオブジェクト</returns>
+		template<typename T>
+		T PeekRev();
+
+		/// <summary>
+		/// メモリストリームから任意の型の配列をチラ見する
+		/// </summary>
+		/// <param name="_pWriteBuffer">チラ見して書き込む配列のポインタ</param>
+		/// <param name="_writeBufferLength">チラ見して書き込む配列の要素数</param>
+		/// <param name="_arrayLength">要素数</param>
+		template<typename T>
+		void Peek(T* _pWriteBuffer, const int& _writeBufferLength, const int& _arrayLength);
+
+		/// <summary>
 		/// メモリストリームから任意の型の配列を読み取る
 		/// </summary>
 		/// <param name="_pWriteBuffer">読み取って書き込む配列のポインタ</param>
@@ -144,7 +169,6 @@ namespace mtbin
 	template<typename T>
 	inline T MemoryStreamCore::ReadRev()
 	{
-
 		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // 読み込んでもアンダーランしない
 			&& "buffer under run @mtbin::MemoryStream::ReadRev");
 		
@@ -158,6 +182,51 @@ namespace mtbin
 		std::reverse(buffer.begin(), buffer.end());
 
 		return *(reinterpret_cast<T*>(buffer.data()));
+	}
+
+	template<typename T>
+	inline T MemoryStreamCore::Peek()
+	{
+		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // 読み込んでもアンダーランしない
+			&& "buffer under run @mtbin::MemoryStream::Read");
+
+		T pickBuffer{};  // 取り出し用バッファ用意
+		::memcpy(&pickBuffer, &(pBuffer_[currentIndex]), sizeof(T));  // 取り出す
+
+		return pickBuffer;
+	}
+
+	template<typename T>
+	inline T MemoryStreamCore::PeekRev()
+	{
+		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // 読み込んでもアンダーランしない
+			&& "buffer under run @mtbin::MemoryStream::PeekRev");
+
+		// 取り出し用バッファ用意
+		std::array<Byte, sizeof(T)> buffer{};
+
+		::memcpy(reinterpret_cast<void*>(buffer.data()), &(pBuffer_[currentIndex]), sizeof(T));  // 取り出す
+		
+		// エンディアンの変換
+		std::reverse(buffer.begin(), buffer.end());
+
+		return *(reinterpret_cast<T*>(buffer.data()));
+	}
+
+	template<typename T>
+	inline void MemoryStreamCore::Peek(T* _pWriteBuffer, const int& _writeBufferLength, const int& _arrayLength)
+	{
+		assert(_pWriteBuffer != nullptr  // 書き込み先はnullptrではない
+			&& "write buffer is nullptr @mtbin::MemoryStream::Read");
+
+		assert(_writeBufferLength >= _arrayLength  // 書き込み先に十分な容量あり
+			&& "write buffer under run @mtbin::MemoryStream::Read");
+
+		size_t size{ sizeof(T) * _arrayLength };  // 読み込むサイズ
+		assert((currentIndex + size) <= BUFFER_SIZE  // 読み込んでもアンダーランしない
+			&& "buffer under run @mtbin::MemoryStream::Read");
+
+		::memcpy(_pWriteBuffer, &(pBuffer_[currentIndex]), size);  // 取り出す
 	}
 
 	template<typename T>

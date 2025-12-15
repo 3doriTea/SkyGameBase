@@ -87,9 +87,14 @@ void SMFPlayer::Init()
 		uint32_t headerSize{ br.ReadRev<uint32_t>() };
 		LOGFLN("HeaderSize:{}", headerSize);
 
+		uint8_t prevStatus{};  // ランニングステータス用
+		size_t endOfTruckPos{ br.Current() + headerSize };
+
 		bool endOfTruckFlag{ false };
-		while (!endOfTruckFlag)
+		while (br.Current() < endOfTruckPos && !endOfTruckFlag)
 		{
+			uint8_t peekStatus{ br.Peek<uint8_t>() };
+
 			uint64_t delta{ ReadDelta(br) };
 			LOGFLN("DeltaTime:{}", delta);
 
@@ -136,15 +141,15 @@ void SMFPlayer::Init()
 				case 0x20:  // MIDIチャンネルプレフィックス
 				{
 					uint8_t size{ br.Read<uint8_t>() };
-					uint8_t port{ br.Read<uint8_t>() };
+					uint8_t channel{ br.Read<uint8_t>() };
 					
-					LOGFLN("channel prefix port{} size{}", port, size);
+					LOGFLN("channel prefix port{} size{}", channel, size);
 					break;
 				}
 				case 0x21:  // MIDIポートプレフィックス
 				{
 					uint8_t size{ br.Read<uint8_t>() };
-					uint8_t port{ br.Read<uint8_t>() };
+					uint8_t port{ br.Read<uint8_t>() };  // ポート番号
 
 					LOGFLN("port prefix port{} size{}", port, size);
 					break;
@@ -217,20 +222,17 @@ void SMFPlayer::Init()
 				uint8_t channel{ static_cast<uint8_t>(status - 0xE0) };
 				uint8_t leftSide{ br.Read<uint8_t>() };
 				uint8_t rightSide{ br.Read<uint8_t>() };
-				uint16_t value{ leftSide };
-				value << 7;
-				value |= rightSide;
+				uint16_t value{ static_cast<uint16_t>(rightSide) << 7 | leftSide };
 
 				LOGFLN("Pitch bend - channel:{}, LSB:{:x}, MSB:{:x}", channel, leftSide, rightSide);
 			}
 			else if (0xA0 <= status && status <= 0xAF)
-			{  // コントロールチェンジ
-				uint8_t unknown[3]{};
-				unknown[0] = br.Read<uint8_t>();
-				unknown[1] = br.Read<uint8_t>();
-				unknown[2] = br.Read<uint8_t>();
+			{  // キープレッシャー
+				uint8_t channel{ status - 0xA0 };
+				uint8_t note{ br.Read<uint8_t>() };
+				uint8_t press{ br.Read<uint8_t>() };
 
-				//wassert(false && "システム拡張は対応していない");
+				LOGFLN("Key pressher - channel:{}, note:{}, press:{}", channel, note, press);
 			}
 			else if (0x80 <= status && status <= 0x8F)
 			{  // ノートオフ
@@ -254,6 +256,10 @@ void SMFPlayer::Init()
 				{
 					LOGFLN("note on - channel:{}, note:{}, velo:{}", channel, note, velocity);
 				}
+			}
+			else
+			{
+
 			}
 		}
 	}
