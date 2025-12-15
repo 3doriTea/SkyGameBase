@@ -188,16 +188,49 @@ void SMFPlayer::Init()
 
 				std::vector<char> textBuffer(size, '\0');
 				br.Read(textBuffer.data(), size, size);
-				LOGFLN("SystemEx size:{}");
+				LOGFLN("SystemEx size:{}", size);
 			}
-			else if (0xA0 <= status && status <= 0xEF)
+			else if (0xB0 <= status && status <= 0xBF)
+			{  // コントロールチェンジ
+				uint8_t channel{ static_cast<uint8_t>(status - 0xB0) };
+				uint8_t ccNum{ br.Read<uint8_t>() };
+				uint8_t ccValue{ br.Read<uint8_t>() };
+
+				LOGFLN("CC - channel:{}, number:{}, value:{}", channel, ccNum, ccValue);
+			}
+			else if (0xC0 <= status && status <= 0xCF)
+			{  // プログラムチェンジ
+				uint8_t channel{ static_cast<uint8_t>(status - 0xC0) };
+				uint8_t pcNum{ br.Read<uint8_t>() };
+
+				LOGFLN("PC - channel:{}, number:{}", channel, pcNum);
+			}
+			else if (0xD0 <= status && status <= 0xDF)
+			{  // チャンネルプレッシャー / アフタータッチ
+				uint8_t channel{ static_cast<uint8_t>(status - 0xD0) };
+				uint8_t cpValue{ br.Read<uint8_t>() };
+
+				LOGFLN("CP - channel:{}, cpValue:{}", channel, cpValue);
+			}
+			else if (0xE0 <= status && status <= 0xEF)
+			{  // ピッチベンドチェンジ
+				uint8_t channel{ static_cast<uint8_t>(status - 0xE0) };
+				uint8_t leftSide{ br.Read<uint8_t>() };
+				uint8_t rightSide{ br.Read<uint8_t>() };
+				uint16_t value{ leftSide };
+				value << 7;
+				value |= rightSide;
+
+				LOGFLN("Pitch bend - channel:{}, LSB:{:x}, MSB:{:x}", channel, leftSide, rightSide);
+			}
+			else if (0xA0 <= status && status <= 0xAF)
 			{  // コントロールチェンジ
 				uint8_t unknown[3]{};
 				unknown[0] = br.Read<uint8_t>();
 				unknown[1] = br.Read<uint8_t>();
 				unknown[2] = br.Read<uint8_t>();
 
-				wassert(false && "システム拡張は対応していない");
+				//wassert(false && "システム拡張は対応していない");
 			}
 			else if (0x80 <= status && status <= 0x8F)
 			{  // ノートオフ
@@ -213,7 +246,14 @@ void SMFPlayer::Init()
 				uint8_t note{ br.Read<uint8_t>() };  // 音の高さ
 				uint8_t velocity{ br.Read<uint8_t>() };  // 音の強さ
 
-				LOGFLN("note on - channel:{}, note:{}, velo:{}", channel, note, velocity);
+				if (velocity == 0)
+				{
+					LOGFLN("note off - channel:{}, note:{}, velo:{}", channel, note, velocity);
+				}
+				else
+				{
+					LOGFLN("note on - channel:{}, note:{}, velo:{}", channel, note, velocity);
+				}
 			}
 		}
 	}
