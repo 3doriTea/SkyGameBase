@@ -93,13 +93,34 @@ void SMFPlayer::Init()
 		bool endOfTruckFlag{ false };
 		while (br.Current() < endOfTruckPos && !endOfTruckFlag)
 		{
-			uint8_t peekStatus{ br.Peek<uint8_t>() };
-
 			uint64_t delta{ ReadDelta(br) };
 			LOGFLN("DeltaTime:{}", delta);
 
-			uint8_t status{ br.Read<uint8_t>() };
-			LOGFLN("Status:{:x}", +status);
+			uint8_t status{};
+			uint8_t peekStatus{ br.Peek<uint8_t>() };
+			if (peekStatus < 0x80)  // ランニングステータス対策
+			{
+				// 0x80未満なら前回のを使う
+
+				if (prevStatus == 0x00)
+				{  // でも前回のがなかったらファイルがおかしい
+					wassert(false && "ランニングステータスないよ");
+					return;
+				}
+
+				status = prevStatus;
+				LOGFLN("StatusR:{:x}", +status);
+			}
+			else
+			{
+				status = br.Read<uint8_t>();
+				LOGFLN("Status:{:x}", +status);
+			}
+
+			if (status != 0xF0 && status != 0xF7)
+			{
+				prevStatus = status;  // SystemEx以外はランニングに使える
+			}
 
 			if (status == 0xFF)
 			{  // メタイベント
@@ -143,7 +164,7 @@ void SMFPlayer::Init()
 					uint8_t size{ br.Read<uint8_t>() };
 					uint8_t channel{ br.Read<uint8_t>() };
 					
-					LOGFLN("channel prefix port{} size{}", channel, size);
+					LOGFLN("channel prefix channel{} size{}", channel, size);
 					break;
 				}
 				case 0x21:  // MIDIポートプレフィックス
@@ -166,7 +187,12 @@ void SMFPlayer::Init()
 					std::array<Byte, 3> buff{};
 					br.Read(buff.data(), 3, 3);
 					std::array<Byte, 4> paste{ buff[2], buff[1], buff[0], 0x00 };
-					uint32_t tempo = *(reinterpret_cast<uint32_t*>(paste.data()));
+					uint32_t tempo
+					{
+						(static_cast<uint32_t>(buff[0]) << 16) |
+						(static_cast<uint32_t>(buff[1]) << 8) |
+						(static_cast<uint32_t>(buff[2]) << 0)
+					};
 
 					LOGFLN("set tempo:{}", tempo);
 					break;
@@ -222,13 +248,13 @@ void SMFPlayer::Init()
 				uint8_t channel{ static_cast<uint8_t>(status - 0xE0) };
 				uint8_t leftSide{ br.Read<uint8_t>() };
 				uint8_t rightSide{ br.Read<uint8_t>() };
-				uint16_t value{ static_cast<uint16_t>(rightSide) << 7 | leftSide };
+				uint16_t value{ static_cast<uint16_t>(static_cast<uint16_t>(rightSide) << 7 | leftSide) };
 
 				LOGFLN("Pitch bend - channel:{}, LSB:{:x}, MSB:{:x}", channel, leftSide, rightSide);
 			}
 			else if (0xA0 <= status && status <= 0xAF)
 			{  // キープレッシャー
-				uint8_t channel{ status - 0xA0 };
+				uint8_t channel{ static_cast<uint8_t>(status - 0xA0) };
 				uint8_t note{ br.Read<uint8_t>() };
 				uint8_t press{ br.Read<uint8_t>() };
 
@@ -259,7 +285,7 @@ void SMFPlayer::Init()
 			}
 			else
 			{
-
+				wassert(false && "未対応のフォーマット");
 			}
 		}
 	}
