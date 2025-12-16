@@ -25,6 +25,7 @@ wtgb::GameObject::GameObject(const fs::path& _prefab)
 	{
 		//component.
 	}
+	// TODO: コンポーネント側でなんの文字列キーでなんの値を要求するかを書いてしまえばok！
 	j.at("GameObjectProperty");
 }
 

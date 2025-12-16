@@ -35,6 +35,7 @@
     <ClInclude Include="Library\mtbin\mtbin.h" />
     <ClInclude Include="Library\mtbin\Util.h" />
     <ClInclude Include="pch\framework.h" />
+    <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
     <ClInclude Include="Source\Note.h" />
@@ -69,6 +70,7 @@
     <ClInclude Include="wtgb\CoreType\Collection\HandlerCollection.h" />
     <ClInclude Include="wtgb\CoreType\Color.h" />
     <ClInclude Include="wtgb\CoreType\CoreType.h" />
+    <ClInclude Include="wtgb\CoreType\ExtJson\Vector3.h" />
     <ClInclude Include="wtgb\CoreType\Handler.h" />
     <ClInclude Include="wtgb\CoreType\ICoreType.h" />
     <ClInclude Include="wtgb\CoreType\Matrix4x4.h" />

@@ -49,9 +49,7 @@
 #pragma comment(lib, "DirectXTex.lib")
 
 // json
-#include "Library/nlohmann/json.hpp"
-
-using json = nlohmann::json;
+#include "LibHeader/NlohmannJson.h"
 
 #define USE_FBX_SDK
 
