@@ -13,7 +13,9 @@
 
 #include "Core/ComponentSetter.h"
 
-wtgb::GameObject::GameObject(const fs::path& _prefabJson)
+wtgb::GameObject::GameObject(const fs::path& _prefabJson) :
+	entityId_{ System().Get<ComponentManager>().GetPrevEntity() },
+	toDestroy_{ false }
 {
 	Scriptable& scriptable{ System().Get<Scriptable>() };
 

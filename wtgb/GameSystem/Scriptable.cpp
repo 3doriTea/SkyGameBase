@@ -64,5 +64,5 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 				.EndSetter();
 		}
 	}
-	j.at("GameObjectProperty");
+	_builder.Build();
 }
