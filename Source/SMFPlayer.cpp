@@ -2,6 +2,157 @@
 #include "SMFPlayer.h"
 #include <bit>
 
+
+namespace
+{
+	const uint8_t C4_60_NUM{ 0x3C };
+	const size_t C4_60_INDEX{ 39 };
+
+	const std::array<float, 88> HZ
+	{
+		27.500f,  // ラ0
+		29.135f,
+		30.868f,
+		32.703f,
+		34.648f,
+		36.708f,
+		38.891f,
+		41.203f,
+		43.654f,
+		46.249f,
+		48.999f,
+		51.913f,
+		55.000f,
+		58.270f,
+		61.735f,
+		65.406f,
+		69.296f,
+		73.416f,
+		77.782f,
+		82.407f,
+		87.307f,
+		92.499f,
+		97.999f,
+		103.826f,
+		110.000f,
+		116.541f,
+		123.471f,
+		130.813f,
+		138.591f,
+		146.832f,
+		155.563f,
+		164.814f,
+		174.614f,
+		184.997f,
+		195.998f,
+		207.652f,
+		220.000f,
+		233.082f,
+		246.942f,
+		261.626f,
+		277.183f,
+		293.665f,
+		311.127f,
+		329.628f,
+		349.228f,
+		369.994f,
+		391.995f,
+		415.305f,
+		440.000f,
+		466.164f,
+		493.883f,
+		523.251f,
+		554.365f,
+		587.330f,
+		622.254f,
+		659.255f,
+		698.456f,
+		739.989f,
+		783.991f,
+		830.609f,
+		880.000f,
+		932.328f,
+		987.767f,
+		1046.502f,
+		1108.731f,
+		1174.659f,
+		1244.508f,
+		1318.510f,
+		1396.913f,
+		1479.978f,
+		1567.982f,
+		1661.219f,
+		1760.000f,
+		1864.655f,
+		1975.533f,
+		2093.005f,
+		2217.461f,
+		2349.318f,
+		2489.016f,
+		2637.020f,
+		2793.826f,
+		2959.955f,
+		3135.963f,
+		3322.438f,
+		3520.000f,
+		3729.310f,
+		3951.066f,
+		4186.009f,  // ド8
+	};
+
+	uint8_t TEST_SMF[]
+	{
+		// === MThd チャンク (MIDI Header) ===
+		0x4D, 0x54, 0x68, 0x64, // MThd (Header Marker)
+		0x00, 0x00, 0x00, 0x06, // Length (6 bytes)
+		0x00, 0x01,             // Format 1 (Multi-track)
+		0x00, 0x02,             // Num Tracks (2)
+		0x01, 0xE0,             // Division (480 ticks per quarter note)
+
+		// === MTrk チャンク 0 (テンポ/設定) ===
+		0x4D, 0x54, 0x72, 0x6B, // MTrk (Track Marker)
+		0x00, 0x00, 0x00, 0x1B, // Length (27 bytes)
+
+		// 0ティック: シーケンス名
+		0x00, 0xFF, 0x03, 0x0A, 0x54, 0x65, 0x73, 0x74, 0x20, 0x43, 0x68, 0x6F, 0x72, 0x64, // "Test Chord"
+
+		// 0ティック: テンポ設定 (120 BPM = 500,000 マイクロ秒/四分音符)
+		0x00, 0xFF, 0x51, 0x03, 0x07, 0xA1, 0x20,
+
+		// 0ティック: トラック終端
+		0x00, 0xFF, 0x2F, 0x00,
+
+		// === MTrk チャンク 1 (ノートデータ) ===
+		0x4D, 0x54, 0x72, 0x6B, // MTrk (Track Marker)
+		0x00, 0x00, 0x00, 0x24, // Length (36 bytes)
+
+		// 0ティック: 楽器設定 (Ch 1 -> Grand Piano 1)
+		0x00, 0xC0, 0x00,
+
+		// 0ティック: NOTE ON (C4 - 60, Velocity 100)
+		0x00, 0x90, 0x3C, 0x64,
+
+		// 0ティック: NOTE ON (E4 - 64, Velocity 100)
+		0x00, 0x90, 0x40, 0x64,
+
+		// 0ティック: NOTE ON (G4 - 67, Velocity 100)
+		0x00, 0x90, 0x43, 0x64,
+
+		// 1920ティック (可変長表現 83 60)
+		// NOTE OFF (C4 - 60)
+		0x83, 0x60, 0x80, 0x3C, 0x00,
+
+		// 0ティック: NOTE OFF (E4 - 64) (Running Status使用)
+		0x00, 0x40, 0x00,
+
+		// 0ティック: NOTE OFF (G4 - 67) (Running Status使用)
+		0x00, 0x43, 0x00,
+
+		// 0ティック: トラック終端
+		0x00, 0xFF, 0x2F, 0x00
+	};
+}
+
 SMFPlayer::SMFPlayer(const fs::path& _file) : GameObject
 {
 	[](GameObjectBuilder& _builder)
@@ -13,7 +164,11 @@ SMFPlayer::SMFPlayer(const fs::path& _file) : GameObject
 		.Build();
 	}
 },
-	file_{ _file }
+	file_{ _file },
+	readCurr_{},
+	hTone_{},
+	playTime_{},
+	toneSampleRateHz_{}
 {
 }
 
@@ -49,7 +204,8 @@ void SMFPlayer::Init()
 	};
 	smf.close();  // ファイルは見終わったから閉じる
 
-	BinaryReader br{ fileBuffer.data(), fileBuffer.size() };
+	//BinaryReader br{ fileBuffer.data(), fileBuffer.size() };
+	BinaryReader br{ reinterpret_cast<mtbin::Byte*>(TEST_SMF), sizeof(TEST_SMF) };
 	br.Seek(SeekAt::Head);
 
 	std::array<Byte, 4> buff4{};
@@ -168,6 +324,11 @@ void SMFPlayer::Init()
 					std::vector<char> textBuffer(size, '\0');
 					br.Read(textBuffer.data(), size, size);
 
+					if (subStatus == 0x03)
+					{
+						truckGen.SetName(textBuffer.data());
+					}
+
 					LOGFLN("{:x}:{}", subStatus, textBuffer.data());
 					break;
 				}
@@ -215,7 +376,7 @@ void SMFPlayer::Init()
 					std::vector<char> textBuffer(size, '\0');
 
 					br.Read(textBuffer.data(), size, size);
-					LOGFLN("???{:x}:{}", subStatus, textBuffer.data());
+					//LOGFLN("???{:x}:{}", subStatus, textBuffer.data());
 					break;
 				}
 				}
@@ -309,10 +470,70 @@ void SMFPlayer::Init()
 		truckId++;
 	}
 #pragma endregion
+
+	readCurr_.resize(truckCount, 0);
+
+	Audio& audio{ System().Get<Audio>() };
+	hTone_[0] = audio.Load("Sound/maou_se_inst_piano2_1do.mp3");
+
+	toneSampleRateHz_ = audio.GetFormat(hTone_[0]).nSamplesPerSec;
 }
 
 void SMFPlayer::Update()
 {
+	float dt{ System().Get<GameTime>().GetDeltaTime() };
+	Audio& audio{ System().Get<Audio>() };
+
+	playTime_ += dt * 5.0f;
+
+	for (int truckId = 0; truckId < smfTrucks_.size(); truckId++)
+	{
+		/*if (truckId != 7)
+		{
+			continue;
+		}*/
+
+		if (readCurr_[truckId] >= smfTrucks_[truckId].notes.size())
+		{
+			//LOGFLN("readed");
+			continue;
+		}
+		while (playTime_ >= smfTrucks_[truckId].notes.at(readCurr_[truckId]).totalTime)
+		{
+			const Note& note{ smfTrucks_[truckId].notes.at(readCurr_[truckId]) };
+			readCurr_[truckId]++;
+
+			//if (note.channel == 1)
+			{
+				LOGFLN("on:{} channel:{}", static_cast<int>(note.noteNumber), note.channel);
+
+				size_t toneHzIndex{ note.noteNumber - C4_60_NUM + C4_60_INDEX };
+
+				if (toneHzIndex < 0 || HZ.size() <= toneHzIndex)
+				{
+					continue;
+				}
+
+				float targetHz{ HZ[toneHzIndex] };
+
+				float sourceHz{ HZ[C4_60_INDEX] };
+
+				float ratio{ targetHz / sourceHz };
+
+				float sampleRate{ static_cast<float>(toneSampleRateHz_) * ratio };
+
+				if (sampleRate <= 192000.0f)
+				{
+					audio.Play(hTone_[0], sampleRate);
+				}
+			}
+
+			if (readCurr_[truckId] >= smfTrucks_[truckId].notes.size())
+			{
+				break;
+			}
+		}
+	}
 }
 
 void SMFPlayer::Release()
@@ -341,6 +562,11 @@ uint64_t SMFPlayer::ReadDelta(mtbin::BinaryReader& _br)
 	//std::reverse(buff.begin(), buff.end());
 
 	return *(reinterpret_cast<uint64_t*>(buff.data()));
+}
+
+void SMFPlayer::TruckGenerater::SetName(const std::string& _name)
+{
+	truck_.name = _name;
 }
 
 void SMFPlayer::TruckGenerater::SetTempo(const uint32_t _value)

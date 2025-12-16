@@ -17,6 +17,11 @@ namespace wtgb
 		/// </summary>
 		/// <returns>‘Ä¶ŠÔ(•b)</returns>
 		float GetTotalTimeSec() const;
+		/// <summary>
+		/// ‘Ä¶ŠÔ‚ğæ“¾‚·‚é
+		/// </summary>
+		/// <returns>‘Ä¶ŠÔ(•b)</returns>
+		//static float GetTotalTimeSec(const WAVEFORMATEX& _format);
 
 		inline size_t GetBufferSize() const { return buffer_.size(); }
 		inline const int8_t* GetBufferData() const { return buffer_.data(); }

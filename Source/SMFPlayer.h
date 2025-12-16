@@ -60,6 +60,7 @@ public:
 		{}
 		~TruckGenerater() {}
 
+		void SetName(const std::string& _name);
 		void SetTempo(const uint32_t _value);
 		void On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity);
 
@@ -86,4 +87,9 @@ private:
 	fs::path file_;
 	Header smfHeader_;  // smfのヘッダデータ
 	std::vector<Truck> smfTrucks_;  // smfのトラックデータ
+	float playTime_;  // 再生時間
+	std::vector<size_t> readCurr_;
+
+	float toneSampleRateHz_;  // サンプルトーンの周波数
+	AudioHandle hTone_[1];
 };

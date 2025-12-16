@@ -38,7 +38,7 @@ void Piano::Update()
 
 	if (input.IsKeyDown(KeyCode::Y))
 	{
-		audio.Play(hTestAudio_);
+		//audio.Play(hTestAudio_);
 	}
 }
 

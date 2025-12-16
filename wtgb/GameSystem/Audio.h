@@ -47,12 +47,18 @@ namespace wtgb
 		/// 予め読み込んだ音声を再生
 		/// </summary>
 		/// <param name="_hAudio">音声ハンドル</param>
-		void Play(const AudioHandle _hAudio);
+		void Play(const AudioHandle _hAudio, const unsigned long _samplePerSec = 0);
 		/// <summary>
 		/// 即読み込んで再生する
 		/// </summary>
 		/// <param name="_audioFileName">音声ファイルパス</param>
 		void PlayOneShot(const fs::path& _audioFileName);
+
+		/// <summary>
+		/// 読み込んだフォーマットを取得する
+		/// </summary>
+		/// <returns>読み込んだフォーマット</returns>
+		WAVEFORMATEX GetFormat(const AudioHandle _hAudio) const;
 
 	private:
 		ComPtr<IXAudio2> pXAudio2_;  // XAudio2本体のインタフェース
