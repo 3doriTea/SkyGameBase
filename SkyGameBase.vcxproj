@@ -65,6 +65,7 @@
     <ClInclude Include="Source\SampleSkyCombat.h" />
     <ClInclude Include="Source\SkyGameBase.h" />
     <ClInclude Include="Source\UI\NumberPlate.h" />
+    <ClInclude Include="Source\UI\TitleNeco.h" />
     <ClInclude Include="wtgb\CoreType\Collection\HandlerCollection.h" />
     <ClInclude Include="wtgb\CoreType\Color.h" />
     <ClInclude Include="wtgb\CoreType\CoreType.h" />

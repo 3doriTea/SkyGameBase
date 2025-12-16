@@ -26,7 +26,8 @@ SampleScene::SampleScene() : GameScene
 void SampleScene::Start()
 {
 	//Instantiate<SMFPlayer>("Sound/entertainer.mid");
-	Instantiate<SMFPlayer>("Sound/gekkou1-rei.MID");
+	//Instantiate<SMFPlayer>("Sound/gekkou1-rei.MID");
+	Instantiate<SMFPlayer>("Sound/entertainer.mid");
 
 	System().Get<Camera>().position_ = { 0, 0, -10.0f };
 	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };
