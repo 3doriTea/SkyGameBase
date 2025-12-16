@@ -3,6 +3,8 @@
 
 namespace wtgb
 {
+	class GameObjectBuilder;
+
 	class Scriptable : public IGameSystem
 	{
 	public:
@@ -21,7 +23,11 @@ namespace wtgb
 
 		void End() override;
 
+		void LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectBuilder& _builder);
+
+		inline ViewerCached& System() { return system_; }
+
 	private:
-		
+		ViewerCached system_;
 	};
 }

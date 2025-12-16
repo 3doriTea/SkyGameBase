@@ -36,6 +36,8 @@
 #include "GameSystem/Path.h"
 #include "GameSystem/ShaderCompile.h"
 
+#include "GameSystem/Scriptable.h"
+
 using namespace wtgb;
 
 void SampleGame::StartRegister(
@@ -72,6 +74,9 @@ void SampleGame::StartRegister(
 
 		// NOTE: ComponentManagerを追加してから 各ComponentPoolシステムを追加する
 		.Register<ComponentManager>()
+
+		// NOTE: ComponentManagerを追加した次にスクリプタブルを追加する
+		.Register<Scriptable>()
 
 		.Register<CPGameObject>()
 		.Register<CPGameObjectProperty>()

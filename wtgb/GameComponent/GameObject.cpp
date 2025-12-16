@@ -9,24 +9,16 @@
 #include "GameSystem/CPGameObjectProperty.h"
 //#include "CPTransform.h"
 #include "GameSystem/ComponentManager.h"
+#include "GameSystem/Scriptable.h"
 
 #include "Core/ComponentSetter.h"
 
-wtgb::GameObject::GameObject(const fs::path& _prefab)
+wtgb::GameObject::GameObject(const fs::path& _prefabJson)
 {
-	ComponentManager& cm{ System().Get<ComponentManager>() };
+	Scriptable& scriptable{ System().Get<Scriptable>() };
 
-	std::ifstream ifs{ "./Prefab" / _prefab };
-
-	json j{};
-	ifs >> j;
-
-	for (auto component : j)
-	{
-		//component.
-	}
-	// TODO: コンポーネント側でなんの文字列キーでなんの値を要求するかを書いてしまえばok！
-	j.at("GameObjectProperty");
+	GameObjectBuilder builder{ *this };
+	scriptable.LoadPrefabFromJson(_prefabJson, builder);
 }
 
 

@@ -267,6 +267,7 @@
     <ClCompile Include="Source\SampleScene\SampleScene.cpp" />
     <ClCompile Include="Source\SkyGameBase.cpp" />
     <ClCompile Include="Source\UI\NumberPlate.cpp" />
+    <ClCompile Include="Source\UI\TitleNeco.cpp" />
     <ClCompile Include="wtgb\Core\GameObjectBuilder.cpp" />
     <ClCompile Include="wtgb\Core\GameScene.cpp" />
     <ClCompile Include="wtgb\GameComponent\Collider.cpp" />
