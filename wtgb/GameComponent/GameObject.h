@@ -45,6 +45,7 @@ namespace wtgb
 		GameObject();
 
 	public:
+		GameObject(const fs::path& _prefab);
 		GameObject(std::function<void(GameObjectBuilder&)>);
 		virtual ~GameObject();
 

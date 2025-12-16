@@ -12,6 +12,23 @@
 
 #include "Core/ComponentSetter.h"
 
+wtgb::GameObject::GameObject(const fs::path& _prefab)
+{
+	ComponentManager& cm{ System().Get<ComponentManager>() };
+
+	std::ifstream ifs{ "./Prefab" / _prefab };
+
+	json j{};
+	ifs >> j;
+
+	for (auto component : j)
+	{
+		//component.
+	}
+	j.at("GameObjectProperty");
+}
+
+
 wtgb::GameObject::GameObject() : 
 	GameObject{ [](GameObjectBuilder&){} }
 {

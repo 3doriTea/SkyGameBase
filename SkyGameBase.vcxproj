@@ -150,6 +150,7 @@
     <ClInclude Include="wtgb\GameSystem\Path.h" />
     <ClInclude Include="wtgb\GameSystem\ResourceSystem.h" />
     <ClInclude Include="wtgb\GameSystem\ResourceSystem\TextureConfig.h" />
+    <ClInclude Include="wtgb\GameSystem\Scriptable.h" />
     <ClInclude Include="wtgb\GameSystem\ShaderCompile\Shader.h" />
     <ClInclude Include="wtgb\Utility\CallStackViewer.h" />
     <ClInclude Include="wtgb\Utility\IResource.h" />
@@ -314,6 +315,7 @@
     <ClCompile Include="wtgb\GameSystem\Path.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem\Texture.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Scriptable.cpp" />
     <ClCompile Include="wtgb\GameSystem\ShaderCompile\Shader.cpp" />
     <ClCompile Include="wtgb\Utility\CallStackViewer.cpp" />
     <ClCompile Include="wtgb\Utility\IResource.cpp" />
