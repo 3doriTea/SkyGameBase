@@ -39,6 +39,11 @@ wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const fs::path& _fileName)
 		});
 }
 
+wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const std::string& _fileName)
+{
+	return LoadTexture(fs::path{ _fileName });
+}
+
 wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const Texture::Config& _config)
 {
 	ID3D11Device* pDevice{ system_.Get<Direct3D>().Resource().Device() };

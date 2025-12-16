@@ -9,6 +9,8 @@
 #include "../PlayScene/PlayScene.h"
 #include "../PlayScene/CameraController.h"
 
+#include "../UI/TitleNeco.h"
+
 #include "Piano.h"
 #include "../SMFPlayer.h"
 
@@ -27,6 +29,7 @@ void SampleScene::Start()
 {
 	//Instantiate<SMFPlayer>("Sound/entertainer.mid");
 	//Instantiate<SMFPlayer>("Sound/gekkou1-rei.MID");
+	Instantiate<TitleNeco>();
 	Instantiate<SMFPlayer>("Sound/entertainer.mid");
 
 	System().Get<Camera>().position_ = { 0, 0, -10.0f };

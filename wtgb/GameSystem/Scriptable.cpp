@@ -1,3 +1,4 @@
+#include "pch/pch.h"
 #include "Scriptable.h"
 #include "Core/GameObjectBuilder.h"
 

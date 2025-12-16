@@ -1,4 +1,5 @@
 #pragma once
+#include "LibHeader/FileSystem.h"
 #include "Core/IGameSystem.h"
 #include "ResourceSystem/Texture.h"
 
@@ -38,6 +39,12 @@ namespace wtgb
 		/// <param name="_fileName">テクスチャの画像ファイル名</param>
 		/// <returns>テクスチャのハンドル</returns>
 		TextureHandle LoadTexture(const fs::path& _fileName);
+		/// <summary>
+		/// テクスチャを読み込む
+		/// </summary>
+		/// <param name="_fileName">テクスチャの画像ファイル名</param>
+		/// <returns>テクスチャのハンドル</returns>
+		TextureHandle LoadTexture(const std::string& _fileName);
 
 		/// <summary>
 		/// テクスチャを設定

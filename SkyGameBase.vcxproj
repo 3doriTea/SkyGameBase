@@ -35,6 +35,7 @@
     <ClInclude Include="Library\mtbin\mtbin.h" />
     <ClInclude Include="Library\mtbin\Util.h" />
     <ClInclude Include="pch\framework.h" />
+    <ClInclude Include="wtgb\LibHeader\FileSystem.h" />
     <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
