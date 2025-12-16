@@ -168,7 +168,8 @@ SMFPlayer::SMFPlayer(const fs::path& _file) : GameObject
 	readCurr_{},
 	hTone_{},
 	playTime_{},
-	toneSampleRateHz_{}
+	toneSampleRateHz_{},
+	onNoteCallback_{ [](const Note&){} }
 {
 }
 
@@ -204,8 +205,8 @@ void SMFPlayer::Init()
 	};
 	smf.close();  // ファイルは見終わったから閉じる
 
-	//BinaryReader br{ fileBuffer.data(), fileBuffer.size() };
-	BinaryReader br{ reinterpret_cast<mtbin::Byte*>(TEST_SMF), sizeof(TEST_SMF) };
+	BinaryReader br{ fileBuffer.data(), fileBuffer.size() };
+	//BinaryReader br{ reinterpret_cast<mtbin::Byte*>(TEST_SMF), sizeof(TEST_SMF) };
 	br.Seek(SeekAt::Head);
 
 	std::array<Byte, 4> buff4{};
@@ -321,6 +322,10 @@ void SMFPlayer::Init()
 				case 0x0f:
 				{
 					int size{ static_cast<int>(ReadDelta(br)) };
+					if (size == 0)
+					{
+						break;
+					}
 					std::vector<char> textBuffer(size, '\0');
 					br.Read(textBuffer.data(), size, size);
 
@@ -484,18 +489,12 @@ void SMFPlayer::Update()
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	Audio& audio{ System().Get<Audio>() };
 
-	playTime_ += dt * 5.0f;
+	playTime_ += dt * 1.0f;
 
 	for (int truckId = 0; truckId < smfTrucks_.size(); truckId++)
 	{
-		/*if (truckId != 7)
-		{
-			continue;
-		}*/
-
 		if (readCurr_[truckId] >= smfTrucks_[truckId].notes.size())
 		{
-			//LOGFLN("readed");
 			continue;
 		}
 		while (playTime_ >= smfTrucks_[truckId].notes.at(readCurr_[truckId]).totalTime)
@@ -503,30 +502,11 @@ void SMFPlayer::Update()
 			const Note& note{ smfTrucks_[truckId].notes.at(readCurr_[truckId]) };
 			readCurr_[truckId]++;
 
-			//if (note.channel == 1)
-			{
-				LOGFLN("on:{} channel:{}", static_cast<int>(note.noteNumber), note.channel);
+			onNoteCallback_(note);
 
-				size_t toneHzIndex{ note.noteNumber - C4_60_NUM + C4_60_INDEX };
+			LOGFLN("on:{} channel:{}", static_cast<int>(note.noteNumber), note.channel);
 
-				if (toneHzIndex < 0 || HZ.size() <= toneHzIndex)
-				{
-					continue;
-				}
-
-				float targetHz{ HZ[toneHzIndex] };
-
-				float sourceHz{ HZ[C4_60_INDEX] };
-
-				float ratio{ targetHz / sourceHz };
-
-				float sampleRate{ static_cast<float>(toneSampleRateHz_) * ratio };
-
-				if (sampleRate <= 192000.0f)
-				{
-					audio.Play(hTone_[0], sampleRate);
-				}
-			}
+			PlayTone(note);
 
 			if (readCurr_[truckId] >= smfTrucks_[truckId].notes.size())
 			{
@@ -542,26 +522,67 @@ void SMFPlayer::Release()
 
 uint64_t SMFPlayer::ReadDelta(mtbin::BinaryReader& _br)
 {
-	std::array<int8_t, sizeof(uint64_t)> buff{};
+	uint64_t value = 0;
+	uint8_t currentByte;
 
-	char miniBuff{};
-	miniBuff = _br.Read<char>();
-	int index{ 0 };
+	do {
+		currentByte = _br.Read<uint8_t>();
 
-	buff[index] = miniBuff & 0b0111'1111;
-	index++;
+		// 組み立て中の値(value)を7ビット左にシフトする
+		value <<= 7;
 
-	while (miniBuff < 0)
-	{  // 最上位ビットが立っているから次も拾う
-		miniBuff = _br.Read<char>();
-		buff[index] = miniBuff & 0b0111'1111;
-		
-		index++;
+		// 読み取ったバイトの下位7ビットを論理和で追加する
+		value |= (currentByte & 0x7F);
+
+	} while (currentByte & 0x80); // MSB(0x80)が立っている間はループを続ける
+
+	return value;
+	
+	//std::array<int8_t, sizeof(uint64_t)> buff{};
+
+	//char miniBuff{};
+	//miniBuff = _br.Read<char>();
+	//int index{ 0 };
+
+	//buff[index] = miniBuff & 0b0111'1111;
+	//index++;
+
+	//while (miniBuff < 0)
+	//{  // 最上位ビットが立っているから次も拾う
+	//	miniBuff = _br.Read<char>();
+	//	buff[index] = miniBuff & 0b0111'1111;
+	//	
+	//	index++;
+	//}
+
+	////std::reverse(buff.begin(), buff.end());
+
+	//return *(reinterpret_cast<uint64_t*>(buff.data()));
+}
+
+void SMFPlayer::PlayTone(const Note& _note)
+{
+	Audio& audio{ System().Get<Audio>() };
+
+	size_t toneHzIndex{ _note.noteNumber - C4_60_NUM + C4_60_INDEX };
+
+	if (toneHzIndex < 0 || HZ.size() <= toneHzIndex)
+	{
+		return;
 	}
 
-	//std::reverse(buff.begin(), buff.end());
+	float targetHz{ HZ[toneHzIndex] };
 
-	return *(reinterpret_cast<uint64_t*>(buff.data()));
+	float sourceHz{ HZ[C4_60_INDEX] };
+
+	float ratio{ targetHz / sourceHz };
+
+	float sampleRate{ static_cast<float>(toneSampleRateHz_) * ratio };
+
+	if (sampleRate <= 192000.0f)
+	{
+		audio.Play(hTone_[0], _note.playTime, sampleRate);
+	}
 }
 
 void SMFPlayer::TruckGenerater::SetName(const std::string& _name)
@@ -571,25 +592,24 @@ void SMFPlayer::TruckGenerater::SetName(const std::string& _name)
 
 void SMFPlayer::TruckGenerater::SetTempo(const uint32_t _value)
 {
-	const float MICRO_TO_SEC{ 0.0000001f };
+	const float MICRO_TO_SEC{ 0.000001f };
 	quarterSec_ = static_cast<float>(_value) * MICRO_TO_SEC;
 }
 
 void SMFPlayer::TruckGenerater::On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
-	// 時間を進める
-	float currTime{ prevTime_ + dtSum_ };
-	
 	truck_.notes.push_back(
 		{
-			currTime,
+			currentTime_,
 			_channel,
 			_note,
 			_velocity
 		});
+}
 
-	prevTime_ = currTime;
-	dtSum_ = 0.0f;
+void SMFPlayer::TruckGenerater::Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
+{
+	
 }
 
 void SMFPlayer::TruckGenerater::AddDeltaTime(const uint64_t _dt)
@@ -601,7 +621,7 @@ void SMFPlayer::TruckGenerater::AddDeltaTime(const uint64_t _dt)
 	wassert(quarterSec_ != 0);
 	float dtSec{ static_cast<float>(_dt) / static_cast<float>(HEADER_.quaterUnit) * quarterSec_ };
 	// デルタタイムを秒数で加算する
-	dtSum_ += dtSec;
+	currentTime_ += dtSec;
 }
 
 float SMFPlayer::TruckGenerater::quarterSec_{ 0.0f };

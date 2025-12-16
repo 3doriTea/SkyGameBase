@@ -139,7 +139,7 @@ wtgb::AudioHandle wtgb::Audio::Load(const fs::path& _audioFileName)
 	return hAudio;
 }
 
-void wtgb::Audio::Play(const AudioHandle _hAudio, const unsigned long _samplePerSec)
+void wtgb::Audio::Play(const AudioHandle _hAudio, const float _time, const unsigned long _samplePerSec)
 {
 	const AudioClip& clip{ audioClips_.At(_hAudio) };
 
@@ -161,12 +161,10 @@ void wtgb::Audio::Play(const AudioHandle _hAudio, const unsigned long _samplePer
 	}
 
 	SourceVoiceIndex index = audioPlayer_.Play(
-		clip.GetTotalTimeSec(),
+		_time == 0.0f ? clip.GetTotalTimeSec() : _time,
 		BUFFER,
 		format,
 		*this);
-
-	//LOGFLN("totalplaysec:{}", clip.GetTotalTimeSec());
 
 	wassert(index >= 0 && "Ä¶‚ÉŽ¸”s");
 }

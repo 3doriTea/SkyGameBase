@@ -1,32 +1,11 @@
 #pragma once
 #include <wtgb.h>
+#include "Note.h"
 
 
 class SMFPlayer : public GameObject
 {
 public:
-	struct Note
-	{
-		Note() :
-			Note{ 0.0f, 0, 0, 0 }
-		{}
-		Note(
-			float _totalTime,
-			uint8_t _channel,
-			uint8_t _noteNumber,
-			uint8_t _velocity) :
-			totalTime{ _totalTime },
-			channel{ _channel },
-			noteNumber{ _noteNumber },
-			velocity{ _velocity }
-		{}
-		float totalTime;     // 絶対的な時間
-		//float diffTime;    // 前回のノーツとの相対的な時間
-		uint8_t channel;     // チャンネル
-		uint8_t noteNumber;  // 音の高さ
-		uint8_t velocity;    // 音の強さ
-	};
-	
 	struct Header
 	{
 		Header() :
@@ -55,22 +34,21 @@ public:
 		TruckGenerater(Truck& _truck, const Header& _header) :
 			HEADER_{ _header },
 			truck_{ _truck },
-			prevTime_{ 0.0f },
-			dtSum_{ 0.0f }
+			currentTime_{ 0.0f }
 		{}
 		~TruckGenerater() {}
 
 		void SetName(const std::string& _name);
 		void SetTempo(const uint32_t _value);
 		void On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity);
+		void Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity);
 
 		void AddDeltaTime(const uint64_t _dt);
 
 	private:
 		const Header& HEADER_;  // ヘッダへの参照
 		static float quarterSec_;      // 四分音符の秒数
-		float dtSum_;            // デルタタイムの合計
-		float prevTime_;           // 前の加算タイマ
+		float currentTime_;           // 加算タイマ
 		Truck& truck_;          // 作るトラック
 	};
 
@@ -78,12 +56,26 @@ public:
 	SMFPlayer(const fs::path& _file);
 	~SMFPlayer();
 
+	/// <summary>
+	/// ノーツが来たときの処理
+	/// </summary>
+	/// <param name="_callback"></param>
+	void OnNote(const std::function<void(const Note&)> _callback);
+
 	void Init() override;
 	void Update() override;
 	void Release() override;
 
 	uint64_t ReadDelta(mtbin::BinaryReader& _br);
+
+	/// <summary>
+	/// ノーツを再生する
+	/// </summary>
+	/// <param name="_note"></param>
+	void PlayTone(const Note& _note);
+
 private:
+	std::function<void(const Note&)> onNoteCallback_;
 	fs::path file_;
 	Header smfHeader_;  // smfのヘッダデータ
 	std::vector<Truck> smfTrucks_;  // smfのトラックデータ

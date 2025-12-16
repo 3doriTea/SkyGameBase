@@ -37,6 +37,7 @@
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="pch\targetver.h" />
+    <ClInclude Include="Source\Note.h" />
     <ClInclude Include="Source\PlayScene\DebugPoint.h" />
     <ClInclude Include="Source\PlayScene\CameraController.h" />
     <ClInclude Include="Source\PlayScene\CameraController\CameraMoveFree.h" />

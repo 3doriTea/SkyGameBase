@@ -46,8 +46,10 @@ namespace wtgb
 		/// <summary>
 		/// 予め読み込んだ音声を再生
 		/// </summary>
-		/// <param name="_hAudio">音声ハンドル</param>
-		void Play(const AudioHandle _hAudio, const unsigned long _samplePerSec = 0);
+		/// <param name="_hAudio">音声のハンドル</param>
+		/// <param name="_time">再生時間</param>
+		/// <param name="_samplePerSec">サンプリング周波数</param>
+		void Play(const AudioHandle _hAudio, const float _time = 0.0f, const unsigned long _samplePerSec = 0);
 		/// <summary>
 		/// 即読み込んで再生する
 		/// </summary>

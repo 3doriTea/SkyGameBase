@@ -25,23 +25,24 @@ SampleScene::SampleScene() : GameScene
 
 void SampleScene::Start()
 {
-	Instantiate<SMFPlayer>("Sound/entertainer.mid");
+	//Instantiate<SMFPlayer>("Sound/entertainer.mid");
+	Instantiate<SMFPlayer>("Sound/gekkou1-rei.MID");
 
-	/*System().Get<Camera>().position_ = { 0, 0, -10.0f };
-	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };*/
+	System().Get<Camera>().position_ = { 0, 0, -10.0f };
+	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };
 
-	Instantiate<Piano>();
+	//Instantiate<Piano>();
 
-	EntityId eNumberPlate{ Instantiate<NumberPlate>() };
+	//EntityId eNumberPlate{ Instantiate<NumberPlate>() };
 
-	Instantiate<TestArrowUI>(eNumberPlate);
+	//Instantiate<TestArrowUI>(eNumberPlate);
 
-	EntityId pRoot = Instantiate<Player>(INVALID_ENTITY, Vector3::Zero());
-	//pRoot = INVALID_ENTITY;
-	EntityId pChild1 = Instantiate<Player>(pRoot, Vector3{ 3.0f, 2.0f, 0.0 });
-	//pChild1 = INVALID_ENTITY;
-	EntityId pChild2 = Instantiate<Player>(pChild1, Vector3{ 3.0f, 2.0f, 0.0 });
-	Instantiate<CameraController>();
+	//EntityId pRoot = Instantiate<Player>(INVALID_ENTITY, Vector3::Zero());
+	////pRoot = INVALID_ENTITY;
+	//EntityId pChild1 = Instantiate<Player>(pRoot, Vector3{ 3.0f, 2.0f, 0.0 });
+	////pChild1 = INVALID_ENTITY;
+	//EntityId pChild2 = Instantiate<Player>(pChild1, Vector3{ 3.0f, 2.0f, 0.0 });
+	//Instantiate<CameraController>();
 }
 
 void SampleScene::Update()

@@ -54,7 +54,7 @@ void SampleGame::StartRegister(
 		.Register<Direct3D>()
 
 		// ImGui
-		.Register<ImGuiSystem>()
+		//.Register<ImGuiSystem>()
 
 		// “ü—ÍŒn
 		.Register<Cursor>()
