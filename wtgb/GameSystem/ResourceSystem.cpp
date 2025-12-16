@@ -27,11 +27,11 @@ void wtgb::ResourceSystem::End()
 		});
 }
 
-wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const std::string& _fileName)
+wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const fs::path& _fileName)
 {
 	return LoadTexture(Texture::Config
 		{
-			.fileName = _fileName,
+			.fileName = _fileName.string(),
 			.filer = D3D11_FILTER_MIN_MAG_MIP_LINEAR,    // 線形補間する
 			.addressMode = D3D11_TEXTURE_ADDRESS_CLAMP,  // 端っこは繰り返す
 			.format = DXGI_FORMAT_R8G8B8A8_UNORM,        // DXGIフォーマット

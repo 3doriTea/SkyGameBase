@@ -37,7 +37,7 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_fileName">テクスチャの画像ファイル名</param>
 		/// <returns>テクスチャのハンドル</returns>
-		TextureHandle LoadTexture(const std::string& _fileName);
+		TextureHandle LoadTexture(const fs::path& _fileName);
 
 		/// <summary>
 		/// テクスチャを設定
