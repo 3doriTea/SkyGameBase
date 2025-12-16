@@ -27,6 +27,8 @@ void SMFPlayer::Init()
 	using mtbin::util::CompareId;
 	using mtbin::util::Reverse;
 
+	smfHeader_ = {};
+
 	std::ifstream smf{ file_, std::ios::binary };
 
 	if (!smf)
@@ -69,11 +71,14 @@ void SMFPlayer::Init()
 	uint16_t truckCount{ br.ReadRev<uint16_t>() };
 	LOGFLN("truckCount:{}", truckCount);
 
+	smfTrucks_.resize(truckCount);
+
 	int16_t timeUnit{ br.ReadRev<int16_t>() };
 	if (timeUnit < 0)
 	{
 		wassert("分解能が何分何秒何フレームは対応していないよ");
 	}
+	smfHeader_.quaterUnit = timeUnit;
 	LOGFLN("timeUnit:{}", timeUnit);
 #pragma endregion
 
@@ -81,7 +86,6 @@ void SMFPlayer::Init()
 	int truckId{ 0 };
 	while (br.Current() < br.Size())
 	{
-		truckId++;
 		LOGFLN("--------------------truckCount:{} / {}--------------------", truckId, truckCount);
 		if (br.Read(buff4.data(), 4, 4); !CompareId(buff4, "MTrk"))
 		{
@@ -95,10 +99,13 @@ void SMFPlayer::Init()
 		uint8_t prevStatus{};  // ランニングステータス用
 		size_t endOfTruckPos{ br.Current() + headerSize };
 
+		TruckGenerater truckGen{ smfTrucks_.at(truckId), smfHeader_ };
+
 		bool endOfTruckFlag{ false };
 		while (br.Current() < endOfTruckPos && !endOfTruckFlag)
 		{
 			uint64_t delta{ ReadDelta(br) };
+			truckGen.AddDeltaTime(delta);
 			LOGFLN("DeltaTime:{}", delta);
 
 			uint8_t status{};
@@ -157,7 +164,7 @@ void SMFPlayer::Init()
 				case 0x0e:
 				case 0x0f:
 				{
-					uint64_t size{ ReadDelta(br) };
+					int size{ static_cast<int>(ReadDelta(br)) };
 					std::vector<char> textBuffer(size, '\0');
 					br.Read(textBuffer.data(), size, size);
 
@@ -191,7 +198,6 @@ void SMFPlayer::Init()
 					uint8_t size{ br.Read<uint8_t>() };
 					std::array<Byte, 3> buff{};
 					br.Read(buff.data(), 3, 3);
-					std::array<Byte, 4> paste{ buff[2], buff[1], buff[0], 0x00 };
 					uint32_t tempo
 					{
 						(static_cast<uint32_t>(buff[0]) << 16) |
@@ -199,12 +205,13 @@ void SMFPlayer::Init()
 						(static_cast<uint32_t>(buff[2]) << 0)
 					};
 
+					truckGen.SetTempo(tempo);
 					LOGFLN("set tempo:{}", tempo);
 					break;
 				}
 				default:
 				{
-					uint64_t size{ ReadDelta(br) };
+					int size{ static_cast<int>(ReadDelta(br)) };
 					std::vector<char> textBuffer(size, '\0');
 
 					br.Read(textBuffer.data(), size, size);
@@ -215,7 +222,7 @@ void SMFPlayer::Init()
 			}
 			else if (status == 0xF0 || status == 0xF7)
 			{  // システム拡張イベント
-				uint64_t size{ ReadDelta(br) };
+				int size{ static_cast<int>(ReadDelta(br)) };
 
 				if (status == 0xF0)
 				{
@@ -290,6 +297,7 @@ void SMFPlayer::Init()
 				}
 				else
 				{
+					truckGen.On(channel, note, velocity);
 					LOGFLN("note on - channel:{}, note:{}, velo:{}", channel, note, velocity);
 				}
 			}
@@ -298,6 +306,7 @@ void SMFPlayer::Init()
 				wassert(false && "未対応のフォーマット");
 			}
 		}
+		truckId++;
 	}
 #pragma endregion
 }
@@ -332,23 +341,41 @@ uint64_t SMFPlayer::ReadDelta(mtbin::BinaryReader& _br)
 	//std::reverse(buff.begin(), buff.end());
 
 	return *(reinterpret_cast<uint64_t*>(buff.data()));
-
-	//while (miniBuff < 0)
-	//{
-	//	value <<= 7;
-	//	value |= miniBuff & 0b0111'1111;
-	//}
-	//value <<= 7;
-	//value |= miniBuff & 0b0111'1111;
-
-	//std::array<uint8_t, sizeof(value)> bytes{};
-	//for (int i = 0; i < sizeof(value); i++)
-	//{
-	//	uint8_t* p{ reinterpret_cast<uint8_t*>(&value) };
-	//	bytes[i] = *p;
-	//}
-	//std::reverse(bytes.begin(), bytes.end());
-
-	//value = *reinterpret_cast<uint64_t*>(bytes.data());
-	//return value;
 }
+
+void SMFPlayer::TruckGenerater::SetTempo(const uint32_t _value)
+{
+	const float MICRO_TO_SEC{ 0.0000001f };
+	quarterSec_ = static_cast<float>(_value) * MICRO_TO_SEC;
+}
+
+void SMFPlayer::TruckGenerater::On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
+{
+	// 時間を進める
+	float currTime{ prevTime_ + dtSum_ };
+	
+	truck_.notes.push_back(
+		{
+			currTime,
+			_channel,
+			_note,
+			_velocity
+		});
+
+	prevTime_ = currTime;
+	dtSum_ = 0.0f;
+}
+
+void SMFPlayer::TruckGenerater::AddDeltaTime(const uint64_t _dt)
+{
+	if (_dt == 0)
+	{
+		return;  // デルタタイムが 0 なら無視
+	}
+	wassert(quarterSec_ != 0);
+	float dtSec{ static_cast<float>(_dt) / static_cast<float>(HEADER_.quaterUnit) * quarterSec_ };
+	// デルタタイムを秒数で加算する
+	dtSum_ += dtSec;
+}
+
+float SMFPlayer::TruckGenerater::quarterSec_{ 0.0f };
