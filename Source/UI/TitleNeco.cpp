@@ -1,9 +1,12 @@
 #include "pch/pch.h"
 #include "TitleNeco.h"
+#include "../SMF/SMFPlayer.h"
 
 TitleNeco::TitleNeco() :
 	GameObject{ "Simple.json" },
-	hImages_{}
+	hImages_{},
+	isDrag_{ false },
+	moveRatio_{}
 {
 }
 
@@ -31,14 +34,31 @@ void TitleNeco::Update()
 	const Vector2Int screenSizeInt{ System().Get<GameWindow>().GetMainWindowSize() };
 	const Vector2 screenSize{ static_cast<float>(screenSizeInt.x), static_cast<float>(screenSizeInt.y) };
 
-	UI::LayoutConfig config{ UI::LayoutConfig{}.position({ 0, 0 }).scale(screenSize) };
+	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject("SMFPlayer")) };
+
+	pSMFPlayer->OnNote([pSMFPlayer](const Note& _note)
+		{
+			pSMFPlayer->PlayTone(_note);
+		});
+
+	UI::LayoutConfig config{};
 	context.SetRefLayout(&config);
 
+	RectF handArea
+	{
+		(560 / 1920.0f) * screenSize.x, screenSize.y / 2,
+		(153 / 1920.0f) * screenSize.x, screenSize.y / 2,
+	};
 	if (input.IsMouseDown(MouseCode::Left))
 	{
-		cursor.SetShow(false);
-		cursor.SetLock(true, cursor.GetPosition());
-		isDrag_ = true;
+		Vector2Int clickPos{ cursor.GetPosition() };
+		if (handArea.GetBegin().x < clickPos.x && clickPos.x < handArea.GetEnd().x
+		 && handArea.GetBegin().y < clickPos.y && clickPos.y < handArea.GetEnd().y)
+		{
+			cursor.SetShow(false);
+			cursor.SetLock(true, clickPos);
+			isDrag_ = true;
+		}
 	}
 	if (input.IsMouseUp(MouseCode::Left))
 	{
@@ -58,10 +78,18 @@ void TitleNeco::Update()
 		moveRatio_ = 0.0f;
 	}
 
-	config.position({ 0, screenSize.y * (1.0f - moveRatio_) + screenSize.y });
-	context.DrawImage(hImages_[I_NORM]);
+	TextureHandle hBodyImage
+	{
+		isDrag_
+		? hImages_[I_HANG]
+		: hImages_[I_NORM]
+	};
 
-	config.position({ 0, (screenSize.y / 2.0f) * (1.0f - moveRatio_) + (screenSize.y / 2.0f) });
+	config.scale({ screenSize.x, screenSize.y });
+	config.position({ 0, screenSize.y * (1.0f - moveRatio_) });
+	context.DrawImage(hBodyImage);
+
+	config.position({ 0, (screenSize.y / 2.0f) * (1.0f - moveRatio_) });
 	context.DrawImage(hImages_[I_HAND]);
 }
 

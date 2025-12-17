@@ -12,7 +12,7 @@
 #include "../UI/TitleNeco.h"
 
 #include "Piano.h"
-#include "../SMFPlayer.h"
+#include "../SMF/SMFPlayer.h"
 
 using namespace wtgb;
 
@@ -29,8 +29,8 @@ void SampleScene::Start()
 {
 	//Instantiate<SMFPlayer>("Sound/entertainer.mid");
 	//Instantiate<SMFPlayer>("Sound/gekkou1-rei.MID");
-	Instantiate<TitleNeco>();
 	Instantiate<SMFPlayer>("Sound/entertainer.mid");
+	Instantiate<TitleNeco>();
 
 	System().Get<Camera>().position_ = { 0, 0, -10.0f };
 	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };

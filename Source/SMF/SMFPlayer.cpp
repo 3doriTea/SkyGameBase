@@ -1,157 +1,8 @@
 #include "pch/pch.h"
 #include "SMFPlayer.h"
-#include <bit>
+#include "ToneHz.h"
 
-
-namespace
-{
-	const uint8_t C4_60_NUM{ 0x3C };
-	const size_t C4_60_INDEX{ 39 };
-
-	const std::array<float, 88> HZ
-	{
-		27.500f,  // ラ0
-		29.135f,
-		30.868f,
-		32.703f,
-		34.648f,
-		36.708f,
-		38.891f,
-		41.203f,
-		43.654f,
-		46.249f,
-		48.999f,
-		51.913f,
-		55.000f,
-		58.270f,
-		61.735f,
-		65.406f,
-		69.296f,
-		73.416f,
-		77.782f,
-		82.407f,
-		87.307f,
-		92.499f,
-		97.999f,
-		103.826f,
-		110.000f,
-		116.541f,
-		123.471f,
-		130.813f,
-		138.591f,
-		146.832f,
-		155.563f,
-		164.814f,
-		174.614f,
-		184.997f,
-		195.998f,
-		207.652f,
-		220.000f,
-		233.082f,
-		246.942f,
-		261.626f,
-		277.183f,
-		293.665f,
-		311.127f,
-		329.628f,
-		349.228f,
-		369.994f,
-		391.995f,
-		415.305f,
-		440.000f,
-		466.164f,
-		493.883f,
-		523.251f,
-		554.365f,
-		587.330f,
-		622.254f,
-		659.255f,
-		698.456f,
-		739.989f,
-		783.991f,
-		830.609f,
-		880.000f,
-		932.328f,
-		987.767f,
-		1046.502f,
-		1108.731f,
-		1174.659f,
-		1244.508f,
-		1318.510f,
-		1396.913f,
-		1479.978f,
-		1567.982f,
-		1661.219f,
-		1760.000f,
-		1864.655f,
-		1975.533f,
-		2093.005f,
-		2217.461f,
-		2349.318f,
-		2489.016f,
-		2637.020f,
-		2793.826f,
-		2959.955f,
-		3135.963f,
-		3322.438f,
-		3520.000f,
-		3729.310f,
-		3951.066f,
-		4186.009f,  // ド8
-	};
-
-	uint8_t TEST_SMF[]
-	{
-		// === MThd チャンク (MIDI Header) ===
-		0x4D, 0x54, 0x68, 0x64, // MThd (Header Marker)
-		0x00, 0x00, 0x00, 0x06, // Length (6 bytes)
-		0x00, 0x01,             // Format 1 (Multi-track)
-		0x00, 0x02,             // Num Tracks (2)
-		0x01, 0xE0,             // Division (480 ticks per quarter note)
-
-		// === MTrk チャンク 0 (テンポ/設定) ===
-		0x4D, 0x54, 0x72, 0x6B, // MTrk (Track Marker)
-		0x00, 0x00, 0x00, 0x1B, // Length (27 bytes)
-
-		// 0ティック: シーケンス名
-		0x00, 0xFF, 0x03, 0x0A, 0x54, 0x65, 0x73, 0x74, 0x20, 0x43, 0x68, 0x6F, 0x72, 0x64, // "Test Chord"
-
-		// 0ティック: テンポ設定 (120 BPM = 500,000 マイクロ秒/四分音符)
-		0x00, 0xFF, 0x51, 0x03, 0x07, 0xA1, 0x20,
-
-		// 0ティック: トラック終端
-		0x00, 0xFF, 0x2F, 0x00,
-
-		// === MTrk チャンク 1 (ノートデータ) ===
-		0x4D, 0x54, 0x72, 0x6B, // MTrk (Track Marker)
-		0x00, 0x00, 0x00, 0x24, // Length (36 bytes)
-
-		// 0ティック: 楽器設定 (Ch 1 -> Grand Piano 1)
-		0x00, 0xC0, 0x00,
-
-		// 0ティック: NOTE ON (C4 - 60, Velocity 100)
-		0x00, 0x90, 0x3C, 0x64,
-
-		// 0ティック: NOTE ON (E4 - 64, Velocity 100)
-		0x00, 0x90, 0x40, 0x64,
-
-		// 0ティック: NOTE ON (G4 - 67, Velocity 100)
-		0x00, 0x90, 0x43, 0x64,
-
-		// 1920ティック (可変長表現 83 60)
-		// NOTE OFF (C4 - 60)
-		0x83, 0x60, 0x80, 0x3C, 0x00,
-
-		// 0ティック: NOTE OFF (E4 - 64) (Running Status使用)
-		0x00, 0x40, 0x00,
-
-		// 0ティック: NOTE OFF (G4 - 67) (Running Status使用)
-		0x00, 0x43, 0x00,
-
-		// 0ティック: トラック終端
-		0x00, 0xFF, 0x2F, 0x00
-	};
-}
+using namespace SMF;
 
 SMFPlayer::SMFPlayer(const fs::path& _file) : GameObject
 {
@@ -160,6 +11,7 @@ SMFPlayer::SMFPlayer(const fs::path& _file) : GameObject
 		_builder
 			.AddComponent<GameObjectProperty>()
 				.BeginSetter()
+					.name("SMFPlayer")
 				.EndSetter()
 		.Build();
 	}
@@ -175,6 +27,11 @@ SMFPlayer::SMFPlayer(const fs::path& _file) : GameObject
 
 SMFPlayer::~SMFPlayer()
 {
+}
+
+void SMFPlayer::OnNote(const std::function<void(const Note&)> _callback)
+{
+	onNoteCallback_ = _callback;
 }
 
 void SMFPlayer::Init()
@@ -505,10 +362,6 @@ void SMFPlayer::Update()
 
 			onNoteCallback_(note);
 
-			LOGFLN("on:{} channel:{}", static_cast<int>(note.noteNumber), note.channel);
-
-			PlayTone(note);
-
 			if (readCurr_[truckId] >= smfTrucks_[truckId].notes.size())
 			{
 				break;
@@ -526,39 +379,25 @@ uint64_t SMFPlayer::ReadDelta(mtbin::BinaryReader& _br)
 	uint64_t value = 0;
 	uint8_t currentByte;
 
-	do {
+	while (true)
+	{
 		currentByte = _br.Read<uint8_t>();
-
 		// 組み立て中の値(value)を7ビット左にシフトする
 		value <<= 7;
-
-		// 読み取ったバイトの下位7ビットを論理和で追加する
+		// 読み取ったバイトの下位7ビットを合体
 		value |= (currentByte & 0x7F);
 
-	} while (currentByte & 0x80); // MSB(0x80)が立っている間はループを続ける
-
+		if (currentByte & 0x80)
+		{
+			// MSB(0x80)が立っている間はループを続ける
+			continue;
+		}
+		else
+		{
+			break;
+		}
+	}
 	return value;
-	
-	//std::array<int8_t, sizeof(uint64_t)> buff{};
-
-	//char miniBuff{};
-	//miniBuff = _br.Read<char>();
-	//int index{ 0 };
-
-	//buff[index] = miniBuff & 0b0111'1111;
-	//index++;
-
-	//while (miniBuff < 0)
-	//{  // 最上位ビットが立っているから次も拾う
-	//	miniBuff = _br.Read<char>();
-	//	buff[index] = miniBuff & 0b0111'1111;
-	//	
-	//	index++;
-	//}
-
-	////std::reverse(buff.begin(), buff.end());
-
-	//return *(reinterpret_cast<uint64_t*>(buff.data()));
 }
 
 void SMFPlayer::PlayTone(const Note& _note)
@@ -567,14 +406,14 @@ void SMFPlayer::PlayTone(const Note& _note)
 
 	size_t toneHzIndex{ _note.noteNumber - C4_60_NUM + C4_60_INDEX };
 
-	if (toneHzIndex < 0 || HZ.size() <= toneHzIndex)
+	if (toneHzIndex < 0 || ToneHz.size() <= toneHzIndex)
 	{
 		return;
 	}
 
-	float targetHz{ HZ[toneHzIndex] };
+	float targetHz{ ToneHz[toneHzIndex] };
 
-	float sourceHz{ HZ[C4_60_INDEX] };
+	float sourceHz{ ToneHz[C4_60_INDEX] };
 
 	float ratio{ targetHz / sourceHz };
 
@@ -610,7 +449,15 @@ void SMFPlayer::TruckGenerater::On(const uint8_t _channel, const uint8_t _note, 
 
 void SMFPlayer::TruckGenerater::Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
-	
+	auto itr{ truck_.notes.rbegin() };
+	while (itr != truck_.notes.rend())
+	{
+		itr++;
+
+		if (itr->playTime)
+		{
+		}
+	}
 }
 
 void SMFPlayer::TruckGenerater::AddDeltaTime(const uint64_t _dt)

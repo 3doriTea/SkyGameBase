@@ -35,6 +35,7 @@
     <ClInclude Include="Library\mtbin\mtbin.h" />
     <ClInclude Include="Library\mtbin\Util.h" />
     <ClInclude Include="pch\framework.h" />
+    <ClInclude Include="Source\SMF\ToneHz.h" />
     <ClInclude Include="wtgb\LibHeader\FileSystem.h" />
     <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />
     <ClInclude Include="pch\pch.h" />
@@ -56,7 +57,7 @@
     <ClInclude Include="Source\PlayScene\WaterSphere.h" />
     <ClInclude Include="Source\SampleScene\Piano.h" />
     <ClInclude Include="Source\SampleScene\TestArrowUI.h" />
-    <ClInclude Include="Source\SMFPlayer.h" />
+    <ClInclude Include="Source\SMF\SMFPlayer.h" />
     <ClInclude Include="Source\Systems\FirstSceneRegister.h" />
     <ClInclude Include="Source\Systems\MainWindow.h" />
     <ClInclude Include="Source\PlayScene\PlayScene.h" />
@@ -259,7 +260,7 @@
     <ClCompile Include="Source\PlayScene\WaterSphere.cpp" />
     <ClCompile Include="Source\SampleScene\Piano.cpp" />
     <ClCompile Include="Source\SampleScene\TestArrowUI.cpp" />
-    <ClCompile Include="Source\SMFPlayer.cpp" />
+    <ClCompile Include="Source\SMF\SMFPlayer.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />

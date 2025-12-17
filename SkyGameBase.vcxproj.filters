@@ -480,7 +480,7 @@
     <ClInclude Include="wtgb\GameSystem\Audio\DrLibsInclude.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SMFPlayer.h">
+    <ClInclude Include="Source\SMF\SMFPlayer.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Note.h">
@@ -499,6 +499,9 @@
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="wtgb\LibHeader\FileSystem.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SMF\ToneHz.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -791,7 +794,7 @@
     <ClCompile Include="wtgb\GameSystem\Audio\AudioPlayer.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SMFPlayer.cpp">
+    <ClCompile Include="Source\SMF\SMFPlayer.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="wtgb\GameSystem\Scriptable.cpp">
