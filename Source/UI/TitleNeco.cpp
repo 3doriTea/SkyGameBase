@@ -45,12 +45,6 @@ void TitleNeco::Update()
 	UI::LayoutConfig config{};
 	context.SetRefLayout(&config);
 
-
-	/*if (moveRatio_ > 0.5f)
-	{
-		moveRatio_ += dt;
-	}
-	else*/
 	{
 		RectF handArea
 		{

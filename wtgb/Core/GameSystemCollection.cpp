@@ -15,6 +15,7 @@ wtgb::GameSystemCollection::~GameSystemCollection()
 	callFrameIndexes_.clear();
 	callCycleIndexes_.clear();
 
+	// TODO: ‚±‚±‚Å—áŠO‚Å‚é’²‚×‚é
 	for (auto& pGameSystem : gameSystems_)
 	{
 		SAFE_DELETE(pGameSystem);
