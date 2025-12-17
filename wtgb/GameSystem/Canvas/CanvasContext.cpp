@@ -56,9 +56,9 @@ void wtgb::UI::CanvasContext::Release(ViewerCached _system)
 {
 }
 
-void wtgb::UI::CanvasContext::SetLayout(const LayoutConfig& _config) const
+void wtgb::UI::CanvasContext::SetRefLayout(LayoutConfig* _pConfig) const
 {
-	GetAccess()->currentConfig_ = _config;
+	GetAccess()->pReferenceLayoutConfig_ = _pConfig;
 }
 
 void wtgb::UI::CanvasContext::DrawBox(const Color _color, const float _angle) const
@@ -91,5 +91,14 @@ void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture, const flo
 
 void wtgb::UI::CanvasContext::AddRenderOrder(const RenderContentVT& _content) const
 {
-	GetAccess()->renderOrder_.push_back({ GetAccess()->currentConfig_, _content });
+	LayoutConfig* pRefConfig{ GetAccess()->pReferenceLayoutConfig_ };
+	if (pRefConfig == nullptr)
+	{  // 参照がないならデフォルト状態を使用
+		LayoutConfig defaultLayoutConfig{};
+		GetAccess()->renderOrder_.push_back({ defaultLayoutConfig, _content });
+	}
+	else
+	{  // 参照があるならコピーして使用
+		GetAccess()->renderOrder_.push_back({ *pRefConfig, _content });
+	}
 }

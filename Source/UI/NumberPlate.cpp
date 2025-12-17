@@ -71,9 +71,15 @@ void NumberPlate::DrawNumber(const NUMBER _number)
 	int widthPix{ pTexture->GetImageSizePix().y };
 	float widthPixF{ static_cast<float>(widthPix) };
 
-	context.SetLayout(Canvas::LayoutConfig{}
-		.position({ static_cast<float>(currDrawPos_.x), static_cast<float>(currDrawPos_.y) })
-		.scale({ static_cast<float>(sizePix_.x), static_cast<float>(sizePix_.y) }));
+
+	Canvas::LayoutConfig config
+	{
+		Canvas::LayoutConfig{}
+			.position({ static_cast<float>(currDrawPos_.x), static_cast<float>(currDrawPos_.y) })
+			.scale({ static_cast<float>(sizePix_.x), static_cast<float>(sizePix_.y) })
+	};
+
+	context.SetRefLayout(&config);
 
 	RectF rect{ widthPixF * static_cast<float>(_number), 0.0f, widthPixF, widthPixF };
 

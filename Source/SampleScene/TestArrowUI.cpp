@@ -58,11 +58,15 @@ void TestArrowUI::Update()
 	
 	Vector2Int size{ pArrowTexture->GetImageSizePix() };
 
-	context.SetLayout(
+	Canvas::LayoutConfig config
+	{
 		Canvas::LayoutConfig{}
-		.position({ static_cast<float>(cursor.GetPosition().x), static_cast<float>(cursor.GetPosition().y) })
-		.positionPivot(UI::Pivot::TopLeft)
-		.scale({ static_cast<float>(size.x), static_cast<float>(size.y) }));
+			.position({ static_cast<float>(cursor.GetPosition().x), static_cast<float>(cursor.GetPosition().y) })
+			.positionPivot(UI::Pivot::TopLeft)
+			.scale({ static_cast<float>(size.x), static_cast<float>(size.y) })
+	};
+
+	context.SetRefLayout(&config);
 	
 	//context.DrawImage(hArrowTexture_);
 

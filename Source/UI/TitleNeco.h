@@ -20,4 +20,6 @@ public:
 
 private:
 	TextureHandle hImages_[IMAGE::I_MAX];
+	float moveRatio_;  // ムーブレート
+	bool isDrag_;  // ドラッグ中か
 };

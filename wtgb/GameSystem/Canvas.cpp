@@ -10,7 +10,8 @@
 wtgb::Canvas::Canvas() :
 	context_{ this },
 	mesh2D_{},
-	system_{ nullptr }
+	system_{ nullptr },
+	pReferenceLayoutConfig_{ nullptr }
 {
 }
 

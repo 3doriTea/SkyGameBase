@@ -46,9 +46,14 @@ void ControlUI::Update()
 
 	Vector2Int begin{ SCREEN_CENTER - (imageSize / 2) };
 
-	context.SetLayout(UI::LayoutConfig{}
-		.position({ static_cast<float>(begin.x), static_cast<float>(begin.y) })
-		.scale({ static_cast<float>(imageSize.x), static_cast<float>(imageSize.y) }));
+	UI::LayoutConfig config
+	{
+		UI::LayoutConfig{}
+			.position({ static_cast<float>(begin.x), static_cast<float>(begin.y) })
+			.scale({ static_cast<float>(imageSize.x), static_cast<float>(imageSize.y) })
+	};
+
+	context.SetRefLayout(&config);
 
 	context.DrawImage(hCenterCircleImage_);
 }

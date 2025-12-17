@@ -35,10 +35,10 @@ namespace wtgb::UI
 		void Release(ViewerCached _system) override;
 
 		/// <summary>
-		/// レイアウトのセットをする
+		/// 参照するレイアウトのセットをする
 		/// </summary>
-		/// <param name="_config">レイアウト設定</param>
-		void SetLayout(const LayoutConfig& _config) const;
+		/// <param name="_pConfig">参照するレイアウトの設定ポインタ</param>
+		void SetRefLayout(LayoutConfig* _pConfig) const;
 
 		/// <summary>
 		/// 画像の描画をする

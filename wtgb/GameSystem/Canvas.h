@@ -53,7 +53,7 @@ namespace wtgb
 		Mesh2D mesh2D_;
 		ViewerCached system_;
 
-		UI::LayoutConfig currentConfig_;  // 現在のレイアウト設定
+		UI::LayoutConfig* pReferenceLayoutConfig_;  // 現在の参照レイアウト設定
 
 		UI::CanvasContext context_;  // キャンバスアクセス用コンテキスト
 		std::vector<UI::ContentAndConfig> renderOrder_;  // 描画オーダー
