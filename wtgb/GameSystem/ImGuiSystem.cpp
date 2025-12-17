@@ -7,7 +7,9 @@
 // ImGuiのWinProc用イベント
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-wtgb::ImGuiSystem::ImGuiSystem()
+wtgb::ImGuiSystem::ImGuiSystem() :
+	isNeedNewFrame_{ false },
+	needRender_{ false }
 {
 }
 
@@ -58,6 +60,11 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 	direct3D.AddRenderListener(
 		[this]()
 		{
+			if (needRender_ == false)
+			{
+				return;
+			}
+
 			Render();
 			ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
@@ -74,9 +81,12 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 
 void wtgb::ImGuiSystem::Update(const ViewerUpdate& _system)
 {
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
+	if (isNeedNewFrame_)
+	{
+		ImGui_ImplDX11_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+	}
 }
 
 void wtgb::ImGuiSystem::End()
@@ -90,4 +100,6 @@ void wtgb::ImGuiSystem::Render()
 {
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	isNeedNewFrame_ = true;
 }

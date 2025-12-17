@@ -60,7 +60,7 @@ public:
 	/// ƒm[ƒc‚ª—ˆ‚½‚Æ‚«‚Ìˆ—
 	/// </summary>
 	/// <param name="_callback"></param>
-	void OnNote(const std::function<void(const Note&)> _callback);
+	void OnNote(const std::function<void(Note)> _callback);
 
 	void Init() override;
 	void Update() override;

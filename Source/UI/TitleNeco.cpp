@@ -37,9 +37,13 @@ void TitleNeco::Update()
 
 	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject("SMFPlayer")) };
 
-	pSMFPlayer->OnNote([pSMFPlayer](const Note& _note)
+	pSMFPlayer->OnNote([pSMFPlayer](Note _note)
 		{
-			pSMFPlayer->PlayTone(_note);
+			if (_note.channel == 0x03)
+			{
+				_note.noteNumber -= 12 * 2;
+				pSMFPlayer->PlayTone(_note);
+			}
 		});
 
 	UI::LayoutConfig config{};

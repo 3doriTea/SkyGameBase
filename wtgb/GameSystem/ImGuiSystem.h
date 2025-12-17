@@ -38,5 +38,9 @@ namespace wtgb
 		/// 描画処理
 		/// </summary>
 		void Render();
+
+	private:
+		bool isNeedNewFrame_;  // 新フレームが必要か
+		bool needRender_;  // 描画が必要か
 	};
 }

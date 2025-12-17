@@ -29,7 +29,7 @@ SMFPlayer::~SMFPlayer()
 {
 }
 
-void SMFPlayer::OnNote(const std::function<void(const Note&)> _callback)
+void SMFPlayer::OnNote(const std::function<void(Note)> _callback)
 {
 	onNoteCallback_ = _callback;
 }
