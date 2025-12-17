@@ -12,7 +12,8 @@
 
 wtgb::AudioClip::AudioClip(mtbin::BinaryReader* _pReader, const std::string& _name) :
 	pReader_{ _pReader },
-	name_{ _name }
+	name_{ _name },
+	waveFormat_{}
 {
 	wassert(_pReader && "_pReader‚ðnullptr‚É‚Í‚Å‚«‚È‚¢");
 }
