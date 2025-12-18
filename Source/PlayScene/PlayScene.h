@@ -1,5 +1,6 @@
 #pragma once
 #include <wtgb.h>
+#include "WorldSetting.h"
 
 class PlayScene : public GameScene
 {
@@ -9,4 +10,13 @@ public:
 
 	void Start() override;
 	void Update() override;
+
+	/// <summary>
+	/// ワールドの設定を取得する
+	/// </summary>
+	/// <returns>ワールドの設定</returns>
+	inline WorldConfig GetWorldConfig() const { return worldConfig_; }
+
+private:
+	WorldConfig worldConfig_;  // ワールドの設定
 };

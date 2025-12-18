@@ -5,6 +5,7 @@
 #include "SpecialBall.h"
 #include "PlayScene.h"
 #include "SpecialBoom.h"
+#include "CharaBall.h"
 
 namespace
 {
@@ -90,8 +91,6 @@ void StageObjectManager::Update()
 	targetPos.y = pStageLine->GetPosY(targetPos) + SPAWN_HEIGHT;
 
 	GetScene<PlayScene>().Instantiate<SpecialBoom>(targetPos, GetEntityId(), player_);
-
-	Fire();
 }
 
 void StageObjectManager::Release()
@@ -123,6 +122,6 @@ void StageObjectManager::Fire()
 		Vector3 v{ XMVector3TransformCoord(vSrc, mRotX * mRotZ) };
 		v.z = vSrc.z;
 
-		GetScene<PlayScene>().Instantiate<SpecialBall>(targetPos, v);
+		GetScene<PlayScene>().Instantiate<CharaBall>(targetPos, v);
 	}
 }

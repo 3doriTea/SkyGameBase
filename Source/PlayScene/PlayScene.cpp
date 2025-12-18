@@ -18,7 +18,12 @@ PlayScene::PlayScene() : GameScene
 	{
 
 	}
-}
+},
+	worldConfig_
+	{
+		.safeZoneXMin = 0.0f,
+		.safeZoneXMax = 400.0f,
+	}
 {
 }
 
