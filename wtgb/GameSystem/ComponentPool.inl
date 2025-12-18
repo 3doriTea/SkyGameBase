@@ -62,7 +62,7 @@ inline void wtgb::ComponentPool<ComponentT>::Remove(const EntityId _entityId)
 template<typename ComponentT>
 inline void wtgb::ComponentPool<ComponentT>::Clear()
 {
-	ForEach([](ComponentT& component)
+	ForEach([](ComponentT& component) -> bool
 		{
 			// èIóπèàóùåƒÇ—èoÇµÇƒÇ¢Ç≠
 			if constexpr (std::is_pointer_v<ComponentT>)
@@ -111,37 +111,49 @@ inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(Co
 }
 
 template<typename ComponentT>
-inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<void(ComponentT&, const size_t)>& _callback)
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(ComponentT&, const size_t)>& _callback)
 {
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
 	{
 		if (useFlag_[i])
 		{
-			_callback(pool_.at(i), i);
+			bool toStop{ _callback(pool_.at(i), i) };
+			if (toStop)
+			{
+				return;  // í‚é~ñΩóﬂÇ™èoÇΩÇ»ÇÁé~ÇﬂÇÈ
+			}
 		}
 	}
 }
 
 template<typename ComponentT>
-inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<void(const ComponentT&)>& _callback) const
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(const ComponentT&)>& _callback) const
 {
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
 	{
 		if (useFlag_[i])
 		{
-			_callback(pool_.at(i));
+			bool toStop{ _callback(pool_.at(i)) };
+			if (toStop)
+			{
+				return;  // í‚é~ñΩóﬂÇ™èoÇΩÇ»ÇÁé~ÇﬂÇÈ
+			}
 		}
 	}
 }
 
 template<typename ComponentT>
-inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<void(const ComponentT&, const size_t)>& _callback) const
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(const ComponentT&, const size_t)>& _callback) const
 {
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
 	{
 		if (useFlag_[i])
 		{
-			_callback(pool_.at(i), i);
+			bool toStop{ _callback(pool_.at(i), i) };
+			if (toStop)
+			{
+				return;  // í‚é~ñΩóﬂÇ™èoÇΩÇ»ÇÁé~ÇﬂÇÈ
+			}
 		}
 	}
 }

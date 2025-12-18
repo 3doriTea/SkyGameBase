@@ -92,7 +92,7 @@ void wtgb::CPRigidBody::Update()
 			case Collider::Type::Section:
 				break;
 			case Collider::Type::Sphere:
-				cpCollider.ForEach([&_rb, &prevT, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex)
+				cpCollider.ForEach([&_rb, &prevT, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex) -> bool
 					{
 						if (_index == _otherIndex)
 						{
