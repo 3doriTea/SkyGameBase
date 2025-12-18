@@ -14,7 +14,11 @@ DragCircle::DragCircle(const Vector2Int _centerPosition, const int _radius) :
 	dragBegin_{ Vector2Int::Zero() },
 	dragDisplacement_{ Vector2Int::Zero() },
 	radius_{ _radius },
-	radiusSq_{ _radius * _radius }
+	radiusSq_{ _radius * _radius },
+
+	onClickInRadius_{ []{} },
+	onClickOutRadius_{ []{} },
+	onOut_{ []{} }
 {
 }
 
@@ -61,6 +65,7 @@ void DragCircle::Update()
 		}
 		
 	}
+
 	if (input.IsMouseUp(MouseCode::Left))
 	{
 		if (isDrag_)
@@ -68,6 +73,12 @@ void DragCircle::Update()
 			isDrag_ = false;
 			onOut_();
 		}
+	}
+
+	if (isDrag_)
+	{
+		Vector2Int cursorPosition{ cursor.GetPosition() };
+		dragDisplacement_ = cursorPosition - dragBegin_;
 	}
 
 	config.position(Vector2{ centerPosition_ } - Vector2::One() * radius_);
@@ -78,4 +89,10 @@ void DragCircle::Update()
 
 void DragCircle::Release()
 {
+}
+
+void DragCircle::SetRadius(const int _radius)
+{
+	radius_ = _radius;
+	radiusSq_ = _radius * _radius;
 }

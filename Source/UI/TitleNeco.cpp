@@ -75,6 +75,8 @@ void TitleNeco::Update()
 	if (pDragCircle && pDragCircle->IsDrag())
 	{
 		Vector2Int displacement{ pDragCircle->GetDisplacement() };
+		LOGFLN("displacement:({}, {})", displacement.x, displacement.y);
+		moveRatio_ += static_cast<float>(-displacement.y) / screenSize.y;
 	}
 	else
 	{
@@ -89,6 +91,10 @@ void TitleNeco::Update()
 	}
 	moveRatio_ = min(max(moveRatio_, 0.0f), 1.0f);
 
+	if (pDragCircle)
+	{
+		pDragCircle->SetPosition({ 450, static_cast<int>((screenSize.y / 1.4f) * (1.0f - moveRatio_)) });
+	}
 
 	UI::LayoutConfig config{};
 	context.SetRefLayout(&config);

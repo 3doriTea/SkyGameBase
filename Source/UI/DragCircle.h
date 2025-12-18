@@ -47,7 +47,7 @@ public:
 	/// 円の半径をセットする
 	/// </summary>
 	/// <param name="_radius">円の半径</param>
-	inline void SetRadius(const int _radius) { radius_ = _radius; }
+	void SetRadius(const int _radius);
 
 	/// <summary>
 	/// ドラッグのベクトルを取得する

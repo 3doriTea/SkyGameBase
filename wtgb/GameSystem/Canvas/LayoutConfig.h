@@ -29,6 +29,10 @@ namespace wtgb::UI
 		/// 矩形の基準点からの大きさ
 		/// </summary>
 		LAYOUT_BUILDER_SETTER_PARAM(Vector2, scale)
+		/// <summary>
+		/// 描画順番の指定
+		/// </summary>
+		LAYOUT_BUILDER_SETTER_PARAM(int, order)
 
 		/// <summary>
 		/// スクリーンサイズから矩形の行列を取得する
@@ -36,6 +40,7 @@ namespace wtgb::UI
 		Matrix4x4 GetProjectionMatrix(const Vector2Int _screenSize) const;
 
 	private:
+		int order_;            // どのぐらい手前に描画するか
 		Pivot positionPivot_;  // 矩形の始点は画面のどこ基準か
 		Vector2 position_;     // 矩形の始点
 		Vector2 scale_;        // 矩形の大きさ
