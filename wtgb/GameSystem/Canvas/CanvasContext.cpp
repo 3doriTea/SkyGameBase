@@ -109,7 +109,7 @@ void wtgb::UI::CanvasContext::AddRenderOrder(const RenderContentVT& _content) co
 		itr++)
 	{
 		if (auto& [pickConfig, pickContent] = *itr;
-			pickConfig.order_ >= config.order_)  // ’²‚×‚½—v‘f‚Æ“¯‚¶‚©‚»‚êˆÈã‚È‚ç‚»‚±‚É‘}“ü
+			pickConfig.order_ > config.order_)  // ’²‚×‚½—v‘f‚ªƒfƒJ‚©‚Á‚½‚ç‚»‚ÌŽè‘O‚É‘}“ü
 		{
 			canvas.renderOrder_.insert(itr, contentAndConfig);
 			return;  // ‘}“ü‚Å‚«‚½‚½‚ß‰ñ‹A
