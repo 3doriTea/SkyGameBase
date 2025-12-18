@@ -62,7 +62,7 @@ inline void wtgb::ComponentPool<ComponentT>::Remove(const EntityId _entityId)
 template<typename ComponentT>
 inline void wtgb::ComponentPool<ComponentT>::Clear()
 {
-	ForEach([](ComponentT& component) -> bool
+	ForEach([](ComponentT& component) -> BreakToken
 		{
 			// èIóπèàóùåƒÇ—èoÇµÇƒÇ¢Ç≠
 			if constexpr (std::is_pointer_v<ComponentT>)
@@ -73,6 +73,8 @@ inline void wtgb::ComponentPool<ComponentT>::Clear()
 			{
 				component.End();
 			}
+
+			return {};
 		});
 
 	useFlag_.reset();
@@ -95,14 +97,14 @@ inline void wtgb::ComponentPool<ComponentT>::ClearAt(const size_t _index)
 }
 
 template<typename ComponentT>
-inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(ComponentT&)>& _callback)
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<BreakToken(ComponentT&)>& _callback)
 {
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
 	{
 		if (useFlag_[i])
-		{
-			bool toStop{ _callback(pool_.at(i)) };
-			if (toStop)
+		{	
+			BreakToken token{ _callback(pool_.at(i)) };
+			if (token.toBreak)
 			{
 				return;  // í‚é~ñΩóﬂÇ™èoÇΩÇ»ÇÁé~ÇﬂÇÈ
 			}
@@ -111,14 +113,14 @@ inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(Co
 }
 
 template<typename ComponentT>
-inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(ComponentT&, const size_t)>& _callback)
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<BreakToken(ComponentT&, const size_t)>& _callback)
 {
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
 	{
 		if (useFlag_[i])
 		{
-			bool toStop{ _callback(pool_.at(i), i) };
-			if (toStop)
+			BreakToken token{ _callback(pool_.at(i), i) };
+			if (token.toBreak)
 			{
 				return;  // í‚é~ñΩóﬂÇ™èoÇΩÇ»ÇÁé~ÇﬂÇÈ
 			}
@@ -127,14 +129,14 @@ inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(Co
 }
 
 template<typename ComponentT>
-inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(const ComponentT&)>& _callback) const
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<BreakToken(const ComponentT&)>& _callback) const
 {
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
 	{
 		if (useFlag_[i])
 		{
-			bool toStop{ _callback(pool_.at(i)) };
-			if (toStop)
+			BreakToken token{ _callback(pool_.at(i)) };
+			if (token.toBreak)
 			{
 				return;  // í‚é~ñΩóﬂÇ™èoÇΩÇ»ÇÁé~ÇﬂÇÈ
 			}
@@ -143,14 +145,14 @@ inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(co
 }
 
 template<typename ComponentT>
-inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(const ComponentT&, const size_t)>& _callback) const
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<BreakToken(const ComponentT&, const size_t)>& _callback) const
 {
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
 	{
 		if (useFlag_[i])
 		{
-			bool toStop{ _callback(pool_.at(i), i) };
-			if (toStop)
+			BreakToken token{ _callback(pool_.at(i), i) };
+			if (token.toBreak)
 			{
 				return;  // í‚é~ñΩóﬂÇ™èoÇΩÇ»ÇÁé~ÇﬂÇÈ
 			}

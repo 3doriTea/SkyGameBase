@@ -17,7 +17,7 @@ void wtgb::CPCollider::Update()
 	IMeshSimple* pDebugSphere{ System().Get<Debug>().GetDebugSphere() };
 	ShaderHandle hDebugShader{ System().Get<Debug>().GetDebugShader() };
 
-	ForEach([&cpGameObject, &cpTransform, &cpMeshRenderer, pDebugSphere, hDebugShader](const Collider& _collider, const size_t _index)
+	ForEach([&cpGameObject, &cpTransform, &cpMeshRenderer, pDebugSphere, hDebugShader](const Collider& _collider, const size_t _index) -> BreakToken
 		{
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
 
@@ -26,7 +26,7 @@ void wtgb::CPCollider::Update()
 			wassert(pTransform && "Transform‚ª‚È‚©‚Á‚½");
 			if (pTransform == nullptr)
 			{
-				return;
+				return {};
 			}
 
 			switch (_collider.colliderType_)
@@ -40,5 +40,6 @@ void wtgb::CPCollider::Update()
 				break;
 			}
 
+			return {};
 		});
 }

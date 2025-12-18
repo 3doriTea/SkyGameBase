@@ -42,7 +42,7 @@ void wtgb::CPRigidBody::Update()
 	const float DT{ System().Get<GameTime>().GetDeltaTime() };
 	//LOGFLN("__update rb__");
 
-	ForEach([this, &cpTransform, &cpGameObject, &cpCollider, DT](RigidBody& _rb, const size_t _index)
+	ForEach([this, &cpTransform, &cpGameObject, &cpCollider, DT](RigidBody& _rb, const size_t _index) -> BreakToken
 		{
 			_rb.ClearHitCollider();
 			float prevT{ FLT_MAX };
@@ -54,7 +54,7 @@ void wtgb::CPRigidBody::Update()
 			wassert(pTransform && "Transform取得に失敗");
 			if (pTransform == nullptr)
 			{
-				return;
+				return {};
 			}
 
 			// 重力の適用
@@ -82,7 +82,7 @@ void wtgb::CPRigidBody::Update()
 			if (pCollider == nullptr)
 			{
 				// コライダーがついていないなら無視
-				return;
+				return {};
 			}
 
 			// 当たり判定
@@ -92,11 +92,11 @@ void wtgb::CPRigidBody::Update()
 			case Collider::Type::Section:
 				break;
 			case Collider::Type::Sphere:
-				cpCollider.ForEach([&_rb, &prevT, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex) -> bool
+				cpCollider.ForEach([&_rb, &prevT, &cpGameObject, &cpTransform, &selfSet, _index](Collider& _otherCollider, const size_t _otherIndex) ->BreakToken
 					{
 						if (_index == _otherIndex)
 						{
-							return;  // 自分自身のと衝突を排除
+							return {};  // 自分自身のと衝突を排除
 						}
 
 						EntityId otherEntityId{ cpGameObject.GetEntityId(_otherIndex) };
@@ -164,6 +164,8 @@ void wtgb::CPRigidBody::Update()
 							_rb.velocity_.x = velocityX;
 							_rb.push_ = collisionInfo.push;
 						}
+
+						return {};
 					});
 				break;
 			default:
@@ -178,5 +180,7 @@ void wtgb::CPRigidBody::Update()
 				_rb.push_ = Vector3::Zero();
 				selfSet.pTransform->SetPosition(position);
 			}
+
+			return {};
 		});
 }

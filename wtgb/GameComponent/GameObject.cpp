@@ -80,12 +80,14 @@ wtgb::GameObject* wtgb::GameObject::FindGameObject(const EntityId _entityId)
 wtgb::GameObject* wtgb::GameObject::FindGameObject(const std::string& _name)
 {
 	wtgb::EntityId foundEntityId{ INVALID_ENTITY };
-	System().Get<CPGameObjectProperty>().ForEach([&_name, &foundEntityId](GameObjectProperty& _gameObjectProperty) -> bool
+	System().Get<CPGameObjectProperty>().ForEach(
+		[&_name, &foundEntityId](GameObjectProperty& _gameObjectProperty) -> BreakToken
 		{
 			if (_gameObjectProperty.GetName() == _name)
 			{
 				foundEntityId = _gameObjectProperty.GetEntityId();
 			}
+			return {};
 		});
 
 	if (foundEntityId == INVALID_ENTITY)
@@ -101,7 +103,10 @@ bool wtgb::GameObject::FindGameObjects(
 	std::vector<GameObject*>* _pFoundGameObjects)
 {
 	std::vector<EntityId> foundEntityIds{};
-	System().Get<CPGameObjectProperty>().ForEach([&_name, _pFoundGameObjects, &foundEntityIds](GameObjectProperty& _gameObjectProperty) -> bool
+	bool isFound{ false };
+
+	System().Get<CPGameObjectProperty>().ForEach(
+		[&_name, _pFoundGameObjects, &foundEntityIds, &isFound](GameObjectProperty& _gameObjectProperty) -> BreakToken
 		{
 			if (_gameObjectProperty.GetName() == _name)
 			{
@@ -110,16 +115,19 @@ bool wtgb::GameObject::FindGameObjects(
 				{
 					if (_pFoundGameObjects == nullptr)
 					{  // もし見つけたゲームオブジェクト格納先が無いなら
-						return true;  // 見つかった時点でtrueを返す
+						isFound = true;
+						return true;  // 見つかった時点で止める
 					}
 					foundEntityIds.push_back(foundEntityId);
 				}
 			}
+
+			return false;
 		});
 
 	if (_pFoundGameObjects == nullptr)
 	{  // もし見つけたゲームオブジェクト格納先が無いなら
-		return false;  // 見つかった時点で回帰しているので false を返す
+		return isFound;  // 見つかったかどうかを即返す
 	}
 	
 	_pFoundGameObjects->clear();

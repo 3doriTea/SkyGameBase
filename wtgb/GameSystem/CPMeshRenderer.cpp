@@ -283,21 +283,21 @@ void wtgb::CPMeshRenderer::Update()
 	ID3D11DeviceContext* pContext{ System().Get<Direct3D>().Resource().Context() };
 	
 	ForEach([&camera, &pDevice, &cpGameObject, &cpTransform, &cpModelMesh, &model, &d3d, &resource, pContext]
-		(MeshRenderer& meshRenderer, const size_t _index)
+		(MeshRenderer& meshRenderer, const size_t _index) -> BreakToken
 		{
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
 
 			ModelMesh* pModelMesh{ cpModelMesh.Get(entityId) };
 			if (pModelMesh == nullptr)  // 無効なメッシュコンポーネントを取得してしまったら回帰
 			{
-				return;
+				return {};
 			}
 
 			Transform* pTransform{ cpTransform.Get(entityId) };
 			if (pTransform == nullptr)
 			{
 				wassert(false && "Transformの取得に失敗");
-				return;
+				return {};
 			}
 
 			if (pModelMesh->GetType() == ModelMesh::Type::Fbx)
@@ -308,7 +308,7 @@ void wtgb::CPMeshRenderer::Update()
 				if (pFbxModel == nullptr)
 				{
 					LOGFLN("Warn:Fbx以外のモデルが読み込まれた！");
-					return;
+					return {};
 				}
 
 				Fbx::ConstantBuffer constantBuffer{};
@@ -387,7 +387,7 @@ void wtgb::CPMeshRenderer::Update()
 				wassert(pMesh && "メッシュがない！");
 				if (pMesh == nullptr)
 				{
-					return;
+					return {};
 				}
 
 				IMeshSimple::ConstantBuffer constantBuffer{};
@@ -470,7 +470,7 @@ void wtgb::CPMeshRenderer::Update()
 					if (FAILED(hr))
 					{
 						wassert(false && "ステージングバッファの作成に失敗");
-						return;
+						return {};
 					}
 
 					// 4. GPUバッファからステージングバッファにコピー
@@ -548,5 +548,6 @@ void wtgb::CPMeshRenderer::Update()
 #endif
 
 			}
+			return {};
 		});
 }

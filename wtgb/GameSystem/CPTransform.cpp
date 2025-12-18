@@ -21,12 +21,13 @@ void wtgb::CPTransform::Update()
 {
 	using namespace DirectX;
 
-	ForEach([this](Transform& _transform)
+	ForEach([this](Transform& _transform) -> BreakToken
 		{
 			CalculateLocalTransform(&_transform);
 
 			_transform.worldMatrix_ = XMMatrixIdentity();
 			_transform.worldRotateMatrix_ = XMMatrixIdentity();
+			return {};
 		});
 
 	CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
@@ -36,14 +37,14 @@ void wtgb::CPTransform::Update()
 	std::map<EntityId, EntityId> parentMap{};
 	std::map<EntityId, bool> check{};
 
-	ForEach([&cpGameObject, &cpGameObjectProperty, &parentMap, &check, this](Transform& _transform, const size_t _index)
+	ForEach([&cpGameObject, &cpGameObjectProperty, &parentMap, &check, this](Transform& _transform, const size_t _index) -> BreakToken
 		{
 			EntityId currentId{ cpGameObject.GetEntityId(_index) };
 			GameObjectProperty* pCurrentProperty{ cpGameObjectProperty.Get(currentId) };
 
 			if (pCurrentProperty == nullptr)
 			{
-				return;
+				return {};
 			}
 			
 			wassert(!check.count(currentId) && "Šù‚É“¯‚¶EntityId‚ª‚ ‚é");
@@ -51,6 +52,8 @@ void wtgb::CPTransform::Update()
 			
 			parentMap.insert({ currentId, pCurrentProperty->GetParent() });
 			check.insert({ currentId, false });
+
+			return {};
 		});
 
 	std::stack<EntityId> calculateStack{};

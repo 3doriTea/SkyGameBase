@@ -9,6 +9,22 @@
 namespace wtgb
 {
 	/// <summary>
+	/// 範囲forを停止するかのトークン
+	/// </summary>
+	struct BreakToken
+	{
+		BreakToken() :
+			toBreak{ false }
+		{}
+
+		BreakToken(const bool _toBreak) :
+			toBreak{ _toBreak }
+		{}
+
+		bool toBreak;  // ForEachを止めるかどうかのフラグ
+	};
+
+	/// <summary>
 	/// コンポーネントプールの基底クラス
 	/// </summary>
 	/// <typeparam name="ComponentT">コンポーネント型</typeparam>
@@ -239,10 +255,10 @@ namespace wtgb
 		/// <param name="_index">指定のインデクス</param>
 		void ClearAt(const size_t _index) override;
 
-		void ForEach(const std::function<bool(ComponentT&)>& _callback);
-		void ForEach(const std::function<bool(ComponentT&, const size_t)>& _callback);
-		void ForEach(const std::function<bool(const ComponentT&)>& _callback) const;
-		void ForEach(const std::function<bool(const ComponentT&, const size_t)>& _callback) const;
+		void ForEach(const std::function<BreakToken(ComponentT&)>& _callback);
+		void ForEach(const std::function<BreakToken(ComponentT&, const size_t)>& _callback);
+		void ForEach(const std::function<BreakToken(const ComponentT&)>& _callback) const;
+		void ForEach(const std::function<BreakToken(const ComponentT&, const size_t)>& _callback) const;
 
 	protected:
 		/// <summary>
