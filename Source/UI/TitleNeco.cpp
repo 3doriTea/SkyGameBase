@@ -22,16 +22,10 @@ void TitleNeco::Init()
 	const Vector2Int screenSizeInt{ System().Get<GameWindow>().GetMainWindowSize() };
 	const Vector2 screenSize{ static_cast<float>(screenSizeInt.x), static_cast<float>(screenSizeInt.y) };
 
-	Vector2Int centerPosition
-	{
-		(560 / 1920.0f) * screenSize.x, screenSize.y / 2.0f,
-	};
-
 	//dragCircle_ = GetScene<SampleScene>().Instantiate<DragCircle>(centerPosition, 30);
 	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragCircle_)) };
 
-	pDragCircle->SetPosition(centerPosition);
-	pDragCircle->SetRadius(30);
+	pDragCircle->SetRadius(100);
 
 	fs::path dir{ "./Image/Title" };
 
@@ -93,7 +87,7 @@ void TitleNeco::Update()
 
 	if (pDragCircle)
 	{
-		pDragCircle->SetPosition({ 450, static_cast<int>((screenSize.y / 1.4f) * (1.0f - moveRatio_)) });
+		pDragCircle->SetPosition({ 430, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
 	}
 
 	UI::LayoutConfig config{};
@@ -150,6 +144,8 @@ void TitleNeco::Update()
 		? hImages_[I_HANG]
 		: hImages_[I_NORM]
 	};
+
+	config.order(-10);
 
 	config.scale({ screenSize.x, screenSize.y });
 	config.position({ 0, screenSize.y * (1.0f - moveRatio_) });

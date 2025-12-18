@@ -81,7 +81,7 @@ void DragCircle::Update()
 		dragDisplacement_ = cursorPosition - dragBegin_;
 	}
 
-	config.position(Vector2{ centerPosition_ } - Vector2::One() * radius_);
+	config.position(Vector2{ centerPosition_ } - Vector2::One() * static_cast<float>(radius_));
 	config.scale(Vector2::One() * (radius_ * 2.0f));
 
 	context.DrawImage(hCircleImage_);
