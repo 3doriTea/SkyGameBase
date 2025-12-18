@@ -6,32 +6,11 @@
 #pragma region ling
 CharaEggRing::CharaEggRing(const EntityId _charaEgg, const Vector3& _angles) : GameObject
 {
-	[_charaEgg, &_angles](GameObjectBuilder& _builder)
-	{
-		_builder
-			.AddComponent<GameObjectProperty>()
-				.BeginSetter()
-					.parent(_charaEgg)
-					.name("CharaEgg")
-				.EndSetter()
-			.AddComponent<wtgb::Transform>()
-				.BeginSetter()
-					.position({})
-					.rotation(_angles)
-					.scale(Vector3::One() * 5.0f)
-				.EndSetter()
-			.AddComponent<ModelMesh>()
-				.BeginSetter()
-					.fileName("Models/CharaEggRing.fbx")
-				.EndSetter()
-			.AddComponent<MeshRenderer>()
-				.BeginSetter()
-					.shader("Shader/CharaEgg.hlsl")
-				.EndSetter()
-		.Build();
-	}
+	"StageObj/CharaEggRing.json"
 }
 {
+	Property().SetParent(_charaEgg);
+	Transform().SetRotation(_angles);
 }
 
 CharaEggRing::~CharaEggRing()

@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "CPGameObject.h"
 #include "GameSystem/ComponentManager.h"
+#include "WTGBAssert.h"
 
 wtgb::CPGameObject::CPGameObject()
 {
@@ -49,7 +50,9 @@ void wtgb::CPGameObject::End()
 
 const wtgb::EntityId wtgb::CPGameObject::GetEntityId(const size_t _index) const
 {
-	return at(_index)->entityId_;
+	GameObject* pGameObject{ at(_index) };
+	wassert(pGameObject && "ゲームオブジェクトがまだ作られていない");
+	return pGameObject->entityId_;
 }
 
 void wtgb::CPGameObject::Draw() const

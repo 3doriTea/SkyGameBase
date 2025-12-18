@@ -6,6 +6,8 @@
 
 #include "GameComponent/Transform.h"
 #include "GameComponent/GameObjectProperty.h"
+#include "GameComponent/ModelMesh.h"
+#include "GameComponent/MeshRenderer.h"
 
 #include "WTGBAssert.h"
 
@@ -49,7 +51,9 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 	// TODO: ここの手作業を省く ex:コンポーネント側にjsonの入力関数をつけておく？
 	for (auto& component : components.items())
 	{
-		if (component.key() == "Transform")
+		const std::string& componentName{ component.key() };
+
+		if (componentName == "Transform")
 		{
 			_builder
 				.AddComponent<Transform>()
@@ -59,13 +63,33 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 						.scale(component.value().at("scale").get<Vector3>())
 					.EndSetter();
 		}
-		else if (component.key() == "GameObjectProperty")
+		else if (componentName == "GameObjectProperty")
 		{
 			_builder
 				.AddComponent<GameObjectProperty>()
 				.BeginSetter()
 				.name(component.value().at("name").get<std::string>())
 				.EndSetter();
+		}
+		else if (componentName == "ModelMesh")
+		{
+			_builder
+				.AddComponent<ModelMesh>()
+				.BeginSetter()
+				.fileName(component.value().at("fileName").get<std::string>())
+				.EndSetter();
+		}
+		else if (componentName == "MeshRenderer")
+		{
+			_builder
+				.AddComponent<MeshRenderer>()
+				.BeginSetter()
+				.shader(component.value().at("shader").get<std::string>())
+				.EndSetter();
+		}
+		else
+		{
+			wassert(false && "未対応のコンポーネントを処理できません");
 		}
 	}
 	_builder.Build();
