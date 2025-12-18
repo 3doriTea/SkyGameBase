@@ -21,6 +21,9 @@ wtgb::GameObject::GameObject(const fs::path& _prefabJson) :
 
 	GameObjectBuilder builder{ *this };
 	scriptable.LoadPrefabFromJson(_prefabJson, builder);
+
+	// TODO: èdï°ÇµÇƒÇ¢ÇÈ
+	System().Get<CPGameObject>().Add(entityId_, this);
 }
 
 
@@ -35,6 +38,9 @@ wtgb::GameObject::GameObject(std::function<void(GameObjectBuilder&)> _callback) 
 {
 	GameObjectBuilder builder{ *this };
 	_callback(builder);
+
+	// TODO: èdï°ÇµÇƒÇ¢ÇÈ
+	System().Get<CPGameObject>().Add(entityId_, this);
 }
 
 wtgb::GameObject::~GameObject()

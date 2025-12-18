@@ -33,13 +33,15 @@ namespace wtgb
 		EntityId Instantiate(Args... _args)
 		{
 			EntityId entityId{ cachedSystem_.Get<ComponentManager>().GenerateEntity() };
+			// NOTE: new するとゲームオブジェクトは自ら自動でプールに追加される
+			GameObject* pGameObject{ new T{ _args... } };
 
-			GameObject* pGameObject
+			/*GameObject* pGameObject
 			{
 				cachedSystem_.Get<CPGameObject>().Add(
 					entityId,
 					new T{ _args... })
-			};
+			};*/
 
 			pGameObject->Init();  // 初期化はすぐ呼ぶ
 
