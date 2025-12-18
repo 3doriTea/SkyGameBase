@@ -44,7 +44,7 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 
 	if (foundHandle != INVALID_HANDLE)
 	{
-		LOGFLN("::WARN:: 重複したシェーダを読み込んでいる");
+		//LOGFLN("::WARN:: 重複したシェーダを読み込んでいる");
 		// 重複があるならそのハンドルを返す
 		return foundHandle;
 	}

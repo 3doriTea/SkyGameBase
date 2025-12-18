@@ -116,8 +116,31 @@ void Player::AddMove(const Vector3 _move)
 {
 	using namespace DirectX;
 
+	Camera& camera{ System().Get<Camera>() };
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	RigidBody& rb{ GetComponent<RigidBody>() };
+
+	Vector3 selfPos{ Transform().GetPosition() };
+	Vector3 selfDir{ camera.GetDirection() };
+
+
+	std::vector<GameObject*> foundGameObjects{};
+	if (FindGameObjects("CharaEgg", &foundGameObjects))
+	{
+		for (GameObject* pCharaEgg : foundGameObjects)
+		{
+			Vector3 eggPos{ pCharaEgg->Transform().GetPosition() };
+			Vector3 toDir{ XMVector3Normalize(eggPos - selfPos) };
+
+			float dot{ XMVectorGetX(XMVector3Dot(selfDir, toDir)) };
+
+			if (dot > 0.9f)
+			{
+				rb.SetVelocity(toDir * XMVectorGetX(XMVector3Length(_move)));
+				return;
+			}
+		}
+	}
 
 	rb.AddVelocity(_move);
 }

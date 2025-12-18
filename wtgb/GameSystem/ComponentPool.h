@@ -239,10 +239,10 @@ namespace wtgb
 		/// <param name="_index">指定のインデクス</param>
 		void ClearAt(const size_t _index) override;
 
-		void ForEach(const std::function<void(ComponentT&)>& _callback);
-		void ForEach(const std::function<void(ComponentT&, const size_t)>& _callback);
-		void ForEach(const std::function<void(const ComponentT&)>& _callback) const;
-		void ForEach(const std::function<void(const ComponentT&, const size_t)>& _callback) const;
+		void ForEach(const std::function<bool(ComponentT&)>& _callback);
+		void ForEach(const std::function<bool(ComponentT&, const size_t)>& _callback);
+		void ForEach(const std::function<bool(const ComponentT&)>& _callback) const;
+		void ForEach(const std::function<bool(const ComponentT&, const size_t)>& _callback) const;
 
 	protected:
 		/// <summary>

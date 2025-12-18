@@ -108,6 +108,13 @@ namespace wtgb
 		GameObject* FindGameObject(const std::string& _name);
 
 		/// <summary>
+		/// 名前から複数のゲームオブジェクトを探す
+		/// </summary>
+		/// <param name="_name">名前</param>
+		/// <param name="_pFoundGameObject">見つかったゲームオブジェクトを格納するポインタ</param>
+		bool FindGameObjects(const std::string& _name, std::vector<GameObject*>* _pFoundGameObjects);
+
+		/// <summary>
 		/// ゲームオブジェクトプロパティを参照する
 		/// </summary>
 		/// <returns>ゲームオブジェクトプロパティの参照</returns>

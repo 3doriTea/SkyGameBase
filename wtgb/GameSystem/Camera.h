@@ -44,6 +44,18 @@ namespace wtgb
 		/// </summary>
 		/// <returns>4x4行列</returns>
 		Matrix4x4 GetViewMatrix() const;
+
+		/// <summary>
+		/// カメラが向いているベクトルを取得する
+		/// </summary>
+		/// <returns>正規化されていないベクトル</returns>
+		Vector3 GetDisplacement() const { return targetPosition_ - position_; }
+		/// <summary>
+		/// カメラが向いている方向ベクトル
+		/// </summary>
+		/// <returns>正規化された方向ベクトル</returns>
+		Vector3 GetDirection() const { return DirectX::XMVector3Normalize(GetDisplacement()); }
+		Vector3 GetPosition() const { return position_; }
 	public:
 		Vector3 position_;        // 位置座標
 		Vector3 targetPosition_;  // 焦点座標

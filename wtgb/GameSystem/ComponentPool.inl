@@ -95,13 +95,17 @@ inline void wtgb::ComponentPool<ComponentT>::ClearAt(const size_t _index)
 }
 
 template<typename ComponentT>
-inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<void(ComponentT&)>& _callback)
+inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<bool(ComponentT&)>& _callback)
 {
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
 	{
 		if (useFlag_[i])
 		{
-			_callback(pool_.at(i));
+			bool toStop{ _callback(pool_.at(i)) };
+			if (toStop)
+			{
+				return;  // ’âŽ~–½—ß‚ªo‚½‚È‚çŽ~‚ß‚é
+			}
 		}
 	}
 }

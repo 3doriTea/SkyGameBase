@@ -95,3 +95,42 @@ wtgb::GameObject* wtgb::GameObject::FindGameObject(const std::string& _name)
 	// 名前で見つかったなら取得してくる
 	return System().Get<CPGameObject>().Get(foundEntityId);
 }
+
+bool wtgb::GameObject::FindGameObjects(
+	const std::string& _name,
+	std::vector<GameObject*>* _pFoundGameObjects)
+{
+	std::vector<EntityId> foundEntityIds{};
+	System().Get<CPGameObjectProperty>().ForEach([&_name, _pFoundGameObjects, &foundEntityIds](GameObjectProperty& _gameObjectProperty)
+		{
+			if (_gameObjectProperty.GetName() == _name)
+			{
+				EntityId foundEntityId = _gameObjectProperty.GetEntityId();
+				if (foundEntityId != INVALID_ENTITY)
+				{
+					if (_pFoundGameObjects == nullptr)
+					{  // もし見つけたゲームオブジェクト格納先が無いなら
+						return true;  // 見つかった時点でtrueを返す
+					}
+					foundEntityIds.push_back(foundEntityId);
+				}
+			}
+		});
+
+	if (_pFoundGameObjects == nullptr)
+	{  // もし見つけたゲームオブジェクト格納先が無いなら
+		return false;  // 見つかった時点で回帰しているので false を返す
+	}
+	
+	_pFoundGameObjects->clear();
+	for (EntityId foundEntityId : foundEntityIds)
+	{
+		GameObject* pGameObject{ System().Get<CPGameObject>().Get(foundEntityId) };
+		
+		if (pGameObject)
+		{
+			_pFoundGameObjects->push_back(pGameObject);
+		}
+	}
+	return _pFoundGameObjects->size() > 0;
+}
