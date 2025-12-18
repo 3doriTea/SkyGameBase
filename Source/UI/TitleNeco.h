@@ -11,7 +11,7 @@ class TitleNeco : public GameObject
 		I_MAX,
 	};
 public:
-	TitleNeco();
+	TitleNeco(const EntityId _dragCircle);
 	~TitleNeco();
 
 	void Init() override;
@@ -22,4 +22,6 @@ private:
 	TextureHandle hImages_[IMAGE::I_MAX];
 	float moveRatio_;  // ムーブレート
 	bool isDrag_;  // ドラッグ中か
+
+	EntityId dragCircle_;  // ドラッグして掴む円
 };

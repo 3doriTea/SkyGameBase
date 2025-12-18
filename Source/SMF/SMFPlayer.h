@@ -74,13 +74,27 @@ public:
 	/// <param name="_note"></param>
 	void PlayTone(const Note& _note);
 
+	/// <summary>
+	/// 再生する
+	/// </summary>
+	inline void Play() { isPlaying_ = true; }
+	/// <summary>
+	/// 停止する
+	/// </summary>
+	inline void Stop() { isPlaying_ = false; }
+
+	inline void SetPlayRate(const float _rate) { playRate_ = _rate; }
+
 private:
 	std::function<void(const Note&)> onNoteCallback_;
 	fs::path file_;
 	Header smfHeader_;  // smfのヘッダデータ
 	std::vector<Truck> smfTrucks_;  // smfのトラックデータ
 	float playTime_;  // 再生時間
+	float playRate_;  // 倍速か
 	std::vector<size_t> readCurr_;
+
+	bool isPlaying_;  // 再生中か
 
 	float toneSampleRateHz_;  // サンプルトーンの周波数
 	AudioHandle hTone_[1];

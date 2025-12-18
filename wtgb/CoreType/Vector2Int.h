@@ -11,6 +11,10 @@ namespace wtgb
 		// コンストラクタもそのまま継承
 		using DirectX::XMINT2::XMINT2;
 
+		Vector2Int(const float _x, const float _y) :
+			Vector2Int{ static_cast<int>(_x), static_cast<int>(_y) }
+		{}
+
 #pragma region オペレーターオーバーロード - 四則演算
 		inline Vector2Int& operator*=(const int& _scalar) { x *= _scalar; y *= _scalar; return *this; }
 		inline Vector2Int& operator/=(const int& _scalar) { x /= _scalar; y /= _scalar; return *this; }

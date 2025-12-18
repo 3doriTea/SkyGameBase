@@ -14,6 +14,8 @@
 #include "Piano.h"
 #include "../SMF/SMFPlayer.h"
 
+#include "../UI/DragCircle.h"
+
 using namespace wtgb;
 
 SampleScene::SampleScene() : GameScene
@@ -27,10 +29,12 @@ SampleScene::SampleScene() : GameScene
 
 void SampleScene::Start()
 {
-	//Instantiate<SMFPlayer>("Sound/entertainer.mid");
-	//Instantiate<SMFPlayer>("Sound/gekkou1-rei.MID");
 	Instantiate<SMFPlayer>("Sound/entertainer.mid");
-	Instantiate<TitleNeco>();
+
+	EntityId dragCircle{ Instantiate<DragCircle>() };
+	//Instantiate<SMFPlayer>("Sound/gekkou1-rei.MID");
+	//Instantiate<SMFPlayer>("Sound/entertainer.mid");
+	Instantiate<TitleNeco>(dragCircle);
 
 	System().Get<Camera>().position_ = { 0, 0, -10.0f };
 	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };

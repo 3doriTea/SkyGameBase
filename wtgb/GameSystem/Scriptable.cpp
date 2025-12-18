@@ -7,6 +7,8 @@
 #include "GameComponent/Transform.h"
 #include "GameComponent/GameObjectProperty.h"
 
+#include "WTGBAssert.h"
+
 wtgb::Scriptable::Scriptable() :
 	system_{ nullptr }
 {
@@ -35,6 +37,8 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 	ComponentManager& cm{ System().Get<ComponentManager>() };
 
 	std::ifstream ifs{ "./Prefab" / _jsonPath };
+
+	wassert(ifs && "プレファブファイルの読み込みに失敗 jsonファイル名が正しいか確認して");
 
 	json j{};
 	ifs >> j;

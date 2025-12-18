@@ -1,0 +1,81 @@
+#include "pch\pch.h"
+#include "DragCircle.h"
+
+DragCircle::DragCircle() :
+	DragCircle{ Vector2Int::Zero(), 0 }
+{
+}
+
+DragCircle::DragCircle(const Vector2Int _centerPosition, const int _radius) :
+	GameObject{ "Simple.json" },
+	hCircleImage_{ INVALID_HANDLE },
+	isDrag_{ false },
+	centerPosition_{ _centerPosition },
+	dragBegin_{ Vector2Int::Zero() },
+	dragDisplacement_{ Vector2Int::Zero() },
+	radius_{ _radius },
+	radiusSq_{ _radius * _radius }
+{
+}
+
+DragCircle::~DragCircle()
+{
+}
+
+void DragCircle::Init()
+{
+	ResourceSystem& resource{ System().Get<ResourceSystem>() };
+
+	hCircleImage_ = resource.LoadTexture("Image/MouseCircle.png");
+}
+
+void DragCircle::Update()
+{
+	Cursor& cursor{ System().Get<Cursor>() };
+	GameWindow& gameWindow{ System().Get<GameWindow>() };
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+	const Canvas::Context& context{ System().Get<Canvas>().GetContext() };
+
+	UI::LayoutConfig config{};
+	context.SetRefLayout(&config);
+
+	// マウスカーソルの制御
+	if (input.IsMouseDown(MouseCode::Left)  // マウス左押された
+		&& gameWindow.IsActiveMainWindow()  // かつウィンドウが最前面
+		&& gameWindow.IsDefaultControled())  // かつゲーム画面の操作
+	{
+		Vector2Int cursorPosition{ cursor.GetPosition() };
+		
+		Vector2Int offsetPos{ cursorPosition - centerPosition_ };
+		int mouseDistanceSq{ offsetPos.x * offsetPos.x + offsetPos.y * offsetPos.y };
+
+		if (mouseDistanceSq <= radiusSq_)
+		{
+			isDrag_ = true;
+			onClickInRadius_();
+			dragBegin_ = cursorPosition;
+		}
+		else
+		{
+			onClickOutRadius_();
+		}
+		
+	}
+	if (input.IsMouseUp(MouseCode::Left))
+	{
+		if (isDrag_)
+		{
+			isDrag_ = false;
+			onOut_();
+		}
+	}
+
+	config.position(Vector2{ centerPosition_ } - Vector2::One() * radius_);
+	config.scale(Vector2::One() * (radius_ * 2.0f));
+
+	context.DrawImage(hCircleImage_);
+}
+
+void DragCircle::Release()
+{
+}

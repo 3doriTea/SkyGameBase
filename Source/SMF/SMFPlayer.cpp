@@ -21,7 +21,9 @@ SMFPlayer::SMFPlayer(const fs::path& _file) : GameObject
 	hTone_{},
 	playTime_{},
 	toneSampleRateHz_{},
-	onNoteCallback_{ [](const Note&){} }
+	onNoteCallback_{ [](const Note&){} },
+	playRate_{ 1.0f },
+	isPlaying_{ false }
 {
 }
 
@@ -344,10 +346,15 @@ void SMFPlayer::Init()
 
 void SMFPlayer::Update()
 {
+	if (isPlaying_ == false)
+	{  // çƒê∂Ç≥ÇÍÇƒÇ¢Ç»Ç¢Ç»ÇÁâÒãA
+		return;
+	}
+
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	Audio& audio{ System().Get<Audio>() };
 
-	playTime_ += dt * 1.0f;
+	playTime_ += dt * playRate_;
 
 	for (int truckId = 0; truckId < smfTrucks_.size(); truckId++)
 	{

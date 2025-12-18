@@ -25,6 +25,10 @@ inline std::remove_pointer_t<ComponentT>* wtgb::ComponentPool<ComponentT>::Get(c
 	// –³Œø‚ÈEntityId ‚È‚çŽæ“¾‚µ‚È‚¢
 	if (IsInvalidEntity(_entityId))
 	{
+		if (_entityId.index >= wtgb::ENTITY_CAPACITY)
+		{
+			return nullptr;  // index‚ªƒTƒCƒY’´‚¦‚Ä‚¢‚½‚çŽæ“¾Ž¸”s
+		}
 		useFlag_[_entityId.index] = false;
 		return nullptr;
 	}

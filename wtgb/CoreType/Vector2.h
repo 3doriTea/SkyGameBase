@@ -1,9 +1,12 @@
 #pragma once
 #include <DirectXMath.h>
 #include "Vector2T.h"
+#include "Vector2Int.h"
 
 namespace wtgb
 {
+	struct Vector2Int;
+
 	/// <summary>
 	/// 2次元ベクトルを扱う構造体
 	/// </summary>
@@ -19,6 +22,11 @@ namespace wtgb
 
 		Vector2(const mtgb::Vector2T<float> _v2) :
 			DirectX::XMFLOAT2{ _v2.x, _v2.y }
+		{
+		}
+
+		Vector2(const Vector2Int _v2) :
+			DirectX::XMFLOAT2{ static_cast<float>(_v2.x), static_cast<float>(_v2.y) }
 		{
 		}
 
