@@ -91,14 +91,31 @@ void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture, const flo
 
 void wtgb::UI::CanvasContext::AddRenderOrder(const RenderContentVT& _content) const
 {
-	LayoutConfig* pRefConfig{ GetAccess()->pReferenceLayoutConfig_ };
-	if (pRefConfig == nullptr)
-	{  // 参照がないならデフォルト状態を使用
-		LayoutConfig defaultLayoutConfig{};
-		GetAccess()->renderOrder_.push_back({ defaultLayoutConfig, _content });
-	}
-	else
+	// キャンバスの参照を取っておく
+	Canvas& canvas{ *GetAccess() };
+
+	ConfigAndContent contentAndConfig{ {}, _content };
+	auto& [config, content] = contentAndConfig;
+
+	LayoutConfig* pRefConfig{ canvas.pReferenceLayoutConfig_ };
+	if (pRefConfig != nullptr)
 	{  // 参照があるならコピーして使用
-		GetAccess()->renderOrder_.push_back({ *pRefConfig, _content });
+		config = *pRefConfig;
 	}
+
+	// 描画オーダーで適切な場所に挿入する
+	for (auto itr = canvas.renderOrder_.begin();
+		itr != canvas.renderOrder_.end();
+		itr++)
+	{
+		if (auto& [pickConfig, pickContent] = *itr;
+			pickConfig.order_ > config.order_)  // 要素番号より
+		{
+			canvas.renderOrder_.insert(itr, contentAndConfig);
+			return;
+		}
+	}
+
+	// もし見つからなければ最後に追加
+	canvas.renderOrder_.push_back(contentAndConfig);
 }

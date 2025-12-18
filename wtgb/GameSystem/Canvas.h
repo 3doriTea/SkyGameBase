@@ -56,7 +56,7 @@ namespace wtgb
 		UI::LayoutConfig* pReferenceLayoutConfig_;  // 現在の参照レイアウト設定
 
 		UI::CanvasContext context_;  // キャンバスアクセス用コンテキスト
-		std::vector<UI::ContentAndConfig> renderOrder_;  // 描画オーダー
+		std::list<UI::ConfigAndContent> renderOrder_;  // 描画オーダー
 	};
 }
 

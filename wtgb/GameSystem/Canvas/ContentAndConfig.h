@@ -5,5 +5,5 @@
 
 namespace wtgb::UI
 {
-	using ContentAndConfig = std::tuple<UI::LayoutConfig, UI::RenderContentVT>;
+	using ConfigAndContent = std::tuple<UI::LayoutConfig, UI::RenderContentVT>;
 }
