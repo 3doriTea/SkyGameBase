@@ -343,7 +343,7 @@ void SMFPlayer::Init()
 	//hTone_[0] = audio.Load("Sound/maou_se_inst_piano2_1do.mp3");
 	hTone_[0] = audio.Load("Sound/îLÇÃñ¬Ç´ê∫1.mp3");
 
-	toneSampleRateHz_ = audio.GetFormat(hTone_[0]).nSamplesPerSec;
+	toneSampleRateHz_ = static_cast<float>(audio.GetFormat(hTone_[0]).nSamplesPerSec);
 }
 
 void SMFPlayer::Update()
@@ -430,7 +430,7 @@ void SMFPlayer::PlayTone(const Note& _note)
 
 	if (sampleRate <= 192000.0f)
 	{
-		audio.Play(hTone_[0], _note.playTime, sampleRate);
+		audio.Play(hTone_[0], _note.playTime, static_cast<unsigned long>(sampleRate));
 	}
 }
 

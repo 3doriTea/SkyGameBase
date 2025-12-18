@@ -78,7 +78,11 @@ void wtgb::Cursor::SetPosition(const Vector2Int _position)
 	{
 		_position.x, _position.y
 	};
-	Vector2Int moveDiff{ Vector2Int{ position.x - previousPosition_.x, position.y - previousPosition_.y } };
+	Vector2Int moveDiff
+	{
+		static_cast<int>(position.x - previousPosition_.x),
+		static_cast<int>(position.y - previousPosition_.y)
+	};
 	frameMoveDelta_ -= moveDiff;
 
 	// スクリーン内の座標へ変換

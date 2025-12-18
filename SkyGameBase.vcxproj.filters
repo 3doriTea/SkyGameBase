@@ -504,6 +504,21 @@
     <ClInclude Include="Source\SMF\ToneHz.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\CharaBall.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\CharaEgg.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\WorldSetting.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\DragCircle.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\ControlUI.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -740,12 +755,6 @@
     <ClCompile Include="Source\PlayScene\StageObjectManager.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PlayScene\ControlUI.cpp">
-      <Filter>C++未分類ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\PlayScene\ControlUI.h">
-      <Filter>C++未分類ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Source\PlayScene\SpecialBoom.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
@@ -801,6 +810,18 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Source\UI\TitleNeco.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\CharaBall.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\CharaEgg.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\DragCircle.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\ControlUI.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>

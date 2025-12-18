@@ -69,7 +69,7 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 		}
 	}
 
-	index = sourceVoices_.size();
+	index = static_cast<SourceVoiceIndex>(sourceVoices_.size());
 
 	// ‘S•”Žg‚í‚ê‚Ä‚¢‚½‚ç’Ç‰Á‚·‚é
 	if (index == sourceVoices_.size())

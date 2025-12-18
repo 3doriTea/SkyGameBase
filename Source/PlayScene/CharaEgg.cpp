@@ -126,7 +126,7 @@ void CharaEgg::Update()
 		pStageObjectManager->Fire();
 
 		// ƒŠƒ“ƒO‚àÁ‚·
-		for (auto ringEntity : rings_)
+		for (const auto& ringEntity : rings_)
 		{
 			FindGameObject(ringEntity)->DestroyMe();
 		}

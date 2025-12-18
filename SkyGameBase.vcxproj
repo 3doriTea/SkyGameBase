@@ -37,6 +37,7 @@
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="Source\PlayScene\CharaBall.h" />
     <ClInclude Include="Source\PlayScene\CharaEgg.h" />
+    <ClInclude Include="Source\PlayScene\ControlUI.h" />
     <ClInclude Include="Source\PlayScene\WorldSetting.h" />
     <ClInclude Include="Source\SMF\ToneHz.h" />
     <ClInclude Include="Source\UI\DragCircle.h" />
@@ -253,7 +254,6 @@
     <ClCompile Include="Source\PlayScene\CharaBall.cpp" />
     <ClCompile Include="Source\PlayScene\CharaEgg.cpp" />
     <ClCompile Include="Source\PlayScene\ControlUI.cpp" />
-    <ClCompile Include="Source\PlayScene\ControlUI.h" />
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
     <ClCompile Include="Source\PlayScene\SpecialBoom.cpp" />
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
