@@ -308,6 +308,7 @@ void SMFPlayer::Init()
 				uint8_t note{ br.Read<uint8_t>() };  // 音の高さ
 				uint8_t velocity{ br.Read<uint8_t>() };  // 音の強さ
 				
+				truckGen.Off(channel, note, velocity);
 				LOGFLN("note off - channel:{}, note:{}, velo:{}", channel, note, velocity);
 			}
 			else if (0x90 <= status && status <= 0x9F)
@@ -318,6 +319,7 @@ void SMFPlayer::Init()
 
 				if (velocity == 0)
 				{
+					truckGen.Off(channel, note, velocity);
 					LOGFLN("note off - channel:{}, note:{}, velo:{}", channel, note, velocity);
 				}
 				else
@@ -456,13 +458,13 @@ void SMFPlayer::TruckGenerater::On(const uint8_t _channel, const uint8_t _note, 
 
 void SMFPlayer::TruckGenerater::Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
-	auto itr{ truck_.notes.rbegin() };
-	while (itr != truck_.notes.rend())
+	// 同じチャンネルの同じトーンのノーツを探す
+	for (auto itr = truck_.notes.rbegin(); itr != truck_.notes.rend(); itr++)
 	{
-		itr++;
-
-		if (itr->playTime)
-		{
+		if (itr->channel == _channel && itr->noteNumber == _note)
+		{  // 見つかった
+			itr->playTime = itr->totalTime - currentTime_;
+			return;  // 時間指定して回帰
 		}
 	}
 }
