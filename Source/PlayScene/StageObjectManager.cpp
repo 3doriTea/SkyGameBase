@@ -6,6 +6,7 @@
 #include "PlayScene.h"
 #include "SpecialBoom.h"
 #include "CharaBall.h"
+#include "CharaEgg.h"
 
 namespace
 {
@@ -90,7 +91,7 @@ void StageObjectManager::Update()
 	Vector3 targetPos{ playerPos + Vector3::Forward() * (speed * SPAWN_DISTANCE_PER_SPEED + SPAWN_DISTANCE_OFFSET) };
 	targetPos.y = pStageLine->GetPosY(targetPos) + SPAWN_HEIGHT;
 
-	GetScene<PlayScene>().Instantiate<SpecialBoom>(targetPos, GetEntityId(), player_);
+	GetScene<PlayScene>().Instantiate<CharaEgg>(targetPos, GetEntityId(), player_);
 }
 
 void StageObjectManager::Release()

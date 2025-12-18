@@ -7,4 +7,5 @@ struct WorldConfig
 {
 	float safeZoneXMin;  // ‰¡Å¬’l
 	float safeZoneXMax;  // ‰¡Å‘å’l
+	float eggGetDistance;
 };

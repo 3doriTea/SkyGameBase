@@ -23,6 +23,7 @@ PlayScene::PlayScene() : GameScene
 	{
 		.safeZoneXMin = 0.0f,
 		.safeZoneXMax = 400.0f,
+		.eggGetDistance = 10.0f,
 	}
 {
 }

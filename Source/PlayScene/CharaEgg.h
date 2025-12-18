@@ -4,11 +4,12 @@
 class CharaEggRing : public GameObject
 {
 public:
-	CharaEggRing(const EntityId _charaEgg, const Vector3& _position, const Vector3& _angles);
+	CharaEggRing(const EntityId _charaEgg, const Vector3& _angles);
 	~CharaEggRing();
 
 	void Init() override;
 	void Update() override;
+	void Release() override;
 };
 
 class CharaEgg : public GameObject
@@ -19,6 +20,7 @@ public:
 
 	void Init() override;
 	void Update() override;
+	void Release() override;
 
 private:
 	EntityId stageObjManager_;

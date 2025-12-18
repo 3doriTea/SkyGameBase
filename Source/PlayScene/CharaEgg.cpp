@@ -1,10 +1,12 @@
 #include "pch\pch.h"
 #include "CharaEgg.h"
+#include "PlayScene.h"
+#include "StageObjectManager.h"
 
 #pragma region ling
-CharaEggRing::CharaEggRing(const EntityId _charaEgg, const Vector3& _position, const Vector3& _angles) : GameObject
+CharaEggRing::CharaEggRing(const EntityId _charaEgg, const Vector3& _angles) : GameObject
 {
-	[_charaEgg , &_position, &_angles](GameObjectBuilder& _builder)
+	[_charaEgg, &_angles](GameObjectBuilder& _builder)
 	{
 		_builder
 			.AddComponent<GameObjectProperty>()
@@ -14,13 +16,13 @@ CharaEggRing::CharaEggRing(const EntityId _charaEgg, const Vector3& _position, c
 				.EndSetter()
 			.AddComponent<wtgb::Transform>()
 				.BeginSetter()
-					.position(_position)
+					.position({})
 					.rotation(_angles)
-					.scale(Vector3::One() * 10.0f)
+					.scale(Vector3::One() * 5.0f)
 				.EndSetter()
 			.AddComponent<ModelMesh>()
 				.BeginSetter()
-					.fileName("Models/Ring/Ring.fbx")
+					.fileName("Models/CharaEggRing.fbx")
 				.EndSetter()
 			.AddComponent<MeshRenderer>()
 				.BeginSetter()
@@ -42,7 +44,19 @@ void CharaEggRing::Init()
 
 void CharaEggRing::Update()
 {
+	using DirectX::XM_PI;
+	const float dt{ System().Get<GameTime>().GetDeltaTime() };
+
+	Vector3 rotation{ Transform().GetRotation() };
+	float rotAngle{ XM_PI / 1.0f * dt };
+	rotation.x += rotAngle;
+	Transform().SetRotation(rotation);
 }
+
+void CharaEggRing::Release()
+{
+}
+
 #pragma endregion
 
 CharaEgg::CharaEgg(const Vector3& _position, const EntityId _stageObjManager, const EntityId _player) : GameObject
@@ -57,7 +71,7 @@ CharaEgg::CharaEgg(const Vector3& _position, const EntityId _stageObjManager, co
 			.AddComponent<wtgb::Transform>()
 				.BeginSetter()
 					.position(_position)
-					.scale(Vector3::One() * 10.0f)
+					.scale(Vector3::One() * 1.0f)
 				.EndSetter()
 			.AddComponent<ModelMesh>()
 				.BeginSetter()
@@ -82,9 +96,66 @@ CharaEgg::~CharaEgg()
 
 void CharaEgg::Init()
 {
+	using DirectX::XM_PI;
+	using DirectX::XM_PIDIV2;
+
+	const std::array<Vector3, 3> ANGLES
+	{
+		Vector3{ 0, 0, 0 },
+		Vector3{ 0, XM_PIDIV2, XM_PIDIV2 },
+		Vector3{ XM_PIDIV2, 0, 0 },
+	};
+	for (int i = 0; i < ANGLES.size(); i++)
+	{
+		EntityId ring
+		{
+			GetScene<PlayScene>().Instantiate<CharaEggRing>(
+				GetEntityId(),
+				ANGLES[i])
+		};
+		rings_.push_back(ring);
+	}
 }
 
 void CharaEgg::Update()
 {
+	using namespace DirectX;
+	
+	const float dt{ System().Get<GameTime>().GetDeltaTime() };
+
+	Vector3 rotation{ Transform().GetRotation() };
+	float rotAngle{ XM_PI / 5.0f * dt };
+	rotation.y += rotAngle;
+	Transform().SetRotation(rotation);
+
+	WorldConfig worldConfig{ GetScene<PlayScene>().GetWorldConfig() };
+
+	GameObject* pPlayerObj{ FindGameObject(player_) };
+	wassert(pPlayerObj && "プレイヤーが見つからなかった");
+
+	Vector3 playerPos{ pPlayerObj->Transform().GetPosition() };
+	Vector3 selfPos{ Transform().GetPosition() };
+
+
+	Vector3 diff{ playerPos - selfPos };
+	float distance{ XMVectorGetX(XMVector3Length(diff)) };
+	if (distance < worldConfig.eggGetDistance)
+	{
+		GameObject* pFoundGameObject{ FindGameObject(stageObjManager_) };
+		StageObjectManager* pStageObjectManager{ dynamic_cast<StageObjectManager*>(pFoundGameObject) };
+
+		pStageObjectManager->Fire();
+
+		// リングも消す
+		for (auto ringEntity : rings_)
+		{
+			FindGameObject(ringEntity)->DestroyMe();
+		}
+
+		DestroyMe();
+	}
 }
 
+void CharaEgg::Release()
+{
+}
