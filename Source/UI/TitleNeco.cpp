@@ -87,6 +87,7 @@ void TitleNeco::Update()
 
 	if (pDragCircle)
 	{
+		isDrag_ = pDragCircle->IsDrag();
 		pDragCircle->SetPosition({ 430, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
 	}
 
