@@ -145,7 +145,7 @@ void TitleNeco::Update()
 		: hImages_[I_NORM]
 	};
 
-	config.order(-10);
+	config.order(10);
 
 	config.scale({ screenSize.x, screenSize.y });
 	config.position({ 0, screenSize.y * (1.0f - moveRatio_) });
