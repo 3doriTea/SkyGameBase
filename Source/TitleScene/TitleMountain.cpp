@@ -1,4 +1,6 @@
+#include "pch/pch.h"
 #include "TitleMountain.h"
+#include "Stage/StageLoader.h"
 
 
 TitleMountain::TitleMountain() : GameObject
@@ -45,26 +47,9 @@ void TitleMountain::Init()
 {
 	Collider& collider{ GetComponent<Collider>() };
 
-	std::ifstream ifs{ "StageData.json" };
-	json j{};
-
-	ifs >> j;
-	ifs.close();
-
-	const size_t POINTS_SIZE{ j["points"].size() };
-
-	points_.resize(POINTS_SIZE);
-
-	// jsonからステージを読み取ってくる
-	for (size_t i = 0; i < POINTS_SIZE; i++)
-	{
-		Vector2 pos
-		{
-			j["points"][i]["x"].get<float>(),
-			j["points"][i]["y"].get<float>()
-		};
-		points_.push_back(pos);
-	}
+	StageLoader stageLoader{ points_ };
+	bool succeed{ stageLoader.TryLoad("TitleMountain.json") };
+	wassert(succeed && "タイトル山のデータ読み込みに失敗");
 
 	// 全ての y 軸を - にする
 	for (auto& point : points_)

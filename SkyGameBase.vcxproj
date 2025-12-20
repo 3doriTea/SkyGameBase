@@ -40,6 +40,7 @@
     <ClInclude Include="Source\PlayScene\ControlUI.h" />
     <ClInclude Include="Source\PlayScene\WorldSetting.h" />
     <ClInclude Include="Source\SMF\ToneHz.h" />
+    <ClInclude Include="Source\Stage\StageLoader.h" />
     <ClInclude Include="Source\TitleScene\TitleMountain.h" />
     <ClInclude Include="Source\TitleScene\TitleScene.h" />
     <ClInclude Include="Source\UI\DragCircle.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="Source\SampleScene\Piano.cpp" />
     <ClCompile Include="Source\SampleScene\TestArrowUI.cpp" />
     <ClCompile Include="Source\SMF\SMFPlayer.cpp" />
+    <ClCompile Include="Source\Stage\StageLoader.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />
