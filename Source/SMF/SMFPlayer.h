@@ -28,15 +28,15 @@ public:
 		uint32_t tempo;
 	};
 
-	class TruckGenerater
+	class TruckGenerator
 	{
 	public:
-		TruckGenerater(Truck& _truck, const Header& _header) :
+		TruckGenerator(Truck& _truck, const Header& _header) :
 			HEADER_{ _header },
 			truck_{ _truck },
 			currentTime_{ 0.0f }
 		{}
-		~TruckGenerater() {}
+		~TruckGenerator() {}
 
 		void SetName(const std::string& _name);
 		void SetTempo(const uint32_t _value);

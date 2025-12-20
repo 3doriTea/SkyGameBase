@@ -115,7 +115,7 @@ void SMFPlayer::Init()
 		uint8_t prevStatus{};  // ランニングステータス用
 		size_t endOfTruckPos{ br.Current() + headerSize };
 
-		TruckGenerater truckGen{ smfTrucks_.at(truckId), smfHeader_ };
+		TruckGenerator truckGen{ smfTrucks_.at(truckId), smfHeader_ };
 
 		bool endOfTruckFlag{ false };
 		while (br.Current() < endOfTruckPos && !endOfTruckFlag)
@@ -435,18 +435,18 @@ void SMFPlayer::PlayTone(const Note& _note)
 	}
 }
 
-void SMFPlayer::TruckGenerater::SetName(const std::string& _name)
+void SMFPlayer::TruckGenerator::SetName(const std::string& _name)
 {
 	truck_.name = _name;
 }
 
-void SMFPlayer::TruckGenerater::SetTempo(const uint32_t _value)
+void SMFPlayer::TruckGenerator::SetTempo(const uint32_t _value)
 {
 	const float MICRO_TO_SEC{ 0.000001f };
 	quarterSec_ = static_cast<float>(_value) * MICRO_TO_SEC;
 }
 
-void SMFPlayer::TruckGenerater::On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
+void SMFPlayer::TruckGenerator::On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
 	truck_.notes.push_back(
 		{
@@ -457,7 +457,7 @@ void SMFPlayer::TruckGenerater::On(const uint8_t _channel, const uint8_t _note, 
 		});
 }
 
-void SMFPlayer::TruckGenerater::Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
+void SMFPlayer::TruckGenerator::Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
 	// 同じチャンネルの同じトーンのノーツを探す
 	for (auto itr = truck_.notes.rbegin(); itr != truck_.notes.rend(); itr++)
@@ -470,7 +470,7 @@ void SMFPlayer::TruckGenerater::Off(const uint8_t _channel, const uint8_t _note,
 	}
 }
 
-void SMFPlayer::TruckGenerater::AddDeltaTime(const uint64_t _dt)
+void SMFPlayer::TruckGenerator::AddDeltaTime(const uint64_t _dt)
 {
 	if (_dt == 0)
 	{
@@ -482,4 +482,4 @@ void SMFPlayer::TruckGenerater::AddDeltaTime(const uint64_t _dt)
 	currentTime_ += dtSec;
 }
 
-float SMFPlayer::TruckGenerater::quarterSec_{ 0.0f };
+float SMFPlayer::TruckGenerator::quarterSec_{ 0.0f };
