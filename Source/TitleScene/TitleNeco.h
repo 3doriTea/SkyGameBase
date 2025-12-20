@@ -18,6 +18,12 @@ public:
 	void Update() override;
 	void Release() override;
 
+	/// <summary>
+	/// 移動レートを取得する
+	/// </summary>
+	/// <returns>移動レート 0.0 .. 1.0</returns>
+	float GetMoveRaito() const { return moveRatio_; }
+
 private:
 	TextureHandle hImages_[IMAGE::I_MAX];
 	float moveRatio_;  // ムーブレート

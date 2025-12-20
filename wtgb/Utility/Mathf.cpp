@@ -26,3 +26,8 @@ float wtgb::Mathf::Randomer::Rand()
 	std::uniform_real_distribution<float> dist{ 0.0f, 1.0f };
 	return dist(randomEngine_);
 }
+
+wtgb::Vector3 wtgb::Mathf::Lerp(const Vector3 _a, const Vector3 _b, const float _rate)
+{
+	return _a + DirectX::XMVectorScale((_b - _a), _rate);
+}

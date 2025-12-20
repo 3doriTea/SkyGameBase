@@ -3,6 +3,7 @@
 
 #include "TitleMountain.h"
 #include "TitleNeco.h"
+#include "TitleCamera.h"
 #include "SMF/SMFPlayer.h"
 #include "UI/DragCircle.h"
 
@@ -22,12 +23,23 @@ void TitleScene::Start()
 	Instantiate<SMFPlayer>("Sound/entertainer.mid");
 
 	EntityId dragCircle{ Instantiate<DragCircle>() };
-	Instantiate<TitleNeco>(dragCircle);
+	EntityId titleNeco{ Instantiate<TitleNeco>(dragCircle) };
+	Instantiate<TitleCamera>(titleNeco);
 
-	System().Get<Camera>().position_ = { 0, 110, -460.0f };
-	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };
+	System().Get<Camera>().position_ = { 200, -140, 440.0f };
+	System().Get<Camera>().targetPosition_ = { 0, -160.0, 400.0f };
 }
 
 void TitleScene::Update()
 {
+	Camera& camera{ System().Get<Camera>() };
+
+	ImGui::Begin("Camera");
+	ImGui::DragFloat("pos-x", &camera.position_.x);
+	ImGui::DragFloat("pos-y", &camera.position_.y);
+	ImGui::DragFloat("pos-z", &camera.position_.z);
+	ImGui::DragFloat("tar-x", &camera.targetPosition_.x);
+	ImGui::DragFloat("tar-y", &camera.targetPosition_.y);
+	ImGui::DragFloat("tar-z", &camera.targetPosition_.z);
+	ImGui::End();
 }
