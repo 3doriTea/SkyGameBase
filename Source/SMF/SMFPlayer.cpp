@@ -341,7 +341,8 @@ void SMFPlayer::Init()
 
 	Audio& audio{ System().Get<Audio>() };
 	//hTone_[0] = audio.Load("Sound/maou_se_inst_piano2_1do.mp3");
-	hTone_[0] = audio.Load("Sound/”L‚Ì–Â‚«º1.mp3");
+	//hTone_[0] = audio.Load("Sound/”L‚Ì–Â‚«º1.mp3");
+	hTone_[0] = audio.Load("Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3");
 
 	toneSampleRateHz_ = static_cast<float>(audio.GetFormat(hTone_[0]).nSamplesPerSec);
 }
