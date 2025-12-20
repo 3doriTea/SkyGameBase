@@ -18,7 +18,7 @@ SMFPlayer::SMFPlayer(const fs::path& _file) : GameObject
 },
 	file_{ _file },
 	readCurr_{},
-	hTone_{},
+	hTone_{ INVALID_HANDLE },
 	playTime_{},
 	toneSampleRateHz_{},
 	onNoteCallback_{ [](const Note&){} },
@@ -338,13 +338,6 @@ void SMFPlayer::Init()
 #pragma endregion
 
 	readCurr_.resize(truckCount, 0);
-
-	Audio& audio{ System().Get<Audio>() };
-	//hTone_[0] = audio.Load("Sound/maou_se_inst_piano2_1do.mp3");
-	//hTone_[0] = audio.Load("Sound/猫の鳴き声1.mp3");
-	hTone_[0] = audio.Load("Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3");
-
-	toneSampleRateHz_ = static_cast<float>(audio.GetFormat(hTone_[0]).nSamplesPerSec);
 }
 
 void SMFPlayer::Update()
@@ -355,7 +348,6 @@ void SMFPlayer::Update()
 	}
 
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
-	Audio& audio{ System().Get<Audio>() };
 
 	playTime_ += dt * playRate_;
 
@@ -412,6 +404,11 @@ uint64_t SMFPlayer::ReadDelta(mtbin::BinaryReader& _br)
 
 void SMFPlayer::PlayTone(const Note& _note)
 {
+	if (hTone_ == INVALID_HANDLE)
+	{
+		return;  // 無効ハンドルなら再生しない
+	}
+
 	Audio& audio{ System().Get<Audio>() };
 
 	size_t toneHzIndex{ _note.noteNumber - C4_60_NUM + C4_60_INDEX };
@@ -431,8 +428,17 @@ void SMFPlayer::PlayTone(const Note& _note)
 
 	if (sampleRate <= 192000.0f)
 	{
-		audio.Play(hTone_[0], _note.playTime, static_cast<unsigned long>(sampleRate));
+		audio.Play(hTone_, _note.playTime, static_cast<unsigned long>(sampleRate));
 	}
+}
+
+void SMFPlayer::SetToneAudioHandle(const AudioHandle _hAudio)
+{
+	Audio& audio{ System().Get<Audio>() };
+
+	hTone_ = _hAudio;  // 音源ハンドル指定しつつ
+	// サンプルレートも更新する
+	toneSampleRateHz_ = static_cast<float>(audio.GetFormat(hTone_).nSamplesPerSec);
 }
 
 void SMFPlayer::TruckGenerator::SetName(const std::string& _name)

@@ -35,7 +35,25 @@ void TitleNeco::Init()
 
 	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject("SMFPlayer")) };
 	if (pSMFPlayer)
-	{  // SMFPlayerがいるなら再生
+	{
+		Audio& audio{ System().Get<Audio>() };
+
+		// ノーツ再生時の音源読み込み && セット
+		pSMFPlayer->SetToneAudioHandle(
+			audio.Load("Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3"));
+
+		// ノーツの処理を登録
+		pSMFPlayer->OnNote([pSMFPlayer](Note _note)
+			{
+				if (_note.channel == 0x03)
+				{
+					_note.noteNumber -= 12 * 2;
+					pSMFPlayer->PlayTone(_note);
+				}
+			});
+
+
+		// 再生！
 		pSMFPlayer->Play();
 	}
 }
@@ -49,20 +67,6 @@ void TitleNeco::Update()
 	const Canvas::Context& context{ System().Get<Canvas>().GetContext() };
 	const Vector2Int screenSizeInt{ System().Get<GameWindow>().GetMainWindowSize() };
 	const Vector2 screenSize{ static_cast<float>(screenSizeInt.x), static_cast<float>(screenSizeInt.y) };
-
-	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject("SMFPlayer")) };
-
-	if (pSMFPlayer)  // SMFPlayerが見つかったなら
-	{
-		pSMFPlayer->OnNote([pSMFPlayer](Note _note)
-			{
-				if (_note.channel == 0x03)
-				{
-					_note.noteNumber -= 12 * 2;
-					pSMFPlayer->PlayTone(_note);
-				}
-			});
-	}
 
 	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragCircle_)) };
 

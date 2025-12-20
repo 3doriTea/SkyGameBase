@@ -9,7 +9,7 @@
 #include "../PlayScene/PlayScene.h"
 #include "../PlayScene/CameraController.h"
 
-#include "../UI/TitleNeco.h"
+#include "../TitleScene/TitleNeco.h"
 
 #include "Piano.h"
 #include "../SMF/SMFPlayer.h"
