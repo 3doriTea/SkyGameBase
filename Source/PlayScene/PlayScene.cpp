@@ -41,6 +41,8 @@ void PlayScene::Start()
 
 	//Instantiate<TestBillBoard>();
 	
+	Mathf::Lerp()
+
 	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ 2.5f, 5.0f, 5.0f }) };
 	Instantiate<StageObjectManager>(stageLine, player);
 

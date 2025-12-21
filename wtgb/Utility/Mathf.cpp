@@ -31,3 +31,13 @@ wtgb::Vector3 wtgb::Mathf::Lerp(const Vector3 _a, const Vector3 _b, const float 
 {
 	return _a + DirectX::XMVectorScale((_b - _a), _rate);
 }
+
+wtgb::Vector2 wtgb::Mathf::Lerp(const Vector2 _a, const Vector2 _b, const float _rate)
+{
+	return _a + DirectX::XMVectorScale((_b - _a), _rate);
+}
+
+float wtgb::Mathf::Lerp(const float _a, const float _b, const float _rate)
+{
+	return _a + ((_b - _a) * _rate);
+}

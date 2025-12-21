@@ -50,4 +50,20 @@ namespace wtgb::Mathf
 	/// <param name="_rate">レート</param>
 	/// <returns>線形補間した結果</returns>
 	Vector3 Lerp(const Vector3 _a, const Vector3 _b, const float _rate);
+	/// <summary>
+	/// 座標べぅとる A, B を線形補間する
+	/// </summary>
+	/// <param name="_a">座標ベクトルA</param>
+	/// <param name="_b">座標ベクトルB</param>
+	/// <param name="_rate">レート</param>
+	/// <returns>線形補間した結果</returns>
+	Vector2 Lerp(const Vector2 _a, const Vector2 _b, const float _rate);
+	/// <summary>
+	/// 座標 A, B を線形補間する
+	/// </summary>
+	/// <param name="_a">座標 A</param>
+	/// <param name="_b">座標 B</param>
+	/// <param name="_rate">レート</param>
+	/// <returns>線形補間した結果</returns>
+	float Lerp(const float _a, const float _b, const float _rate);
 }
