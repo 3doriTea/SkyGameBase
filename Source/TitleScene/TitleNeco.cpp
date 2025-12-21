@@ -6,6 +6,8 @@
 #include "TitleScene.h"
 #include "../PlayScene/PlayScene.h"
 
+// TODO: タイトル猫が持ちすぎてるから分ける
+
 TitleNeco::TitleNeco(const EntityId _dragCircle) :
 	GameObject{ "Simple.json" },
 	hImages_{},
@@ -38,6 +40,7 @@ void TitleNeco::Init()
 	hImages_[I_HANG] = rc.LoadTexture(dir / "TitleNeco-Hang.png");
 	hImages_[I_NORM] = rc.LoadTexture(dir / "TitleNeco-Norm.png");
 
+#pragma region プレイボタン
 	playButton_ = titleScene.Instantiate<Button>();
 	Button* pPlayButton{ dynamic_cast<Button*>(FindGameObject(playButton_)) };
 
@@ -49,6 +52,26 @@ void TitleNeco::Init()
 	Vector2Int imageSize{ rc.GetTexture(hOff)->GetImageSizePix() };
 	pPlayButton->SetPosition(screenSizeInt / 2 - imageSize / 2);
 	pPlayButton->SetSize(imageSize);
+
+	pPlayButton->SetInOnCursorFunc(
+		[](const Vector2Int _pos, const Vector2Int _size, const Vector2Int _cursorPos) -> bool
+		{
+			const int PLAY_BUTTON_RADIUS{ 287 };
+			const int PLAY_BUTTON_RADIUS_SQ{ PLAY_BUTTON_RADIUS * PLAY_BUTTON_RADIUS };
+
+			Vector2Int begin{ _pos };
+			Vector2Int end{ _pos + _size };
+			Vector2Int center{ _pos + _size / 2 };
+			Vector2Int diff{ center - _cursorPos };
+			if ((diff.x * diff.x + diff.y * diff.y) > PLAY_BUTTON_RADIUS_SQ)
+			{
+				return false;  // 円の範囲外なら当たっていない
+			}
+
+			return begin.x <= _cursorPos.x && _cursorPos.x <= end.x
+				&& begin.y <= _cursorPos.y && _cursorPos.y <= end.y;
+		});
+#pragma endregion
 
 	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject("SMFPlayer")) };
 	if (pSMFPlayer)

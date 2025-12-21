@@ -5,10 +5,22 @@ Button::Button() :
 	GameObject{ "Simple.json" },
 	isPushedFrame_{ false },
 	isOnCursor_{ false },
+	isPressing_{ false },
 	size_{ Vector2Int::Zero() },
 	position_{ Vector2Int::Zero() },
 	hOnImage_{ INVALID_HANDLE },
-	hOffImage_{ INVALID_HANDLE }
+	hOffImage_{ INVALID_HANDLE },
+	isOnCursorFunc_
+	{
+		[](const Vector2Int _pos, const Vector2Int _size, const Vector2Int _cursorPos) -> bool
+		{
+			Vector2Int begin{ _pos };
+			Vector2Int end{ _pos + _size };
+
+			return begin.x <= _cursorPos.x && _cursorPos.x <= end.x
+				&& begin.y <= _cursorPos.y && _cursorPos.y <= end.y;
+		}
+	}
 {
 }
 
@@ -47,11 +59,9 @@ void Button::Update()
 		isPushedFrame_ = false;
 	}
 
-	isOnCursor_ =  // カーソルが範囲内かチェック
-	{
-		begin.x <= cursorPos.x && cursorPos.x <= end.x
-		&& begin.y <= cursorPos.y && cursorPos.y <= end.y
-	};
+	// カーソルが範囲内かチェック
+	isOnCursor_ = isOnCursorFunc_(position_, size_, cursorPos);
+	
 	if (isOnCursor_)
 	{
 		if (input.IsMouseDown(MouseCode::Left))

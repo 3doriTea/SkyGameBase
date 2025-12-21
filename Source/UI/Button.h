@@ -3,6 +3,10 @@
 
 class Button : public GameObject
 {
+	using Position = Vector2Int;
+	using Size = Vector2Int;
+	using CursorPos = Vector2Int;
+	using IsOnCursorFunc = std::function<bool(const Position, const Size, const CursorPos)>;
 public:
 	Button();
 	~Button();
@@ -43,10 +47,18 @@ public:
 	/// <returns></returns>
 	bool IsOnCursor() const { return isOnCursor_; }
 
+	/// <summary>
+	/// カーソルがボタン上にあるかの判定処理
+	/// </summary>
+	/// <param name="_func">オリジナルの判定処理</param>
+	inline void SetInOnCursorFunc(const IsOnCursorFunc& _func) { isOnCursorFunc_ = _func; }
+
 private:
 	bool isPushedFrame_;  // ボタンが押されたフレームか
 	bool isOnCursor_;     // ボタンがカーソルに触れているか
 	bool isPressing_;     // ボタンが押し込まれているか
+
+	IsOnCursorFunc isOnCursorFunc_;  // カーソルが触れているかをチェックする
 
 	Vector2Int size_;
 	Vector2Int position_;

@@ -4,7 +4,7 @@
 #include "WaterSphere.h"
 #include "../SampleScene/Player.h"
 #include "CameraController.h"
-#include "../SampleScene/SampleScene.h"
+#include "../TitleScene/TitleScene.h"
 #include "StageLine.h"
 #include "TestBillBoard.h"
 #include "StageObjectManager.h"
@@ -82,6 +82,6 @@ void PlayScene::Update()
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	if (input.IsKeyDown(KeyCode::F))
 	{
-		System().Get<SceneManager>().Move<SampleScene>();
+		System().Get<SceneManager>().Move<TitleScene>();
 	}
 }
