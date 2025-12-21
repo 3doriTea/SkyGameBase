@@ -30,4 +30,5 @@ private:
 	bool isDrag_;  // ドラッグ中か
 
 	EntityId dragCircle_;  // ドラッグして掴む円
+	EntityId playButton_;  // プレイボタン
 };

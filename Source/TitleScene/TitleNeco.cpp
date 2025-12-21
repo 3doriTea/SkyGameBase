@@ -2,13 +2,17 @@
 #include "TitleNeco.h"
 #include "../SMF/SMFPlayer.h"
 #include "../UI/DragCircle.h"
+#include "../UI/Button.h"
+#include "TitleScene.h"
+#include "../PlayScene/PlayScene.h"
 
 TitleNeco::TitleNeco(const EntityId _dragCircle) :
 	GameObject{ "Simple.json" },
 	hImages_{},
 	isDrag_{ false },
 	moveRatio_{},
-	dragCircle_{ _dragCircle }
+	dragCircle_{ _dragCircle },
+	playButton_{ INVALID_ENTITY }
 {
 }
 
@@ -21,6 +25,7 @@ void TitleNeco::Init()
 	ResourceSystem& rc{ System().Get<ResourceSystem>() };
 	const Vector2Int screenSizeInt{ System().Get<GameWindow>().GetMainWindowSize() };
 	const Vector2 screenSize{ static_cast<float>(screenSizeInt.x), static_cast<float>(screenSizeInt.y) };
+	TitleScene& titleScene{ GetScene<TitleScene>() };
 
 	//dragCircle_ = GetScene<SampleScene>().Instantiate<DragCircle>(centerPosition, 30);
 	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragCircle_)) };
@@ -32,6 +37,18 @@ void TitleNeco::Init()
 	hImages_[I_HAND] = rc.LoadTexture(dir / "TitleNeco-Hand.png");
 	hImages_[I_HANG] = rc.LoadTexture(dir / "TitleNeco-Hang.png");
 	hImages_[I_NORM] = rc.LoadTexture(dir / "TitleNeco-Norm.png");
+
+	playButton_ = titleScene.Instantiate<Button>();
+	Button* pPlayButton{ dynamic_cast<Button*>(FindGameObject(playButton_)) };
+
+	TextureHandle hOff{ rc.LoadTexture(dir / "PlayButton-Off.png") };
+	pPlayButton->SetOffImage(hOff);
+	TextureHandle hOn{ rc.LoadTexture(dir / "PlayButton-On.png") };
+	pPlayButton->SetOnImage(hOn);
+
+	Vector2Int imageSize{ rc.GetTexture(hOff)->GetImageSizePix() };
+	pPlayButton->SetPosition(screenSizeInt / 2 - imageSize / 2);
+	pPlayButton->SetSize(imageSize);
 
 	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject("SMFPlayer")) };
 	if (pSMFPlayer)
@@ -98,51 +115,6 @@ void TitleNeco::Update()
 	UI::LayoutConfig config{};
 	context.SetRefLayout(&config);
 
-	#if 0
-	{
-		RectF handArea
-		{
-			(560 / 1920.0f) * screenSize.x, screenSize.y / 2,
-			(153 / 1920.0f) * screenSize.x, screenSize.y / 2,
-		};
-		if (input.IsMouseDown(MouseCode::Left))
-		{
-			Vector2Int clickPos{ cursor.GetPosition() };
-			if (handArea.GetBegin().x < clickPos.x && clickPos.x < handArea.GetEnd().x
-			 && handArea.GetBegin().y < clickPos.y && clickPos.y < handArea.GetEnd().y)
-			{
-				cursor.SetShow(false);
-				//cursor.SetLock(true, clickPos);
-				isDrag_ = true;
-			}
-		}
-		if (input.IsMouseUp(MouseCode::Left))
-		{
-			cursor.SetShow(true);
-			//cursor.SetLock(false, {});
-			isDrag_ = false;
-		}
-
-		if (isDrag_)
-		{
-			Vector2Int move{ cursor.GetFrameMove() };
-			moveRatio_ -= static_cast<float>(move.y) / screenSize.y;
-		}
-		else
-		{
-			if (moveRatio_ < 0.5f)
-			{
-				moveRatio_ -= dt / 3.0f;
-			}
-			else
-			{
-				moveRatio_ += dt / 3.0f;
-			}
-		}
-		moveRatio_ = min(max(moveRatio_, 0.0f), 1.0f);
-	}
-	#endif
-
 	TextureHandle hBodyImage
 	{
 		isDrag_
@@ -158,8 +130,20 @@ void TitleNeco::Update()
 
 	config.position({ 0, (screenSize.y / 2.0f) * (1.0f - moveRatio_) });
 	context.DrawImage(hImages_[I_HAND]);
+
+	Button* pPlayButton{ dynamic_cast<Button*>(FindGameObject(playButton_)) };
+	wassert(pPlayButton && "プレイシーンへ行くボタンがないよ！");
+
+	if (pPlayButton)
+	{
+		if (pPlayButton->IsPushedFrame())
+		{
+			System().Get<SceneManager>().Move<PlayScene>();
+		}
+	}
 }
 
 void TitleNeco::Release()
 {
 }
+

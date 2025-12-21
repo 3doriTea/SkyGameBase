@@ -283,6 +283,7 @@
     <ClCompile Include="Source\TitleScene\TitleCamera.cpp" />
     <ClCompile Include="Source\TitleScene\TitleMountain.cpp" />
     <ClCompile Include="Source\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="Source\UI\Button.cpp" />
     <ClCompile Include="Source\UI\DragCircle.cpp" />
     <ClCompile Include="Source\UI\NumberPlate.cpp" />
     <ClCompile Include="Source\TitleScene\TitleNeco.cpp" />
