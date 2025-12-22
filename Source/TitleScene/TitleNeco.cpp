@@ -8,6 +8,11 @@
 
 // TODO: ƒ^ƒCƒgƒ‹”L‚ªŽ‚¿‚·‚¬‚Ä‚é‚©‚ç•ª‚¯‚é
 
+namespace
+{
+	static const int OFFSET_X{ 300 };
+}
+
 TitleNeco::TitleNeco(const EntityId _dragCircle) :
 	GameObject{ "Simple.json" },
 	hImages_{},
@@ -52,7 +57,7 @@ void TitleNeco::Init()
 
 	Vector2Int imageSize{ rc.GetTexture(hOff)->GetImageSizePix() };
 	pPlayButton->SetSize(imageSize);
-	playButtonShowPos_ = screenSizeInt / 2 - imageSize / 2 + Vector2Int{ screenSizeInt / 50 };
+	playButtonShowPos_ = screenSizeInt / 3;
 
 	pPlayButton->SetInOnCursorFunc(
 		[](const Vector2Int _pos, const Vector2Int _size, const Vector2Int _cursorPos) -> bool
@@ -133,7 +138,7 @@ void TitleNeco::Update()
 	if (pDragCircle)
 	{
 		isDrag_ = pDragCircle->IsDrag();
-		pDragCircle->SetPosition({ 430, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
+		pDragCircle->SetPosition({ 430 + OFFSET_X, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
 	}
 
 	UI::LayoutConfig config{};
@@ -149,10 +154,10 @@ void TitleNeco::Update()
 	config.order(10);
 
 	config.scale({ screenSize.x, screenSize.y });
-	config.position({ 0, screenSize.y * (1.0f - moveRatio_) });
+	config.position({ OFFSET_X, screenSize.y * (1.0f - moveRatio_) });
 	context.DrawImage(hBodyImage);
 
-	config.position({ 0, (screenSize.y / 2.0f) * (1.0f - moveRatio_) });
+	config.position({ OFFSET_X, (screenSize.y / 2.0f) * (1.0f - moveRatio_) });
 	context.DrawImage(hImages_[I_HAND]);
 
 	Button* pPlayButton{ dynamic_cast<Button*>(FindGameObject(playButton_)) };
