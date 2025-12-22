@@ -17,13 +17,14 @@ wtgb::GameObject::GameObject(const fs::path& _prefabJson) :
 	entityId_{ System().Get<ComponentManager>().GetPrevEntity() },
 	toDestroy_{ false }
 {
+	// TODO: èdï°ÇµÇƒÇ¢ÇÈ
+	System().Get<CPGameObject>().Add(entityId_, this);
+
 	Scriptable& scriptable{ System().Get<Scriptable>() };
 
 	GameObjectBuilder builder{ *this };
 	scriptable.LoadPrefabFromJson(_prefabJson, builder);
 
-	// TODO: èdï°ÇµÇƒÇ¢ÇÈ
-	System().Get<CPGameObject>().Add(entityId_, this);
 }
 
 
@@ -36,11 +37,12 @@ wtgb::GameObject::GameObject(std::function<void(GameObjectBuilder&)> _callback) 
 	entityId_{ System().Get<ComponentManager>().GetPrevEntity() },
 	toDestroy_{ false }
 {
+	System().Get<CPGameObject>().Add(entityId_, this);
+	
 	GameObjectBuilder builder{ *this };
 	_callback(builder);
 
 	// TODO: èdï°ÇµÇƒÇ¢ÇÈ
-	System().Get<CPGameObject>().Add(entityId_, this);
 }
 
 wtgb::GameObject::~GameObject()

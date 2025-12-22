@@ -7,7 +7,7 @@
 namespace wtgb
 {
 	static constexpr size_t NAME_SIZE{ 16 };
-	static const size_t CHILD_COUNT_MAX{ 32 };
+	static const size_t CHILD_COUNT_MAX{ 1024 };
 
 	class COMPONENT(GameObjectProperty)
 	{
