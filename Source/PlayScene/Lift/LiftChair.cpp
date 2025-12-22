@@ -56,7 +56,12 @@ void LiftChair::Update()
 	{  // ÉäÉtÉgñ{ëÃÇ™å©Ç¬Ç©ÇÈëOíÒ
 		if (isRotating_)
 		{  // ì]âÒíÜÇ»ÇÁ
-			
+			Vector3 position{};
+			float z{ Transform().GetPositionWorld().z };
+			if (pLift->TryGetLinePosition(z, &position))
+			{
+				EndUTurn();
+			}
 			return;
 		}
 
@@ -129,4 +134,6 @@ void LiftChair::EndUTurn()
 
 	// è„è∏ or ç~â∫ ÇîΩì]Ç≥ÇπÇÈ
 	isUpping_ = !isUpping_;
+
+	isRotating_ = false;
 }
