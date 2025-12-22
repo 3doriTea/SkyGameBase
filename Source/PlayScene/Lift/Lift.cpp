@@ -13,7 +13,8 @@ namespace
 
 Lift::Lift(EntityId _stage) :
 	GameObject{ "Simple.json" },
-	stage_{ _stage }
+	stage_{ _stage },
+	rotationSpeedPerSec_{ 6.0f }
 {
 	// ƒ|[ƒ‹‚ğŒš‚Ä‚éx²‚¾‚¯w’è‚µ‚Ä‚¨‚­
 	Transform().SetPosition({ POLE_POS_X, 0, 0 });

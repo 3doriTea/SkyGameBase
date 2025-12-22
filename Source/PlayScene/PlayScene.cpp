@@ -46,7 +46,7 @@ void PlayScene::Start()
 	
 	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
 
-	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 5.0f, 5.0f }) };
+	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 10.0f, 5.0f }) };
 	Instantiate<StageObjectManager>(stageLine, player);
 
 	Mathf::Randomer random{};
