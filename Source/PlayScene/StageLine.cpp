@@ -179,3 +179,14 @@ float StageLine::GetPosY(const Vector3& _worldPosition)
 	}
 	return _worldPosition.y;
 }
+
+float StageLine::GetStageLengthZ() const
+{
+	if (points_.empty())
+	{
+		return 0.0f;  // ステージポイントがないなら 0.0f
+	}
+
+	// ステージポイント末端のx軸がステージの長さになる
+	return points_.back().x;
+}

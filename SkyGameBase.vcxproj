@@ -38,6 +38,8 @@
     <ClInclude Include="Source\PlayScene\CharaBall.h" />
     <ClInclude Include="Source\PlayScene\CharaEgg.h" />
     <ClInclude Include="Source\PlayScene\ControlUI.h" />
+    <ClInclude Include="Source\PlayScene\Lift\Lift.h" />
+    <ClInclude Include="Source\PlayScene\Lift\LiftPole.h" />
     <ClInclude Include="Source\PlayScene\WorldSetting.h" />
     <ClInclude Include="Source\SMF\ToneHz.h" />
     <ClInclude Include="Source\Stage\StageLoader.h" />
@@ -260,6 +262,8 @@
     <ClCompile Include="Source\PlayScene\CharaEgg.cpp" />
     <ClCompile Include="Source\PlayScene\ControlUI.cpp" />
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
+    <ClCompile Include="Source\PlayScene\Lift\Lift.cpp" />
+    <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
     <ClCompile Include="Source\PlayScene\SpecialBoom.cpp" />
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />

@@ -9,6 +9,7 @@
 #include "TestBillBoard.h"
 #include "StageObjectManager.h"
 #include "ControlUI.h"
+#include "Lift/Lift.h"
 
 #include "Utility/Mathf.h"
 
@@ -39,6 +40,8 @@ void PlayScene::Start()
 	Instantiate<CameraController>();
 	EntityId stageLine{ Instantiate<StageLine>() };
 
+	// ステージライン作ったらリフト作る
+	Instantiate<Lift>(stageLine);
 	//Instantiate<TestBillBoard>();
 	
 	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
