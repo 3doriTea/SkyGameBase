@@ -2,6 +2,7 @@
 #include "Lift.h"
 #include "../StageLine.h"
 #include "LiftPole.h"
+#include "LiftLoop.h"
 #include "PlayScene/PlayScene.h"
 
 namespace
@@ -24,22 +25,36 @@ Lift::~Lift()
 
 void Lift::Init()
 {
+	PlayScene& playScene{ GetScene<PlayScene>() };
+
 	StageLine* pStage{ dynamic_cast<StageLine*>(FindGameObject(stage_)) };
-	wassert(pStage && "ステージラインオブジェクトが見つからない");
+
+	if (pStage == nullptr)
+	{
+		wassert(false && "ステージラインオブジェクトが見つからない");
+		return;
+	}
 
 	const float STAGE_LENGTH_Z{ pStage->GetStageLengthZ() };
-	for (float currZ = 0.0f; currZ < STAGE_LENGTH_Z; currZ += POLE_DISTANCE)
-	{
-		// ポールを作っていく
-		Vector3 position
-		{
-			Transform().GetPosition().y,
-			pStage->GetPosY(Vector3::Forward() * currZ),
-			currZ
-		};
+	float currZ = 0.0f;
 
-		GetScene<PlayScene>().Instantiate<LiftPole>(position);
+	EntityId parentEntity{ GetEntityId() };
+	//EntityId parentEntity{ INVALID_ENTITY };
+	
+	// 最初のループはじめを設置
+	playScene.Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
+
+	currZ += POLE_DISTANCE;
+	
+	while (currZ < STAGE_LENGTH_Z)
+	{
+		// ポールを立てていく
+		playScene.Instantiate<LiftPole>(GetPolePosition(currZ), parentEntity);
+		currZ += POLE_DISTANCE;
 	}
+
+	// 最後のループ端を設置
+	playScene.Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
 }
 
 void Lift::Update()
@@ -49,4 +64,17 @@ void Lift::Update()
 
 void Lift::Release()
 {
+}
+
+Vector3 Lift::GetPolePosition(const float _z)
+{
+	StageLine* pStage{ dynamic_cast<StageLine*>(FindGameObject(stage_)) };
+	wassert(pStage && "ステージラインオブジェクトが見つからない");
+
+	return Vector3
+	{
+		0.0f,
+		pStage->GetPosY(Vector3::Forward() * _z),
+		_z
+	};
 }

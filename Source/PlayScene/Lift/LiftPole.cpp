@@ -1,13 +1,14 @@
 #include "pch\pch.h"
 #include "LiftPole.h"
 
-LiftPole::LiftPole(const Vector3& _position) : GameObject
+LiftPole::LiftPole(const Vector3& _position, const EntityId _lift) : GameObject
 {
-	[&_position](GameObjectBuilder& _builder)
+	[&_position, &_lift](GameObjectBuilder& _builder)
 	{
 		_builder
 			.AddComponent<GameObjectProperty>()
 				.BeginSetter()
+					.parent(_lift)
 					.name("LiftPole")
 				.EndSetter()
 			.AddComponent<wtgb::Transform>()
