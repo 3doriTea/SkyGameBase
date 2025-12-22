@@ -3,18 +3,21 @@
 #include "../StageLine.h"
 #include "LiftPole.h"
 #include "LiftLoop.h"
+#include "LiftChair.h"
 #include "PlayScene/PlayScene.h"
 
 namespace
 {
 	static float POLE_DISTANCE{ 100 };  // ここのポールの距離
 	static float POLE_POS_X{ 10.0f };  // ポールを配置するx座標
+	static float POLE_HEIGHT{ 20.0f };  // ポールの地面からラインまでの高さ
 }
 
 Lift::Lift(EntityId _stage) :
 	GameObject{ "Simple.json" },
 	stage_{ _stage },
-	rotationSpeedPerSec_{ 6.0f }
+	rotationSpeedPerSec_{ 6.0f },
+	loopPole_{ INVALID_ENTITY, INVALID_ENTITY }
 {
 	// ポールを建てるx軸だけ指定しておく
 	Transform().SetPosition({ POLE_POS_X, 0, 0 });
@@ -42,20 +45,29 @@ void Lift::Init()
 	EntityId parentEntity{ GetEntityId() };
 	//EntityId parentEntity{ INVALID_ENTITY };
 	
-	// 最初のループはじめを設置
-	playScene.Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
+	EntityId instantiatedEntity{ INVALID_ENTITY };
 
-	currZ += POLE_DISTANCE;
+	// 最初のループはじめを設置 (ポールと重複する)
+	loopPole_[LOOP_POLE_UPPER] = playScene.Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
 	
 	while (currZ < STAGE_LENGTH_Z)
 	{
 		// ポールを立てていく
-		playScene.Instantiate<LiftPole>(GetPolePosition(currZ), parentEntity);
+		instantiatedEntity = playScene.Instantiate<LiftPole>(GetPolePosition(currZ), parentEntity);
+		poles_.push_back(instantiatedEntity);
 		currZ += POLE_DISTANCE;
 	}
 
-	// 最後のループ端を設置
-	playScene.Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
+	currZ -= POLE_DISTANCE;
+	
+	// 最後のループ端を設置 (ポールと重複する)
+	loopPole_[LOOP_POLE_LOWER] = playScene.Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
+
+	for (float z = 0; z < 1000.0f; z += 50.0f)
+	{
+		playScene.Instantiate<LiftChair>(parentEntity, z, false);
+		playScene.Instantiate<LiftChair>(parentEntity, z, true);
+	}
 }
 
 void Lift::Update()
@@ -78,4 +90,48 @@ Vector3 Lift::GetPolePosition(const float _z)
 		pStage->GetPosY(Vector3::Forward() * _z),
 		_z
 	};
+}
+
+bool Lift::TryGetLinePosition(const float _z, Vector3* _pPosition)
+{
+	// 範囲始まりにいるポールのインデクス
+	const int POLE_INDEX{ static_cast<int>(_z / POLE_DISTANCE) };
+	
+	// Zが0未満 や 最後のポールより奥 は範囲外のため失敗
+	if (_z < 0 || (poles_.size() - 1) <= POLE_INDEX)
+	{
+		return false;
+	}
+
+	GameObject* pBegin{ FindGameObject(poles_.at(POLE_INDEX).entityId) };
+	GameObject* pEnd{ FindGameObject(poles_.at(POLE_INDEX + 1).entityId) };
+
+
+	// ポール内のどの位置にいるかの率
+	const float RATIO{ std::fmodf(_z, POLE_DISTANCE) / POLE_DISTANCE };
+
+
+
+	Vector3 beginPos{ pBegin->Transform().GetPositionWorld() };
+	Vector3 endPos{ pEnd->Transform().GetPositionWorld() };
+
+	//beginPos = beginPos + Vector3::Up() * POLE_HEIGHT;
+	//endPos = endPos + Vector3::Up() * POLE_HEIGHT;
+
+	// 2点間を線形補間して座標を求める
+	*_pPosition = Mathf::Lerp(
+		beginPos,
+		endPos,
+		RATIO);
+
+	LOGFLN("RAITO:{}, index:{} to {}, pos: {} -> {}", RATIO, POLE_INDEX, POLE_INDEX + 1, beginPos.z, endPos.z);
+	
+	_pPosition->y += POLE_HEIGHT;
+
+	return true;  // 成功
+}
+
+Lift::Pole::Pole(const EntityId _entityId) :
+	entityId{ _entityId }
+{
 }

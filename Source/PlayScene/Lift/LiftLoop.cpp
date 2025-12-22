@@ -2,6 +2,11 @@
 #include "LiftLoop.h"
 #include "Lift.h"
 
+namespace
+{
+	static const Vector3 SCALE{ 0.4f, 0.4f, 0.4f };
+}
+
 LiftLoop::LiftLoop(const Vector3& _position, const EntityId _lift) : GameObject
 {
 	[&_position, &_lift](GameObjectBuilder& _builder)
@@ -15,6 +20,7 @@ LiftLoop::LiftLoop(const Vector3& _position, const EntityId _lift) : GameObject
 			.AddComponent<wtgb::Transform>()
 				.BeginSetter()
 					.position(_position)
+					.scale(SCALE)
 				.EndSetter()
 			.AddComponent<ModelMesh>()
 				.BeginSetter()

@@ -177,7 +177,9 @@ float StageLine::GetPosY(const Vector3& _worldPosition)
 			return point2D.y;
 		}
 	}
-	return _worldPosition.y;
+
+	// ‚»‚ê‚æ‚è‰œ‚ÍÅŒã‚Ì‚‚³‚ğˆÛ
+	return points_.back().y;
 }
 
 float StageLine::GetStageLengthZ() const

@@ -35,23 +35,26 @@ void wtgb::CPGameObjectProperty::SetFamily(const EntityId _parent, const EntityI
 		//at(_parent).RemoveAllChild();
 	}
 
-	if (_parent == INVALID_ENTITY)
-	{
-		// 親を切り離す
-		at(_child).parent_ = INVALID_ENTITY;
-		return;
-	}
-
-
+	auto pro = at(_child);
 	if (at(_child).parent_ != INVALID_ENTITY)
 	{
-		// 親がいるなら切り離す
-		SetFamily(INVALID_ENTITY, _child);
+		// 既に親がいるなら切り離す
+		at(at(_child).parent_).RemoveChild(_child);
+		at(_child).parent_ = INVALID_ENTITY;
 	}
 
-	// 親子関係を結ぶ
-	at(_child).parent_ = _parent;
-	at(_parent).AddChild(_child);
+	// 親を消したいなら
+	if (_parent == INVALID_ENTITY)
+	{
+		// 既にできているため回帰
+		return;
+	}
+	else  // 親を交換したいなら
+	{
+		// 親子関係を結ぶ
+		at(_child).parent_ = _parent;
+		at(_parent).AddChild(_child);
+	}
 }
 
 const wtgb::EntityId wtgb::CPGameObjectProperty::GetEntityId(const GameObjectProperty* _p) const

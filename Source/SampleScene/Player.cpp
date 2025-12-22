@@ -125,7 +125,8 @@ void Player::AddMove(const Vector3 _move)
 
 
 	std::vector<GameObject*> foundGameObjects{};
-	if (FindGameObjects("CharaEgg", &foundGameObjects))
+	//if (FindGameObjects("CharaEgg", &foundGameObjects))
+	if (false)
 	{
 		for (GameObject* pCharaEgg : foundGameObjects)
 		{
