@@ -4,7 +4,7 @@
 template<typename ComponentT>
 wtgb::Result wtgb::ComponentPool<ComponentT>::Init(const ViewerInit& _viewer)
 {
-	pool_.resize(wtgb::ENTITY_CAPACITY);
+	pool_.resize(wtgb::ENTITY_CAPACITY, {});
 
 	system_ = _viewer.GetCache();
 

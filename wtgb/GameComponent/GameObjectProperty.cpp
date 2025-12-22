@@ -20,6 +20,10 @@ wtgb::GameObjectProperty::~GameObjectProperty()
 void wtgb::GameObjectProperty::Init(ViewerCached _system)
 {
 	system_ = _system;
+	if (parent_ != INVALID_ENTITY)
+	{
+		SetParent(parent_);
+	}
 }
 
 void wtgb::GameObjectProperty::SetName(const std::string& _name)
@@ -41,7 +45,7 @@ void wtgb::GameObjectProperty::CountChilds() const
 
 void wtgb::GameObjectProperty::SetParent(const EntityId _parent)
 {
-	system_.Get<CPGameObjectProperty>().SetFamily(_parent, GetEntityId());
+	System().Get<CPGameObjectProperty>().SetFamily(_parent, GetEntityId());
 }
 
 void wtgb::GameObjectProperty::AddChild(const EntityId _entityId)
@@ -71,7 +75,7 @@ void wtgb::GameObjectProperty::RemoveChild(const EntityId _entityId)
 		}
 	}
 
-	wassert(false && "íœ—\’è‚Ìq‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
+	//wassert(false && "íœ—\’è‚Ìq‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
 }
 
 void wtgb::GameObjectProperty::RemoveAllChild()
@@ -89,9 +93,15 @@ void wtgb::GameObjectProperty::Update(ViewerCached _system)
 
 const wtgb::EntityId wtgb::GameObjectProperty::GetEntityId()
 {
-	if (self_ == INVALID_ENTITY)
+	ComponentManager& componentManager{ System().Get<ComponentManager>() };
+	if (componentManager.IsInvalidId(self_))
 	{
 		self_ = System().Get<CPGameObjectProperty>().GetEntityId(this);
+
+		if (componentManager.IsInvalidId(self_))
+		{
+			self_ = System().Get<ComponentManager>().GetPrevEntity();
+		}
 	}
 	return self_;
 }

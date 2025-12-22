@@ -18,7 +18,7 @@ namespace wtgb
 			SETTER_HEAD(GameObjectProperty)
 
 			Setter& name(const std::string& _name) { GetAccess()->SetName(_name); return *this; }
-			SETTER_PARAM(EntityId, parent);
+			SETTER_PARAM(EntityId, parent)
 		};
 
 	public:
@@ -40,6 +40,10 @@ namespace wtgb
 		/// <param name="_name">新しく設定する名前</param>
 		void SetName(const std::string& _name);
 
+		/// <summary>
+		/// 親エンティティを設定する
+		/// </summary>
+		/// <param name="_parent"></param>
 		void SetParent(const EntityId _parent);
 
 		const EntityId GetParent() const { return parent_; }
