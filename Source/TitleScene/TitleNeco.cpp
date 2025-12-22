@@ -14,7 +14,8 @@ TitleNeco::TitleNeco(const EntityId _dragCircle) :
 	isDrag_{ false },
 	moveRatio_{},
 	dragCircle_{ _dragCircle },
-	playButton_{ INVALID_ENTITY }
+	playButton_{ INVALID_ENTITY },
+	playButtonShowPos_{}
 {
 }
 
@@ -50,8 +51,8 @@ void TitleNeco::Init()
 	pPlayButton->SetOnImage(hOn);
 
 	Vector2Int imageSize{ rc.GetTexture(hOff)->GetImageSizePix() };
-	pPlayButton->SetPosition(screenSizeInt / 2 - imageSize / 2);
 	pPlayButton->SetSize(imageSize);
+	playButtonShowPos_ = screenSizeInt / 2 - imageSize / 2 + Vector2Int{ screenSizeInt / 50 };
 
 	pPlayButton->SetInOnCursorFunc(
 		[](const Vector2Int _pos, const Vector2Int _size, const Vector2Int _cursorPos) -> bool
@@ -159,6 +160,7 @@ void TitleNeco::Update()
 
 	if (pPlayButton)
 	{
+		pPlayButton->SetPosition({ playButtonShowPos_.x, static_cast<int>(Mathf::Lerp((screenSize.y * 1.5f) * (1.0f - moveRatio_), static_cast<float>(playButtonShowPos_.y), moveRatio_)) });
 		if (pPlayButton->IsPushedFrame())
 		{
 			System().Get<SceneManager>().Move<PlayScene>();

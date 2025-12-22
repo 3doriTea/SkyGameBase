@@ -29,6 +29,8 @@ private:
 	float moveRatio_;  // ムーブレート
 	bool isDrag_;  // ドラッグ中か
 
+	Vector2Int playButtonShowPos_;  // プレイボタンを表示させるときの位置
+
 	EntityId dragCircle_;  // ドラッグして掴む円
 	EntityId playButton_;  // プレイボタン
 };
