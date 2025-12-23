@@ -3,6 +3,7 @@
 #include "Core/GameObjectBuilder.h"
 
 #include "CoreType/ExtJson/Vector3.h"
+#include "Utility/JsonUtility.h"
 
 #include "GameComponent/Transform.h"
 #include "GameComponent/GameObjectProperty.h"
@@ -48,6 +49,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 	ifs.close();
 
 	json& components{ j.at("Component") };
+
 
 	// TODO: ここの手作業を省く ex:コンポーネント側にjsonの入力関数をつけておく？
 	for (auto& component : components.items())
