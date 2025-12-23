@@ -61,9 +61,9 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 			_builder
 				.AddComponent<Transform>()
 					.BeginSetter()
-						.position(component.value().at("position").get<Vector3>())
-						.rotation(component.value().at("rotation").get<Vector3>())
-						.scale(component.value().at("scale").get<Vector3>())
+					.position(SafeGet<Vector3>(component.value(), "position"))
+					.rotation(SafeGet<Vector3>(component.value(), "rotation"))
+					.scale(SafeGet<Vector3>(component.value(), "scale"))
 					.EndSetter();
 		}
 		else if (componentName == "GameObjectProperty")
@@ -71,7 +71,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 			_builder
 				.AddComponent<GameObjectProperty>()
 				.BeginSetter()
-				.name(component.value().at("name").get<std::string>())
+				.name(SafeGet<std::string>(component.value(), "name"))
 				.EndSetter();
 		}
 		else if (componentName == "ModelMesh")
@@ -79,7 +79,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 			_builder
 				.AddComponent<ModelMesh>()
 				.BeginSetter()
-				.fileName(component.value().at("fileName").get<std::string>())
+				.fileName(SafeGet<std::string>(component.value(), "fileName"))
 				.EndSetter();
 		}
 		else if (componentName == "MeshRenderer")
@@ -87,7 +87,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 			_builder
 				.AddComponent<MeshRenderer>()
 				.BeginSetter()
-				.shader(component.value().at("shader").get<std::string>())
+				.shader(SafeGet<std::string>(component.value(), "shader"))
 				.EndSetter();
 		}
 		else if (componentName == "RigidBody")
@@ -95,11 +95,10 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 			_builder
 				.AddComponent<RigidBody>()
 				.BeginSetter()
-				.mass(component.value().at("mass").get<float>())
-				.bounciness(component.value().at("bounciness").get<float>())
-				.useGravity(component.value().at("useGravity").get<bool>())
+				.mass(SafeGet<float>(component.value(), "mass"))
+				.bounciness(SafeGet<float>(component.value(), "bounciness"))
+				.useGravity(SafeGet<bool>(component.value(), "useGravity"))
 				.EndSetter();
-				
 		}
 		else
 		{
