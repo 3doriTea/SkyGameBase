@@ -156,7 +156,7 @@
     <ClInclude Include="wtgb\GameSystem\IComponentPool.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SampleScene\Player.h">
+    <ClInclude Include="Source\PlayScene\Player.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\SampleScene\SampleScene.h">
@@ -534,6 +534,27 @@
     <ClInclude Include="Source\UI\Button.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\Lift\Lift.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\Lift\LiftChair.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\Lift\LiftLoop.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\Lift\LiftPole.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\DropCloud.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\PresentSphere.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets\Prefab\StageObj\PresentSphere.json">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -584,7 +605,7 @@
     <ClCompile Include="wtgb\GameComponent\GameObjectProperty.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SampleScene\Player.cpp">
+    <ClCompile Include="Source\PlayScene\Player.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Source\SampleScene\SampleScene.cpp">
@@ -854,6 +875,24 @@
     <ClCompile Include="Source\UI\Button.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\Lift\Lift.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\Lift\LiftChair.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\Lift\LiftLoop.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\DropCloud.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\PresentSphere.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -897,5 +936,7 @@
     <FxCompile Include="Assets\Shader\Image2D.hlsl" />
     <FxCompile Include="Assets\Shader\TestPoint.hlsl" />
     <FxCompile Include="Assets\Shader\SpecialBall.hlsl" />
+    <FxCompile Include="Assets\Shader\PresentShpere.hlsl" />
+    <FxCompile Include="Assets\Shader\CharaEgg.hlsl" />
   </ItemGroup>
 </Project>

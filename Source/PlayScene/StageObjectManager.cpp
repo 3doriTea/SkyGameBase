@@ -1,6 +1,6 @@
 #include "pch/pch.h"
 #include "StageObjectManager.h"
-#include "../SampleScene/Player.h"
+#include "Player.h"
 #include "StageLine.h"
 #include "SpecialBall.h"
 #include "PlayScene.h"
