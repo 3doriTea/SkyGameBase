@@ -12,7 +12,8 @@ PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position) :
 	timeLeft_{ BOUNDING_TIME },
 	isStopping_{ false },
 	player_{ _player },
-	isHitted_{ false }
+	isHitted_{ false },
+	isBounded_{ false }
 {
 	Transform().SetPosition(_position);
 }
@@ -72,10 +73,16 @@ void PresentSphere::Update()
 	}
 
 
-	if (rb.IsHit())
+	std::vector<Collider*> pColliders{};
+	rb.GetHitColliders(&pColliders);
+	for (Collider* pCollider : pColliders)
 	{
-		isHitted_ = true;
-		isBounding_ = true;
+		if (pCollider && pCollider->GetColliderType() == Collider::Type::Section)
+		{
+			isBounded_ = true;
+			isBounding_ = true;
+			return;
+		}
 	}
 }
 
