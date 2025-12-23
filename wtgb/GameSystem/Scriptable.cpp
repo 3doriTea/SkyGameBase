@@ -10,6 +10,7 @@
 #include "GameComponent/ModelMesh.h"
 #include "GameComponent/MeshRenderer.h"
 #include "GameComponent/RigidBody.h"
+#include "GameComponent/Collider.h"
 
 #include "WTGBAssert.h"
 
@@ -88,6 +89,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 				.AddComponent<MeshRenderer>()
 				.BeginSetter()
 				.shader(SafeGet<std::string>(component.value(), "shader"))
+				.texture(SafeGet<std::string>(component.value(), "texture"))
 				.EndSetter();
 		}
 		else if (componentName == "RigidBody")
@@ -98,6 +100,14 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 				.mass(SafeGet<float>(component.value(), "mass"))
 				.bounciness(SafeGet<float>(component.value(), "bounciness"))
 				.useGravity(SafeGet<bool>(component.value(), "useGravity"))
+				.EndSetter();
+		}
+		else if (componentName == "Collider")
+		{
+			_builder
+				.AddComponent<Collider>()
+				.BeginSetter()
+				.colliderType(static_cast<Collider::Type>(SafeGet<int>(component.value(), "colliderType")))
 				.EndSetter();
 		}
 		else

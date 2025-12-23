@@ -12,11 +12,15 @@
 			"fileName": "Models/Present/PresentSphere.fbx"
 		},
 		"MeshRenderer": {
-			"shader": "Shader/PresentShpere.hlsl"
+			"shader": "Shader/Simple3D.hlsl",
+			"texture": "Models/Present/Red.png"
 		},
 		"RigidBody": {
 			"bounciness": 1.0,
-			"useGrabity": true
+			"useGravity": true
+		},
+		"Collider": {
+			"colliderType": 0
 		}
 	}
 }

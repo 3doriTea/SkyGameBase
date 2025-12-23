@@ -73,15 +73,21 @@ void DropCloud::Update()
 	position.y = pStageLine->GetPosY(position) + offsetHeight_;
 	Transform().SetPosition(position);
 
-	for (auto& present : dropedPresents_)
+	for (auto itr = dropedPresents_.begin(); itr != dropedPresents_.end();)
 	{
-		PresentSphere* pPresent{ dynamic_cast<PresentSphere*>(FindGameObject(present.entityId)) };
+		GameObject* pPresentObj{ FindGameObject(itr->entityId)};
+		PresentSphere* pPresent{ dynamic_cast<PresentSphere*>(FindGameObject(itr->entityId)) };
 		if (pPresent->IsHit())
 		{
-			present.note.noteNumber -= 12 * 2;
-			pSMFPlayer->PlayTone(present.note);
+			itr->note.noteNumber -= 12 * 2;
+			pSMFPlayer->PlayTone(itr->note);
 			pPresent->DestroyMe();
+
+			itr = dropedPresents_.erase(itr);
+			continue;
 		}
+
+		itr++;
 	}
 }
 

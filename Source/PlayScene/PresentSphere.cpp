@@ -11,7 +11,8 @@ PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position) :
 	isBounding_{ false },
 	timeLeft_{ BOUNDING_TIME },
 	isStopping_{ false },
-	player_{ _player }
+	player_{ _player },
+	isHitted_{ false }
 {
 	Transform().SetPosition(_position);
 }
@@ -73,7 +74,7 @@ void PresentSphere::Update()
 
 	if (rb.IsHit())
 	{
-
+		isBounding_ = true;
 	}
 }
 
