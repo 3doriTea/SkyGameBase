@@ -10,7 +10,7 @@ namespace
 {
 	// 地上からの高さ デフォルト
 	static const float HEIGHT{ 100.0f };
-	static const float DESTORY_DISTANCE_Z{ 100.0f };
+	static const float DESTORY_DISTANCE_Z{ 300.0f };
 }
 
 DropCloud::DropCloud(
@@ -79,7 +79,7 @@ void DropCloud::Update()
 		GameObject* pPresentObj{ FindGameObject(itr->entityId) };
 		PresentSphere* pPresent{ dynamic_cast<PresentSphere*>(FindGameObject(itr->entityId)) };
 
-		if (position.z - pPresent->Transform().GetPosition().z > DESTORY_DISTANCE_Z)
+		if ((position.z - pPresent->Transform().GetPosition().z) > DESTORY_DISTANCE_Z)
 		{
 			pPresent->DestroyMe();
 			itr = dropedPresents_.erase(itr);
