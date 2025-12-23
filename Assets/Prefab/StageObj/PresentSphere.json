@@ -6,7 +6,7 @@
 		"Transform": {
 			"position": [ 0, 0, 0 ],
 			"rotation": [ 0, 0, 0 ],
-			"scale": [ 5, 5, 5 ]
+			"scale": [ 1, 1, 1 ]
 		},
 		"ModelMesh": {
 			"fileName": "Models/Present/PresentSphere.fbx"

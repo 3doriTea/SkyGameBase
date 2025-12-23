@@ -74,10 +74,25 @@ void PresentSphere::Update()
 
 	if (rb.IsHit())
 	{
+		isHitted_ = true;
 		isBounding_ = true;
 	}
 }
 
 void PresentSphere::Release()
 {
+}
+
+bool PresentSphere::IsBounded()
+{
+	if (isBounded_)
+	{
+		// ’µ‚Ë•Ô‚è‚ðŽæ“¾‚Å‚«‚½‚½‚ßƒŠƒZƒbƒg‚·‚é
+		isBounded_ = false;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
