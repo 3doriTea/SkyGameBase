@@ -88,6 +88,11 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_bounciness">反発力(侵入速度の何倍で反射するか)</param>
 		inline void SetBounciness(const float _bounciness) { bounciness_ = _bounciness; }
+		/// <summary>
+		/// 重力を使用するか設定する
+		/// </summary>
+		/// <param name="_useGravity">重力を使う true / false</param>
+		inline void SetUseGravity(const bool _useGravity) { useGravity_ = _useGravity; }
 
 	private:
 		/// <summary>

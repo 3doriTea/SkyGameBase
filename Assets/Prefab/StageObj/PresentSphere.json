@@ -9,10 +9,14 @@
 			"scale": [ 5, 5, 5 ]
 		},
 		"ModelMesh": {
-			"fileName": "Models/Present/PresentShpere.fbx"
+			"fileName": "Models/Present/PresentSphere.fbx"
 		},
 		"MeshRenderer": {
 			"shader": "Shader/PresentShpere.hlsl"
+		},
+		"RigidBody": {
+			"bounciness": 1.0,
+			"useGrabity": true
 		}
 	}
 }

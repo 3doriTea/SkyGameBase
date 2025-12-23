@@ -6,13 +6,14 @@ namespace
 	static const float BOUNDING_TIME{ 2.0f };
 }
 
-PresentSphere::PresentSphere(const EntityId _player) :
+PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position) :
 	GameObject{ "StageObj/PresentSphere.json" },
 	isBounding_{ false },
 	timeLeft_{ BOUNDING_TIME },
 	isStopping_{ false },
 	player_{ _player }
 {
+	Transform().SetPosition(_position);
 }
 
 PresentSphere::~PresentSphere()
@@ -52,7 +53,6 @@ void PresentSphere::Update()
 
 		if (toPlayerDistance <= threshold)
 		{
-			rb.SetVelocity(Vector3::Zero());
 			isHitted_ = true;  // “–‚½‚Á‚½‚©‚çŽæ‚ç‚ê‚½‚æI
 		}
 		return;
@@ -63,7 +63,9 @@ void PresentSphere::Update()
 		timeLeft_ -= dt;
 		if (timeLeft_ <= 0.0f)
 		{
-			isStopping_ = true;
+			rb.SetUseGravity(false);
+			rb.SetVelocity(Vector3::Zero());
+			isStopping_ = true;  // ‚»‚Ìê‚ÅŽ~‚Ü‚éI
 		}
 		return;
 	}

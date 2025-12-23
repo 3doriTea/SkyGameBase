@@ -8,6 +8,7 @@
 #include "GameComponent/GameObjectProperty.h"
 #include "GameComponent/ModelMesh.h"
 #include "GameComponent/MeshRenderer.h"
+#include "GameComponent/RigidBody.h"
 
 #include "WTGBAssert.h"
 
@@ -86,6 +87,17 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 				.BeginSetter()
 				.shader(component.value().at("shader").get<std::string>())
 				.EndSetter();
+		}
+		else if (componentName == "RigidBody")
+		{
+			_builder
+				.AddComponent<RigidBody>()
+				.BeginSetter()
+				.mass(component.value().at("mass").get<float>())
+				.bounciness(component.value().at("bounciness").get<float>())
+				.useGravity(component.value().at("useGravity").get<bool>())
+				.EndSetter();
+				
 		}
 		else
 		{
