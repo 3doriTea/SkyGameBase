@@ -1,5 +1,6 @@
 #include "pch\pch.h"
 #include "PresentSphere.h"
+#include "Common.h"
 
 namespace
 {
@@ -16,6 +17,7 @@ PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position) :
 	isBounded_{ false }
 {
 	Transform().SetPosition(_position);
+	GetComponent<Collider>().SetTagFlag(CT_PLAYER);
 }
 
 PresentSphere::~PresentSphere()

@@ -291,11 +291,20 @@ void CircleBodyVSSegment(
 	// 距離
 	const float DISTANCE{ XMVectorGetX(XMVector2Length(CENTER_TO_POINT)) };
 
-	// 埋め込み具合 (負の値なら埋まっている)
-	info.depth = RADIUS - DISTANCE;
+	if (CENTER_TO_POINT.y > 0.0f)
+	{
+		info.depth = DISTANCE - RADIUS;
+		info.isHit = true;
+	}
+	else
+	{
+		// 埋め込み具合 (負の値なら埋まっている)
+		info.depth = RADIUS - DISTANCE;
 
-	// 当たっているか（埋まり込みがあるか）
-	info.isHit = info.depth >= 0.0f;
+		// 当たっているか（埋まり込みがあるか）
+		info.isHit = info.depth >= 0.0f;
+	}
+
 
 	// 衝突点は最近接点
 	info.hitPoint = { 0.0f, point2D.y, point2D.x };

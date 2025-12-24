@@ -36,6 +36,7 @@
     <ClInclude Include="Library\mtbin\mtbin.h" />
     <ClInclude Include="Library\mtbin\Util.h" />
     <ClInclude Include="pch\framework.h" />
+    <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Source\PlayScene\DropCloud.h" />
     <ClInclude Include="Source\PlayScene\CharaBall.h" />
     <ClInclude Include="Source\PlayScene\CharaEgg.h" />
