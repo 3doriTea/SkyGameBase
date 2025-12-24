@@ -3,6 +3,14 @@
 #include "CommonGameComponent.h"
 #include "GameSystem/CPCollider.h"
 
+namespace
+{
+	/// <summary>
+	/// コライダータグの数
+	/// </summary>
+	const size_t TAG_COUNT{ sizeof(uint32_t) * 8 };
+}
+
 namespace wtgb
 {
 	class COMPONENT(Collider)
@@ -26,6 +34,7 @@ namespace wtgb
 			SETTER_HEAD(Collider)
 
 			SETTER_PARAM(Type, colliderType)
+			SETTER_PARAM(uint32_t, tag)
 		};
 
 	public:
@@ -66,6 +75,26 @@ namespace wtgb
 
 		void SetRadius(const float _radius) { sphere.radius = _radius; }
 
+		/// <summary>
+		/// タグフラグ全体をセットする
+		/// </summary>
+		/// <param name="_flags">フラグ値</param>
+		void SetTagFlag(const uint32_t _flags) { tag_ = _flags; }
+
+		/// <summary>
+		/// １つのタグフラグをセットする
+		/// </summary>
+		/// <param name="_index">フラグのインデクス(enum : uint32_tにして使用)</param>
+		/// <param name="_flag">立っている true / false</param>
+		void SetTag(const size_t _index, const bool _flag) { tag_.set(_index, _flag); }
+
+		/// <summary>
+		/// 指定したタグが付いているかチェックする
+		/// </summary>
+		/// <param name="_index">フラグのインデクス(enum : uint32_tにして使用)</param>
+		/// <returns>タグを持っている true / false</returns>
+		bool HasTag(const size_t _index) const { return tag_.test(_index); }
+
 	private:
 		Type colliderType_;
 		//union
@@ -80,5 +109,6 @@ namespace wtgb
 				std::vector<Vector2> points2D;  // 断面xy頂点
 			} section;
 		//};
+		std::bitset<TAG_COUNT> tag_;
 	};
 }

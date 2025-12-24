@@ -56,3 +56,5 @@ using Microsoft::WRL::ComPtr;
 #endif
 
 #endif //PCH_H
+
+// ゲーム側の設定

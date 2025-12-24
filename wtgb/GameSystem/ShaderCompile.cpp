@@ -32,6 +32,8 @@ void wtgb::ShaderCompile::End()
 const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _config)
 {
 	std::string_view fileName{ _config.fileName };
+
+	wassert(fs::is_regular_file(fileName) && "ファイルパスが不正");
 	
 	// 重複を探す
 	ShaderHandle foundHandle

@@ -1,0 +1,26 @@
+{
+	"Component": {
+		"GameObjectProperty": {
+			"name": "CharaEggLing"
+		},
+		"Transform": {
+			"position": [ 0, 0, 0 ],
+			"rotation": [ 0, 0, 0 ],
+			"scale": [ 1, 1, 1 ]
+		},
+		"ModelMesh": {
+			"fileName": "Models/Present/PresentSphere.fbx"
+		},
+		"MeshRenderer": {
+			"shader": "Shader/Simple3D.hlsl",
+			"texture": "Models/Present/Red.png"
+		},
+		"RigidBody": {
+			"bounciness": 1.0,
+			"useGravity": true
+		},
+		"Collider": {
+			"colliderType": 0
+		}
+	}
+}

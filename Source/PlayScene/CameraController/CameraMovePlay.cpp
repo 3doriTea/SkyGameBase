@@ -1,6 +1,6 @@
 #include "pch\pch.h"
 #include "CameraMovePlay.h"
-#include "../../SampleScene/Player.h"
+#include "../Player.h"
 
 namespace
 {

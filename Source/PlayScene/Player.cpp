@@ -125,7 +125,8 @@ void Player::AddMove(const Vector3 _move)
 
 
 	std::vector<GameObject*> foundGameObjects{};
-	if (FindGameObjects("CharaEgg", &foundGameObjects))
+	//if (FindGameObjects("CharaEgg", &foundGameObjects))
+	if (false)
 	{
 		for (GameObject* pCharaEgg : foundGameObjects)
 		{
@@ -136,8 +137,8 @@ void Player::AddMove(const Vector3 _move)
 
 			if (dot > 0.9f)
 			{
-				rb.SetVelocity(toDir * XMVectorGetX(XMVector3Length(_move)));
-				return;
+				rb.SetVelocity(toDir * (XMVectorGetX(XMVector3Length(_move)) + XMVectorGetX(XMVector3Length(rb.GetVelocity()))));
+				return;  // 速度を適用して回帰
 			}
 		}
 	}

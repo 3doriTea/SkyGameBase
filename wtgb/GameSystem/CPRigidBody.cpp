@@ -109,6 +109,8 @@ void wtgb::CPRigidBody::Update()
 						CollisionInfo collisionInfo{};
 						if (PhysicsUtil::IsHitFromSphere(&selfSet, &otherSet, &collisionInfo))
 						{
+							_rb.AddHitCollider(otherSet.pCollider);
+
 						#if 0
 							// 2ŸŒ³‚Å“–‚½‚è”»’è‚ğ‚µ‚Ä‚¢‚é‚½‚ßAx²‚ÉŠÖ‚µ‚Ä‚Í•Ê
 							collisionInfo.hitPoint.x = _rb.prevPosition_.x;

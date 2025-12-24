@@ -3,11 +3,14 @@
 #include "Core/GameObjectBuilder.h"
 
 #include "CoreType/ExtJson/Vector3.h"
+#include "Utility/JsonUtility.h"
 
 #include "GameComponent/Transform.h"
 #include "GameComponent/GameObjectProperty.h"
 #include "GameComponent/ModelMesh.h"
 #include "GameComponent/MeshRenderer.h"
+#include "GameComponent/RigidBody.h"
+#include "GameComponent/Collider.h"
 
 #include "WTGBAssert.h"
 
@@ -48,6 +51,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 
 	json& components{ j.at("Component") };
 
+
 	// TODO: ここの手作業を省く ex:コンポーネント側にjsonの入力関数をつけておく？
 	for (auto& component : components.items())
 	{
@@ -58,9 +62,9 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 			_builder
 				.AddComponent<Transform>()
 					.BeginSetter()
-						.position(component.value().at("position").get<Vector3>())
-						.rotation(component.value().at("rotation").get<Vector3>())
-						.scale(component.value().at("scale").get<Vector3>())
+					.position(SafeGet<Vector3>(component.value(), "position"))
+					.rotation(SafeGet<Vector3>(component.value(), "rotation"))
+					.scale(SafeGet<Vector3>(component.value(), "scale"))
 					.EndSetter();
 		}
 		else if (componentName == "GameObjectProperty")
@@ -68,7 +72,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 			_builder
 				.AddComponent<GameObjectProperty>()
 				.BeginSetter()
-				.name(component.value().at("name").get<std::string>())
+				.name(SafeGet<std::string>(component.value(), "name"))
 				.EndSetter();
 		}
 		else if (componentName == "ModelMesh")
@@ -76,7 +80,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 			_builder
 				.AddComponent<ModelMesh>()
 				.BeginSetter()
-				.fileName(component.value().at("fileName").get<std::string>())
+				.fileName(SafeGet<std::string>(component.value(), "fileName"))
 				.EndSetter();
 		}
 		else if (componentName == "MeshRenderer")
@@ -84,7 +88,26 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 			_builder
 				.AddComponent<MeshRenderer>()
 				.BeginSetter()
-				.shader(component.value().at("shader").get<std::string>())
+				.shader(SafeGet<std::string>(component.value(), "shader"))
+				.texture(SafeGet<std::string>(component.value(), "texture"))
+				.EndSetter();
+		}
+		else if (componentName == "RigidBody")
+		{
+			_builder
+				.AddComponent<RigidBody>()
+				.BeginSetter()
+				.mass(SafeGet<float>(component.value(), "mass"))
+				.bounciness(SafeGet<float>(component.value(), "bounciness"))
+				.useGravity(SafeGet<bool>(component.value(), "useGravity"))
+				.EndSetter();
+		}
+		else if (componentName == "Collider")
+		{
+			_builder
+				.AddComponent<Collider>()
+				.BeginSetter()
+				.colliderType(static_cast<Collider::Type>(SafeGet<int>(component.value(), "colliderType")))
 				.EndSetter();
 		}
 		else

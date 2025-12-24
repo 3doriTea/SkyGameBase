@@ -18,7 +18,7 @@ SMFPlayer::SMFPlayer(const fs::path& _file) : GameObject
 },
 	file_{ _file },
 	readCurr_{},
-	hTone_{},
+	hTone_{ INVALID_HANDLE },
 	playTime_{},
 	toneSampleRateHz_{},
 	onNoteCallback_{ [](const Note&){} },
@@ -115,7 +115,7 @@ void SMFPlayer::Init()
 		uint8_t prevStatus{};  // ランニングステータス用
 		size_t endOfTruckPos{ br.Current() + headerSize };
 
-		TruckGenerater truckGen{ smfTrucks_.at(truckId), smfHeader_ };
+		TruckGenerator truckGen{ smfTrucks_.at(truckId), smfHeader_ };
 
 		bool endOfTruckFlag{ false };
 		while (br.Current() < endOfTruckPos && !endOfTruckFlag)
@@ -338,12 +338,6 @@ void SMFPlayer::Init()
 #pragma endregion
 
 	readCurr_.resize(truckCount, 0);
-
-	Audio& audio{ System().Get<Audio>() };
-	//hTone_[0] = audio.Load("Sound/maou_se_inst_piano2_1do.mp3");
-	hTone_[0] = audio.Load("Sound/猫の鳴き声1.mp3");
-
-	toneSampleRateHz_ = static_cast<float>(audio.GetFormat(hTone_[0]).nSamplesPerSec);
 }
 
 void SMFPlayer::Update()
@@ -354,7 +348,6 @@ void SMFPlayer::Update()
 	}
 
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
-	Audio& audio{ System().Get<Audio>() };
 
 	playTime_ += dt * playRate_;
 
@@ -411,6 +404,11 @@ uint64_t SMFPlayer::ReadDelta(mtbin::BinaryReader& _br)
 
 void SMFPlayer::PlayTone(const Note& _note)
 {
+	if (hTone_ == INVALID_HANDLE)
+	{
+		return;  // 無効ハンドルなら再生しない
+	}
+
 	Audio& audio{ System().Get<Audio>() };
 
 	size_t toneHzIndex{ _note.noteNumber - C4_60_NUM + C4_60_INDEX };
@@ -430,22 +428,31 @@ void SMFPlayer::PlayTone(const Note& _note)
 
 	if (sampleRate <= 192000.0f)
 	{
-		audio.Play(hTone_[0], _note.playTime, static_cast<unsigned long>(sampleRate));
+		audio.Play(hTone_, _note.playTime, static_cast<unsigned long>(sampleRate));
 	}
 }
 
-void SMFPlayer::TruckGenerater::SetName(const std::string& _name)
+void SMFPlayer::SetToneAudioHandle(const AudioHandle _hAudio)
+{
+	Audio& audio{ System().Get<Audio>() };
+
+	hTone_ = _hAudio;  // 音源ハンドル指定しつつ
+	// サンプルレートも更新する
+	toneSampleRateHz_ = static_cast<float>(audio.GetFormat(hTone_).nSamplesPerSec);
+}
+
+void SMFPlayer::TruckGenerator::SetName(const std::string& _name)
 {
 	truck_.name = _name;
 }
 
-void SMFPlayer::TruckGenerater::SetTempo(const uint32_t _value)
+void SMFPlayer::TruckGenerator::SetTempo(const uint32_t _value)
 {
 	const float MICRO_TO_SEC{ 0.000001f };
 	quarterSec_ = static_cast<float>(_value) * MICRO_TO_SEC;
 }
 
-void SMFPlayer::TruckGenerater::On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
+void SMFPlayer::TruckGenerator::On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
 	truck_.notes.push_back(
 		{
@@ -456,7 +463,7 @@ void SMFPlayer::TruckGenerater::On(const uint8_t _channel, const uint8_t _note, 
 		});
 }
 
-void SMFPlayer::TruckGenerater::Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
+void SMFPlayer::TruckGenerator::Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
 	// 同じチャンネルの同じトーンのノーツを探す
 	for (auto itr = truck_.notes.rbegin(); itr != truck_.notes.rend(); itr++)
@@ -469,7 +476,7 @@ void SMFPlayer::TruckGenerater::Off(const uint8_t _channel, const uint8_t _note,
 	}
 }
 
-void SMFPlayer::TruckGenerater::AddDeltaTime(const uint64_t _dt)
+void SMFPlayer::TruckGenerator::AddDeltaTime(const uint64_t _dt)
 {
 	if (_dt == 0)
 	{
@@ -481,4 +488,4 @@ void SMFPlayer::TruckGenerater::AddDeltaTime(const uint64_t _dt)
 	currentTime_ += dtSec;
 }
 
-float SMFPlayer::TruckGenerater::quarterSec_{ 0.0f };
+float SMFPlayer::TruckGenerator::quarterSec_{ 0.0f };

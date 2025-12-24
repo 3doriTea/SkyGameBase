@@ -30,7 +30,8 @@ namespace wtgb::UI
 		/// </summary>
 		LAYOUT_BUILDER_SETTER_PARAM(Vector2, scale)
 		/// <summary>
-		/// •`‰æ‡”Ô‚ÌŽw’è
+		/// <para>•`‰æ‡”Ô‚ÌŽw’è</para>
+		/// <para>’l‚ª‚‚¢‚Ù‚Çæ‚É•`‰æ‚³‚ê‚é(=‰œ‚É•`‰æ‚³‚ê‚é)</para>
 		/// </summary>
 		LAYOUT_BUILDER_SETTER_PARAM(int, order)
 

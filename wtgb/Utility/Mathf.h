@@ -1,6 +1,7 @@
 #pragma once
 #include <random>
 #include <cstdint>
+#include "CoreType/Vector3.h"
 
 /// <summary>
 /// 32bit浮動小数点数の数学ユーティリティ
@@ -40,4 +41,29 @@ namespace wtgb::Mathf
 	private:
 		std::mt19937 randomEngine_;  // 乱数エンジン
 	};
+
+	/// <summary>
+	/// 座標ベクトル A, B を線形補間する
+	/// </summary>
+	/// <param name="_a">座標ベクトルA</param>
+	/// <param name="_b">座標ベクトルB</param>
+	/// <param name="_rate">レート</param>
+	/// <returns>線形補間した結果</returns>
+	Vector3 Lerp(const Vector3 _a, const Vector3 _b, const float _rate);
+	/// <summary>
+	/// 座標べぅとる A, B を線形補間する
+	/// </summary>
+	/// <param name="_a">座標ベクトルA</param>
+	/// <param name="_b">座標ベクトルB</param>
+	/// <param name="_rate">レート</param>
+	/// <returns>線形補間した結果</returns>
+	Vector2 Lerp(const Vector2 _a, const Vector2 _b, const float _rate);
+	/// <summary>
+	/// 座標 A, B を線形補間する
+	/// </summary>
+	/// <param name="_a">座標 A</param>
+	/// <param name="_b">座標 B</param>
+	/// <param name="_rate">レート</param>
+	/// <returns>線形補間した結果</returns>
+	float Lerp(const float _a, const float _b, const float _rate);
 }

@@ -28,15 +28,15 @@ public:
 		uint32_t tempo;
 	};
 
-	class TruckGenerater
+	class TruckGenerator
 	{
 	public:
-		TruckGenerater(Truck& _truck, const Header& _header) :
+		TruckGenerator(Truck& _truck, const Header& _header) :
 			HEADER_{ _header },
 			truck_{ _truck },
 			currentTime_{ 0.0f }
 		{}
-		~TruckGenerater() {}
+		~TruckGenerator() {}
 
 		void SetName(const std::string& _name);
 		void SetTempo(const uint32_t _value);
@@ -82,20 +82,31 @@ public:
 	/// 停止する
 	/// </summary>
 	inline void Stop() { isPlaying_ = false; }
-
+	
+	/// <summary>
+	/// 再生倍率をセットする
+	/// </summary>
+	/// <param name="_rate">再生倍率(0.0 .. 1.0 ..)</param>
 	inline void SetPlayRate(const float _rate) { playRate_ = _rate; }
+
+	/// <summary>
+	/// 再生する音色音源をセットする
+	/// </summary>
+	/// <param name="_hAudio">音色となる音源</param>
+	void SetToneAudioHandle(const AudioHandle _hAudio);
 
 private:
 	std::function<void(const Note&)> onNoteCallback_;
 	fs::path file_;
 	Header smfHeader_;  // smfのヘッダデータ
 	std::vector<Truck> smfTrucks_;  // smfのトラックデータ
-	float playTime_;  // 再生時間
-	float playRate_;  // 倍速か
 	std::vector<size_t> readCurr_;
 
+	float playTime_;  // 再生時間
+	float playRate_;  // 倍速か
 	bool isPlaying_;  // 再生中か
 
 	float toneSampleRateHz_;  // サンプルトーンの周波数
-	AudioHandle hTone_[1];
+
+	AudioHandle hTone_;       // 再生する音色
 };

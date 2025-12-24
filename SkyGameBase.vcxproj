@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assets\Prefab\StageObj\PresentSphere.json" />
     <ClInclude Include="Library\ImGui\imconfig.h" />
     <ClInclude Include="Library\ImGui\imgui.h" />
     <ClInclude Include="Library\ImGui\imgui_impl_dx11.h" />
@@ -35,11 +36,23 @@
     <ClInclude Include="Library\mtbin\mtbin.h" />
     <ClInclude Include="Library\mtbin\Util.h" />
     <ClInclude Include="pch\framework.h" />
+    <ClInclude Include="Source\Common.h" />
+    <ClInclude Include="Source\PlayScene\DropCloud.h" />
     <ClInclude Include="Source\PlayScene\CharaBall.h" />
     <ClInclude Include="Source\PlayScene\CharaEgg.h" />
     <ClInclude Include="Source\PlayScene\ControlUI.h" />
+    <ClInclude Include="Source\PlayScene\Lift\Lift.h" />
+    <ClInclude Include="Source\PlayScene\Lift\LiftChair.h" />
+    <ClInclude Include="Source\PlayScene\Lift\LiftLoop.h" />
+    <ClInclude Include="Source\PlayScene\Lift\LiftPole.h" />
+    <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\WorldSetting.h" />
     <ClInclude Include="Source\SMF\ToneHz.h" />
+    <ClInclude Include="Source\Stage\StageLoader.h" />
+    <ClInclude Include="Source\TitleScene\TitleCamera.h" />
+    <ClInclude Include="Source\TitleScene\TitleMountain.h" />
+    <ClInclude Include="Source\TitleScene\TitleScene.h" />
+    <ClInclude Include="Source\UI\Button.h" />
     <ClInclude Include="Source\UI\DragCircle.h" />
     <ClInclude Include="wtgb\LibHeader\FileSystem.h" />
     <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />
@@ -68,12 +81,12 @@
     <ClInclude Include="Source\PlayScene\PlayScene.h" />
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\SampleGame.h" />
-    <ClInclude Include="Source\SampleScene\Player.h" />
+    <ClInclude Include="Source\PlayScene\Player.h" />
     <ClInclude Include="Source\SampleScene\SampleScene.h" />
     <ClInclude Include="Source\SampleSkyCombat.h" />
     <ClInclude Include="Source\SkyGameBase.h" />
     <ClInclude Include="Source\UI\NumberPlate.h" />
-    <ClInclude Include="Source\UI\TitleNeco.h" />
+    <ClInclude Include="Source\TitleScene\TitleNeco.h" />
     <ClInclude Include="wtgb\CoreType\Collection\HandlerCollection.h" />
     <ClInclude Include="wtgb\CoreType\Color.h" />
     <ClInclude Include="wtgb\CoreType\CoreType.h" />
@@ -181,6 +194,7 @@
     <ClInclude Include="wtgb\Utility\Accessor.h" />
     <ClInclude Include="wtgb\Utility\InitSequence.h" />
     <ClInclude Include="wtgb\Utility\InputChecker.h" />
+    <ClInclude Include="wtgb\Utility\JsonUtility.h" />
     <ClInclude Include="wtgb\Utility\Mathf.h" />
     <ClInclude Include="wtgb\wtgb.h" />
     <ClInclude Include="wtgb\WTGBAssert.h" />
@@ -255,6 +269,12 @@
     <ClCompile Include="Source\PlayScene\CharaEgg.cpp" />
     <ClCompile Include="Source\PlayScene\ControlUI.cpp" />
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
+    <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
+    <ClCompile Include="Source\PlayScene\Lift\Lift.cpp" />
+    <ClCompile Include="Source\PlayScene\Lift\LiftChair.cpp" />
+    <ClCompile Include="Source\PlayScene\Lift\LiftLoop.cpp" />
+    <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
+    <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpecialBoom.cpp" />
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />
@@ -267,16 +287,21 @@
     <ClCompile Include="Source\SampleScene\Piano.cpp" />
     <ClCompile Include="Source\SampleScene\TestArrowUI.cpp" />
     <ClCompile Include="Source\SMF\SMFPlayer.cpp" />
+    <ClCompile Include="Source\Stage\StageLoader.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />
     <ClCompile Include="Source\SampleGame.cpp" />
-    <ClCompile Include="Source\SampleScene\Player.cpp" />
+    <ClCompile Include="Source\PlayScene\Player.cpp" />
     <ClCompile Include="Source\SampleScene\SampleScene.cpp" />
     <ClCompile Include="Source\SkyGameBase.cpp" />
+    <ClCompile Include="Source\TitleScene\TitleCamera.cpp" />
+    <ClCompile Include="Source\TitleScene\TitleMountain.cpp" />
+    <ClCompile Include="Source\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="Source\UI\Button.cpp" />
     <ClCompile Include="Source\UI\DragCircle.cpp" />
     <ClCompile Include="Source\UI\NumberPlate.cpp" />
-    <ClCompile Include="Source\UI\TitleNeco.cpp" />
+    <ClCompile Include="Source\TitleScene\TitleNeco.cpp" />
     <ClCompile Include="wtgb\Core\GameObjectBuilder.cpp" />
     <ClCompile Include="wtgb\Core\GameScene.cpp" />
     <ClCompile Include="wtgb\GameComponent\Collider.cpp" />
@@ -344,6 +369,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\StageData.json" />
+    <None Include="Assets\TitleMountain.json" />
     <None Include="Doc\CodingGuide.md" />
     <None Include="packages.config" />
     <None Include="wtgb\Core\ComponentSetter.inl" />
@@ -362,6 +388,10 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\CharaEgg.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
     </FxCompile>
@@ -384,6 +414,10 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\PresentShpere.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
     </FxCompile>

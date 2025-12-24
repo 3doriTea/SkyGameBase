@@ -34,7 +34,7 @@ wtgb::Result MainWindow::Init(const ViewerInit& _viewer)
 			.icon = LoadIcon(nullptr, IDI_APPLICATION),
 			.iconSmile = LoadIcon(nullptr, IDI_WINLOGO),
 			.cursor = LoadCursor(nullptr, IDC_ARROW),
-			.clientStyle = WS_OVERLAPPEDWINDOW,
+			.clientStyle = WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX,
 			.clientStyleEx = WS_EX_OVERLAPPEDWINDOW,
 			.hasMenu = FALSE,
 			.windowScreenSize = { static_cast<int32_t>(WINDOW_WIDTH), static_cast<int32_t>(WINDOW_HEIGHT) },

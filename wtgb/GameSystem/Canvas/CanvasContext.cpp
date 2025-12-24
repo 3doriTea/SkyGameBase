@@ -109,7 +109,7 @@ void wtgb::UI::CanvasContext::AddRenderOrder(const RenderContentVT& _content) co
 		itr++)
 	{
 		if (auto& [pickConfig, pickContent] = *itr;
-			pickConfig.order_ > config.order_)  // 調べた要素がデカかったらその手前に挿入
+			pickConfig.order_ < config.order_)  // 調べた要素がデカかったらその手前に挿入
 		{
 			canvas.renderOrder_.insert(itr, contentAndConfig);
 			return;  // 挿入できたため回帰
