@@ -1,8 +1,11 @@
 #include "pch\pch.h"
 #include "CameraController.h"
-#include "CameraController/CameraMoveFree.h"
-#include "CameraController/CameraMovePlay.h"
 
+namespace
+{
+	// マウススクリーン移動に対する1秒間当たりのカメラ回転角度(Degree)
+	const float CAMERA_ROTATE_DEG_SEC{ 10.0f };
+}
 
 CameraController::CameraController() : GameObject
 {
@@ -15,25 +18,12 @@ CameraController::CameraController() : GameObject
 			.EndSetter()
 		.AddComponent<wtgb::Transform>()
 			.BeginSetter()
-				.position({ 0, -30, 270.0f })
+				.position({ 0, 0, -10 })
 				.rotation(Vector3::Zero())
 			.EndSetter()
-		/*.AddComponent<RigidBody>()
-			.BeginSetter()
-				.useGravity(false)
-				.drag(0.999f)
-				.bounciness(1.0f)
-			.EndSetter()*/
-		/*.AddComponent<Collider>()
-			.BeginSetter()
-				.colliderType(Collider::Type::Sphere)
-			.EndSetter()*/
 		.Build();
 	}
-},
-	mode_{ Mode::Play },
-	lookTarget_{ INVALID_ENTITY },
-	pCameraMove_{ nullptr }
+}
 {
 }
 
@@ -43,81 +33,35 @@ CameraController::~CameraController()
 
 void CameraController::Init()
 {
-	SetMode(Mode::Play);  // 最初は自由カメラ
 }
 
 void CameraController::Update()
 {
-	const Input::InputGetter& input{ System().Get<Input>().Getter() };
-	Cursor& cursor{ System().Get<Cursor>() };
+	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	Camera& camera{ System().Get<Camera>() };
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 
 
-	if (input.IsKeyDown(KeyCode::Escape))
-	{
-		cursor.SetCenterLock(false);
-		cursor.SetShow(true);
-	}
+	Vector2Int currMousePos{ input.GetMousePosition() };
+	Vector2Int mouseMove{ currMousePos - prevMousePos_ };
+	prevMousePos_ = currMousePos;
 
-	pCameraMove_->Update({ System(), GetEntityId() });
+	// マウス移動量をカメラの角度に適用
+	Vector3 angles{ Transform().GetRotation() };
+	angles.x -= mouseMove.y;
+	angles.y += mouseMove.x;
+	Transform().SetRotation(angles);
 
-	camera.targetPosition_ = Transform().GetPosition() + Transform().GetForward();
+	Vector3 cameraPos{ Transform().GetPosition() };
+
+	//LOGFLN("campos:({}, {}, {})", cameraPos.x, cameraPos.y, cameraPos.z);
+
+	cameraPos.x += (input.IsKey(KeyCode::D) ? 1.0f : 0.0f + input.IsKey(KeyCode::A) ? -1.0f : 0.0f) * dt * 10.0f;
+	cameraPos.y += (input.IsKey(KeyCode::E) ? 1.0f : 0.0f + input.IsKey(KeyCode::Q) ? -1.0f : 0.0f) * dt * 10.0f;
+	cameraPos.z += (input.IsKey(KeyCode::W) ? 1.0f : 0.0f + input.IsKey(KeyCode::S) ? -1.0f : 0.0f) * dt * 10.0f;
+
+	Transform().SetPosition(cameraPos);
+
+	camera.targetPosition_ = Transform().GetForward() + Transform().GetPosition();
 	camera.position_ = Transform().GetPosition();
-
-	switch (mode_)
-	{
-	case CameraController::Mode::Free:
-		if (input.IsKeyDown(KeyCode::R))
-		{
-			SetMode(Mode::Play);
-		}
-		break;
-	case CameraController::Mode::Play:
-		if (input.IsKeyDown(KeyCode::R))
-		{
-			Vector3 rotation{ Transform().GetRotation() };
-			rotation.z = 0.0f;
-			Transform().SetRotation(rotation);
-			SetMode(Mode::Free);
-		}
-		break;
-	default:
-		wassert(false && "未処理のカメラモード");
-		break;
-	}
-}
-
-void CameraController::Release()
-{
-	// しっかり解放
-	SAFE_DELETE(pCameraMove_);
-}
-
-void CameraController::SetMode(const Mode _mode)
-{
-	mode_ = _mode;
-
-	if (pCameraMove_)
-	{
-		pCameraMove_->End({ System(), GetEntityId() });
-	}
-
-	SAFE_DELETE(pCameraMove_);
-	switch (_mode)
-	{
-	case Mode::Free:
-		pCameraMove_ = new CameraMoveFree{};
-		break;
-	case Mode::Play:
-		pCameraMove_ = new CameraMovePlay{};
-		break;
-	default:
-		wassert(false && "未実装のカメラモード");
-		return;
-	}
-
-	if (pCameraMove_)
-	{
-		pCameraMove_->Start({ System(), GetEntityId() });
-	}
 }
