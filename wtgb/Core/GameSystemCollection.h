@@ -43,7 +43,8 @@ namespace wtgb
 		using GameSystemAccessor = Accessor<GameSystemCollection>;
 
 		/// <summary>
-		/// ゲームシステムにアクセスし追加だけするクラス
+		/// <para>ゲームシステムにアクセスし追加だけするクラス</para>
+		/// <para>追加後自己参照を返すため、関数型のように書ける</para>
 		/// </summary>
 		class GameSystemAdder : public GameSystemAccessor
 		{

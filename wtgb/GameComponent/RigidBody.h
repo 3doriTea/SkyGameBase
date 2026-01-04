@@ -1,5 +1,5 @@
 #pragma once
-#include "CommonGameComponent.h"
+#include "Helper/CommonGameComponent.h"
 #include "GameSystem/CPRigidBody.h"
 
 namespace

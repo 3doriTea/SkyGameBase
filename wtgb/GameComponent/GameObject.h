@@ -3,7 +3,7 @@
 #include "Core/Entity.h"
 #include "Core/GameSystemViewer.h"
 #include "GameSystem/ComponentManager.h"
-#include "CommonGameComponent.h"
+#include "Helper/CommonGameComponent.h"
 #include "GameSystem/CPGameObject.h"
 #include "GameSystem/SceneManager.h"
 

@@ -30,6 +30,7 @@
 #pragma comment(lib, "dxguid.lib")
 
 // ImGui
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include "Library/ImGui/imgui.h"
 #include "Library/ImGui/imgui_impl_win32.h"
 #include "Library/ImGui/imgui_impl_dx11.h"

@@ -37,6 +37,7 @@
     <ClInclude Include="Library\mtbin\Util.h" />
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="Source\Common.h" />
+    <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\PlayScene\DropCloud.h" />
     <ClInclude Include="Source\PlayScene\CharaBall.h" />
     <ClInclude Include="Source\PlayScene\CharaEgg.h" />
@@ -49,11 +50,13 @@
     <ClInclude Include="Source\PlayScene\WorldSetting.h" />
     <ClInclude Include="Source\SMF\ToneHz.h" />
     <ClInclude Include="Source\Stage\StageLoader.h" />
+    <ClInclude Include="Source\Systems\CPItemAnim.h" />
     <ClInclude Include="Source\TitleScene\TitleCamera.h" />
     <ClInclude Include="Source\TitleScene\TitleMountain.h" />
     <ClInclude Include="Source\TitleScene\TitleScene.h" />
     <ClInclude Include="Source\UI\Button.h" />
     <ClInclude Include="Source\UI\DragCircle.h" />
+    <ClInclude Include="wtgb\Helper\CommonGameComponentPool.h" />
     <ClInclude Include="wtgb\LibHeader\FileSystem.h" />
     <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />
     <ClInclude Include="pch\pch.h" />
@@ -108,7 +111,7 @@
     <ClInclude Include="wtgb\Core\ComponentSetter.h" />
     <ClInclude Include="wtgb\Core\GameSystemViewer.h" />
     <ClInclude Include="wtgb\GameComponent\Collider.h" />
-    <ClInclude Include="wtgb\GameComponent\CommonGameComponent.h" />
+    <ClInclude Include="wtgb\Helper\CommonGameComponent.h" />
     <ClInclude Include="wtgb\GameComponent\MeshRenderer.h" />
     <ClInclude Include="wtgb\GameComponent\ModelMesh.h" />
     <ClInclude Include="wtgb\GameComponent\RigidBody.h" />
@@ -261,7 +264,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="pch\pch.cpp" />
+    <ClCompile Include="pch\pch.cpp">
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</MultiProcessorCompilation>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</MultiProcessorCompilation>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</MultiProcessorCompilation>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</MultiProcessorCompilation>
+    </ClCompile>
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMoveFree.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMovePlay.cpp" />
@@ -289,6 +297,7 @@
     <ClCompile Include="Source\SMF\SMFPlayer.cpp" />
     <ClCompile Include="Source\Stage\StageLoader.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
+    <ClCompile Include="Source\Systems\CPItemAnim.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />
     <ClCompile Include="Source\SampleGame.cpp" />
@@ -542,6 +551,8 @@
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -565,6 +576,8 @@
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -586,6 +599,8 @@
       <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -609,6 +624,8 @@
       <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

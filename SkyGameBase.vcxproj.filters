@@ -210,7 +210,7 @@
     <ClInclude Include="wtgb\Core\Component.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="wtgb\GameComponent\CommonGameComponent.h">
+    <ClInclude Include="wtgb\Helper\CommonGameComponent.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="wtgb\GameComponent\MeshRenderer.h">
@@ -561,6 +561,15 @@
     <ClInclude Include="Source\Common.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Systems\CPItemAnim.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\ItemAnim.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\Helper\CommonGameComponentPool.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -897,6 +906,9 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\CPItemAnim.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>

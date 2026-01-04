@@ -1,6 +1,6 @@
 #pragma once
 #include "pch/pch.h"
-#include "CommonGameComponent.h"
+#include "Helper/CommonGameComponent.h"
 #include "GameSystem/CPModelMesh.h"
 #include "GameSystem/ModelMesh/IMeshSimple.h"
 
