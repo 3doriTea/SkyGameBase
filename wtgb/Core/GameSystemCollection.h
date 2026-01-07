@@ -57,7 +57,7 @@ namespace wtgb
 			/// </summary>
 			/// <typeparam name="T">ゲームシステムの型</typeparam>
 			/// <returns>GameSystemAdder自己参照</returns>
-			template<GameSystemT T, typename ...Args>
+			template<typename T, typename ...Args>
 			const GameSystemAdder& Register(Args&& ...args) const;
 		};
 
@@ -99,7 +99,7 @@ namespace wtgb
 			/// </summary>
 			/// <typeparam name="T">指定する型</typeparam>
 			/// <returns>ゲームシステム</returns>
-			template<GameSystemT T>
+			template<typename T>
 			[[nodiscard]]
 			T& Get() const;
 		};

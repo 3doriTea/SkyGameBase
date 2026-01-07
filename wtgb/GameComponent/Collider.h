@@ -1,6 +1,8 @@
 #pragma once
 #include <cassert>
 #include "Helper/CommonGameComponent.h"
+#include "GameSystem/CPCollider.h"
+
 
 namespace
 {

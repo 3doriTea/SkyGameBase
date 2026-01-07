@@ -14,16 +14,15 @@ CPItemAnim::~CPItemAnim()
 {
 }
 
-Result CPItemAnim::Init(const ViewerInit& _viewer)
+void CPItemAnim::Init()
 {
-	return Result::Code::Ok;
 }
 
-void CPItemAnim::Update(const ViewerUpdate& _system)
+void CPItemAnim::Update()
 {
-	CPTransform& cpTransform{_system.Get<CPTransform>() };
-	CPGameObject& cpGameObject{ _system.Get<CPGameObject>() };
-	float dt = _system.Get<GameTime>().GetDeltaTime();
+	CPTransform& cpTransform{ System().Get<CPTransform>()};
+	CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+	float dt = System().Get<GameTime>().GetDeltaTime();
 
 	ForEach([dt, &cpTransform, &cpGameObject](ItemAnim& _itemAnim, size_t _index) -> BreakToken
 	{
@@ -47,8 +46,4 @@ void CPItemAnim::Update(const ViewerUpdate& _system)
 
 		return false;
 	});
-}
-
-void CPItemAnim::End()
-{
 }

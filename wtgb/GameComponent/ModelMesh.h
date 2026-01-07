@@ -2,6 +2,8 @@
 #include "pch/pch.h"
 #include "Helper/CommonGameComponent.h"
 #include "GameSystem/ModelMesh/IMeshSimple.h"
+#include "GameSystem/CPModelMesh.h"
+
 
 namespace wtgb
 {

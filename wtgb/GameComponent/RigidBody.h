@@ -1,5 +1,7 @@
 #pragma once
 #include "Helper/CommonGameComponent.h"
+#include "GameSystem/CPRigidBody.h"
+
 
 namespace
 {
@@ -12,7 +14,7 @@ namespace wtgb
 
 	class COMPONENT(RigidBody)
 	{
-		COMPONENT_HEAD(CPRigidBody)
+		COMPONENT_HEAD(RigidBody)
 	public:
 		class SETTER(RigidBody)
 		{

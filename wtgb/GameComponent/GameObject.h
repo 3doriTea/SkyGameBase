@@ -5,6 +5,7 @@
 #include "GameSystem/ComponentManager.h"
 #include "Helper/CommonGameComponent.h"
 #include "GameSystem/SceneManager.h"
+#include "GameSystem/CPTransform.h"
 
 // TODO: GameObjectは名ばかり、スクリプトコンポーネントだ！
 
@@ -31,7 +32,7 @@ namespace wtgb
 		template<typename ComponentT>
 		friend class ComponentSetter;
 
-		COMPONENT_HEAD(CPGameObject)
+		COMPONENT_HEAD(GameObject)
 	public:
 		struct Config;
 

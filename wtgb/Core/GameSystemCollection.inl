@@ -1,4 +1,4 @@
-template<wtgb::GameSystemT T, typename ...Args>
+template<typename T, typename ...Args>
 inline const wtgb::GameSystemCollection::GameSystemAdder&
 wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
 {
@@ -44,7 +44,7 @@ wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
 	return *this;
 }
 
-template<wtgb::GameSystemT T>
+template<typename T>
 inline T& wtgb::GameSystemCollection::GameSystemViewer::Get() const
 {
 	TypeKeys& gameSystemTypeKey{ GetAccess()->gameSystemTypeKey_ };

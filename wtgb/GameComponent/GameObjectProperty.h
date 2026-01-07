@@ -2,6 +2,8 @@
 #include "pch/pch.h"
 #include "Helper/CommonGameComponent.h"
 #include "Core/Entity.h"
+#include "GameSystem/CPGameObjectProperty.h"
+
 
 namespace wtgb
 {

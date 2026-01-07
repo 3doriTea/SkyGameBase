@@ -11,7 +11,6 @@ public:
 
 	const CallType GetCallType() override { return CallType::Frame; }
 
-	wtgb::Result Init(const ViewerInit& _viewer) override;
-	void Update(const ViewerUpdate& _system) override;
-	void End() override;
+	void Init() override;
+	void Update() override;
 };

@@ -1,6 +1,8 @@
 #pragma once
 #include "Helper/CommonGameComponent.h"
 #include "GameSystem/ResourceSystem/TextureConfig.h"
+#include "GameSystem/CPMeshRenderer.h"
+
 
 namespace wtgb
 {

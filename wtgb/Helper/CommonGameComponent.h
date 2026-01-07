@@ -5,12 +5,12 @@
 
 #define COMPONENT(COMPONENT_NAME)\
 CP##COMPONENT_NAME;\
-class COMPONENT_NAME : public wtgb::Component<COMPONENT_NAME>
+class COMPONENT_NAME : public wtgb::Component<CP##COMPONENT_NAME>
 
 #define COMPONENT_HEAD(COMPONENT_NAME)\
-	friend class COMPONENT_NAME;\
+	friend class CP##COMPONENT_NAME;\
 public:\
-	using PoolT = COMPONENT_NAME;
+	using PoolT = CP##COMPONENT_NAME;
 
 #define SETTER(COMPONENT_NAME)\
 Setter : public wtgb::ComponentSetter<COMPONENT_NAME>

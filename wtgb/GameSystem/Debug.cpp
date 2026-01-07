@@ -12,6 +12,7 @@
 #include "GameSystem/ModelMesh/IMeshSimple.h"
 
 #include "GameSystem/CPMeshRenderer.h"
+#include "GameSystem/CPTransform.h"
 
 //#include 
 

@@ -5,7 +5,7 @@ namespace wtgb
 {
 	class COMPONENT(Transform)
 	{
-		friend ComponentPool<Transform>;
+		friend class CPTransform;
 
 		COMPONENT_HEAD(Transform)
 	public:
