@@ -16,9 +16,12 @@
 #include "GameSystem/ResourceSystem.h"
 #include "GameSystem/Model.h"
 
+// オリジナルゲームシステム
 #include "Systems/MainWindow.h"
 #include "Systems/FirstSceneRegister.h"
+#include "Systems/CPItemAnim.h"
 
+// ベースが用意しているコンポーネントプール
 #include "GameSystem/CPGameObject.h"
 #include "GameSystem/CPGameObjectProperty.h"
 #include "GameSystem/CPTransform.h"
@@ -26,6 +29,7 @@
 #include "GameSystem/CPMeshRenderer.h"
 #include "GameSystem/CPCollider.h"
 #include "GameSystem/CPRigidBody.h"
+
 
 #include "GameSystem/Audio.h"
 
@@ -77,6 +81,9 @@ void SampleGame::StartRegister(
 
 		// NOTE: ComponentManagerを追加した次にスクリプタブルを追加する
 		.Register<Scriptable>()
+
+		// オリジナルコンポーネント
+		.Register<CPItemAnim>()
 
 		.Register<CPGameObject>()
 		.Register<CPGameObjectProperty>()

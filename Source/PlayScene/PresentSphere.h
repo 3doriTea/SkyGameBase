@@ -25,9 +25,9 @@ public:
 
 private:
 	bool isBounded_;   // 跳ね返りが起きたか
-	bool isBounding_;  // 跳ね返りが起きているか
-	float timeLeft_;   // 止まるまでの残り時間
-	bool isStopping_;  // 跳ね返りが終わり止まっているか
+	//bool isBounding_;  // 跳ね返りが起きているか
+	//float timeLeft_;   // 止まるまでの残り時間
+	//bool isStopping_;  // 跳ね返りが終わり止まっているか
 
 	bool isHitted_;    // プレイヤーと当たった
 

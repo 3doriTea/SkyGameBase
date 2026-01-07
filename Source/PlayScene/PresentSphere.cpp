@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "PresentSphere.h"
 #include "Common.h"
+#include "Components/ItemAnim.h"
 
 namespace
 {
@@ -9,15 +10,16 @@ namespace
 
 PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position) :
 	GameObject{ "StageObj/PresentSphere.json" },
-	isBounding_{ false },
+	/*isBounding_{ false },
 	timeLeft_{ BOUNDING_TIME },
-	isStopping_{ false },
+	isStopping_{ false },*/
 	player_{ _player },
 	isHitted_{ false },
 	isBounded_{ false }
 {
 	Transform().SetPosition(_position);
 	GetComponent<Collider>().SetTagFlag(CT_PLAYER);
+	ItemAnim& itemAnim{ AddComponent<ItemAnim>() };
 }
 
 PresentSphere::~PresentSphere()
@@ -34,13 +36,14 @@ void PresentSphere::Update()
 
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 	RigidBody& rb{ GetComponent<RigidBody>() };
+	ItemAnim& itemAnim{ GetComponent<ItemAnim>() };
 	
 	if (isHitted_)
 	{
 		return;  // 既にとっている
 	}
 
-	if (isStopping_)
+	if (itemAnim.IsFinished())
 	{
 		GameObject* pPlayerObj{ FindGameObject(player_) };
 
@@ -62,17 +65,18 @@ void PresentSphere::Update()
 		return;
 	}
 
-	if (isBounding_)
-	{
-		timeLeft_ -= dt;
-		if (timeLeft_ <= 0.0f)
-		{
-			rb.SetUseGravity(false);
-			rb.SetVelocity(Vector3::Zero());
-			isStopping_ = true;  // その場で止まる！
-		}
-		return;
-	}
+	// TODO: 不要
+	//if (isBounding_)
+	//{
+	//	timeLeft_ -= dt;
+	//	if (timeLeft_ <= 0.0f)
+	//	{
+	//		rb.SetUseGravity(false);
+	//		rb.SetVelocity(Vector3::Zero());
+	//		isStopping_ = true;  // その場で止まる！
+	//	}
+	//	return;
+	//}
 
 
 	std::vector<Collider*> pColliders{};
@@ -94,14 +98,15 @@ void PresentSphere::Release()
 
 bool PresentSphere::IsBounded()
 {
-	if (isBounded_)
-	{
-		// 跳ね返りを取得できたためリセットする
-		isBounded_ = false;
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	// TODO: 不要
+	//if (isBounded_)
+	//{
+	//	// 跳ね返りを取得できたためリセットする
+	//	isBounded_ = false;
+	//	return true;
+	//}
+	//else
+	//{
+	//	return false;
+	//}
 }
