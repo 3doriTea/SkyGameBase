@@ -29,7 +29,7 @@ void CPItemAnim::Update(const ViewerUpdate& _system)
 	{
 		if (_itemAnim.isFinished_)
 		{
-			return;  // Ç∑Ç≈Ç…èIóπÇµÇΩÇ»ÇÁñ≥éã
+			return false;  // Ç∑Ç≈Ç…èIóπÇµÇΩÇ»ÇÁñ≥éã
 		}
 
 		_itemAnim.timeLeft_ -= dt;
