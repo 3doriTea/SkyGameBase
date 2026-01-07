@@ -1,5 +1,6 @@
 #include "pch\pch.h"
 #include "GameObjectProperty.h"
+#include "GameSystem/CPGameObjectProperty.h"
 #include "GameSystem/CPGameObject.h"
 #include "WTGBAssert.h"
 

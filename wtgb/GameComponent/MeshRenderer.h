@@ -1,6 +1,5 @@
 #pragma once
 #include "Helper/CommonGameComponent.h"
-#include "GameSystem/CPMeshRenderer.h"
 #include "GameSystem/ResourceSystem/TextureConfig.h"
 
 namespace wtgb
@@ -8,7 +7,7 @@ namespace wtgb
 	class COMPONENT(MeshRenderer)
 	{
 		friend class ModelMesh;
-		friend class CPMeshRenderer;
+		COMPONENT_HEAD(MeshRenderer)
 	public:
 		class SETTER(MeshRenderer)
 		{

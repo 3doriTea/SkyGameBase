@@ -2,7 +2,6 @@
 #include "pch/pch.h"
 #include "Helper/CommonGameComponent.h"
 #include "Core/Entity.h"
-#include "GameSystem/CPGameObjectProperty.h"
 
 namespace wtgb
 {
@@ -11,8 +10,8 @@ namespace wtgb
 
 	class COMPONENT(GameObjectProperty)
 	{
-		friend class CPGameObjectProperty;
-	public:
+		COMPONENT_HEAD(GameObjectProperty)
+
 		class SETTER(GameObjectProperty)
 		{
 			SETTER_HEAD(GameObjectProperty)

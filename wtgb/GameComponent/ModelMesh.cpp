@@ -3,6 +3,7 @@
 #include "GameSystem/Model.h"
 #include "GameSystem/CPMeshRenderer.h"
 #include "WTGBAssert.h"
+#include "GameSystem/CPModelMesh.h"
 
 wtgb::ModelMesh::ModelMesh() : 
 	hModel_{ INVALID_HANDLE },

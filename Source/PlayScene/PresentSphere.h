@@ -15,13 +15,13 @@ public:
 	/// 跳ね返りが起きたかを取得する 取得後はリセットされる
 	/// </summary>
 	/// <returns></returns>
-	bool IsBounded();
+	inline bool IsBounded() const { return isBounded_; }
 
 	/// <summary>
 	/// プレゼントが取られたか
 	/// </summary>
 	/// <returns>取られた true / false</returns>
-	bool IsHit() const { return isHitted_; }
+	inline bool IsHit() const { return isHitted_; }
 
 private:
 	bool isBounded_;   // 跳ね返りが起きたか

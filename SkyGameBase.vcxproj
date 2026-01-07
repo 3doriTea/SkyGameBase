@@ -38,6 +38,7 @@
     <ClInclude Include="pch\framework.h" />
     <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Source\Components\ItemAnim.h" />
+    <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
     <ClInclude Include="Source\PlayScene\DropCloud.h" />
     <ClInclude Include="Source\PlayScene\CharaBall.h" />
     <ClInclude Include="Source\PlayScene\CharaEgg.h" />

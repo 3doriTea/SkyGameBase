@@ -44,13 +44,11 @@ void CPItemAnim::Update(const ViewerUpdate& _system)
 
 		Vector3 pos{ Mathf::Lerp(_itemAnim.startPos_, _itemAnim.endPos_, _itemAnim.GetRatio()) };
 		pTransform->SetPosition(pos);
+
+		return false;
 	});
 }
 
 void CPItemAnim::End()
-{
-}
-
-CPItemAnim::~CPItemAnim()
 {
 }

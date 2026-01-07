@@ -1,4 +1,5 @@
 #include "ItemAnim.h"
+#include "Systems/CPItemAnim.h"
 
 ItemAnim::ItemAnim() :
 	itemType_{},
@@ -11,4 +12,8 @@ ItemAnim::ItemAnim() :
 void ItemAnim::Init(wtgb::ViewerCached _system)
 {
 	timeLeft_ = totalTime_;
+}
+
+ItemAnim::~ItemAnim()
+{
 }

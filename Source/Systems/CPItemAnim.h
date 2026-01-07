@@ -1,6 +1,6 @@
 #pragma once
 #include "Helper/CommonGameComponentPool.h"
-#include "../Components/ItemAnim.h"
+#include "Components/ItemAnim.h"
 
 
 class COMPONENT_POOL(ItemAnim)

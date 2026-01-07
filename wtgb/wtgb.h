@@ -8,13 +8,30 @@
 * 由来は mtgb の m を 水平軸反転しただけ
 */
 
-#include "Core/Game.h"
+// 便利系
+#include "WTGBAssert.h"
+#include "Utility/Mathf.h"
+#include "Core/Entity.h"
+
+// インタフェース系
 #include "Core/IGame.h"
 #include "Core/IGameSystem.h"
+
+// コンポーネントプール
+#include "GameSystem/CPCollider.h"
+#include "GameSystem/CPGameObject.h"
+#include "GameSystem/CPGameObjectProperty.h"
+#include "GameSystem/CPMeshRenderer.h"
+#include "GameSystem/CPModelMesh.h"
+#include "GameSystem/CPRigidBody.h"
+#include "GameSystem/CPTransform.h"
+
+// 他コア系
+#include "Core/GameSystemCollection.h"
 #include "Core/GameScene.h"
+#include "Core/Game.h"
 
-#include "Core/GameObjectBuilder.h"
-
+// コンポーネント
 #include "GameComponent/GameObject.h"
 #include "GameComponent/GameObjectProperty.h"
 #include "GameComponent/Transform.h"
@@ -23,6 +40,7 @@
 #include "GameComponent/Collider.h"
 #include "GameComponent/RigidBody.h"
 
+// 他システム
 #include "GameSystem/GameTime.h"
 #include "GameSystem/GameWindow.h"
 #include "GameSystem/Camera.h"
@@ -30,23 +48,20 @@
 #include "GameSystem/Cursor.h"
 #include "GameSystem/SceneManager.h"
 #include "GameSystem/ResourceSystem.h"
-
 #include "GameSystem/Canvas.h"
 #include "GameSystem/Canvas/CanvasContext.h"
 #include "GameSystem/Canvas/LayoutConfig.h"
-
 #include "GameSystem/Audio.h"
-
 #include "GameSystem/Direct3D.h"
 
-#include "WTGBAssert.h"
-#include "Utility/Mathf.h"
+// ビルダー
+#include "Core/GameObjectBuilder.h"
 
+// エイリアス
 using wtgb::IGame;
 using wtgb::IGameSystem;
 using wtgb::GameSystemCollection;
 using wtgb::GameScene;
-
 using wtgb::GameObject;
 using wtgb::GameObjectProperty;
 using wtgb::ModelMesh;

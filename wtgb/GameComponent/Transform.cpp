@@ -1,5 +1,6 @@
 #include "pch\pch.h"
 #include "Transform.h"
+#include "GameSystem/CPTransform.h"
 
 wtgb::Transform::Transform() :
 	position_{ Vector3::Zero() },

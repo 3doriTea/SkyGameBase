@@ -10,6 +10,7 @@
 //#include "CPTransform.h"
 #include "GameSystem/ComponentManager.h"
 #include "GameSystem/Scriptable.h"
+#include "GameSystem/CPGameObject.h"
 
 #include "Core/ComponentSetter.h"
 

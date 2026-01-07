@@ -3,6 +3,7 @@
 #include "GameSystem/ResourceSystem.h"
 #include "GameSystem/ShaderCompile.h"
 #include "GameComponent/ModelMesh.h"
+#include "GameSystem/CPMeshRenderer.h"
 
 wtgb::MeshRenderer::MeshRenderer() :
 	hShader_{ INVALID_HANDLE },

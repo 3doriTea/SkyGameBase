@@ -1,13 +1,13 @@
 #pragma once
 #include "Helper/CommonGameComponent.h"
-#include "GameSystem/CPTransform.h"
 
 namespace wtgb
 {
 	class COMPONENT(Transform)
 	{
-		friend CPTransform;
 		friend ComponentPool<Transform>;
+
+		COMPONENT_HEAD(Transform)
 	public:
 		class SETTER(Transform)
 		{

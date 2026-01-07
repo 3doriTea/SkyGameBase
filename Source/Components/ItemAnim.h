@@ -1,11 +1,6 @@
 #pragma once
 #include "Helper/CommonGameComponent.h"
-#include "../Systems/CPItemAnim.h"
-
-enum struct ItemType : uint32_t
-{
-	PresentRedSphere,  // ê‘ä€ÉvÉåÉ[ÉìÉg
-};
+#include "ItemAnim/ItemType.h"
 
 class COMPONENT(ItemAnim)
 {
@@ -19,6 +14,9 @@ public:
 		SETTER_PARAM(ItemType, itemType)
 		SETTER_PARAM(float, totalTime)
 	};
+
+	ItemAnim();
+	~ItemAnim();
 
 	void Init(wtgb::ViewerCached _system) override;
 

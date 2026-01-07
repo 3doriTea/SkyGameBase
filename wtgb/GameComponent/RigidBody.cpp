@@ -2,6 +2,7 @@
 #include "RigidBody.h"
 #include "Collider.h"
 #include "WTGBAssert.h"
+#include "GameSystem/CPRigidBody.h"
 
 wtgb::RigidBody::RigidBody() :
 	mass_{ 1.0f },

@@ -1,7 +1,6 @@
 #pragma once
 #include "pch/pch.h"
 #include "Helper/CommonGameComponent.h"
-#include "GameSystem/CPModelMesh.h"
 #include "GameSystem/ModelMesh/IMeshSimple.h"
 
 namespace wtgb
@@ -9,6 +8,7 @@ namespace wtgb
 
 	class COMPONENT(ModelMesh)
 	{
+		COMPONENT_HEAD(ModelMesh)
 	public:
 		/// <summary>
 		/// ƒ‚ƒfƒ‹ƒƒbƒVƒ…‚Ìí—Ş

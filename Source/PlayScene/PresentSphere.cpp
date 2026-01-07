@@ -2,6 +2,7 @@
 #include "PresentSphere.h"
 #include "Common.h"
 #include "Components/ItemAnim.h"
+#include "Systems/CPItemAnim.h"
 
 namespace
 {
@@ -78,8 +79,8 @@ void PresentSphere::Update()
 	//	return;
 	//}
 
-
-	std::vector<Collider*> pColliders{};
+	// TODO: 不要
+	/*std::vector<Collider*> pColliders{};
 	rb.GetHitColliders(&pColliders);
 	for (Collider* pCollider : pColliders)
 	{
@@ -89,24 +90,9 @@ void PresentSphere::Update()
 			isBounding_ = true;
 			return;
 		}
-	}
+	}*/
 }
 
 void PresentSphere::Release()
 {
-}
-
-bool PresentSphere::IsBounded()
-{
-	// TODO: 不要
-	//if (isBounded_)
-	//{
-	//	// 跳ね返りを取得できたためリセットする
-	//	isBounded_ = false;
-	//	return true;
-	//}
-	//else
-	//{
-	//	return false;
-	//}
 }

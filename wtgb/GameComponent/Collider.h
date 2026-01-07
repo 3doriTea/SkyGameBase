@@ -1,7 +1,6 @@
 #pragma once
 #include <cassert>
 #include "Helper/CommonGameComponent.h"
-#include "GameSystem/CPCollider.h"
 
 namespace
 {
@@ -15,9 +14,9 @@ namespace wtgb
 {
 	class COMPONENT(Collider)
 	{
-		friend class CPCollider;
 		friend class CPRigidBody;
 		friend class PhysicsUtil;
+		COMPONENT_HEAD(Collider)
 	public:
 		/// <summary>
 		/// “–‚½‚è”»’èŒ`ó‚Ìí—Ş

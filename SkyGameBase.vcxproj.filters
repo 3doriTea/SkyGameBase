@@ -570,6 +570,9 @@
     <ClInclude Include="wtgb\Helper\CommonGameComponentPool.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Components\ItemAnim\ItemType.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
