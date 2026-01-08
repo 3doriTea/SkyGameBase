@@ -3,11 +3,12 @@
 #include "GameSystem/SceneManager.h"
 
 #include "TitleScene/TitleScene.h"
+#include "PlayScene/PlayScene.h"
 #include "../SampleScene/SampleScene.h"
 
 wtgb::Result FirstSceneRegister::Init(const ViewerInit& _viewer)
 {
-	_viewer.Get<SceneManager>().Move<TitleScene>();
+	_viewer.Get<SceneManager>().Move<PlayScene>();
 
 	return Result::Code::Ok;
 }

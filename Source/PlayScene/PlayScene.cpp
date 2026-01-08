@@ -40,8 +40,8 @@ void PlayScene::Start()
 {
 	Instantiate<ControlUI>();
 
-	Instantiate<CameraController>();
 	EntityId stageLine{ Instantiate<StageLine>() };
+	Instantiate<CameraController>();
 
 	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
 

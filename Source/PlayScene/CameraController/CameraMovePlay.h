@@ -29,4 +29,6 @@ private:
 	float angleY_;  // y軸の回転角度
 	bool isDragging_;          // マウスがドラッグ中か
 	ControlMode controlMode_;  // マウスをドラッグ中の操作モード
+
+	EntityId stageLine_;  // ステージラインのエンティティ
 };

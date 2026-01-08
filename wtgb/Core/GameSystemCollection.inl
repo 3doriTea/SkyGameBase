@@ -59,7 +59,7 @@ inline T& wtgb::GameSystemCollection::GameSystemViewer::Get() const
 	{
 		(void)exception;  // 意図的に使っていないよ！
 		// 型が登録されていない
-		assert(false && "指定されたゲームシステム型が登録されていない");
+		assert(false && "指定されたゲームシステム型が登録されていない ※そもそも登録する予定がない可能性あり！CPのつけ忘れてではない？");
 	}
 
 	IGameSystem* pGameSystem{};

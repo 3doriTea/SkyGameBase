@@ -4,7 +4,7 @@
 class PresentSphere : public GameObject
 {
 public:
-	PresentSphere(const EntityId _player, const Vector3& _position);
+	PresentSphere(const EntityId _player, const Vector3& _position, const Vector3& _dropPosition);
 	~PresentSphere();
 
 	void Init() override;

@@ -82,17 +82,7 @@ wtgb::GameObject* wtgb::GameObject::FindGameObject(const EntityId _entityId)
 
 wtgb::GameObject* wtgb::GameObject::FindGameObject(const std::string& _name)
 {
-	wtgb::EntityId foundEntityId{ INVALID_ENTITY };
-	System().Get<CPGameObjectProperty>().ForEach(
-		[&_name, &foundEntityId](GameObjectProperty& _gameObjectProperty) -> BreakToken
-		{
-			if (_gameObjectProperty.GetName() == _name)
-			{
-				foundEntityId = _gameObjectProperty.GetEntityId();
-			}
-			return {};
-		});
-
+	wtgb::EntityId foundEntityId{ System().Get<CPGameObjectProperty>().FindEntityByName(_name) };
 	if (foundEntityId == INVALID_ENTITY)
 	{
 		return nullptr;  // –¼‘O‚ÅŒ©‚Â‚©‚ç‚È‚¯‚ê‚Î nullptr •Ô‚·

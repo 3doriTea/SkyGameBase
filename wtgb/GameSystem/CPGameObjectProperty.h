@@ -29,5 +29,12 @@ namespace wtgb
 		void SetFamily(const EntityId _parent, const EntityId _child);
 
 		const EntityId GetEntityId(const GameObjectProperty* _p) const;
+
+		/// <summary>
+		/// エンティティのゲームオブジェクト名からエンティティIdを取得する
+		/// </summary>
+		/// <param name="_name">ゲームオブジェクト名</param>
+		/// <returns>見つかったエンティティId / 見つからなかった INVALID_ENTITY</returns>
+		const EntityId FindEntityByName(const std::string_view _name);
 	};
 }

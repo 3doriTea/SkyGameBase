@@ -32,6 +32,17 @@ public:
 	/// <returns>終了した true / false</returns>
 	inline bool IsFinished() const { return isFinished_; }
 
+	/// <summary>
+	/// 開始地点
+	/// </summary>
+	/// <param name="_position"></param>
+	inline void SetStartPos(const wtgb::Vector3& _position) { startPos_ = _position; }
+	/// <summary>
+	/// 終了地点
+	/// </summary>
+	/// <param name="_position"></param>
+	inline void SetEndPos(const wtgb::Vector3& _position) { endPos_ = _position; }
+
 private:
 	ItemType itemType_;       // 種類
 	float totalTime_;         // 総再生時間

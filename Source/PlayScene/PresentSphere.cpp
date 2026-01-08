@@ -9,7 +9,7 @@ namespace
 	static const float BOUNDING_TIME{ 2.0f };
 }
 
-PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position) :
+PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position, const Vector3& _dropPosition) :
 	GameObject{ "StageObj/PresentSphere.json" },
 	/*isBounding_{ false },
 	timeLeft_{ BOUNDING_TIME },
@@ -21,6 +21,8 @@ PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position) :
 	Transform().SetPosition(_position);
 	GetComponent<Collider>().SetTagFlag(CT_PLAYER);
 	ItemAnim& itemAnim{ AddComponent<ItemAnim>() };
+	itemAnim.SetStartPos(_position);
+	itemAnim.SetEndPos(_dropPosition);
 }
 
 PresentSphere::~PresentSphere()

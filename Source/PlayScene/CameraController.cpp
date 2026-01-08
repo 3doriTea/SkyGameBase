@@ -91,6 +91,12 @@ void CameraController::Release()
 {
 	// しっかり解放
 	SAFE_DELETE(pCameraMove_);
+
+	// カーソルの後片付けをしっかり
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+	Cursor& cursor{ System().Get<Cursor>() };
+	cursor.SetCenterLock(false);
+	cursor.SetShow(true);
 }
 
 void CameraController::SetMode(const Mode _mode)

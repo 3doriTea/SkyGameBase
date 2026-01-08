@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "CameraMovePlay.h"
 #include "../Player.h"
+#include "PlayScene/StageLine.h"
 
 namespace
 {
@@ -17,6 +18,8 @@ namespace
 
 	const float ANGLE_MAX_DEG{ 80.0f };
 	const float ANGLE_MIN_DEG{ -80.0f };
+
+	const float CAMERA_OFFSET_Y_ON_STAGE_LINE{ 3.0f };  // ステージ地面からのオフセット
 }
 
 CameraMovePlay::CameraMovePlay() :
@@ -25,12 +28,21 @@ CameraMovePlay::CameraMovePlay() :
 	isDragging_{ false },
 	controlMode_{ ControlMode::MoveView },
 	previous_{ Vector2Int::Zero() },
-	diffValue_{ Vector2Int::Zero() }
+	diffValue_{ Vector2Int::Zero() },
+	stageLine_{ INVALID_ENTITY }
 {
 }
 
 void CameraMovePlay::Start(GameObjectReference _ref)
 {
+	auto [systemView, entityId]{ _ref };
+
+	GameObject* pStageLineObj{ systemView.Get<CPGameObject>().FindGameObject("StageLine") };
+	wassert(pStageLineObj && "ステージラインがシーンに存在しないよ！");
+	if (pStageLineObj)
+	{
+		stageLine_ = pStageLineObj->GetEntityId();
+	}
 }
 
 void CameraMovePlay::Update(GameObjectReference _ref)
@@ -112,12 +124,9 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 	// 目標地点
 	Vector3 toPosition{};
-
 	const Vector3 OFFSET{ 0.0f, 0.0f, -TO_PLAYER_DISTANCE };
-
 	Matrix4x4 rotationMatrix{ XMMatrixRotationX(angleX_) * XMMatrixRotationY(angleY_) };
 	toPosition = XMVector3TransformCoord(OFFSET, rotationMatrix) + pPlayer->Transform().GetPositionWorld();
-
 	pTransform->SetPositionWorld(toPosition);
 
 	// プレイヤーまでの差分ベクトル
@@ -170,9 +179,30 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		}
 	}
 
-	Vector2Int move{ cursor.GetFrameMove() };
+	if (stageLine_ != INVALID_ENTITY)
+	{
+		GameObject* pStageLineObj{ systemView.Get<CPGameObject>().FindGameObject(stageLine_) };
+		StageLine* pStageLine{ dynamic_cast<StageLine*>(pStageLineObj) };
+
+		wassert(pStageLine && "誤ったステージラインのエンティティIdが取得されている！");
+
+		if (pStageLine)
+		{
+			Vector3 cameraWorldPos{ pTransform->GetPosition() };
+			float posY{ pStageLine->GetPosY(cameraWorldPos) };
+			posY = posY + CAMERA_OFFSET_Y_ON_STAGE_LINE;  // オフセット分上げてあげる
+
+			// カメラが地面に埋まっているなら上げる
+			if (cameraWorldPos.y <= posY)
+			{
+				cameraWorldPos.y = posY;
+				pTransform->SetPosition(cameraWorldPos);
+			}
+		}
+	}
 
 	// ドラッグ中の処理
+	Vector2Int move{ cursor.GetFrameMove() };
 	if (isDragging_)
 	{
 		switch (controlMode_)

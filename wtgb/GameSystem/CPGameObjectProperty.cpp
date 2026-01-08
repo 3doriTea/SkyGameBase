@@ -59,3 +59,20 @@ const wtgb::EntityId wtgb::CPGameObjectProperty::GetEntityId(const GameObjectPro
 	size_t index{ static_cast<size_t>(_p - DataBegin()) };
 	return System().Get<CPGameObject>().GetEntityId(index);
 }
+
+const wtgb::EntityId wtgb::CPGameObjectProperty::FindEntityByName(const std::string_view _name)
+{
+	wtgb::EntityId foundEntityId{ INVALID_ENTITY };
+	ForEach(
+		[&_name, &foundEntityId](GameObjectProperty& _gameObjectProperty) -> BreakToken
+		{
+			if (_gameObjectProperty.GetName() == _name)
+			{
+				foundEntityId = _gameObjectProperty.GetEntityId();
+				return true;  // Œ©‚Â‚©‚Á‚½‚©‚çƒ‹[ƒv‚ğ~‚ß‚é
+			}
+			return false;
+		});
+
+	return foundEntityId;
+}

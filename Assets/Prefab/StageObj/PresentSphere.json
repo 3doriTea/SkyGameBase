@@ -15,10 +15,6 @@
 			"shader": "Shader/Simple3D.hlsl",
 			"texture": "Models/Present/Red.png"
 		},
-		"RigidBody": {
-			"bounciness": 1.0,
-			"useGravity": true
-		},
 		"Collider": {
 			"colliderType": 0
 		}

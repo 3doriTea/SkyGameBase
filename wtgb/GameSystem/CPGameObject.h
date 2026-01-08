@@ -38,6 +38,20 @@ namespace wtgb
 		const EntityId GetEntityId(const size_t _index) const;
 
 		/// <summary>
+		/// ゲームオブジェクトを名前から取得する
+		/// </summary>
+		/// <param name="_name">ゲームオブジェクトの名前</param>
+		/// <returns>見つかったゲームオブジェクトのポインタ</returns>
+		GameObject* FindGameObject(const std::string_view _name);
+
+		/// <summary>
+		/// ゲームオブジェクトをエンティティIdから取得する
+		/// </summary>
+		/// <param name="_entityId">ゲームオブジェクトのエンティティId</param>
+		/// <returns>見つかったゲームオブジェクトのポインタ</returns>
+		GameObject* FindGameObject(const EntityId _entityId);
+
+		/// <summary>
 		/// 描画処理
 		/// </summary>
 		void Draw() const;

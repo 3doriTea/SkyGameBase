@@ -35,13 +35,15 @@ void DropCloud::Init()
 	if (pSMFPlayer)
 	{
 		Audio& audio{ System().Get<Audio>() };
+		StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
+		wassert(pStageLine && "ステージラインがシーンに存在しないよ！");
 
 		// ノーツ再生時の音源読み込み && セット
 		pSMFPlayer->SetToneAudioHandle(
 			audio.Load("Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3"));
 
 		// ノーツの処理を登録
-		pSMFPlayer->OnNote([this, pSMFPlayer](Note _note)
+		pSMFPlayer->OnNote([this, pSMFPlayer, pStageLine](Note _note)
 			{
 				if (_note.channel == 0x03)
 				{
@@ -49,7 +51,8 @@ void DropCloud::Init()
 						{
 							.entityId = GetScene<PlayScene>().Instantiate<PresentSphere>(
 								player_,
-								Transform().GetPosition()),
+								Transform().GetPosition(),
+								Vector3{ Transform().GetPosition().x, pStageLine->GetPosY(Transform().GetPosition()), Transform().GetPosition().z }),
 							.note = _note,
 						});
 				}

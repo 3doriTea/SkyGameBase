@@ -99,7 +99,6 @@ void SampleGame::StartRegister(
 		.Register<CPMeshRenderer>()
 		.Register<Canvas>()  // UI‚Ì•`‰æ‚Í3D•`‰æ‚ÌŒã‚ÉI
 
-
 		.Register<Rendering>()
 
 		.Register<Audio>()
