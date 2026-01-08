@@ -11,6 +11,7 @@
 // 便利系
 #include "WTGBAssert.h"
 #include "Utility/Mathf.h"
+#include "Utility/Ease.h"
 #include "Core/Entity.h"
 
 // インタフェース系

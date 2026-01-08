@@ -3,6 +3,7 @@
 #include "GameSystem/CPGameObject.h"
 #include "GameSystem/CPTransform.h"
 #include "Utility/Mathf.h"
+#include "Utility/Ease.h"
 
 using namespace wtgb;
 
@@ -31,17 +32,17 @@ void CPItemAnim::Update()
 			return false;  // Ç∑Ç≈Ç…èIóπÇµÇΩÇ»ÇÁñ≥éã
 		}
 
-		_itemAnim.timeLeft_ -= dt;
-		if (_itemAnim.timeLeft_ <= 0.0f)
+		_itemAnim.timerUp_ += dt;
+		if (_itemAnim.timerUp_ >= _itemAnim.totalTime_)
 		{
-			_itemAnim.timeLeft_ = 0.0f;
+			_itemAnim.timerUp_ = _itemAnim.totalTime_;
 			_itemAnim.isFinished_ = true;
 		}
 
 		EntityId entity{ cpGameObject.GetEntityId(_index) };
 		Transform* pTransform{ cpTransform.Get(entity) };
 
-		Vector3 pos{ Mathf::Lerp(_itemAnim.startPos_, _itemAnim.endPos_, _itemAnim.GetRatio()) };
+		Vector3 pos{ Mathf::Lerp(_itemAnim.startPos_, _itemAnim.endPos_, Ease::OutElastic(_itemAnim.GetRatio())) };
 		pTransform->SetPosition(pos);
 
 		return false;

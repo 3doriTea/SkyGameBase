@@ -179,6 +179,7 @@
     <ClInclude Include="wtgb\GameSystem\Scriptable.h" />
     <ClInclude Include="wtgb\GameSystem\ShaderCompile\Shader.h" />
     <ClInclude Include="wtgb\Utility\CallStackViewer.h" />
+    <ClInclude Include="wtgb\Utility\Ease.h" />
     <ClInclude Include="wtgb\Utility\IResource.h" />
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\Material.h" />
     <ClInclude Include="wtgb\GameSystem\ModelMesh\Fbx.h" />
@@ -370,6 +371,7 @@
     <ClCompile Include="wtgb\GameSystem\Scriptable.cpp" />
     <ClCompile Include="wtgb\GameSystem\ShaderCompile\Shader.cpp" />
     <ClCompile Include="wtgb\Utility\CallStackViewer.cpp" />
+    <ClCompile Include="wtgb\Utility\Ease.cpp" />
     <ClCompile Include="wtgb\Utility\IResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\Fbx.cpp" />
     <ClCompile Include="wtgb\GameSystem\Rendering.cpp" />

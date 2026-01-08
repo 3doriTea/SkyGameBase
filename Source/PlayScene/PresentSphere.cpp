@@ -7,6 +7,7 @@
 namespace
 {
 	static const float BOUNDING_TIME{ 2.0f };
+	static const float ANIM_TIME{ 3.0f };
 }
 
 PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position, const Vector3& _dropPosition) :
@@ -23,6 +24,7 @@ PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position, c
 	ItemAnim& itemAnim{ AddComponent<ItemAnim>() };
 	itemAnim.SetStartPos(_position);
 	itemAnim.SetEndPos(_dropPosition);
+	itemAnim.SetTotalTime(ANIM_TIME);
 }
 
 PresentSphere::~PresentSphere()

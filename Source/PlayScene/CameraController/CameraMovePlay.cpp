@@ -195,7 +195,14 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 			// ƒJƒƒ‰‚ª’n–Ê‚É–„‚Ü‚Á‚Ä‚¢‚é‚È‚çã‚°‚é
 			if (cameraWorldPos.y <= posY)
 			{
+				Vector3 a{ toPlayerDir };
+				Vector2 b{ cameraWorldPos.x, cameraWorldPos.y };
+
+				float ratio{ XMVectorGetX(XMVector3Cross(toPlayerDiff, b)) / XMVectorGetX(XMVector3Cross(a, b)) };
+
 				cameraWorldPos.y = posY;
+
+
 				pTransform->SetPosition(cameraWorldPos);
 			}
 		}
