@@ -12,10 +12,10 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// 跳ね返りが起きたかを取得する 取得後はリセットされる
+	/// 跳ね返りが起きたかをチェックする
 	/// </summary>
-	/// <returns></returns>
-	inline bool IsBounded() const { return isBounded_; }
+	/// <returns>跳ね返りが起きた true / false</returns>
+	bool CheckOnBounded();
 
 	/// <summary>
 	/// プレゼントが取られたか
@@ -24,12 +24,13 @@ public:
 	inline bool IsHit() const { return isHitted_; }
 
 private:
-	bool isBounded_;   // 跳ね返りが起きたか
-	//bool isBounding_;  // 跳ね返りが起きているか
+	bool isBounded_;      // 跳ね返りが起きたか
+	bool isBoundedOnce_;  // 跳ね返りが起きたか 一度だけの true
+	//bool isBounding_;   // 跳ね返りが起きているか
 	//float timeLeft_;   // 止まるまでの残り時間
 	//bool isStopping_;  // 跳ね返りが終わり止まっているか
 
-	bool isHitted_;    // プレイヤーと当たった
+	bool isHitted_;  // プレイヤーと当たった
 
 	EntityId player_;  // プレイヤー
 };

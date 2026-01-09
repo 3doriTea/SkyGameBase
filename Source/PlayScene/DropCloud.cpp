@@ -11,6 +11,7 @@ namespace
 	// 地上からの高さ デフォルト
 	static const float HEIGHT{ 100.0f };
 	static const float DESTORY_DISTANCE_Z{ 300.0f };
+	static const int PLAY_NOTE_NUMBER_OFFSET{ 12 * 2 };  // 再生する音のオフセット
 }
 
 DropCloud::DropCloud(
@@ -95,9 +96,9 @@ void DropCloud::Update()
 			itr = dropedPresents_.erase(itr);
 			continue;
 		}
-		if (pPresent->IsBounded())
+		if (pPresent->CheckOnBounded())
 		{
-			itr->note.noteNumber -= 12 * 2;
+			itr->note.noteNumber -= PLAY_NOTE_NUMBER_OFFSET;
 			pSMFPlayer->PlayTone(itr->note);
 		}
 

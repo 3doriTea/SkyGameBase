@@ -8,6 +8,7 @@ namespace
 {
 	static const float BOUNDING_TIME{ 2.0f };
 	static const float ANIM_TIME{ 3.0f };
+	static const float BOUNDED_RATIO{ 5.0f / 100.0f };  // バウンドした後のレート
 }
 
 PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position, const Vector3& _dropPosition) :
@@ -17,7 +18,8 @@ PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position, c
 	isStopping_{ false },*/
 	player_{ _player },
 	isHitted_{ false },
-	isBounded_{ false }
+	isBounded_{ false },
+	isBoundedOnce_{ false }
 {
 	Transform().SetPosition(_position);
 	GetComponent<Collider>().SetTagFlag(CT_PLAYER);
@@ -48,7 +50,7 @@ void PresentSphere::Update()
 		return;  // 既にとっている
 	}
 
-	if (itemAnim.IsFinished())
+	if (itemAnim.IsFinished())  // アニメーション終わって取得可能状態
 	{
 		GameObject* pPlayerObj{ FindGameObject(player_) };
 
@@ -68,6 +70,13 @@ void PresentSphere::Update()
 			isHitted_ = true;  // 当たったから取られたよ！
 		}
 		return;
+	}
+
+	if (isBounded_ == false
+		&& itemAnim.GetRatio() > BOUNDED_RATIO)
+	{
+		isBounded_ = true;
+		isBoundedOnce_ = true;
 	}
 
 	// TODO: 不要
@@ -99,4 +108,14 @@ void PresentSphere::Update()
 
 void PresentSphere::Release()
 {
+}
+
+bool PresentSphere::CheckOnBounded()
+{
+	if (isBoundedOnce_)
+	{
+		isBoundedOnce_ = false;
+		return true;
+	}
+	return false;
 }

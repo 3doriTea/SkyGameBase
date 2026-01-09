@@ -48,6 +48,7 @@
     <ClInclude Include="Source\PlayScene\Lift\LiftLoop.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftPole.h" />
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
+    <ClInclude Include="Source\PlayScene\SkySphere.h" />
     <ClInclude Include="Source\PlayScene\WorldSetting.h" />
     <ClInclude Include="Source\SMF\ToneHz.h" />
     <ClInclude Include="Source\Stage\StageLoader.h" />
