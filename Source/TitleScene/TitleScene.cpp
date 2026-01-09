@@ -7,6 +7,8 @@
 #include "SMF/SMFPlayer.h"
 #include "UI/DragCircle.h"
 
+#include "PlayScene/PlayScene.h"
+
 TitleScene::TitleScene() :
 	GameScene{{}}
 {
@@ -32,6 +34,13 @@ void TitleScene::Start()
 
 void TitleScene::Update()
 {
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+
+	if (input.IsKeyDown(KeyCode::T))
+	{
+		System().Get<SceneManager>().Move<PlayScene>();
+	}
+
 	Camera& camera{ System().Get<Camera>() };
 
 	ImGui::Begin("Camera");

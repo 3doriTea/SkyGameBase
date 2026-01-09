@@ -1,0 +1,19 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "SkySphere"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 300, 300, 300 ]
+    },
+    "ModelMesh": {
+      "fileName": "Models/Env/SkySphere.fbx"
+    },
+    "MeshRenderer": {
+      "shader": "Shader/SkySphere.hlsl",
+      "texture": "Models/Env/SkySphereTexture.png"
+    }
+  }
+}

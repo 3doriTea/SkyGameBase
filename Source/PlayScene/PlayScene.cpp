@@ -10,6 +10,7 @@
 #include "StageObjectManager.h"
 #include "ControlUI.h"
 #include "Lift/Lift.h"
+#include "SkySphere.h"
 
 #include "SMF/SMFPlayer.h"
 #include "DropCloud.h"
@@ -55,6 +56,8 @@ void PlayScene::Start()
 	Instantiate<StageObjectManager>(stageLine, player);
 
 	Instantiate<DropCloud>(smfPlayer, player, stageLine);
+
+	Instantiate<SkySphere>();
 }
 
 void PlayScene::Update()
