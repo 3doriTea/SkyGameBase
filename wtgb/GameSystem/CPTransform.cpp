@@ -27,7 +27,7 @@ void wtgb::CPTransform::Update()
 
 			_transform.worldMatrix_ = XMMatrixIdentity();
 			_transform.worldRotateMatrix_ = XMMatrixIdentity();
-			return {};
+			return false;
 		});
 
 	CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
@@ -44,7 +44,7 @@ void wtgb::CPTransform::Update()
 
 			if (pCurrentProperty == nullptr)
 			{
-				return {};
+				return false;
 			}
 			
 			wassert(!check.count(currentId) && "ä˘Ç…ìØÇ∂EntityIdÇ™Ç†ÇÈ");
@@ -53,9 +53,10 @@ void wtgb::CPTransform::Update()
 			parentMap.insert({ currentId, pCurrentProperty->GetParent() });
 			check.insert({ currentId, false });
 
-			return {};
+			return false;
 		});
 
+	// è≠ÇµíZÇ≠åvéZ
 	std::stack<EntityId> calculateStack{};
 	for (auto itr = parentMap.begin(); itr != parentMap.end(); itr++)
 	{
@@ -81,8 +82,11 @@ void wtgb::CPTransform::Update()
 			else
 			{
 				// êeÇ™Ç¢ÇÈÇ»ÇÁêeÇ∆ÇÃåvéZÇÇ∑ÇÈ
-				at(calculateStack.top()).worldMatrix_ *= at(calculateStack.top()).localMatrix_ * at(parentMap[calculateStack.top()]).worldMatrix_;
-				at(calculateStack.top()).worldRotateMatrix_ = at(calculateStack.top()).rotateMatrix_ * at(parentMap[calculateStack.top()]).worldRotateMatrix_;
+				Transform& child{ at(calculateStack.top()) };
+				Transform& parent{ at(parentMap[calculateStack.top()]) };
+
+				child.worldMatrix_ *= child.localMatrix_ * parent.worldMatrix_;
+				child.worldRotateMatrix_ = child.rotateMatrix_ * parent.worldRotateMatrix_;
 			}
 			check[calculateStack.top()] = true;
 			calculateStack.pop();

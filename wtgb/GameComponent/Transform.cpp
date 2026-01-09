@@ -5,7 +5,8 @@
 wtgb::Transform::Transform() :
 	position_{ Vector3::Zero() },
 	rotation_{ Vector3::Zero() },
-	scale_{ Vector3::One() }
+	scale_{ Vector3::One() },
+	options_{}
 {
 }
 

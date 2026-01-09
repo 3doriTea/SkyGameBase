@@ -19,6 +19,18 @@ namespace wtgb
 		};
 
 	public:
+		/// <summary>
+		/// 座標変換のオプション
+		/// </summary>
+		enum Option
+		{
+			OPT_IGNORE_PARENT_POSITION,  // 親の座標を無視する
+			OPT_IGNORE_PARENT_ROTATION,  // 親の回転を無視する
+			OPT_IGNORE_PARENT_SCALE,     // 親のスケールを無視する
+			OPT_MAX,  // オプションの種類数
+		};
+
+	public:
 		Transform();
 		~Transform() {}
 
@@ -115,5 +127,7 @@ namespace wtgb
 		Matrix4x4 localMatrix_;        // ローカル行列
 		Matrix4x4 worldMatrix_;        // ワールド行列
 		Matrix4x4 worldRotateMatrix_;  // ワールド回転行列
+		
+		std::bitset<OPT_MAX> options_;  // 細かい設定
 	};
 }

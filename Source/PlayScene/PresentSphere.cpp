@@ -13,9 +13,6 @@ namespace
 
 PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position, const Vector3& _dropPosition) :
 	GameObject{ "StageObj/PresentSphere.json" },
-	/*isBounding_{ false },
-	timeLeft_{ BOUNDING_TIME },
-	isStopping_{ false },*/
 	player_{ _player },
 	isHitted_{ false },
 	isBounded_{ false },
