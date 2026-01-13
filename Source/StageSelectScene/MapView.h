@@ -21,5 +21,5 @@ public:
 
 private:
 	float mapSizePix_;                 // マップのサイズ
-	std::vector<MapPoint> mapPoints_;  // マップ上のポイント
+	std::vector<Vector2Int> mapPoints_;  // マップ上のポイント
 };

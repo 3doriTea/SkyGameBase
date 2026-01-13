@@ -12,6 +12,7 @@
 #include "WTGBAssert.h"
 #include "Utility/Mathf.h"
 #include "Utility/Ease.h"
+#include "Utility/JsonUtility.h"
 #include "Core/Entity.h"
 
 // インタフェース系

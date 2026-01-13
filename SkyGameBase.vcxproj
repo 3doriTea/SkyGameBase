@@ -385,6 +385,7 @@
     <ClCompile Include="wtgb\GameSystem\ShaderCompile.cpp" />
     <ClCompile Include="wtgb\Utility\InitSequence.cpp" />
     <ClCompile Include="wtgb\Utility\InputChecker.cpp" />
+    <ClCompile Include="wtgb\Utility\JsonUtility.cpp" />
     <ClCompile Include="wtgb\Utility\Mathf.cpp" />
   </ItemGroup>
   <ItemGroup>

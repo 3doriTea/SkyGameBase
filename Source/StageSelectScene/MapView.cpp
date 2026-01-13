@@ -10,7 +10,8 @@ MapView::~MapView()
 
 void MapView::OnLoadParam(const json& _json)
 {
-	
+	mapSizePix_ = SafeGet<int>(_json, "mapSizePix");
+	mapPoints_ = SafeGet<std::vector<Vector2Int>>(_json, "mapPoints");
 }
 
 void MapView::Init()
@@ -31,7 +32,7 @@ void MapView::Update()
 	};
 	context.SetRefLayout(&layoutConfig);
 
-	context.DrawImage()
+	//context.DrawImage()
 }
 
 void MapView::Release()

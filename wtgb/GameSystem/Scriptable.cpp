@@ -49,6 +49,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 	ifs >> j;
 	ifs.close();
 
+
 	json* pComponents{ nullptr };
 	if (TryGet("Component", &pComponents, j))
 	{
@@ -59,15 +60,6 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 	if (TryGet("Param", &pParams, j))
 	{
 		_builder.OnLoadParam(*pParams);
-	}
-
-}
-
-bool wtgb::Scriptable::TryGet(const std::string_view _key, json** _pDistJson, json& _srcJson)
-{
-	if (_srcJson.contains(_key))
-	{
-		*_pDistJson = &_srcJson.at(_key);
 	}
 }
 

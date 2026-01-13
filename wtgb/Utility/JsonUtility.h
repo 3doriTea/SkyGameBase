@@ -11,7 +11,7 @@ namespace wtgb
 	/// <param name="_key">キー</param>
 	/// <returns>値</returns>
 	template<typename T>
-	T SafeGet(json& _j, const std::string_view _key);
+	T SafeGet(const json& _j, const std::string_view _key);
 
 	/// <summary>
 	/// jsonの値を安全に取得する
@@ -22,11 +22,20 @@ namespace wtgb
 	/// <param name="_defaultValue">取得できなかった時のデフォルトの値</param>
 	/// <returns>値</returns>
 	template<typename T>
-	T SafeGet(json& _j, const std::string_view _key, const T _defaultValue);
+	T SafeGet(const json& _j, const std::string_view _key, const T _defaultValue);
+
+	/// <summary>
+	/// 試しに値を取得する
+	/// </summary>
+	/// <param name="_key">要素のキー</param>
+	/// <param name="_ppDistJson">取得した先の格納 jsonオブジェクトのポインタ</param>
+	/// <param name="_srcJson">取得する元の jsonオブジェクト</param>
+	/// <returns>取得できた true / false</returns>
+	bool TryGet(const std::string_view _key, json** _ppDistJson, json& _srcJson);
 }
 
 template<typename T>
-T wtgb::SafeGet(json& _j, const std::string_view _key)
+T wtgb::SafeGet(const json& _j, const std::string_view _key)
 {
 	if (_j.contains(_key))
 	{
@@ -39,7 +48,7 @@ T wtgb::SafeGet(json& _j, const std::string_view _key)
 }
 
 template<typename T>
-T wtgb::SafeGet(json& _j, const std::string_view _key, const T _defaultValue)
+T wtgb::SafeGet(const json& _j, const std::string_view _key, const T _defaultValue)
 {
 	if (_j.contains(_key))
 	{
