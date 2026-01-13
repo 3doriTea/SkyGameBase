@@ -49,11 +49,32 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 	ifs >> j;
 	ifs.close();
 
-	json& components{ j.at("Component") };
+	json* pComponents{ nullptr };
+	if (TryGet("Component", &pComponents, j))
+	{
+		LoadComponents(_builder, *pComponents);
+	}
 
+	json* pParams{ nullptr };
+	if (TryGet("Param", &pParams, j))
+	{
+		_builder.OnLoadParam(*pParams);
+	}
 
+}
+
+bool wtgb::Scriptable::TryGet(const std::string_view _key, json** _pDistJson, json& _srcJson)
+{
+	if (_srcJson.contains(_key))
+	{
+		*_pDistJson = &_srcJson.at(_key);
+	}
+}
+
+void wtgb::Scriptable::LoadComponents(GameObjectBuilder& _builder, json& _components)
+{
 	// TODO: ここの手作業を省く ex:コンポーネント側にjsonの入力関数をつけておく？
-	for (auto& component : components.items())
+	for (auto& component : _components.items())
 	{
 		const std::string& componentName{ component.key() };
 
@@ -61,11 +82,11 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 		{
 			_builder
 				.AddComponent<Transform>()
-					.BeginSetter()
-					.position(SafeGet<Vector3>(component.value(), "position"))
-					.rotation(SafeGet<Vector3>(component.value(), "rotation"))
-					.scale(SafeGet<Vector3>(component.value(), "scale"))
-					.EndSetter();
+				.BeginSetter()
+				.position(SafeGet<Vector3>(component.value(), "position"))
+				.rotation(SafeGet<Vector3>(component.value(), "rotation"))
+				.scale(SafeGet<Vector3>(component.value(), "scale"))
+				.EndSetter();
 		}
 		else if (componentName == "GameObjectProperty")
 		{
@@ -115,5 +136,6 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 			wassert(false && "未対応のコンポーネントを処理できません");
 		}
 	}
+
 	_builder.Build();
 }

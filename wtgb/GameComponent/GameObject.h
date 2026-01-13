@@ -55,6 +55,12 @@ namespace wtgb
 		virtual void Update(ViewerUpdate& _system) {}
 		virtual void Draw() const {}
 		virtual void Release() = 0;
+		
+		/// <summary>
+		/// スクリプタブル機能としてゲームオブジェクトへ固有の値を読み込む
+		/// </summary>
+		/// <param name="_json"></param>
+		virtual void OnLoadParam(const json& _json) {}
 
 		/// <summary>
 		/// <para>コンポーネントとしての終了処理</para>

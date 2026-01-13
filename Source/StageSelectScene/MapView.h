@@ -13,6 +13,8 @@ public:
 	MapView();
 	~MapView();
 
+	void OnLoadParam(const json& _json);
+
 	void Init() override;
 	void Update() override;
 	void Release() override;

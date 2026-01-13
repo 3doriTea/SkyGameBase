@@ -8,6 +8,11 @@ MapView::~MapView()
 {
 }
 
+void MapView::OnLoadParam(const json& _json)
+{
+	
+}
+
 void MapView::Init()
 {
 }
