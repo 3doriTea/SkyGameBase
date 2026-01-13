@@ -24,9 +24,7 @@ namespace wtgb
 		/// </summary>
 		enum Option
 		{
-			OPT_IGNORE_PARENT_POSITION,  // 親の座標を無視する
-			OPT_IGNORE_PARENT_ROTATION,  // 親の回転を無視する
-			OPT_IGNORE_PARENT_SCALE,     // 親のスケールを無視する
+			OPT_FIXED_CAMERA_CENTER,  // カメラ座標に固定
 			OPT_MAX,  // オプションの種類数
 		};
 

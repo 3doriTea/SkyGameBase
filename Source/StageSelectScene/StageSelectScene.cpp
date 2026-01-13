@@ -1,0 +1,21 @@
+#include "StageSelectScene.h"
+
+StageSelectScene::StageSelectScene() : GameScene
+{
+	GameScene::Config{}
+}
+{
+}
+
+StageSelectScene::~StageSelectScene()
+{
+}
+
+void StageSelectScene::Start()
+{
+	// ëIëÉ{Å[Éã
+}
+
+void StageSelectScene::Update()
+{
+}

@@ -51,6 +51,8 @@
     <ClInclude Include="Source\SkySphere.h" />
     <ClInclude Include="Source\PlayScene\WorldSetting.h" />
     <ClInclude Include="Source\SMF\ToneHz.h" />
+    <ClInclude Include="Source\StageSelectScene\MapView.h" />
+    <ClInclude Include="Source\StageSelectScene\StageSelectScene.h" />
     <ClInclude Include="Source\Stage\StageLoader.h" />
     <ClInclude Include="Source\Systems\CPItemAnim.h" />
     <ClInclude Include="Source\TitleScene\TitleCamera.h" />
@@ -304,6 +306,8 @@
     <ClCompile Include="Source\SampleScene\Piano.cpp" />
     <ClCompile Include="Source\SampleScene\TestArrowUI.cpp" />
     <ClCompile Include="Source\SMF\SMFPlayer.cpp" />
+    <ClCompile Include="Source\StageSelectScene\MapView.cpp" />
+    <ClCompile Include="Source\StageSelectScene\StageSelectScene.cpp" />
     <ClCompile Include="Source\Stage\StageLoader.cpp" />
     <ClCompile Include="Source\Systems\FirstSceneRegister.cpp" />
     <ClCompile Include="Source\Systems\CPItemAnim.cpp" />
