@@ -11,7 +11,18 @@ MapView::~MapView()
 void MapView::OnLoadParam(const json& _json)
 {
 	mapSizePix_ = SafeGet<int>(_json, "mapSizePix");
-	mapPoints_ = SafeGet<std::vector<Vector2Int>>(_json, "mapPoints");
+
+	if (_json.contains("mapPoints"))
+	{
+		mapPoints_.resize(_json.array().size());
+		size_t i{ 0 };
+		for (json& point : _json.array())
+		{
+			mapPoints_.at(i) = SafeGet<Vector2Int>(_json, "mapPoints");
+			i++;
+		}
+	}
+
 }
 
 void MapView::Init()

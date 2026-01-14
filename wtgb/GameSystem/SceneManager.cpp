@@ -1,6 +1,7 @@
 #include "pch\pch.h"
 #include "SceneManager.h"
 #include "Core/GameScene.h"
+#include "GameTime.h"
 
 wtgb::SceneManager::SceneManager() :
 	pCurrent_{ nullptr },
@@ -24,12 +25,16 @@ void wtgb::SceneManager::Update(const ViewerUpdate& _system)
 {
 	if (pToNext_)
 	{
+		_system.Get<GameTime>().SetTimeStopped(true);
+
 		SAFE_DELETE(pCurrent_);
 		pCurrent_ = pToNext_;
 		pToNext_ = nullptr;
 
 		pCurrent_->cachedSystem_ = system_;
 		pCurrent_->Start();  // シーン開始処理
+
+		_system.Get<GameTime>().SetTimeStopped(false);
 	}
 	if (pCurrent_)
 	{

@@ -60,6 +60,7 @@
     <ClInclude Include="Source\TitleScene\TitleScene.h" />
     <ClInclude Include="Source\UI\Button.h" />
     <ClInclude Include="Source\UI\DragCircle.h" />
+    <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h" />
     <ClInclude Include="wtgb\Helper\CommonGameComponentPool.h" />
     <ClInclude Include="wtgb\LibHeader\FileSystem.h" />
     <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />

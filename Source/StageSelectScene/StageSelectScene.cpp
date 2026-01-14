@@ -1,4 +1,5 @@
 #include "StageSelectScene.h"
+#include "PlayScene/PlayScene.h"
 
 StageSelectScene::StageSelectScene() : GameScene
 {
@@ -18,4 +19,11 @@ void StageSelectScene::Start()
 
 void StageSelectScene::Update()
 {
+	const auto& input{ System().Get<Input>().Getter() };
+	auto& sceneManager{ System().Get<SceneManager>() };
+
+	if (input.IsKeyDown(KeyCode::F))
+	{
+		sceneManager.Move<PlayScene>();
+	}
 }

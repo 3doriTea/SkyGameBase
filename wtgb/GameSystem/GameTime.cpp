@@ -17,12 +17,33 @@ wtgb::GameTime::GameTime() :
 	isFrameDue_{ false },
 	deltaTimeSec_{ 0.0f },
 	currentMicro_{},
-	previousMicro_{}
+	previousMicro_{},
+	timeScale_{ 1.0f },
+	timeScalePrev_{ 1.0f }
 {
 }
 
 wtgb::GameTime::~GameTime()
 {
+}
+
+void wtgb::GameTime::SetTimeStopped(const bool _timeStopped)
+{
+	if (_timeStopped)
+	{
+		timeScale_ = 0.0f;  // 時間を完全停止
+		deltaTimeSec_ = 0.0f;
+	}
+	else
+	{
+		timeScale_ = timeScalePrev_;
+	}
+}
+
+void wtgb::GameTime::SetTimeScale(const float _timeScale)
+{
+	timeScale_ = _timeScale;
+	timeScalePrev_ = timeScale_;
 }
 
 wtgb::Result wtgb::GameTime::Init(const ViewerInit& _viewer)
@@ -57,7 +78,7 @@ void wtgb::GameTime::Update(const ViewerUpdate& _system)
 	// 更新タイミングなら
 	if (isFrameDue_)
 	{
-		deltaTimeSec_ = static_cast<float>(diff) * MICRO_TO_SEC;
+		deltaTimeSec_ = static_cast<float>(diff) * MICRO_TO_SEC * timeScale_;
 		previousMicro_ = currentMicro_;
 	}
 }
