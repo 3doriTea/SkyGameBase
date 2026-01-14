@@ -585,6 +585,12 @@
     <ClInclude Include="Source\StageSelectScene\MapView.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\UI\CountDown.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -942,6 +948,9 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="wtgb\Utility\JsonUtility.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\UI\CountDown.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>
