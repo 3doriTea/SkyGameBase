@@ -17,4 +17,6 @@ public:
 
 private:
 	float timeLeft_;  // カウントダウン
+	TextureHandle hSlideImage_;  // スライドしていく画像ハンドル
+	Vector2Int cellSize_;  // １つの表示サイズ
 };

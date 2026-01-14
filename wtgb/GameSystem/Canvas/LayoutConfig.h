@@ -15,6 +15,7 @@ namespace wtgb::UI
 		friend class CanvasContext;
 	public:
 		LayoutConfig();
+		//LayoutConfig(Vector2Int);
 		~LayoutConfig();
 
 		/// <summary>
