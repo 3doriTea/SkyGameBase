@@ -15,7 +15,7 @@ namespace wtgb::UI
 		friend class CanvasContext;
 	public:
 		LayoutConfig();
-		//LayoutConfig(Vector2Int);
+		LayoutConfig(const Vector2Int _baseCanvasSize);
 		~LayoutConfig();
 
 		/// <summary>
@@ -42,9 +42,10 @@ namespace wtgb::UI
 		Matrix4x4 GetProjectionMatrix(const Vector2Int _screenSize) const;
 
 	private:
-		int order_;            // どのぐらい手前に描画するか
-		Pivot positionPivot_;  // 矩形の始点は画面のどこ基準か
-		Vector2 position_;     // 矩形の始点
-		Vector2 scale_;        // 矩形の大きさ
+		int order_;                  // どのぐらい手前に描画するか
+		Pivot positionPivot_;        // 矩形の始点は画面のどこ基準か
+		Vector2 position_;           // 矩形の始点
+		Vector2 scale_;              // 矩形の大きさ
+		Vector2Int baseCanvasSize_;  // 基準とするキャンバスサイズ
 	};
 }

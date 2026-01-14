@@ -3,9 +3,16 @@
 #include "CanvasContext.h"
 
 wtgb::UI::LayoutConfig::LayoutConfig() :
+	LayoutConfig{ Vector2Int::Zero() }
+{
+}
+
+wtgb::UI::LayoutConfig::LayoutConfig(const Vector2Int _baseCanvasSize) :
 	positionPivot_{ Pivot::TopLeft },
 	position_{ Vector2::Zero() },
-	scale_{ Vector2::Zero() }
+	scale_{ Vector2::Zero() },
+	order_{},
+	baseCanvasSize_{ _baseCanvasSize }
 {
 }
 
