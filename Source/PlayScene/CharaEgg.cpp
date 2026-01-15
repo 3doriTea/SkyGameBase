@@ -38,9 +38,11 @@ void CharaEggRing::Release()
 
 #pragma endregion
 
-CharaEgg::CharaEgg(const Vector3& _position, const EntityId _stageObjManager, const EntityId _player) : GameObject
-{
-	[&_position](GameObjectBuilder& _builder)
+CharaEgg::CharaEgg(const Vector3& _position, const EntityId _stageObjManager, const EntityId _player) :
+	GameObject
+	{
+		"CharaEgg.json"
+		/*[&_position](GameObjectBuilder& _builder)
 	{
 		_builder
 			.AddComponent<GameObjectProperty>()
@@ -62,15 +64,30 @@ CharaEgg::CharaEgg(const Vector3& _position, const EntityId _stageObjManager, co
 					.texture("Models/Neko/TextureSphereNeko.png")
 				.EndSetter()
 		.Build();
-	}
-},
-stageObjManager_{ _stageObjManager },
-player_{ _player }
+	}*/
+	},
+	stageObjManager_{ _stageObjManager },
+	player_{ _player }
 {
+	Transform().SetPosition(_position);
 }
 
 CharaEgg::~CharaEgg()
 {
+}
+
+void CharaEgg::OnLoadParam(const json& _json)
+{
+	using DirectX::XM_PI;
+
+	float rotSpeedPiDivPerSec{ _json["rotSpeedDivPiPerSec"].get<float>() };
+	rotAngleSpeedPerSec_ = XM_PI / rotSpeedPiDivPerSec;
+
+	ringsAngles_.clear();
+	for (json& ring : _json["rings"].array())
+	{
+		ringsAngles_.push_back(ring.get<Vector3>());
+	}
 }
 
 void CharaEgg::Init()
@@ -103,7 +120,7 @@ void CharaEgg::Update()
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 
 	Vector3 rotation{ Transform().GetRotation() };
-	float rotAngle{ XM_PI / 5.0f * dt };
+	float rotAngle{ rotAngleSpeedPerSec_ * dt };
 	rotation.y += rotAngle;
 	Transform().SetRotation(rotation);
 

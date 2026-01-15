@@ -1,0 +1,27 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "CharaEgg"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "ModelMesh": {
+      "fileName": "Models/Neko/NekoSphereV2.fbx"
+    },
+    "MeshRenderer": {
+      "shader": "Shader/Simple3D.hlsl",
+      "texture": "Models/Neko/TexturePhereNeko.png"
+    }
+  },
+  "Param": {
+    "rotSpeedPiDivPerSec": 5.0,
+    "rings": [
+      { "angles": [ 0, 0, 0 ] },
+      { "angles": [ 0, 1.570796327, 1.570796327 ] },
+      { "angles": [ 1.570796327, 0, 0 ] }
+    ]
+  }
+}

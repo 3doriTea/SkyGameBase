@@ -1,7 +1,7 @@
 {
   "Component": {
     "GameObjectProperty": {
-      "name": "DropCloud"
+      "name": "ScoreManager"
     },
     "Transform": {
       "position": [ 0, 0, 0 ],
