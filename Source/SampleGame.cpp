@@ -20,6 +20,7 @@
 #include "Systems/MainWindow.h"
 #include "Systems/FirstSceneRegister.h"
 #include "Systems/CPItemAnim.h"
+#include "Systems/ScoreManager.h"
 
 // ベースが用意しているコンポーネントプール
 #include "GameSystem/CPGameObject.h"
@@ -102,6 +103,9 @@ void SampleGame::StartRegister(
 		.Register<Rendering>()
 
 		.Register<Audio>()
+
+		// スコア系
+		.Register<ScoreManager>()
 
 		// デバッグ系は一番最後
 		.Register<Debug>()
