@@ -73,6 +73,33 @@ void DropCloud::Update()
 	Player* pPlayer{ dynamic_cast<Player*>(FindGameObject(player_)) };
 	StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
 
+#pragma region プレイヤが進むたびに音符を進める処理
+	RigidBody& playerRigidBody{ pPlayer->GetComponent<RigidBody>() };
+
+	Vector3 velocity{ playerRigidBody.GetVelocity() };
+
+	const float PLAY_RATE_MAX_VELOCITY{ 100.0f };
+
+	float playRate{};
+	if (velocity.z <= 0.0f)
+	{
+		// 止まっているなら完全に止める
+		playRate = 0.0f;
+	}
+	if (velocity.z >= PLAY_RATE_MAX_VELOCITY)
+	{
+		// 十分スピードがあるなら通常再生
+		playRate = 1.0f;
+	}
+	else
+	{
+		// 十分ではないがある程度進んでいるならそのスピードに合わせる
+		playRate = velocity.z / PLAY_RATE_MAX_VELOCITY;
+	}
+	pSMFPlayer->SetPlayRate(playRate);
+
+#pragma endregion
+
 	Vector3 position{ pPlayer->Transform().GetPosition() };
 	position.z += 100.0f;
 	position.y = pStageLine->GetPosY(position) + offsetHeight_;

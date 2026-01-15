@@ -4,7 +4,8 @@ CountDown::CountDown() :
 	GameObject{ "CountDown.json" },
 	timeLeft_{ 0.0f },
 	hSlideImage_{ INVALID_HANDLE },
-	cellSize_{}
+	cellSize_{},
+	imageSize_{}
 {
 }
 
@@ -14,7 +15,19 @@ CountDown::~CountDown()
 
 void CountDown::OnLoadParam(const json& _json)
 {
-	
+	ResourceSystem& rc{ System().Get<ResourceSystem>() };
+
+	baseSize_ = SafeGet<Vector2Int>(_json, "baseSize");
+	cellSize_ = SafeGet<Vector2Int>(_json, "cellSize");
+	imageSize_ = SafeGet<Vector2Int>(_json, "imageSize");
+	drawPos_ = SafeGet<Vector2Int>(_json, "drawPos");
+
+	std::string filePath{ _json["silideImageFile"].get<std::string>() };
+	hSlideImage_ = rc.LoadTexture(filePath);
+
+	timeLeft_ = SafeGet<float>(_json, "countDownTime");
+	timeScaleSec_ = SafeGet<float>(_json, "countDownTimeScale");
+	moveTimeRatio_ = SafeGet<float>(_json, "countDownMoveRatio");
 }
 
 void CountDown::Init()
@@ -24,7 +37,8 @@ void CountDown::Init()
 void CountDown::Update()
 {
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
-	const Canvas::Context& context{ System().Get<Canvas>().GetContext() };
+	const Vector2Int SCREEN_SIZE{ System().Get<GameWindow>().GetMainWindowSize() };
+	const Canvas::Context& CONTEXT{ System().Get<Canvas>().GetContext() };
 
 	if (timeLeft_ > 0.0f)
 	{
@@ -36,11 +50,38 @@ void CountDown::Update()
 		DestroyMe();
 	}
 
-	UI::LayoutConfig config{};
+	UI::LayoutConfig config{ baseSize_ };
 	config
-		.position(position_)
-		.scale(size_);
+		.position(drawPos_)
+		.scale(cellSize_);
 
-	context.SetRefLayout(&config);
-	context.DrawImage(hImage);
+	CONTEXT.SetRefLayout(&config);
+
+	int cellIndex{ static_cast<int>(timeLeft_ / timeScaleSec_) };
+
+	float totalAnimRatio{ std::fmodf(timeLeft_, timeScaleSec_) / timeScaleSec_ };
+	float moveAnimRatio{};
+
+	if (totalAnimRatio < moveTimeRatio_)
+	{
+		moveAnimRatio = totalAnimRatio / moveTimeRatio_;
+	}
+	else
+	{
+		moveAnimRatio = 1.0f;
+	}
+
+	Vector2 cellBeginPos
+	{
+		0.0f,
+		moveAnimRatio * cellSize_.y + cellIndex * cellSize_.y
+	};
+
+	Vector2 cellSizeF{ cellSize_ };
+	
+	CONTEXT.DrawImage(hSlideImage_, 0.0f, RectF{ cellBeginPos, cellSizeF });
+}
+
+void CountDown::Release()
+{
 }

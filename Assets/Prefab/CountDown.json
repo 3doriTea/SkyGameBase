@@ -10,6 +10,25 @@
     }
   },
   "Param": {
-
+    "baseSize": {
+      "x": 1920,
+      "y": 1080
+    },
+    "cellSize": {
+      "x": 512,
+      "y": 2048
+    },
+    "imageSize": {
+      "x": 512,
+      "y": 512
+    },
+    "drawPos": {
+      "x": 704,
+      "y": 284
+    }
+    "slideImageFile": "Image/CountDown/CountDown.png",
+    "countDownTime": 4.0,
+    "countDownTimeScale": 1.0,
+    "countDownMoveRatio": 0.25
   }
 }

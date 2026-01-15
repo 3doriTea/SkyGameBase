@@ -57,6 +57,7 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 			return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 		});
 
+	#if 0
 	direct3D.AddRenderListener(
 		[this]()
 		{
@@ -75,18 +76,19 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 				ImGui::RenderPlatformWindowsDefault(nullptr, nullptr);
 			}
 		});
+	#endif
 
 	return Result::Code::Ok;
 }
 
 void wtgb::ImGuiSystem::Update(const ViewerUpdate& _system)
 {
-	if (isNeedNewFrame_)
+	/*if (isNeedNewFrame_)
 	{
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
-	}
+	}*/
 }
 
 void wtgb::ImGuiSystem::End()
@@ -98,8 +100,8 @@ void wtgb::ImGuiSystem::End()
 
 void wtgb::ImGuiSystem::Render()
 {
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	//ImGui::Render();
+	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
-	isNeedNewFrame_ = true;
+	//isNeedNewFrame_ = true;
 }

@@ -14,6 +14,7 @@
 
 #include "SMF/SMFPlayer.h"
 #include "DropCloud.h"
+#include "UI/CountDown.h"
 
 #include "Utility/Mathf.h"
 
@@ -40,6 +41,7 @@ PlayScene::~PlayScene()
 void PlayScene::Start()
 {
 	Instantiate<ControlUI>();
+	Instantiate<CountDown>();
 
 	EntityId stageLine{ Instantiate<StageLine>() };
 	Instantiate<CameraController>();
