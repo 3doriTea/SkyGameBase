@@ -50,7 +50,7 @@ namespace wtgb
 		virtual ~GameObject();
 
 		virtual void Init() {}
-		virtual void Init(ViewerUpdate& _system) {}
+		virtual void Init(ViewerUpdate& _system);
 		virtual void Update() {}
 		virtual void Update(ViewerUpdate& _system) {}
 		virtual void Draw() const {}
@@ -60,7 +60,7 @@ namespace wtgb
 		/// スクリプタブル機能としてゲームオブジェクトへ固有の値を読み込む
 		/// </summary>
 		/// <param name="_json"></param>
-		virtual void OnLoadParam(const json& _json) {}
+		virtual void OnLoadParam(const json& _json);
 
 		/// <summary>
 		/// <para>コンポーネントとしての終了処理</para>
@@ -145,6 +145,7 @@ namespace wtgb
 
 		// TODO: entityIdのみにする
 		bool toDestroy_;  // 削除予定のゲームオブジェクトか true / false
+		bool isNeedLoadParamOnce_;  // 個別パラメータの読み込みが必要か
 
 		static ViewerCached* pCachedSystem_;  // cache済みのゲームシステム
 	};

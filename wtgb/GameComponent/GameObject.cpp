@@ -12,6 +12,8 @@
 #include "GameSystem/Scriptable.h"
 #include "GameSystem/CPGameObject.h"
 
+#include "WTGBAssert.h"
+
 #include "Core/ComponentSetter.h"
 
 wtgb::GameObject::GameObject(const fs::path& _prefabJson) :
@@ -134,4 +136,13 @@ bool wtgb::GameObject::FindGameObjects(
 		}
 	}
 	return _pFoundGameObjects->size() > 0;
+}
+
+void wtgb::GameObject::OnLoadParam(const json& _json)
+{
+	wassert(false && "Json‚ÅParamw’è‚³‚ê‚Ä‚¢‚é‚ªAOnLoadParam‚ªŒp³‚³‚ê‚Ä‚¢‚È‚¢");
+}
+
+void wtgb::Init(ViewerUpdate& _system)
+{
 }

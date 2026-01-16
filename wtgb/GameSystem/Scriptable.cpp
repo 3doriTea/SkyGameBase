@@ -41,12 +41,24 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 {
 	ComponentManager& cm{ System().Get<ComponentManager>() };
 
-	std::ifstream ifs{ "./Prefab" / _jsonPath };
+	fs::path inPrefabPath{ "./Prefab" / _jsonPath };
 
-	wassert(ifs && "プレファブファイルの読み込みに失敗 jsonファイル名が正しいか確認して");
+	wassert(fs::is_regular_file(inPrefabPath) && "jsonファイルが正しく読み込めていない");
+
+	std::ifstream ifs{ inPrefabPath };
+
+	wassert(!!ifs && "プレファブファイルの読み込みに失敗 jsonファイル名が正しいか確認して");
 
 	json j{};
-	ifs >> j;
+	try
+	{
+		ifs >> j;
+	}
+	catch (std::exception& ex)
+	{
+		wassert(false && "jsonファイルのフォーマットエラー");
+		return;
+	}
 	ifs.close();
 
 

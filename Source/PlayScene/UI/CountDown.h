@@ -10,7 +10,7 @@ public:
 	CountDown();
 	~CountDown();
 
-	void OnLoadParam(const json& _json);
+	void OnLoadParam(const json& _json) override;
 
 	void Init() override;
 	void Update() override;

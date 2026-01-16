@@ -34,14 +34,14 @@ namespace wtgb
 		template<typename SceneT>
 		inline void Move()
 		{
+			if (pCurrent_)  // 今のシーンが動いているなら
+			{
+				RequestClearComponents();  // コンポーネントの破棄依頼をする
+			}
 			assert(pToNext_ == nullptr && "既に次のシーン遷移が呼ばれている");
 			if (pToNext_ == nullptr)
 			{
 				pToNext_ = new SceneT{};
-			}
-			if (pCurrent_)  // 今のシーンが動いているなら
-			{
-				RequestClearComponents();  // コンポーネントの破棄依頼をする
 			}
 		}
 

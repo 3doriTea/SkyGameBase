@@ -12,5 +12,5 @@ wtgb::GameObjectBuilder::~GameObjectBuilder()
 
 void wtgb::GameObjectBuilder::OnLoadParam(const json& _json)
 {
-	target_.OnLoadParam(_json);
+	(&target_)->OnLoadParam(_json);
 }

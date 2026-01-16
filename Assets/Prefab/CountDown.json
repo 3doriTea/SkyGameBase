@@ -25,7 +25,7 @@
     "drawPos": {
       "x": 704,
       "y": 284
-    }
+    },
     "slideImageFile": "Image/CountDown/CountDown.png",
     "countDownTime": 4.0,
     "countDownTimeScale": 1.0,
