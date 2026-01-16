@@ -11,6 +11,7 @@
 #include "GameComponent/MeshRenderer.h"
 #include "GameComponent/RigidBody.h"
 #include "GameComponent/Collider.h"
+#include "GameComponent/Parameter.h"
 
 #include "WTGBAssert.h"
 
@@ -56,6 +57,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 	}
 	catch (std::exception& ex)
 	{
+		(void)ex;  // 意図的にキャスト
 		wassert(false && "jsonファイルのフォーマットエラー");
 		return;
 	}
@@ -68,11 +70,18 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 		LoadComponents(_builder, *pComponents);
 	}
 
+	// Parameterコンポーネントは特別
+	// json内 Components に書かずとも Param があればコンポーネントとして追加
 	json* pParams{ nullptr };
 	if (TryGet("Param", &pParams, j))
 	{
-		_builder.OnLoadParam(*pParams);
+		_builder.AddComponent<Parameter>()
+			.BeginSetter()
+				.jsonFilePath(inPrefabPath)
+			.EndSetter();
 	}
+
+	_builder.Build();
 }
 
 void wtgb::Scriptable::LoadComponents(GameObjectBuilder& _builder, json& _components)
@@ -140,6 +149,4 @@ void wtgb::Scriptable::LoadComponents(GameObjectBuilder& _builder, json& _compon
 			wassert(false && "未対応のコンポーネントを処理できません");
 		}
 	}
-
-	_builder.Build();
 }

@@ -64,6 +64,7 @@
     <ClInclude Include="Source\UI\DragCircle.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h" />
     <ClInclude Include="wtgb\GameComponent\Parameter.h" />
+    <ClInclude Include="wtgb\GameSystem\CPParameter.h" />
     <ClInclude Include="wtgb\Helper\CommonGameComponentPool.h" />
     <ClInclude Include="wtgb\LibHeader\FileSystem.h" />
     <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />
@@ -336,6 +337,7 @@
     <ClCompile Include="wtgb\GameComponent\GameObject.cpp" />
     <ClCompile Include="wtgb\GameComponent\MeshRenderer.cpp" />
     <ClCompile Include="wtgb\GameComponent\ModelMesh.cpp" />
+    <ClCompile Include="wtgb\GameComponent\Parameter.cpp" />
     <ClCompile Include="wtgb\GameComponent\RigidBody.cpp" />
     <ClCompile Include="wtgb\GameComponent\Transform.cpp" />
     <ClCompile Include="wtgb\GameSystem\Audio.cpp" />

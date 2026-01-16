@@ -29,6 +29,7 @@
 #include "GameSystem/CPModelMesh.h"
 #include "GameSystem/CPRigidBody.h"
 #include "GameSystem/CPTransform.h"
+#include "GameSystem/CPParameter.h"
 
 // 他コア系
 #include "Core/GameSystemCollection.h"
@@ -43,6 +44,7 @@
 #include "GameComponent/MeshRenderer.h"
 #include "GameComponent/Collider.h"
 #include "GameComponent/RigidBody.h"
+#include "GameComponent/Parameter.h"
 
 // 他システム
 #include "GameSystem/GameTime.h"

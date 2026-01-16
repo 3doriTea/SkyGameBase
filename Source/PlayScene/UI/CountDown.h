@@ -10,11 +10,12 @@ public:
 	CountDown();
 	~CountDown();
 
-	void OnLoadParam(const json& _json) override;
-
 	void Init() override;
 	void Update() override;
 	void Release() override;
+
+private:
+	void OnLoadParam(const json& _json);
 
 private:
 	float timeLeft_;  // カウントダウン

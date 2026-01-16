@@ -95,19 +95,15 @@ void CharaEgg::Init()
 	using DirectX::XM_PI;
 	using DirectX::XM_PIDIV2;
 
-	const std::array<Vector3, 3> ANGLES
-	{
-		Vector3{ 0, 0, 0 },
-		Vector3{ 0, XM_PIDIV2, XM_PIDIV2 },
-		Vector3{ XM_PIDIV2, 0, 0 },
-	};
-	for (int i = 0; i < ANGLES.size(); i++)
+	OnLoadParam(GetComponent<Parameter>().Load());
+
+	for (int i = 0; i < ringsAngles_.size(); i++)
 	{
 		EntityId ring
 		{
 			GetScene<PlayScene>().Instantiate<CharaEggRing>(
 				GetEntityId(),
-				ANGLES[i])
+				ringsAngles_[i])
 		};
 		rings_.push_back(ring);
 	}

@@ -27,6 +27,7 @@ void MapView::OnLoadParam(const json& _json)
 
 void MapView::Init()
 {
+	OnLoadParam(GetComponent<Parameter>().Load());
 }
 
 void MapView::Update()

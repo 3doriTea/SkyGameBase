@@ -18,11 +18,13 @@ public:
 	CharaEgg(const Vector3& _position, const EntityId _stageObjManager, const EntityId _player);
 	~CharaEgg();
 
-	void OnLoadParam(const json& _json) override;
 
 	void Init() override;
 	void Update() override;
 	void Release() override;
+
+private:
+	void OnLoadParam(const json& _json);
 
 private:
 	EntityId stageObjManager_;

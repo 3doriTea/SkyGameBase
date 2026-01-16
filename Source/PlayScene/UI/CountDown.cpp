@@ -32,6 +32,7 @@ void CountDown::OnLoadParam(const json& _json)
 
 void CountDown::Init()
 {
+	OnLoadParam(GetComponent<Parameter>().Load());
 }
 
 void CountDown::Update()

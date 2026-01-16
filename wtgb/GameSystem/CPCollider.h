@@ -7,7 +7,7 @@ namespace wtgb
 	class Collider;
 
 	/// <summary>
-	/// コライダープール : 当たり判定(Collider)
+	/// コンポーネントプール : 当たり判定(Collider)
 	/// </summary>
 	class CPCollider : public ComponentPool<Collider>
 	{

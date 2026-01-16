@@ -67,6 +67,8 @@ void SampleGame::StartRegister(
 		.Register<Cursor>()
 		.Register<Input>()
 
+		.Register<CPParameter>()
+		// ↑ゲームオブジェクトの読み込みに使うもの↑
 
 		.Register<SceneManager>()
 		.Register<ResourceSystem>()

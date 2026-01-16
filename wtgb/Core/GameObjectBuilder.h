@@ -29,11 +29,6 @@ namespace wtgb
 			return *this;
 		}
 
-		/// <summary>
-		/// ゲームオブジェクトへパラメータを渡す
-		/// </summary>
-		void OnLoadParam(const json& _json);
-
 	private:
 		GameObject& target_;  // 構築するゲームオブジェクト
 	};
