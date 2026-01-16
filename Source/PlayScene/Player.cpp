@@ -3,52 +3,8 @@
 
 using namespace wtgb;
 
-Player::Player(const EntityId _parentId, const Vector3 _localPos) : GameObject
-{
-	[this, &_parentId, &_localPos](GameObjectBuilder& _builder) -> void
-	{
-		_builder
-		.AddComponent<GameObjectProperty>()
-			.BeginSetter()
-				.name("Player")
-				.parent(_parentId)
-			.EndSetter()
-		.AddComponent<wtgb::Transform>()
-			.BeginSetter()
-				.position(_localPos)
-				.rotation({ 0, 0, 0 })
-				.scale({ 1, 1, 1 })
-			.EndSetter()
-		.AddComponent<ModelMesh>()
-			.BeginSetter()
-				//.fileName("Models/Oden.fbx")
-				//.fileName("Models/TestCube/TestCube.fbx")
-				//.fileName("Models/Neko/NekoSphere.fbx")
-				.fileName("Models/Neko/NekoSphereV2.fbx")
-			.EndSetter()
-		.AddComponent<MeshRenderer>()
-			.BeginSetter()
-				.shader("Shader/Simple3D.hlsl")
-				//.texture("Models/TestCube/TestCubeTexture.png")
-				//.texture("Models/Oden.jpg")
-				.texture("Models/Neko/TextureSphereNeko.png")
-				//.texture("Models/TestCube/UVChecker.jpg")
-			.EndSetter()
-		.AddComponent<RigidBody>()
-			.BeginSetter()
-				.bounciness(0.5f)
-				.useGravity(false)
-				//.drag(0.981f)
-				.velocity({ 0, 0.0f, 0.0f })
-				.angularVelocity({ 0.0f, 0, 0 })
-			.EndSetter()
-		.AddComponent<Collider>()
-			.BeginSetter()
-				.colliderType(Collider::Type::Sphere)
-			.EndSetter()
-		.Build();
-	}
-}
+Player::Player(const EntityId _parentId, const Vector3 _localPos) :
+	GameObject{ "Player.json" }
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);
