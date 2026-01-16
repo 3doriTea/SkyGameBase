@@ -134,6 +134,9 @@ void wtgb::Scriptable::LoadComponents(GameObjectBuilder& _builder, json& _compon
 				.mass(SafeGet<float>(component.value(), "mass"))
 				.bounciness(SafeGet<float>(component.value(), "bounciness"))
 				.useGravity(SafeGet<bool>(component.value(), "useGravity"))
+				.angularDrag(SafeGet<float>(component.value(), "angularDrag"))
+				.angularVelocity(SafeGet<Vector3>(component.value(), "angularVelocity"))
+				.velocity(SafeGet<Vector3>(component.value(), "velocity"))
 				.EndSetter();
 		}
 		else if (componentName == "Collider")

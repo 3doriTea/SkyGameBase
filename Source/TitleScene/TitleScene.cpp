@@ -43,12 +43,12 @@ void TitleScene::Update()
 
 	Camera& camera{ System().Get<Camera>() };
 
-	ImGui::Begin("Camera");
+	/*ImGui::Begin("Camera");
 	ImGui::DragFloat("pos-x", &camera.position_.x);
 	ImGui::DragFloat("pos-y", &camera.position_.y);
 	ImGui::DragFloat("pos-z", &camera.position_.z);
 	ImGui::DragFloat("tar-x", &camera.targetPosition_.x);
 	ImGui::DragFloat("tar-y", &camera.targetPosition_.y);
 	ImGui::DragFloat("tar-z", &camera.targetPosition_.z);
-	ImGui::End();
+	ImGui::End();*/
 }

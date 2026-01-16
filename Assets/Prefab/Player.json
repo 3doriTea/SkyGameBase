@@ -1,12 +1,28 @@
 {
   "Component": {
     "GameObjectProperty": {
-      "name": "SMFPlayer"
+      "name": "Player"
     },
     "Transform": {
       "position": [ 0, 0, 0 ],
       "rotation": [ 0, 0, 0 ],
       "scale": [ 1, 1, 1 ]
+    },
+    "ModelMesh": {
+      "fileName": "Models/Neko/NekoSphereV2.fbx"
+    },
+    "MeshRenderer": {
+      "shader": "Shader/Simple3D.hlsl",
+      "texture": "Models/Neko/TextureSphereNeko.png"
+    },
+    "RigidBody": {
+      "bounciness": 0.5,
+      "useGravity": false,
+      "velocity": [ 0.0, 0.0, 0.0 ],
+      "angularVelocity": [ 0.0, 0.0, 0.0 ]
     }
+  },
+  "Param": {
+    "coolTimeSec": 0.3
   }
 }
