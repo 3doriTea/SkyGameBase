@@ -4,7 +4,9 @@
 using namespace wtgb;
 
 Player::Player(const EntityId _parentId, const Vector3 _localPos) :
-	GameObject{ "Player.json" }
+	GameObject{ "Player.json" },
+	angle_{},
+	awakeTimeLeft_{}
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);
@@ -12,6 +14,11 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) :
 
 Player::~Player()
 {
+}
+
+void Player::OnLoadParam(json& _json)
+{
+	awakeTimeLeft_ = SafeGet<float>(_json, "awakeTimeSec");
 }
 
 void Player::Init()
@@ -45,7 +52,6 @@ void Player::Update()
 		if (pColl && pColl->GetColliderType() == Collider::Type::Section)
 		{
 			rb.AddTorque({ 0.03f, 0.0f, 0.0f });
-			//LOGFLN("Type:{}", pColl->GetColliderType() == Collider::Type::Sphere ? "‹…‘Ì" : "ƒZƒNƒVƒ‡ƒ“");
 		}
 	}
 

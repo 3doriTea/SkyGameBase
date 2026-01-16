@@ -26,6 +26,6 @@
     }
   },
   "Param": {
-    "coolTimeSec": 0.3
+    "awakeTimeSec": 0.3
   }
 }

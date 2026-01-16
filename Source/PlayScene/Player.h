@@ -18,5 +18,9 @@ public:
 	void AddMove(const Vector3 _move);
 
 private:
+	void OnLoadParam(json& _json);
+
+private:
 	float angle_;
+	float awakeTimeLeft_;  // シーン読み込み直後のラグを待つカウントダウンタイマ
 };
