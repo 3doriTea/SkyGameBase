@@ -4,18 +4,8 @@
 
 using namespace SMF;
 
-SMFPlayer::SMFPlayer(const fs::path& _file) : GameObject
-{
-	[](GameObjectBuilder& _builder)
-	{
-		_builder
-			.AddComponent<GameObjectProperty>()
-				.BeginSetter()
-					.name("SMFPlayer")
-				.EndSetter()
-		.Build();
-	}
-},
+SMFPlayer::SMFPlayer(const fs::path& _file) :
+	GameObject{ "SMFPlayer.json" },
 	file_{ _file },
 	readCurr_{},
 	hTone_{ INVALID_HANDLE },

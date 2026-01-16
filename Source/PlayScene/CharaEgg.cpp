@@ -42,29 +42,6 @@ CharaEgg::CharaEgg(const Vector3& _position, const EntityId _stageObjManager, co
 	GameObject
 	{
 		"CharaEgg.json"
-		/*[&_position](GameObjectBuilder& _builder)
-	{
-		_builder
-			.AddComponent<GameObjectProperty>()
-				.BeginSetter()
-					.name("CharaEgg")
-				.EndSetter()
-			.AddComponent<wtgb::Transform>()
-				.BeginSetter()
-					.position(_position)
-					.scale(Vector3::One() * 1.0f)
-				.EndSetter()
-			.AddComponent<ModelMesh>()
-				.BeginSetter()
-					.fileName("Models/Neko/NekoSphereV2.fbx")
-				.EndSetter()
-			.AddComponent<MeshRenderer>()
-				.BeginSetter()
-					.shader("Shader/Simple3D.hlsl")
-					.texture("Models/Neko/TextureSphereNeko.png")
-				.EndSetter()
-		.Build();
-	}*/
 	},
 	stageObjManager_{ _stageObjManager },
 	player_{ _player }

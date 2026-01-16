@@ -22,7 +22,7 @@ void CountDown::OnLoadParam(const json& _json)
 	imageSize_ = SafeGet<Vector2Int>(_json, "imageSize");
 	drawPos_ = SafeGet<Vector2Int>(_json, "drawPos");
 
-	std::string filePath{ _json["silideImageFile"].get<std::string>() };
+	std::string filePath{ _json["slideImageFile"].get<std::string>() };
 	hSlideImage_ = rc.LoadTexture(filePath);
 
 	timeLeft_ = SafeGet<float>(_json, "countDownTime");

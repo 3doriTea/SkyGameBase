@@ -6,12 +6,20 @@ namespace wtgb
 {
 	inline void to_json(json& j, const Vector2Int& v)
 	{
-		j = json{ { v.x, v.y } };
+		j = json{ { "x", v.x }, { "y", v.y } };
 	}
 
 	inline void from_json(const json& j, Vector2Int& v)
 	{
-		v.x = j.at(0).get<int>();
-		v.y = j.at(1).get<int>();
+		if (j.is_array())
+		{
+			v.x = j.at(0).get<int>();
+			v.y = j.at(1).get<int>();
+		}
+		else
+		{
+			v.x = j.at("x").get<int>();
+			v.y = j.at("y").get<int>();
+		}
 	}
 }
