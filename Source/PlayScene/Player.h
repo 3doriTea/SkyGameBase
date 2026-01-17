@@ -18,7 +18,7 @@ public:
 	void AddMove(const Vector3 _move);
 
 private:
-	void OnLoadParam(json& _json);
+	void OnLoadParam(const json& _json);
 
 private:
 	float angle_;

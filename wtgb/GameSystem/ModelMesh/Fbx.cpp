@@ -155,7 +155,6 @@ void wtgb::Fbx::InitVertex(ViewerCached _system, FbxMesh* _pMesh)
 		//.Usage = D3D11_USAGE_STAGING,                // 変更するか
 		.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // なんのバッファか
 		.CPUAccessFlags = 0,                         // CPUからのアクセスフラグ
-		//.CPUAccessFlags = D3D11_CPU_ACCESS_READ,    // TODO: テスト用                     // CPUからのアクセスフラグ
 		.MiscFlags = 0,                              // その他のフラグ
 		.StructureByteStride = sizeof(Vertex),
 	};

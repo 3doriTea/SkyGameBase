@@ -1,7 +1,6 @@
 #pragma once
 #include "pch/pch.h"
 
-// TODO: 重複をチェックする関数を抽象化する
 
 namespace wtgb
 {

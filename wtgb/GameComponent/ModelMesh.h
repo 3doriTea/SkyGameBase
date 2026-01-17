@@ -20,7 +20,7 @@ namespace wtgb
 			Other,         // その他知らない
 			Fbx,           // FBX
 			SimpleMesh,    // シンプルなメッシュ描画
-			SImpleMesh2D,  // シンプルなメッシュ2D描画
+			SimpleMesh2D,  // シンプルなメッシュ2D描画
 		};
 
 		friend class CPMeshRenderer;

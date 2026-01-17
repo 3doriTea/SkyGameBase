@@ -10,19 +10,24 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos) :
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);
+
+	RigidBody& rb{ GetComponent<RigidBody>() };
+	rb.SetUseGravity(false);  // シーン読み込み直後のラグを待つために重力無効化
 }
 
 Player::~Player()
 {
 }
 
-void Player::OnLoadParam(json& _json)
+void Player::OnLoadParam(const json& _json)
 {
 	awakeTimeLeft_ = SafeGet<float>(_json, "awakeTimeSec");
 }
 
 void Player::Init()
 {
+	OnLoadParam(GetComponent<Parameter>().Load());
+
 	Collider& collider{ GetComponent<Collider>() };
 
 	collider.SetRadius(2.0f);
@@ -37,7 +42,16 @@ void Player::Update()
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	RigidBody& rb{ GetComponent<RigidBody>() };
 
-	//LOGFLN("当たって{}", rb.IsHit() ? "いる" : "いない");
+	// シーン読み込み直後のラグを待つ
+	if (awakeTimeLeft_ > 0.0f)
+	{
+		awakeTimeLeft_ -= dt;
+		if (awakeTimeLeft_ <= 0.0f)
+		{
+			rb.SetUseGravity(true);  // 重力の影響を受けるようにする
+		}
+		return;
+	}
 
 	if (input.IsKeyDown(KeyCode::Space))
 	{

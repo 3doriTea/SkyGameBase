@@ -58,7 +58,6 @@ wtgb::Result wtgb::Input::Init(const ViewerInit& _viewer)
 
 void wtgb::Input::Update(const ViewerUpdate& _system)
 {
-	// TODO: 順番によってマウス移動量がフレーム上書きされる
 	inputData_.mousePositionPrev_ = inputData_.mousePosition_;
 	inputData_.keyBoardStatePrev_ = inputData_.keyBoardState_;
 	inputData_.mouseStatePrev_ = inputData_.mouseState_;

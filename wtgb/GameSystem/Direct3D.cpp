@@ -163,8 +163,6 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 #pragma endregion
 
 #pragma region 深度ステンシルビュー(深度バッファ)の作成
-	//TODO: const Vector2Int SCREEN_SIZE{ _viewer.Get<GameWindow>().GetMainWindowSize() };
-
 	const D3D11_TEXTURE2D_DESC DEPTH_BUFFER_DESC
 	{
 		.Width = static_cast<UINT>(SCREEN_SIZE.x),   // 横幅

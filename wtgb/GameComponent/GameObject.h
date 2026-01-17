@@ -7,7 +7,6 @@
 #include "GameSystem/SceneManager.h"
 #include "GameSystem/CPTransform.h"
 
-// TODO: GameObjectは名ばかり、スクリプトコンポーネントだ！
 
 namespace wtgb
 {

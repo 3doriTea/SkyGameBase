@@ -75,32 +75,6 @@ void PresentSphere::Update()
 		isBounded_ = true;
 		isBoundedOnce_ = true;
 	}
-
-	// TODO: 不要
-	//if (isBounding_)
-	//{
-	//	timeLeft_ -= dt;
-	//	if (timeLeft_ <= 0.0f)
-	//	{
-	//		rb.SetUseGravity(false);
-	//		rb.SetVelocity(Vector3::Zero());
-	//		isStopping_ = true;  // その場で止まる！
-	//	}
-	//	return;
-	//}
-
-	// TODO: 不要
-	/*std::vector<Collider*> pColliders{};
-	rb.GetHitColliders(&pColliders);
-	for (Collider* pCollider : pColliders)
-	{
-		if (pCollider && pCollider->GetColliderType() == Collider::Type::Section)
-		{
-			isBounded_ = true;
-			isBounding_ = true;
-			return;
-		}
-	}*/
 }
 
 void PresentSphere::Release()

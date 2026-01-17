@@ -111,56 +111,6 @@ void wtgb::CPRigidBody::Update()
 						{
 							_rb.AddHitCollider(otherSet.pCollider);
 
-						#if 0
-							// 2次元で当たり判定をしているため、x軸に関しては別
-							collisionInfo.hitPoint.x = _rb.prevPosition_.x;
-
-							// 当たったコライダーとして追加
-							_rb.AddHitCollider(otherSet.pCollider);
-
-							// 壁の法線
-							const Vector3 N{ XMVector3Normalize(collisionInfo.normal) };
-							// 反発係数
-							const float E{ std::clamp(_rb.bounciness_, 0.0f, 1.0f) };
-							// 進入速度
-							const Vector3 V{ _rb.velocity_ };
-
-							// TODO: 回転を入れた反射をさせる
-
-							// 壁刷りベクトル
-							//Vector3 r{ V - 2.0f * XMVectorGetX(XMVector3Dot(V, N)) * N };
-
-							// 進入中の座標
-							const Vector3 CURR_POS{ selfSet.pTransform->GetPositionWorld() };
-
-							// 当たった座標
-							const Vector3 POS{ collisionInfo.hitPoint };
-							// 侵入する前の座標
-							const Vector3 P0{ _rb.prevPosition_ };
-
-							// 壁に当たるまでのベクトル
-							Vector3 diff{ POS - CURR_POS };
-
-
-							// 進入t
-							float t{ XMVectorGetX(XMVector3Length(diff)) / XMVectorGetX(XMVector3Length(V)) };
-							
-							// 当たった先まで進んだベクトル
-							Vector3 ret{ V - diff };
-
-							float currT{ XMVectorGetX(XMVector3Length(ret)) };
-							if (prevT >= currT)
-							{
-								prevT = currT;
-								_rb.push_ = N * collisionInfo.depth;
-							}
-
-							// 反射ベクトル
-							// REF: http://marupeke296.com/COL_Basic_No5_WallVector.html
-							// MEMO: r = v + 2 * a * n(normal)
-							//Vector3 r{ V + 2.0f * E * N };
-							Vector3 r{ ret + 2.0f * E * N };
-						#endif
 							float velocityX{ _rb.velocity_.x };
 							_rb.velocity_ = collisionInfo.reflectionVelocity;
 							_rb.velocity_.x = velocityX;

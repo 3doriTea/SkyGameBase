@@ -31,7 +31,6 @@ namespace wtgb
 		inline ComPtr<ID3D11SamplerState>& GetSamplerState() { return pSamplerState_; }
 		inline ComPtr<ID3D11ShaderResourceView>& GetShaderResourceView() { return pShaderResourceView_; }
 
-	// TODO: アクセッサーに任せる アクセッサに作成処理させる
 	public:
 		/// <summary>
 		/// サンプラステートを作成する

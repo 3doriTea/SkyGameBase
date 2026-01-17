@@ -548,6 +548,10 @@ void wtgb::CPMeshRenderer::Update()
 #endif
 
 			}
+			else
+			{
+				wassert(false && "–¢‘Î‰ž‚ÌModelMeshType");
+			}
 			return {};
 		});
 }
