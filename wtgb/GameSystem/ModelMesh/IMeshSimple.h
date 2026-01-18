@@ -22,6 +22,7 @@ namespace wtgb
 		/// </summary>
 		struct ConstantBuffer
 		{
+			Matrix4x4 matrixVP;           // ビュープロジェクションの合成行列
 			Matrix4x4 matrixWVP;          // ワールドビュープロジェクションの合成行列
 			Matrix4x4 matrixUV;           // UV変換行列
 			Matrix4x4 matrixRotateWorld;  // 法線用ワールド回転行列

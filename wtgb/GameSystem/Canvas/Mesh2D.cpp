@@ -85,10 +85,13 @@ void wtgb::Mesh2D::Init(ViewerCached _system)
 
 #pragma region コンスタントバッファを作っておく
 	{
+		UINT cbSize = static_cast<UINT>(sizeof(ConstantBuffer));
+		cbSize = (cbSize + 15u) & ~15u;
+
 		const D3D11_BUFFER_DESC CONSTANT_DESC
 		{
 			// 型の大きさ
-			.ByteWidth = static_cast<UINT>(sizeof(ConstantBuffer)),
+			.ByteWidth = cbSize,
 			.Usage = D3D11_USAGE_DYNAMIC,                // 変更するか
 			.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // なんのバッファか
 			.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPUからのアクセスフラグ

@@ -10,7 +10,7 @@ MapView::~MapView()
 
 void MapView::OnLoadParam(const json& _json)
 {
-	mapSizePix_ = SafeGet<int>(_json, "mapSizePix");
+	mapSizePix_ = static_cast<float>(SafeGet<int>(_json, "mapSizePix"));
 
 	if (_json.contains("mapPoints"))
 	{

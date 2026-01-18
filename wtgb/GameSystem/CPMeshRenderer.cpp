@@ -312,6 +312,7 @@ void wtgb::CPMeshRenderer::Update()
 				}
 
 				Fbx::ConstantBuffer constantBuffer{};
+				constantBuffer.matrixVP = XMMatrixTranspose(camera.GetViewMatrix() * camera.GetProjectionMatrix());
 				constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 				constantBuffer.matrixUV = XMMatrixIdentity();
@@ -332,9 +333,6 @@ void wtgb::CPMeshRenderer::Update()
 				{
 					constantBuffer.hasTexture = pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE;
 
-					//constantBuffer.diffuse = pFbxModel->GetMaterialAt(i).diffuse;
-					//bool useTexture{ pFbxModel->GetMaterialAt(i).textureFile != "" };
-					//bool useTexture{ pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE };
 					TextureHandle hTexture{ pFbxModel->GetMaterialAt(i).hTexture_ };
 
 					hTexture = meshRenderer.hTexture_;
@@ -355,10 +353,8 @@ void wtgb::CPMeshRenderer::Update()
 						wassert(pTexture != nullptr);
 						if (pTexture)
 						{
-							//ID3D11SamplerState* pSampler{ pTexture->GetSamplerState() };
 							pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
 
-							//ID3D11ShaderResourceView* pSRV{ };
 							pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
 						}
 					}
@@ -366,8 +362,6 @@ void wtgb::CPMeshRenderer::Update()
 					{
 						constantBuffer.diffuseColor = pFbxModel->GetMaterialAt(i).diffuse;
 					}
-					//constantBuffer.materialFLag = useTexture;
-
 					D3D11_MAPPED_SUBRESOURCE data{};
 
 					pContext->Map(pFbxModel->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
@@ -391,6 +385,7 @@ void wtgb::CPMeshRenderer::Update()
 				}
 
 				IMeshSimple::ConstantBuffer constantBuffer{};
+				constantBuffer.matrixVP = XMMatrixTranspose(camera.GetViewMatrix() * camera.GetProjectionMatrix());
 				constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 				constantBuffer.matrixUV = XMMatrixIdentity();

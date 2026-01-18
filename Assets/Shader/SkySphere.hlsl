@@ -7,6 +7,7 @@ SamplerState g_sampler : register(s0); // サンプラー
 // コンスタントバッファ
 cbuffer global
 {
+    float4x4 matrixVP; // ビュープロジェクションの合成行列
     float4x4 matrixWVP; // ワールドビュープロジェクションの合成行列
     float4x4 matrixUV; // UV変換行列
     float4x4 matrixRotateWorld; // ワールド回転行列
@@ -21,7 +22,7 @@ struct VS_OUT
 {
     float4 pos : SV_POSITION; // 頂点の位置
     float4 uv : TEXCOORD; // 頂点に対応するUV座標
-    float4 color : COLOR; // 色 / 明るさ
+    //float4 color : COLOR; // 色 / 明るさ
 };
 
 // 頂点シェーダ
@@ -33,15 +34,15 @@ VS_OUT VS(
     // ピクセルシェーダに渡す情報
     VS_OUT outData;
     
-    outData.pos = mul(pos, matrixWVP);
+    outData.pos = mul(pos, matrixVP);
     outData.uv = mul(uv, matrixUV);
     
-    float4 light = normalize(lightDirection);
+    //float4 light = normalize(lightDirection);
     
-    normal = mul(normal, matrixRotateWorld);
+    //normal = mul(normal, matrixRotateWorld);
     normal.w = 0;
     
-    outData.color = saturate(dot(normal, light));
+    //outData.color = saturate(dot(normal, light));
     
     return outData;
 }

@@ -7,6 +7,7 @@ SamplerState g_sampler : register(s0); // サンプラー
 // コンスタントバッファ
 cbuffer global
 {
+    float4x4 matrixVP; // ビュープロジェクションの合成行列
     float4x4 matrixWVP; // ワールドビュープロジェクションの合成行列
     float4x4 matrixUV; // UV変換行列
     float4x4 matrixRotateWorld; // ワールド回転行列

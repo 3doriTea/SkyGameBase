@@ -28,6 +28,7 @@ namespace wtgb
 			//DirectX::XMFLOAT4 diffuse;
 			//BOOL materialFLag;  // 16byte単位で送られるから仕方ない
 
+			Matrix4x4 matrixVP;           // ビュープロジェクションの合成行列
 			Matrix4x4 matrixWVP;          // ワールドビュープロジェクションの合成行列
 			Matrix4x4 matrixUV;           // UV変換行列
 			Matrix4x4 matrixRotateWorld;  // ワールド回転行列
