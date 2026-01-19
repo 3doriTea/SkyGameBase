@@ -96,6 +96,9 @@ public:
 	void SetToneAudioHandle(const AudioHandle _hAudio);
 
 private:
+	void OnLoadParam(const json& _json);
+
+private:
 	std::function<void(const Note&)> onNoteCallback_;
 	fs::path file_;
 	Header smfHeader_;  // smfのヘッダデータ
@@ -105,6 +108,8 @@ private:
 	float playTime_;  // 再生時間
 	float playRate_;  // 倍速か
 	bool isPlaying_;  // 再生中か
+
+	float playableSampleRateLimit_;  // 再生可能なサンプルレートの最大値
 
 	float toneSampleRateHz_;  // サンプルトーンの周波数
 

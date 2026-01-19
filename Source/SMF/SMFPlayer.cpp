@@ -32,6 +32,8 @@ void SMFPlayer::Init()
 	using mtbin::util::CompareId;
 	using mtbin::util::Reverse;
 
+	OnLoadParam(GetComponent<Parameter>().Load());
+
 	smfHeader_ = {};
 
 	std::ifstream smf{ file_, std::ios::binary };
@@ -341,22 +343,26 @@ void SMFPlayer::Update()
 
 	playTime_ += dt * playRate_;
 
+	// 各トラックを周回する
 	for (int truckId = 0; truckId < smfTrucks_.size(); truckId++)
 	{
 		if (readCurr_[truckId] >= smfTrucks_[truckId].notes.size())
 		{
-			continue;
+			continue;  // このトラックは末端まで読んだため無視
 		}
+
+		// 次を待っているノードに再生時間がやってきたか (その次の次もチェックのためwhile)
 		while (playTime_ >= smfTrucks_[truckId].notes.at(readCurr_[truckId]).totalTime)
 		{
 			const Note& note{ smfTrucks_[truckId].notes.at(readCurr_[truckId]) };
 			readCurr_[truckId]++;
 
+			// コールバックを呼び出す
 			onNoteCallback_(note);
 
 			if (readCurr_[truckId] >= smfTrucks_[truckId].notes.size())
 			{
-				break;
+				break;  // トラックの末端まで読んだ
 			}
 		}
 	}
@@ -416,7 +422,8 @@ void SMFPlayer::PlayTone(const Note& _note)
 
 	float sampleRate{ static_cast<float>(toneSampleRateHz_) * ratio };
 
-	if (sampleRate <= 192000.0f)
+	// リミット以下なら再生
+	if (sampleRate <= playableSampleRateLimit_)
 	{
 		audio.Play(hTone_, _note.playTime, static_cast<unsigned long>(sampleRate));
 	}
@@ -429,6 +436,11 @@ void SMFPlayer::SetToneAudioHandle(const AudioHandle _hAudio)
 	hTone_ = _hAudio;  // 音源ハンドル指定しつつ
 	// サンプルレートも更新する
 	toneSampleRateHz_ = static_cast<float>(audio.GetFormat(hTone_).nSamplesPerSec);
+}
+
+void SMFPlayer::OnLoadParam(const json& _json)
+{
+	playableSampleRateLimit_ = SafeGet<float>(_json, "playableSampleRateLimit");
 }
 
 void SMFPlayer::TruckGenerator::SetName(const std::string& _name)
