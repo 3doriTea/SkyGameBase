@@ -69,7 +69,7 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 		}
 	}
 
-	index = static_cast<SourceVoiceIndex>(sourceVoices_.size());
+	//index = static_cast<SourceVoiceIndex>(sourceVoices_.size());
 
 	// ëSïîégÇÌÇÍÇƒÇ¢ÇΩÇÁí«â¡Ç∑ÇÈ
 	if (index == sourceVoices_.size())
@@ -79,8 +79,21 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 		sourceVoices_.emplace_back(UniqueXAudio2SourceVoice{ pSourceVoice });
 		useFlag_.push_back(false);
 	}
+	else
+	{
+		IXAudio2SourceVoice* pSourceVoice{ nullptr };
+		_audioSystem.CreateSourceVoice(&pSourceVoice, _format);
+		sourceVoices_.at(index) = std::move(UniqueXAudio2SourceVoice{pSourceVoice});
+	}
 
 	HRESULT hResult{};
+	hResult = sourceVoices_.at(index)->FlushSourceBuffers();
+	wassert(SUCCEEDED(hResult) && "âπê∫ÉoÉbÉtÉ@ÇÃèâä˙âªÇ…é∏îs");
+	if (FAILED(hResult))
+	{
+		return -1;
+	}
+
 	hResult = sourceVoices_.at(index)->SubmitSourceBuffer(&_buffer);
 
 	wassert(SUCCEEDED(hResult) && "âπê∫ÇÃìoò^Ç…é∏îs");
