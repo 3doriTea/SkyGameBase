@@ -2,6 +2,7 @@
 #include "Core/IGameSystem.h"
 #include "Utility/Accessor.h"
 #include "Direct3D/BlendMode.h"
+#include "Direct3D/ZBufferMode.h"
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -74,6 +75,12 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_mode">ブレンドモード</param>
 		void SetBlend(const BlendMode _mode);
+
+		/// <summary>
+		/// 深度バッファのモードを設定する
+		/// </summary>
+		/// <param name="_mode"></param>
+		void SetZBuffer(const ZBufferMode _mode);
 
 		/// <summary>
 		/// リソースアクセッサを取得

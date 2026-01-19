@@ -23,33 +23,53 @@ struct VS_OUT
 {
     float4 pos : SV_POSITION; // 頂点の位置
     float4 uv : TEXCOORD; // 頂点に対応するUV座標
-    //float4 color : COLOR; // 色 / 明るさ
+    float4 color : COLOR; // 色 / 明るさ
 };
 
-// 頂点シェーダ
-VS_OUT VS(
-    float4 pos : POSITION,
-    float4 normal : NORMAL,
-    float4 uv : TEXCOORD)
+VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float4 uv : TEXCOORD)
 {
-    // ピクセルシェーダに渡す情報
     VS_OUT outData;
     
-    //outData.pos = mul(pos, matrixWVP);
-    float4 pos = mul(float4((float3)pos, 0.0f), matrixView);
-    outData.pos = mul(pos, matrixProjection);
+    // 一旦、カメラ追従を無視して「描画されるコード」と同じ計算をする
+    outData.pos = mul(pos, matrixWVP);
+    
+    // この一行だけを追加してみる
     outData.pos.z = outData.pos.w;
+    
     outData.uv = mul(uv, matrixUV);
-    
-    //float4 light = normalize(lightDirection);
-    
-    normal = mul(normal, matrixRotateWorld);
-    normal.w = 0;
-    
-    //outData.color = saturate(dot(normal, light));
-    
+    outData.color = float4(1, 1, 1, 1); // ライト計算を飛ばして白くする
     return outData;
 }
+
+//// 頂点シェーダ
+//VS_OUT VS(
+//    float4 pos : POSITION,
+//    float4 normal : NORMAL,
+//    float4 uv : TEXCOORD)
+//{
+//    // ピクセルシェーダに渡す情報
+//    VS_OUT outData;
+    
+//    float4x4 viewNoTranslation = matrixView;
+//    //viewNoTranslation._41 = 0;
+//    //viewNoTranslation._42 = 0;
+//    //viewNoTranslation._43 = 0;
+//    outData.pos = mul(pos, matrixView);
+    
+//    //float4 viewPos = mul(float4(pos.xyz, 0.0f), viewNoTranslation);
+//    //outData.pos = mul(viewPos, matrixProjection);
+//    //outData.pos.z = outData.pos.w;
+//    outData.uv = mul(uv, matrixUV);
+    
+//    //float4 light = normalize(lightDirection);
+    
+//    normal = mul(normal, matrixRotateWorld);
+//    normal.w = 0;
+    
+//    //outData.color = saturate(dot(normal, light));
+    
+//    return outData;
+//}
 
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET

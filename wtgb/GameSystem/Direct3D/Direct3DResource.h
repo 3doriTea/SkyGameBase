@@ -2,6 +2,7 @@
 #include "pch/pch.h"
 #include "Utility/IResource.h"
 #include "BlendMode.h"
+#include "ZBufferMode.h"
 
 namespace wtgb
 {
@@ -37,6 +38,13 @@ namespace wtgb
 		/// <returns>ブレンドステートを取得する</returns>
 		ComPtr<ID3D11BlendState>& BlendStateAt(const BlendMode _blendMode);
 
+		/// <summary>
+		/// 震度ステンシルステートを取得する
+		/// </summary>
+		/// <param name="_zbufferMode">深度バッファモード</param>
+		/// <returns>震度ステンシルステートを取得する</returns>
+		ComPtr<ID3D11DepthStencilState>& DepthStencilAt(const ZBufferMode _zbufferMode);
+
 	private:
 		/// <summary>
 		/// 初期化処理
@@ -65,5 +73,6 @@ namespace wtgb
 		ComPtr<ID3D11DepthStencilView> pDepthStencilView_;  // 深度ステンシルビュー
 
 		std::array<ComPtr<ID3D11BlendState>, BLEND_MODE_MAX> pBlendStates_;  // ブレンドステート
+		std::array<ComPtr<ID3D11DepthStencilState>, ZBUFFER_MODE_MAX> pDepthStencilStates_;  // 震度ステンシルステート
 	};
 }

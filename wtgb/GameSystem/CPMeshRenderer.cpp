@@ -312,7 +312,8 @@ void wtgb::CPMeshRenderer::Update()
 				}
 
 				Fbx::ConstantBuffer constantBuffer{};
-				constantBuffer.matrixVP = XMMatrixTranspose(camera.GetViewMatrix() * camera.GetProjectionMatrix());
+				constantBuffer.matrixView = XMMatrixTranspose(camera.GetViewMatrix());
+				constantBuffer.matrixProjection = XMMatrixTranspose(camera.GetProjectionMatrix());
 				constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 				constantBuffer.matrixUV = XMMatrixIdentity();
@@ -385,7 +386,8 @@ void wtgb::CPMeshRenderer::Update()
 				}
 
 				IMeshSimple::ConstantBuffer constantBuffer{};
-				constantBuffer.matrixVP = XMMatrixTranspose(camera.GetViewMatrix() * camera.GetProjectionMatrix());
+				constantBuffer.matrixProjection = XMMatrixTranspose(camera.GetProjectionMatrix());
+				constantBuffer.matrixView = XMMatrixTranspose(camera.GetViewMatrix());
 				constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 				constantBuffer.matrixUV = XMMatrixIdentity();

@@ -20,6 +20,11 @@ ComPtr<ID3D11BlendState>& wtgb::Direct3DResource::BlendStateAt(const BlendMode _
 	return pBlendStates_.at(static_cast<size_t>(_blendMode));
 }
 
+ComPtr<ID3D11DepthStencilState>& wtgb::Direct3DResource::DepthStencilAt(const ZBufferMode _zbufferMode)
+{
+	return pDepthStencilStates_.at(static_cast<size_t>())
+}
+
 void wtgb::Direct3DResource::Init()
 {
 	// pDevice_->QueryInterface(__uuidof(IDXGIDevice1), reinterpret_cast<void**>(&pDXGI_));

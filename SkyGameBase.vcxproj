@@ -65,6 +65,7 @@
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h" />
     <ClInclude Include="wtgb\GameComponent\Parameter.h" />
     <ClInclude Include="wtgb\GameSystem\CPParameter.h" />
+    <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h" />
     <ClInclude Include="wtgb\Helper\CommonGameComponentPool.h" />
     <ClInclude Include="wtgb\LibHeader\FileSystem.h" />
     <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />

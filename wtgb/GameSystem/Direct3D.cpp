@@ -355,6 +355,30 @@ void wtgb::Direct3D::SetBlend(const BlendMode _mode)
 	}
 }
 
+void wtgb::Direct3D::SetZBuffer(const ZBufferMode _mode)
+{
+	wassert(_mode != ZBufferMode::Max && "ZBufferModeにMaxは指定できない");
+
+	if (_mode == ZBufferMode::Max || _mode == ZBufferMode::None)
+	{
+		// ブレンドモードを特に指定しない
+		pResource_->Context().Get()->OMSetDepthStencilState(nullptr, 0);
+	}
+
+	switch (_mode)
+	{
+	case ZBufferMode::Back:
+		pResource_->Context().Get()->OMSetDepthStencilState(
+			pResource_->DepthStencilAt(_mode).Get(), 0);
+		break;
+	case ZBufferMode::None:
+		break;
+	default:
+		wassert(false && "未実装の深度バッファモード");
+		break;
+	}
+}
+
 void wtgb::Direct3D::AddRenderListener(const std::function<void()>& _callback)
 {
 	renderCallbacks_.push_back(_callback);

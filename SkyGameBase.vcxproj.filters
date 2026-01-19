@@ -600,6 +600,9 @@
     <ClInclude Include="wtgb\GameSystem\CPParameter.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
