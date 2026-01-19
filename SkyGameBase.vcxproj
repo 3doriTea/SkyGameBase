@@ -48,6 +48,7 @@
     <ClInclude Include="Source\PlayScene\Lift\LiftLoop.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftPole.h" />
     <ClInclude Include="Source\PlayScene\PlayerTargetting.h" />
+    <ClInclude Include="Source\PlayScene\PlayState.h" />
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\Systems\ScoreManager.h" />
     <ClInclude Include="Source\PlayScene\UI\CountDown.h" />
@@ -300,6 +301,7 @@
     <ClCompile Include="Source\PlayScene\Lift\LiftLoop.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
+    <ClCompile Include="Source\PlayScene\PlayState.cpp" />
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\CountDown.cpp" />
@@ -408,6 +410,7 @@
     <None Include="Assets\Prefab\DropCloud.json" />
     <None Include="Assets\Prefab\MapView.json" />
     <None Include="Assets\Prefab\Player.json" />
+    <None Include="Assets\Prefab\PlayState.json" />
     <None Include="Assets\Prefab\ScoreManager.json" />
     <None Include="Assets\Prefab\Simple.json" />
     <None Include="Assets\Prefab\SkySphere.json" />
