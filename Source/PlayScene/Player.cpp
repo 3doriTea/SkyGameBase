@@ -5,6 +5,7 @@ using namespace wtgb;
 
 Player::Player(const EntityId _parentId, const Vector3 _localPos) :
 	GameObject{ "Player.json" },
+	playerTargetting_{},
 	angle_{},
 	awakeTimeLeft_{}
 {
@@ -22,6 +23,7 @@ Player::~Player()
 void Player::OnLoadParam(const json& _json)
 {
 	awakeTimeLeft_ = SafeGet<float>(_json, "awakeTimeSec");
+	toTargetTime_ = SafeGet<float>(_json, "toTargetTime");
 }
 
 void Player::Init()
@@ -103,8 +105,8 @@ void Player::AddMove(const Vector3 _move)
 
 
 	std::vector<GameObject*> foundGameObjects{};
-	//if (FindGameObjects("CharaEgg", &foundGameObjects))
-	if (false)
+	if (FindGameObjects("CharaEgg", &foundGameObjects))
+	//if (false)
 	{
 		for (GameObject* pCharaEgg : foundGameObjects)
 		{
@@ -115,7 +117,17 @@ void Player::AddMove(const Vector3 _move)
 
 			if (dot > 0.9f)
 			{
-				rb.SetVelocity(toDir * (XMVectorGetX(XMVector3Length(_move)) + XMVectorGetX(XMVector3Length(rb.GetVelocity()))));
+				Vector3 v
+				{
+					playerTargetting_.GetToTargetVelocity(
+					{
+						.playerPos = selfPos,
+						.playerVelocity = rb.GetVelocity(),
+						.targetPos = eggPos,
+						.gravity = 9.8f
+					})
+				};
+				rb.SetVelocity(v);
 				return;  // 速度を適用して回帰
 			}
 		}

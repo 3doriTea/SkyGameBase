@@ -26,6 +26,7 @@
     }
   },
   "Param": {
-    "awakeTimeSec": 0.3
+    "awakeTimeSec": 10,
+    "toTargetTime": 5.0
   }
 }

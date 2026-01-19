@@ -603,6 +603,9 @@
     <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\PlayerTargetting.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -971,6 +974,9 @@
     <ClCompile Include="wtgb\GameComponent\Parameter.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1003,6 +1009,16 @@
     </None>
     <None Include="Assets\StageData.json" />
     <None Include="Assets\TitleMountain.json" />
+    <None Include="Assets\Prefab\CharaEgg.json" />
+    <None Include="Assets\Prefab\CountDown.json" />
+    <None Include="Assets\Prefab\DropCloud.json" />
+    <None Include="Assets\Prefab\MapView.json" />
+    <None Include="Assets\Prefab\Player.json" />
+    <None Include="Assets\Prefab\ScoreManager.json" />
+    <None Include="Assets\Prefab\Simple.json" />
+    <None Include="Assets\Prefab\SkySphere.json" />
+    <None Include="Assets\Prefab\SMFPlayer.json" />
+    <None Include="Assets\Prefab\StageObj\CharaEggRing.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

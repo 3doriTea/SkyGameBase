@@ -1,5 +1,6 @@
 #pragma once
 #include <wtgb/wtgb.h>
+#include "PlayerTargetting.h"
 
 class Player : public GameObject
 {
@@ -21,6 +22,9 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
+	PlayerTargetting playerTargetting_;  // プレイヤーターゲティング処理
+	bool isTargetting_;  // ターゲットがあるか
+	float toTargetTime_;  // ターゲットに当たるまでの時間
 	float angle_;
 	float awakeTimeLeft_;  // シーン読み込み直後のラグを待つカウントダウンタイマ
 };

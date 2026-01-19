@@ -14,6 +14,7 @@ namespace wtgb
 			if (_p != nullptr)
 			{
 				_p->Stop(0);
+				_p->FlushSourceBuffers();
 				_p->DestroyVoice();
 			}
 		}
