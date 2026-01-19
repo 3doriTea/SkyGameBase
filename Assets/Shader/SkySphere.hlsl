@@ -30,46 +30,23 @@ VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float4 uv : TEXCOORD)
 {
     VS_OUT outData;
     
-    // 一旦、カメラ追従を無視して「描画されるコード」と同じ計算をする
-    outData.pos = mul(pos, matrixWVP);
+    // ビュー行列の平行移動部分を消してカメラと同じ位置にする
+    float4x4 viewNoTranslation = matrixView;
+    viewNoTranslation._41 = 0;
+    viewNoTranslation._42 = 0;
+    viewNoTranslation._43 = 0;
     
-    // この一行だけを追加してみる
+    // ビュー座標を求めてプロジェクション座標に変換する
+    float4 viewPos = mul(float4(pos.xyz, 1.0), viewNoTranslation);
+    outData.pos = mul(viewPos, matrixProjection);
+
+    // プロジェクション座標上の z / w = 1.0 -> 最背面描画にする
     outData.pos.z = outData.pos.w;
     
     outData.uv = mul(uv, matrixUV);
     outData.color = float4(1, 1, 1, 1); // ライト計算を飛ばして白くする
     return outData;
 }
-
-//// 頂点シェーダ
-//VS_OUT VS(
-//    float4 pos : POSITION,
-//    float4 normal : NORMAL,
-//    float4 uv : TEXCOORD)
-//{
-//    // ピクセルシェーダに渡す情報
-//    VS_OUT outData;
-    
-//    float4x4 viewNoTranslation = matrixView;
-//    //viewNoTranslation._41 = 0;
-//    //viewNoTranslation._42 = 0;
-//    //viewNoTranslation._43 = 0;
-//    outData.pos = mul(pos, matrixView);
-    
-//    //float4 viewPos = mul(float4(pos.xyz, 0.0f), viewNoTranslation);
-//    //outData.pos = mul(viewPos, matrixProjection);
-//    //outData.pos.z = outData.pos.w;
-//    outData.uv = mul(uv, matrixUV);
-    
-//    //float4 light = normalize(lightDirection);
-    
-//    normal = mul(normal, matrixRotateWorld);
-//    normal.w = 0;
-    
-//    //outData.color = saturate(dot(normal, light));
-    
-//    return outData;
-//}
 
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
