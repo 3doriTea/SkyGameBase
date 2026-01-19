@@ -7,7 +7,8 @@ SamplerState g_sampler : register(s0); // サンプラー
 // コンスタントバッファ
 cbuffer global
 {
-    float4x4 matrixVP; // ビュープロジェクションの合成行列
+    float4x4 matrixProjection; // Projection行列
+    float4x4 matrixView; // View行列
     float4x4 matrixWVP; // ワールドビュープロジェクションの合成行列
     float4x4 matrixUV; // UV変換行列
     float4x4 matrixRotateWorld; // ワールド回転行列
@@ -34,12 +35,15 @@ VS_OUT VS(
     // ピクセルシェーダに渡す情報
     VS_OUT outData;
     
-    outData.pos = mul(pos, matrixVP);
+    //outData.pos = mul(pos, matrixWVP);
+    float4 pos = mul(float4((float3)pos, 0.0f), matrixView);
+    outData.pos = mul(pos, matrixProjection);
+    outData.pos.z = outData.pos.w;
     outData.uv = mul(uv, matrixUV);
     
     //float4 light = normalize(lightDirection);
     
-    //normal = mul(normal, matrixRotateWorld);
+    normal = mul(normal, matrixRotateWorld);
     normal.w = 0;
     
     //outData.color = saturate(dot(normal, light));
@@ -51,15 +55,8 @@ VS_OUT VS(
 float4 PS(VS_OUT inData) : SV_TARGET
 {
     float4 diffuse;
-
-    if (hasTexture)
-    {
-        diffuse = g_texture.Sample(g_sampler, inData.uv.xy);
-    }
-    else
-    {
-        diffuse = diffuseColor;
-    }
+    
+    diffuse = g_texture.Sample(g_sampler, inData.uv.xy);
     float4 color = diffuse;
     
     return color;

@@ -432,11 +432,14 @@ void wtgb::CPMeshRenderer::Update()
 				D3D11_MAPPED_SUBRESOURCE data{};
 
 				pContext->Map(pMesh->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+				D3D11_BUFFER_DESC desc{};
+				pMesh->GetConstantBuffer().Get()->GetDesc(&desc);
+				desc.ByteWidth;
 				memcpy_s(
 					data.pData,
 					data.RowPitch,
 					reinterpret_cast<void*>(&constantBuffer),
-					sizeof(IMeshSimple::ConstantBuffer));
+					desc.ByteWidth);
 				pContext->Unmap(pMesh->GetConstantBuffer().Get(), 0);
 
 				pContext->DrawIndexed(pMesh->GetIndexCount(), 0, 0);

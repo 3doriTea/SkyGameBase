@@ -15,7 +15,7 @@ cbuffer global
     float4 lightColor;           // ライトの色
     float4 diffuseColor;         // 元の色
     float ambientValue;          // 環境光の量
-    bool hasTexture;             // テクスチャを持っている true / false
+    int hasTexture;             // テクスチャを持っている true / false
 };
 
 struct VS_OUT
