@@ -42,12 +42,11 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 	switch (modelMeshType_)
 	{
 	case wtgb::ModelMesh::Type::Fbx:
+	case wtgb::ModelMesh::Type::FbxBack:  // ç≈îwñ ï`âÊópÇÃFBX
 		hModel_ = system_.Get<Model>().Load(fileName_);
 		break;
 	case wtgb::ModelMesh::Type::SimpleMesh:
 		//pOriginalMesh_->CallInit();
-		break;
-	case wtgb::ModelMesh::Type::FbxBack:
 		break;
 	case wtgb::ModelMesh::Type::Other:
 	default:

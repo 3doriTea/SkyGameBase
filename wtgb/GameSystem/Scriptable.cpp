@@ -115,6 +115,7 @@ void wtgb::Scriptable::LoadComponents(GameObjectBuilder& _builder, json& _compon
 				.AddComponent<ModelMesh>()
 				.BeginSetter()
 				.fileName(SafeGet<std::string>(component.value(), "fileName"))
+				.modelMeshType(static_cast<ModelMesh::Type>(SafeGet<int>(component.value(), "modelMeshType")))
 				.EndSetter();
 		}
 		else if (componentName == "MeshRenderer")

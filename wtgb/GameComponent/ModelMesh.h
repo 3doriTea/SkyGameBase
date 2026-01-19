@@ -32,6 +32,7 @@ namespace wtgb
 
 			SETTER_PARAM(std::string, fileName)
 			SETTER_PARAM_PTR(IMeshSimple, pOriginalMesh)
+			SETTER_PARAM(Type, modelMeshType)
 		};
 
 	public:
