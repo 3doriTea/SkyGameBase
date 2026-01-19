@@ -9,7 +9,8 @@
       "scale": [ 300, 300, 300 ]
     },
     "ModelMesh": {
-      "fileName": "Models/Env/SkySphere.fbx"
+      "fileName": "Models/Env/SkySphere.fbx",
+      "modelMeshType": 4
     },
     "MeshRenderer": {
       "shader": "Shader/SkySphere.hlsl",

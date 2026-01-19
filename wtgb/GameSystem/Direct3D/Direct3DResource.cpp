@@ -22,7 +22,7 @@ ComPtr<ID3D11BlendState>& wtgb::Direct3DResource::BlendStateAt(const BlendMode _
 
 ComPtr<ID3D11DepthStencilState>& wtgb::Direct3DResource::DepthStencilAt(const ZBufferMode _zbufferMode)
 {
-	return pDepthStencilStates_.at(static_cast<size_t>())
+	return pDepthStencilStates_.at(static_cast<size_t>(_zbufferMode));
 }
 
 void wtgb::Direct3DResource::Init()

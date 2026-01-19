@@ -8,15 +8,24 @@
 wtgb::ModelMesh::ModelMesh() : 
 	hModel_{ INVALID_HANDLE },
 	fileName_{},
-	pOriginalMesh_{ nullptr }
+	pOriginalMesh_{ nullptr },
+	modelMeshType_{ Type::Other }
 {}
 
 void wtgb::ModelMesh::Init(ViewerCached system_)
 {
 	if (!fileName_.empty() && pOriginalMesh_ == nullptr)
 	{
-		// ファイル名が指定されている かつ オリジナルメッシュが指定されてない
-		modelMeshType_ = Type::Fbx;
+		if (modelMeshType_ == Type::FbxBack)
+		{
+			// Fbxの指定だけど最背面に描画したい
+			modelMeshType_ = Type::FbxBack;
+		}
+		else
+		{
+			// ファイル名が指定されている かつ オリジナルメッシュが指定されてない
+			modelMeshType_ = Type::Fbx;
+		}
 	}
 	else if (fileName_.empty() && pOriginalMesh_ != nullptr)
 	{
@@ -37,6 +46,8 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 		break;
 	case wtgb::ModelMesh::Type::SimpleMesh:
 		//pOriginalMesh_->CallInit();
+		break;
+	case wtgb::ModelMesh::Type::FbxBack:
 		break;
 	case wtgb::ModelMesh::Type::Other:
 	default:

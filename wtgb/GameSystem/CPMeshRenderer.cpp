@@ -11,7 +11,7 @@
 #include "GameSystem/CPTransform.h"
 #include "WTGBAssert.h"
 #include "ModelMesh/IMeshSimple2D.h"
-#define WTGB_CPMR_USE_VERTEX_LOG 1
+#define WTGB_CPMR_USE_VERTEX_LOG 0
 
 wtgb::CPMeshRenderer::CPMeshRenderer()
 {
@@ -300,7 +300,7 @@ void wtgb::CPMeshRenderer::Update()
 				return {};
 			}
 
-			if (pModelMesh->GetType() == ModelMesh::Type::Fbx)
+			if (pModelMesh->GetType() == ModelMesh::Type::Fbx || pModelMesh->GetType() == ModelMesh::Type::FbxBack)
 			{
 				ModelHandle hModel{ pModelMesh->hModel_ };
 				ModelResource* pModel{ model.GetModel(hModel) };
@@ -309,6 +309,11 @@ void wtgb::CPMeshRenderer::Update()
 				{
 					LOGFLN("Warn:FbxˆÈŠO‚Ìƒ‚ƒfƒ‹‚ª“Ç‚Ýž‚Ü‚ê‚½I");
 					return {};
+				}
+
+				if (pModelMesh->GetType() == ModelMesh::Type::FbxBack)
+				{
+					d3d.SetZBuffer(ZBufferMode::Back);
 				}
 
 				Fbx::ConstantBuffer constantBuffer{};
@@ -374,6 +379,11 @@ void wtgb::CPMeshRenderer::Update()
 					pContext->Unmap(pFbxModel->GetConstantBuffer().Get(), 0);
 
 					pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
+				}
+
+				if (pModelMesh->GetType() == ModelMesh::Type::FbxBack)
+				{
+					d3d.SetZBuffer(ZBufferMode::None);
 				}
 			}
 			else if (pModelMesh->GetType() == ModelMesh::Type::SimpleMesh)

@@ -202,6 +202,33 @@ wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)
 	}
 #pragma endregion
 
+#pragma region 深度バッファモードの作成
+
+	{
+		const D3D11_DEPTH_STENCIL_DESC DESC_BACK
+		{
+			.DepthEnable = TRUE,
+			.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO,
+			.DepthFunc = D3D11_COMPARISON_LESS_EQUAL,
+			.StencilEnable = FALSE,
+			.StencilReadMask = 0,
+			.StencilWriteMask = 0,
+			.FrontFace = {},
+			.BackFace = {},
+		};
+
+		hResult = pResource_->Device().Get()->CreateDepthStencilState(
+			&DESC_BACK,
+			pResource_->DepthStencilAt(ZBufferMode::Back).GetAddressOf());
+		wassert(SUCCEEDED(hResult) && "深度バッファモード-backの作成に失敗");
+		if (FAILED(hResult))
+		{
+			return Result::Code::Failed;
+		}
+	}
+
+#pragma endregion
+
 #pragma region ビューポート (描画範囲) 設定
 	// ビューポートの情報
 	D3D11_VIEWPORT viewport
