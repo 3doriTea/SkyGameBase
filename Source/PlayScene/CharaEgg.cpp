@@ -61,10 +61,7 @@ void CharaEgg::OnLoadParam(const json& _json)
 	rotAngleSpeedPerSec_ = XM_PI / rotSpeedPiDivPerSec;
 
 	ringsAngles_.clear();
-
-	std::string test = _json["rings"];
-
-	for (auto& ring : _json["rings"].array())
+	for (const auto& ring : _json["rings"])
 	{
 		ringsAngles_.push_back(ring["angles"].get<Vector3>());
 	}
