@@ -4,6 +4,8 @@
 #include "Direct3D.h"
 #include "WTGBAssert.h"
 
+#define USE_IMGUI 1
+
 // ImGuiのWinProc用イベント
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -57,7 +59,7 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 			return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 		});
 
-	#if 0
+#if USE_IMGUI
 	direct3D.AddRenderListener(
 		[this]()
 		{
@@ -76,19 +78,21 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 				ImGui::RenderPlatformWindowsDefault(nullptr, nullptr);
 			}
 		});
-	#endif
+#endif
 
 	return Result::Code::Ok;
 }
 
 void wtgb::ImGuiSystem::Update(const ViewerUpdate& _system)
 {
-	/*if (isNeedNewFrame_)
+#if USE_IMGUI
+	if (isNeedNewFrame_)
 	{
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
-	}*/
+	}
+#endif
 }
 
 void wtgb::ImGuiSystem::End()
@@ -100,8 +104,10 @@ void wtgb::ImGuiSystem::End()
 
 void wtgb::ImGuiSystem::Render()
 {
-	//ImGui::Render();
-	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+#if USE_IMGUI
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
-	//isNeedNewFrame_ = true;
+	isNeedNewFrame_ = true;
+#endif
 }

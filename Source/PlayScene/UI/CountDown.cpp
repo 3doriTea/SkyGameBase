@@ -41,6 +41,14 @@ void CountDown::Update()
 	const Vector2Int SCREEN_SIZE{ System().Get<GameWindow>().GetMainWindowSize() };
 	const Canvas::Context& CONTEXT{ System().Get<Canvas>().GetContext() };
 
+	UI::LayoutConfig config{ baseSize_ };
+	config
+		.position(drawPos_)
+		.scale(cellSize_);
+
+	CONTEXT.SetRefLayout(&config);
+
+	#if 1
 	if (timeLeft_ > 0.0f)
 	{
 		timeLeft_ -= dt;
@@ -51,34 +59,32 @@ void CountDown::Update()
 		DestroyMe();
 	}
 
-	UI::LayoutConfig config{ baseSize_ };
-	config
-		.position(drawPos_)
-		.scale(cellSize_);
+	int cellIndex{ static_cast<int>(timeLeft_) };
 
-	CONTEXT.SetRefLayout(&config);
+	float animRatio{ std::fmodf(timeLeft_, 1.0f) };
+	float moveOffset{ 0.0f };
 
-	int cellIndex{ static_cast<int>(timeLeft_ / timeScaleSec_) };
-
-	float totalAnimRatio{ std::fmodf(timeLeft_, timeScaleSec_) / timeScaleSec_ };
-	float moveAnimRatio{};
-
-	if (totalAnimRatio < moveTimeRatio_)
+	if (animRatio < moveTimeRatio_)
 	{
-		moveAnimRatio = totalAnimRatio / moveTimeRatio_;
-	}
-	else
-	{
-		moveAnimRatio = 1.0f;
+		float t{ 1.0f - (animRatio / moveTimeRatio_) };
+		moveOffset = t * cellSize_.y;
 	}
 
-	Vector2 cellBeginPos
-	{
-		0.0f,
-		moveAnimRatio * cellSize_.y + cellIndex * cellSize_.y
-	};
+	float posV{ static_cast<float>(cellSize_.y) * cellIndex };
 
+	Vector2 cellBeginPos{ 0.0f, posV, };
 	Vector2 cellSizeF{ cellSize_ };
+	#else
+	static Vector2 cellBeginPos{ 0.0f, 0.0f, };
+	static Vector2 cellSizeF{ cellSize_ };
+	ImGui::Begin("Cell");
+	ImGui::DragFloat("beginX", &cellBeginPos.x);
+	ImGui::DragFloat("beginY", &cellBeginPos.y);
+	ImGui::DragFloat("sizeX", &cellSizeF.x);
+	ImGui::DragFloat("sizeY", &cellSizeF.y);
+	ImGui::End();
+
+	#endif
 	
 	CONTEXT.DrawImage(hSlideImage_, 0.0f, RectF{ cellBeginPos, cellSizeF });
 }
