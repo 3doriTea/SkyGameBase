@@ -24,8 +24,22 @@ wtgb::Matrix4x4 wtgb::UI::LayoutConfig::GetProjectionMatrix(const Vector2Int _sc
 {
 	using namespace DirectX;
 
-	// 数学座標と描画座標のy軸差異解消
 	RectF cartesianBox{ position_, scale_ };
+
+	// もし設計サイズが決まっているなら
+	if (baseCanvasSize_.x > 0 && baseCanvasSize_.y > 0)
+	{
+		// 設計サイズから描画サイズに変換
+		const float RATIO_X{ static_cast<float>(_screenSize.x) / baseCanvasSize_.x };
+		const float RATIO_Y{ static_cast<float>(_screenSize.y) / baseCanvasSize_.y };
+
+		cartesianBox.x *= RATIO_X;
+		cartesianBox.y *= RATIO_Y;
+		cartesianBox.width *= RATIO_X;
+		cartesianBox.height *= RATIO_Y;
+	}
+
+	// 数学座標と描画座標のy軸差異解消
 	cartesianBox.y = _screenSize.y - cartesianBox.y;
 	cartesianBox.height *= -1;
 
