@@ -1,6 +1,7 @@
 #pragma once
 #include "pch/pch.h"
 #include "Core/Game.h"
+#include <cassert>
 
 /*
 * NOTE: wassertの式内でRelease時も必要な関数を入れないでください。
@@ -44,13 +45,23 @@ if (!(expression))\
 	{\
 		MessageBox(NULL, description.c_str(), title.c_str(), MB_YESNOCANCEL | MB_ICONSTOP | MB_SYSTEMMODAL)\
 	};\
+	/* MessageBoxの表示に失敗したときは、標準のassertを使う */\
+	if (result == 0)\
+	{\
+		assert(false && "wassert: MessageBox failed to display. Falling back to standard assert.");\
+	}\
 	if (result == IDYES)\
 	{\
-		MessageBox(NULL, std::format("最終エラーコード:{}", errorCode).c_str(), title.c_str(), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL);\
+		int secResult { MessageBox(NULL, std::format("最終エラーコード:{}", errorCode).c_str(), title.c_str(), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL) };\
+		if (secResult == 0)\
+		{\
+			assert(false && "wassert: secondary MessageBox failed to display.");\
+		}\
 		throw "this wassersion error";\
 	}\
 	else if (result == IDNO)\
 	{\
+		assert(false && "this wassersion");\
 		throw "this wassersion error";\
 	}\
 	else\

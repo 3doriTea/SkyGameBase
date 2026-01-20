@@ -55,10 +55,10 @@ int wtgb::Game::Run()
 	T theGame{};
 	pGame_ = &theGame;
 
-	try
-	{
+	/*try
+	{*/
 		RunProcess();
-	}
+	/*}
 	catch (const std::exception& e)
 	{
 		throw e;
@@ -66,7 +66,7 @@ int wtgb::Game::Run()
 	catch (int errorCode)
 	{
 		throw errorCode;
-	}
+	}*/
 
 	pGame_ = nullptr;
 	return 0;
