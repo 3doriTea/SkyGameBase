@@ -70,7 +70,7 @@ void CountDown::Update()
 		moveOffset = t * cellSize_.y;
 	}
 
-	float posV{ static_cast<float>(cellSize_.y) * cellIndex };
+	float posV{ static_cast<float>(cellSize_.y) * cellIndex + moveOffset };
 
 	Vector2 cellBeginPos{ 0.0f, posV, };
 	Vector2 cellSizeF{ cellSize_ };

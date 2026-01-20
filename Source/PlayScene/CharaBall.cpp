@@ -1,43 +1,17 @@
 #include "pch\pch.h"
 #include "CharaBall.h"
 #include "PlayScene.h"
+#include "Player.h"
 
-CharaBall::CharaBall(const Vector3& _position, const Vector3& _velocity) : GameObject
+CharaBall::CharaBall(
+	const Vector3& _position,
+	const Vector3& _velocity,
+	const EntityId _player) :
+	GameObject{ "CharaBall.json" },
+	player_{ _player }
 {
-	[&_position, &_velocity](GameObjectBuilder& _builder)
-	{
-		_builder
-			.AddComponent<GameObjectProperty>()
-				.BeginSetter()
-					.name("CharaBall")
-				.EndSetter()
-			.AddComponent<wtgb::Transform>()
-				.BeginSetter()
-					.position(_position)
-				.EndSetter()
-			.AddComponent<Collider>()
-				.BeginSetter()
-					.colliderType(Collider::Type::Sphere)
-				.EndSetter()
-			.AddComponent<RigidBody>()
-				.BeginSetter()
-					.velocity(_velocity)
-					.useGravity(true)
-					.bounciness(1.0f)
-				.EndSetter()
-			.AddComponent<ModelMesh>()
-				.BeginSetter()
-					.fileName("Models/Neko/NekoSphereV2.fbx")
-				.EndSetter()
-			.AddComponent<MeshRenderer>()
-				.BeginSetter()
-					.shader("Shader/Simple3D.hlsl")
-					.texture("Models/Neko/TextureSphereNeko.png")
-				.EndSetter()
-		.Build();
-	}
-}
-{
+	Transform().SetPosition(_position);
+	GetComponent<RigidBody>().SetVelocity(_velocity);
 }
 
 CharaBall::~CharaBall()
@@ -55,17 +29,20 @@ void CharaBall::Update()
 	WorldConfig worldConfig{ playScene.GetWorldConfig() };
 
 	Vector3 pos{ Transform().GetPosition() };
-	if (pos.x < worldConfig.safeZoneXMin || worldConfig.safeZoneXMax < pos.x)
+
+	RigidBody& rb{ GetComponent<RigidBody>() };
+	Vector3 v{ rb.GetVelocity() };
+
+	GameObject* pPlayerObj{ FindGameObject(player_) };
+	Vector3 playerPos{ pPlayerObj->Transform().GetPosition() };
+
+	if (pos.z)
+
+	if ((pos.x < worldConfig.safeZoneXMin && v.x < 0)
+	|| (pos.x > worldConfig.safeZoneXMax && v.x > 0))
 	{
-		RigidBody& rb{ GetComponent<RigidBody>() };
-		Vector3 v{ rb.GetVelocity() };
-		
-		if (pos.x < worldConfig.safeZoneXMin && v.x < 0
-		 || worldConfig.safeZoneXMax > pos.x && v.x > 0)
-		{
-			v.x *= -1.0f;
-			rb.SetVelocity(v);
-		}
+		v.x *= -1.0f;
+		rb.SetVelocity(v);
 	}
 }
 

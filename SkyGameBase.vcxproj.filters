@@ -1026,6 +1026,7 @@
     <None Include="Assets\Prefab\SMFPlayer.json" />
     <None Include="Assets\Prefab\StageObj\CharaEggRing.json" />
     <None Include="Assets\Prefab\PlayState.json" />
+    <None Include="Assets\Prefab\CharaBall.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

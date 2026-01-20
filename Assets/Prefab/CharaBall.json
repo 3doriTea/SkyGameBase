@@ -1,0 +1,31 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "CharaBall"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "ModelMesh": {
+      "fileName": "Models/Neko/NekoSphereV2.fbx"
+    },
+    "MeshRenderer": {
+      "shader": "Shader/Simple3D.hlsl",
+      "texture": "Models/Neko/TextureSphereNeko.png"
+    },
+    "RigidBody": {
+      "bounciness": 1.0,
+      "useGravity": true
+    },
+    "Collider": {
+      "colliderType": 0
+    }
+  },
+  "Param": {
+    "awakeTimeSec": 10,
+    "toTargetTime": 5.0,
+    "startLineZ": 100
+  }
+}

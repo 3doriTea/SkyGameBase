@@ -405,6 +405,7 @@
     <ResourceCompile Include="Source\SkyGameBase.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Prefab\CharaBall.json" />
     <None Include="Assets\Prefab\CharaEgg.json" />
     <None Include="Assets\Prefab\CountDown.json" />
     <None Include="Assets\Prefab\DropCloud.json" />

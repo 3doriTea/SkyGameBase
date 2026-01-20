@@ -4,7 +4,7 @@
 class CharaBall : public GameObject
 {
 public:
-	CharaBall(const Vector3& _position, const Vector3& _velocity);
+	CharaBall(const Vector3& _position, const Vector3& _velocity, const EntityId _player);
 	~CharaBall();
 
 	void Init() override;
@@ -12,5 +12,6 @@ public:
 	void Release() override;
 
 private:
+	EntityId player_;
 };
 
