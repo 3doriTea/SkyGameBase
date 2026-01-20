@@ -5,7 +5,10 @@
 class Player : public GameObject
 {
 public:
-	Player(const EntityId _parentId, const Vector3 _localPos);
+	Player(
+		const EntityId _parentId,
+		const Vector3 _localPos,
+		const EntityId _playState);
 	~Player();
 
 	void Init() override;
@@ -23,8 +26,10 @@ private:
 
 private:
 	PlayerTargetting playerTargetting_;  // プレイヤーターゲティング処理
-	bool isTargetting_;  // ターゲットがあるか
+	bool isTargetting_;   // ターゲットがあるか
 	float toTargetTime_;  // ターゲットに当たるまでの時間
 	float angle_;
 	float awakeTimeLeft_;  // シーン読み込み直後のラグを待つカウントダウンタイマ
+	EntityId playState_;   // プレイ状態
+	float startLineZ_;     // 下山開始のライン z座標
 };

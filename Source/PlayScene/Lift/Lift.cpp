@@ -124,8 +124,6 @@ bool Lift::TryGetLinePosition(const float _z, Vector3* _pPosition)
 		endPos,
 		RATIO);
 
-	LOGFLN("RAITO:{}, index:{} to {}, pos: {} -> {}", RATIO, POLE_INDEX, POLE_INDEX + 1, beginPos.z, endPos.z);
-	
 	_pPosition->y += POLE_HEIGHT;
 
 	return true;  // ¬Œ÷

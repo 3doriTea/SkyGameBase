@@ -1,13 +1,16 @@
 #include "pch\pch.h"
 #include "Player.h"
 
+#include "PlayState.h"
+
 using namespace wtgb;
 
-Player::Player(const EntityId _parentId, const Vector3 _localPos) :
+Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId _playState) :
 	GameObject{ "Player.json" },
 	playerTargetting_{},
 	angle_{},
-	awakeTimeLeft_{}
+	awakeTimeLeft_{},
+	playState_{ _playState }
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);
@@ -24,6 +27,7 @@ void Player::OnLoadParam(const json& _json)
 {
 	awakeTimeLeft_ = SafeGet<float>(_json, "awakeTimeSec");
 	toTargetTime_ = SafeGet<float>(_json, "toTargetTime");
+	startLineZ_ = SafeGet<float>(_json, "startLineZ");
 }
 
 void Player::Init()
@@ -53,6 +57,15 @@ void Player::Update()
 			rb.SetUseGravity(true);  // èdóÕÇÃâeãøÇéÛÇØÇÈÇÊÇ§Ç…Ç∑ÇÈ
 		}
 		return;
+	}
+
+	PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
+	if (playState && playState->GetState() == PlayState::Type::StartLine)
+	{
+		if (Transform().GetPosition().z > startLineZ_)
+		{
+			playState->ChangeState(PlayState::Type::Falling);
+		}
 	}
 
 	if (input.IsKeyDown(KeyCode::Space))

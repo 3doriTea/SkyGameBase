@@ -2,7 +2,7 @@
 
 PlayState::PlayState() :
 	GameObject{ "PlayState.json" },
-	pCurrentState_{}
+	pCurrentState_{ std::make_unique<StartLine>() }
 {
 }
 
@@ -26,8 +26,26 @@ void PlayState::Release()
 {
 }
 
+void PlayState::OnChanged(OnChangedCallback&& _callback)
+{
+	onChangedEvents_.emplace_back(std::move(_callback));
+}
+
 void PlayState::ChangeState(Type _type)
 {
+	for (auto itr = onChangedEvents_.begin(); itr != onChangedEvents_.end();)
+	{
+		bool toUnregister{ (*itr)(_type) };
+		if (toUnregister)
+		{
+			itr = onChangedEvents_.erase(itr);
+		}
+		else
+		{
+			itr++;
+		}
+	}
+
 	switch (_type)
 	{
 	case PlayState::Type::StartLine:

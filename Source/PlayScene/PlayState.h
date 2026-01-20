@@ -42,12 +42,21 @@ private:
 	};
 
 public:
+	using ToUnregisterFlag = bool;
+	using OnChangedCallback = std::function<ToUnregisterFlag(Type)>;
+
 	PlayState();
 	~PlayState();
 
 	void Init() override;
 	void Update() override;
 	void Release() override;
+
+	/// <summary>
+	/// 状態変更があったときのコールバック処理
+	/// </summary>
+	/// <param name="_callback">(次の状態) -> 登録解除するかのフラグtrue / false</param>
+	void OnChanged(OnChangedCallback&& _callback);
 
 	/// <summary>
 	/// 状態をチェンジする
@@ -59,6 +68,9 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	Type GetState() const;
+
 private:
+	// 変更時のイベント
+	std::list<OnChangedCallback> onChangedEvents_;
 	std::unique_ptr<IPlayState> pCurrentState_;
 };

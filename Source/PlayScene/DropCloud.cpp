@@ -62,9 +62,23 @@ void DropCloud::Init()
 				}
 			});
 
-
-		// 再生！
-		pSMFPlayer->Play();
+		PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
+		if (playState)
+		{
+			playState->OnChanged([pSMFPlayer](PlayState::Type _nextType) -> bool
+				{
+					if (_nextType == PlayState::Type::Falling)
+					{
+						// 次の状態が下山なら再生開始
+						pSMFPlayer->Play();
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				});
+		}
 	}
 }
 

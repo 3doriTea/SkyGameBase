@@ -57,8 +57,8 @@ void PlayScene::Start()
 	
 	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
 
-	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }) };
-	Instantiate<StageObjectManager>(stageLine, player);
+	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
+	Instantiate<StageObjectManager>(stageLine, player, playState);
 
 	Instantiate<DropCloud>(smfPlayer, player, stageLine, playState);
 
