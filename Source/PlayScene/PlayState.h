@@ -49,8 +49,16 @@ public:
 	void Update() override;
 	void Release() override;
 
+	/// <summary>
+	/// ó‘Ô‚ğƒ`ƒFƒ“ƒW‚·‚é
+	/// </summary>
+	/// <param name="_type">Ÿ‚Ìó‘Ô</param>
 	void ChangeState(Type _type);
-
+	/// <summary>
+	/// Œ»İ‚Ìó‘Ô‚ğæ“¾‚·‚é
+	/// </summary>
+	/// <returns></returns>
+	Type GetState() const;
 private:
 	std::unique_ptr<IPlayState> pCurrentState_;
 };

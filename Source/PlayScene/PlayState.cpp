@@ -16,6 +16,10 @@ void PlayState::Init()
 
 void PlayState::Update()
 {
+	if (pCurrentState_)
+	{
+		pCurrentState_->Update(System());
+	}
 }
 
 void PlayState::Release()
@@ -39,6 +43,13 @@ void PlayState::ChangeState(Type _type)
 		wassert(false && "未対応のプレイステート");
 		break;
 	}
+}
+
+PlayState::Type PlayState::GetState() const
+{
+	wassert(pCurrentState_ && "現在のステートがnullptr");
+	
+	return pCurrentState_->GetType();
 }
 
 void PlayState::StartLine::Update(ViewerCached _system)

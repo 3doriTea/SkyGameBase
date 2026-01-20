@@ -115,7 +115,7 @@ void Player::AddMove(const Vector3 _move)
 
 			float dot{ XMVectorGetX(XMVector3Dot(selfDir, toDir)) };
 
-			if (dot > 0.9f)
+			if (dot > 0.99f)
 			{
 				Vector3 v
 				{

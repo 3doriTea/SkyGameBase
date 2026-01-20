@@ -7,7 +7,7 @@
 class StageObjectManager : public GameObject
 {
 public:
-	StageObjectManager(const EntityId _stageLine, const EntityId _player);
+	StageObjectManager(const EntityId _stageLine, const EntityId _player, const EntityId _playState);
 	~StageObjectManager();
 
 	void Init() override;
@@ -21,7 +21,8 @@ public:
 
 private:
 	float spawnTimeLeftSec_;  // スポーンまでのカウントダウンタイマ
-	EntityId stageLine_;  // ステージラインのエンティティId
-	EntityId player_;     // プレイヤーのエンティティId
+	EntityId stageLine_;      // ステージラインのエンティティId
+	EntityId player_;         // プレイヤーのエンティティId
+	EntityId playState_;      // プレイ状態
 };
 

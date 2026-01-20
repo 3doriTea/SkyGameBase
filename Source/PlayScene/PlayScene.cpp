@@ -41,7 +41,7 @@ PlayScene::~PlayScene()
 
 void PlayScene::Start()
 {
-	Instantiate<PlayState>();
+	EntityId playState{ Instantiate<PlayState>() };
 
 	Instantiate<ControlUI>();
 	Instantiate<CountDown>();
@@ -60,7 +60,7 @@ void PlayScene::Start()
 	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }) };
 	Instantiate<StageObjectManager>(stageLine, player);
 
-	Instantiate<DropCloud>(smfPlayer, player, stageLine);
+	Instantiate<DropCloud>(smfPlayer, player, stageLine, playState);
 
 	Instantiate<SkySphere>();
 }

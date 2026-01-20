@@ -21,7 +21,8 @@ public:
 	DropCloud(
 		const EntityId _smfPlayer,
 		const EntityId _gamePlayer,
-		const EntityId _stageLine);
+		const EntityId _stageLine,
+		const EntityId _playState);
 	~DropCloud();
 
 	void Init() override;
@@ -32,6 +33,7 @@ private:
 	EntityId smfPlayer_;  // smfPlayer
 	EntityId player_;     // プレイヤー
 	EntityId stageLine_;  // ステージ
+	EntityId playState_;  // プレイ状態
 
 	float offsetHeight_;  // 地上からの高さ
 

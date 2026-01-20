@@ -8,6 +8,8 @@
 #include "CharaBall.h"
 #include "CharaEgg.h"
 
+#include "PlayState.h"
+
 namespace
 {
 	// スポーンするまでのインターバル秒数
@@ -33,20 +35,14 @@ namespace
 }
 
 
-StageObjectManager::StageObjectManager(const EntityId _stageLine, const EntityId _player) : GameObject
-{
-	[](GameObjectBuilder& _builder)
-	{
-		_builder
-			.AddComponent<GameObjectProperty>()
-				.BeginSetter()
-					.name("StageObjectManager")
-				.EndSetter()
-		.Build();
-	}
-},
+StageObjectManager::StageObjectManager(
+	const EntityId _stageLine,
+	const EntityId _player,
+	const EntityId _playState) :
+	GameObject{ "StageObjectManager.json" },
 	stageLine_{ _stageLine },
 	player_{ _player },
+	playState_{ _playState },
 	spawnTimeLeftSec_{ SPAWN_INTERVAL_SEC }
 {
 }
@@ -62,6 +58,12 @@ void StageObjectManager::Init()
 void StageObjectManager::Update()
 {
 	using namespace DirectX;
+
+	PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
+	if (playState && playState->GetState() != PlayState::Type::Falling)
+	{
+		return;  // 下山中以外は無視
+	}
 
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 

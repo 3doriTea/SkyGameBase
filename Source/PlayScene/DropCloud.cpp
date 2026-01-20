@@ -5,6 +5,7 @@
 #include "SMF/SMFPlayer.h"
 #include "PlayScene.h"
 #include "PresentSphere.h"
+#include "PlayState.h"
 
 namespace
 {
@@ -17,11 +18,13 @@ namespace
 DropCloud::DropCloud(
 	const EntityId _smfPlayer,
 	const EntityId _gamePlayer,
-	const EntityId _stageLine) :
+	const EntityId _stageLine,
+	const EntityId _playState) :
 	GameObject{ "DropCloud.json" },
 	smfPlayer_{ _smfPlayer },
 	player_{ _gamePlayer },
 	stageLine_{ _stageLine },
+	playState_{ _playState },
 	offsetHeight_{ HEIGHT }
 {
 }
@@ -67,6 +70,12 @@ void DropCloud::Init()
 
 void DropCloud::Update()
 {
+	PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_) ) };
+	if (playState && playState->GetState() != PlayState::Type::Falling)
+	{
+		return;  // ‰ºŽR’†ˆÈŠO‚Í–³Ž‹
+	}
+
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 
 	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject(smfPlayer_)) };
