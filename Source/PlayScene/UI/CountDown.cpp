@@ -66,7 +66,7 @@ void CountDown::Update()
 
 	if (animRatio < moveTimeRatio_)
 	{
-		float t{ 1.0f - (animRatio / moveTimeRatio_) };
+		float t{ (animRatio / moveTimeRatio_) };
 		moveOffset = t * cellSize_.y;
 	}
 

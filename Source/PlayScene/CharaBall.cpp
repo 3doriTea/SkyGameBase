@@ -36,7 +36,14 @@ void CharaBall::Update()
 	GameObject* pPlayerObj{ FindGameObject(player_) };
 	Vector3 playerPos{ pPlayerObj->Transform().GetPosition() };
 
-	if (pos.z)
+	if (pos.z > playerPos.z)
+	{
+		v.z -= 10.0f;
+	}
+	else
+	{
+		v.z += 10.0f;
+	}
 
 	if ((pos.x < worldConfig.safeZoneXMin && v.x < 0)
 	|| (pos.x > worldConfig.safeZoneXMax && v.x > 0))

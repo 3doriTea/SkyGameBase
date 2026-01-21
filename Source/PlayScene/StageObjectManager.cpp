@@ -125,6 +125,6 @@ void StageObjectManager::Fire()
 		Vector3 v{ XMVector3TransformCoord(vSrc, mRotX * mRotZ) };
 		v.z = vSrc.z;
 
-		GetScene<PlayScene>().Instantiate<CharaBall>(targetPos, v);
+		GetScene<PlayScene>().Instantiate<CharaBall>(targetPos, v, player_);
 	}
 }
