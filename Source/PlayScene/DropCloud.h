@@ -47,5 +47,12 @@ private:
 	float destroyDistanceZ_;    // プレイヤーとの距離が離れたときに消す処理
 	int playNoteNumberOffset_;  // 再生する音の高さ
 
+	float dropDistanceZ_;  // ノーツを投下するときのプレイヤーからの距離z
+
+	float playRatioMaxVelocity_;  // 再生レートを変動させる最大速度
+
+	std::string playSMFPath_;  // 再生するsmf
+	std::string playToneAudioFilePath_;  // 再生する音の音源ファイル
+
 	std::list<DropedPresent> dropedPresents_;  // 投下したプレゼントリスト
 };

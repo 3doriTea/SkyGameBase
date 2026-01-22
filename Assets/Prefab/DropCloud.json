@@ -12,6 +12,10 @@
   "Param": {
     "offsetHeight": 100.0,
     "destroyDistanceZ": 300.0,
-    "playNoteNumberOffset": 24
+    "playNoteNumberOffset": 24,
+    "playSMFPath": "Sound/entertainer.mid",
+    "dropDistanceZ": 100.0,
+    "playRatioMaxVelocity": 100.0,
+    "playToneAudioFilePath": "Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3"
   }
 }

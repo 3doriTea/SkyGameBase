@@ -60,6 +60,7 @@
     <ClInclude Include="Source\StageSelectScene\StageSelectScene.h" />
     <ClInclude Include="Source\Stage\StageLoader.h" />
     <ClInclude Include="Source\Systems\CPItemAnim.h" />
+    <ClInclude Include="Source\TitleScene\MusicPlayer.h" />
     <ClInclude Include="Source\TitleScene\TitleCamera.h" />
     <ClInclude Include="Source\TitleScene\TitleMountain.h" />
     <ClInclude Include="Source\TitleScene\TitleScene.h" />
@@ -331,6 +332,7 @@
     <ClCompile Include="Source\PlayScene\Player.cpp" />
     <ClCompile Include="Source\SampleScene\SampleScene.cpp" />
     <ClCompile Include="Source\SkyGameBase.cpp" />
+    <ClCompile Include="Source\TitleScene\MusicPlayer.cpp" />
     <ClCompile Include="Source\TitleScene\TitleCamera.cpp" />
     <ClCompile Include="Source\TitleScene\TitleMountain.cpp" />
     <ClCompile Include="Source\TitleScene\TitleScene.cpp" />
@@ -413,6 +415,7 @@
     <None Include="Assets\Prefab\CountDown.json" />
     <None Include="Assets\Prefab\DropCloud.json" />
     <None Include="Assets\Prefab\MapView.json" />
+    <None Include="Assets\Prefab\MusicPlayer.json" />
     <None Include="Assets\Prefab\Player.json" />
     <None Include="Assets\Prefab\PlayState.json" />
     <None Include="Assets\Prefab\Play\CameraController.json" />
@@ -420,7 +423,9 @@
     <None Include="Assets\Prefab\Simple.json" />
     <None Include="Assets\Prefab\SkySphere.json" />
     <None Include="Assets\Prefab\SMFPlayer.json" />
+    <None Include="Assets\Prefab\StageObjectManager.json" />
     <None Include="Assets\Prefab\StageObj\CharaEggRing.json" />
+    <None Include="Assets\Prefab\TitleNeco.json" />
     <None Include="Assets\StageData.json" />
     <None Include="Assets\TitleMountain.json" />
     <None Include="Doc\CodingGuide.md" />

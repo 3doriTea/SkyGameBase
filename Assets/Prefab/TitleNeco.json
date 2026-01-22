@@ -1,0 +1,27 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "TitleNeco"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "necoImagePath": {
+      "hand": "./Image/Title/TitleNeco-Hand.png",
+      "hang": "./Image/Title/TitleNeco-Hang.png",
+      "norm": "./Image/Title/TitleNeco-Norm.png"
+    },
+    "playButtonImagePath": {
+      "off": "./Image/Title/PlayButton-Off.png",
+      "on": "./Image/Title/PlayButton-On.png"
+    },
+    "playToneAudio": "Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3",
+    "uiLayoutConfig": {
+      "order": 10
+    }
+  }
+}

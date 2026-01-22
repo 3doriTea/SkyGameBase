@@ -18,7 +18,8 @@ DropCloud::DropCloud(
 	player_{ _gamePlayer },
 	stageLine_{ _stageLine },
 	playState_{ _playState },
-	offsetHeight_{}
+	offsetHeight_{},
+	dropDistanceZ_{}
 {
 }
 
@@ -31,6 +32,10 @@ void DropCloud::OnLoadParam(const json& _json)
 	offsetHeight_ = SafeGet<float>(_json, "offsetHeight");
 	destroyDistanceZ_ = SafeGet<float>(_json, "destroyDistanceZ");
 	playNoteNumberOffset_ = SafeGet<int>(_json, "playNoteNumberOffset");
+	dropDistanceZ_ = SafeGet<float>(_json, "dropDistanceZ");
+	playRatioMaxVelocity_ = SafeGet<float>(_json, "playRatioMaxVelocity");
+	playSMFPath_ = SafeGet<std::string>(_json, "playSMFPath");
+	playToneAudioFilePath_ = SafeGet<std::string>(_json, "playToneAudioFilePath");
 }
 
 void DropCloud::Init()
@@ -46,7 +51,7 @@ void DropCloud::Init()
 
 		// ノーツ再生時の音源読み込み && セット
 		pSMFPlayer->SetToneAudioHandle(
-			audio.Load("Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3"));
+			audio.Load(playToneAudioFilePath_));
 
 		// ノーツの処理を登録
 		pSMFPlayer->OnNote([this, pSMFPlayer, pStageLine](Note _note)
@@ -103,15 +108,13 @@ void DropCloud::Update()
 
 	Vector3 velocity{ playerRigidBody.GetVelocity() };
 
-	const float PLAY_RATE_MAX_VELOCITY{ 100.0f };
-
 	float playRate{};
 	if (velocity.z <= 0.0f)
 	{
 		// 止まっているなら完全に止める
 		playRate = 0.0f;
 	}
-	if (velocity.z >= PLAY_RATE_MAX_VELOCITY)
+	if (velocity.z >= playRatioMaxVelocity_)
 	{
 		// 十分スピードがあるなら通常再生
 		playRate = 1.0f;
@@ -119,14 +122,14 @@ void DropCloud::Update()
 	else
 	{
 		// 十分ではないがある程度進んでいるならそのスピードに合わせる
-		playRate = velocity.z / PLAY_RATE_MAX_VELOCITY;
+		playRate = velocity.z / playRatioMaxVelocity_;
 	}
 	pSMFPlayer->SetPlayRate(playRate);
 
 #pragma endregion
 
 	Vector3 position{ pPlayer->Transform().GetPosition() };
-	position.z += 100.0f;
+	position.z += dropDistanceZ_;
 	position.y = pStageLine->GetPosY(position) + offsetHeight_;
 	Transform().SetPosition(position);
 

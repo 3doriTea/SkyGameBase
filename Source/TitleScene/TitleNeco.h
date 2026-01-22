@@ -25,6 +25,13 @@ public:
 	float GetMoveRaito() const { return moveRatio_; }
 
 private:
+	/// <summary>
+	/// jsonからパラメータを読み込む
+	/// </summary>
+	/// <param name="_json">パラメータのjson</param>
+	void OnLoadParam(const json& _json);
+
+private:
 	TextureHandle hImages_[IMAGE::I_MAX];
 	float moveRatio_;  // ムーブレート
 	bool isDrag_;  // ドラッグ中か
@@ -33,4 +40,11 @@ private:
 
 	EntityId dragCircle_;  // ドラッグして掴む円
 	EntityId playButton_;  // プレイボタン
+
+	TextureHandle hButtonOff_;
+	TextureHandle hButtonOn_;
+
+	std::string playToneAudioFile_;  // トーンとして流す音のファイルパス
+
+	int uiLayoutConfigOrder_;  // UIレイアウト設定の描画順番
 };

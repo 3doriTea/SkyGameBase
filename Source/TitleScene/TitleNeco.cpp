@@ -14,18 +14,49 @@ namespace
 }
 
 TitleNeco::TitleNeco(const EntityId _dragCircle) :
-	GameObject{ "Simple.json" },
+	GameObject{ "TitleNeco.json" },
 	hImages_{},
 	isDrag_{ false },
 	moveRatio_{},
 	dragCircle_{ _dragCircle },
 	playButton_{ INVALID_ENTITY },
-	playButtonShowPos_{}
+	playButtonShowPos_{},
+	playToneAudioFile_{}
 {
 }
 
 TitleNeco::~TitleNeco()
 {
+}
+
+void TitleNeco::OnLoadParam(const json& _json)
+{
+	ResourceSystem& rc{ System().Get<ResourceSystem>() };
+
+	wassert(_json.contains("necoImagePath") && "jsonにパラメータが含まれていない");
+	const json& necoImagePath{ _json["necoImagePath"] };
+
+	hImages_[I_HAND] = rc.LoadTexture(
+		SafeGet<std::string>(necoImagePath, "hand"));
+	hImages_[I_HANG] = rc.LoadTexture(
+		SafeGet<std::string>(necoImagePath, "hang"));
+	hImages_[I_NORM] = rc.LoadTexture(
+		SafeGet<std::string>(necoImagePath, "norm"));
+	
+	wassert(_json.contains("playButtonImagePath") && "jsonにパラメータが含まれていない");
+	const json& buttonImagePath{ _json["playButtonImagePath"] };
+
+	hButtonOff_ = rc.LoadTexture(
+		SafeGet<std::string>(buttonImagePath, "off"));
+	hButtonOn_ = rc.LoadTexture(
+		SafeGet<std::string>(buttonImagePath, "on"));
+
+	playToneAudioFile_ = SafeGet<std::string>(_json, "playToneAudio");
+
+	wassert(_json.contains("uiLayoutConfig") && "jsonにパラメータが含まれていない");
+	const json& uiLayoutConfig{ _json["uiLayoutConfig"] };
+
+	uiLayoutConfigOrder_ = SafeGet<int>(uiLayoutConfig, "order");
 }
 
 void TitleNeco::Init()
@@ -40,22 +71,14 @@ void TitleNeco::Init()
 
 	pDragCircle->SetRadius(100);
 
-	fs::path dir{ "./Image/Title" };
-
-	hImages_[I_HAND] = rc.LoadTexture(dir / "TitleNeco-Hand.png");
-	hImages_[I_HANG] = rc.LoadTexture(dir / "TitleNeco-Hang.png");
-	hImages_[I_NORM] = rc.LoadTexture(dir / "TitleNeco-Norm.png");
-
 #pragma region プレイボタン
 	playButton_ = titleScene.Instantiate<Button>();
 	Button* pPlayButton{ dynamic_cast<Button*>(FindGameObject(playButton_)) };
 
-	TextureHandle hOff{ rc.LoadTexture(dir / "PlayButton-Off.png") };
-	pPlayButton->SetOffImage(hOff);
-	TextureHandle hOn{ rc.LoadTexture(dir / "PlayButton-On.png") };
-	pPlayButton->SetOnImage(hOn);
+	pPlayButton->SetOffImage(hButtonOff_);
+	pPlayButton->SetOnImage(hButtonOn_);
 
-	Vector2Int imageSize{ rc.GetTexture(hOff)->GetImageSizePix() };
+	Vector2Int imageSize{ rc.GetTexture(hButtonOff_)->GetImageSizePix() };
 	pPlayButton->SetSize(imageSize);
 	playButtonShowPos_ = screenSizeInt / 3;
 
@@ -85,8 +108,7 @@ void TitleNeco::Init()
 		Audio& audio{ System().Get<Audio>() };
 
 		// ノーツ再生時の音源読み込み && セット
-		pSMFPlayer->SetToneAudioHandle(
-			audio.Load("Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3"));
+		pSMFPlayer->SetToneAudioHandle(audio.Load(playToneAudioFile_));
 
 		// ノーツの処理を登録
 		pSMFPlayer->OnNote([pSMFPlayer](Note _note)
@@ -137,6 +159,7 @@ void TitleNeco::Update()
 
 	if (pDragCircle)
 	{
+		// TODO: ボタンドラッグ位置を確定させる
 		isDrag_ = pDragCircle->IsDrag();
 		pDragCircle->SetPosition({ 430 + OFFSET_X, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
 	}
@@ -151,7 +174,7 @@ void TitleNeco::Update()
 		: hImages_[I_NORM]
 	};
 
-	config.order(10);
+	config.order(uiLayoutConfigOrder_);
 
 	config.scale({ screenSize.x, screenSize.y });
 	config.position({ OFFSET_X, screenSize.y * (1.0f - moveRatio_) });

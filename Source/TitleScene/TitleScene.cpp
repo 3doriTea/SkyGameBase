@@ -7,6 +7,8 @@
 #include "SMF/SMFPlayer.h"
 #include "UI/DragCircle.h"
 
+#include "MusicPlayer.h"
+
 #include "PlayScene/PlayScene.h"
 
 TitleScene::TitleScene() :
@@ -22,7 +24,8 @@ void TitleScene::Start()
 {
 	Instantiate<TitleMountain>();
 
-	Instantiate<SMFPlayer>("Sound/entertainer.mid");
+	Instantiate<MusicPlayer>();
+
 
 	EntityId dragCircle{ Instantiate<DragCircle>() };
 	EntityId titleNeco{ Instantiate<TitleNeco>(dragCircle) };

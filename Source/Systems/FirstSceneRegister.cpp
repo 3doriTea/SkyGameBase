@@ -9,7 +9,7 @@
 
 wtgb::Result FirstSceneRegister::Init(const ViewerInit& _viewer)
 {
-	_viewer.Get<SceneManager>().Move<StageSelectScene>();
+	_viewer.Get<SceneManager>().Move<TitleScene>();
 
 	return Result::Code::Ok;
 }

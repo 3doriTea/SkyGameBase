@@ -615,6 +615,9 @@
     <ClInclude Include="wtgb\GameSystem\DirectionalLight.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\TitleScene\MusicPlayer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -992,6 +995,9 @@
     <ClCompile Include="wtgb\GameSystem\DirectionalLight.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TitleScene\MusicPlayer.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1037,6 +1043,9 @@
     <None Include="Assets\Prefab\PlayState.json" />
     <None Include="Assets\Prefab\CharaBall.json" />
     <None Include="Assets\Prefab\Play\CameraController.json" />
+    <None Include="Assets\Prefab\StageObjectManager.json" />
+    <None Include="Assets\Prefab\TitleNeco.json" />
+    <None Include="Assets\Prefab\MusicPlayer.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
