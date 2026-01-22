@@ -9,9 +9,11 @@
 #include "GameSystem/Camera.h"
 #include "GameSystem/ResourceSystem.h"
 #include "GameSystem/CPTransform.h"
+#include "GameSystem/DirectionalLight.h"
 #include "WTGBAssert.h"
 #include "ModelMesh/IMeshSimple2D.h"
 #define WTGB_CPMR_USE_VERTEX_LOG 0
+
 
 wtgb::CPMeshRenderer::CPMeshRenderer()
 {
@@ -32,6 +34,7 @@ void wtgb::CPMeshRenderer::Render(
 	ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
 	Direct3D& d3d{ System().Get<Direct3D>() };
 	ID3D11DeviceContext* pContext{ System().Get<Direct3D>().Resource().Context() };
+	DirectionalLight& directionalLight{ System().Get<DirectionalLight>() };
 
 
 	IMeshSimple* pMesh{ _pMeshSimple };
@@ -52,9 +55,8 @@ void wtgb::CPMeshRenderer::Render(
 	constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 	constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 	constantBuffer.matrixUV = XMMatrixIdentity();
-	// TODO: この辺は統一するためにライトオブジェクトを検出して同期させるシステムを作る light system
-	constantBuffer.lightDirection = { -0.5f, -0.5f, -0.5f, 0.0f };
-	constantBuffer.lightColor = 0xffffff;
+	constantBuffer.lightDirection = directionalLight.GetDirection();
+	constantBuffer.lightColor = directionalLight.GetColor();
 	constantBuffer.ambientValue = 0.3f;
 	constantBuffer.diffuseColor = _diffuseColor;
 
@@ -280,9 +282,20 @@ void wtgb::CPMeshRenderer::Update()
 	Model& model{ System().Get<Model>() };
 	Direct3D& d3d{ System().Get<Direct3D>() };
 	ResourceSystem& resource{ System().Get<ResourceSystem>() };
+	DirectionalLight& directionalLight{ System().Get<DirectionalLight>() };
 	ID3D11DeviceContext* pContext{ System().Get<Direct3D>().Resource().Context() };
 	
-	ForEach([&camera, &pDevice, &cpGameObject, &cpTransform, &cpModelMesh, &model, &d3d, &resource, pContext]
+	ForEach([
+		&camera,
+		&pDevice,
+		&cpGameObject,
+		&cpTransform,
+		&cpModelMesh,
+		&model,
+		&d3d,
+		&resource,
+		&directionalLight,
+		pContext]
 		(MeshRenderer& meshRenderer, const size_t _index) -> BreakToken
 		{
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
@@ -322,8 +335,8 @@ void wtgb::CPMeshRenderer::Update()
 				constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 				constantBuffer.matrixUV = XMMatrixIdentity();
-				constantBuffer.lightDirection = { -0.5f, -0.5f, -0.5f, 0.0f };
-				constantBuffer.lightColor = 0xffffff;
+				constantBuffer.lightDirection = directionalLight.GetDirection();
+				constantBuffer.lightColor = directionalLight.GetColor();
 				constantBuffer.ambientValue = 0.3f;
 
 				// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
@@ -402,8 +415,8 @@ void wtgb::CPMeshRenderer::Update()
 				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 				constantBuffer.matrixUV = XMMatrixIdentity();
 				// TODO: この辺は統一するためにライトオブジェクトを検出して同期させるシステムを作る light system
-				constantBuffer.lightDirection = { -0.5f, -0.5f, -0.5f, 0.0f };
-				constantBuffer.lightColor = 0xffffff;
+				constantBuffer.lightDirection = directionalLight.GetDirection();
+				constantBuffer.lightColor = directionalLight.GetColor();
 				constantBuffer.ambientValue = 0.3f;
 				constantBuffer.diffuseColor = { 0.0f, 0.7f, 0.0f, 1.0f };
 				
