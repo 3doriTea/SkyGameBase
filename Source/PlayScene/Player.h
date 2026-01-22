@@ -2,6 +2,9 @@
 #include <wtgb/wtgb.h>
 #include "PlayerTargetting.h"
 
+
+class ISpeedController;
+
 class Player : public GameObject
 {
 public:
@@ -21,6 +24,8 @@ public:
 	/// <param name="_move">移動</param>
 	void AddMove(const Vector3 _move);
 
+	const ISpeedController* GetSpeedController();
+
 private:
 	void OnLoadParam(const json& _json);
 
@@ -29,7 +34,8 @@ private:
 	bool isTargetting_;   // ターゲットがあるか
 	float toTargetTime_;  // ターゲットに当たるまでの時間
 	float angle_;
-	float awakeTimeLeft_;  // シーン読み込み直後のラグを待つカウントダウンタイマ
-	EntityId playState_;   // プレイ状態
-	float startLineZ_;     // 下山開始のライン z座標
+	float awakeTimeLeft_;       // シーン読み込み直後のラグを待つカウントダウンタイマ
+	EntityId playState_;        // プレイ状態
+	float startLineZ_;          // 下山開始のライン z座標
+	EntityId speedController_;  // スピード操作オブジェクト
 };

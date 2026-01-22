@@ -43,6 +43,7 @@
     <ClInclude Include="Source\PlayScene\CharaBall.h" />
     <ClInclude Include="Source\PlayScene\CharaEgg.h" />
     <ClInclude Include="Source\PlayScene\ControlUI.h" />
+    <ClInclude Include="Source\PlayScene\ISpeedController.h" />
     <ClInclude Include="Source\PlayScene\Lift\Lift.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftChair.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftLoop.h" />
@@ -53,6 +54,7 @@
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
     <ClInclude Include="Source\SMF\Note.h" />
+    <ClInclude Include="Source\SpeedType.h" />
     <ClInclude Include="Source\Systems\ScoreManager.h" />
     <ClInclude Include="Source\PlayScene\UI\CountDown.h" />
     <ClInclude Include="Source\SkySphere.h" />
@@ -309,6 +311,7 @@
     <ClCompile Include="Source\PlayScene\PlayState.cpp" />
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\CountDown.cpp" />
     <ClCompile Include="Source\SkySphere.cpp" />

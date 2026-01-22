@@ -3,6 +3,7 @@
 #include "PlayScene.h"
 
 #include "PlayState.h"
+#include "SpeedController.h"
 
 using namespace wtgb;
 
@@ -11,7 +12,8 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 	playerTargetting_{},
 	angle_{},
 	awakeTimeLeft_{},
-	playState_{ _playState }
+	playState_{ _playState },
+	speedController_{ INVALID_ENTITY }
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);
@@ -34,6 +36,8 @@ void Player::OnLoadParam(const json& _json)
 void Player::Init()
 {
 	OnLoadParam(GetComponent<Parameter>().Load());
+
+	speedController_ = GetScene<PlayScene>().Instantiate<SpeedController>();
 
 	Collider& collider{ GetComponent<Collider>() };
 
@@ -60,6 +64,13 @@ void Player::Update()
 		}
 		return;
 	}
+
+	// スピードを設定する
+	SpeedController* pSpeedController
+	{
+		dynamic_cast<SpeedController*>(FindGameObject(speedController_))
+	};
+	pSpeedController->SetSpeed(rb.GetVelocity().z);
 
 	PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
 	if (playState && playState->GetState() == PlayState::Type::StartLine)
@@ -159,4 +170,9 @@ void Player::AddMove(const Vector3 _move)
 	}
 
 	rb.AddVelocity(_move);
+}
+
+const ISpeedController* Player::GetSpeedController()
+{
+	return dynamic_cast<const ISpeedController*>(FindGameObject(speedController_));
 }

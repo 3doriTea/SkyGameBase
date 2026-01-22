@@ -27,6 +27,22 @@ float wtgb::Mathf::Randomer::Rand()
 	return dist(randomEngine_);
 }
 
+float wtgb::Mathf::InvLerp(const float _min, const float _max, const float _value)
+{
+	if (_value <= _min)
+	{
+		return 0.0f;
+	}
+	else if (_value >= _max)
+	{
+		return 1.0f;
+	}
+	else
+	{
+		return (_value - _min) / (_max - _min);
+	}
+}
+
 wtgb::Vector3 wtgb::Mathf::Lerp(const Vector3 _a, const Vector3 _b, const float _rate)
 {
 	return _a + DirectX::XMVectorScale((_b - _a), _rate);

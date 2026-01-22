@@ -43,6 +43,15 @@ namespace wtgb::Mathf
 	};
 
 	/// <summary>
+	/// 区間内での率を求める
+	/// </summary>
+	/// <param name="_min">最小値(含む)</param>
+	/// <param name="_max">最大値(含む)</param>
+	/// <param name="_value">値</param>
+	/// <returns>0.0f ~ 1.0f</returns>
+	float InvLerp(const float _min, const float _max, const float _value);
+
+	/// <summary>
 	/// 座標ベクトル A, B を線形補間する
 	/// </summary>
 	/// <param name="_a">座標ベクトルA</param>

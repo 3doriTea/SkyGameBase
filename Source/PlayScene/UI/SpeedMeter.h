@@ -7,7 +7,7 @@
 class SpeedMeter : public GameObject
 {
 public:
-	SpeedMeter(const EntityId _target);
+	SpeedMeter(const EntityId _player);
 	~SpeedMeter();
 
 public:
@@ -16,8 +16,6 @@ public:
 	void Release() override;
 
 private:
-	float speedValue_;
-
-	EntityId target_;       // 速度を図るオブジェクト
+	EntityId player_;       // 速度を測るオブジェクト
 	EntityId numberPlate_;  // 数字を表示するオブジェクト
 };

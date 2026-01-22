@@ -1,25 +1,16 @@
 #pragma once
 #include <wtgb.h>
-
-/// <summary>
-/// スピードの種類
-/// </summary>
-enum struct SpeedType
-{
-	Stop,       // 止まっている
-	TooSlow,    // 遅すぎ
-	Good,       // 良い速度
-	Excissive,  // 速すぎ
-};
+#include "SpeedType.h"
+#include "ISpeedController.h"
 
 /// <summary>
 /// <para>速度を操作するやつ</para>
 /// <para>※Speed = m/f</para>
 /// </summary>
-class SpeedController : public GameObject
+class SpeedController : public GameObject, public ISpeedController
 {
 public:
-	SpeedController(const EntityId _player);
+	SpeedController();
 	~SpeedController();
 
 	void Init() override;
@@ -30,18 +21,24 @@ public:
 	/// グレイアウト(回りが白黒になるやつ)の比率を取得
 	/// </summary>
 	/// <returns>0.0f ~ 1.0f</returns>
-	float GetGreyOutRatio() const;
+	float GetGreyOutRatio() const override;
 	/// <summary>
 	/// 完全に気絶状態か取得
 	/// </summary>
 	/// <returns>気絶状態 true / false</returns>
-	bool IsGLOC() const;
+	bool IsGLOC() const override;
 
 	/// <summary>
 	/// 現在のスピード種類を取得
 	/// </summary>
 	/// <returns>スピードの種類</returns>
-	SpeedType GetSpeedType() const;
+	SpeedType GetSpeedType() const override;
+
+	/// <summary>
+	/// スピード(1フレーム当たりの移動量)
+	/// </summary>
+	/// <param name="_perFrame">m/f</param>
+	void SetSpeed(const float _perFrame);
 
 private:
 	void OnLoadParam(const json& _json);
@@ -54,6 +51,4 @@ private:
 
 	float currentSpeedValue_;  // 現在の速度
 	float previousSpeedValue_;  // 前回のフレームの速度
-
-	EntityId player_;      // プレイヤー
 };

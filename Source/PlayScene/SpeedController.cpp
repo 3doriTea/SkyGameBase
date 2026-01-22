@@ -1,7 +1,13 @@
 #include "SpeedController.h"
 
-SpeedController::SpeedController(const EntityId _player) :
-	GameObject{ "Simple.json" }
+SpeedController::SpeedController() :
+	GameObject{ "Play/SpeedController.json" },
+	speedStopMin_{},
+	speedGoodMin_{},
+	speedHighMin_{},
+	speedGLOCLine_{},
+	currentSpeedValue_{},
+	previousSpeedValue_{}
 {
 }
 
@@ -23,17 +29,7 @@ void SpeedController::Release()
 
 float SpeedController::GetGreyOutRatio() const
 {
-	if (currentSpeedValue_ < speedHighMin_)
-	{
-		return 0.0f;
-	}
-
-	if (currentSpeedValue_ >= speedGLOCLine_)
-	{
-		return 1.0f;
-	}
-
-	(currentSpeedValue_ - speedHighMin_) / (speedHighMin_)
+	return Mathf::InvLerp(speedHighMin_, speedGLOCLine_, currentSpeedValue_);
 }
 
 bool SpeedController::IsGLOC() const
@@ -59,4 +55,18 @@ SpeedType SpeedController::GetSpeedType() const
 	{
 		return SpeedType::Excissive;
 	}
+}
+
+void SpeedController::SetSpeed(const float _perFrame)
+{
+	previousSpeedValue_ = currentSpeedValue_;
+	currentSpeedValue_ = _perFrame;
+}
+
+void SpeedController::OnLoadParam(const json& _json)
+{
+	speedStopMin_ = SafeGet<float>(_json, "speedStopMin");
+	speedGoodMin_ = SafeGet<float>(_json, "speedGoodMin");
+	speedHighMin_ = SafeGet<float>(_json, "speedHighMin");
+	speedGLOCLine_ = SafeGet<float>(_json, "speedGLOCLine");
 }
