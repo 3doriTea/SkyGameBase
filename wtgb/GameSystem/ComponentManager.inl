@@ -1,6 +1,5 @@
 #include <cassert>
 
-// TODO: 可変長引数を受け取る
 template<typename T>
 inline T& wtgb::ComponentManager::Add(const EntityId _entityId)
 {
@@ -9,23 +8,9 @@ inline T& wtgb::ComponentManager::Add(const EntityId _entityId)
 	return system_.Get<typename T::PoolT>().Add(_entityId);
 }
 
-//template<typename T>
-//inline void wtgb::ComponentManager::ComponentPoolRegister::Register()
-//{
-//	T* pComponent{ now T{} };
-//	GetAccess()->pools_.push_back(dynamic_cast<IComponentPool*>(pComponent));
-//	GetAccess()->typeToPools_.emplace(typeid(T), pComponent);
-//}
-
-
 template<typename T>
 T& wtgb::ComponentManager::Get(const EntityId _entityId)
 {
-	/*T* pComponent{ dynamic_cast<T*>(typeToPools_.at(typeid(T))) };
-	assert(pComponent && "指定したコンポーネントが見つからなかった");
-
-	return *pComponent;*/
-
 	T* pComponent{ system_.Get<typename T::PoolT>().Get(_entityId) };
 	return *pComponent;
 }
