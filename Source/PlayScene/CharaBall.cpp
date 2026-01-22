@@ -3,6 +3,7 @@
 #include "PlayScene.h"
 #include "Player.h"
 
+
 CharaBall::CharaBall(
 	const Vector3& _position,
 	const Vector3& _velocity,

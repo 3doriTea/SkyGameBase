@@ -4,10 +4,8 @@
 #include "StageObjectManager.h"
 
 #pragma region ling
-CharaEggRing::CharaEggRing(const EntityId _charaEgg, const Vector3& _angles) : GameObject
-{
-	"StageObj/CharaEggRing.json"
-}
+CharaEggRing::CharaEggRing(const EntityId _charaEgg, const Vector3& _angles) :
+	GameObject{ "StageObj/CharaEggRing.json" }
 {
 	Property().SetParent(_charaEgg);
 	Transform().SetRotation(_angles);
@@ -39,10 +37,7 @@ void CharaEggRing::Release()
 #pragma endregion
 
 CharaEgg::CharaEgg(const Vector3& _position, const EntityId _stageObjManager, const EntityId _player) :
-	GameObject
-	{
-		"CharaEgg.json"
-	},
+	GameObject{ "CharaEgg.json" },
 	stageObjManager_{ _stageObjManager },
 	player_{ _player }
 {

@@ -1,0 +1,18 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "Unknown"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "speedStopMin" : 0.0,
+    "speedGoodMin" : 1.0,
+    "speedHighMin" : 5.0,
+    "speedGLOCLine" : 20.0
+  }
+}

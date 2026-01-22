@@ -1,6 +1,8 @@
 #include "ScoreManager.h"
 
-ScoreManager::ScoreManager()
+ScoreManager::ScoreManager() :
+	currentScore_{ 0 },
+	maxScore_{ 0 }
 {
 }
 

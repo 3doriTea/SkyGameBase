@@ -50,6 +50,8 @@
     <ClInclude Include="Source\PlayScene\PlayerTargetting.h" />
     <ClInclude Include="Source\PlayScene\PlayState.h" />
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
+    <ClInclude Include="Source\PlayScene\SpeedController.h" />
+    <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
     <ClInclude Include="Source\SMF\Note.h" />
     <ClInclude Include="Source\Systems\ScoreManager.h" />
     <ClInclude Include="Source\PlayScene\UI\CountDown.h" />
@@ -306,6 +308,7 @@
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
     <ClCompile Include="Source\PlayScene\PlayState.cpp" />
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
+    <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\CountDown.cpp" />
     <ClCompile Include="Source\SkySphere.cpp" />
@@ -419,6 +422,7 @@
     <None Include="Assets\Prefab\Player.json" />
     <None Include="Assets\Prefab\PlayState.json" />
     <None Include="Assets\Prefab\Play\CameraController.json" />
+    <None Include="Assets\Prefab\Play\SpeedController.json" />
     <None Include="Assets\Prefab\ScoreManager.json" />
     <None Include="Assets\Prefab\Simple.json" />
     <None Include="Assets\Prefab\SkySphere.json" />
