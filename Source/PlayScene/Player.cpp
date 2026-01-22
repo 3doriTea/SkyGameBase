@@ -1,5 +1,6 @@
 #include "pch\pch.h"
 #include "Player.h"
+#include "PlayScene.h"
 
 #include "PlayState.h"
 
@@ -47,6 +48,7 @@ void Player::Update()
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	RigidBody& rb{ GetComponent<RigidBody>() };
+	WorldConfig worldConfig{ GetScene<PlayScene>().GetWorldConfig()};
 
 	// シーン読み込み直後のラグを待つ
 	if (awakeTimeLeft_ > 0.0f)
@@ -88,6 +90,16 @@ void Player::Update()
 	if (input.IsKeyDown(KeyCode::Space))
 	{
 		rb.AddVelocity({ 0.0f, 3.0f, 0.0f });
+	}
+
+	// プレイヤーを範囲外に出さないための演算
+	Vector3 v{ rb.GetVelocity() };
+	Vector3 pos{ Transform().GetPosition() };
+	if ((pos.x < worldConfig.safeZoneXMin && v.x < 0)
+		|| (pos.x > worldConfig.safeZoneXMax && v.x > 0))
+	{
+		v.x *= -1.0f;
+		rb.SetVelocity(v);
 	}
 
 	return;
