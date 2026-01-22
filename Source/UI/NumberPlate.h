@@ -1,8 +1,14 @@
 #pragma once
 #include <wtgb.h>
 
+/// <summary>
+/// 数字を表示するUI
+/// </summary>
 class NumberPlate : public GameObject
 {
+	/// <summary>
+	/// 数字
+	/// </summary>
 	enum NUMBER : int8_t
 	{
 		_0,
@@ -17,7 +23,7 @@ class NumberPlate : public GameObject
 		_9,
 	};
 public:
-	NumberPlate();
+	NumberPlate(const std::string_view _numberImageFilePath);
 	~NumberPlate();
 
 	void Init() override;
@@ -46,6 +52,13 @@ public:
 	/// <param name="_drawPosition">描画座標</param>
 	inline void SetPosition(const Vector2Int _drawPosition) { beginDrawPos_ = _drawPosition; }
 
+	/// <summary>
+	/// <para>設計時のキャンバスサイズを設定する</para>
+	/// <para>(0.0, 0.0) で無効化</para>
+	/// </summary>
+	/// <param name="_size">設計時のキャンバスサイズ</param>
+	inline void SetBaseCanvasSize(const Vector2Int _size) { baseCanvasSize_ = _size; }
+
 private:
 	/// <summary>
 	/// 数字の描画処理
@@ -54,10 +67,12 @@ private:
 	void DrawNumber(const NUMBER _number);
 
 private:
-	uint32_t number_;  // 表示する数値
-	TextureHandle hNumberImage_;  // 数字の横長画像ハンドル
-	Vector2Int beginDrawPos_;  // 描画座標
-	Vector2Int currDrawPos_;  // 描画途中の座標
-	Vector2Int sizePix_;  // 文字の描画サイズ
-	int marginPix_;  // 文字同士の余白
+	uint32_t number_;                  // 表示する数値
+	TextureHandle hNumberImage_;       // 数字の横長画像ハンドル
+	Vector2Int baseCanvasSize_;        // 設計時のキャンバスサイズ
+	Vector2Int beginDrawPos_;          // 描画座標
+	Vector2Int currDrawPos_;           // 描画途中の座標
+	Vector2Int sizePix_;               // 文字の描画サイズ
+	int marginPix_;                    // 文字同士の余白
+	std::string numberImageFilePath_;  // 数字の画像ファイルパス
 };

@@ -14,7 +14,10 @@ SpeedMeter::~SpeedMeter()
 
 void SpeedMeter::Init()
 {
-	GetScene<PlayScene>().Instantiate<NumberPlate>();
+	numberPlate_ = GetScene<PlayScene>().Instantiate<NumberPlate>();
+	NumberPlate* pNumberPlate{ dynamic_cast<NumberPlate*>(FindGameObject(numberPlate_)) };
+
+	pNumberPlate->SetPosition();
 }
 
 void SpeedMeter::Update()
