@@ -129,6 +129,16 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	toPosition = XMVector3TransformCoord(OFFSET, rotationMatrix) + pPlayer->Transform().GetPositionWorld();
 	pTransform->SetPositionWorld(toPosition);
 
+	{  // プレイヤーが前に進んでいるとき、カメラをだんだんと前に向ける処理
+		RigidBody& rb{ pPlayer->GetComponent<RigidBody>() };
+		
+		if (rb.GetVelocity().z > 0.0f)
+		{
+			Vector3 rotation{ pTransform->GetRotation() };
+			rotation.y /= 1.01f;
+			pTransform->SetRotation(rotation);
+		}
+	}
 	// プレイヤーまでの差分ベクトル
 	Vector3 toPlayerDiff{ pPlayer->Transform().GetPositionWorld() - pTransform->GetPositionWorld() };
 	// プレイヤーを向く方向ベクトル
@@ -219,14 +229,6 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 			float addY{ static_cast<float>(move.y) * dt * (XMConvertToRadians(MOVE_ANGLE_DEG)) };
 			angleX_ += addY;
 
-			/*if (angleX_ > XMConvertToRadians(ANGLE_MAX_DEG))
-			{
-				angleX_ = XMConvertToRadians(ANGLE_MAX_DEG);
-			}
-			if (angleX_ < XMConvertToRadians(ANGLE_MIN_DEG))
-			{
-				angleX_ = XMConvertToRadians(ANGLE_MIN_DEG);
-			}*/
 			float addX{ static_cast<float>(move.x) * dt * (XMConvertToRadians(MOVE_ANGLE_DEG)) };
 			angleY_ += addX;
 			break;

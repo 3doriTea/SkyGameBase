@@ -166,102 +166,6 @@ void wtgb::CPMeshRenderer::Render2D(
 	pContext->Unmap(pMesh->GetConstantBuffer().Get(), 0);
 
 	pContext->DrawIndexed(pMesh->GetIndexCount(), 0, 0);
-
-#if 0
-	{
-		size_t vertexCount = pMesh->GetVertexCount();
-		std::vector<IMeshSimple2D::Vertex> vertexes{};
-		vertexes.resize(vertexCount);
-
-		// 1. 元バッファの情報取得
-		D3D11_BUFFER_DESC desc{};
-		pMesh->GetVertexBuffer()->GetDesc(&desc);
-
-		// 2. 読み取り用ステージングバッファの設定
-		D3D11_BUFFER_DESC stagingDesc = desc;
-		stagingDesc.Usage = D3D11_USAGE_STAGING;
-		stagingDesc.BindFlags = 0;
-		stagingDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-		stagingDesc.MiscFlags = 0;
-
-		// 3. ステージングバッファを作成
-		ComPtr<ID3D11Buffer> pStagingBuffer{};
-		HRESULT hr = pDevice->CreateBuffer(&stagingDesc, nullptr, &pStagingBuffer);
-		if (FAILED(hr))
-		{
-			wassert(false && "ステージングバッファの作成に失敗");
-			return;
-		}
-
-		// 4. GPUバッファからステージングバッファにコピー
-		pContext->CopyResource(pStagingBuffer.Get(), pMesh->GetVertexBuffer().Get());
-
-		// 5. ステージングバッファをマップしてCPUで読み込み
-		D3D11_MAPPED_SUBRESOURCE mapped{};
-		hr = pContext->Map(pStagingBuffer.Get(), 0, D3D11_MAP_READ, 0, &mapped);
-		if (SUCCEEDED(hr))
-		{
-			// バッファの内容をコピー
-			memcpy(vertexes.data(), mapped.pData, sizeof(IMeshSimple2D::Vertex) * vertexCount);
-			pContext->Unmap(pStagingBuffer.Get(), 0);
-		}
-
-		LOGFLN("----------------------------");
-		for (auto& vertex : vertexes)
-		{
-			LOGFLN("POS:({},{},{})", vertex.position.x, vertex.position.y, vertex.position.z);
-			LOGFLN("UV:({},{})", vertex.uv.x, vertex.uv.y);
-		}
-
-		pStagingBuffer.Reset();
-	}
-	{
-		size_t indexCount = pMesh->GetIndexCount();
-		std::vector<uint32_t> indexes{};
-		indexes.resize(indexCount);
-
-		// 1. 元バッファの情報取得
-		D3D11_BUFFER_DESC desc{};
-		pMesh->GetIndexBuffer()->GetDesc(&desc);
-
-		// 2. 読み取り用ステージングバッファの設定
-		D3D11_BUFFER_DESC stagingDesc = desc;
-		stagingDesc.Usage = D3D11_USAGE_STAGING;
-		stagingDesc.BindFlags = 0;
-		stagingDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-		stagingDesc.MiscFlags = 0;
-
-		// 3. ステージングバッファを作成
-		ComPtr<ID3D11Buffer> pStagingBuffer{};
-		HRESULT hr = pDevice->CreateBuffer(&stagingDesc, nullptr, &pStagingBuffer);
-		if (FAILED(hr))
-		{
-			wassert(false && "ステージングバッファの作成に失敗");
-			return;
-		}
-
-		// 4. GPUバッファからステージングバッファにコピー
-		pContext->CopyResource(pStagingBuffer.Get(), pMesh->GetIndexBuffer().Get());
-
-		// 5. ステージングバッファをマップしてCPUで読み込み
-		D3D11_MAPPED_SUBRESOURCE mapped{};
-		hr = pContext->Map(pStagingBuffer.Get(), 0, D3D11_MAP_READ, 0, &mapped);
-		if (SUCCEEDED(hr))
-		{
-			// バッファの内容をコピー
-			memcpy(indexes.data(), mapped.pData, sizeof(uint32_t) * indexCount);
-			pContext->Unmap(pStagingBuffer.Get(), 0);
-		}
-
-		LOGFLN("----------------------------");
-		for (int i = 0; i < indexes.size(); i++)
-		{
-			LOGFLN("index[{}]:{}", i, indexes[i]);
-		}
-
-		pStagingBuffer.Reset();
-	}
-#endif
 }
 
 void wtgb::CPMeshRenderer::Init()
@@ -414,7 +318,6 @@ void wtgb::CPMeshRenderer::Update()
 				constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
 				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 				constantBuffer.matrixUV = XMMatrixIdentity();
-				// TODO: この辺は統一するためにライトオブジェクトを検出して同期させるシステムを作る light system
 				constantBuffer.lightDirection = directionalLight.GetDirection();
 				constantBuffer.lightColor = directionalLight.GetColor();
 				constantBuffer.ambientValue = 0.3f;

@@ -47,7 +47,6 @@ void PlayScene::Start()
 	Instantiate<CountDown>();
 
 	EntityId stageLine{ Instantiate<StageLine>() };
-	Instantiate<CameraController>();
 
 	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
 
@@ -59,6 +58,7 @@ void PlayScene::Start()
 
 	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
 	Instantiate<StageObjectManager>(stageLine, player, playState);
+	Instantiate<CameraController>();
 
 	Instantiate<DropCloud>(smfPlayer, player, stageLine, playState);
 
