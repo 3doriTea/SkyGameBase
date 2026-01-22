@@ -18,5 +18,6 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
-	std::string smfPath_;  // smfのパス
+	std::string smfPath_;           // smfのパス
+	std::string toneAudioFilePath_;  // 再生する音の音源ファイルのパス
 };

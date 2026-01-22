@@ -7,9 +7,10 @@
       "position": [ 0, 0, 0 ],
       "rotation": [ 0, 0, 0 ],
       "scale": [ 1, 1, 1 ]
-    },
-    "Param": {
-      "smfPath": "Sound/entertainer.mid"
     }
+  },
+  "Param": {
+    "smfPath": "Sound/entertainer.mid",
+    "toneAudioFilePath": "Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3"
   }
 }

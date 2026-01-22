@@ -148,6 +148,10 @@ void wtgb::Scriptable::LoadComponents(GameObjectBuilder& _builder, json& _compon
 				.colliderType(static_cast<Collider::Type>(SafeGet<int>(component.value(), "colliderType")))
 				.EndSetter();
 		}
+		else if (componentName == "Param")
+		{
+			wassert(false && "Paramはコンポーネントとして追加できません。");
+		}
 		else
 		{
 			wassert(false && "未対応のコンポーネントを処理できません");
