@@ -4,33 +4,8 @@
 #include "CameraController/CameraMovePlay.h"
 
 
-CameraController::CameraController() : GameObject
-{
-	[this](GameObjectBuilder& _builder) -> void
-	{
-		_builder
-		.AddComponent<GameObjectProperty>()
-			.BeginSetter()
-				.name("CamCon")
-			.EndSetter()
-		.AddComponent<wtgb::Transform>()
-			.BeginSetter()
-				.position({ 0, -30, 270.0f })
-				.rotation(Vector3::Zero())
-			.EndSetter()
-			/*.AddComponent<RigidBody>()
-				.BeginSetter()
-					.useGravity(false)
-					.drag(0.999f)
-					.bounciness(1.0f)
-				.EndSetter()*/
-				/*.AddComponent<Collider>()
-					.BeginSetter()
-						.colliderType(Collider::Type::Sphere)
-					.EndSetter()*/
-				.Build();
-			}
-},
+CameraController::CameraController() :
+	GameObject{ "Play/CameraController.json" },
 mode_{ Mode::Play },
 lookTarget_{ INVALID_ENTITY },
 pCameraMove_{ nullptr }

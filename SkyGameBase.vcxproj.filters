@@ -609,6 +609,9 @@
     <ClInclude Include="Source\PlayScene\PlayState.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SMF\Note.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1027,6 +1030,7 @@
     <None Include="Assets\Prefab\StageObj\CharaEggRing.json" />
     <None Include="Assets\Prefab\PlayState.json" />
     <None Include="Assets\Prefab\CharaBall.json" />
+    <None Include="Assets\Prefab\Play\CameraController.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

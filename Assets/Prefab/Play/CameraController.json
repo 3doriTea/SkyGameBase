@@ -1,0 +1,12 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "CameraController"
+    },
+    "Transform": {
+      "position": [ 0, -30, 270 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  }
+}

@@ -30,12 +30,22 @@ public:
 	void Release() override;
 
 private:
+	/// <summary>
+	/// jsonからパラメータを読み込む
+	/// </summary>
+	/// <param name="_json">パラメータのjson</param>
+	void OnLoadParam(const json& _json);
+
+private:
 	EntityId smfPlayer_;  // smfPlayer
 	EntityId player_;     // プレイヤー
 	EntityId stageLine_;  // ステージ
 	EntityId playState_;  // プレイ状態
 
 	float offsetHeight_;  // 地上からの高さ
+
+	float destroyDistanceZ_;    // プレイヤーとの距離が離れたときに消す処理
+	int playNoteNumberOffset_;  // 再生する音の高さ
 
 	std::list<DropedPresent> dropedPresents_;  // 投下したプレゼントリスト
 };

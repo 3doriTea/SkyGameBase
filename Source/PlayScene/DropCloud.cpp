@@ -7,13 +7,6 @@
 #include "PresentSphere.h"
 #include "PlayState.h"
 
-namespace
-{
-	// 地上からの高さ デフォルト
-	static const float HEIGHT{ 100.0f };
-	static const float DESTORY_DISTANCE_Z{ 300.0f };
-	static const int PLAY_NOTE_NUMBER_OFFSET{ 12 * 2 };  // 再生する音のオフセット
-}
 
 DropCloud::DropCloud(
 	const EntityId _smfPlayer,
@@ -25,7 +18,7 @@ DropCloud::DropCloud(
 	player_{ _gamePlayer },
 	stageLine_{ _stageLine },
 	playState_{ _playState },
-	offsetHeight_{ HEIGHT }
+	offsetHeight_{}
 {
 }
 
@@ -33,8 +26,17 @@ DropCloud::~DropCloud()
 {
 }
 
+void DropCloud::OnLoadParam(const json& _json)
+{
+	offsetHeight_ = SafeGet<float>(_json, "offsetHeight");
+	destroyDistanceZ_ = SafeGet<float>(_json, "destroyDistanceZ");
+	playNoteNumberOffset_ = SafeGet<int>(_json, "playNoteNumberOffset");
+}
+
 void DropCloud::Init()
 {
+	OnLoadParam(GetComponent<Parameter>().Load());
+
 	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject(smfPlayer_)) };
 	if (pSMFPlayer)
 	{
@@ -133,7 +135,7 @@ void DropCloud::Update()
 		GameObject* pPresentObj{ FindGameObject(itr->entityId) };
 		PresentSphere* pPresent{ dynamic_cast<PresentSphere*>(FindGameObject(itr->entityId)) };
 
-		if ((position.z - pPresent->Transform().GetPosition().z) > DESTORY_DISTANCE_Z)
+		if ((position.z - pPresent->Transform().GetPosition().z) > destroyDistanceZ_)
 		{
 			pPresent->DestroyMe();
 			itr = dropedPresents_.erase(itr);
@@ -148,7 +150,7 @@ void DropCloud::Update()
 		}
 		if (pPresent->CheckOnBounded())
 		{
-			itr->note.noteNumber -= PLAY_NOTE_NUMBER_OFFSET;
+			itr->note.noteNumber -= playNoteNumberOffset_;
 			pSMFPlayer->PlayTone(itr->note);
 		}
 
