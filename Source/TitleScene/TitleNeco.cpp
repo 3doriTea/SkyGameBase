@@ -21,7 +21,9 @@ TitleNeco::TitleNeco(const EntityId _dragCircle) :
 	dragCircle_{ _dragCircle },
 	playButton_{ INVALID_ENTITY },
 	playButtonShowPos_{},
-	playToneAudioFile_{}
+	playToneAudioFile_{},
+	hButtonOff_{},
+	hButtonOn_{}
 {
 }
 
@@ -61,6 +63,8 @@ void TitleNeco::OnLoadParam(const json& _json)
 
 void TitleNeco::Init()
 {
+	OnLoadParam(GetComponent<Parameter>().Load());
+
 	ResourceSystem& rc{ System().Get<ResourceSystem>() };
 	const Vector2Int screenSizeInt{ System().Get<GameWindow>().GetMainWindowSize() };
 	const Vector2 screenSize{ static_cast<float>(screenSizeInt.x), static_cast<float>(screenSizeInt.y) };
