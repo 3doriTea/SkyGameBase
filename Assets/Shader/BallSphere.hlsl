@@ -62,6 +62,9 @@ float4 PS(VS_OUT inData) : SV_TARGET
 		diffuse = diffuseColor;
 	}
 	float4 color = diffuse * inData.color + diffuse * ambientValue;
-    
+	
+	// ‰¼
+	color.a = 0.3f;
+
 	return color;
 }
