@@ -4,6 +4,8 @@
 
 #include "PlayState.h"
 #include "SpeedController.h"
+#include "BallSphere.h"
+
 
 using namespace wtgb;
 
@@ -13,13 +15,19 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 	angle_{},
 	awakeTimeLeft_{},
 	playState_{ _playState },
-	speedController_{ INVALID_ENTITY }
+	speedController_{ INVALID_ENTITY },
+	isTargetting_{ false },
+	startLineZ_{},
+	toTargetTime_{}
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);
 
 	RigidBody& rb{ GetComponent<RigidBody>() };
 	rb.SetUseGravity(false);  // シーン読み込み直後のラグを待つために重力無効化
+
+	// 乗るためのボールを出現させる
+	GetScene().Instantiate<BallSphere>(GetEntityId());
 }
 
 Player::~Player()

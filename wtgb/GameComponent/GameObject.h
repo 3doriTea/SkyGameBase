@@ -82,12 +82,12 @@ namespace wtgb
 		/// </summary>
 		/// <typeparam name="GameSceneT">シーンの型</typeparam>
 		/// <returns>シーンの参照</returns>
-		template<typename GameSceneT>
+		template<typename GameSceneT = GameScene>
 		inline GameSceneT& GetScene()
 		{
-			static_assert(
-				std::is_base_of_v<GameScene, GameSceneT>
-				&& "指定する型はGameSceneを継承している必要があります。");
+			//static_assert(
+			//	// TODO: もしくはGameScene || std::is_base_of_v<GameScene, GameSceneT>
+			//	&& "指定する型はGameSceneを継承している必要があります。");
 
 			return *(dynamic_cast<GameSceneT*>(System().Get<SceneManager>().GetCurrentScene()));
 		}

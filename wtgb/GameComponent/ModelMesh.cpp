@@ -16,10 +16,9 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 {
 	if (!fileName_.empty() && pOriginalMesh_ == nullptr)
 	{
-		if (modelMeshType_ == Type::FbxBack)
+		if (modelMeshType_ == Type::FbxBack  // Å”w–Ê‚É•`‰æ‚µ‚½‚¢
+			|| modelMeshType_ == Type::FbxAplha)  // “§–¾“x‚ğ•t‚¯‚Ä•`‰æ‚µ‚½‚¢
 		{
-			// Fbx‚Ìw’è‚¾‚¯‚ÇÅ”w–Ê‚É•`‰æ‚µ‚½‚¢
-			modelMeshType_ = Type::FbxBack;
 		}
 		else
 		{
@@ -43,6 +42,7 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 	{
 	case wtgb::ModelMesh::Type::Fbx:
 	case wtgb::ModelMesh::Type::FbxBack:  // Å”w–Ê•`‰æ—p‚ÌFBX
+	case wtgb::ModelMesh::Type::FbxAplha:  // “§–¾“x‚ğw’è‚µ‚½‚¢FBX
 		hModel_ = system_.Get<Model>().Load(fileName_);
 		break;
 	case wtgb::ModelMesh::Type::SimpleMesh:

@@ -22,6 +22,7 @@ namespace wtgb
 			SimpleMesh,    // シンプルなメッシュ描画
 			SimpleMesh2D,  // シンプルなメッシュ2D描画
 			FbxBack,       // 最背面に描画したいFBX
+			FbxAplha,      // 透明度を適用したいFBX
 		};
 
 		friend class CPMeshRenderer;

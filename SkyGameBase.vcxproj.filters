@@ -630,6 +630,9 @@
     <ClInclude Include="Source\SpeedType.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\BallSphere.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1016,6 +1019,9 @@
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\BallSphere.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1065,6 +1071,7 @@
     <None Include="Assets\Prefab\TitleNeco.json" />
     <None Include="Assets\Prefab\MusicPlayer.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
+    <None Include="Assets\Prefab\Play\BallSphere.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
@@ -1079,5 +1086,6 @@
     <FxCompile Include="Assets\Shader\PresentShpere.hlsl" />
     <FxCompile Include="Assets\Shader\CharaEgg.hlsl" />
     <FxCompile Include="Assets\Shader\SkySphere.hlsl" />
+    <FxCompile Include="Assets\Shader\BallSphere.hlsl" />
   </ItemGroup>
 </Project>

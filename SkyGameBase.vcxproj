@@ -39,6 +39,7 @@
     <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
+    <ClInclude Include="Source\PlayScene\BallSphere.h" />
     <ClInclude Include="Source\PlayScene\DropCloud.h" />
     <ClInclude Include="Source\PlayScene\CharaBall.h" />
     <ClInclude Include="Source\PlayScene\CharaEgg.h" />
@@ -295,6 +296,7 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/MP1 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ClCompile Include="Source\Components\ItemAnim.cpp" />
+    <ClCompile Include="Source\PlayScene\BallSphere.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMoveFree.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMovePlay.cpp" />
@@ -424,6 +426,7 @@
     <None Include="Assets\Prefab\MusicPlayer.json" />
     <None Include="Assets\Prefab\Player.json" />
     <None Include="Assets\Prefab\PlayState.json" />
+    <None Include="Assets\Prefab\Play\BallSphere.json" />
     <None Include="Assets\Prefab\Play\CameraController.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
     <None Include="Assets\Prefab\ScoreManager.json" />
@@ -446,6 +449,12 @@
     <None Include="wtgb\Utility\IResource.inl" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Assets\Shader\BallSphere.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>

@@ -217,7 +217,9 @@ void wtgb::CPMeshRenderer::Update()
 				return {};
 			}
 
-			if (pModelMesh->GetType() == ModelMesh::Type::Fbx || pModelMesh->GetType() == ModelMesh::Type::FbxBack)
+			if (pModelMesh->GetType() == ModelMesh::Type::Fbx ||
+				pModelMesh->GetType() == ModelMesh::Type::FbxBack ||
+				pModelMesh->GetType() == ModelMesh::Type::FbxAplha)
 			{
 				ModelHandle hModel{ pModelMesh->hModel_ };
 				ModelResource* pModel{ model.GetModel(hModel) };
@@ -230,7 +232,13 @@ void wtgb::CPMeshRenderer::Update()
 
 				if (pModelMesh->GetType() == ModelMesh::Type::FbxBack)
 				{
+					// Å”w–Ê‚É•`‰æ‚·‚é€”õ
 					d3d.SetZBuffer(ZBufferMode::Back);
+				}
+				else if (pModelMesh->GetType() == ModelMesh::Type::FbxAplha)
+				{
+					// “§–¾“x•t‚«‚Å•`‰æ‚·‚é€”õ
+					d3d.SetBlend(BlendMode::Alpha);
 				}
 
 				Fbx::ConstantBuffer constantBuffer{};
@@ -300,7 +308,13 @@ void wtgb::CPMeshRenderer::Update()
 
 				if (pModelMesh->GetType() == ModelMesh::Type::FbxBack)
 				{
+					// Å”w–Ê‚É•`‰æ‚µ‚½‚È‚ç–ß‚·
 					d3d.SetZBuffer(ZBufferMode::None);
+				}
+				else if (pModelMesh->GetType() == ModelMesh::Type::FbxAplha)
+				{
+					// “§–¾“x•t‚«‚Å•`‰æ‚µ‚½‚È‚ç–ß‚·
+					d3d.SetBlend(BlendMode::None);
 				}
 			}
 			else if (pModelMesh->GetType() == ModelMesh::Type::SimpleMesh)
