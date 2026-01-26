@@ -54,6 +54,7 @@
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
+    <ClInclude Include="Source\ResultScene.h" />
     <ClInclude Include="Source\SMF\Note.h" />
     <ClInclude Include="Source\SpeedType.h" />
     <ClInclude Include="Source\Systems\ScoreManager.h" />
@@ -314,6 +315,7 @@
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
+    <ClCompile Include="Source\ResultScene.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\CountDown.cpp" />
     <ClCompile Include="Source\SkySphere.cpp" />

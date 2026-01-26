@@ -2,6 +2,9 @@
 #include <wtgb.h>
 #include "WorldSetting.h"
 
+/// <summary>
+/// プレイヤーが坂を降るプレイシーン
+/// </summary>
 class PlayScene : public GameScene
 {
 public:
