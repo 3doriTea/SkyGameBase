@@ -12,6 +12,7 @@
 
 #include "GameSystem/ImGuiSystem.h"
 
+#include "GameSystem/DirectionalLight.h"
 #include "GameSystem/Rendering.h"
 #include "GameSystem/ResourceSystem.h"
 #include "GameSystem/Model.h"
@@ -98,6 +99,7 @@ void SampleGame::StartRegister(
 
 		// •`‰æŒn
 		.Register<Camera>()
+		.Register<DirectionalLight>()
 		.Register<CPModelMesh>()
 		.Register<CPMeshRenderer>()
 		.Register<Canvas>()  // UI‚Ì•`‰æ‚Í3D•`‰æ‚ÌŒã‚ÉI

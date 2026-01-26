@@ -1,13 +1,8 @@
 #include "pch\pch.h"
 #include "NumberPlate.h"
 
-namespace
-{
-	// ”š‚Ì‚à‚Æ‚Æ‚È‚é‰æ‘œ‚Ìƒtƒ@ƒCƒ‹–¼
-	const char NUMBER_IMAGE_FILE[]{ "Image/Numbers.png" };
-}
 
-NumberPlate::NumberPlate() : GameObject
+NumberPlate::NumberPlate(const std::string_view _numberImageFilePath) : GameObject
 {
 	[](GameObjectBuilder& _builder)
 	{
@@ -22,9 +17,11 @@ NumberPlate::NumberPlate() : GameObject
 	hNumberImage_{},
 	beginDrawPos_{},
 	currDrawPos_{},
+	baseCanvasSize_{},
 	sizePix_{},
 	marginPix_{},
-	number_{}
+	number_{},
+	numberImageFilePath_{ _numberImageFilePath }
 {
 }
 
@@ -34,7 +31,8 @@ NumberPlate::~NumberPlate()
 
 void NumberPlate::Init()
 {
-	hNumberImage_ = System().Get<ResourceSystem>().LoadTexture(NUMBER_IMAGE_FILE);
+	hNumberImage_ = System().Get<ResourceSystem>().LoadTexture(
+		numberImageFilePath_);
 }
 
 void NumberPlate::Update()
@@ -74,7 +72,7 @@ void NumberPlate::DrawNumber(const NUMBER _number)
 
 	Canvas::LayoutConfig config
 	{
-		Canvas::LayoutConfig{}
+		Canvas::LayoutConfig{ baseCanvasSize_ }
 			.position({ static_cast<float>(currDrawPos_.x), static_cast<float>(currDrawPos_.y) })
 			.scale({ static_cast<float>(sizePix_.x), static_cast<float>(sizePix_.y) })
 	};
@@ -90,5 +88,4 @@ void NumberPlate::DrawNumber(const NUMBER _number)
 
 	// ‘‚¢‚½‚ç‰¡ˆÚ“®
 	currDrawPos_.x += sizePix_.x + marginPix_;
-
 }

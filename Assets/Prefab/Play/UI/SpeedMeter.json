@@ -1,0 +1,17 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "SpeedMeter"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "baseCanvasSize": [ 1920, 1080 ],
+    "numbersCenterOffset": 0,
+    "numbersImageFile": "Image/Numbers.png"
+  }
+}

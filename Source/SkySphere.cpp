@@ -3,7 +3,7 @@
 SkySphere::SkySphere() :
 	GameObject{ "SkySphere.json" }
 {
-	EntityId mainCamera{ FindGameObject("CamCon")->GetEntityId() };
+	EntityId mainCamera{ FindGameObject("CameraController")->GetEntityId() };
 	Property().SetParent(mainCamera);  // í‚ÉƒJƒƒ‰‚É‚­‚Á‚Â‚­‚æ‚¤‚É‚·‚é
 }
 
