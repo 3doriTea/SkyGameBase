@@ -189,6 +189,9 @@ void wtgb::CPMeshRenderer::Update()
 	DirectionalLight& directionalLight{ System().Get<DirectionalLight>() };
 	ID3D11DeviceContext* pContext{ System().Get<Direct3D>().Resource().Context() };
 	
+	//std::vector<size_t> 
+	// TODO: 透明用に避けスペース作るか検討
+
 	ForEach([
 		&camera,
 		&pDevice,
@@ -238,6 +241,7 @@ void wtgb::CPMeshRenderer::Update()
 				else if (pModelMesh->GetType() == ModelMesh::Type::FbxAplha)
 				{
 					// 透明度付きで描画する準備
+					d3d.SetUseDepthBuffer(false);
 					d3d.SetBlend(BlendMode::Alpha);
 				}
 
@@ -314,7 +318,8 @@ void wtgb::CPMeshRenderer::Update()
 				else if (pModelMesh->GetType() == ModelMesh::Type::FbxAplha)
 				{
 					// 透明度付きで描画したなら戻す
-					d3d.SetBlend(BlendMode::None);
+					d3d.SetUseDepthBuffer(true);
+					d3d.SetZBuffer(ZBufferMode::None);
 				}
 			}
 			else if (pModelMesh->GetType() == ModelMesh::Type::SimpleMesh)

@@ -98,7 +98,6 @@ void LiftChair::Update()
 	}
 
 	Vector3 worldPos{ Transform().GetPositionWorld() };
-	LOGFLN("{}, {}, {}", worldPos.x, worldPos.y, worldPos.z);
 }
 
 void LiftChair::Release()
