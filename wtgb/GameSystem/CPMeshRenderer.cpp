@@ -98,6 +98,7 @@ void wtgb::CPMeshRenderer::Render2D(
 	const Matrix4x4& _matrixProjection,
 	const Matrix4x4& _matrixUV,
 	const ShaderHandle _hShader,
+	const float _alpha,
 	const Color& _color,
 	const TextureHandle _hTexture)
 {
@@ -122,7 +123,8 @@ void wtgb::CPMeshRenderer::Render2D(
 	constantBuffer.color = _color;
 	constantBuffer.matrixProj = _matrixProjection;
 	constantBuffer.matrixUV = _matrixUV;
-	
+	constantBuffer.alpha = _alpha;
+
 	// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 	d3d.SetShader(_hShader);
 

@@ -27,6 +27,7 @@ namespace wtgb
 			Matrix4x4 matrixProj;          // プロジェクションの合成行列
 			Matrix4x4 matrixUV;            // UV変換行列
 			Color color;                   // テクスチャが無い場合のディフューズ色
+			float alpha;                   // 透明度
 		};
 
 	public:

@@ -24,6 +24,7 @@ void wtgb::UI::RenderContentBox::Render(
 		_pMeshSimple2D,
 		_matrixProjection,
 		XMMatrixIdentity(),
+		alpha,
 		hShader,
 		color);
 }
@@ -78,6 +79,7 @@ void wtgb::UI::RenderContentImage::Render(
 			_matrixProjection,
 			matrixUV,
 			hShader,
+			alpha,
 			Color::GREEN,
 			hTexture);
 	}

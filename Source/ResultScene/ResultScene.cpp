@@ -1,7 +1,11 @@
 #include "ResultScene.h"
+#include "UI/ScalingCue.h"
+#include "UI/FadingCue.h"
+
+
 
 ResultScene::ResultScene() : GameScene
-{ GameScene::Config{} }
+	{ GameScene::Config{} }
 {
 }
 

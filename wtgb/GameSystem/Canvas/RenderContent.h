@@ -12,12 +12,18 @@ namespace wtgb
 
 namespace wtgb::UI
 {
+	/// <summary>
+	/// UI描画内容の種類
+	/// </summary>
 	enum struct RenderContentType
 	{
 		Image,  // 画像の描画
-		Box,    // 四角形の描画
+		Box,    // 矩形の描画
 	};
 
+	/// <summary>
+	/// UIの描画内容：画像
+	/// </summary>
 	struct RenderContentImage : IRenderContent
 	{
 		RenderContentImage(
@@ -36,12 +42,16 @@ namespace wtgb::UI
 			const LayoutConfig& _layoutConfig) const override;
 
 		TextureHandle hTexture;  // テクスチャハンドル
-		float angle;  // 回転角度
-		RectF cut;
-		Vector2Int imageSize;  // 画像サイズ
-		ShaderHandle hShader;  // シェーダハンドル
+		float angle;             // 回転角度
+		float alpha;             // 透明度
+		RectF cut;               // トリミング範囲
+		Vector2Int imageSize;    // 画像サイズ
+		ShaderHandle hShader;    // シェーダハンドル
 	};
 
+	/// <summary>
+	/// UI描画内容：矩形
+	/// </summary>
 	struct RenderContentBox : IRenderContent
 	{
 		RenderContentBox(
@@ -59,6 +69,7 @@ namespace wtgb::UI
 
 		Color color;           // 色
 		float angle;           // 回転角度
+		float alpha;           // 透明度
 		ShaderHandle hShader;  // シェーダハンドル
 	};
 
