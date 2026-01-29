@@ -97,7 +97,8 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_entityId">エンティティId</param>
 		/// <returns>見つかったゲームオブジェクトのポインタ / 見つからなければ nullptr</returns>
-		GameObject* FindGameObject(const EntityId _entityId);
+		template<typename GameObjectT = GameObject>
+		GameObjectT* FindGameObject(const EntityId _entityId);
 
 		/// <summary>
 		/// 名前からゲームオブジェクトを探す
@@ -139,6 +140,9 @@ namespace wtgb
 		// TODO: entityIdのみにする
 		bool toDestroy_;  // 削除予定のゲームオブジェクトか true / false
 
-		static ViewerCached* pCachedSystem_;  // cache済みのゲームシステム
+		// cache済みのゲームシステム
+		static ViewerCached* pCachedSystem_;
 	};
 }
+
+#include "GameObject.inl"

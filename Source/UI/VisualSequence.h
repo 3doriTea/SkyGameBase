@@ -19,6 +19,11 @@ public:
 	VisualSequence& AddInSequence(const EntityId _visualEntity);
 
 	void ShowNext();
+	/// <summary>
+	/// <para>指定のインデクスを表示する</para>
+	/// <para>現在のインデクスと同じ場合も更新がかかる</para>
+	/// </summary>
+	/// <param name="_index">インデクス</param>
 	void ShowAt(const int _index);
 private:
 	std::vector<EntityId> visuals_;  // 表示内容のコレクション

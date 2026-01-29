@@ -77,11 +77,6 @@ void wtgb::GameObject::End()
 	delete this;
 }
 
-wtgb::GameObject* wtgb::GameObject::FindGameObject(const EntityId _entityId)
-{
-	return System().Get<CPGameObject>().Get(_entityId);
-}
-
 wtgb::GameObject* wtgb::GameObject::FindGameObject(const std::string& _name)
 {
 	wtgb::EntityId foundEntityId{ System().Get<CPGameObjectProperty>().FindEntityByName(_name) };

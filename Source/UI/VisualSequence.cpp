@@ -26,18 +26,20 @@ VisualSequence& VisualSequence::AddInSequence(const EntityId _visualEntity)
 
 void VisualSequence::ShowNext()
 {
-	if (currentIndex_ <= -1)
-	{
-		const EntityId EID{ visuals_.at(currentIndex_) };
-		IVisual* pVisual{ FindGameObject(EID) };
-	}
-	currentIndex_++;
-	if (currentIndex_ >= visuals_.size())
-	{
-		currentIndex_ = -1;
-	}
+	ShowAt(currentIndex_ + 1);
 }
 
 void VisualSequence::ShowAt(const int _index)
 {
+	if (currentIndex_ <= -1)
+	{
+		const EntityId EID{ visuals_.at(currentIndex_) };
+		IVisual* pVisual{ FindGameObject<IVisual>(EID) };
+	}
+	currentIndex_ = _index;
+	if (currentIndex_ < 0 || visuals_.size() <= currentIndex_)
+	{
+		// ”ÍˆÍŠO‚È‚ç–³Œø‰»
+		currentIndex_ = -1;
+	}
 }
