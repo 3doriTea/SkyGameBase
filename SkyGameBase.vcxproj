@@ -54,7 +54,7 @@
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
-    <ClInclude Include="Source\ResultScene.h" />
+    <ClInclude Include="Source\ResultScene\ResultScene.h" />
     <ClInclude Include="Source\SMF\Note.h" />
     <ClInclude Include="Source\SpeedType.h" />
     <ClInclude Include="Source\Systems\ScoreManager.h" />
@@ -70,8 +70,12 @@
     <ClInclude Include="Source\TitleScene\TitleCamera.h" />
     <ClInclude Include="Source\TitleScene\TitleMountain.h" />
     <ClInclude Include="Source\TitleScene\TitleScene.h" />
+    <ClInclude Include="Source\UI\BaseCue.h" />
     <ClInclude Include="Source\UI\Button.h" />
     <ClInclude Include="Source\UI\DragCircle.h" />
+    <ClInclude Include="Source\UI\FadingCue.h" />
+    <ClInclude Include="Source\UI\IVisual.h" />
+    <ClInclude Include="Source\UI\ScalingCue.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h" />
     <ClInclude Include="wtgb\GameComponent\Parameter.h" />
     <ClInclude Include="wtgb\GameSystem\CPParameter.h" />
@@ -315,7 +319,7 @@
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
-    <ClCompile Include="Source\ResultScene.cpp" />
+    <ClCompile Include="Source\ResultScene\ResultScene.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\CountDown.cpp" />
     <ClCompile Include="Source\SkySphere.cpp" />
@@ -346,10 +350,13 @@
     <ClCompile Include="Source\TitleScene\TitleCamera.cpp" />
     <ClCompile Include="Source\TitleScene\TitleMountain.cpp" />
     <ClCompile Include="Source\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="Source\UI\BaseCue.cpp" />
     <ClCompile Include="Source\UI\Button.cpp" />
     <ClCompile Include="Source\UI\DragCircle.cpp" />
+    <ClCompile Include="Source\UI\FadingCue.cpp" />
     <ClCompile Include="Source\UI\NumberPlate.cpp" />
     <ClCompile Include="Source\TitleScene\TitleNeco.cpp" />
+    <ClCompile Include="Source\UI\ScalingCue.cpp" />
     <ClCompile Include="wtgb\Core\GameObjectBuilder.cpp" />
     <ClCompile Include="wtgb\Core\GameScene.cpp" />
     <ClCompile Include="wtgb\GameComponent\Collider.cpp" />

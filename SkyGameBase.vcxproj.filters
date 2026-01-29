@@ -633,7 +633,19 @@
     <ClInclude Include="Source\PlayScene\BallSphere.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ResultScene.h">
+    <ClInclude Include="Source\ResultScene\ResultScene.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\IVisual.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\ScalingCue.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\FadingCue.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\BaseCue.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1025,7 +1037,16 @@
     <ClCompile Include="Source\PlayScene\BallSphere.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ResultScene.cpp">
+    <ClCompile Include="Source\ResultScene\ResultScene.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\ScalingCue.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\BaseCue.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\FadingCue.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>
