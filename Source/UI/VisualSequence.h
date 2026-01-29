@@ -18,6 +18,9 @@ public:
 	VisualSequence& ClearSequence();
 	VisualSequence& AddInSequence(const EntityId _visualEntity);
 
+	/// <summary>
+	/// 次のUIを表示する
+	/// </summary>
 	void ShowNext();
 	/// <summary>
 	/// <para>指定のインデクスを表示する</para>
@@ -28,4 +31,5 @@ public:
 private:
 	std::vector<EntityId> visuals_;  // 表示内容のコレクション
 	int currentIndex_;               // 表示内容のインデクス
+	static int INVALID_INDEX_;       // 無効なインデクス
 };

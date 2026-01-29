@@ -1,5 +1,6 @@
 #include "FadingCue.h"
 
-void FadingCue::Draw(LayoutConfig* _pLayout, const float _animRatio)
+
+void FadingCue::Draw(UI::LayoutConfig* _pLayout, const float _animRatio)
 {
 }

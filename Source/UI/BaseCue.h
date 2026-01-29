@@ -26,7 +26,7 @@ protected:
 	/// </summary>
 	/// <param name="_animRatio">アニメーション時間</param>
 	/// <param name="_pLayout">描画レイアウト</param>
-	virtual void Draw(LayoutConfig* _pLayout, const float _animRatio) = 0;
+	virtual void Draw(UI::LayoutConfig* _pLayout, const float _animRatio) = 0;
 
 private:
 	TextureHandle hImage_;   // 画像ハンドル

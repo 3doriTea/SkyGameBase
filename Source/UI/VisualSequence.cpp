@@ -1,17 +1,18 @@
 #include "VisualSequence.h"
 #include "IVisual.h"
 
+int VisualSequence::INVALID_INDEX_{ -1 };
 
 VisualSequence::VisualSequence() :
 	GameObject{ "Simple.json" },
-	currentIndex_{ -1 },
+	currentIndex_{ INVALID_INDEX_ },
 	visuals_{}
 {
 }
 
 VisualSequence& VisualSequence::ClearSequence()
 {
-	currentIndex_ = -1;
+	currentIndex_ = INVALID_INDEX_;
 	visuals_.clear();
 
 	return *this;
@@ -35,11 +36,19 @@ void VisualSequence::ShowAt(const int _index)
 	{
 		const EntityId EID{ visuals_.at(currentIndex_) };
 		IVisual* pVisual{ FindGameObject<IVisual>(EID) };
+		pVisual->Hide();
 	}
+
 	currentIndex_ = _index;
+
 	if (currentIndex_ < 0 || visuals_.size() <= currentIndex_)
 	{
 		// ”ÍˆÍŠO‚È‚ç–³Œø‰»
-		currentIndex_ = -1;
+		currentIndex_ = INVALID_INDEX_;
+		return;
 	}
+
+	const EntityId EID{ visuals_.at(currentIndex_) };
+	IVisual* pVisual{ FindGameObject<IVisual>(EID) };
+	pVisual->Hide();
 }
