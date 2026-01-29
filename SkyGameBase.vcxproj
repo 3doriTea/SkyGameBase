@@ -55,6 +55,7 @@
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
     <ClInclude Include="Source\ResultScene\ResultScene.h" />
+    <ClInclude Include="Source\ResultScene\WaterPool.h" />
     <ClInclude Include="Source\SMF\Note.h" />
     <ClInclude Include="Source\SpeedType.h" />
     <ClInclude Include="Source\Systems\ScoreManager.h" />
@@ -100,7 +101,7 @@
     <ClInclude Include="Source\PlayScene\StageObjectManager.h" />
     <ClInclude Include="Source\PlayScene\TestBillBoard.h" />
     <ClInclude Include="Source\PlayScene\WaterPlane.h" />
-    <ClInclude Include="Source\PlayScene\WaterPlane\WaterMesh.h" />
+    <ClInclude Include="Source\WaterPlane\WaterMesh.h" />
     <ClInclude Include="Source\PlayScene\WaterSphere.h" />
     <ClInclude Include="Source\SampleScene\Piano.h" />
     <ClInclude Include="Source\SampleScene\TestArrowUI.h" />
@@ -331,7 +332,7 @@
     <ClCompile Include="Source\PlayScene\StageObjectManager.cpp" />
     <ClCompile Include="Source\PlayScene\TestBillBoard.cpp" />
     <ClCompile Include="Source\PlayScene\WaterPlane.cpp" />
-    <ClCompile Include="Source\PlayScene\WaterPlane\WaterMesh.cpp" />
+    <ClCompile Include="Source\WaterPlane\WaterMesh.cpp" />
     <ClCompile Include="Source\PlayScene\WaterSphere.cpp" />
     <ClCompile Include="Source\SampleScene\Piano.cpp" />
     <ClCompile Include="Source\SampleScene\TestArrowUI.cpp" />

@@ -342,7 +342,7 @@
     <ClInclude Include="Source\PlayScene\WaterPlane.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PlayScene\WaterPlane\WaterMesh.h">
+    <ClInclude Include="Source\WaterPlane\WaterMesh.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\PlayScene\WaterSphere.h">
@@ -651,6 +651,9 @@
     <ClInclude Include="Source\UI\VisualSequence.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ResultScene\WaterPool.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -842,7 +845,7 @@
     <ClCompile Include="Source\PlayScene\WaterPlane.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PlayScene\WaterPlane\WaterMesh.cpp">
+    <ClCompile Include="Source\WaterPlane\WaterMesh.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Source\PlayScene\WaterSphere.cpp">

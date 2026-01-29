@@ -208,16 +208,16 @@ void StageMesh::Init(ViewerCached _system)
 	}
 #pragma endregion
 
-	int count{ 0 };
-	for (auto& index : indexes)
-	{
-		LOGF("{},", index);
-		count++;
-		if (count % 3 == 0)
-		{
-			LOGF("\n");
-		}
-	}
+	//int count{ 0 };
+	//for (auto& index : indexes)
+	//{
+	//	LOGF("{},", index);
+	//	count++;
+	//	if (count % 3 == 0)
+	//	{
+	//		LOGF("\n");
+	//	}
+	//}
 
 #pragma region コンスタントバッファを作っておく
 	{
