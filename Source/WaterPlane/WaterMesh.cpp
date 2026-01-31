@@ -36,54 +36,56 @@ void WaterMesh::Init(ViewerCached _system)
 #pragma endregion
 
 #pragma region インデックス
-	std::vector<uint32_t> indices{};
-	
-	// 1面を描画するインデクス
-	static const uint32_t INDEX_SET_ARRAY[]{ 0, 1, 4, 4, 1, 5 };
-	static const uint32_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(uint32_t) };
-
-	// ポリゴン数
-	size_t polyCount{ (SIZE_.x - 1) * (SIZE_.y - 1) };
-
-	for (int y = 0; y < (SIZE_.x - 1); y++)
 	{
-		for (int x = 0; x < (SIZE_.x - 1); x++)
+		std::vector<uint32_t> indices{};
+		
+		// 1面を描画するインデクス
+		static const uint32_t INDEX_SET_ARRAY[]{ 0, 1, 4, 4, 1, 5 };
+		static const uint32_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(uint32_t) };
+
+		// ポリゴン数
+		size_t polyCount{ (SIZE_.x - 1) * (SIZE_.y - 1) };
+
+		for (int y = 0; y < (SIZE_.x - 1); y++)
 		{
-			for (int i = 0; i < INDEX_SET_ARRAY_SIZE; i++)
+			for (int x = 0; x < (SIZE_.x - 1); x++)
 			{
-				int offset = x + SIZE_.x * y;
-				indices.push_back(
-					INDEX_SET_ARRAY[i] + offset
-				);
+				for (int i = 0; i < INDEX_SET_ARRAY_SIZE; i++)
+				{
+					int offset = x + SIZE_.x * y;
+					indices.push_back(
+						INDEX_SET_ARRAY[i] + offset
+					);
+				}
 			}
 		}
+
+		indexCount_ = static_cast<uint32_t>(indices.size());
+
+
+		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
+		HRESULT hResult{};
+
+		const D3D11_BUFFER_DESC INDEX_DESC
+		{
+			// 型の大きさ
+			.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * indexCount_),
+			.Usage = D3D11_USAGE_DEFAULT,                // 変更するか
+			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // なんのバッファか
+			.CPUAccessFlags = 0,                         // CPUからのアクセスフラグ
+			.MiscFlags = 0,                              // その他のフラグ
+			.StructureByteStride = 0,
+		};
+		const D3D11_SUBRESOURCE_DATA INDEX_DATA
+		{
+			.pSysMem = indices.data(),
+			.SysMemPitch = {},
+			.SysMemSlicePitch = {},
+		};
+
+		hResult = pDevice->CreateBuffer(&INDEX_DESC, &INDEX_DATA, pIndexBuffer_.GetAddressOf());
+		wassert(SUCCEEDED(hResult) && "ステージメッシュのインデックスバッファ作成に失敗");
 	}
-
-	indexCount_ = static_cast<uint32_t>(indices.size());
-
-
-	ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
-	HRESULT hResult{};
-
-	const D3D11_BUFFER_DESC INDEX_DESC
-	{
-		// 型の大きさ
-		.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * indexCount_),
-		.Usage = D3D11_USAGE_DEFAULT,                // 変更するか
-		.BindFlags = D3D11_BIND_INDEX_BUFFER,        // なんのバッファか
-		.CPUAccessFlags = 0,                         // CPUからのアクセスフラグ
-		.MiscFlags = 0,                              // その他のフラグ
-		.StructureByteStride = 0,
-	};
-	const D3D11_SUBRESOURCE_DATA INDEX_DATA
-	{
-		.pSysMem = indices.data(),
-		.SysMemPitch = {},
-		.SysMemSlicePitch = {},
-	};
-
-	hResult = pDevice->CreateBuffer(&INDEX_DESC, &INDEX_DATA, pIndexBuffer_.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "ステージメッシュのインデックスバッファ作成に失敗");
 #pragma endregion
 
 	int count{ 0 };
@@ -98,25 +100,27 @@ void WaterMesh::Init(ViewerCached _system)
 	}
 
 #pragma region コンスタントバッファ
-	UINT cbSize = static_cast<UINT>(sizeof(ConstantBuffer));
-	cbSize = (cbSize + 15u) & ~15u;
-
-	const D3D11_BUFFER_DESC CONSTANT_DESC
 	{
-		// 型の大きさ
-		.ByteWidth = cbSize,
-		.Usage = D3D11_USAGE_DYNAMIC,                // 変更するか
-		.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // なんのバッファか
-		.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPUからのアクセスフラグ
-		.MiscFlags = 0,                              // その他のフラグ
-		.StructureByteStride = 0,
-	};
+		UINT cbSize = static_cast<UINT>(sizeof(ConstantBuffer));
+		cbSize = (cbSize + 15u) & ~15u;
 
-	ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
-	HRESULT hResult{};
+		const D3D11_BUFFER_DESC CONSTANT_DESC
+		{
+			// 型の大きさ
+			.ByteWidth = cbSize,
+			.Usage = D3D11_USAGE_DYNAMIC,                // 変更するか
+			.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // なんのバッファか
+			.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPUからのアクセスフラグ
+			.MiscFlags = 0,                              // その他のフラグ
+			.StructureByteStride = 0,
+		};
 
-	hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "ステージメッシュコンスタントバッファ作成に失敗");
+		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
+		HRESULT hResult{};
+
+		hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
+		wassert(SUCCEEDED(hResult) && "ステージメッシュコンスタントバッファ作成に失敗");
+	}
 #pragma endregion
 }
 

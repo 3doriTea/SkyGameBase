@@ -1,6 +1,8 @@
 #include "WaterPool.h"
 
-WaterPool::WaterPool()
+WaterPool::WaterPool() :
+	GameObject{ "Simple.json" }
+	//waterMesh_{  }
 {
 }
 
@@ -22,5 +24,5 @@ void WaterPool::Release()
 
 void WaterPool::OnLoadParam(const json& _json)
 {
-	_json
+	//_json
 }
