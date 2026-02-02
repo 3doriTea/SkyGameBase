@@ -31,7 +31,7 @@ WaterPlane::WaterPlane(const Vector3& _localPos, const Vector2Int _size) : GameO
 		.Build();
 	}
 },
-	waterMesh_{ pointsHeight_, _size }
+waterMesh_{ { pointsHeight_, {}, _size } }
 {
 }
 

@@ -1,7 +1,8 @@
 #include "pch\pch.h"
 #include "WaterMesh.h"
 
-WaterMesh::WaterMesh(Config& _config) :
+
+WaterMesh::WaterMesh(const Config& _config) :
 	points_{ _config.points },
 	SIZE_{ _config.verticesCount },
 	VERTICES_DISTANCE_{ _config.verticesDistance }
@@ -44,7 +45,7 @@ void WaterMesh::Init(ViewerCached _system)
 		static const uint32_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(uint32_t) };
 
 		// ポリゴン数
-		size_t polyCount{ (SIZE_.x - 1) * (SIZE_.y - 1) };
+		size_t polyCount{ static_cast<size_t>((SIZE_.x - 1) * (SIZE_.y - 1)) };
 
 		for (int y = 0; y < (SIZE_.x - 1); y++)
 		{
@@ -89,7 +90,7 @@ void WaterMesh::Init(ViewerCached _system)
 #pragma endregion
 
 	int count{ 0 };
-	for (auto& index : indices)
+	/*for (auto& index : indices)
 	{
 		LOGF("{},", index);
 		count++;
@@ -97,7 +98,7 @@ void WaterMesh::Init(ViewerCached _system)
 		{
 			LOGF("\n");
 		}
-	}
+	}*/
 
 #pragma region コンスタントバッファ
 	{
@@ -140,7 +141,7 @@ void WaterMesh::UpdateVertexBuffer(ViewerCached _system)
 	{
 		for (int x = 0; x < SIZE_.x; x++)
 		{
-			const size_t INDEX{ y * SIZE_.x + x };
+			const size_t INDEX{ static_cast<size_t>(y * SIZE_.x + x) };
 			vertices_.at(INDEX).position.y = points_.at(INDEX);
 		}
 	}
@@ -177,7 +178,7 @@ void WaterMesh::ResetVertices()
 	{
 		for (int x = 0; x < SIZE_.x; x++)
 		{
-			const size_t INDEX{ y * SIZE_.x + x };
+			const size_t INDEX{ static_cast<size_t>(y * SIZE_.x + x) };
 			vertices_.at(INDEX) =
 			{
 				.position =

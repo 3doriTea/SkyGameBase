@@ -20,7 +20,7 @@ public:
 	};
 
 public:
-	WaterMesh(Config& _config);
+	WaterMesh(const Config& _config);
 	~WaterMesh();
 
 	void Init(ViewerCached _system) override;

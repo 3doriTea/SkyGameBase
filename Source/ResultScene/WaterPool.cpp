@@ -1,7 +1,16 @@
 #include "WaterPool.h"
 
 WaterPool::WaterPool() :
-	GameObject{ "Simple.json" }
+	GameObject{ "Simple.json" },
+	waterMesh_
+	{
+		WaterMesh::Config
+		{
+			.points = points_,
+			.verticesCount = { 30, 30 },
+			.verticesDistance = { 10.0f, 10.0f },
+		}
+	}
 	//waterMesh_{  }
 {
 }
