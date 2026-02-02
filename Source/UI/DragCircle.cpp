@@ -6,7 +6,7 @@ DragCircle::DragCircle() :
 {
 }
 
-DragCircle::DragCircle(const Vector2Int _centerPosition, const int _radius) :
+DragCircle::DragCircle(const Vector2Int _centerPosition, const int _radius, const Vector2Int _baseCanvasSize) :
 	GameObject{ "Simple.json" },
 	hCircleImage_{ INVALID_HANDLE },
 	isDrag_{ false },
@@ -15,6 +15,7 @@ DragCircle::DragCircle(const Vector2Int _centerPosition, const int _radius) :
 	dragDisplacement_{ Vector2Int::Zero() },
 	radius_{ _radius },
 	radiusSq_{ _radius * _radius },
+	baseCanvasSize_{ _baseCanvasSize },
 
 	onClickInRadius_{ []{} },
 	onClickOutRadius_{ []{} },
@@ -40,7 +41,7 @@ void DragCircle::Update()
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	const Canvas::Context& context{ System().Get<Canvas>().GetContext() };
 
-	UI::LayoutConfig config{};
+	UI::LayoutConfig config{ baseCanvasSize_ };
 	context.SetRefLayout(&config);
 
 	// マウスカーソルの制御

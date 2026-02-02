@@ -8,7 +8,7 @@ class DragCircle : public GameObject
 {
 public:
 	DragCircle();
-	DragCircle(const Vector2Int _centerPosition, const int _radius);
+	DragCircle(const Vector2Int _centerPosition, const int _radius, const Vector2Int _baseCanvasSize = Vector2Int::Zero());
 	~DragCircle();
 
 	void Init() override;
@@ -44,6 +44,12 @@ public:
 	inline void SetPosition(const Vector2Int _centerPosition) { centerPosition_ = _centerPosition; }
 
 	/// <summary>
+	/// 比率維持のための設計時キャンバスサイズをセットする
+	/// </summary>
+	/// <param name="_baseCanvasSize">設計時のキャンバスサイズ</param>
+	inline void SetBaseCanvasSize(const Vector2Int _baseCanvasSize) { baseCanvasSize_ = _baseCanvasSize; }
+
+	/// <summary>
 	/// 円の半径をセットする
 	/// </summary>
 	/// <param name="_radius">円の半径</param>
@@ -61,6 +67,7 @@ public:
 	inline Vector2Int GetBegin() const { return dragBegin_; }
 
 private:
+	Vector2Int baseCanvasSize_;    // 設計時のキャンバスサイズ
 	TextureHandle hCircleImage_;   // 円の画像
 	bool isDrag_;                  // 掴んでいるか
 	Vector2Int centerPosition_;    // 円の中心座標

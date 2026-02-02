@@ -5,7 +5,8 @@ ResultPanel::ResultPanel(const EntityId _dragCircle) :
 	GameObject{ "Result/ResultPanel.json" },
 	baseCanvasSize_{},
 	panelImageFile_{},
-	dragCircle_{ _dragCircle }
+	dragCircle_{ _dragCircle },
+	animOffsetY_{}
 {
 }
 
@@ -22,6 +23,7 @@ void ResultPanel::Init()
 	// 掴む円
 	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragCircle_)) };
 	pDragCircle->SetRadius(dragCircleSizePix_);
+	pDragCircle->SetBaseCanvasSize(baseCanvasSize_);
 	pDragCircle->SetPosition(dragCirclePositionDown_);
 }
 
@@ -49,7 +51,6 @@ void ResultPanel::Update()
 	{
 		// 掴んだ分加算する
 		Vector2Int displacement{ pDragCircle->GetDisplacement() };
-		LOGFLN("displacement:({}, {})", displacement.x, displacement.y);
 		moveRatio_ += static_cast<float>(-displacement.y) / screenSize.y;
 	}
 	else
@@ -66,21 +67,29 @@ void ResultPanel::Update()
 	}
 	moveRatio_ = min(max(moveRatio_, 0.0f), 1.0f);
 
-	//if (pDragCircle)
-	//{
-	//	// TODO: ボタンドラッグ位置を確定させる
-	//	isDrag_ = pDragCircle->IsDrag();
-	//	Mathf::Lerp()
-	//	pDragCircle->SetPosition({ 430 + OFFSET_X, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
-	//}
+	LOGFLN("moveRatio{}", moveRatio_);
 
+	if (pDragCircle)
+	{
+		// TODO: ボタンドラッグ位置を確定させる
+		isDrag_ = pDragCircle->IsDrag();
+		//Mathf::Lerp()
+		//pDragCircle->SetPosition({ 430 + OFFSET_X, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
+	}
+
+	Vector2Int size = pTexture->GetImageSizePix();
 
 	Canvas::LayoutConfig config
 	{
 		Canvas::LayoutConfig{ baseCanvasSize_ }
 			.position({ 0.0f, animOffsetY_ })
-			.scale(pTexture->GetImageSizePix())
+			.scale(size)
+			.order(100)
 	};
+
+	context.SetRefLayout(&config);
+
+	context.DrawImage(hPanelImage_);
 }
 
 void ResultPanel::Release()
