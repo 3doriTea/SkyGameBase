@@ -54,6 +54,7 @@
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
+    <ClInclude Include="Source\ResultScene\UI\ResultPanel.h" />
     <ClInclude Include="Source\ResultScene\ResultScene.h" />
     <ClInclude Include="Source\ResultScene\WaterPool.h" />
     <ClInclude Include="Source\SMF\Note.h" />
@@ -322,6 +323,7 @@
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
     <ClCompile Include="Source\ResultScene\ResultScene.cpp" />
+    <ClCompile Include="Source\ResultScene\UI\ResultPanel.cpp" />
     <ClCompile Include="Source\ResultScene\WaterPool.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\CountDown.cpp" />
@@ -442,6 +444,8 @@
     <None Include="Assets\Prefab\Play\BallSphere.json" />
     <None Include="Assets\Prefab\Play\CameraController.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
+    <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
+    <None Include="Assets\Prefab\Result\ResultPanel.json" />
     <None Include="Assets\Prefab\ScoreManager.json" />
     <None Include="Assets\Prefab\Simple.json" />
     <None Include="Assets\Prefab\SkySphere.json" />

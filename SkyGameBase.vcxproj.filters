@@ -654,6 +654,9 @@
     <ClInclude Include="Source\ResultScene\WaterPool.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ResultScene\UI\ResultPanel.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1061,6 +1064,9 @@
     <ClCompile Include="Source\ResultScene\WaterPool.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ResultScene\UI\ResultPanel.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1114,6 +1120,8 @@
     <None Include="wtgb\GameComponent\GameObject.inl">
       <Filter>C++未分類ファイル</Filter>
     </None>
+    <None Include="Assets\Prefab\Result\ResultPanel.json" />
+    <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
