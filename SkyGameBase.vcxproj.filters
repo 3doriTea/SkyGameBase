@@ -657,6 +657,9 @@
     <ClInclude Include="Source\ResultScene\UI\ResultPanel.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\CoreType\ExtJson\Vector2.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">

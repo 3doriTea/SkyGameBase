@@ -15,6 +15,7 @@
 #include "Utility/JsonUtility.h"
 #include "Core/Entity.h"
 #include "CoreType/ExtJson/Vector3.h"
+#include "CoreType/ExtJson/Vector2.h"
 #include "CoreType/ExtJson/Vector2Int.h"
 
 // インタフェース系
