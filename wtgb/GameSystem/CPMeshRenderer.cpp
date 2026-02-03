@@ -106,9 +106,9 @@ void wtgb::CPMeshRenderer::Render2D(
 
 	Camera& camera{ System().Get<Camera>() };
 	ResourceSystem& resource{ System().Get<ResourceSystem>() };
-	ID3D11Device* pDevice{ System().Get<Direct3D>().Resource().Device() };
 	Direct3D& d3d{ System().Get<Direct3D>() };
-	ID3D11DeviceContext* pContext{ System().Get<Direct3D>().Resource().Context() };
+	ID3D11Device* pDevice{ d3d.Resource().Device() };
+	ID3D11DeviceContext* pContext{ d3d.Resource().Context() };
 
 
 	IMeshSimple2D* pMesh{ _pMeshSimple };

@@ -666,6 +666,9 @@
     <ClInclude Include="Source\UI\DragPointCue.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\MeshRenderer\ShaderConstant.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1137,6 +1140,9 @@
     </None>
     <None Include="Assets\Prefab\Result\ResultPanel.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
+    <None Include="wtgb\GameSystem\MeshRenderer\ShaderConstant.inl">
+      <Filter>C++未分類ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

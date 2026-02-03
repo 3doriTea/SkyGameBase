@@ -87,6 +87,7 @@
     <ClInclude Include="wtgb\GameSystem\CPParameter.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h" />
     <ClInclude Include="wtgb\GameSystem\DirectionalLight.h" />
+    <ClInclude Include="wtgb\GameSystem\MeshRenderer\ShaderConstant.h" />
     <ClInclude Include="wtgb\Helper\CommonGameComponentPool.h" />
     <ClInclude Include="wtgb\LibHeader\FileSystem.h" />
     <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />
@@ -469,6 +470,7 @@
     <None Include="wtgb\GameSystem\Canvas\RenderContent.inl" />
     <None Include="wtgb\GameSystem\ComponentManager.inl" />
     <None Include="wtgb\GameSystem\ComponentPool.inl" />
+    <None Include="wtgb\GameSystem\MeshRenderer\ShaderConstant.inl" />
     <None Include="wtgb\Utility\IResource.inl" />
   </ItemGroup>
   <ItemGroup>

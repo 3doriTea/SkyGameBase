@@ -34,6 +34,8 @@ namespace wtgb
 			const float _alpha = 1.0f,
 			const Color& _diffuseColor = Color::GREEN,
 			const TextureHandle _hTexture = INVALID_HANDLE);
+
+		void SetRenderConstant();
 	private:
 		/// <summary>
 		/// ‰Šú‰»ˆ—
