@@ -54,6 +54,7 @@
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
+    <ClInclude Include="Source\ResultScene\DragPoint.h" />
     <ClInclude Include="Source\ResultScene\UI\ResultPanel.h" />
     <ClInclude Include="Source\ResultScene\ResultScene.h" />
     <ClInclude Include="Source\ResultScene\WaterPool.h" />
@@ -75,6 +76,7 @@
     <ClInclude Include="Source\UI\BaseCue.h" />
     <ClInclude Include="Source\UI\Button.h" />
     <ClInclude Include="Source\UI\DragCircle.h" />
+    <ClInclude Include="Source\UI\DragPointCue.h" />
     <ClInclude Include="Source\UI\FadingCue.h" />
     <ClInclude Include="Source\UI\IVisual.h" />
     <ClInclude Include="Source\UI\ScalingCue.h" />
@@ -323,6 +325,7 @@
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
+    <ClCompile Include="Source\ResultScene\DragPoint.cpp" />
     <ClCompile Include="Source\ResultScene\ResultScene.cpp" />
     <ClCompile Include="Source\ResultScene\UI\ResultPanel.cpp" />
     <ClCompile Include="Source\ResultScene\WaterPool.cpp" />
@@ -336,6 +339,7 @@
     <ClCompile Include="Source\PlayScene\StageObjectManager.cpp" />
     <ClCompile Include="Source\PlayScene\TestBillBoard.cpp" />
     <ClCompile Include="Source\PlayScene\WaterPlane.cpp" />
+    <ClCompile Include="Source\UI\DragPointCue.cpp" />
     <ClCompile Include="Source\WaterPlane\WaterMesh.cpp" />
     <ClCompile Include="Source\PlayScene\WaterSphere.cpp" />
     <ClCompile Include="Source\SampleScene\Piano.cpp" />

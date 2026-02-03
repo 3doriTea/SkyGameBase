@@ -52,6 +52,7 @@ void ResultPanel::Update()
 		// ’Í‚ñ‚¾•ª‰ÁŽZ‚·‚é
 		Vector2Int displacement{ pDragCircle->GetDisplacement() };
 		moveRatio_ += static_cast<float>(-displacement.y) / screenSize.y;
+		LOGFLN("ƒhƒ‰ƒbƒO‚³‚ê‚½{}", moveRatio_);
 	}
 	else
 	{
@@ -67,7 +68,6 @@ void ResultPanel::Update()
 	}
 	moveRatio_ = min(max(moveRatio_, 0.0f), 1.0f);
 
-	LOGFLN("moveRatio{}", moveRatio_);
 
 	if (pDragCircle)
 	{

@@ -40,6 +40,8 @@ namespace wtgb::UI
 		/// <param name="_pConfig">参照するレイアウトの設定ポインタ</param>
 		void SetRefLayout(LayoutConfig* _pConfig) const;
 
+
+
 		/// <summary>
 		/// 画像の描画をする
 		/// </summary>
