@@ -2,6 +2,7 @@
 #include <variant>
 #include "pch/pch.h"
 #include "IRenderContent.h"
+#include "GameSystem/MeshRenderer/ShaderConstant.h"
 
 namespace wtgb
 {

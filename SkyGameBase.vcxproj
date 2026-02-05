@@ -84,6 +84,7 @@
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h" />
     <ClInclude Include="wtgb\GameComponent\Parameter.h" />
+    <ClInclude Include="wtgb\GameSystem\ConstantBufferManager.h" />
     <ClInclude Include="wtgb\GameSystem\CPParameter.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h" />
     <ClInclude Include="wtgb\GameSystem\DirectionalLight.h" />

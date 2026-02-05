@@ -669,6 +669,9 @@
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\ShaderConstant.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\ConstantBufferManager.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
