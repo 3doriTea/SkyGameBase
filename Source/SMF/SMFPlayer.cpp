@@ -86,7 +86,7 @@ void SMFPlayer::Init()
 	{
 		wassert("分解能が何分何秒何フレームは対応していないよ");
 	}
-	smfHeader_.quaterUnit = timeUnit;
+	smfHeader_.quarterUnit = timeUnit;
 	LOGFLN("timeUnit:{}", timeUnit);
 #pragma endregion
 
@@ -485,7 +485,7 @@ void SMFPlayer::TruckGenerator::AddDeltaTime(const uint64_t _dt)
 		return;  // デルタタイムが 0 なら無視
 	}
 	wassert(quarterSec_ != 0);
-	float dtSec{ static_cast<float>(_dt) / static_cast<float>(HEADER_.quaterUnit) * quarterSec_ };
+	float dtSec{ static_cast<float>(_dt) / static_cast<float>(HEADER_.quarterUnit) * quarterSec_ };
 	// デルタタイムを秒数で加算する
 	currentTime_ += dtSec;
 }

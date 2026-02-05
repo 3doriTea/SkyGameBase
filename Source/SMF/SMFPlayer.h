@@ -9,10 +9,10 @@ public:
 	struct Header
 	{
 		Header() :
-			quaterUnit{}
+			quarterUnit{}
 		{}
 
-		uint16_t quaterUnit;  // 四分音符の分解能
+		uint16_t quarterUnit;  // 四分音符の分解能
 	};
 
 	struct Truck
