@@ -39,6 +39,7 @@
     <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
+    <ClInclude Include="Source\PlayScene\GoalGround.h" />
     <ClInclude Include="Source\PlayScene\BallSphere.h" />
     <ClInclude Include="Source\PlayScene\DropCloud.h" />
     <ClInclude Include="Source\PlayScene\CharaBall.h" />
@@ -50,7 +51,7 @@
     <ClInclude Include="Source\PlayScene\Lift\LiftLoop.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftPole.h" />
     <ClInclude Include="Source\PlayScene\PlayerTargetting.h" />
-    <ClInclude Include="Source\PlayScene\PlayState.h" />
+    <ClInclude Include="Source\PlayScene\State\PlayState.h" />
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
@@ -85,6 +86,7 @@
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h" />
     <ClInclude Include="wtgb\GameComponent\Parameter.h" />
+    <ClInclude Include="wtgb\GameSystem\ConstantBufferManager.h" />
     <ClInclude Include="wtgb\GameSystem\CPParameter.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h" />
     <ClInclude Include="wtgb\GameSystem\DirectionalLight.h" />
@@ -318,12 +320,13 @@
     <ClCompile Include="Source\PlayScene\ControlUI.cpp" />
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
     <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
+    <ClCompile Include="Source\PlayScene\GoalGround.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\Lift.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftChair.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftLoop.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
-    <ClCompile Include="Source\PlayScene\PlayState.cpp" />
+    <ClCompile Include="Source\PlayScene\State\PlayState.cpp" />
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
@@ -395,6 +398,7 @@
     <ClCompile Include="wtgb\GameComponent\GameObjectProperty.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager\EntityGenerator.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentPool.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ConstantBufferManager.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPCollider.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPGameObject.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPGameObjectProperty.cpp" />
@@ -450,6 +454,7 @@
     <None Include="Assets\Prefab\PlayState.json" />
     <None Include="Assets\Prefab\Play\BallSphere.json" />
     <None Include="Assets\Prefab\Play\CameraController.json" />
+    <None Include="Assets\Prefab\Play\GoalGround.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
     <None Include="Assets\Prefab\Result\ResultPanel.json" />
@@ -650,6 +655,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -675,6 +681,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -698,6 +705,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -723,6 +731,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

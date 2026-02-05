@@ -5,7 +5,8 @@
 #include "SMF/SMFPlayer.h"
 #include "PlayScene.h"
 #include "PresentSphere.h"
-#include "PlayState.h"
+#include "State/PlayState.h"
+#include "GoalGround.h"
 
 
 DropCloud::DropCloud(
@@ -102,6 +103,13 @@ void DropCloud::Update()
 	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject(smfPlayer_)) };
 	Player* pPlayer{ dynamic_cast<Player*>(FindGameObject(player_)) };
 	StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
+
+#pragma region 再生が終了したらゴールを表示させる処理
+	//if (pSMFPlayer->IsFinished())
+	{
+		//System().Get<ResultScnene
+	}
+#pragma endregion
 
 #pragma region プレイヤが進むたびに音符を進める処理
 	RigidBody& playerRigidBody{ pPlayer->GetComponent<RigidBody>() };
