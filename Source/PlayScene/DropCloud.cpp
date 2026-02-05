@@ -105,9 +105,9 @@ void DropCloud::Update()
 	StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
 
 #pragma region Ä¶‚ªI—¹‚µ‚½‚çƒS[ƒ‹‚ð•\Ž¦‚³‚¹‚éˆ—
-	if (pSMFPlayer->IsFinished())
+	//if (pSMFPlayer->IsFinished())
 	{
-		System().Get<ResultScnene
+		//System().Get<ResultScnene
 	}
 #pragma endregion
 

@@ -57,7 +57,6 @@ void SMFPlayer::Init()
 	smf.close();  // ファイルは見終わったから閉じる
 
 	BinaryReader br{ fileBuffer.data(), fileBuffer.size() };
-	//BinaryReader br{ reinterpret_cast<mtbin::Byte*>(TEST_SMF), sizeof(TEST_SMF) };
 	br.Seek(SeekAt::Head);
 
 	std::array<Byte, 4> buff4{};
@@ -246,9 +245,8 @@ void SMFPlayer::Init()
 					if (br.Peek<uint8_t>() == 0xF7)
 					{
 						br.Read<uint8_t>();
-						LOGFLN("Skepped 0xF7");
+						LOGFLN("Skiped 0xF7");
 					}
-					//size += 1;
 				}
 
 				std::vector<char> textBuffer(size, '\0');
@@ -292,7 +290,7 @@ void SMFPlayer::Init()
 				uint8_t note{ br.Read<uint8_t>() };
 				uint8_t press{ br.Read<uint8_t>() };
 
-				LOGFLN("Key pressher - channel:{}, note:{}, press:{}", channel, note, press);
+				LOGFLN("Key pressure - channel:{}, note:{}, press:{}", channel, note, press);
 			}
 			else if (0x80 <= status && status <= 0x8F)
 			{  // ノートオフ
@@ -329,7 +327,25 @@ void SMFPlayer::Init()
 	}
 #pragma endregion
 
+#pragma region 曲全体の情報取得
+	totalPlayTime_ = 0.0f;
+	for (const auto& truck : smfTrucks_)
+	{
+		const Note& lastNote{ truck.notes.at(truck.notes.size() - 1) };
+		const float TOTAL_PLAY_TIME{ lastNote.totalTime + lastNote.playTime };
+
+		// 各トラックで最大時間を全探索して見つける
+		if (TOTAL_PLAY_TIME > totalPlayTime_)
+		{
+			totalPlayTime_ = TOTAL_PLAY_TIME;
+		}
+	}
+#pragma endregion
+
+#pragma region 再生データの初期化
+	readCurr_.clear();
 	readCurr_.resize(truckCount, 0);
+#pragma endregion
 }
 
 void SMFPlayer::Update()
@@ -351,7 +367,7 @@ void SMFPlayer::Update()
 			continue;  // このトラックは末端まで読んだため無視
 		}
 
-		// 次を待っているノードに再生時間がやってきたか (その次の次もチェックのためwhile)
+		// 次を待っているノードに再生時間がやってきたか (その次の次もチェックのため while)
 		while (playTime_ >= smfTrucks_[truckId].notes.at(readCurr_[truckId]).totalTime)
 		{
 			const Note& note{ smfTrucks_[truckId].notes.at(readCurr_[truckId]) };
@@ -374,8 +390,8 @@ void SMFPlayer::Release()
 
 uint64_t SMFPlayer::ReadDelta(mtbin::BinaryReader& _br)
 {
-	uint64_t value = 0;
-	uint8_t currentByte;
+	uint64_t value{ 0 };
+	uint8_t currentByte{};
 
 	while (true)
 	{

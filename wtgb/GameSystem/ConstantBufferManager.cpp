@@ -8,9 +8,9 @@ wtgb::ConstantBufferManager::~ConstantBufferManager()
 {
 }
 
-Result wtgb::ConstantBufferManager::Init(const ViewerInit& _viewer)
+wtgb::Result wtgb::ConstantBufferManager::Init(const ViewerInit& _viewer)
 {
-    return Result();
+    return Result::Code::Ok;
 }
 
 void wtgb::ConstantBufferManager::Update(const ViewerUpdate& _viewer)

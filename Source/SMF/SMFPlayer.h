@@ -66,7 +66,12 @@ public:
 	void Update() override;
 	void Release() override;
 
-	uint64_t ReadDelta(mtbin::BinaryReader& _br);
+	/// <summary>
+	/// デルタタイムを取得する
+	/// </summary>
+	/// <param name="_br">読み取るリーダー</param>
+	/// <returns>デルタタイム</returns>
+	static uint64_t ReadDelta(mtbin::BinaryReader& _br);
 
 	/// <summary>
 	/// ノーツを再生する
@@ -99,11 +104,12 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
-	std::function<void(const Note&)> onNoteCallback_;
-	fs::path file_;
-	Header smfHeader_;  // smfのヘッダデータ
+	std::function<void(const Note&)> onNoteCallback_;  // ノーツ再生時のイベント
+	fs::path file_;                 // smfのパス
+	Header smfHeader_;              // smfのヘッダデータ
 	std::vector<Truck> smfTrucks_;  // smfのトラックデータ
-	std::vector<size_t> readCurr_;
+	std::vector<size_t> readCurr_;  // 各トラックの再生したノーツインデクス
+	float totalPlayTime_;           // 総再生時間
 
 	float playTime_;  // 再生時間
 	float playRate_;  // 倍速か
