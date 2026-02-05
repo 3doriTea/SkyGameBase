@@ -10,9 +10,10 @@ class PlayState : public GameObject
 public:
 	enum struct Type
 	{
-		StartLine,  // 頂上にいる
-		Falling,    // 下山中
-		Finished,   // 下山終了
+		StartLine,    // 頂上にいる
+		Falling,      // 下山中
+		FallingLast,  // 下山中ゴールが見えてくる
+		Finished,     // 下山終了
 	};
 
 private:
@@ -32,6 +33,12 @@ private:
 	struct Falling : IPlayState
 	{
 		inline Type GetType() override { return Type::Falling; }
+		void Update(ViewerCached _system) override;
+	};
+
+	struct FallingLast : IPlayState
+	{
+		inline Type GetType() override { return Type::FallingLast; }
 		void Update(ViewerCached _system) override;
 	};
 

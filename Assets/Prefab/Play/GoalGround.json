@@ -9,14 +9,13 @@
       "scale": [ 1, 1, 1 ]
     },
     "ModelMesh": {
-      "fileName": "Models/Neko/NekoSphereV2.fbx"
+      "fileName": "Models/GoalPole/GoalPole.fbx"
     },
     "MeshRenderer": {
-      "shader": "Shader/Simple3D.hlsl",
-      "texture": "Models/Neko/TextureSphereNeko.png"
+      "shader": "Shader/Simple3D.hlsl"
     }
   },
   "Param": {
-
+    "targetName":  "Player"
   }
 }

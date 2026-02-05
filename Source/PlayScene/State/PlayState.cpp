@@ -81,3 +81,7 @@ void PlayState::Falling::Update(ViewerCached _system)
 void PlayState::Finished::Update(ViewerCached _system)
 {
 }
+
+void PlayState::FallingLast::Update(ViewerCached _system)
+{
+}

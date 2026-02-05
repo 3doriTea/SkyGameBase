@@ -16,6 +16,11 @@ public:
 	void Release() override;
 
 private:
+	void OnLoadParam(const json& _json);
 
+private:
+	std::string targetName_;
+	EntityId target_;     // ゴールを支援するターゲット
+	EntityId playStater_;  // プレイ状態を管理するやつ
 };
 

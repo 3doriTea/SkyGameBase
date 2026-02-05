@@ -20,6 +20,11 @@ public:
 	/// <returns>ワールドの設定</returns>
 	inline WorldConfig GetWorldConfig() const { return worldConfig_; }
 
+	/// <summary>
+	/// フィニッシュした！
+	/// </summary>
+	void Finished();
+
 private:
 	WorldConfig worldConfig_;  // ワールドの設定
 };

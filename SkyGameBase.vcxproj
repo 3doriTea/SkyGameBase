@@ -51,7 +51,7 @@
     <ClInclude Include="Source\PlayScene\Lift\LiftLoop.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftPole.h" />
     <ClInclude Include="Source\PlayScene\PlayerTargetting.h" />
-    <ClInclude Include="Source\PlayScene\PlayState.h" />
+    <ClInclude Include="Source\PlayScene\State\PlayState.h" />
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
@@ -325,7 +325,7 @@
     <ClCompile Include="Source\PlayScene\Lift\LiftLoop.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
-    <ClCompile Include="Source\PlayScene\PlayState.cpp" />
+    <ClCompile Include="Source\PlayScene\State\PlayState.cpp" />
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />

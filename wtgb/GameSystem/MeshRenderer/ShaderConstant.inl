@@ -45,7 +45,7 @@ inline void wtgb::ShaderConstant<StructT>::Send(ViewerCached _system)
 	memcpy_s(
 		data.pData,
 		data.RowPitch,
-		reinterpret_cast<void*>(&constantBuffer),
+		reinterpret_cast<void*>(&constantBuffer_),
 		sizeof(StructT));
 	pContext->Unmap(pConstantBuffer_.Get(), 0);
 }

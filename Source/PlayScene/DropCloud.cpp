@@ -5,7 +5,8 @@
 #include "SMF/SMFPlayer.h"
 #include "PlayScene.h"
 #include "PresentSphere.h"
-#include "PlayState.h"
+#include "State/PlayState.h"
+#include "GoalGround.h"
 
 
 DropCloud::DropCloud(
