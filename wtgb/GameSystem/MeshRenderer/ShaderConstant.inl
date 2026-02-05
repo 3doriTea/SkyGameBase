@@ -1,6 +1,20 @@
 #include "GameSystem/Direct3D.h"
 #include "WTGBAssert.h"
+#include "ShaderConstant.h"
 
+
+template<typename StructT>
+inline wtgb::ShaderConstant<StructT>::ShaderConstant() :
+	pConstantBuffer_{ nullptr },
+	beginSlot_{},
+	SlotCount_{ 1 }
+{
+}
+
+template<typename StructT>
+inline wtgb::ShaderConstant<StructT>::~ShaderConstant()
+{
+}
 
 template<typename StructT>
 inline void wtgb::ShaderConstant<StructT>::Init(ViewerCached _system)
@@ -36,8 +50,8 @@ inline void wtgb::ShaderConstant<StructT>::Send(ViewerCached _system)
 	ID3D11DeviceContext* pContext{ d3d.Resource().Context() };
 
 	// コンスタントバッファをセット
-	pContext->VSSetConstantBuffers(0, 1, pConstantBuffer_.GetAddressOf());  // 頂点シェーダ用
-	pContext->PSSetConstantBuffers(0, 1, pConstantBuffer_.GetAddressOf());  // ピクセルシェーダ用
+	pContext->VSSetConstantBuffers(beginSlot_, slotCount_, pConstantBuffer_.GetAddressOf());  // 頂点シェーダ用
+	pContext->PSSetConstantBuffers(beginSlot_, slotCount_, pConstantBuffer_.GetAddressOf());  // ピクセルシェーダ用
 
 	D3D11_MAPPED_SUBRESOURCE data{};
 

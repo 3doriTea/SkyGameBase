@@ -75,6 +75,7 @@
     <ClInclude Include="Source\TitleScene\TitleScene.h" />
     <ClInclude Include="Source\UI\BaseCue.h" />
     <ClInclude Include="Source\UI\Button.h" />
+    <ClInclude Include="Source\UI\CueAnimation.h" />
     <ClInclude Include="Source\UI\DragCircle.h" />
     <ClInclude Include="Source\UI\DragPointCue.h" />
     <ClInclude Include="Source\UI\FadingCue.h" />
