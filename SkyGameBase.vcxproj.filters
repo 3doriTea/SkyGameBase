@@ -672,6 +672,9 @@
     <ClInclude Include="wtgb\GameSystem\ConstantBufferManager.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\GoalGround.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1091,6 +1094,9 @@
     <ClCompile Include="wtgb\GameSystem\ConstantBufferManager.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\GoalGround.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1149,6 +1155,7 @@
     <None Include="wtgb\GameSystem\MeshRenderer\ShaderConstant.inl">
       <Filter>C++未分類ファイル</Filter>
     </None>
+    <None Include="Assets\Prefab\Play\GoalGround.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

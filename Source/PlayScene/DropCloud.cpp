@@ -103,6 +103,13 @@ void DropCloud::Update()
 	Player* pPlayer{ dynamic_cast<Player*>(FindGameObject(player_)) };
 	StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
 
+#pragma region 再生が終了したらゴールを表示させる処理
+	if (pSMFPlayer->IsFinished())
+	{
+		System().Get<ResultScnene
+	}
+#pragma endregion
+
 #pragma region プレイヤが進むたびに音符を進める処理
 	RigidBody& playerRigidBody{ pPlayer->GetComponent<RigidBody>() };
 

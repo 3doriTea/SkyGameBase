@@ -1,0 +1,22 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "GoalGround"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "ModelMesh": {
+      "fileName": "Models/Neko/NekoSphereV2.fbx"
+    },
+    "MeshRenderer": {
+      "shader": "Shader/Simple3D.hlsl",
+      "texture": "Models/Neko/TextureSphereNeko.png"
+    }
+  },
+  "Param": {
+
+  }
+}
