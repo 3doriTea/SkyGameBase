@@ -395,6 +395,7 @@
     <ClCompile Include="wtgb\GameComponent\GameObjectProperty.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentManager\EntityGenerator.cpp" />
     <ClCompile Include="wtgb\GameSystem\ComponentPool.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ConstantBufferManager.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPCollider.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPGameObject.cpp" />
     <ClCompile Include="wtgb\GameSystem\CPGameObjectProperty.cpp" />

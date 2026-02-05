@@ -1088,6 +1088,9 @@
     <ClCompile Include="Source\UI\DragPointCue.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\ConstantBufferManager.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
