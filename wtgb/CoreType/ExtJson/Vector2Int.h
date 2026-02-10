@@ -2,6 +2,7 @@
 #include "LibHeader/NlohmannJson.h"
 #include "../Vector2Int.h"
 
+
 namespace wtgb
 {
 	inline void to_json(json& j, const Vector2Int& v)
@@ -13,8 +14,8 @@ namespace wtgb
 	{
 		if (j.is_array())
 		{
-			v.x = j.at(0).get<int>();
-			v.y = j.at(1).get<int>();
+			v.x = j.at(Vector2Int::AT_X).get<int>();
+			v.y = j.at(Vector2Int::AT_Y).get<int>();
 		}
 		else
 		{

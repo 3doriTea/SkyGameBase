@@ -126,10 +126,8 @@
     <ClInclude Include="Source\TitleScene\TitleNeco.h" />
     <ClInclude Include="wtgb\CoreType\Collection\HandlerCollection.h" />
     <ClInclude Include="wtgb\CoreType\Color.h" />
-    <ClInclude Include="wtgb\CoreType\CoreType.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector3.h" />
     <ClInclude Include="wtgb\CoreType\Handler.h" />
-    <ClInclude Include="wtgb\CoreType\ICoreType.h" />
     <ClInclude Include="wtgb\CoreType\Matrix4x4.h" />
     <ClInclude Include="wtgb\CoreType\RectF.h" />
     <ClInclude Include="wtgb\CoreType\RectT.h" />
@@ -466,6 +464,7 @@
     <None Include="Assets\TitleMountain.json" />
     <None Include="Doc\CodingGuide.md" />
     <None Include="packages.config" />
+    <None Include="wtgb\CoreType\Collection\HandlerCollection.inl" />
     <None Include="wtgb\Core\ComponentSetter.inl" />
     <None Include="wtgb\Core\GameObjectBuilder.inl" />
     <None Include="wtgb\Core\GameSystemCollection.inl" />
