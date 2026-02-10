@@ -36,7 +36,7 @@ namespace wtgb
 		inline operator DirectX::XMVECTOR() const { return DirectX::XMLoadFloat2(this); }
 		
 		/// <summary>
-		/// mtgb::Vector2T<float> ‚ÉˆÃ–Ù“I•ÏŠ·‚·‚é
+		/// mtgb::Vector2Tƒfloat„ ‚ÉˆÃ–Ù“I•ÏŠ·‚·‚é
 		/// </summary>
 		inline operator mtgb::Vector2T<float>() const { return { x, y }; }
 

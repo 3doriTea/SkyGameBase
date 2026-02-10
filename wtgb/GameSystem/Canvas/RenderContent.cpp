@@ -24,8 +24,8 @@ void wtgb::UI::RenderContentBox::Render(
 		_pMeshSimple2D,
 		_matrixProjection,
 		XMMatrixIdentity(),
-		alpha,
 		hShader,
+		alpha,
 		color);
 }
 

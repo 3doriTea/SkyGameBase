@@ -2,6 +2,7 @@
 #include "pch/pch.h"
 #include "GameSystemViewer.h"
 
+
 namespace wtgb
 {
 	class GameSystemCollection;

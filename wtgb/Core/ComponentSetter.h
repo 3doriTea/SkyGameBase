@@ -9,6 +9,10 @@ namespace wtgb
 	template<typename T>
 	class ComponentOption;
 
+	/// <summary>
+	/// コンポーネント内のセッターオプションの基底クラス
+	/// </summary>
+	/// <typeparam name="ComponentT"></typeparam>
 	template<typename ComponentT>
 	class ComponentSetter : public Accessor<ComponentT>
 	{
@@ -23,17 +27,6 @@ namespace wtgb
 		{
 		}
 		virtual ~ComponentSetter() {}
-
-		/*/// <summary>
-		/// コンポーネントの設定終了
-		/// </summary>
-		/// <returns>ビルダー</returns>
-		ComponentOption<ComponentT>& EndSetter()
-		{
-			ComponentOption<ComponentT>& option{ *pOption_ };
-			delete this;
-			return option;
-		}*/
 
 		/// <summary>
 		/// コンポーネントの設定終了

@@ -6,9 +6,9 @@
 #include "GameSystem/GameTime.h"
 #include "GameSystem/ComponentManager.h"
 
+
 wtgb::GameLoop::GameLoop() :
-	isRunning_{ false },
-	deltaTime_{ 0.0f }
+	isRunning_{ false }
 {
 }
 

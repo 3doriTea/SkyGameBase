@@ -4,6 +4,7 @@
 #include "GameSystem/CPGameObject.h"
 #include "GameSystem/SceneManager.h"
 
+
 wtgb::GameScene::GameScene(Config&& _config)
 {
 }

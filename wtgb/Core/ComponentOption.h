@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObjectBuilder.h"
+#include "Utility/Accessor.h"
 
-#include "GameSystem/Debug.h"
 
 namespace wtgb
 {
@@ -19,11 +19,9 @@ namespace wtgb
 			Accessor<ComponentT>::Accessor{ _pComponent },
 			builder_{ _builder }
 		{
-			Debug::ComponentOptInstanceCount()++;
 		}
 		~ComponentOption()
 		{
-			Debug::ComponentOptInstanceCount()--;
 		}
 
 		/// <summary>

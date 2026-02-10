@@ -10,6 +10,9 @@ namespace wtgb
 	template<typename T>
 	concept GameT = std::is_base_of_v<IGame, T>;
 
+	/// <summary>
+	/// wtgbÇ≈çÏÇÈÉQÅ[ÉÄñ{ëÃ
+	/// </summary>
 	class Game
 	{
 	public:
@@ -55,18 +58,24 @@ int wtgb::Game::Run()
 	T theGame{};
 	pGame_ = &theGame;
 
-	/*try
-	{*/
+#if _DEBUG
+	try
+	{
+#endif
+
 		RunProcess();
-	/*}
+
+#if _DEBUG
+	}
 	catch (const std::exception& e)
 	{
-		throw e;
+		__debugbreak();
 	}
 	catch (int errorCode)
 	{
 		throw errorCode;
-	}*/
+	}
+#endif
 
 	pGame_ = nullptr;
 	return 0;

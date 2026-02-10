@@ -6,6 +6,6 @@ wtgb::GameObjectBuilder& wtgb::ComponentSetter<ComponentT>::EndSetter()
 	delete pOption_;
 
 	GameObjectBuilder& builder{ builder_ };
-	delete this;
+	delete this;  // NOTE: これ以降メンバにアクセスしてはいけない
 	return builder;
 }

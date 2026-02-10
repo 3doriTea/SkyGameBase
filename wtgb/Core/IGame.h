@@ -2,6 +2,7 @@
 #include "pch/pch.h"
 #include "GameSystemCollection.h"
 
+
 namespace wtgb
 {
 	/// <summary>
@@ -12,8 +13,8 @@ namespace wtgb
 		friend class Game;  // ゲームクラスからは private操作可能
 
 	protected:
-		IGame() = default;
-		virtual ~IGame() = default;
+		inline IGame() {};
+		inline virtual ~IGame() {};
 
 		/// <summary>
 		/// ゲームのタイトルを取得
