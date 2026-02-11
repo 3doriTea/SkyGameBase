@@ -1,6 +1,7 @@
 #pragma once
 #include "GameSystemCollection.h"
 
+
 namespace wtgb
 {
 	using ViewerInit = GameSystemCollection::GameSystemInitViewer;

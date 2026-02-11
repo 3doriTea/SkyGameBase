@@ -127,10 +127,8 @@
     <ClInclude Include="Source\TitleScene\TitleNeco.h" />
     <ClInclude Include="wtgb\CoreType\Collection\HandlerCollection.h" />
     <ClInclude Include="wtgb\CoreType\Color.h" />
-    <ClInclude Include="wtgb\CoreType\CoreType.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector3.h" />
     <ClInclude Include="wtgb\CoreType\Handler.h" />
-    <ClInclude Include="wtgb\CoreType\ICoreType.h" />
     <ClInclude Include="wtgb\CoreType\Matrix4x4.h" />
     <ClInclude Include="wtgb\CoreType\RectF.h" />
     <ClInclude Include="wtgb\CoreType\RectT.h" />
@@ -173,9 +171,7 @@
     <ClInclude Include="wtgb\Core\GameLoop.h" />
     <ClInclude Include="wtgb\GameComponent\GameObject.h" />
     <ClInclude Include="wtgb\Core\GameScene.h" />
-    <ClInclude Include="wtgb\Core\Handlers.h" />
     <ClInclude Include="wtgb\Core\IComponent.h" />
-    <ClInclude Include="wtgb\Core\World.h" />
     <ClInclude Include="wtgb\GameComponent\GameObjectProperty.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentManager\EntityGenerator.h" />
     <ClInclude Include="wtgb\GameSystem\ComponentPool.h" />
@@ -469,9 +465,13 @@
     <None Include="Assets\TitleMountain.json" />
     <None Include="Doc\CodingGuide.md" />
     <None Include="packages.config" />
+    <None Include="wtgb\CoreType\Collection\HandlerCollection.inl" />
     <None Include="wtgb\Core\ComponentSetter.inl" />
     <None Include="wtgb\Core\GameObjectBuilder.inl" />
     <None Include="wtgb\Core\GameSystemCollection.inl" />
+    <None Include="wtgb\_Config\DefaultGameTitle.value" />
+    <None Include="wtgb\_Config\DefaultGameVersion.value" />
+    <None Include="wtgb\_Config\EntityCapacity.value" />
     <None Include="wtgb\GameComponent\GameObject.inl" />
     <None Include="wtgb\GameSystem\Canvas\RenderContent.inl" />
     <None Include="wtgb\GameSystem\ComponentManager.inl" />

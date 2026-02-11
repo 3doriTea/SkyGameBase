@@ -1,10 +1,8 @@
 #pragma once
 #include "pch\pch.h"
-#include <typeindex>
-#include <map>
-
 #include "GameSystem/IComponentPool.h"
 #include "Utility/Accessor.h"
+
 
 namespace wtgb
 {

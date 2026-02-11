@@ -15,6 +15,13 @@ namespace wtgb
 		// コンストラクタもそのまま継承
 		using DirectX::XMFLOAT2::XMFLOAT2;
 
+		enum
+		{
+			AT_X,
+			AT_Y,
+			AT_Z,
+		};
+
 		Vector2(const DirectX::XMVECTOR& _xmV)
 		{
 			DirectX::XMStoreFloat2(this, _xmV);
@@ -36,7 +43,7 @@ namespace wtgb
 		inline operator DirectX::XMVECTOR() const { return DirectX::XMLoadFloat2(this); }
 		
 		/// <summary>
-		/// mtgb::Vector2T<float> に暗黙的変換する
+		/// mtgb::Vector2T＜float＞ に暗黙的変換する
 		/// </summary>
 		inline operator mtgb::Vector2T<float>() const { return { x, y }; }
 

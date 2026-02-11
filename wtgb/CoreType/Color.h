@@ -1,6 +1,7 @@
 #pragma once
 #include <DirectXMath.h>
 
+
 namespace wtgb
 {
 	using ColorCode = uint32_t;

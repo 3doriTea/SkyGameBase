@@ -62,6 +62,6 @@ void DragPoint::Release()
 
 void DragPoint::SetRadius(const int _radius)
 {
-	radius_ = _radius;
-	radiusSq_ = _radius * _radius;
+	radius_ = static_cast<float>(_radius);
+	radiusSq_ = static_cast<float>(_radius * _radius);
 }

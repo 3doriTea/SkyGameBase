@@ -10,7 +10,9 @@ std::string_view wtgb::Game::Title()
 	{
 		return pGame_->GetTitle();
 	}
-	return "No name game DX11";
+	return
+#include "../_Config/DefaultGameTitle.value"
+		;
 }
 
 std::string_view wtgb::Game::Version()
@@ -19,7 +21,9 @@ std::string_view wtgb::Game::Version()
 	{
 		return pGame_->GetVersion();
 	}
-	return "0.0.1";
+	return
+#include "../_Config/DefaultGameVersion.value"
+		;
 }
 
 void wtgb::Game::Exit()

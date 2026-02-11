@@ -1,6 +1,7 @@
 #pragma once
 #include <DirectXMath.h>
 
+
 namespace wtgb
 {
 	/// <summary>
@@ -10,6 +11,12 @@ namespace wtgb
 	{
 		// コンストラクタもそのまま継承
 		using DirectX::XMINT2::XMINT2;
+
+		enum
+		{
+			AT_X,
+			AT_Y,
+		};
 
 		Vector2Int(const float _x, const float _y) :
 			Vector2Int{ static_cast<int>(_x), static_cast<int>(_y) }

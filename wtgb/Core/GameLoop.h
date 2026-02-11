@@ -5,7 +5,7 @@ namespace wtgb
 	class GameSystemCollection;
 
 	/// <summary>
-	/// ゲームループ
+	/// ゲームループを実行するクラス
 	/// </summary>
 	class GameLoop
 	{
@@ -25,6 +25,5 @@ namespace wtgb
 
 	private:
 		bool isRunning_;  // ゲームループ実行中 true / false
-		float deltaTime_;  // フレーム間時間
 	};
 }

@@ -11,6 +11,13 @@ namespace wtgb
 		// コンストラクタもそのまま継承
 		using DirectX::XMFLOAT3::XMFLOAT3;
 
+		enum
+		{
+			AT_X,
+			AT_Y,
+			AT_Z,
+		};
+
 		Vector3(const DirectX::XMVECTOR& _xmV)
 		{
 			DirectX::XMStoreFloat3(this, _xmV);

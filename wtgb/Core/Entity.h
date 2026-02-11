@@ -3,10 +3,6 @@
 
 namespace wtgb
 {
-	static const uint64_t INVALIED_ID     { 0 };
-	static const uint32_t INVALIED_VERSION{ 0 };
-	static const uint32_t INVALIED_INDEX  { 0 };
-
 	/// <summary>
 	/// エンティティの識別値
 	/// </summary>
@@ -27,5 +23,21 @@ namespace wtgb
 	inline bool operator!=(const EntityId _left, const EntityId _right) { return !(_left.id == _right.id); }
 	inline bool operator<(const EntityId _left, const EntityId _right)  { return _left.id < _right.id; }
 
-	const EntityId INVALID_ENTITY  { INVALIED_ID };
+	/// <summary>
+	/// 無効なエンティティId
+	/// </summary>
+	static const uint64_t INVALIED_ID{ 0 };
+	/// <summary>
+	/// 無効なエンティティバージョン
+	/// </summary>
+	static const uint32_t INVALIED_VERSION{ 0 };
+	/// <summary>
+	/// 無効なエンティティインデクス
+	/// </summary>
+	static const uint32_t INVALIED_INDEX{ 0 };
+	/// <summary>
+	/// 無効なエンティティ
+	/// </summary>
+	static const EntityId INVALID_ENTITY{ INVALIED_ID };
+
 }

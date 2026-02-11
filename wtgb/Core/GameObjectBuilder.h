@@ -1,7 +1,7 @@
 #pragma once
 #include "pch/pch.h"
-#include "Utility/Accessor.h"
 #include "Core/ComponentOption.h"
+
 
 namespace wtgb
 {
