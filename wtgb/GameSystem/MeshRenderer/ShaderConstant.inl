@@ -7,7 +7,7 @@ template<typename StructT>
 inline wtgb::ShaderConstant<StructT>::ShaderConstant() :
 	pConstantBuffer_{ nullptr },
 	beginSlot_{},
-	SlotCount_{ 1 }
+	slotCount_{ 1 }
 {
 }
 
