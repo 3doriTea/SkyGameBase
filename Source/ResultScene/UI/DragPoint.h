@@ -1,13 +1,14 @@
 #pragma once
 #include <wtgb.h>
 
+
 /// <summary>
 /// ドラッグできるポイントUI
 /// </summary>
 class DragPoint : public GameObject
 {
 public:
-	DragPoint();
+	DragPoint(const CoordinateTransformer& _transformer);
 	~DragPoint();
 
 	void Init() override;
@@ -21,10 +22,10 @@ public:
 	inline bool IsDrag() const { return isDrag_; }
 
 	/// <summary>
-	/// 円の中心座標をセットする
+	/// 円の左上デザイン座標をセットする
 	/// </summary>
-	/// <param name="_centerPosition">円の中心座標</param>
-	inline void SetPosition(const Vector2Int _centerPosition) { centerPosition_ = _centerPosition; }
+	/// <param name="_centerPosition">円の左上デザイン座標</param>
+	void SetPosition(const Vector2Int _topLeftPosition);
 	/// <summary>
 	/// 円の半径をセットする
 	/// </summary>
@@ -43,6 +44,7 @@ public:
 	inline Vector2Int GetBegin() const { return dragBegin_; }
 
 private:
+	CoordinateTransformer transformer_;  // デザイン座標とスクリーン座標の変換
 	Vector2Int centerPosition_;  // ドラッグポイントのスクリーン座標
 	float radius_;               // ドラッグできる範囲
 	float radiusSq_;             // ドラッグできる範囲の二乗

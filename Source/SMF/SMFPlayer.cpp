@@ -331,6 +331,10 @@ void SMFPlayer::Init()
 	totalPlayTime_ = 0.0f;
 	for (const auto& truck : smfTrucks_)
 	{
+		if (truck.notes.empty())
+		{
+			continue;
+		}
 		const Note& lastNote{ truck.notes.at(truck.notes.size() - 1) };
 		const float TOTAL_PLAY_TIME{ lastNote.totalTime + lastNote.playTime };
 

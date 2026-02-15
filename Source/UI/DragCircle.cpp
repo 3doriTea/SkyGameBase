@@ -54,6 +54,8 @@ void DragCircle::Update()
 		Vector2Int offsetPos{ cursorPosition - centerPosition_ };
 		int mouseDistanceSq{ offsetPos.x * offsetPos.x + offsetPos.y * offsetPos.y };
 
+		LOGFLN("DragCircleDist:{}", std::sqrtf(mouseDistanceSq));
+
 		if (mouseDistanceSq <= radiusSq_)
 		{
 			isDrag_ = true;

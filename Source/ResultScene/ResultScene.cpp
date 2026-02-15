@@ -16,8 +16,7 @@ ResultScene::~ResultScene()
 
 void ResultScene::Start()
 {
-	EntityId dragCircle{ Instantiate<DragCircle>() };
-	Instantiate<ResultPanel>(dragCircle);
+	Instantiate<ResultPanel>();
 }
 
 void ResultScene::Update()

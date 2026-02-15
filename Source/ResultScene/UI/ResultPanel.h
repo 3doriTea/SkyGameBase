@@ -7,7 +7,7 @@
 class ResultPanel : public GameObject
 {
 public:
-	ResultPanel(const EntityId _dragCircle);
+	ResultPanel();
 	~ResultPanel();
 
 	void Init() override;
@@ -25,7 +25,7 @@ private:
 	Vector2Int dragCirclePositionUp_;    // 上がっているときのドラッグ座標
 	int dragCircleSizePix_;           // ドラッグ円の直径 pixcel
 
-	EntityId dragCircle_;  // 掴む円のUI
+	EntityId dragPoint_;  // 掴む円のUI
 	float animOffsetY_;    // アニメーションで動いたy
 	float moveRatio_;      // ムーブレート
 	bool isDrag_;          // 掴んでいる true / false

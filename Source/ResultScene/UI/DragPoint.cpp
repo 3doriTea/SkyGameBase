@@ -1,11 +1,12 @@
 #include "DragPoint.h"
 
-DragPoint::DragPoint() :
+DragPoint::DragPoint(const CoordinateTransformer& _transformer) :
 	GameObject{ "Simple.json" },
 	centerPosition_{ Vector2Int::Zero() },
 	radius_{ 0.0f },
 	radiusSq_{ 0.0f },
-	isDrag_{ false }
+	isDrag_{ false },
+	transformer_{ _transformer }
 {
 }
 
@@ -33,6 +34,8 @@ void DragPoint::Update()
 		Vector2Int offsetPos{ cursorPosition - centerPosition_ };
 		int mouseDistanceSq{ offsetPos.x * offsetPos.x + offsetPos.y * offsetPos.y };
 
+		LOGFLN("DragPointdist:{}", std::sqrtf(mouseDistanceSq));
+
 		// ƒ}ƒEƒX‚Ö‚Ì‹——£
 		if (mouseDistanceSq <= radiusSq_)
 		{
@@ -58,6 +61,14 @@ void DragPoint::Update()
 
 void DragPoint::Release()
 {
+}
+
+void DragPoint::SetPosition(const Vector2Int _topLeftPosition)
+{
+	Vector2Int topLeftPos{ transformer_.ToScreenCoords(_topLeftPosition) };
+	Vector2Int halfSize{ transformer_.ToScreenCoords(Vector2{ radius_, radius_ }) };
+
+	centerPosition_ = topLeftPos + halfSize;
 }
 
 void DragPoint::SetRadius(const int _radius)

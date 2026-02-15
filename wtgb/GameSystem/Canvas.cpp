@@ -37,10 +37,6 @@ void wtgb::Canvas::Update(const ViewerUpdate& _system)
 	CPMeshRenderer& meshRenderer{ _system.Get<CPMeshRenderer>() };
 	Direct3D& direct3D{ _system.Get<Direct3D>() };
 
-	/*context_.renderOrder_
-
-	meshRenderer.Render();*/
-
 	direct3D.SetUseDepthBuffer(false);
 	direct3D.SetBlend(BlendMode::Alpha);
 

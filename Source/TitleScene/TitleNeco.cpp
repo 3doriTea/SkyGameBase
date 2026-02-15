@@ -18,7 +18,7 @@ TitleNeco::TitleNeco(const EntityId _dragCircle) :
 	hImages_{},
 	isDrag_{ false },
 	moveRatio_{},
-	dragCircle_{ _dragCircle },
+	dragPoint_{ _dragCircle },
 	playButton_{ INVALID_ENTITY },
 	playButtonShowPos_{},
 	playToneAudioFile_{},
@@ -70,8 +70,8 @@ void TitleNeco::Init()
 	const Vector2 screenSize{ static_cast<float>(screenSizeInt.x), static_cast<float>(screenSizeInt.y) };
 	TitleScene& titleScene{ GetScene<TitleScene>() };
 
-	//dragCircle_ = GetScene<SampleScene>().Instantiate<DragCircle>(centerPosition, 30);
-	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragCircle_)) };
+	//dragPoint_ = GetScene<SampleScene>().Instantiate<DragCircle>(centerPosition, 30);
+	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragPoint_)) };
 
 	pDragCircle->SetRadius(100);
 
@@ -140,7 +140,7 @@ void TitleNeco::Update()
 	const Vector2Int screenSizeInt{ System().Get<GameWindow>().GetMainWindowSize() };
 	const Vector2 screenSize{ static_cast<float>(screenSizeInt.x), static_cast<float>(screenSizeInt.y) };
 
-	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragCircle_)) };
+	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragPoint_)) };
 
 	if (pDragCircle && pDragCircle->IsDrag())
 	{

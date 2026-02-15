@@ -38,7 +38,7 @@ private:
 
 	Vector2Int playButtonShowPos_;  // プレイボタンを表示させるときの位置
 
-	EntityId dragCircle_;  // ドラッグして掴む円
+	EntityId dragPoint_;  // ドラッグして掴む円
 	EntityId playButton_;  // プレイボタン
 
 	TextureHandle hButtonOff_;

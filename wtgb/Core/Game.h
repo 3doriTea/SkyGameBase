@@ -58,14 +58,14 @@ int wtgb::Game::Run()
 	T theGame{};
 	pGame_ = &theGame;
 
-#if _DEBUG
+#if 0
 	try
 	{
 #endif
 
 		RunProcess();
 
-#if _DEBUG
+#if 0
 	}
 	catch (const std::exception& e)
 	{

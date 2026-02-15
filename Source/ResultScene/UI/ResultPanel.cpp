@@ -1,11 +1,13 @@
 #include "ResultPanel.h"
-#include "UI/DragCircle.h"
+#include "../ResultScene.h"
+#include "DragPoint.h"
 
-ResultPanel::ResultPanel(const EntityId _dragCircle) :
+
+ResultPanel::ResultPanel() :
 	GameObject{ "Result/ResultPanel.json" },
 	baseCanvasSize_{},
 	panelImageFile_{},
-	dragCircle_{ _dragCircle },
+	dragPoint_{ INVALID_ENTITY },
 	animOffsetY_{}
 {
 }
@@ -17,14 +19,19 @@ ResultPanel::~ResultPanel()
 void ResultPanel::Init()
 {
 	OnLoadParam(GetComponent<Parameter>().Load());
+	Vector2Int screenSize{ System().Get<GameWindow>().GetMainWindowSize() };
+
 
 	hPanelImage_ = System().Get<ResourceSystem>().LoadTexture(panelImageFile_);
 
+	CoordinateTransformer transformer{ screenSize, baseCanvasSize_ };
+	dragPoint_ = GetScene<ResultScene>().Instantiate<DragPoint>(transformer);
+
 	// 掴む円
-	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragCircle_)) };
-	pDragCircle->SetRadius(dragCircleSizePix_);
-	pDragCircle->SetBaseCanvasSize(baseCanvasSize_);
-	pDragCircle->SetPosition(dragCirclePositionDown_);
+	DragPoint* pDragPoint{ dynamic_cast<DragPoint*>(FindGameObject(dragPoint_)) };
+	assert(pDragPoint);
+	pDragPoint->SetRadius(dragCircleSizePix_);
+	pDragPoint->SetPosition(dragCirclePositionDown_);
 }
 
 void ResultPanel::Update()
@@ -45,12 +52,17 @@ void ResultPanel::Update()
 		return;
 	}
 
-	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragCircle_)) };
+	DragPoint* pDragPoint{ FindGameObject<DragPoint>(dragPoint_) };
+	wassert(pDragPoint);
 
-	if (pDragCircle && pDragCircle->IsDrag())
+	/*ImGui::Begin("ResultPanel");
+	ImGui::DragFloat("moveRatio", &moveRatio_);
+	ImGui::End();*/
+
+	if (pDragPoint && pDragPoint->IsDrag())
 	{
 		// 掴んだ分加算する
-		Vector2Int displacement{ pDragCircle->GetDisplacement() };
+		Vector2Int displacement{ pDragPoint->GetDisplacement() };
 		moveRatio_ += static_cast<float>(-displacement.y) / screenSize.y;
 		LOGFLN("ドラッグされた{}", moveRatio_);
 	}
@@ -69,12 +81,12 @@ void ResultPanel::Update()
 	moveRatio_ = min(max(moveRatio_, 0.0f), 1.0f);
 
 
-	if (pDragCircle)
+	if (pDragPoint)
 	{
 		// TODO: ボタンドラッグ位置を確定させる
-		isDrag_ = pDragCircle->IsDrag();
+		isDrag_ = pDragPoint->IsDrag();
 		//Mathf::Lerp()
-		//pDragCircle->SetPosition({ 430 + OFFSET_X, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
+		//pDragPoint->SetPosition({ 430 + OFFSET_X, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
 	}
 
 	Vector2Int size = pTexture->GetImageSizePix();

@@ -55,7 +55,8 @@
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
-    <ClInclude Include="Source\ResultScene\DragPoint.h" />
+    <ClInclude Include="Source\ResultScene\UI\CircleHint.h" />
+    <ClInclude Include="Source\ResultScene\UI\DragPoint.h" />
     <ClInclude Include="Source\ResultScene\UI\ResultPanel.h" />
     <ClInclude Include="Source\ResultScene\ResultScene.h" />
     <ClInclude Include="Source\ResultScene\WaterPool.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="wtgb\GameSystem\Scriptable.h" />
     <ClInclude Include="wtgb\GameSystem\ShaderCompile\Shader.h" />
     <ClInclude Include="wtgb\Utility\CallStackViewer.h" />
+    <ClInclude Include="wtgb\Utility\CoordinateTransformer.h" />
     <ClInclude Include="wtgb\Utility\Ease.h" />
     <ClInclude Include="wtgb\Utility\IResource.h" />
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\Material.h" />
@@ -326,7 +328,8 @@
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
-    <ClCompile Include="Source\ResultScene\DragPoint.cpp" />
+    <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp" />
+    <ClCompile Include="Source\ResultScene\UI\DragPoint.cpp" />
     <ClCompile Include="Source\ResultScene\ResultScene.cpp" />
     <ClCompile Include="Source\ResultScene\UI\ResultPanel.cpp" />
     <ClCompile Include="Source\ResultScene\WaterPool.cpp" />
@@ -425,6 +428,7 @@
     <ClCompile Include="wtgb\GameSystem\Scriptable.cpp" />
     <ClCompile Include="wtgb\GameSystem\ShaderCompile\Shader.cpp" />
     <ClCompile Include="wtgb\Utility\CallStackViewer.cpp" />
+    <ClCompile Include="wtgb\Utility\CoordinateTransformer.cpp" />
     <ClCompile Include="wtgb\Utility\Ease.cpp" />
     <ClCompile Include="wtgb\Utility\IResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\Fbx.cpp" />
@@ -655,7 +659,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -681,7 +685,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)wtgb;$(ProjectDir)Library</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -705,7 +709,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -731,7 +735,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <ForcedIncludeFiles>pch/pch.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

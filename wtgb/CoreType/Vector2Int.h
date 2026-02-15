@@ -34,7 +34,7 @@ namespace wtgb
 		/// —ëƒxƒNƒgƒ‹
 		/// </summary>
 		/// <returns>(0, 0)</returns>
-		inline static Vector2Int Zero() { return { 0, 0 }; }
+		inline static constexpr Vector2Int Zero() { return { 0, 0 }; }
 #pragma endregion
 	};
 
