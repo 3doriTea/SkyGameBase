@@ -21,6 +21,19 @@ wtgb::HandlerCollection<ValueT, HandleT>::~HandlerCollection()
 template<typename ValueT, std::unsigned_integral HandleT>
 bool wtgb::HandlerCollection<ValueT, HandleT>::Remove(const HandleT _handle)
 {
+	auto itr{ innerMap.find(_handle) };
+
+	if (itr == innerMap.end())
+	{
+		// 見つからなかったため除去失敗
+		return false;
+	}
+	else
+	{
+		// 見つかったため除去成功
+		innerMap.erase(itr);
+		return true;
+	}
 }
 
 template<typename ValueT, std::unsigned_integral HandleT>
@@ -28,8 +41,12 @@ void wtgb::HandlerCollection<ValueT, HandleT>::Release(const std::function<void(
 {
 	for (auto& [handle, value] : *this)
 	{
+		// 解放前に周回する
 		_callback(value);
 	}
+
+	// ちゃんと解放！
+	innerMap.clear();
 }
 
 template<typename ValueT, std::unsigned_integral HandleT>
@@ -39,9 +56,12 @@ inline HandleT wtgb::HandlerCollection<ValueT, HandleT>::GetContainsDuplicate(co
 	{
 		if (_callback(value))
 		{
+			// 見つかった！
 			return handle;
 		}
 	}
+
+	// 指定ハンドルが見つからなかったため無効ハンドルを返す
 	return wtgb::INVALID_HANDLE;
 }
 

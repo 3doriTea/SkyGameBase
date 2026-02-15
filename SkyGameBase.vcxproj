@@ -87,6 +87,7 @@
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h" />
     <ClInclude Include="wtgb\GameComponent\Parameter.h" />
+    <ClInclude Include="wtgb\GameSystem\Alarm.h" />
     <ClInclude Include="wtgb\GameSystem\ConstantBufferManager.h" />
     <ClInclude Include="wtgb\GameSystem\CPParameter.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h" />
@@ -381,6 +382,7 @@
     <ClCompile Include="wtgb\GameComponent\Parameter.cpp" />
     <ClCompile Include="wtgb\GameComponent\RigidBody.cpp" />
     <ClCompile Include="wtgb\GameComponent\Transform.cpp" />
+    <ClCompile Include="wtgb\GameSystem\Alarm.cpp" />
     <ClCompile Include="wtgb\GameSystem\Audio.cpp" />
     <ClCompile Include="wtgb\GameSystem\Audio\AudioClip.cpp" />
     <ClCompile Include="wtgb\GameSystem\Audio\AudioPlayer.cpp" />

@@ -23,4 +23,8 @@ namespace wtgb
 	/// 読み込んだ音声ハンドル
 	/// </summary>
 	using AudioHandle = uint32_t;
+	/// <summary>
+	/// 指定時間後に起動する処理ハンドル
+	/// </summary>
+	using AlarmHandle = uint32_t;
 }

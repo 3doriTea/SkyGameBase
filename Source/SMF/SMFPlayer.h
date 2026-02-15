@@ -100,6 +100,12 @@ public:
 	/// <param name="_hAudio">‰¹F‚Æ‚È‚é‰¹Œ¹</param>
 	void SetToneAudioHandle(const AudioHandle _hAudio);
 
+	/// <summary>
+	/// Ä¶‚ªI—¹‚µ‚½‚©
+	/// </summary>
+	/// <returns>I—¹‚µ‚½ true / false</returns>
+	inline bool IsFinished() const { return playTime_ >= totalPlayTime_; }
+
 private:
 	void OnLoadParam(const json& _json);
 
