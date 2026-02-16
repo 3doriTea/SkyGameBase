@@ -14,8 +14,10 @@ namespace wtgb
 		/// </summary>
 		struct AlarmPair
 		{
-			float timeLeft;                  // カウントダウンタイマー
+			AlarmPair(const std::function<void()>& _callback, const float _timeLeft);
+
 			std::function<void()> callback;  // 処理
+			float timeLeft;                  // カウントダウンタイマー
 		};
 
 	public:
@@ -48,9 +50,17 @@ namespace wtgb
 		/// 指定時間後に起動する処理を登録する
 		/// </summary>
 		/// <param name="_callback">処理のコールバック</param>
-		void Add(const std::function<void()>& _callback, const float _time);
-	private:
+		/// <param name="_time">時間指定</param>
+		/// <returns>アラームハンドル</returns>
+		AlarmHandle Add(const std::function<void()>& _callback, const float _time);
 
+		/// <summary>
+		/// アラームをキャンセルする
+		/// </summary>
+		/// <param name="_hAlarm">アラームハンドル</param>
+		void Cancel(const AlarmHandle _hAlarm);
+	
+	private:
 		HandlerCollection<AlarmPair, ModelHandle> registry_;  // アラームハンドラコレクション
 	};
 }

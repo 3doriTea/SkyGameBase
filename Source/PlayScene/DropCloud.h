@@ -42,6 +42,7 @@ private:
 	EntityId stageLine_;  // ステージ
 	EntityId playState_;  // プレイ状態
 
+	float toResultSceneTime_;  // 再生終了後、結果シーンに遷移するまでの秒数
 	float offsetHeight_;  // 地上からの高さ
 
 	float destroyDistanceZ_;    // プレイヤーとの距離が離れたときに消す処理

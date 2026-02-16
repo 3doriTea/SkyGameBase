@@ -50,6 +50,7 @@
 
 // ‘¼ƒVƒXƒeƒ€
 #include "GameSystem/GameTime.h"
+#include "GameSystem/Alarm.h"
 #include "GameSystem/GameWindow.h"
 #include "GameSystem/Camera.h"
 #include "GameSystem/Input.h"

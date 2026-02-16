@@ -7,6 +7,7 @@
 #include "PresentSphere.h"
 #include "State/PlayState.h"
 #include "GoalGround.h"
+#include "ResultScene/ResultScene.h"
 
 
 DropCloud::DropCloud(
@@ -30,12 +31,13 @@ DropCloud::~DropCloud()
 
 void DropCloud::OnLoadParam(const json& _json)
 {
-	offsetHeight_ = SafeGet<float>(_json, "offsetHeight");
-	destroyDistanceZ_ = SafeGet<float>(_json, "destroyDistanceZ");
-	playNoteNumberOffset_ = SafeGet<int>(_json, "playNoteNumberOffset");
-	dropDistanceZ_ = SafeGet<float>(_json, "dropDistanceZ");
-	playRatioMaxVelocity_ = SafeGet<float>(_json, "playRatioMaxVelocity");
 	playSMFPath_ = SafeGet<std::string>(_json, "playSMFPath");
+	offsetHeight_ = SafeGet<float>(_json, "offsetHeight");
+	dropDistanceZ_ = SafeGet<float>(_json, "dropDistanceZ");
+	destroyDistanceZ_ = SafeGet<float>(_json, "destroyDistanceZ");
+	toResultSceneTime_ = SafeGet<float>(_json, "toResultSceneTime");
+	playNoteNumberOffset_ = SafeGet<int>(_json, "playNoteNumberOffset");
+	playRatioMaxVelocity_ = SafeGet<float>(_json, "playRatioMaxVelocity");
 	playToneAudioFilePath_ = SafeGet<std::string>(_json, "playToneAudioFilePath");
 }
 
@@ -105,9 +107,16 @@ void DropCloud::Update()
 	StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
 
 #pragma region çƒê∂Ç™èIóπÇµÇΩÇÁÉSÅ[ÉãÇï\é¶Ç≥ÇπÇÈèàóù
-	//if (pSMFPlayer->IsFinished())
+	if (pSMFPlayer->IsFinished())
 	{
-		//System().Get<ResultScnene
+		System().Get<Alarm>().Add([this]
+			{
+				// éûä‘Ç™åoÇ¡ÇΩÇÁåãâ ÉVÅ[ÉìÇ…ëJà⁄Ç∑ÇÈ
+				System()
+					.Get<SceneManager>()
+					.Move<ResultScene>();
+			},
+			toResultSceneTime_);
 	}
 #pragma endregion
 
@@ -117,6 +126,10 @@ void DropCloud::Update()
 	Vector3 velocity{ playerRigidBody.GetVelocity() };
 
 	float playRate{};
+	const enum
+	{
+		ENUM
+	};
 	if (velocity.z <= 0.0f)
 	{
 		// é~Ç‹Ç¡ÇƒÇ¢ÇÈÇ»ÇÁäÆëSÇ…é~ÇﬂÇÈ

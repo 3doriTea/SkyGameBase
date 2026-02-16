@@ -16,6 +16,7 @@
     "playSMFPath": "Sound/entertainer.mid",
     "dropDistanceZ": 100.0,
     "playRatioMaxVelocity": 100.0,
-    "playToneAudioFilePath": "Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3"
+    "playToneAudioFilePath": "Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3",
+    "toResultSceneTime": 1.0
   }
 }
