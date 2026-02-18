@@ -2,6 +2,7 @@
 #include "SampleGame.h"
 
 #include "GameSystem/GameTime.h"
+#include "GameSystem/Alarm.h"
 #include "GameSystem/Debug.h"
 #include "GameSystem/Direct3D.h"
 #include "GameSystem/GameWindow.h"
@@ -52,6 +53,7 @@ void SampleGame::StartRegister(
 	// TODO: “o˜^‡”Ô‚ªŒµ‚µ‚¢‚Æ‚±‚ë‚ª“ï‹V ƒ†[ƒU‚©‚ç‚·‚é‚Æ‚±‚±‚Í•s•Ö
 	_gameSystemRegister
 		.Register<GameTime>()
+		.Register<Alarm>()
 		.Register<Path>()
 		.Register<GameWindow>()
 

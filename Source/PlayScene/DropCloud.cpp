@@ -106,9 +106,10 @@ void DropCloud::Update()
 	Player* pPlayer{ dynamic_cast<Player*>(FindGameObject(player_)) };
 	StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
 
-#pragma region 再生が終了したらゴールを表示させる処理
-	if (pSMFPlayer->IsFinished())
+#pragma region 再生が終了したら1回だけゴール処理
+	if (isFinieshed_ == false && pSMFPlayer->IsFinished())
 	{
+		isFinieshed_ = true;
 		System().Get<Alarm>().Add([this]
 			{
 				// 時間が経ったら結果シーンに遷移する

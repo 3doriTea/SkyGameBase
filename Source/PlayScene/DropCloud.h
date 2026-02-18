@@ -56,4 +56,6 @@ private:
 	std::string playToneAudioFilePath_;  // 再生する音の音源ファイル
 
 	std::list<DropedPresent> dropedPresents_;  // 投下したプレゼントリスト
+
+	bool isFinieshed_;  // 全ボールを出し終えたか
 };
