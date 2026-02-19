@@ -39,6 +39,7 @@
     <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
+    <ClInclude Include="Source\PlayScene\PlaybackParam.h" />
     <ClInclude Include="Source\PlayScene\GoalGround.h" />
     <ClInclude Include="Source\PlayScene\BallSphere.h" />
     <ClInclude Include="Source\PlayScene\DropCloud.h" />
@@ -54,6 +55,7 @@
     <ClInclude Include="Source\PlayScene\State\PlayState.h" />
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
+    <ClInclude Include="Source\PlayScene\UI\SpeedMessage.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
     <ClInclude Include="Source\ResultScene\UI\CircleHint.h" />
     <ClInclude Include="Source\ResultScene\UI\DragPoint.h" />
@@ -328,6 +330,7 @@
     <ClCompile Include="Source\PlayScene\State\PlayState.cpp" />
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\SpeedMessage.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
     <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp" />
     <ClCompile Include="Source\ResultScene\UI\DragPoint.cpp" />
@@ -458,6 +461,7 @@
     <None Include="Assets\Prefab\Play\CameraController.json" />
     <None Include="Assets\Prefab\Play\GoalGround.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
+    <None Include="Assets\Prefab\Play\UI\SpeedMessage.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
     <None Include="Assets\Prefab\Result\ResultPanel.json" />
     <None Include="Assets\Prefab\ScoreManager.json" />

@@ -16,6 +16,8 @@
 #include "SMF/SMFPlayer.h"
 #include "DropCloud.h"
 #include "UI/CountDown.h"
+#include "UI/SpeedMessage.h"
+#include "SpeedController.h"
 
 #include "Utility/Mathf.h"
 
@@ -50,9 +52,8 @@ void PlayScene::Start()
 
 	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
 
-	// ステージライン作ったらリフト作る
+	// TODO: ステージライン作ったらリフト作る
 	Instantiate<Lift>(stageLine);
-	//Instantiate<TestBillBoard>();
 	
 	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
 
@@ -62,7 +63,12 @@ void PlayScene::Start()
 
 	Instantiate<DropCloud>(smfPlayer, player, stageLine, playState);
 
+	EntityId speedController{ Instantiate<SpeedController>() };
+	Instantiate<SpeedMessage>(speedController);
+
 	Instantiate<SkySphere>();
+
+	// TODO: 当たったら倒れる看板を作る
 }
 
 void PlayScene::Update()

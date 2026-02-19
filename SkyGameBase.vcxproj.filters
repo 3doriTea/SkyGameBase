@@ -672,6 +672,15 @@
     <ClInclude Include="Source\ResultScene\UI\CircleHint.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\Alarm.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\UI\SpeedMessage.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\PlaybackParam.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1100,6 +1109,12 @@
     <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\Alarm.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\UI\SpeedMessage.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1165,6 +1180,7 @@
     <None Include="wtgb\_Config\DefaultGameTitle.value" />
     <None Include="wtgb\_Config\DefaultGameVersion.value" />
     <None Include="wtgb\_Config\EntityCapacity.value" />
+    <None Include="Assets\Prefab\Play\UI\SpeedMessage.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

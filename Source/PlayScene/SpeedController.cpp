@@ -21,6 +21,7 @@ void SpeedController::Init()
 
 void SpeedController::Update()
 {
+	// TODO: ターゲットエンティティから速度取得
 }
 
 void SpeedController::Release()

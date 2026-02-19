@@ -2,6 +2,7 @@
 #include <wtgb.h>
 #include "SMF/Note.h"
 
+
 /// <summary>
 /// アイテムを降らせる雲
 /// </summary>
@@ -11,7 +12,7 @@ private:
 	/// <summary>
 	/// 投下したプレゼント情報
 	/// </summary>
-	struct DropedPresent
+	struct DroppedPresent
 	{
 		EntityId entityId;  // エンティティ
 		Note note;  // ノーツ情報
@@ -22,7 +23,8 @@ public:
 		const EntityId _smfPlayer,
 		const EntityId _gamePlayer,
 		const EntityId _stageLine,
-		const EntityId _playState);
+		const EntityId _playState,
+		const EntityId _speedController);
 	~DropCloud();
 
 	void Init() override;
@@ -37,10 +39,11 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
-	EntityId smfPlayer_;  // smfPlayer
-	EntityId player_;     // プレイヤー
-	EntityId stageLine_;  // ステージ
-	EntityId playState_;  // プレイ状態
+	EntityId smfPlayer_;        // smfPlayer
+	EntityId player_;           // プレイヤー
+	EntityId stageLine_;        // ステージ
+	EntityId playState_;        // プレイ状態
+	EntityId speedController_;  // プレイ状態
 
 	float toResultSceneTime_;  // 再生終了後、結果シーンに遷移するまでの秒数
 	float offsetHeight_;  // 地上からの高さ
@@ -52,10 +55,10 @@ private:
 
 	float playRatioMaxVelocity_;  // 再生レートを変動させる最大速度
 
-	std::string playSMFPath_;  // 再生するsmf
+	std::string playSMFPath_;  // 再生する smf
 	std::string playToneAudioFilePath_;  // 再生する音の音源ファイル
 
-	std::list<DropedPresent> dropedPresents_;  // 投下したプレゼントリスト
+	std::list<DroppedPresent> droppedPresents_;  // 投下したプレゼントリスト
 
-	bool isFinieshed_;  // 全ボールを出し終えたか
+	bool isFinished_;  // 全ボールを出し終えたか
 };

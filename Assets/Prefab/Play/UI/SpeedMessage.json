@@ -1,0 +1,16 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "SpeedMeter"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "imageFileTooFast": "Image/SpeedMeter/TooFast.png",
+    "imageFileTooSlow": "Image/SpeedMeter/TooSlow.png"
+  }
+}

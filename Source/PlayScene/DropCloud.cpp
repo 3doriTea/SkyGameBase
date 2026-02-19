@@ -8,20 +8,23 @@
 #include "State/PlayState.h"
 #include "GoalGround.h"
 #include "ResultScene/ResultScene.h"
+#include "ISpeedController.h"
 
 
 DropCloud::DropCloud(
 	const EntityId _smfPlayer,
 	const EntityId _gamePlayer,
 	const EntityId _stageLine,
-	const EntityId _playState) :
+	const EntityId _playState,
+	const EntityId _speedController) :
 	GameObject{ "DropCloud.json" },
 	smfPlayer_{ _smfPlayer },
 	player_{ _gamePlayer },
 	stageLine_{ _stageLine },
 	playState_{ _playState },
 	offsetHeight_{},
-	dropDistanceZ_{}
+	dropDistanceZ_{},
+	speedController_{ _speedController }
 {
 }
 
@@ -61,7 +64,7 @@ void DropCloud::Init()
 			{
 				if (_note.channel == 0x03)
 				{
-					dropedPresents_.push_back(DropedPresent
+					droppedPresents_.push_back(DroppedPresent
 						{
 							.entityId = GetScene<PlayScene>().Instantiate<PresentSphere>(
 								player_,
@@ -105,11 +108,16 @@ void DropCloud::Update()
 	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject(smfPlayer_)) };
 	Player* pPlayer{ dynamic_cast<Player*>(FindGameObject(player_)) };
 	StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
+	ISpeedController* pSpeedController
+	{
+		dynamic_cast<ISpeedController*>(FindGameObject(stageLine_))
+	};
+
 
 #pragma region 再生が終了したら1回だけゴール処理
-	if (isFinieshed_ == false && pSMFPlayer->IsFinished())
+	if (isFinished_ == false && pSMFPlayer->IsFinished())
 	{
-		isFinieshed_ = true;
+		isFinished_ = true;
 		System().Get<Alarm>().Add([this]
 			{
 				// 時間が経ったら結果シーンに遷移する
@@ -126,11 +134,28 @@ void DropCloud::Update()
 
 	Vector3 velocity{ playerRigidBody.GetVelocity() };
 
+	// TODO: SpeedControllerからステート取得してそれに応じて再生速度を変更する
+	// TODO: SpeedControllerかｒ
+
+
+
 	float playRate{};
-	const enum
+
+	SpeedType speedType{ pSpeedController->GetSpeedType() };
+
+	switch (speedType)
 	{
-		ENUM
-	};
+	case SpeedType::Stop:
+	case SpeedType::TooSlow:
+		break;
+	case SpeedType::Good:
+		break;
+	case SpeedType::Excissive:
+	default:
+		break;
+	}
+	
+
 	if (velocity.z <= 0.0f)
 	{
 		// 止まっているなら完全に止める
@@ -155,7 +180,7 @@ void DropCloud::Update()
 	position.y = pStageLine->GetPosY(position) + offsetHeight_;
 	Transform().SetPosition(position);
 
-	for (auto itr = dropedPresents_.begin(); itr != dropedPresents_.end();)
+	for (auto itr = droppedPresents_.begin(); itr != droppedPresents_.end();)
 	{
 		GameObject* pPresentObj{ FindGameObject(itr->entityId) };
 		PresentSphere* pPresent{ dynamic_cast<PresentSphere*>(FindGameObject(itr->entityId)) };
@@ -163,14 +188,14 @@ void DropCloud::Update()
 		if ((position.z - pPresent->Transform().GetPosition().z) > destroyDistanceZ_)
 		{
 			pPresent->DestroyMe();
-			itr = dropedPresents_.erase(itr);
+			itr = droppedPresents_.erase(itr);
 			continue;
 		}
 
 		if (pPresent->IsHit())
 		{
 			pPresent->DestroyMe();
-			itr = dropedPresents_.erase(itr);
+			itr = droppedPresents_.erase(itr);
 			continue;
 		}
 		if (pPresent->CheckOnBounded())
