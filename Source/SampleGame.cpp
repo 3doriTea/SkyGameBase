@@ -44,13 +44,19 @@
 #include "GameSystem/ShaderCompile.h"
 
 #include "GameSystem/Scriptable.h"
+// MEMO: 大量のinclude↑が発生し管理が大変
+//     : → 解決方法 @00
+
 
 using namespace wtgb;
 
 void SampleGame::StartRegister(
 	const GameSystemCollection::GameSystemAdder& _gameSystemRegister)
 {
-	// TODO: 登録順番が厳しいところが難儀 ユーザからするとここは不便
+	// TODO: 登録順番が厳しいところが難儀
+	// MEMO: オリジナルのシステムを登録するユーザからするとここは不便
+	//     : → Jsonで登録するように変更すべき
+
 	_gameSystemRegister
 		.Register<GameTime>()
 		.Register<Alarm>()
