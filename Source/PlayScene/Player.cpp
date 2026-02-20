@@ -25,8 +25,15 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 	RigidBody& rb{ GetComponent<RigidBody>() };
 	rb.SetUseGravity(false);  // シーン読み込み直後のラグを待つために重力無効化
 
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	wassert(pPlayScene && "プレイシーンの取得に失敗");
+	if (pPlayScene == nullptr)
+	{
+		return;  // プレイシーンの取得に失敗したため無視せざる終えない
+	}
+
 	// 乗るためのボールを出現させる
-	GetScene().Instantiate<BallSphere>(GetEntityId());
+	pPlayScene->Instantiate<BallSphere>(GetEntityId());
 }
 
 Player::~Player()
@@ -54,10 +61,17 @@ void Player::Init()
 
 void Player::Update()
 {
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	if (pPlayScene == nullptr)
+	{
+		return;  // プレイシーンではないなら何もしない
+	}
+
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	RigidBody& rb{ GetComponent<RigidBody>() };
-	WorldConfig worldConfig{ GetScene<PlayScene>().GetWorldConfig() };
+
+	WorldConfig worldConfig{ pPlayScene->GetWorldConfig() };
 
 	// シーン読み込み直後のラグを待つ
 	if (awakeTimeLeft_ > 0.0f)

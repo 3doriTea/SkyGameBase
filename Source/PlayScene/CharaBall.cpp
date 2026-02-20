@@ -25,9 +25,13 @@ void CharaBall::Init()
 
 void CharaBall::Update()
 {
-	PlayScene& playScene{ GetScene<PlayScene>() };
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	if (pPlayScene == nullptr)
+	{
+		return;  // プレイシーンが取得できなければ何もしない
+	}
 
-	WorldConfig worldConfig{ playScene.GetWorldConfig() };
+	WorldConfig worldConfig{ pPlayScene->GetWorldConfig() };
 
 	Vector3 pos{ Transform().GetPosition() };
 

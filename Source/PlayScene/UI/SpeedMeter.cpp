@@ -22,7 +22,14 @@ void SpeedMeter::OnLoadParam(const json& _json)
 
 void SpeedMeter::Init()
 {
-	numberPlate_ = GetScene<PlayScene>().Instantiate<NumberPlate>(numbersImageFile_);
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	wassert(pPlayScene && "プレイシーンの取得に失敗");
+	if (pPlayScene == nullptr)
+	{
+		return;  // プレイシーンの取得に失敗すると何もできない
+	}
+
+	numberPlate_ = pPlayScene->Instantiate<NumberPlate>(numbersImageFile_);
 	NumberPlate* pNumberPlate{ dynamic_cast<NumberPlate*>(FindGameObject(numberPlate_)) };
 	pNumberPlate->SetBaseCanvasSize(baseCanvasSize_);
 	pNumberPlate->SetPosition({ baseCanvasSize_.x / 2 + numbersCenterOffset_, 0 });

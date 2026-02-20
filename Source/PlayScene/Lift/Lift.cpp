@@ -29,7 +29,13 @@ Lift::~Lift()
 
 void Lift::Init()
 {
-	PlayScene& playScene{ GetScene<PlayScene>() };
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	wassert(pPlayScene && "プレイシーンの取得に失敗");
+
+	if (pPlayScene == nullptr)
+	{
+		return;  // プレイシーンの取得に失敗したときはなにもできない
+	}
 
 	StageLine* pStage{ dynamic_cast<StageLine*>(FindGameObject(stage_)) };
 
@@ -48,12 +54,12 @@ void Lift::Init()
 	EntityId instantiatedEntity{ INVALID_ENTITY };
 
 	// 最初のループはじめを設置 (ポールと重複する)
-	loopPole_[LOOP_POLE_UPPER] = playScene.Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
+	loopPole_[LOOP_POLE_UPPER] = pPlayScene->Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
 	
 	while (currZ < STAGE_LENGTH_Z)
 	{
 		// ポールを立てていく
-		instantiatedEntity = playScene.Instantiate<LiftPole>(GetPolePosition(currZ), parentEntity);
+		instantiatedEntity = pPlayScene->Instantiate<LiftPole>(GetPolePosition(currZ), parentEntity);
 		poles_.push_back(instantiatedEntity);
 		currZ += POLE_DISTANCE;
 	}
@@ -61,12 +67,12 @@ void Lift::Init()
 	currZ -= POLE_DISTANCE;
 	
 	// 最後のループ端を設置 (ポールと重複する)
-	loopPole_[LOOP_POLE_LOWER] = playScene.Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
+	loopPole_[LOOP_POLE_LOWER] = pPlayScene->Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
 
 	for (float z = 0; z < 1000.0f; z += 50.0f)
 	{
-		playScene.Instantiate<LiftChair>(parentEntity, z, false);
-		playScene.Instantiate<LiftChair>(parentEntity, z, true);
+		pPlayScene->Instantiate<LiftChair>(parentEntity, z, false);
+		pPlayScene->Instantiate<LiftChair>(parentEntity, z, true);
 	}
 }
 

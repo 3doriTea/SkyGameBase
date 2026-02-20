@@ -6,6 +6,7 @@
 #include "Helper/CommonGameComponent.h"
 #include "GameSystem/SceneManager.h"
 #include "GameSystem/CPTransform.h"
+#include "WTGBAssert.h"
 
 
 namespace wtgb
@@ -83,13 +84,18 @@ namespace wtgb
 		/// <typeparam name="GameSceneT">シーンの型</typeparam>
 		/// <returns>シーンの参照</returns>
 		template<typename GameSceneT = GameScene>
-		inline GameSceneT& GetScene()
+		inline GameSceneT* GetScene()
 		{
 			//static_assert(
 			//	// TODO: もしくはGameScene || std::is_base_of_v<GameScene, GameSceneT>
 			//	&& "指定する型はGameSceneを継承している必要があります。");
+			GameScene* pCurrentScene{ System().Get<SceneManager>().GetCurrentScene() };
+			wassert(pCurrentScene && "現在のシーンがない");
+			GameSceneT* pCasted{ dynamic_cast<GameSceneT*>(pCurrentScene) };
 
-			return *(dynamic_cast<GameSceneT*>(System().Get<SceneManager>().GetCurrentScene()));
+			return pCasted;
+
+			//wassert(pCasted && "現在のシーンを指定型に変換できなかった");
 		}
 
 		/// <summary>

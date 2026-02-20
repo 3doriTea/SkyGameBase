@@ -59,6 +59,12 @@ void StageObjectManager::Update()
 {
 	using namespace DirectX;
 
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	if (pPlayScene == nullptr)
+	{
+		return;  // プレイシーンの取得に失敗するとなにもできない
+	}
+
 	PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
 	if (playState && playState->GetState() != PlayState::Type::Falling)
 	{
@@ -93,7 +99,7 @@ void StageObjectManager::Update()
 	Vector3 targetPos{ playerPos + Vector3::Forward() * (speed * SPAWN_DISTANCE_PER_SPEED + SPAWN_DISTANCE_OFFSET) };
 	targetPos.y = pStageLine->GetPosY(targetPos) + SPAWN_HEIGHT;
 
-	GetScene<PlayScene>().Instantiate<CharaEgg>(targetPos, GetEntityId(), player_);
+	pPlayScene->Instantiate<CharaEgg>(targetPos, GetEntityId(), player_);
 }
 
 void StageObjectManager::Release()
@@ -103,6 +109,12 @@ void StageObjectManager::Release()
 void StageObjectManager::Fire()
 {
 	using namespace DirectX;
+
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	if (pPlayScene == nullptr)
+	{
+		return;  // プレイシーンが取得できなければ何もしない
+	}
 
 	GameObject* pPlayerObj{ FindGameObject(player_) };
 	Player* pPlayer{ dynamic_cast<Player*>(pPlayerObj) };
@@ -125,6 +137,6 @@ void StageObjectManager::Fire()
 		Vector3 v{ XMVector3TransformCoord(vSrc, mRotX * mRotZ) };
 		v.z = vSrc.z;
 
-		GetScene<PlayScene>().Instantiate<CharaBall>(targetPos, v, player_);
+		pPlayScene->Instantiate<CharaBall>(targetPos, v, player_);
 	}
 }

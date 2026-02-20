@@ -21,11 +21,17 @@ void ResultPanel::Init()
 	OnLoadParam(GetComponent<Parameter>().Load());
 	Vector2Int screenSize{ System().Get<GameWindow>().GetMainWindowSize() };
 
+	ResultScene* pResultScene{ GetScene<ResultScene>() };
+	wassert(pResultScene && "Œ‹‰ÊƒV[ƒ“‚Ìæ“¾‚É¸”s");
+	if (pResultScene == nullptr)
+	{
+		return;  // Œ‹‰ÊƒV[ƒ“‚Ìæ“¾‚É¸”s‚·‚é‚Æ‰½‚à‚Å‚«‚È‚¢
+	}
 
 	hPanelImage_ = System().Get<ResourceSystem>().LoadTexture(panelImageFile_);
 
 	CoordinateTransformer transformer{ screenSize, baseCanvasSize_ };
-	dragPoint_ = GetScene<ResultScene>().Instantiate<DragPoint>(transformer);
+	dragPoint_ = pResultScene->Instantiate<DragPoint>(transformer);
 
 	// ’Í‚Ş‰~
 	DragPoint* pDragPoint{ dynamic_cast<DragPoint*>(FindGameObject(dragPoint_)) };

@@ -676,6 +676,10 @@
     <PostBuildEvent>
       <Command>powershell -c (New-Object Media.SoundPlayer "C:\Users\admin\Music\buildOWATTA.wav").PlaySync();</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -702,6 +706,10 @@
     <PostBuildEvent>
       <Command>powershell -c (New-Object Media.SoundPlayer "C:\Users\admin\Music\buildOWATTA.wav").PlaySync();</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -726,6 +734,10 @@
     <PostBuildEvent>
       <Command>powershell -c (New-Object Media.SoundPlayer "C:\Users\admin\Music\buildOWATTA.wav").PlaySync();</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -752,6 +764,10 @@
     <PostBuildEvent>
       <Command>powershell -c (New-Object Media.SoundPlayer "C:\Users\admin\Music\buildOWATTA.wav").PlaySync();</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

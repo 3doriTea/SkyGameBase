@@ -23,10 +23,17 @@ void MusicPlayer::Init()
 
 	OnLoadParam(GetComponent<Parameter>().Load());
 
+	TitleScene* pTitleScene{ GetScene<TitleScene>() };
+	wassert(pTitleScene && "タイトルシーンの取得に失敗");
+	if (pTitleScene == nullptr)
+	{
+		return;  // タイトルシーンの取得に失敗すると何もできない
+	}
+
 	// smf プレイヤーを登場させる
 	EntityId smfPlayer
 	{
-		GetScene<TitleScene>().Instantiate<SMFPlayer>(smfPath_)
+		pTitleScene->Instantiate<SMFPlayer>(smfPath_)
 	};
 	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject(smfPlayer)) };
 

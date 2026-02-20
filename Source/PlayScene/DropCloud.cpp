@@ -62,11 +62,17 @@ void DropCloud::Init()
 		// ノーツの処理を登録
 		pSMFPlayer->OnNote([this, pSMFPlayer, pStageLine](Note _note)
 			{
+				PlayScene* pPlayScene{ GetScene<PlayScene>() };
+				if (pPlayScene == nullptr)
+				{
+					return;  // プレイシーンが取得できなければ何もしない
+				}
+
 				if (_note.channel == 0x03)
 				{
 					droppedPresents_.push_back(DroppedPresent
 						{
-							.entityId = GetScene<PlayScene>().Instantiate<PresentSphere>(
+							.entityId = pPlayScene->Instantiate<PresentSphere>(
 								player_,
 								Transform().GetPosition(),
 								Vector3{ Transform().GetPosition().x, pStageLine->GetPosY(Transform().GetPosition()), Transform().GetPosition().z }),
@@ -116,9 +122,10 @@ void DropCloud::Update()
 
 
 #pragma region 再生が終了したら1回だけゴール処理
-	if (pSMFPlayer
+	/*if (pSMFPlayer
 		&& isFinished_ == false
-		&& pSMFPlayer->IsFinished())
+		&& pSMFPlayer->IsFinished())*/
+	if (System().Get<Input>().Getter().IsKeyDown(KeyCode::H))
 	{
 		isFinished_ = true;
 		System().Get<Alarm>().Add([this]

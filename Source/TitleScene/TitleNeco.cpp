@@ -68,7 +68,13 @@ void TitleNeco::Init()
 	ResourceSystem& rc{ System().Get<ResourceSystem>() };
 	const Vector2Int screenSizeInt{ System().Get<GameWindow>().GetMainWindowSize() };
 	const Vector2 screenSize{ static_cast<float>(screenSizeInt.x), static_cast<float>(screenSizeInt.y) };
-	TitleScene& titleScene{ GetScene<TitleScene>() };
+	TitleScene* pTitleScene{ GetScene<TitleScene>() };
+	wassert(pTitleScene && "タイトルシーンの取得に失敗");
+
+	if (pTitleScene == nullptr)
+	{
+		return;  // タイトルシーンの取得に失敗すると何もできない
+	}
 
 	//dragPoint_ = GetScene<SampleScene>().Instantiate<DragCircle>(centerPosition, 30);
 	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragPoint_)) };
@@ -76,7 +82,7 @@ void TitleNeco::Init()
 	pDragCircle->SetRadius(100);
 
 #pragma region プレイボタン
-	playButton_ = titleScene.Instantiate<Button>();
+	playButton_ = pTitleScene->Instantiate<Button>();
 	Button* pPlayButton{ dynamic_cast<Button*>(FindGameObject(playButton_)) };
 
 	pPlayButton->SetOffImage(hButtonOff_);

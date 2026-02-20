@@ -69,11 +69,18 @@ void CharaEgg::Init()
 
 	OnLoadParam(GetComponent<Parameter>().Load());
 
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	wassert(pPlayScene && "プレイシーン取得に失敗");
+	if (pPlayScene == nullptr)
+	{
+		return;  // プレイシーン取得に失敗したため何もできない
+	}
+
 	for (int i = 0; i < ringsAngles_.size(); i++)
 	{
 		EntityId ring
 		{
-			GetScene<PlayScene>().Instantiate<CharaEggRing>(
+			pPlayScene->Instantiate<CharaEggRing>(
 				GetEntityId(),
 				ringsAngles_[i])
 		};
@@ -84,6 +91,12 @@ void CharaEgg::Init()
 void CharaEgg::Update()
 {
 	using namespace DirectX;
+
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	if (pPlayScene == nullptr)
+	{
+		return;  // プレイシーンが取得できないなら何もしない
+	}
 	
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 
@@ -92,7 +105,7 @@ void CharaEgg::Update()
 	rotation.y += rotAngle;
 	Transform().SetRotation(rotation);
 
-	WorldConfig worldConfig{ GetScene<PlayScene>().GetWorldConfig() };
+	WorldConfig worldConfig{ pPlayScene->GetWorldConfig() };
 
 	GameObject* pPlayerObj{ FindGameObject(player_) };
 	wassert(pPlayerObj && "プレイヤーが見つからなかった");
