@@ -19,6 +19,7 @@ SpeedController::~SpeedController()
 
 void SpeedController::Init()
 {
+	OnLoadParam(GetComponent<Parameter>().Load());
 }
 
 void SpeedController::Update()
@@ -39,6 +40,8 @@ void SpeedController::Update()
 	// RigidBody - Velocityは1秒間あたりの速度であるため、1フレーム当たりの速度に変換
 	wassert(FPS != 0 && "FPSが0による0除算が発生するよ");
 	SetSpeed(speedPerSec / FPS);
+
+	LOGFLN("Speed:{}", speedPerSec / FPS);
 }
 
 void SpeedController::Release()

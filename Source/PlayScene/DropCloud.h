@@ -35,7 +35,7 @@ private:
 	/// <summary>
 	/// jsonからパラメータを読み込む
 	/// </summary>
-	/// <param name="_json">パラメータのjson</param>
+	/// <param name="_json">パラメータの json</param>
 	void OnLoadParam(const json& _json);
 
 private:

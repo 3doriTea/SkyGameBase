@@ -1,6 +1,6 @@
 #include "PlayerTargetting.h"
 
-Vector3 PlayerTargetting::GetToTargetVelocity(const PLAYER_TARGETTING_PARAMS& params)
+Vector3 PlayerTargeting::GetToTargetVelocity(const PLAYER_TARGETTING_PARAMS& params)
 {
 	using namespace DirectX;
 

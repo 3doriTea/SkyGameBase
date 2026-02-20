@@ -11,12 +11,11 @@ using namespace wtgb;
 
 Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId _playState) :
 	GameObject{ "Player.json" },
-	playerTargetting_{},
+	playerTargeting_{},
 	angle_{},
 	awakeTimeLeft_{},
 	playState_{ _playState },
-	speedController_{ INVALID_ENTITY },
-	isTargetting_{ false },
+	isTargeting_{ false },
 	startLineZ_{},
 	toTargetTime_{}
 {
@@ -45,14 +44,12 @@ void Player::Init()
 {
 	OnLoadParam(GetComponent<Parameter>().Load());
 
-	speedController_ = GetScene<PlayScene>().Instantiate<SpeedController>();
-
 	Collider& collider{ GetComponent<Collider>() };
 
+	// TODO: プレイヤーの球コライダの半径を jsonに
 	collider.SetRadius(2.0f);
 
 	angle_ = 0.0f;
-	//GetComponent<ModelMesh>().Load();
 }
 
 void Player::Update()
@@ -60,7 +57,7 @@ void Player::Update()
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	RigidBody& rb{ GetComponent<RigidBody>() };
-	WorldConfig worldConfig{ GetScene<PlayScene>().GetWorldConfig()};
+	WorldConfig worldConfig{ GetScene<PlayScene>().GetWorldConfig() };
 
 	// シーン読み込み直後のラグを待つ
 	if (awakeTimeLeft_ > 0.0f)
@@ -82,10 +79,13 @@ void Player::Update()
 		}
 	}
 
+#if _DEBUG
+	// TODO: デバッグ用
 	if (input.IsKeyDown(KeyCode::Space))
 	{
 		rb.AddVelocity({ 0.0f, -500.0f, 0.0f });
 	}
+#endif
 
 	std::vector<Collider*> hitColliders{};
 	rb.GetHitColliders(&hitColliders);
@@ -94,15 +94,19 @@ void Player::Update()
 	{
 		if (pColl && pColl->GetColliderType() == Collider::Type::Section)
 		{
+			// TODO: ここの回転トルク値をjson化する
 			rb.AddTorque({ 0.03f, 0.0f, 0.0f });
 		}
 	}
 
+#if _DEBUG
+	// TODO: デバッグ用
 	// MEMO: 簡易的ジャンプ
 	if (input.IsKeyDown(KeyCode::Space))
 	{
 		rb.AddVelocity({ 0.0f, 3.0f, 0.0f });
 	}
+#endif
 
 	// プレイヤーを範囲外に出さないための演算
 	Vector3 v{ rb.GetVelocity() };
@@ -156,7 +160,7 @@ void Player::AddMove(const Vector3 _move)
 			{
 				Vector3 v
 				{
-					playerTargetting_.GetToTargetVelocity(
+					playerTargeting_.GetToTargetVelocity(
 					{
 						.playerPos = selfPos,
 						.playerVelocity = rb.GetVelocity(),
@@ -171,9 +175,4 @@ void Player::AddMove(const Vector3 _move)
 	}
 
 	rb.AddVelocity(_move);
-}
-
-const ISpeedController* Player::GetSpeedController()
-{
-	return dynamic_cast<const ISpeedController*>(FindGameObject(speedController_));
 }

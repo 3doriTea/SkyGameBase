@@ -15,11 +15,11 @@ struct PLAYER_TARGETTING_PARAMS
 /// <summary>
 /// プレイヤーをターゲットまで突撃させる処理クラス
 /// </summary>
-class PlayerTargetting
+class PlayerTargeting
 {
 public:
-	inline PlayerTargetting() {}
-	inline ~PlayerTargetting() {}
+	inline PlayerTargeting() {}
+	inline ~PlayerTargeting() {}
 
 	/// <summary>
 	/// ターゲットまで突撃させるときの速度を求める
