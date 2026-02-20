@@ -97,7 +97,7 @@ void DropCloud::Init()
 
 void DropCloud::Update()
 {
-	PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_) ) };
+	PlayState* playState{ FindGameObject<PlayState>(playState_) };
 	if (playState && playState->GetState() != PlayState::Type::Falling)
 	{
 		return;  // 下山中以外は無視
@@ -105,17 +105,20 @@ void DropCloud::Update()
 
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 
-	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject(smfPlayer_)) };
-	Player* pPlayer{ dynamic_cast<Player*>(FindGameObject(player_)) };
-	StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
-	ISpeedController* pSpeedController
-	{
-		dynamic_cast<ISpeedController*>(FindGameObject(stageLine_))
-	};
+	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
+	wassert(pSMFPlayer && "SMFPlayerが見つからなかった");
+	Player* pPlayer{ FindGameObject<Player>(player_) };
+	wassert(pPlayer && "プレイヤーが見つからなかった");
+	StageLine* pStageLine{ FindGameObject<StageLine>(stageLine_) };
+	wassert(pStageLine && "ステージラインが見つからなかった");
+	ISpeedController* pSpeedController{ FindGameObject<ISpeedController>(speedController_) };
+	wassert(pSpeedController && "スピードコントローラが見つからなかった");
 
 
 #pragma region 再生が終了したら1回だけゴール処理
-	if (isFinished_ == false && pSMFPlayer->IsFinished())
+	if (pSMFPlayer
+		&& isFinished_ == false
+		&& pSMFPlayer->IsFinished())
 	{
 		isFinished_ = true;
 		System().Get<Alarm>().Add([this]
@@ -139,39 +142,33 @@ void DropCloud::Update()
 
 
 
-	float playRate{};
 
-	SpeedType speedType{ pSpeedController->GetSpeedType() };
-
-	switch (speedType)
+	if (pSpeedController)
 	{
-	case SpeedType::Stop:
-	case SpeedType::TooSlow:
-		break;
-	case SpeedType::Good:
-		break;
-	case SpeedType::Excissive:
-	default:
-		break;
+		float playRate{};
+
+		SpeedType speedType{ pSpeedController->GetSpeedType() };
+		switch (speedType)
+		{
+		case SpeedType::Stop:
+			// 止まっているなら完全に止める
+			playRate = 0.0f;
+			break;
+		case SpeedType::TooSlow:
+			// 十分ではないがある程度進んでいるならそのスピードに合わせる
+			playRate = velocity.z / playRatioMaxVelocity_;
+			break;
+		case SpeedType::Good:
+			// 十分スピードがあるなら通常再生
+			playRate = 1.0f;
+			break;
+		case SpeedType::Excissive:
+		default:
+			break;
+		}
+		pSMFPlayer->SetPlayRate(playRate);
 	}
 	
-
-	if (velocity.z <= 0.0f)
-	{
-		// 止まっているなら完全に止める
-		playRate = 0.0f;
-	}
-	if (velocity.z >= playRatioMaxVelocity_)
-	{
-		// 十分スピードがあるなら通常再生
-		playRate = 1.0f;
-	}
-	else
-	{
-		// 十分ではないがある程度進んでいるならそのスピードに合わせる
-		playRate = velocity.z / playRatioMaxVelocity_;
-	}
-	pSMFPlayer->SetPlayRate(playRate);
 
 #pragma endregion
 

@@ -11,8 +11,8 @@
   },
   "Param": {
     "speedStopMin" : 0.0,
-    "speedGoodMin" : 1.0,
-    "speedHighMin" : 5.0,
-    "speedGLOCLine" : 20.0
+    "speedGoodMin" : 1.4,
+    "speedHighMin" : 2.0,
+    "speedGLOCLine" : 3.0
   }
 }

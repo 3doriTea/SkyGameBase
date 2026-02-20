@@ -44,6 +44,12 @@ namespace wtgb
 		void SetTimeScale(const float _timeScale);
 
 		/// <summary>
+		/// FPS’l‚ğæ“¾‚·‚é
+		/// </summary>
+		/// <returns>Frame per seconds</returns>
+		const float GetFPS() const;
+
+		/// <summary>
 		/// ‰Šú‰»ˆ—
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;

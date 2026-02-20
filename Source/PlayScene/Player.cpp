@@ -73,13 +73,6 @@ void Player::Update()
 		return;
 	}
 
-	// スピードを設定する
-	SpeedController* pSpeedController
-	{
-		dynamic_cast<SpeedController*>(FindGameObject(speedController_))
-	};
-	pSpeedController->SetSpeed(rb.GetVelocity().z);
-
 	PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
 	if (playState && playState->GetState() == PlayState::Type::StartLine)
 	{

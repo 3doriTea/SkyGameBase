@@ -70,7 +70,6 @@ void CameraController::Release()
 	// カーソルの後片付けをしっかり
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	Cursor& cursor{ System().Get<Cursor>() };
-	cursor.SetCenterLock(false);
 	cursor.SetShow(true);
 }
 

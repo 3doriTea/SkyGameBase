@@ -61,9 +61,9 @@ void PlayScene::Start()
 	Instantiate<StageObjectManager>(stageLine, player, playState);
 	Instantiate<CameraController>();
 
-	Instantiate<DropCloud>(smfPlayer, player, stageLine, playState);
+	EntityId speedController{ Instantiate<SpeedController>(player) };
+	Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController);
 
-	EntityId speedController{ Instantiate<SpeedController>() };
 	Instantiate<SpeedMessage>(speedController);
 
 	Instantiate<SkySphere>();

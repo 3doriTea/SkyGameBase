@@ -46,6 +46,11 @@ void wtgb::GameTime::SetTimeScale(const float _timeScale)
 	timeScalePrev_ = timeScale_;
 }
 
+const float wtgb::GameTime::GetFPS() const
+{
+	return FPS;
+}
+
 wtgb::Result wtgb::GameTime::Init(const ViewerInit& _viewer)
 {
 	timeBeginPeriod(PERIOD_MILLI);

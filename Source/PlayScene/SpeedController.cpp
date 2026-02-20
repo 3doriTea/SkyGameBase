@@ -1,13 +1,15 @@
 #include "SpeedController.h"
 
-SpeedController::SpeedController() :
+
+SpeedController::SpeedController(const EntityId _targetEntity) :
 	GameObject{ "Play/SpeedController.json" },
 	speedStopMin_{},
 	speedGoodMin_{},
 	speedHighMin_{},
 	speedGLOCLine_{},
 	currentSpeedValue_{},
-	previousSpeedValue_{}
+	previousSpeedValue_{},
+	targetEntity_{ _targetEntity }
 {
 }
 
@@ -21,7 +23,22 @@ void SpeedController::Init()
 
 void SpeedController::Update()
 {
-	// TODO: ターゲットエンティティから速度取得
+	using DirectX::XMVector3Length;
+	using DirectX::XMVectorGetX;
+
+	// ひたすらターゲットの速度を取得して更新する
+
+	const float FPS{ System().Get<GameTime>().GetFPS() };
+
+	GameObject* pTargetGameObject{ FindGameObject(targetEntity_) };
+	wassert(pTargetGameObject && "スピードコントロール対象が見つからなかった");
+
+	RigidBody& targetRB{ pTargetGameObject->GetComponent<RigidBody>() };
+	float speedPerSec{ XMVectorGetX(XMVector3Length(targetRB.GetVelocity())) };
+
+	// RigidBody - Velocityは1秒間あたりの速度であるため、1フレーム当たりの速度に変換
+	wassert(FPS != 0 && "FPSが0による0除算が発生するよ");
+	SetSpeed(speedPerSec / FPS);
 }
 
 void SpeedController::Release()

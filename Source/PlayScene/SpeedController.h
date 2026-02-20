@@ -10,7 +10,7 @@
 class SpeedController : public GameObject, public ISpeedController
 {
 public:
-	SpeedController();
+	SpeedController(const EntityId _targetEntity);
 	~SpeedController();
 
 	void Init() override;
@@ -34,16 +34,18 @@ public:
 	/// <returns>スピードの種類</returns>
 	SpeedType GetSpeedType() const override;
 
+private:
 	/// <summary>
 	/// スピード(1フレーム当たりの移動量)
 	/// </summary>
 	/// <param name="_perFrame">m/f</param>
 	void SetSpeed(const float _perFrame);
 
-private:
 	void OnLoadParam(const json& _json);
 
 private:
+	EntityId targetEntity_;  // スピードをコントロールする対象エンティティ
+
 	float speedStopMin_;   // 動かない判定の最低値
 	float speedGoodMin_;   // 適正スピードの最低値
 	float speedHighMin_;   // 早すぎるスピード
