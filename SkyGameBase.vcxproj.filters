@@ -1181,6 +1181,8 @@
     <None Include="wtgb\_Config\DefaultGameVersion.value" />
     <None Include="wtgb\_Config\EntityCapacity.value" />
     <None Include="Assets\Prefab\Play\UI\SpeedMessage.json" />
+    <None Include="Assets\Shader\MainTexture.hlsli" />
+    <None Include="Assets\Shader\CBGlobal3D.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

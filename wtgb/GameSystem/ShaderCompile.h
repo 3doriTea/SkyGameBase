@@ -39,8 +39,8 @@ namespace wtgb
 			UINT flag1{ 0 };  // フラグ1
 			UINT flag2{ 0 };  // フラグ2
 
-			D3D_SHADER_MACRO* pDefines{ nullptr };  // マクロ(定義)ファイル
-			ID3DInclude* pInclude{ nullptr };       // インクルードファイル
+			D3D_SHADER_MACRO* pDefines{ nullptr };                       // マクロ(定義)ファイル
+			ID3DInclude* pInclude{ D3D_COMPILE_STANDARD_FILE_INCLUDE };  // インクルードファイルが有効か
 		};
 
 	public:

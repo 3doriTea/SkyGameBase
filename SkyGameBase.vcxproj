@@ -471,6 +471,8 @@
     <None Include="Assets\Prefab\StageObjectManager.json" />
     <None Include="Assets\Prefab\StageObj\CharaEggRing.json" />
     <None Include="Assets\Prefab\TitleNeco.json" />
+    <None Include="Assets\Shader\CBGlobal3D.hlsli" />
+    <None Include="Assets\Shader\MainTexture.hlsli" />
     <None Include="Assets\StageData.json" />
     <None Include="Assets\TitleMountain.json" />
     <None Include="Doc\CodingGuide.md" />
