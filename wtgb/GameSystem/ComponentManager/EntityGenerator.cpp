@@ -28,7 +28,6 @@ wtgb::EntityId wtgb::EntityGenerator::Generate()
 			entityId.version = versions_[i];
 
 			useFlag_[i] = true;
-			LOGF("\nEID:{} v:{}, i:{}\n", entityId.id, entityId.version, entityId.index);
 			return entityId;
 		}
 	}

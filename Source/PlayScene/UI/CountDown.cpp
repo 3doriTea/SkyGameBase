@@ -13,6 +13,36 @@ CountDown::~CountDown()
 {
 }
 
+void CountDown::PlayAnimGo(RectF& _rectF)
+{
+	// ひたすら小さくする
+	cellSize_ -= smallingPerFScale_;
+
+	if (cellSize_.x < 0.0f)
+	{
+		cellSize_ = Vector2Int::Zero();
+		DestroyMe();
+	}
+
+	_rectF.size = Vector2{ cellSize_ };
+}
+
+void CountDown::PlayAnimCountDown(RectF& _rectF)
+{
+	float animRatio{ std::fmodf(timeLeft_, timeScaleSec_) };
+	float moveOffset{ cellSize_.y * std::floorf(timeLeft_ / timeScaleSec_) + cellSize_.y };
+
+	if (animRatio < (moveTimeRatio_ * timeScaleSec_))
+	{
+		float t{ animRatio / (moveTimeRatio_ * timeScaleSec_) };
+		moveOffset += t * cellSize_.y - cellSize_.y;
+	}
+
+	_rectF.x = 0.0f;
+	_rectF.y = moveOffset;
+	_rectF.size = Vector2{ cellSize_ };
+}
+
 void CountDown::OnLoadParam(const json& _json)
 {
 	ResourceSystem& rc{ System().Get<ResourceSystem>() };
@@ -28,16 +58,20 @@ void CountDown::OnLoadParam(const json& _json)
 	timeLeft_ = SafeGet<float>(_json, "countDownTime");
 	timeScaleSec_ = SafeGet<float>(_json, "countDownTimeScale");
 	moveTimeRatio_ = SafeGet<float>(_json, "countDownMoveRatio");
+	smallingPerFScale_ = SafeGet<Vector2Int>(_json, "smallingPerFrameScale");
 }
 
 void CountDown::Init()
 {
 	OnLoadParam(GetComponent<Parameter>().Load());
+
+	timeLeft_ *= timeScaleSec_;
 }
 
 void CountDown::Update()
 {
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
+
 	const Vector2Int SCREEN_SIZE{ System().Get<GameWindow>().GetMainWindowSize() };
 	const Canvas::Context& CONTEXT{ System().Get<Canvas>().GetContext() };
 
@@ -48,45 +82,19 @@ void CountDown::Update()
 
 	CONTEXT.SetRefLayout(&config);
 
-	#if 1
+	RectF drawRectF{};
 	if (timeLeft_ > 0.0f)
 	{
 		timeLeft_ -= dt;
+		PlayAnimCountDown(drawRectF);
 	}
-	else
+	else  // カウントダウン終わってGOアニメーション
 	{
 		timeLeft_ = 0.0f;
-		DestroyMe();
+		PlayAnimGo(drawRectF);
 	}
 
-	int cellIndex{ static_cast<int>(timeLeft_) };
-
-	float animRatio{ std::fmodf(timeLeft_, 1.0f) };
-	float moveOffset{ 0.0f };
-
-	if (animRatio < moveTimeRatio_)
-	{
-		float t{ (animRatio / moveTimeRatio_) };
-		moveOffset = t * cellSize_.y;
-	}
-
-	float posV{ static_cast<float>(cellSize_.y) * cellIndex + moveOffset };
-
-	Vector2 cellBeginPos{ 0.0f, posV, };
-	Vector2 cellSizeF{ cellSize_ };
-	#else
-	static Vector2 cellBeginPos{ 0.0f, 0.0f, };
-	static Vector2 cellSizeF{ cellSize_ };
-	ImGui::Begin("Cell");
-	ImGui::DragFloat("beginX", &cellBeginPos.x);
-	ImGui::DragFloat("beginY", &cellBeginPos.y);
-	ImGui::DragFloat("sizeX", &cellSizeF.x);
-	ImGui::DragFloat("sizeY", &cellSizeF.y);
-	ImGui::End();
-
-	#endif
-	
-	CONTEXT.DrawImage(hSlideImage_, 0.0f, RectF{ cellBeginPos, cellSizeF });
+	CONTEXT.DrawImage(hSlideImage_, 0.0f, drawRectF);
 }
 
 void CountDown::Release()

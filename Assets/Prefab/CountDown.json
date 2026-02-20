@@ -29,6 +29,7 @@
     "slideImageFile": "Image/CountDown/CountDownDebug.png",
     "countDownTime": 4.0,
     "countDownTimeScale": 1.0,
-    "countDownMoveRatio": 0.25
+    "countDownMoveRatio": 0.25,
+    "smallingPerFrameScale": [ 10, 10 ]
   }
 }

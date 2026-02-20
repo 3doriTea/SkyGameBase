@@ -78,4 +78,8 @@ void PlayScene::Update()
 	{
 		System().Get<SceneManager>().Move<TitleScene>();
 	}
+	if (input.IsKeyDown(KeyCode::R))
+	{
+		System().Get<SceneManager>().Move<PlayScene>();
+	}
 }
