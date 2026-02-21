@@ -17,7 +17,8 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 	playState_{ _playState },
 	isTargeting_{ false },
 	startLineZ_{},
-	toTargetTime_{}
+	toTargetTime_{},
+	slideVelocityX_{ 0.0f }
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);
@@ -45,6 +46,7 @@ void Player::OnLoadParam(const json& _json)
 	awakeTimeLeft_ = SafeGet<float>(_json, "awakeTimeSec");
 	toTargetTime_ = SafeGet<float>(_json, "toTargetTime");
 	startLineZ_ = SafeGet<float>(_json, "startLineZ");
+	slideVeloDampingPerSec_ = SafeGet<float>(_json, "slideVeloDampingPerSec");
 }
 
 void Player::Init()
@@ -124,13 +126,19 @@ void Player::Update()
 
 	// プレイヤーを範囲外に出さないための演算
 	Vector3 v{ rb.GetVelocity() };
+
+
 	Vector3 pos{ Transform().GetPosition() };
 	if ((pos.x < worldConfig.safeZoneXMin && v.x < 0)
 		|| (pos.x > worldConfig.safeZoneXMax && v.x > 0))
 	{
 		v.x *= -1.0f;
-		rb.SetVelocity(v);
 	}
+	
+	float vv = std::powf(slideVeloDampingPerSec_, dt);
+	LOGFLN("vv={}", vv);
+	v.x *= vv;
+	rb.SetVelocity(v);
 
 	return;
 
@@ -159,9 +167,9 @@ void Player::AddMove(const Vector3 _move)
 	Vector3 selfDir{ camera.GetDirection() };
 
 
+#pragma region キャラエッグにフォーカス処理
 	std::vector<GameObject*> foundGameObjects{};
 	if (FindGameObjects("CharaEgg", &foundGameObjects))
-	//if (false)
 	{
 		for (GameObject* pCharaEgg : foundGameObjects)
 		{
@@ -187,6 +195,7 @@ void Player::AddMove(const Vector3 _move)
 			}
 		}
 	}
+#pragma endregion
 
 	rb.AddVelocity(_move);
 }

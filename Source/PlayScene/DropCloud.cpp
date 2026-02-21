@@ -144,12 +144,6 @@ void DropCloud::Update()
 
 	Vector3 velocity{ playerRigidBody.GetVelocity() };
 
-	// TODO: SpeedControllerからステート取得してそれに応じて再生速度を変更する
-	// TODO: SpeedControllerかｒ
-
-
-
-
 	if (pSpeedController)
 	{
 		float playRate{};
@@ -175,8 +169,6 @@ void DropCloud::Update()
 		}
 		pSMFPlayer->SetPlayRate(playRate);
 	}
-	
-
 #pragma endregion
 
 	Vector3 position{ pPlayer->Transform().GetPosition() };

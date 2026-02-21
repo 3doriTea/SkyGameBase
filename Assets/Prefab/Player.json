@@ -28,6 +28,7 @@
   "Param": {
     "awakeTimeSec": 10,
     "toTargetTime": 5.0,
-    "startLineZ": 100
+    "startLineZ": 100,
+    "slideVeloDampingPerSec": 0.5
   }
 }
