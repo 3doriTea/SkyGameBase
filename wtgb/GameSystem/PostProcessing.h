@@ -2,6 +2,9 @@
 #include "pch/pch.h"
 #include "Core/IGameSystem.h"
 #include "PostProcessing/BackMesh2D.h"
+#include "PostProcessing/IPostProcessEffect.h"
+#include "PostProcessing/PostProcessingConstant.h"
+
 
 namespace wtgb
 {
@@ -39,5 +42,6 @@ namespace wtgb
 
 	private:
 		BackMesh2D mesh2d_;
+		std::vector<std::unique_ptr<IPostProcessEffect>> effects_;  // 描画エフェクト
 	};
 }

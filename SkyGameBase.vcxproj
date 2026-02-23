@@ -57,6 +57,7 @@
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMessage.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
+    <ClInclude Include="Source\PostProcessingEffect\Twist.h" />
     <ClInclude Include="Source\ResultScene\UI\CircleHint.h" />
     <ClInclude Include="Source\ResultScene\UI\DragPoint.h" />
     <ClInclude Include="Source\ResultScene\UI\ResultPanel.h" />
@@ -92,14 +93,17 @@
     <ClInclude Include="wtgb\GameComponent\Parameter.h" />
     <ClInclude Include="wtgb\GameSystem\Alarm.h" />
     <ClInclude Include="wtgb\GameSystem\ConstantBufferManager.h" />
+    <ClInclude Include="wtgb\GameSystem\ConstantBufferManager\ConstantBufferBox.h" />
     <ClInclude Include="wtgb\GameSystem\CPParameter.h" />
     <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h" />
     <ClInclude Include="wtgb\GameSystem\DirectionalLight.h" />
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\ShaderConstant.h" />
     <ClInclude Include="wtgb\GameSystem\NeoCanvas.h" />
     <ClInclude Include="wtgb\GameSystem\PostProcessing.h" />
-    <ClInclude Include="wtgb\GameSystem\PostProcessing\BackMesh2D.cpp" />
     <ClInclude Include="wtgb\GameSystem\PostProcessing\BackMesh2D.h" />
+    <ClInclude Include="wtgb\GameSystem\PostProcessing\IPostProcessEffect.h" />
+    <ClInclude Include="wtgb\GameSystem\PostProcessing\PostEffectType.h" />
+    <ClInclude Include="wtgb\GameSystem\PostProcessing\PostProcessingConstant.h" />
     <ClInclude Include="wtgb\Helper\CommonGameComponentPool.h" />
     <ClInclude Include="wtgb\LibHeader\FileSystem.h" />
     <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />
@@ -434,6 +438,7 @@
     <ClCompile Include="wtgb\GameSystem\ModelMesh\ModelResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\Path.cpp" />
     <ClCompile Include="wtgb\GameSystem\PostProcessing.cpp" />
+    <ClCompile Include="wtgb\GameSystem\PostProcessing\BackMesh2D.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem\Texture.cpp" />
     <ClCompile Include="wtgb\GameSystem\Scriptable.cpp" />
@@ -539,6 +544,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\PostProcessing\Twist.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
     </FxCompile>

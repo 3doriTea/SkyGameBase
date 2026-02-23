@@ -62,6 +62,7 @@
 #include "GameSystem/Canvas/LayoutConfig.h"
 #include "GameSystem/Audio.h"
 #include "GameSystem/Direct3D.h"
+#include "GameSystem/PostProcessing.h"
 
 // ÉrÉãÉ_Å[
 #include "Core/GameObjectBuilder.h"

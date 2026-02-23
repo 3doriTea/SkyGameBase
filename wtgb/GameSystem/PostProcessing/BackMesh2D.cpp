@@ -1,15 +1,20 @@
 #include "pch\pch.h"
 #include "BackMesh2D.h"
 #include "GameSystem/Direct3D.h"
+#include "WTGBAssert.h"
 
 
-wtgb::BackMesh2D::BackMesh2D()
+wtgb::BackMesh2D::BackMesh2D() :
+	vertexCount_{ 0 },
+	indexCount_{ 0 },
+	hTexture_{},
+	pVertexBuffer_{},
+	pIndexBuffer_{},
+	pConstantBuffer_{}
 {
 }
 
-wtgb::BackMesh2D::~BackMesh2D()
-{
-}
+wtgb::BackMesh2D::~BackMesh2D() = default;
 
 void wtgb::BackMesh2D::Init(ViewerCached _system)
 {
@@ -48,7 +53,8 @@ void wtgb::BackMesh2D::Init(ViewerCached _system)
 		};
 
 		hResult = pDevice->CreateBuffer(&VERTEX_DESC, &VERTEX_DATA, pVertexBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ステージメッシュ頂点バッファ作成に失敗");
+
+		wassert(SUCCEEDED(hResult) && "Failed to create stage mesh Vertex Buffer");
 	}
 #pragma endregion
 
@@ -80,11 +86,11 @@ void wtgb::BackMesh2D::Init(ViewerCached _system)
 		};
 
 		hResult = pDevice->CreateBuffer(&INDEX_DESC, &INDEX_DATA, pIndexBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ステージメッシュのインデックスバッファ作成に失敗");
+		wassert(SUCCEEDED(hResult) && "Failed to create stage mesh Index Buffer");
 	}
 #pragma endregion
 
-#pragma region コンスタントバッファを作っておく
+#pragma region Create Constant Buffer
 	{
 		UINT cbSize = static_cast<UINT>(sizeof(ConstantBuffer));
 		cbSize = (cbSize + 15u) & ~15u;
@@ -104,11 +110,12 @@ void wtgb::BackMesh2D::Init(ViewerCached _system)
 		HRESULT hResult{};
 
 		hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ステージメッシュコンスタントバッファ作成に失敗");
+		wassert(SUCCEEDED(hResult) && "Failed to create stage mesh Constant Buffer");
 	}
 #pragma endregion
 }
 
 void wtgb::BackMesh2D::Release(ViewerCached _system)
 {
+	// 必要ならここで pVertexBuffer_.Reset() 等を行って明示的解放
 }

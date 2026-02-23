@@ -684,9 +684,6 @@
     <ClInclude Include="wtgb\GameSystem\PostProcessing.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="wtgb\GameSystem\PostProcessing\BackMesh2D.cpp">
-      <Filter>C++未分類ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="wtgb\GameSystem\PostProcessing\BackMesh2D.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
@@ -694,6 +691,21 @@
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="wtgb\CoreType\RectInt.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\PostProcessing\IPostProcessEffect.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\PostProcessing\PostEffectType.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PostProcessingEffect\Twist.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\PostProcessing\PostProcessingConstant.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="wtgb\GameSystem\ConstantBufferManager\ConstantBufferBox.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1133,6 +1145,9 @@
     <ClCompile Include="wtgb\GameSystem\PostProcessing.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="wtgb\GameSystem\PostProcessing\BackMesh2D.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1218,6 +1233,7 @@
     <FxCompile Include="Assets\Shader\CharaEgg.hlsl" />
     <FxCompile Include="Assets\Shader\SkySphere.hlsl" />
     <FxCompile Include="Assets\Shader\BallSphere.hlsl" />
+    <FxCompile Include="Assets\Shader\PostProcessing\Twist.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="wtgb\_Template\GameSystem-cpp.txt" />

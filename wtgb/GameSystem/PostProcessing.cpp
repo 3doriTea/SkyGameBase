@@ -2,7 +2,8 @@
 #include "Direct3D.h"
 
 
-wtgb::PostProcessing::PostProcessing()
+wtgb::PostProcessing::PostProcessing() :
+	mesh2d_{}
 {
 }
 
@@ -12,6 +13,7 @@ wtgb::PostProcessing::~PostProcessing()
 
 wtgb::Result wtgb::PostProcessing::Init(const ViewerInit& _viewer)
 {
+	//mesh2d_.CallInit({ _viewer });
 	return Result::Code::Ok;
 }
 
