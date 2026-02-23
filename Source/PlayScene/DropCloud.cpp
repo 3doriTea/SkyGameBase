@@ -122,10 +122,10 @@ void DropCloud::Update()
 
 
 #pragma region Ä¶‚ªI—¹‚µ‚½‚ç1‰ñ‚¾‚¯ƒS[ƒ‹ˆ—
-	/*if (pSMFPlayer
+	if (pSMFPlayer
 		&& isFinished_ == false
-		&& pSMFPlayer->IsFinished())*/
-	if (System().Get<Input>().Getter().IsKeyDown(KeyCode::H))
+		&& pSMFPlayer->IsFinished())
+	//if (System().Get<Input>().Getter().IsKeyDown(KeyCode::H))
 	{
 		isFinished_ = true;
 		System().Get<Alarm>().Add([this]

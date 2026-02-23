@@ -60,7 +60,6 @@ void SampleGame::StartRegister(
 
 	_gameSystemRegister
 		.Register<GameTime>()
-		.Register<Alarm>()
 		.Register<Path>()
 		.Register<GameWindow>()
 
@@ -99,6 +98,7 @@ void SampleGame::StartRegister(
 		.Register<CPItemAnim>()
 
 		.Register<CPGameObject>()
+		.Register<Alarm>()  // ゲームオブジェクトの更新の次
 		.Register<CPGameObjectProperty>()
 		.Register<CPTransform>()
 
