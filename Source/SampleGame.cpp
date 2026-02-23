@@ -17,6 +17,7 @@
 #include "GameSystem/Rendering.h"
 #include "GameSystem/ResourceSystem.h"
 #include "GameSystem/Model.h"
+#include "GameSystem/PostProcessing.h"
 
 // オリジナルゲームシステム
 #include "Systems/MainWindow.h"
@@ -110,6 +111,7 @@ void SampleGame::StartRegister(
 		.Register<DirectionalLight>()
 		.Register<CPModelMesh>()
 		.Register<CPMeshRenderer>()
+		.Register<PostProcessing>()  // 3D描画の後処理
 		.Register<Canvas>()  // UIの描画は3D描画の後に！
 
 		.Register<Rendering>()

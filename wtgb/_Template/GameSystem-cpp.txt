@@ -1,0 +1,23 @@
+#include "XXX.h"
+
+
+wtgb::XXX::XXX()
+{
+}
+
+wtgb::XXX::~XXX()
+{
+}
+
+wtgb::Result wtgb::XXX::Init(const ViewerInit& _viewer)
+{
+	return Result::Code::Ok;
+}
+
+void wtgb::XXX::Update(const ViewerUpdate& _viewer)
+{
+}
+
+void wtgb::XXX::End()
+{
+}

@@ -1,5 +1,8 @@
 #pragma once
 #include "Vector2T.h"
+
+
+// MEMO: mtgbÇ©ÇÁà¯Ç´åpÇ¢Çæ
 namespace mtgb
 {
 	/// <summary>
@@ -13,10 +16,10 @@ namespace mtgb
 
 		RectT() = default;
 		RectT(
-			T _x,
-			T _y,
-			T _width,
-			T _height) :
+			const T _x,
+			const T _y,
+			const T _width,
+			const T _height) :
 			x{ _x },
 			y{ _y },
 			width{ _width },
@@ -25,39 +28,44 @@ namespace mtgb
 		}
 		template<typename U>
 		RectT(
-			U _x,
-			U _y,
-			U _width,
-			U _height) :
+			const U _x,
+			const U _y,
+			const U _width,
+			const U _height) :
 			x{ static_cast<T>(_x) },
 			y{ static_cast<T>(_y) },
-			width{ static_cast<T>(_width)},
-			height{static_cast<T>(_height)}
-		{ }
+			width{ static_cast<T>(_width) },
+			height{ static_cast<T>(_height) }
+		{
+		}
 		template<typename U>
-		RectT(const RectT<U>& _other)
-			: x{static_cast<T>(_other.x)}
-			, y{static_cast<T>(_other.y)}
-			, width{static_cast<T>(_other.width)}
-			, height{static_cast<T>(_other.height)}
+		RectT(const RectT<U>& _other) :
+			x{ static_cast<T>(_other.x) },
+			y{ static_cast<T>(_other.y) },
+			width{ static_cast<T>(_other.width) },
+			height{ static_cast<T>(_other.height) }
 		{
 		}
 		RectT(const Vector2T<T>& _point,const Vector2T<T>& _size):
 			point{ _point },
 			size{ _size }
-		{}
+		{
+		}
 		RectT(const RectT& _other):
-			point{_other.point},
-			size{_other.size}
-		{}
+			point{ _other.point },
+			size{ _other.size }
+		{
+		}
 		RectT(Vector2T<T>&& _point, Vector2T<T>&& _size):
-			point{std::move(_point)},
-			size{std::move(_size)}
-		{ }
+			point{ std::move(_point) },
+			size{ std::move(_size) }
+		{
+		}
 		RectT(RectT&& _other) noexcept :
 			point{ std::move(_other.point) },
 			size{ std::move(_other.size) }
-		{}
+		{
+		}
 		
 		RectT& operator=(const RectT& _other)
 		{
@@ -65,6 +73,7 @@ namespace mtgb
 			y = _other.y;
 			width = _other.width;
 			height = _other.height;
+
 			return *this;
 		}
 		RectT& operator=(RectT&& _other) noexcept
@@ -76,6 +85,7 @@ namespace mtgb
 				width = std::move(_other.width);
 				height = std::move(_other.height);
 			}
+
 			return *this;
 		}
 		
@@ -84,19 +94,19 @@ namespace mtgb
 		{
 			struct
 			{
-				T x;
-				T y;
+				T x;  // xç¿ïW
+				T y;  // yç¿ïW
 			};
-			Vector2T<T> point;
+			Vector2T<T> point;  // ç¿ïW
 		};
 		union
 		{
 			struct
 			{
-				T width;
-				T height;
+				T width;  // â°ïù
+				T height;  // çÇÇ≥
 			};
-			Vector2T<T> size;
+			Vector2T<T> size;  // ëÂÇ´Ç≥
 		};
 
 		/// <summary>
@@ -191,8 +201,7 @@ namespace mtgb
 				_pos.x >= begin.x &&
 				_pos.y >= begin.y &&
 				_pos.x < end.x &&
-				_pos.y < end.y
-				);
+				_pos.y < end.y);
 		}
 	};
 	

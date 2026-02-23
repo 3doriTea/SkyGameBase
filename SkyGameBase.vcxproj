@@ -95,6 +95,10 @@
     <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h" />
     <ClInclude Include="wtgb\GameSystem\DirectionalLight.h" />
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\ShaderConstant.h" />
+    <ClInclude Include="wtgb\GameSystem\NeoCanvas.h" />
+    <ClInclude Include="wtgb\GameSystem\PostProcessing.h" />
+    <ClInclude Include="wtgb\GameSystem\PostProcessing\BackMesh2D.cpp" />
+    <ClInclude Include="wtgb\GameSystem\PostProcessing\BackMesh2D.h" />
     <ClInclude Include="wtgb\Helper\CommonGameComponentPool.h" />
     <ClInclude Include="wtgb\LibHeader\FileSystem.h" />
     <ClInclude Include="wtgb\LibHeader\NlohmannJson.h" />
@@ -428,6 +432,7 @@
     <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshSimple2D.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\ModelResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\Path.cpp" />
+    <ClCompile Include="wtgb\GameSystem\PostProcessing.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem.cpp" />
     <ClCompile Include="wtgb\GameSystem\ResourceSystem\Texture.cpp" />
     <ClCompile Include="wtgb\GameSystem\Scriptable.cpp" />
@@ -472,7 +477,9 @@
     <None Include="Assets\Prefab\StageObj\CharaEggRing.json" />
     <None Include="Assets\Prefab\TitleNeco.json" />
     <None Include="Assets\Shader\CBGlobal3D.hlsli" />
+    <None Include="Assets\Shader\Common2D.hlsli" />
     <None Include="Assets\Shader\MainTexture.hlsli" />
+    <None Include="Assets\Shader\PostProcessing.hlsli" />
     <None Include="Assets\StageData.json" />
     <None Include="Assets\TitleMountain.json" />
     <None Include="Doc\CodingGuide.md" />
@@ -582,6 +589,10 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="wtgb\_Template\GameSystem-cpp.txt" />
+    <Text Include="wtgb\_Template\GameSystem-hpp.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
