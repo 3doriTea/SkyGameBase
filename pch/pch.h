@@ -39,6 +39,7 @@
 #include "CoreType/Vector2.h"
 #include "CoreType/Matrix4x4.h"
 #include "CoreType/RectF.h"
+#include "CoreType/RectInt.h"
 #include "CoreType/Color.h"
 #include "CoreType/Collection/HandlerCollection.h"
 #include "CoreType/Handler.h"

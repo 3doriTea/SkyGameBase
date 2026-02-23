@@ -88,6 +88,7 @@
     <ClInclude Include="Source\UI\VisualSequence.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h" />
+    <ClInclude Include="wtgb\CoreType\RectInt.h" />
     <ClInclude Include="wtgb\GameComponent\Parameter.h" />
     <ClInclude Include="wtgb\GameSystem\Alarm.h" />
     <ClInclude Include="wtgb\GameSystem\ConstantBufferManager.h" />
