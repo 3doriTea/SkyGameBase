@@ -20,7 +20,7 @@ namespace wtgb
 		/// </summary>
 		/// <param name="_callback"></param>
 		/// <returns></returns>
-		InitSequence& TryRun(const std::function<HRESULT()>& _callback);
+		InitSequence& TryRun(const std::function<HRESULT()>& _callback, const std::string_view& _errorMessage);
 
 		/// <summary>
 		/// èIóπ

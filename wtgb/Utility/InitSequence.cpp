@@ -1,5 +1,6 @@
 #include "pch\pch.h"
 #include "InitSequence.h"
+#include "WTGBAssert.h"
 
 wtgb::InitSequence& wtgb::InitSequence::Begin()
 {
@@ -15,10 +16,11 @@ wtgb::InitSequence::~InitSequence()
 {
 }
 
-wtgb::InitSequence& wtgb::InitSequence::TryRun(const std::function<HRESULT()>& _callback)
+wtgb::InitSequence& wtgb::InitSequence::TryRun(const std::function<HRESULT()>& _callback, const std::string_view& _errorMessage)
 {
 	if (FAILED(hResult_))
 	{
+		LOGFLN("InitSequence Error:{}", _errorMessage);
 		// é∏îsÇµÇƒÇ¢ÇΩÇÁÇªÇ±Ç≈èàóùÇÇµÇ»Ç¢
 		return *this;
 	}
