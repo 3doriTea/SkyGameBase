@@ -7,6 +7,17 @@
 /// </summary>
 class TitleNeco : public GameObject
 {
+	/// <summary>
+	/// ムーブレートのパラメータ
+	/// </summary>
+	struct MoveRatioConfig
+	{
+		float autoMovingRatio;
+		float dtDiv;
+		float moveRatioMin;
+		float moveRatioMax;
+	};
+
 	enum IMAGE
 	{
 		I_HAND,
@@ -51,4 +62,15 @@ private:
 	std::string playToneAudioFile_;  // トーンとして流す音のファイルパス
 
 	int uiLayoutConfigOrder_;  // UIレイアウト設定の描画順番
+
+	MoveRatioConfig moveRatioConfig_;  // ムーブレートの設定
+
+	int dragCircleRadius_;
+	int playButtonRadius_;
+	int playNoteChannel_;
+	int playNoteDiffOffset_;
+
+	int dragCircleOffsetX_;                 // ドラッグ円のx座標
+	int dragCircleOffsetXPP_;               // ドラッグ円のx座標++
+	float dragCircleOffsetScreenSizeYDiv_;  // ドラッグ円のy座標 スクリーンサイズyとの割合
 };
