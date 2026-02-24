@@ -76,6 +76,7 @@
     <ClInclude Include="Source\Systems\CPItemAnim.h" />
     <ClInclude Include="Source\TitleScene\MusicPlayer.h" />
     <ClInclude Include="Source\TitleScene\TitleCamera.h" />
+    <ClInclude Include="Source\TitleScene\TitleCameraPlayer.h" />
     <ClInclude Include="Source\TitleScene\TitleMountain.h" />
     <ClInclude Include="Source\TitleScene\TitleScene.h" />
     <ClInclude Include="Source\UI\BaseCue.h" />

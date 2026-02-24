@@ -22,6 +22,16 @@
     "playToneAudio": "Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3",
     "uiLayoutConfig": {
       "order": 10
+    },
+    "dragCircleRadius": 100.0,
+    "playButtonRadius": 287,
+    "playNoteChannel": 3,
+    "playNoteDiffOffset": 24,
+    "moveRatio": {
+      "autoMovingRatio": 0.5,
+      "dtDiv": 3.0,
+      "moveRatioMin": 0.0,
+      "moveRatioMax": 1.0
     }
   }
 }

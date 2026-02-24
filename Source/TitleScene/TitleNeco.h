@@ -1,6 +1,10 @@
 #pragma once
 #include <wtgb.h>
 
+
+/// <summary>
+/// タイトルシーンの猫
+/// </summary>
 class TitleNeco : public GameObject
 {
 	enum IMAGE
