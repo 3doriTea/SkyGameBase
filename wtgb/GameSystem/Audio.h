@@ -63,9 +63,9 @@ namespace wtgb
 		WAVEFORMATEX GetFormat(const AudioHandle _hAudio) const;
 
 	private:
-		ComPtr<IXAudio2> pXAudio2_;  // XAudio2本体のインタフェース
-		UniqueXAudio2MasteringVoice pMasteringVoice_;  // 主音声
-		AudioPlayer audioPlayer_;  // 音声再生するやつ
+		ComPtr<IXAudio2> pXAudio2_;                             // XAudio2本体のインタフェース
+		UniqueXAudio2MasteringVoice pMasteringVoice_;           // 主音声
+		AudioPlayer audioPlayer_;                               // 音声再生するやつ
 		HandlerCollection<AudioClip, AudioHandle> audioClips_;  // クリップのハンドルコレクション
 	};
 }

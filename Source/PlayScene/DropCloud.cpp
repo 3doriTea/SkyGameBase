@@ -7,7 +7,7 @@
 #include "PresentSphere.h"
 #include "State/PlayState.h"
 #include "GoalGround.h"
-#include "ResultScene/ResultScene.h"
+#include "TitleScene/TitleScene.h"
 #include "ISpeedController.h"
 
 
@@ -133,7 +133,7 @@ void DropCloud::Update()
 				// ŠÔ‚ªŒo‚Á‚½‚çŒ‹‰ÊƒV[ƒ“‚É‘JˆÚ‚·‚é
 				System()
 					.Get<SceneManager>()
-					.Move<ResultScene>();
+					.Move<TitleScene>();
 			},
 			toResultSceneTime_);
 	}

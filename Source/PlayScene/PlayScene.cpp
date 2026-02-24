@@ -82,4 +82,9 @@ void PlayScene::Update()
 	{
 		System().Get<SceneManager>().Move<PlayScene>();
 	}
+
+	if (input.IsKeyDown(KeyCode::Escape))
+	{
+		Game::Exit();
+	}
 }
