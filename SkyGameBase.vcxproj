@@ -39,6 +39,7 @@
     <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
+    <ClInclude Include="Source\GameScore.h" />
     <ClInclude Include="Source\PlayScene\PlaybackParam.h" />
     <ClInclude Include="Source\PlayScene\GoalGround.h" />
     <ClInclude Include="Source\PlayScene\BallSphere.h" />
@@ -74,6 +75,7 @@
     <ClInclude Include="Source\StageSelectScene\StageSelectScene.h" />
     <ClInclude Include="Source\Stage\StageLoader.h" />
     <ClInclude Include="Source\Systems\CPItemAnim.h" />
+    <ClInclude Include="Source\Systems\ScoreManager\DiffTimeToStr.h" />
     <ClInclude Include="Source\TitleScene\MusicPlayer.h" />
     <ClInclude Include="Source\TitleScene\TitleCamera.h" />
     <ClInclude Include="Source\TitleScene\TitleCameraPlayer.h" />
@@ -322,6 +324,7 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/MP1 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ClCompile Include="Source\Components\ItemAnim.cpp" />
+    <ClCompile Include="Source\GameScore.cpp" />
     <ClCompile Include="Source\PlayScene\BallSphere.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMoveFree.cpp" />
@@ -357,6 +360,7 @@
     <ClCompile Include="Source\PlayScene\StageObjectManager.cpp" />
     <ClCompile Include="Source\PlayScene\TestBillBoard.cpp" />
     <ClCompile Include="Source\PlayScene\WaterPlane.cpp" />
+    <ClCompile Include="Source\Systems\ScoreManager\DiffTimeToStr.cpp" />
     <ClCompile Include="Source\UI\DragPointCue.cpp" />
     <ClCompile Include="Source\WaterPlane\WaterMesh.cpp" />
     <ClCompile Include="Source\PlayScene\WaterSphere.cpp" />
@@ -483,6 +487,7 @@
     <None Include="Assets\Prefab\StageObjectManager.json" />
     <None Include="Assets\Prefab\StageObj\CharaEggRing.json" />
     <None Include="Assets\Prefab\TitleNeco.json" />
+    <None Include="Assets\Score\ScoreNotion.json" />
     <None Include="Assets\Shader\CBGlobal3D.hlsli" />
     <None Include="Assets\Shader\Common2D.hlsli" />
     <None Include="Assets\Shader\MainTexture.hlsli" />
