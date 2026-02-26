@@ -1,0 +1,10 @@
+{
+  "diffTimeStrings": [
+    { "within": 3.0, "string": "ほぼ時間通り" },
+    { "within": 2.0, "string": "時間通り" },
+    { "within": 1.0, "string": "完璧" },
+    { "within": 0.5, "string": "超完璧" },
+    { "within": 0.25, "string": "神業" },
+    { "within": 0.1, "string": "プロ" }
+  ]
+}

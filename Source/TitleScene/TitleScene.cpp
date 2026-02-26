@@ -46,6 +46,11 @@ void TitleScene::Update()
 
 	Camera& camera{ System().Get<Camera>() };
 
+	if (input.IsKeyDown(KeyCode::Escape))
+	{
+		Game::Exit();
+	}
+
 	/*ImGui::Begin("Camera");
 	ImGui::DragFloat("pos-x", &camera.position_.x);
 	ImGui::DragFloat("pos-y", &camera.position_.y);
