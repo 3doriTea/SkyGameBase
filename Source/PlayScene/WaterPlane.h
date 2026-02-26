@@ -17,5 +17,5 @@ public:
 
 private:
 	std::vector<float> pointsHeight_;  // 各波頂点の高さ y軸 (0 ~ 1)
-	WaterMesh waterMesh_;  // 水面のメッシュ情報
+	WaterMesh waterMesh_;              // 水面のメッシュ情報
 };
