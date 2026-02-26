@@ -1,14 +1,28 @@
 #pragma once
 #include "pch/pch.h"
 #include "Core/IGameSystem.h"
+#include "Utility/CoordinateTransformer.h"
+
 
 namespace wtgb
 {
+	class ICanvas
+	{
+	public:
+		inline ICanvas() {}
+		inline virtual ~ICanvas() {}
+
+		void SetRect(const RectInt& _rect);
+
+		void RenderImage(const TextureHandle _hTexture);
+		//void Render
+	};
+
 	/// <summary>
 	/// <para>ゲームシステム: NeoCanvas</para>
 	/// <para></para>
 	/// </summary>
-	class NeoCanvas : public IGameSystem
+	class NeoCanvas : public IGameSystem, public ICanvas
 	{
 	public:
 		NeoCanvas();
@@ -37,6 +51,6 @@ namespace wtgb
 		void End() override;
 
 	private:
-		
+		CoordinateTransformer transformer_;  // スクリーンサイズとデザインサイズを吸収する
 	};
 }

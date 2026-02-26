@@ -437,6 +437,7 @@
     <ClCompile Include="wtgb\GameSystem\Model.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshSimple2D.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\ModelResource.cpp" />
+    <ClCompile Include="wtgb\GameSystem\NeoCanvas.cpp" />
     <ClCompile Include="wtgb\GameSystem\Path.cpp" />
     <ClCompile Include="wtgb\GameSystem\PostProcessing.cpp" />
     <ClCompile Include="wtgb\GameSystem\PostProcessing\BackMesh2D.cpp" />

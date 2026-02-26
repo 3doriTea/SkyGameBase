@@ -21,7 +21,7 @@ namespace wtgb
 		/// <summary>
 		/// デザインキャンバスサイズをセットする
 		/// </summary>
-		/// <param name="_size"></param>
+		/// <param name="_size">サイズ</param>
 		void SetDesignCanvasSize(const Vector2Int _size) { designCanvasSize_ = _size; }
 
 		/// <summary>
