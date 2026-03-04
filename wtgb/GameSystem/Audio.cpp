@@ -60,6 +60,9 @@ void wtgb::Audio::End()
 		});
 
 	audioPlayer_.Clear();
+
+	pMasteringVoice_.reset();
+	pXAudio2_.Reset();
 }
 
 void wtgb::Audio::CreateSourceVoice(IXAudio2SourceVoice** _ppSourceVoice, const WAVEFORMATEX& _format)
