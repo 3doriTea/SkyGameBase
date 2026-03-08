@@ -20,6 +20,7 @@
 #include "SpeedController.h"
 
 #include "Utility/Mathf.h"
+#include "UI/MiniChara.h"
 
 PlayScene::PlayScene() : GameScene
 {
@@ -62,11 +63,13 @@ void PlayScene::Start()
 	Instantiate<CameraController>();
 
 	EntityId speedController{ Instantiate<SpeedController>(player) };
-	Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController);
+	EntityId dropCloud{ Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController) };
 
 	Instantiate<SpeedMessage>(speedController);
 
 	Instantiate<SkySphere>();
+	
+	Instantiate<MiniChara>(dropCloud, smfPlayer);
 
 	// TODO: “–‚½‚Á‚½‚ç“|‚ê‚éŠÅ”Â‚ğì‚é
 }

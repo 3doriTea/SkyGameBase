@@ -11,6 +11,7 @@
 #include "ResultScene/ResultScene.h"
 #include "ISpeedController.h"
 #include "SMF/ToneHz.h"
+#include "UI/MiniChara.h"
 
 
 DropCloud::DropCloud(
@@ -255,6 +256,11 @@ void DropCloud::Update()
 					level_ = static_cast<CloudLevel>(CLOUD_LEVEL_MAX - 1);
 				}
 				LOGFLN("レベルアップ:{}", (int)level_);
+
+				if (GameScene* pScene{ GetScene() }; pScene)
+				{
+					pScene->Instantiate<MiniChara>(GetEntityId(), smfPlayer_);
+				}
 			}
 			else if (perfectTimer_ < 0.0f)
 			{

@@ -711,6 +711,15 @@
     <ClInclude Include="Source\TitleScene\TitleCameraPlayer.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameScore.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\ScoreManager\DiffTimeToStr.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\UI\MiniChara.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1154,6 +1163,15 @@
     <ClCompile Include="wtgb\GameSystem\NeoCanvas.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameScore.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\ScoreManager\DiffTimeToStr.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\UI\MiniChara.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1224,6 +1242,8 @@
     <None Include="Assets\Shader\CBGlobal3D.hlsli" />
     <None Include="Assets\Shader\PostProcessing.hlsli" />
     <None Include="Assets\Shader\Common2D.hlsli" />
+    <None Include="Assets\Score\ScoreNotion.json" />
+    <None Include="Assets\Prefab\Play\UI\MiniChara.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

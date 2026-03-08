@@ -58,6 +58,8 @@ void wtgb::UI::RenderContentImage::Render(
 		const Vector2 CUT_BEGIN{ cut.GetBegin() };
 		const Vector2 CUT_END{ cut.GetEnd() };
 
+		Matrix4x4 uvRotate = XMMatrixRotationZ(angle);
+
 		// トリミング矩形の左上点を並行移動
 		Matrix4x4 uvMove = XMMatrixTranslation(
 			CUT_BEGIN.x * 1.0f / imageSize.x,
@@ -71,7 +73,7 @@ void wtgb::UI::RenderContentImage::Render(
 			1.0f);
 
 		// uv 行列
-		Matrix4x4 matrixUV{ XMMatrixTranspose(uvScaling * uvMove) };
+		Matrix4x4 matrixUV{ XMMatrixTranspose(uvScaling * uvRotate * uvMove) };
 #pragma endregion
 
 		_meshRenderer.Render2D(
