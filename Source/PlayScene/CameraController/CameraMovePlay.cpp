@@ -2,6 +2,7 @@
 #include "CameraMovePlay.h"
 #include "../Player.h"
 #include "PlayScene/StageLine.h"
+#include <algorithm>
 
 namespace
 {
@@ -29,7 +30,11 @@ CameraMovePlay::CameraMovePlay() :
 	controlMode_{ ControlMode::MoveView },
 	previous_{ Vector2Int::Zero() },
 	diffValue_{ Vector2Int::Zero() },
-	stageLine_{ INVALID_ENTITY }
+	stageLine_{ INVALID_ENTITY },
+	emphasisPrevYOffset_{},
+	emphasisBoost_{},
+	bounceImpactIntensity_{},
+	bounceImpactPlayRatio_{}
 {
 }
 
@@ -122,15 +127,68 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		isDragging_ = false;
 	}
 
+	// MEMO: angleX_ に加算するとカメラの操作と同期してわからなくなった
+
 	// 目標地点
 	Vector3 toPosition{};
 	const Vector3 OFFSET{ 0.0f, 0.0f, -TO_PLAYER_DISTANCE };
 	Matrix4x4 rotationMatrix{ XMMatrixRotationX(angleX_) * XMMatrixRotationY(angleY_) };
 	toPosition = XMVector3TransformCoord(OFFSET, rotationMatrix) + pPlayer->Transform().GetPositionWorld();
+
+#pragma region y軸速度の分迫力をもたせる
+	RigidBody& rb{ pPlayer->GetComponent<RigidBody>() };
+	float emphasisCurrYOffset{ std::clamp(rb.GetVelocity().y, -10.0f, 10.0f) };
+
+	emphasisBoost_ -= dt * emphasis_.boostDecayRatePerSec;
+	if (emphasisBoost_ <= 0.0f)
+	{
+		emphasisBoost_ = 0.0f;
+	}
+
+	// 下がって(-) から 上がる (+)
+	if (emphasisPrevYOffset_ - emphasisCurrYOffset < emphasis_.boostThreshold)
+	{
+		// 衝撃を加える
+		emphasisBoost_ = emphasis_.boostValue;
+
+		// バウンドの衝撃も加える
+		bounceImpactPlayRatio_ = { 0.3f, 0.8f, 0.0f };
+		bounceImpactIntensity_ = bounceImpact.startIntensity;
+	}
+
+	// MEMO: expfの中の -が抜けると無限大に発散するよ()
+	float t = 1.0f - std::expf(-(emphasis_.responseRatio + emphasisBoost_) * dt);
+	emphasisPrevYOffset_ = Mathf::Lerp(emphasisPrevYOffset_, emphasisCurrYOffset, t);
+	toPosition.y -= emphasisPrevYOffset_;
+#pragma endregion
+
+#pragma region バウンド中の衝撃
+	// カメラを揺らす
+	toPosition = toPosition + Vector3
+	{
+		std::sinf(bounceImpactPlayRatio_.x) * bounceImpactIntensity_.x,
+		std::sinf(bounceImpactPlayRatio_.y) * bounceImpactIntensity_.y,
+		std::sinf(bounceImpactPlayRatio_.z) * bounceImpactIntensity_.z,
+	};
+
+	// 再生レートを進める
+	bounceImpactPlayRatio_ = bounceImpactPlayRatio_ + bounceImpact.frequencyPerSec * dt;
+	bounceImpactPlayRatio_.x = std::fmodf(bounceImpactPlayRatio_.x, 1.0f);
+	bounceImpactPlayRatio_.y = std::fmodf(bounceImpactPlayRatio_.y, 1.0f);
+	bounceImpactPlayRatio_.z = std::fmodf(bounceImpactPlayRatio_.z, 1.0f);
+
+	// 揺れの強さを減衰させる
+	float dampingT = 1.0f - std::expf(-(bounceImpact.dampingRatioPerSec) * dt);
+	bounceImpactIntensity_ = Mathf::Lerp(
+		bounceImpactIntensity_,
+		Vector3::Zero(),
+		dampingT);
+#pragma endregion
+
+
 	pTransform->SetPositionWorld(toPosition);
 
 	{  // プレイヤーが前に進んでいるとき、カメラをだんだんと前に向ける処理
-		RigidBody& rb{ pPlayer->GetComponent<RigidBody>() };
 		
 		if (rb.GetVelocity().z > 0.0f)
 		{
@@ -187,7 +245,8 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 			pTransform->SetRotation(rotation);
 		}
-	}
+	}// うまく行っているほどチャネルが増える　他のバッグの音が増えることで感情が高ぶる
+// 失敗すると減っていく
 
 	if (stageLine_ != INVALID_ENTITY)
 	{

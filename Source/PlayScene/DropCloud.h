@@ -4,6 +4,19 @@
 
 
 /// <summary>
+/// 上手く演奏できていると上がるレベル
+/// </summary>
+enum CloudLevel : int
+{
+	CLOUD_LEVEL_START,
+	CLOUD_LEVEL_BASE,
+	CLOUD_LEVEL_TUBA,
+	CLOUD_LEVEL_DRUM,
+	CLOUD_LEVEL_GLOCKEN,
+	CLOUD_LEVEL_MAX,
+};
+
+/// <summary>
 /// アイテムを降らせる雲
 /// </summary>
 class DropCloud : public GameObject
@@ -15,7 +28,9 @@ private:
 	struct DroppedPresent
 	{
 		EntityId entityId;  // エンティティ
-		Note note;  // ノーツ情報
+		Note note;          // ノーツ情報
+		AudioHandle hTone;  // 音源
+		int32_t toneOffset;    // トーンのオフセット
 	};
 
 public:
@@ -56,9 +71,23 @@ private:
 	float playRatioMaxVelocity_;  // 再生レートを変動させる最大速度
 
 	std::string playSMFPath_;  // 再生する smf
-	std::string playToneAudioFilePath_;  // 再生する音の音源ファイル
+	std::string playToneAudioFilePath_;     // 再生する音の音源ファイル
+	std::string toneAudioFilePathBase_;     // 再生するベース音の音源ファイル
+	std::string toneAudioFilePathTuba_;     // 再生するチューバ音の音源ファイル
+	std::string toneAudioFilePathDrum_;     // 再生するドラム音の音源ファイル
+	std::string toneAudioFilePathGlocken_;  // 再生するグロッケン音の音源ファイル
 
 	std::list<DroppedPresent> droppedPresents_;  // 投下したプレゼントリスト
 
 	bool isFinished_;  // 全ボールを出し終えたか
+
+	AudioHandle hAudioCat_;  // 猫音
+	AudioHandle hAudioBase_;  // ベース音
+	AudioHandle hAudioTuba_;  // チューバ音
+	AudioHandle hAudioDrum_;  // ドラム音
+	AudioHandle hAudioGlocken_;  // グロッケンシュピール音
+
+	CloudLevel level_;    // うまく演奏していると上がるレベル
+	float perfectTimer_;  // ノーミスの秒数
+	int prevBar_;         // 前のフレームでの小節
 };

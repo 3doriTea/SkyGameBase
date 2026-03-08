@@ -10,6 +10,7 @@
 #include "TitleScene/TitleScene.h"
 #include "ResultScene/ResultScene.h"
 #include "ISpeedController.h"
+#include "SMF/ToneHz.h"
 
 
 DropCloud::DropCloud(
@@ -25,7 +26,10 @@ DropCloud::DropCloud(
 	playState_{ _playState },
 	offsetHeight_{},
 	dropDistanceZ_{},
-	speedController_{ _speedController }
+	speedController_{ _speedController },
+	level_{ CloudLevel::CLOUD_LEVEL_START },
+	perfectTimer_{},
+	prevBar_{}
 {
 }
 
@@ -43,6 +47,10 @@ void DropCloud::OnLoadParam(const json& _json)
 	playNoteNumberOffset_ = SafeGet<int>(_json, "playNoteNumberOffset");
 	playRatioMaxVelocity_ = SafeGet<float>(_json, "playRatioMaxVelocity");
 	playToneAudioFilePath_ = SafeGet<std::string>(_json, "playToneAudioFilePath");
+	toneAudioFilePathBase_ = SafeGet<std::string>(_json, "toneAudioFilePathBase");
+	toneAudioFilePathTuba_ = SafeGet<std::string>(_json, "toneAudioFilePathTuba");
+	toneAudioFilePathDrum_ = SafeGet<std::string>(_json, "toneAudioFilePathDrum");
+	toneAudioFilePathGlocken_ = SafeGet<std::string>(_json, "toneAudioFilePathGlocken");
 }
 
 void DropCloud::Init()
@@ -56,9 +64,14 @@ void DropCloud::Init()
 		StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
 		wassert(pStageLine && "ステージラインがシーンに存在しないよ！");
 
+		hAudioBase_ = audio.Load(toneAudioFilePathBase_);
+		hAudioCat_ = audio.Load(playToneAudioFilePath_);
+		hAudioTuba_ = audio.Load(toneAudioFilePathTuba_);
+		hAudioDrum_ = audio.Load(toneAudioFilePathDrum_);
+		hAudioGlocken_ = audio.Load(toneAudioFilePathGlocken_);
 		// ノーツ再生時の音源読み込み && セット
-		pSMFPlayer->SetToneAudioHandle(
-			audio.Load(playToneAudioFilePath_));
+		/*pSMFPlayer->SetToneAudioHandle(
+			);*/
 
 		// ノーツの処理を登録
 		pSMFPlayer->OnNote([this, pSMFPlayer, pStageLine](Note _note)
@@ -69,17 +82,60 @@ void DropCloud::Init()
 					return;  // プレイシーンが取得できなければ何もしない
 				}
 
-				if (_note.channel == 0x03)
+				DroppedPresent droppedPresent
 				{
-					droppedPresents_.push_back(DroppedPresent
-						{
-							.entityId = pPlayScene->Instantiate<PresentSphere>(
-								player_,
-								Transform().GetPosition(),
-								Vector3{ Transform().GetPosition().x, pStageLine->GetPosY(Transform().GetPosition()), Transform().GetPosition().z }),
-							.note = _note,
-						});
+					.entityId = pPlayScene->Instantiate<PresentSphere>(
+						player_,
+						Transform().GetPosition(),
+						Vector3{ Transform().GetPosition().x, pStageLine->GetPosY(Transform().GetPosition()), Transform().GetPosition().z }),
+					.note = _note,
+					.hTone = INVALID_HANDLE,
+					.toneOffset = 0,
+				};
+
+				switch (_note.channel)
+				{
+				case 0x03:
+					droppedPresent.hTone = hAudioCat_;
+					droppedPresent.toneOffset = SMF::C4_60_INDEX;
+					break;
+				case 0x01:
+					if (level_ < CLOUD_LEVEL_BASE)
+					{
+						return;
+					}
+					droppedPresent.hTone = hAudioBase_;
+					droppedPresent.toneOffset = 12 * 7;
+					break;
+				case 0x02:
+					if (level_ < CLOUD_LEVEL_TUBA)
+					{
+						return;
+					}
+					droppedPresent.hTone = hAudioTuba_;
+					droppedPresent.toneOffset = 12 * 7;
+					break;
+				case 0x09:
+					if (level_ < CLOUD_LEVEL_DRUM)
+					{
+						return;
+					}
+					droppedPresent.hTone = hAudioDrum_;
+					droppedPresent.toneOffset = 12 * 7;
+					break;
+				case 0x06:
+					if (level_ < CLOUD_LEVEL_GLOCKEN)
+					{
+						return;
+					}
+					droppedPresent.note.playTime = 6.0f;
+					droppedPresent.hTone = hAudioGlocken_;
+					droppedPresent.toneOffset = SMF::C4_60_INDEX + 12 * 0;
+					break;
+				default:
+					return;
 				}
+				droppedPresents_.push_back(droppedPresent);
 			});
 
 		PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
@@ -143,7 +199,7 @@ void DropCloud::Update()
 #pragma region プレイヤが進むたびに音符を進める処理
 	RigidBody& playerRigidBody{ pPlayer->GetComponent<RigidBody>() };
 
-	Vector3 velocity{ playerRigidBody.GetVelocity() };
+	Vector3 velocity{ playerRigidBody.GetVelocity()};
 
 	if (pSpeedController)
 	{
@@ -159,16 +215,61 @@ void DropCloud::Update()
 		case SpeedType::TooSlow:
 			// 十分ではないがある程度進んでいるならそのスピードに合わせる
 			playRate = velocity.z / playRatioMaxVelocity_;
+			perfectTimer_ -= dt;
 			break;
 		case SpeedType::Good:
 			// 十分スピードがあるなら通常再生
 			playRate = 1.0f;
+			perfectTimer_ += dt;
 			break;
 		case SpeedType::Excissive:
+			// 速すぎるなら止める
+			perfectTimer_ -= dt;
+			playRate = 0.0f;
+			break;
 		default:
 			break;
 		}
 		pSMFPlayer->SetPlayRate(playRate);
+	}
+#pragma endregion
+
+#pragma region レベルのアップダウン処理
+	if (pSMFPlayer)
+	{
+		// 1小節の秒数
+		const float BAR_TIME_SEC{ pSMFPlayer->GetQuarterSec() * 4.0f };
+
+		int currBar{ static_cast<int>(pSMFPlayer->GetPlayTime() / BAR_TIME_SEC) };
+
+		// 1小節の区切り目
+		if (currBar != prevBar_)
+		{
+			if (perfectTimer_ >= BAR_TIME_SEC)
+			{
+				perfectTimer_ = 0.0f;
+
+				level_ = static_cast<CloudLevel>(level_ + 1);  // レベルアップ
+				if (level_ >= CLOUD_LEVEL_MAX)
+				{
+					level_ = static_cast<CloudLevel>(CLOUD_LEVEL_MAX - 1);
+				}
+				LOGFLN("レベルアップ:{}", (int)level_);
+			}
+			else if (perfectTimer_ < 0.0f)
+			{
+				perfectTimer_ = 0;
+
+				level_ = static_cast<CloudLevel>(level_ - 1);  // レベルダウン
+				if (level_ < 0)
+				{
+					level_ = static_cast<CloudLevel>(0);
+				}
+				LOGFLN("レベルダウン:{}", (int)level_);
+			}
+		}
+
+		prevBar_ = currBar;
 	}
 #pragma endregion
 
@@ -198,7 +299,7 @@ void DropCloud::Update()
 		if (pPresent->CheckOnBounded())
 		{
 			itr->note.noteNumber -= playNoteNumberOffset_;
-			pSMFPlayer->PlayTone(itr->note);
+			pSMFPlayer->PlayTone(itr->note, itr->hTone, itr->toneOffset);
 		}
 
 		itr++;

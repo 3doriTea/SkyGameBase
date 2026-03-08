@@ -97,7 +97,7 @@ namespace wtgb
 	private:
 		std::list<std::function<void()>> renderCallbacks_;  // 描画直前のコールバック処理
 
-		Direct3DResource* pResource_;  // リソースのポインタ
+		std::unique_ptr<Direct3DResource> pResource_;  // リソースのポインタ
 
 		ViewerCached system_;  // システムアクセス用
 		ResourceAccessor resourceAccessor_;  // リソースへのアクセッサ

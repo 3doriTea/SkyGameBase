@@ -184,7 +184,6 @@ void SMFPlayer::Init()
 						truckGen.SetName(textBuffer.data());
 					}
 
-					LOGFLN("{:x}:{}", subStatus, textBuffer.data());
 					break;
 				}
 				case 0x20:  // MIDIチャンネルプレフィックス
@@ -192,7 +191,7 @@ void SMFPlayer::Init()
 					uint8_t size{ br.Read<uint8_t>() };
 					uint8_t channel{ br.Read<uint8_t>() };
 					
-					LOGFLN("channel prefix channel{} size{}", channel, size);
+					//LOGFLN("channel prefix channel{} size{}", channel, size);
 					break;
 				}
 				case 0x21:  // MIDIポートプレフィックス
@@ -200,7 +199,7 @@ void SMFPlayer::Init()
 					uint8_t size{ br.Read<uint8_t>() };
 					uint8_t port{ br.Read<uint8_t>() };  // ポート番号
 
-					LOGFLN("port prefix port{} size{}", port, size);
+					//LOGFLN("port prefix port{} size{}", port, size);
 					break;
 				}
 				case 0x2F:  // トラック最後！
@@ -222,7 +221,7 @@ void SMFPlayer::Init()
 					};
 
 					truckGen.SetTempo(tempo);
-					LOGFLN("set tempo:{}", tempo);
+					quarterSec_ = truckGen.GetQuarterSec();
 					break;
 				}
 				default:
@@ -231,7 +230,6 @@ void SMFPlayer::Init()
 					std::vector<char> textBuffer(size, '\0');
 
 					br.Read(textBuffer.data(), size, size);
-					//LOGFLN("???{:x}:{}", subStatus, textBuffer.data());
 					break;
 				}
 				}
@@ -420,14 +418,19 @@ uint64_t SMFPlayer::ReadDelta(mtbin::BinaryReader& _br)
 
 void SMFPlayer::PlayTone(const Note& _note)
 {
-	if (hTone_ == INVALID_HANDLE)
+	PlayTone(_note, hTone_, C4_60_INDEX);
+}
+void SMFPlayer::PlayTone(const Note& _note, const AudioHandle _hTone, const int32_t _offset)
+{
+	if (_hTone == INVALID_HANDLE)
 	{
 		return;  // 無効ハンドルなら再生しない
 	}
+	SetToneAudioHandle(_hTone);
 
 	Audio& audio{ System().Get<Audio>() };
 
-	size_t toneHzIndex{ _note.noteNumber - C4_60_NUM + C4_60_INDEX };
+	size_t toneHzIndex{ static_cast<size_t>(_note.noteNumber - C4_60_NUM + _offset) };
 
 	if (toneHzIndex < 0 || ToneHz.size() <= toneHzIndex)
 	{
@@ -445,7 +448,7 @@ void SMFPlayer::PlayTone(const Note& _note)
 	// リミット以下なら再生
 	if (sampleRate <= playableSampleRateLimit_)
 	{
-		audio.Play(hTone_, _note.playTime, static_cast<unsigned long>(sampleRate));
+		audio.Play(_hTone, _note.playTime, static_cast<unsigned long>(sampleRate));
 	}
 }
 
@@ -455,7 +458,7 @@ void SMFPlayer::SetToneAudioHandle(const AudioHandle _hAudio)
 
 	hTone_ = _hAudio;  // 音源ハンドル指定しつつ
 	// サンプルレートも更新する
-	toneSampleRateHz_ = static_cast<float>(audio.GetFormat(hTone_).nSamplesPerSec);
+	toneSampleRateHz_ = static_cast<float>(audio.GetFormat(_hAudio).nSamplesPerSec);
 }
 
 void SMFPlayer::OnLoadParam(const json& _json)

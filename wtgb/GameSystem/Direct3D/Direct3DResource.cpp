@@ -34,21 +34,32 @@ void wtgb::Direct3DResource::Init()
 
 void wtgb::Direct3DResource::Release()
 {
-	pContext_.Reset();
-	pDevice_.Reset();
-
-	pDXGIDevice_.Reset();
-	pDXGIAdapter_.Reset();
-	pDXGIFactory_.Reset();
-
-	pSwapChain_.Reset();
-
 	pRenderTargetView_.Reset();
-	pDepthBuffer_.Reset();
 	pDepthStencilView_.Reset();
+	pDepthBuffer_.Reset();
 
 	for (auto& pBlendState : pBlendStates_)
 	{
 		pBlendState.Reset();
 	}
+	for (auto& pDepthStencilState : pDepthStencilStates_)
+	{
+		pDepthStencilState.Reset();
+	}
+
+	pSwapChain_.Reset();
+
+
+	pDXGIDevice_.Reset();
+	pDXGIAdapter_.Reset();
+	pDXGIFactory_.Reset();
+
+	if (pContext_)
+	{
+		pContext_->ClearState();
+		pContext_->Flush();
+	}
+
+	pContext_.Reset();
+	pDevice_.Reset();
 }

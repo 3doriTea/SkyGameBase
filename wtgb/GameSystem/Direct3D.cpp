@@ -16,7 +16,7 @@ namespace
 }
 
 wtgb::Direct3D::Direct3D() :
-	pResource_{ new Direct3DResource{ D3D_RESOURCE_CONFIG } },
+	pResource_{ std::make_unique<Direct3DResource>(D3D_RESOURCE_CONFIG) },
 	resourceAccessor_{ this },
 	system_{ nullptr },
 	renderCallbacks_{}
@@ -25,7 +25,7 @@ wtgb::Direct3D::Direct3D() :
 
 wtgb::Direct3D::~Direct3D()
 {
-	SAFE_DELETE(pResource_);
+	//SAFE_DELETE(pResource_);
 }
 
 wtgb::Result wtgb::Direct3D::Init(const ViewerInit& _viewer)

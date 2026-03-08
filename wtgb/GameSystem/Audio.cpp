@@ -53,13 +53,13 @@ void wtgb::Audio::Update(const ViewerUpdate& _system)
 
 void wtgb::Audio::End()
 {
+	audioPlayer_.Clear();
+
 	// 全クリップ解放処理
 	audioClips_.Release([](AudioClip& _clip)
 		{
 			_clip.CallRelease();
 		});
-
-	audioPlayer_.Clear();
 
 	pMasteringVoice_.reset();
 	pXAudio2_.Reset();

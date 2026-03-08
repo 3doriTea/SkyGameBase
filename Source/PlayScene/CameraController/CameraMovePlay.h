@@ -30,5 +30,26 @@ private:
 	bool isDragging_;          // マウスがドラッグ中か
 	ControlMode controlMode_;  // マウスをドラッグ中の操作モード
 
+	float emphasisBoost_;  // バウンドしたときの衝撃を加算する
+	float emphasisPrevYOffset_;  // 前フレームのy軸オフセット
+
+	struct
+	{
+		float responseRatio = 0.5f;
+		float boostThreshold = 15.0f;  // バウンドした判定
+		float boostValue = 0.3f;  // バウンドして衝撃の加算値
+		float boostDecayRatePerSec = 0.1f;  // 減衰値 (/sec)
+	} emphasis_;  // 強調されたカメラ
+
+	Vector3 bounceImpactIntensity_;  // バウンド衝撃-各軸の揺れの強さ
+	Vector3 bounceImpactPlayRatio_;  // バウンド衝撃-各軸の再生レート
+
+	struct
+	{
+		Vector3 frequencyPerSec = Vector3::One() * 2.0f;  // 揺れる往復数(/sec)
+		Vector3 startIntensity = Vector3::One() * 3.0f;   // 開始時の揺れ幅
+		float dampingRatioPerSec = 0.3f;  // 減衰率(/sec)(0.0で止まらない, 1.0ですぐ止まる)
+	} bounceImpact;
+
 	EntityId stageLine_;  // ステージラインのエンティティ
 };

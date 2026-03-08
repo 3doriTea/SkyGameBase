@@ -40,16 +40,21 @@ public:
 
 		void SetName(const std::string& _name);
 		void SetTempo(const uint32_t _value);
+		/// <summary>
+		/// 四分音符の秒数を取得する
+		/// </summary>
+		/// <returns>四分音符の秒数</returns>
+		inline float GetQuarterSec() const { return quarterSec_; }
 		void On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity);
 		void Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity);
 
 		void AddDeltaTime(const uint64_t _dt);
 
 	private:
-		const Header& HEADER_;  // ヘッダへの参照
-		static float quarterSec_;      // 四分音符の秒数
-		float currentTime_;           // 加算タイマ
-		Truck& truck_;          // 作るトラック
+		const Header& HEADER_;     // ヘッダへの参照
+		static float quarterSec_;  // 四分音符の秒数
+		float currentTime_;        // 加算タイマ
+		Truck& truck_;             // 作るトラック
 	};
 
 public:
@@ -78,6 +83,12 @@ public:
 	/// </summary>
 	/// <param name="_note"></param>
 	void PlayTone(const Note& _note);
+	/// <summary>
+	/// ノーツを再生する
+	/// </summary>
+	/// <param name="_note">ノーツ</param>
+	/// <param name="_hTone">音色の音声ハンドル</param>
+	void PlayTone(const Note& _note, const AudioHandle _hTone, const int32_t _offset);
 
 	/// <summary>
 	/// 再生する
@@ -106,6 +117,18 @@ public:
 	/// <returns>終了した true / false</returns>
 	inline bool IsFinished() const { return playTime_ >= totalPlayTime_; }
 
+	/// <summary>
+	/// 四分音符の秒数を取得する
+	/// </summary>
+	/// <returns>四分音符の秒数</returns>
+	inline float GetQuarterSec() const { return quarterSec_; }
+
+	/// <summary>
+	/// 再生時間を取得する
+	/// </summary>
+	/// <returns>再生時間</returns>
+	inline float GetPlayTime() const { return playTime_; }
+
 private:
 	void OnLoadParam(const json& _json);
 
@@ -116,6 +139,7 @@ private:
 	std::vector<Truck> smfTrucks_;  // smfのトラックデータ
 	std::vector<size_t> readCurr_;  // 各トラックの再生したノーツインデクス
 	float totalPlayTime_;           // 総再生時間
+	float quarterSec_;              // 四分音符の秒数
 
 	float playTime_;  // 再生時間
 	float playRate_;  // 倍速か
