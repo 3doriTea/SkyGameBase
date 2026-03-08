@@ -257,10 +257,7 @@ void DropCloud::Update()
 				}
 				LOGFLN("レベルアップ:{}", (int)level_);
 
-				if (GameScene* pScene{ GetScene() }; pScene)
-				{
-					pScene->Instantiate<MiniChara>(GetEntityId(), smfPlayer_);
-				}
+				SpawanMiniChara();
 			}
 			else if (perfectTimer_ < 0.0f)
 			{
@@ -314,4 +311,34 @@ void DropCloud::Update()
 
 void DropCloud::Release()
 {
+}
+
+void DropCloud::SpawanMiniChara()
+{
+	if (GameScene* pScene{ GetScene() }; pScene)
+	{
+		MiniCharaType spawanType{};
+		switch (level_)
+		{
+		case CLOUD_LEVEL_BASE:
+			spawanType = MiniCharaType::Base3;
+			break;
+		case CLOUD_LEVEL_TUBA:
+			break;
+		case CLOUD_LEVEL_DRUM:
+			spawanType = MiniCharaType::Monkitty;
+			break;
+		case CLOUD_LEVEL_GLOCKEN:
+			break;
+		case CLOUD_LEVEL_START:
+		case CLOUD_LEVEL_MAX:
+		default:
+			break;
+		}
+
+		pScene->Instantiate<MiniChara>(
+			GetEntityId(),
+			smfPlayer_,
+			spawanType);
+	}
 }

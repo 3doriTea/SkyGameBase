@@ -46,6 +46,11 @@ public:
 	void Update() override;
 	void Release() override;
 
+	/// <summary>
+	/// ミニキャラを登場させる
+	/// </summary>
+	void SpawanMiniChara();
+
 private:
 	/// <summary>
 	/// jsonからパラメータを読み込む

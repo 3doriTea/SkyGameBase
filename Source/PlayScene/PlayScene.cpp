@@ -69,7 +69,7 @@ void PlayScene::Start()
 
 	Instantiate<SkySphere>();
 	
-	Instantiate<MiniChara>(dropCloud, smfPlayer);
+	Instantiate<MiniChara>(dropCloud, smfPlayer, MiniCharaType::Monkitty);
 
 	// TODO: “–‚½‚Á‚½‚ç“|‚ê‚éŠÅ”Â‚ğì‚é
 }
