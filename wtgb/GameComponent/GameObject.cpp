@@ -74,7 +74,6 @@ wtgb::ViewerCached* wtgb::GameObject::pCachedSystem_{ nullptr };
 void wtgb::GameObject::End()
 {
 	this->Release();
-	delete this;
 }
 
 wtgb::GameObject* wtgb::GameObject::FindGameObject(const std::string& _name)
@@ -85,7 +84,7 @@ wtgb::GameObject* wtgb::GameObject::FindGameObject(const std::string& _name)
 		return nullptr;  // –¼‘O‚ÅŒ©‚Â‚©‚ç‚È‚¯‚ê‚Î nullptr •Ô‚·
 	}
 	// –¼‘O‚ÅŒ©‚Â‚©‚Á‚½‚È‚çŽæ“¾‚µ‚Ä‚­‚é
-	return System().Get<CPGameObject>().Get(foundEntityId);
+	return System().Get<CPGameObject>().Get(foundEntityId)->get();
 }
 
 bool wtgb::GameObject::FindGameObjects(
@@ -123,11 +122,11 @@ bool wtgb::GameObject::FindGameObjects(
 	_pFoundGameObjects->clear();
 	for (EntityId foundEntityId : foundEntityIds)
 	{
-		GameObject* pGameObject{ System().Get<CPGameObject>().Get(foundEntityId) };
+		std::shared_ptr<GameObject>* ppGameObject{ System().Get<CPGameObject>().Get(foundEntityId) };
 		
-		if (pGameObject)
+		if (ppGameObject)
 		{
-			_pFoundGameObjects->push_back(pGameObject);
+			_pFoundGameObjects->push_back(ppGameObject->get());
 		}
 	}
 	return _pFoundGameObjects->size() > 0;

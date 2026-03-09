@@ -21,20 +21,20 @@ void wtgb::CPGameObject::Update()
 {
 	ComponentManager& componentManager{ System().Get<ComponentManager>() };
 
-	ForEach([](GameObject*& _pGameObject) -> BreakToken
+	ForEach([](const std::shared_ptr<GameObject>& _pGameObject) -> BreakToken
 		{
 			if (_pGameObject)
 			{
-				_pGameObject->Update();
+				_pGameObject.get()->Update();
 			}
 			return {};
 		});
 
-	ForEach([&componentManager](GameObject*& _pGameObject) -> BreakToken
+	ForEach([&componentManager](const std::shared_ptr<GameObject>& _pGameObject) -> BreakToken
 		{
-			if (_pGameObject->IsToDestroy())
+			if (_pGameObject.get()->IsToDestroy())
 			{
-				componentManager.RemoveEntity(_pGameObject->entityId_);
+				componentManager.RemoveEntity(_pGameObject.get()->entityId_);
 			}
 			return {};
 		});
@@ -42,11 +42,11 @@ void wtgb::CPGameObject::Update()
 
 void wtgb::CPGameObject::End()
 {
-	ForEach([](GameObject* _pGameObject) -> BreakToken
+	ForEach([](const std::shared_ptr<GameObject>& _pGameObject) -> BreakToken
 		{
 			if (_pGameObject)
 			{
-				_pGameObject->End();
+				_pGameObject.get()->End();
 			}
 			return {};
 		});
@@ -54,7 +54,7 @@ void wtgb::CPGameObject::End()
 
 const wtgb::EntityId wtgb::CPGameObject::GetEntityId(const size_t _index) const
 {
-	GameObject* pGameObject{ at(_index) };
+	GameObject* pGameObject{ at(_index).get() };
 	wassert(pGameObject && "ゲームオブジェクトがまだ作られていない");
 	if (pGameObject)
 	{
@@ -75,22 +75,22 @@ wtgb::GameObject* wtgb::CPGameObject::FindGameObject(const std::string_view _nam
 	}
 	else
 	{
-		return at(foundEntityId);
+		return at(foundEntityId).get();
 	}
 }
 
 wtgb::GameObject* wtgb::CPGameObject::FindGameObject(const EntityId _entityId)
 {
-	return at(_entityId);
+	return at(_entityId).get();
 }
 
 void wtgb::CPGameObject::Draw() const
 {
-	ForEach([](GameObject* _pGameObject) -> BreakToken
+	ForEach([](const std::shared_ptr<GameObject>& _pGameObject) -> BreakToken
 		{
 			if (_pGameObject)
 			{
-				_pGameObject->Draw();
+				_pGameObject.get()->Draw();
 			}
 			return {};
 		});

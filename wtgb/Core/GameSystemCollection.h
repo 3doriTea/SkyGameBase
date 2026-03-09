@@ -28,7 +28,7 @@ namespace wtgb
 		/// <summary>
 		/// 登録されるゲームシステムの配列
 		/// </summary>
-		using GameSystems = std::vector<IGameSystem*>;
+		using GameSystems = std::vector<std::shared_ptr<IGameSystem>>;
 		/// <summary>
 		/// 登録されているゲームシステムのインデックス配列
 		/// </summary>

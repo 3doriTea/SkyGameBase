@@ -6,6 +6,16 @@
 #include "Core/EntityCapacity.h"
 #include "ComponentPool/ComponentPoolIterator.h"
 
+
+template<typename T>
+struct is_shared_ptr : std::false_type {};
+
+template<typename U>
+struct is_shared_ptr<std::shared_ptr<U>> : std::true_type {};
+
+template<typename V>
+inline constexpr bool is_shared_ptr_v{ is_shared_ptr<V>::value };
+
 namespace wtgb
 {
 	/// <summary>
@@ -202,7 +212,7 @@ namespace wtgb
 		};
 
 	protected:
-		ComponentPool() : system_{ nullptr }, pool_{} {}
+		ComponentPool() : system_{ {} }, pool_{} {}
 		virtual ~ComponentPool() {}
 
 		/// <summary>

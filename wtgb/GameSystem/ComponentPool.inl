@@ -62,12 +62,17 @@ inline void wtgb::ComponentPool<ComponentT>::Remove(const EntityId _entityId)
 template<typename ComponentT>
 inline void wtgb::ComponentPool<ComponentT>::Clear()
 {
+
 	ForEach([](ComponentT& component) -> BreakToken
 		{
 			// I—¹ˆ—ŒÄ‚Ño‚µ‚Ä‚¢‚­
 			if constexpr (std::is_pointer_v<ComponentT>)
 			{
 				component->End();
+			}
+			else if constexpr (is_shared_ptr_v<ComponentT>)
+			{
+				component.get()->End();
 			}
 			else
 			{
@@ -87,6 +92,10 @@ inline void wtgb::ComponentPool<ComponentT>::ClearAt(const size_t _index)
 	if constexpr (std::is_pointer_v<ComponentT>)
 	{
 		at(_index)->End();
+	}
+	else if constexpr (is_shared_ptr_v<ComponentT>)
+	{
+		at(_index).get()->End();
 	}
 	else
 	{

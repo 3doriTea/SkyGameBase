@@ -9,11 +9,10 @@ namespace wtgb
 	/// <summary>
 	/// コンポーネントプール : ゲームオブジェクト
 	/// </summary>
-	class CPGameObject : public ComponentPool<GameObject*>
+	class CPGameObject : public ComponentPool<std::shared_ptr<GameObject>>
 	{
 	public:
 		CPGameObject();
-	private:
 		~CPGameObject();
 
 		/// <summary>

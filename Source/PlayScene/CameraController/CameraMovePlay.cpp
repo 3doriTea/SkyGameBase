@@ -64,7 +64,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	// カメラコントローラのゲームオブジェクトの情報
 
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
-	GameObject* pGameObject{ systemView.Get<CPGameObject>().Get(entityId) };
+	GameObject* pGameObject{ systemView.Get<CPGameObject>().Get(entityId)->get() };
 	GameObject* pPlayer{ pGameObject->FindGameObject("Player") };
 
 	// マウスカーソルの制御

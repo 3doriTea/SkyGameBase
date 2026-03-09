@@ -18,34 +18,34 @@ wtgb::GameSystemCollection::~GameSystemCollection()
 	// TODO: ここで例外でる調べる
 	for (auto& pGameSystem : gameSystems_)
 	{
-		SAFE_DELETE(pGameSystem);
+		pGameSystem.reset();
 	}
 	gameSystems_.clear();
 }
 
 void wtgb::GameSystemCollection::UpdateForEach(const Indexes& _indexRef)
 {
-	GameSystemUpdateViewer viewer{ this };
+	GameSystemUpdateViewer viewer{ (this) };
 	for (const auto index : _indexRef)
 	{
-		gameSystems_[index]->Update(viewer);
+		gameSystems_[index].get()->Update(viewer);
 	}
 }
 
 void wtgb::GameSystemCollection::InitForEachAll()
 {
 	GameSystemInitViewer viewer{ this };
-	for (auto pGameSystem : gameSystems_)
+	for (const auto& pGameSystem : gameSystems_)
 	{
-		pGameSystem->Init(viewer);
+		pGameSystem.get()->Init(viewer);
 	}
 }
 
 void wtgb::GameSystemCollection::EndForEachAll()
 {
-	for (auto pGameSystem : gameSystems_)
+	for (const auto& pGameSystem : gameSystems_)
 	{
-		pGameSystem->End();
+		pGameSystem.get()->End();
 	}
 }
 
@@ -60,7 +60,7 @@ void wtgb::GameSystemCollection::ComponentPoolAccessor::ForEachAll(const ForEach
 	// コンポーネントプールだけアクセス
 	for (const auto index : GetAccess()->componentPoolIndexes_)
 	{
-		IComponentPool* pComponentPool{ dynamic_cast<IComponentPool*>(GetAccess()->gameSystems_[index]) };
+		IComponentPool* pComponentPool{ dynamic_cast<IComponentPool*>(GetAccess()->gameSystems_[index].get()) };
 		wassert(pComponentPool != nullptr && "ComponentPoolではないゲームシステムにアクセスしようとした");
 
 		_callback(pComponentPool);

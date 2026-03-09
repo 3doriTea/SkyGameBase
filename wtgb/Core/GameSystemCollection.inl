@@ -13,16 +13,14 @@ wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
 	// TODO: コンポーネントプール関連は別クラスに移す
 	Indexes& componentPoolIndexes{ GetAccess()->componentPoolIndexes_ };
 
-	IGameSystem* pGameSystem{ new T{ args... } };
-
 	// 登録するゲームシステムに割り当てる要素番号
 	const Index INDEX{ gameSystems.size() };
 
-	gameSystems.push_back(pGameSystem);
+	gameSystems.push_back(std::make_unique<T>(args...));
 	gameSystemTypeKey.emplace(typeid(T), INDEX);
 
 	// 呼び出すタイミング別で要素番号を保存しておく
-	switch (pGameSystem->GetCallType())
+	switch (gameSystems[INDEX].get()->GetCallType())
 	{
 	case IGameSystem::CallType::Frame:  // フレーム毎の呼び出しコレクションに追加
 		callFrameIndexes.push_back(INDEX);
@@ -65,7 +63,7 @@ inline T& wtgb::GameSystemCollection::GameSystemViewer::Get() const
 	IGameSystem* pGameSystem{};
 	try
 	{
-		pGameSystem = gameSystems.at(index);
+		pGameSystem = gameSystems.at(index).get();
 	}
 	catch (const std::out_of_range& exception)
 	{
