@@ -5,8 +5,8 @@
 #include "UI/ResultPanel.h"
 
 
-ResultScene::ResultScene() : GameScene
-	{ GameScene::Config{} }
+ResultScene::ResultScene(GameScene::Config&& _config) :
+	GameScene{ std::move(_config) }
 {
 }
 

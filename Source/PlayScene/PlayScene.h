@@ -8,7 +8,7 @@
 class PlayScene : public GameScene
 {
 public:
-	PlayScene();
+	PlayScene(GameScene::Config&& _config);
 	~PlayScene();
 
 	void Start() override;

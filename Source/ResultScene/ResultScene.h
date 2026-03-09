@@ -8,7 +8,7 @@
 class ResultScene : public GameScene
 {
 public:
-	ResultScene();
+	ResultScene(GameScene::Config&& _config);
 	~ResultScene();
 
 	void Start() override;

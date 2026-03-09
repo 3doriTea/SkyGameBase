@@ -22,13 +22,8 @@
 #include "Utility/Mathf.h"
 #include "UI/MiniChara.h"
 
-PlayScene::PlayScene() : GameScene
-{
-	GameScene::Config
-	{
-
-	}
-},
+PlayScene::PlayScene(GameScene::Config&& _config) :
+	GameScene{ std::move(_config) },
 	worldConfig_
 	{
 		.safeZoneXMin = 0.0f,

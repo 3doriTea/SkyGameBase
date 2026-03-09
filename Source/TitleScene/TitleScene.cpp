@@ -11,8 +11,8 @@
 
 #include "PlayScene/PlayScene.h"
 
-TitleScene::TitleScene() :
-	GameScene{{}}
+TitleScene::TitleScene(GameScene::Config&& _config) :
+	GameScene{ std::move(_config) }
 {
 }
 

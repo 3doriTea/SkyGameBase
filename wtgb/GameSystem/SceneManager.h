@@ -34,16 +34,16 @@ namespace wtgb
 		template<typename SceneT>
 		inline void Move()
 		{
-			assert(pToNext_ == nullptr && "既に次のシーン遷移が呼ばれている");
+			assert(!pToNext_ && "既に次のシーン遷移が呼ばれている");
 
 			if (pCurrent_)  // 今のシーンが動いているなら
 			{
 				RequestClearComponents();  // コンポーネントの破棄依頼をする
 			}
 
-			if (pToNext_ == nullptr)
+			if (!pToNext_)
 			{
-				pToNext_ = new SceneT{};
+				pToNext_ = std::make_unique<SceneT>(system_);
 			}
 		}
 
@@ -51,14 +51,14 @@ namespace wtgb
 		/// 現在のゲームシーンを取得する
 		/// </summary>
 		/// <returns>現在のゲームシーンのポインタ</returns>
-		inline GameScene* GetCurrentScene() const { return pCurrent_; }
+		inline GameScene* GetCurrentScene() const { return pCurrent_.get(); }
 
 	private:
 		void RequestClearComponents();
 
 	private:
-		GameScene* pCurrent_;  // 現在のシーン
-		GameScene* pToNext_;   // 次に予定されているシーン
+		std::unique_ptr<GameScene> pCurrent_;  // 現在のシーン
+		std::unique_ptr<GameScene> pToNext_;   // 次に予定されているシーン
 		ViewerCached system_;  // システムのキャッシュ
 	};
 }

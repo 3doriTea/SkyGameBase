@@ -4,7 +4,7 @@
 class StageSelectScene : public GameScene
 {
 public:
-	StageSelectScene();
+	StageSelectScene(GameScene::Config&& _config);
 	~StageSelectScene();
 
 	void Start() override;

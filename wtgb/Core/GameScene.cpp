@@ -5,12 +5,7 @@
 #include "GameSystem/SceneManager.h"
 
 
-wtgb::GameScene::GameScene(Config&& _config)
+wtgb::GameScene::GameScene(Config&& _config) :
+	cachedSystem_{ _config.cachedSystem }
 {
 }
-
-wtgb::GameScene::~GameScene()
-{
-}
-
-wtgb::ViewerCached wtgb::GameScene::cachedSystem_{ nullptr };

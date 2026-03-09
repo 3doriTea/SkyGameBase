@@ -4,7 +4,7 @@
 class SampleScene : public wtgb::GameScene
 {
 public:
-	SampleScene();
+	SampleScene(GameScene::Config&& _config);
 	~SampleScene() {}
 
 	void Start() override;

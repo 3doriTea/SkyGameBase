@@ -4,7 +4,7 @@
 class TitleScene : public GameScene
 {
 public:
-	TitleScene();
+	TitleScene(GameScene::Config&& _config);
 	~TitleScene();
 
 	void Start() override;

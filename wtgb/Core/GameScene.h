@@ -13,11 +13,17 @@ namespace wtgb
 	/// </summary>
 	class GameScene
 	{
-		friend class SceneManager;
 	public:
+		/// <summary>
+		/// ゲームシーンの設定
+		/// </summary>
 		struct Config
 		{
-			
+			inline Config(const ViewerCached _cachedSystem) :
+				cachedSystem{ _cachedSystem }
+			{
+			}
+			ViewerCached cachedSystem;
 		};
 
 	public:
@@ -39,10 +45,9 @@ namespace wtgb
 
 			return entityId;
 		}
+		virtual ~GameScene() = default;
 
-	protected:
 		GameScene(Config&& _config);
-		virtual ~GameScene();
 
 		virtual void Start() {}
 		virtual void Update() {}
@@ -51,6 +56,6 @@ namespace wtgb
 		ViewerCached System() { return cachedSystem_; }
 
 	private:
-		static ViewerCached cachedSystem_;
+		ViewerCached cachedSystem_;  // システム参照用
 	};
 }

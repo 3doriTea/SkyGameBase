@@ -18,12 +18,8 @@
 
 using namespace wtgb;
 
-SampleScene::SampleScene() : GameScene
-{
-	GameScene::Config
-	{
-	}
-}
+SampleScene::SampleScene(GameScene::Config&& _config) :
+	GameScene{ std::move(_config) }
 {
 }
 

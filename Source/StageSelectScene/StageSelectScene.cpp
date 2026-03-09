@@ -1,10 +1,8 @@
 #include "StageSelectScene.h"
 #include "PlayScene/PlayScene.h"
 
-StageSelectScene::StageSelectScene() : GameScene
-{
-	GameScene::Config{}
-}
+StageSelectScene::StageSelectScene(GameScene::Config&& _config) :
+	GameScene{ std::move(_config) }
 {
 }
 
