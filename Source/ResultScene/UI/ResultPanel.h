@@ -29,5 +29,6 @@ private:
 	float animOffsetY_;    // アニメーションで動いたy
 	float moveRatio_;      // ムーブレート
 	bool isDrag_;          // 掴んでいる true / false
+	float toTitleTime_;    // タイトルにシーン遷移する
 };
 

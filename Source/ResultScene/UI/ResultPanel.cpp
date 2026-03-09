@@ -1,6 +1,7 @@
 #include "ResultPanel.h"
 #include "../ResultScene.h"
 #include "DragPoint.h"
+#include "TitleScene/TitleScene.h"
 
 
 ResultPanel::ResultPanel() :
@@ -38,6 +39,12 @@ void ResultPanel::Init()
 	assert(pDragPoint);
 	pDragPoint->SetRadius(dragCircleSizePix_);
 	pDragPoint->SetPosition(dragCirclePositionDown_);
+
+	System().Get<Alarm>().Add([this]
+		{
+			System().Get<SceneManager>().Move<TitleScene>();
+		},
+		toTitleTime_);
 }
 
 void ResultPanel::Update()
@@ -121,4 +128,5 @@ void ResultPanel::OnLoadParam(const json& _json)
 	_json.at("dragCirclePositionDown").get_to(dragCirclePositionDown_);
 	_json.at("dragCirclePositionUp").get_to(dragCirclePositionUp_);
 	_json.at("dragCircleSizePix").get_to(dragCircleSizePix_);
+	_json.at("toTitleMoveTime").get_to(toTitleTime_);
 }
