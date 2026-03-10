@@ -6,13 +6,13 @@
 namespace wtgb
 {
 	/// <summary>
-	/// “Ç‚İ‚ñ‚¾ƒVƒF[ƒ_
+	/// èª­ã¿è¾¼ã‚“ã ã‚·ã‚§ãƒ¼ãƒ€
 	/// </summary>
 	class Shader : public IResource<>
 	{
 	public:
 		/// <summary>
-		/// ƒVƒF[ƒ_‚Ö‚ÌƒAƒNƒZƒbƒT
+		/// ã‚·ã‚§ãƒ¼ãƒ€ã¸ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µ
 		/// </summary>
 		class ShaderAccessor : public Accessor<Shader>
 		{
@@ -41,20 +41,20 @@ namespace wtgb
 
 	private:
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override;
 		/// <summary>
-		/// ‰ğ•úˆ—
+		/// è§£æ”¾å‡¦ç†
 		/// </summary>
 		void Release() override;
 
 	private:
-		ComPtr<ID3D11VertexShader> pVertexShader_;        // ’¸“_ƒVƒF[ƒ_
-		ComPtr<ID3D11PixelShader> pPixelShader_;          // ƒsƒNƒZƒ‹ƒVƒF[ƒ_
-		ComPtr<ID3D11InputLayout> pVertexLayout_;         // ’¸“_ƒCƒ“ƒvƒbƒgƒŒƒCƒAƒEƒg
-		ComPtr<ID3D11RasterizerState> pRasterizerState_;  // ƒ‰ƒXƒ^ƒ‰ƒCƒUƒXƒe[ƒg
-		ShaderAccessor accessor_;  // ƒAƒNƒZƒbƒT
-		std::string fileName_;  // ƒtƒ@ƒCƒ‹–¼
+		ComPtr<ID3D11VertexShader> pVertexShader_;        // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€
+		ComPtr<ID3D11PixelShader> pPixelShader_;          // ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€
+		ComPtr<ID3D11InputLayout> pVertexLayout_;         // é ‚ç‚¹ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
+		ComPtr<ID3D11RasterizerState> pRasterizerState_;  // ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ã‚¹ãƒ†ãƒ¼ãƒˆ
+		ShaderAccessor accessor_;  // ã‚¢ã‚¯ã‚»ãƒƒã‚µ
+		std::string fileName_;  // ãƒ•ã‚¡ã‚¤ãƒ«å
 	};
 }

@@ -24,21 +24,21 @@ wtgb::Result wtgb::GameWindow::Init(const ViewerInit& _viewer)
 
 void wtgb::GameWindow::Update(const ViewerUpdate& _system)
 {
-	// MEMO: ‚·‚×‚Ä‚ÌƒEƒBƒ“ƒhƒE‚©‚ç‚ÌƒƒbƒZ[ƒW‚ğóM‚·‚é‚½‚ß‘æ‚Qˆø”‚Í nullptr
+	// MEMO: ã™ã¹ã¦ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‹ã‚‰ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å—ä¿¡ã™ã‚‹ãŸã‚ç¬¬ï¼’å¼•æ•°ã¯ nullptr
 	if (PeekMessage(&peekedMessage_, nullptr, 0, 0, PM_REMOVE))
 	{
 		TranslateMessage(&peekedMessage_);
 		DispatchMessage(&peekedMessage_);
 	}
 
-	// ƒ}ƒEƒXÀ•W‚ğXV‚·‚é
+	// ãƒã‚¦ã‚¹åº§æ¨™ã‚’æ›´æ–°ã™ã‚‹
 	_system.Get<Input>().GetMouseUpdater().SetMousePosition(mousePosition_);
 	_system.Get<Cursor>().GetUpdater().UpdatePosition(mousePosition_);
 }
 
 void wtgb::GameWindow::End()
 {
-	// ‘SƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚é && ‰ğ•ú
+	// å…¨ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹ && è§£æ”¾
 	windowHandles_.Release([](CreatedWindowData& _data)
 	{
 		CloseWindow(_data.hWnd);
@@ -68,15 +68,15 @@ wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _confi
 	};
 
 	ATOM atom{ RegisterClassEx(&WNDCLASSEX_DESC) };
-	wassert(atom != 0 && "ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX“o˜^‚É¸”s");
+	wassert(atom != 0 && "ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ç™»éŒ²ã«å¤±æ•—");
 
 	RECT windowRect{ 0, 0, _config.windowScreenSize.x, _config.windowScreenSize.y };
 	BOOL succeed{ AdjustWindowRectEx(&windowRect, _config.clientStyle, _config.hasMenu, _config.clientStyleEx) };
-	wassert(succeed && "ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚ğl—¶‚µ‚½ƒEƒBƒ“ƒhƒEƒTƒCƒYŒvZ‚É¸”s");
+	wassert(succeed && "ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã‚’è€ƒæ…®ã—ãŸã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºè¨ˆç®—ã«å¤±æ•—");
 
-	// ŒvZ‚³‚ê‚½ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY ‰¡•
+	// è¨ˆç®—ã•ã‚ŒãŸã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚º æ¨ªå¹…
 	int windowWidth{ windowRect.right - windowRect.left };
-	// ŒvZ‚³‚ê‚½ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY ‚‚³
+	// è¨ˆç®—ã•ã‚ŒãŸã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚º é«˜ã•
 	int windowHeight{ windowRect.bottom - windowRect.top };
 
 	HWND hWnd = CreateWindowEx(
@@ -93,19 +93,19 @@ wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _confi
 		hInstance,
 		nullptr);
 
-	wassert(hWnd != nullptr && "ƒEƒBƒ“ƒhƒE‚Ìì¬‚É¸”s");
-	wassert(IsWindow(hWnd) && "ƒEƒBƒ“ƒhƒE‚Å‚Í‚È‚¢ƒnƒ“ƒhƒ‹‚ªì‚ç‚ê‚Ä‚¢‚é");
+	wassert(hWnd != nullptr && "ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½œæˆã«å¤±æ•—");
+	wassert(IsWindow(hWnd) && "ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã§ã¯ãªã„ãƒãƒ³ãƒ‰ãƒ«ãŒä½œã‚‰ã‚Œã¦ã„ã‚‹");
 
 	GameWindowHandle hGameWindow{ windowHandles_.Emplace(_config, hWnd) };
 
-	ShowWindow(hWnd, SW_SHOWDEFAULT);  // ƒEƒBƒ“ƒhƒE‚ğ•\¦
+	ShowWindow(hWnd, SW_SHOWDEFAULT);  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤º
 
 	return hGameWindow;
 }
 
 HWND wtgb::GameWindow::GetMainWindowHandle()
 {
-	wassert(!windowHandles_.IsEmpty() && "ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹‚ª1‚Â‚à“o˜^‚³‚ê‚Ä‚¢‚È‚¢");
+	wassert(!windowHandles_.IsEmpty() && "ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«ãŒ1ã¤ã‚‚ç™»éŒ²ã•ã‚Œã¦ã„ãªã„");
 	return windowHandles_.begin()->second.hWnd;
 }
 
@@ -136,7 +136,7 @@ void wtgb::GameWindow::AddWinProcListener(const std::function<LRESULT(HWND, UINT
 
 const wtgb::GameWindow::CreateWindowConfig& wtgb::GameWindow::GetMainWindowData()
 {
-	wassert(!windowHandles_.IsEmpty() && "ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹‚ª1‚Â‚à“o˜^‚³‚ê‚Ä‚¢‚È‚¢");
+	wassert(!windowHandles_.IsEmpty() && "ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«ãŒ1ã¤ã‚‚ç™»éŒ²ã•ã‚Œã¦ã„ãªã„");
 	return windowHandles_.begin()->second.config;
 }
 
@@ -144,35 +144,35 @@ LRESULT wtgb::GameWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 {
 	isDefaultControled_ = true;
 
-	// ƒVƒXƒeƒ€‚ªó‚¯æ‚è‚½‚¢ˆ—‚ğæ‚É‚·‚é
+	// ã‚·ã‚¹ãƒ†ãƒ ãŒå—ã‘å–ã‚ŠãŸã„å‡¦ç†ã‚’å…ˆã«ã™ã‚‹
 	for (auto& callback : winProcCallbacks_)
 	{
 		if (callback(hWnd, message, wParam, lParam))
 		{
 			isDefaultControled_ = false;
-			// ó‚¯æ‚ê‚½‚È‚ç‰ñ‹A
+			// å—ã‘å–ã‚ŒãŸãªã‚‰å›å¸°
 			return true;
 		}
 	}
 
 	switch (message)
 	{
-	case WM_COMMAND:  // ƒƒjƒ…[‚Æ‚©‚ÌƒRƒ}ƒ“ƒh
+	case WM_COMMAND:  // ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã¨ã‹ã®ã‚³ãƒãƒ³ãƒ‰
 	{
 		int wmId{ LOWORD(wParam) };
 
-		// ‘I‘ğ‚³‚ê‚½Id
+		// é¸æŠã•ã‚ŒãŸId
 		switch (wmId)
 		{
 		case 0:
 			break;
 		default:
-			LOGFW("–¢w’è‚ÌƒRƒ}ƒ“ƒh‚ğó‚¯æ‚Á‚½:{}\n", wmId);
+			LOGFW("æœªæŒ‡å®šã®ã‚³ãƒãƒ³ãƒ‰ã‚’å—ã‘å–ã£ãŸ:{}\n", wmId);
 			break;
 		}
 		break;
 	}
-	case WM_DESTROY:  // ƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚éˆ—
+	case WM_DESTROY:  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹å‡¦ç†
 		Game::Exit();
 		break;
 	case WM_MOUSEMOVE:

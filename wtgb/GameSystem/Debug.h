@@ -6,7 +6,7 @@ namespace wtgb
 	class IMeshSimple;
 
 	/// <summary>
-	/// ƒfƒoƒbƒO‚ğŠÇ—‚·‚éƒVƒXƒeƒ€
+	/// ãƒ‡ãƒãƒƒã‚°ã‚’ç®¡ç†ã™ã‚‹ã‚·ã‚¹ãƒ†ãƒ 
 	/// </summary>
 	class Debug : public IGameSystem
 	{
@@ -15,56 +15,56 @@ namespace wtgb
 		~Debug();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		ViewerCached& System() { return system_; }
 
 		/// <summary>
-		/// ƒfƒoƒbƒO—p‹…‘Ìƒ‚ƒfƒ‹‚ğæ“¾
+		/// ãƒ‡ãƒãƒƒã‚°ç”¨çƒä½“ãƒ¢ãƒ‡ãƒ«ã‚’å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		IMeshSimple* GetDebugSphere();
 		/// <summary>
-		/// ƒfƒoƒbƒO—pƒVƒF[ƒ_‚ğæ“¾
+		/// ãƒ‡ãƒãƒƒã‚°ç”¨ã‚·ã‚§ãƒ¼ãƒ€ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒfƒoƒbƒOƒVƒF[ƒ_‚Ìæ“¾</returns>
+		/// <returns>ãƒ‡ãƒãƒƒã‚°ã‚·ã‚§ãƒ¼ãƒ€ã®å–å¾—</returns>
 		inline ShaderHandle GetDebugShader() const { return hShader_; }
 
-	#pragma region ”CˆÓ‚Ì“_‚É‚Â‚¢‚Ä‚ÌƒfƒoƒbƒO
+	#pragma region ä»»æ„ã®ç‚¹ã«ã¤ã„ã¦ã®ãƒ‡ãƒãƒƒã‚°
 		static void DrawPoint(const Vector3& _position);
 	#pragma endregion
 
-	#pragma region ƒRƒ“ƒ|[ƒlƒ“ƒgƒIƒvƒVƒ‡ƒ“‚ÌƒJƒEƒ“ƒg
+	#pragma region ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®ã‚«ã‚¦ãƒ³ãƒˆ
 		static size_t& ComponentOptInstanceCount() { return componentOptInstanceCount_; }
 
 		static size_t componentOptInstanceCount_;
 	#pragma endregion
 
 	private:
-		ModelHandle hTestPointSphere_;   // ƒeƒXƒg—p‹…ƒ‚ƒfƒ‹
-		ShaderHandle hTestPointShader_;  // ƒfƒoƒbƒO—pƒVƒF[ƒ_
+		ModelHandle hTestPointSphere_;   // ãƒ†ã‚¹ãƒˆç”¨çƒãƒ¢ãƒ‡ãƒ«
+		ShaderHandle hTestPointShader_;  // ãƒ‡ãƒãƒƒã‚°ç”¨ã‚·ã‚§ãƒ¼ãƒ€
 
-		ModelHandle hSphere_;  // ƒfƒoƒbƒO—p‹…ƒ‚ƒfƒ‹
-		ShaderHandle hShader_;  // ƒfƒoƒbƒO—pƒVƒF[ƒ_
+		ModelHandle hSphere_;  // ãƒ‡ãƒãƒƒã‚°ç”¨çƒãƒ¢ãƒ‡ãƒ«
+		ShaderHandle hShader_;  // ãƒ‡ãƒãƒƒã‚°ç”¨ã‚·ã‚§ãƒ¼ãƒ€
 
-		ViewerCached system_;  // ƒVƒXƒeƒ€‚ÌƒLƒƒƒbƒVƒ…
+		ViewerCached system_;  // ã‚·ã‚¹ãƒ†ãƒ ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥
 
-		static Debug* pInstance_;  // ƒfƒoƒbƒO‚Ì‚İƒVƒ“ƒOƒ‹ƒgƒ“
+		static Debug* pInstance_;  // ãƒ‡ãƒãƒƒã‚°æ™‚ã®ã¿ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
 	};
 }

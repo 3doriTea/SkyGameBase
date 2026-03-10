@@ -18,10 +18,10 @@ struct Note
 		velocity{ _velocity }
 	{
 	}
-	float totalTime;     // â‘Î“I‚ÈŠÔ
-	float playTime;      // Ä¶ŠÔ
-	//float diffTime;    // ‘O‰ñ‚Ìƒm[ƒc‚Æ‚Ì‘Š‘Î“I‚ÈŠÔ
-	uint8_t channel;     // ƒ`ƒƒƒ“ƒlƒ‹
-	uint8_t noteNumber;  // ‰¹‚Ì‚‚³
-	uint8_t velocity;    // ‰¹‚Ì‹­‚³
+	float totalTime;     // çµ¶å¯¾çš„ãªæ™‚é–“
+	float playTime;      // å†ç”Ÿæ™‚é–“
+	//float diffTime;    // å‰å›ã®ãƒãƒ¼ãƒ„ã¨ã®ç›¸å¯¾çš„ãªæ™‚é–“
+	uint8_t channel;     // ãƒãƒ£ãƒ³ãƒãƒ«
+	uint8_t noteNumber;  // éŸ³ã®é«˜ã•
+	uint8_t velocity;    // éŸ³ã®å¼·ã•
 };

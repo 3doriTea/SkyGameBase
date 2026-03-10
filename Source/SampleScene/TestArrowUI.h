@@ -12,7 +12,7 @@ public:
 	void Release() override;
 
 private:
-	TextureHandle hArrowTexture_;  // ƒeƒXƒg—p–îˆó‚Ì‰æ‘œ
+	TextureHandle hArrowTexture_;  // ãƒ†ã‚¹ãƒˆç”¨çŸ¢å°ã®ç”»åƒ
 
-	EntityId numberPlate_;  // ƒiƒ“ƒo[ƒvƒŒ[ƒg
+	EntityId numberPlate_;  // ãƒŠãƒ³ãƒãƒ¼ãƒ—ãƒ¬ãƒ¼ãƒˆ
 };

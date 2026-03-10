@@ -53,9 +53,9 @@ void LiftChair::Update()
 
 	Lift* pLift{ dynamic_cast<Lift*>(FindGameObject(lift_)) };
 	if (pLift)
-	{  // ƒŠƒtƒg–{‘Ì‚ªŒ©‚Â‚©‚é‘O’ñ
+	{  // ãƒªãƒ•ãƒˆæœ¬ä½“ãŒè¦‹ã¤ã‹ã‚‹å‰æ
 		if (isRotating_)
-		{  // “]‰ñ’†‚È‚ç
+		{  // è»¢å›ä¸­ãªã‚‰
 			Vector3 position{};
 			float z{ Transform().GetPositionWorld().z };
 			if (pLift->TryGetLinePosition(z, &position))
@@ -77,11 +77,11 @@ void LiftChair::Update()
 		}
 
 		Vector3 position{};
-		// ƒŠƒtƒgƒ‰ƒCƒ““à‚É‚¢‚é‚©‚Ç‚¤‚©
+		// ãƒªãƒ•ãƒˆãƒ©ã‚¤ãƒ³å†…ã«ã„ã‚‹ã‹ã©ã†ã‹
 		bool isInLiftLine{ pLift->TryGetLinePosition(positionZ_, &position) };
 
 		if (isInLiftLine == false)
-		{  // ƒŠƒtƒgƒ‰ƒCƒ“‚ÌŠO‚È‚ç“]‰ñŠJn
+		{  // ãƒªãƒ•ãƒˆãƒ©ã‚¤ãƒ³ã®å¤–ãªã‚‰è»¢å›é–‹å§‹
 			StartUTurn();
 			return;
 		}
@@ -109,7 +109,7 @@ void LiftChair::StartUTurn()
 	Lift* pLift{ dynamic_cast<Lift*>(FindGameObject(lift_)) };
 	if (pLift == nullptr)
 	{
-		wassert(false && "ƒŠƒtƒg–{‘Ì‚ªŒ©‚Â‚©‚ç‚È‚¢‚æ[");
+		wassert(false && "ãƒªãƒ•ãƒˆæœ¬ä½“ãŒè¦‹ã¤ã‹ã‚‰ãªã„ã‚ˆãƒ¼");
 		return;
 	}
 
@@ -131,7 +131,7 @@ void LiftChair::EndUTurn()
 {
 	GetComponent<GameObjectProperty>().SetParent(lift_);
 
-	// ã¸ or ~‰º ‚ğ”½“]‚³‚¹‚é
+	// ä¸Šæ˜‡ or é™ä¸‹ ã‚’åè»¢ã•ã›ã‚‹
 	isUpping_ = !isUpping_;
 
 	isRotating_ = false;

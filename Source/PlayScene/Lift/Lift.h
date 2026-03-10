@@ -6,13 +6,13 @@ class Lift : public GameObject
 public:
 	enum LOOP_POLE_TYPE
 	{
-		LOOP_POLE_UPPER,  // ’¸ã‚Ìƒ|[ƒ‹
-		LOOP_POLE_LOWER,  // ˜[‚Ìƒ|[ƒ‹
-		LOOP_POLE_MAX,    // ‰ñ“]ƒ|[ƒ‹‚Ì”
+		LOOP_POLE_UPPER,  // é ‚ä¸Šã®ãƒãƒ¼ãƒ«
+		LOOP_POLE_LOWER,  // éº“ã®ãƒãƒ¼ãƒ«
+		LOOP_POLE_MAX,    // å›žè»¢ãƒãƒ¼ãƒ«ã®æ•°
 	};
 private:
 	/// <summary>
-	/// ƒŠƒtƒg‚Ì’Œ
+	/// ãƒªãƒ•ãƒˆã®æŸ±
 	/// </summary>
 	struct Pole
 	{
@@ -29,35 +29,35 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ƒŠƒtƒg‚ª‰ñ‚éƒXƒs[ƒh‚ðŽæ“¾‚·‚é
+	/// ãƒªãƒ•ãƒˆãŒå›žã‚‹ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>ƒŠƒtƒg‚ª1•bŠÔ“–‚½‚è‚Å‰ñ‚éŠp“x</returns>
+	/// <returns>ãƒªãƒ•ãƒˆãŒ1ç§’é–“å½“ãŸã‚Šã§å›žã‚‹è§’åº¦</returns>
 	float GetRotationSpeedPerSec() const { return rotationSpeedPerSec_; }
 
 	/// <summary>
-	/// ZÀ•W‚©‚çƒ|[ƒ‹‚ÌÝ’uÀ•W‚ðŽæ“¾‚·‚é
+	/// Zåº§æ¨™ã‹ã‚‰ãƒãƒ¼ãƒ«ã®è¨­ç½®åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <param name="_z">‰œs‚«À•W</param>
+	/// <param name="_z">å¥¥è¡Œãåº§æ¨™</param>
 	Vector3 GetPolePosition(const float _z);
 	/// <summary>
-	/// ŽŽ‚µ‚ÉZÀ•W‚©‚çƒ‰ƒCƒ“‚ÌÀ•W‚ðŽæ“¾‚·‚é
+	/// è©¦ã—ã«Zåº§æ¨™ã‹ã‚‰ãƒ©ã‚¤ãƒ³ã®åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <param name="_z">‰œs‚«À•W</param>
-	/// <param name="_linePos">ƒ[ƒv‚Ìƒ‰ƒCƒ“À•Wo—Í—pƒ|ƒCƒ“ƒ^</param>
-	/// <returns>”ÍˆÍ“à‚Ì‚½‚ßŽæ“¾‚Å‚«‚½ true / false</returns>
+	/// <param name="_z">å¥¥è¡Œãåº§æ¨™</param>
+	/// <param name="_linePos">ãƒ­ãƒ¼ãƒ—ã®ãƒ©ã‚¤ãƒ³åº§æ¨™å‡ºåŠ›ç”¨ãƒã‚¤ãƒ³ã‚¿</param>
+	/// <returns>ç¯„å›²å†…ã®ãŸã‚å–å¾—ã§ããŸ true / false</returns>
 	bool TryGetLinePosition(const float _z, Vector3* _pPosition);
 
 	/// <summary>
-	/// —¼’[‚Ì‰ñ“]ƒ|[ƒ‹‚ðŽæ“¾‚·‚é
+	/// ä¸¡ç«¯ã®å›žè»¢ãƒãƒ¼ãƒ«ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <param name="_type">ƒ|[ƒ‹‚ÌŽí—Þ</param>
-	/// <returns>ƒ|[ƒ‹‚ÌƒGƒ“ƒeƒBƒeƒBId</returns>
+	/// <param name="_type">ãƒãƒ¼ãƒ«ã®ç¨®é¡ž</param>
+	/// <returns>ãƒãƒ¼ãƒ«ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</returns>
 	EntityId GetLoopPole(const LOOP_POLE_TYPE _type) const { return loopPole_[_type]; }
 
 private:
-	float rotationSpeedPerSec_;  // ƒŠƒtƒg‚ª1•bŠÔ“–‚½‚è‚Å‰ñ‚éƒXƒs[ƒh
-	EntityId stage_;             // ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg
-	std::vector<Pole> poles_;    // ƒŠƒtƒg‚Ì‘S’Œ
+	float rotationSpeedPerSec_;  // ãƒªãƒ•ãƒˆãŒ1ç§’é–“å½“ãŸã‚Šã§å›žã‚‹ã‚¹ãƒ”ãƒ¼ãƒ‰
+	EntityId stage_;             // ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	std::vector<Pole> poles_;    // ãƒªãƒ•ãƒˆã®å…¨æŸ±
 
-	EntityId loopPole_[LOOP_POLE_MAX];  // ‰ñ“]ƒ|[ƒ‹
+	EntityId loopPole_[LOOP_POLE_MAX];  // å›žè»¢ãƒãƒ¼ãƒ«
 };

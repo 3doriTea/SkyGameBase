@@ -4,7 +4,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒJƒƒ‰ƒVƒXƒeƒ€
+	/// ã‚«ãƒ¡ãƒ©ã‚·ã‚¹ãƒ†ãƒ 
 	/// </summary>
 	class Camera : public IGameSystem
 	{
@@ -13,55 +13,55 @@ namespace wtgb
 		~Camera();
 
 		/// <summary>
-		/// XVƒ^ƒCƒ~ƒ“ƒO‚ğæ“¾‚·‚é
+		/// æ›´æ–°ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_viewer">ƒVƒXƒeƒ€‚Ìƒrƒ…ƒA</param>
-		/// <returns>Œ‹‰Ê</returns>
+		/// <param name="_viewer">ã‚·ã‚¹ãƒ†ãƒ ã®ãƒ“ãƒ¥ã‚¢</param>
+		/// <returns>çµæœ</returns>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€‚Ìƒrƒ…ƒA</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ ã®ãƒ“ãƒ¥ã‚¢</param>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ‚ğæ“¾
+		/// ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—ã‚’å–å¾—
 		/// </summary>
-		/// <returns>4x4s—ñ</returns>
+		/// <returns>4x4è¡Œåˆ—</returns>
 		Matrix4x4 GetProjectionMatrix() const;
 		/// <summary>
-		/// ƒrƒ…[s—ñ‚ğæ“¾
+		/// ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—ã‚’å–å¾—
 		/// </summary>
-		/// <returns>4x4s—ñ</returns>
+		/// <returns>4x4è¡Œåˆ—</returns>
 		Matrix4x4 GetViewMatrix() const;
 
 		/// <summary>
-		/// ƒJƒƒ‰‚ªŒü‚¢‚Ä‚¢‚éƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// ã‚«ãƒ¡ãƒ©ãŒå‘ã„ã¦ã„ã‚‹ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>³‹K‰»‚³‚ê‚Ä‚¢‚È‚¢ƒxƒNƒgƒ‹</returns>
+		/// <returns>æ­£è¦åŒ–ã•ã‚Œã¦ã„ãªã„ãƒ™ã‚¯ãƒˆãƒ«</returns>
 		Vector3 GetDisplacement() const { return targetPosition_ - position_; }
 		/// <summary>
-		/// ƒJƒƒ‰‚ªŒü‚¢‚Ä‚¢‚é•ûŒüƒxƒNƒgƒ‹
+		/// ã‚«ãƒ¡ãƒ©ãŒå‘ã„ã¦ã„ã‚‹æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
 		/// </summary>
-		/// <returns>³‹K‰»‚³‚ê‚½•ûŒüƒxƒNƒgƒ‹</returns>
+		/// <returns>æ­£è¦åŒ–ã•ã‚ŒãŸæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«</returns>
 		Vector3 GetDirection() const { return DirectX::XMVector3Normalize(GetDisplacement()); }
 		Vector3 GetPosition() const { return position_; }
 	public:
-		Vector3 position_;        // ˆÊ’uÀ•W
-		Vector3 targetPosition_;  // Å“_À•W
+		Vector3 position_;        // ä½ç½®åº§æ¨™
+		Vector3 targetPosition_;  // ç„¦ç‚¹åº§æ¨™
 	private:
-		Matrix4x4 viewMatrix_;        // ƒrƒ…[s—ñ
-		Matrix4x4 projectionMatrix_;  // ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ
+		Matrix4x4 viewMatrix_;        // ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—
+		Matrix4x4 projectionMatrix_;  // ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—
 
 	};
 }

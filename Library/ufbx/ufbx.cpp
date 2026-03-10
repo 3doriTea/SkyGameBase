@@ -1,4 +1,4 @@
-#include "pch/pch.h"  // �\�[�X�t�@�C���̐擪�ɕK������
+#include "pch/pch.h"  // ソースファイルの先頭に必ず書く
 
 #ifndef UFBX_UFBX_C_INCLUDED
 #define UFBX_UFBX_C_INCLUDED

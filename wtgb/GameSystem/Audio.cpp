@@ -18,14 +18,14 @@ wtgb::Result wtgb::Audio::Init(const ViewerInit& _viewer)
 	HRESULT hResult{};
 
 	hResult = CoInitializeEx(NULL, COINIT_MULTITHREADED);
-	wassert(SUCCEEDED(hResult) && "COM‚Ì‰Šú‰»‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "COMã®åˆæœŸåŒ–ã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
 	}
 
 	hResult = XAudio2Create(pXAudio2_.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "COM‚Ì‰Šú‰»‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "COMã®åˆæœŸåŒ–ã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
@@ -34,7 +34,7 @@ wtgb::Result wtgb::Audio::Init(const ViewerInit& _viewer)
 	IXAudio2MasteringVoice* pMasteringVoice{ nullptr };
 	hResult = pXAudio2_.Get()->CreateMasteringVoice(&pMasteringVoice);
 	//hResult = pXAudio2_.Get()->CreateMasteringVoice(pMasteringVoice_.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "å‰¹º‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "ä¸»éŸ³å£°ã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return Result::Code::Failed;
@@ -48,14 +48,14 @@ wtgb::Result wtgb::Audio::Init(const ViewerInit& _viewer)
 void wtgb::Audio::Update(const ViewerUpdate& _system)
 {
 	const float dt{ _system.Get<GameTime>().GetDeltaTime() };
-	audioPlayer_.Update(dt);  // XV‚·‚é
+	audioPlayer_.Update(dt);  // æ›´æ–°ã™ã‚‹
 }
 
 void wtgb::Audio::End()
 {
 	audioPlayer_.Clear();
 
-	// ‘SƒNƒŠƒbƒv‰ğ•úˆ—
+	// å…¨ã‚¯ãƒªãƒƒãƒ—è§£æ”¾å‡¦ç†
 	audioClips_.Release([](AudioClip& _clip)
 		{
 			_clip.CallRelease();
@@ -69,7 +69,7 @@ void wtgb::Audio::CreateSourceVoice(IXAudio2SourceVoice** _ppSourceVoice, const 
 {
 	HRESULT hResult{};
 	hResult = pXAudio2_.Get()->CreateSourceVoice(_ppSourceVoice, &_format);
-	wassert(SUCCEEDED(hResult) && "SourceVoice‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "SourceVoiceã®ä½œæˆã«å¤±æ•—");
 }
 
 wtgb::AudioHandle wtgb::Audio::Load(const fs::path& _audioFileName)
@@ -84,38 +84,38 @@ wtgb::AudioHandle wtgb::Audio::Load(const fs::path& _audioFileName)
 
 	if (foundHandle != INVALID_HANDLE)
 	{
-		// Šù‚É“Ç‚İ‚Ü‚ê‚½‰¹º‚È‚ç‚»‚Ìƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+		// æ—¢ã«èª­ã¿è¾¼ã¾ã‚ŒãŸéŸ³å£°ãªã‚‰ãã®ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 		return foundHandle;
 	}
 
 	//  REF: https://learn.microsoft.com/ja-jp/windows/win32/api/fileapi/nf-fileapi-createfilea
 	HANDLE hFile = CreateFile(
-		_audioFileName.string().c_str(),  // ƒtƒ@ƒCƒ‹–¼
-		GENERIC_READ,                     // “Ç‚İæ‚è‚Ü‚·‚æ[
-		FILE_SHARE_READ,                  // Close‚³‚ê‚é‚Ü‚ÅA‘¼‚ÌƒAƒvƒŠ‚Íƒtƒ@ƒCƒ‹‚Ì“Ç‚İæ‚è‚¾‚¯‚µ‚Ä‚¢‚¢‚æ[
-		nullptr,                          // ƒZƒLƒ…ƒŠƒeƒB‘®«—p‚Ì\‘¢‘Ìƒ|ƒCƒ“ƒ^‚ğw’è
-		OPEN_EXISTING,                    // ŠJ‚­ - ƒtƒ@ƒCƒ‹‚ª–³‚©‚Á‚½‚ç¸”s
-		FILE_ATTRIBUTE_NORMAL,            // •’Ê‚Ìƒtƒ@ƒCƒ‹‘®«
-		NULL);                            // Šù‘¶‚Ìƒtƒ@ƒCƒ‹‚ğŠJ‚­ê‡‚ÍŠÖŒW‚È‚¢‚â‚Â
+		_audioFileName.string().c_str(),  // ãƒ•ã‚¡ã‚¤ãƒ«å
+		GENERIC_READ,                     // èª­ã¿å–ã‚Šã¾ã™ã‚ˆãƒ¼
+		FILE_SHARE_READ,                  // Closeã•ã‚Œã‚‹ã¾ã§ã€ä»–ã®ã‚¢ãƒ—ãƒªã¯ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿å–ã‚Šã ã‘ã—ã¦ã„ã„ã‚ˆãƒ¼
+		nullptr,                          // ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£å±æ€§ç”¨ã®æ§‹é€ ä½“ãƒã‚¤ãƒ³ã‚¿ã‚’æŒ‡å®š
+		OPEN_EXISTING,                    // é–‹ã - ãƒ•ã‚¡ã‚¤ãƒ«ãŒç„¡ã‹ã£ãŸã‚‰å¤±æ•—
+		FILE_ATTRIBUTE_NORMAL,            // æ™®é€šã®ãƒ•ã‚¡ã‚¤ãƒ«å±æ€§
+		NULL);                            // æ—¢å­˜ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãå ´åˆã¯é–¢ä¿‚ãªã„ã‚„ã¤
 
 	if (hFile == INVALID_HANDLE_VALUE)
 	{
-		wassert(false && "ƒtƒ@ƒCƒ‹Open‚É¸”s");
+		wassert(false && "ãƒ•ã‚¡ã‚¤ãƒ«Openã«å¤±æ•—");
 		return INVALID_HANDLE;
 	}
 
 	BOOL succeed{ FALSE };
 
 	//  REF: https://learn.microsoft.com/ja-jp/windows/win32/api/fileapi/nf-fileapi-getfilesizeex
-	LARGE_INTEGER fileSize{};  // ƒtƒ@ƒCƒ‹ƒTƒCƒYŠi”[—p
+	LARGE_INTEGER fileSize{};  // ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºæ ¼ç´ç”¨
 	succeed = GetFileSizeEx(hFile, &fileSize);
 	if (succeed == FALSE)
 	{
-		wassert(false && "ƒtƒ@ƒCƒ‹ƒTƒCƒYæ“¾‚É¸”s");
+		wassert(false && "ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºå–å¾—ã«å¤±æ•—");
 		return INVALID_HANDLE;
 	}
 
-	DWORD readedSize{ 0 };  // ÀÛ‚É“Ç‚İæ‚ê‚½ƒoƒCƒg”
+	DWORD readedSize{ 0 };  // å®Ÿéš›ã«èª­ã¿å–ã‚ŒãŸãƒã‚¤ãƒˆæ•°
 
 	std::vector<byte> buffer(fileSize.QuadPart, 0x00);
 
@@ -128,16 +128,16 @@ wtgb::AudioHandle wtgb::Audio::Load(const fs::path& _audioFileName)
 
 	if (succeed == FALSE || readedSize != fileSize.QuadPart)
 	{
-		wassert(false && "ƒtƒ@ƒCƒ‹‚Ì“Ç‚İæ‚è‚É¸”s");
+		wassert(false && "ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿å–ã‚Šã«å¤±æ•—");
 		return INVALID_HANDLE;
 	}
 
-	CloseHandle(hFile);  // ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+	CloseHandle(hFile);  // ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
 
 	mtbin::BinaryReader br{ buffer.data(), buffer.size() };
 
 	AudioHandle hAudio{ audioClips_.Emplace(&br, _audioFileName.string()) };
-	audioClips_.At(hAudio).CallInit();  // ‰Šú‰» = “Ç‚İæ‚Á‚Ä‚à‚ç‚¤
+	audioClips_.At(hAudio).CallInit();  // åˆæœŸåŒ– = èª­ã¿å–ã£ã¦ã‚‚ã‚‰ã†
 
 	return hAudio;
 }
@@ -169,7 +169,7 @@ void wtgb::Audio::Play(const AudioHandle _hAudio, const float _time, const unsig
 		format,
 		*this);
 
-	wassert(index >= 0 && "Ä¶‚É¸”s");
+	wassert(index >= 0 && "å†ç”Ÿã«å¤±æ•—");
 }
 
 WAVEFORMATEX wtgb::Audio::GetFormat(const AudioHandle _hAudio) const

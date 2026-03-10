@@ -8,7 +8,7 @@ namespace wtgb
 	class RigidBody;
 
 	/// <summary>
-	/// “–‚½‚è”»’èƒZƒbƒg
+	/// å½“ãŸã‚Šåˆ¤å®šã‚»ãƒƒãƒˆ
 	/// </summary>
 	struct ColliderSet
 	{
@@ -18,86 +18,86 @@ namespace wtgb
 	};
 
 	/// <summary>
-	/// “–‚½‚Á‚½‚Æ‚«‚Ìî•ñ
+	/// å½“ãŸã£ãŸã¨ãã®æƒ…å ±
 	/// </summary>
 	struct CollisionInfo
 	{
-		bool isHit;        // “–‚½‚Á‚Ä‚¢‚é‚©
-		float distance;    // Ú“_‚Æ‚Ì‹——£
-		Vector3 hitPoint;  // Ú“_
-		Vector3 normal;    // “–‚½‚Á‚½‚Æ‚«‚Ì–@ü
-		float depth;       // –„‚ß‚İ[‚³
+		bool isHit;        // å½“ãŸã£ã¦ã„ã‚‹ã‹
+		float distance;    // æ¥ç‚¹ã¨ã®è·é›¢
+		Vector3 hitPoint;  // æ¥ç‚¹
+		Vector3 normal;    // å½“ãŸã£ãŸã¨ãã®æ³•ç·š
+		float depth;       // åŸ‹ã‚è¾¼ã¿æ·±ã•
 
-		bool isIgnoreFar;            // ‰“‚·‚¬‚ÄœŠO‚³‚ê‚½
-		Vector3 reflectionVelocity;  // ”½ËƒxƒNƒgƒ‹
-		Vector3 push;                // ‰Ÿ‚µo‚µ
-		float time;                  // “–‚½‚é‚Ü‚Å‚ÌŠÔ
+		bool isIgnoreFar;            // é ã™ãã¦é™¤å¤–ã•ã‚ŒãŸ
+		Vector3 reflectionVelocity;  // åå°„ãƒ™ã‚¯ãƒˆãƒ«
+		Vector3 push;                // æŠ¼ã—å‡ºã—
+		float time;                  // å½“ãŸã‚‹ã¾ã§ã®æ™‚é–“
 	};
 
 	class PhysicsUtil
 	{
 	public:
 		/// <summary>
-		/// “–‚½‚Á‚Ä‚¢‚é‚©
+		/// å½“ãŸã£ã¦ã„ã‚‹ã‹
 		/// </summary>
-		/// <param name="_pSelf">©g‚ÌƒRƒ‰ƒCƒ_[</param>
-		/// <param name="_pOther">‘Šè‚ÌƒRƒ‰ƒCƒ_[</param>
-		/// <returns>“–‚½‚Á‚Ä‚¢‚é true / false</returns>
+		/// <param name="_pSelf">è‡ªèº«ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+		/// <param name="_pOther">ç›¸æ‰‹ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+		/// <returns>å½“ãŸã£ã¦ã„ã‚‹ true / false</returns>
 		static bool IsHit(ColliderSet* _pSelf, ColliderSet* _pOther);
 
 		/// <summary>
-		/// ƒZƒNƒVƒ‡ƒ“‚©‚çŒ©‚Ä“–‚½‚Á‚Ä‚¢‚é‚©
+		/// ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã‹ã‚‰è¦‹ã¦å½“ãŸã£ã¦ã„ã‚‹ã‹
 		/// </summary>
-		/// <param name="_pSelfSection">ƒZƒNƒVƒ‡ƒ“</param>
-		/// <param name="_pOther">‘Šè‚Ì“–‚½‚è”»’è</param>
+		/// <param name="_pSelfSection">ã‚»ã‚¯ã‚·ãƒ§ãƒ³</param>
+		/// <param name="_pOther">ç›¸æ‰‹ã®å½“ãŸã‚Šåˆ¤å®š</param>
 		/// <param name="_pCollisionInfo">
-		/// <para>“–‚½‚Á‚½‚Æ‚«‚Ìî•ñƒ|ƒCƒ“ƒ^“n‚µ</para>
-		/// <para>•s—v‚Èê‡‚Ínullptr</para>
+		/// <para>å½“ãŸã£ãŸã¨ãã®æƒ…å ±ãƒã‚¤ãƒ³ã‚¿æ¸¡ã—</para>
+		/// <para>ä¸è¦ãªå ´åˆã¯nullptr</para>
 		/// </param>
-		/// <returns>“–‚½‚Á‚Ä‚¢‚é true / false</returns>
+		/// <returns>å½“ãŸã£ã¦ã„ã‚‹ true / false</returns>
 		static bool IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet* _pOther, CollisionInfo* _pCollisionInfo = nullptr);
 		
 		/// <summary>
-		/// ‹…‚©‚çŒ©‚Ä“–‚½‚Á‚Ä‚¢‚é‚©
+		/// çƒã‹ã‚‰è¦‹ã¦å½“ãŸã£ã¦ã„ã‚‹ã‹
 		/// </summary>
-		/// <param name="_pSelfSphere">‹…‘Ì</param>
-		/// <param name="_pOther">‘Šè‚ÌƒRƒ‰ƒCƒ_[</param>
+		/// <param name="_pSelfSphere">çƒä½“</param>
+		/// <param name="_pOther">ç›¸æ‰‹ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
 		/// <param name="_pCollisionInfo">
-		/// <para>“–‚½‚Á‚½‚Æ‚«‚Ìî•ñƒ|ƒCƒ“ƒ^“n‚µ</para>
-		/// <para>•s—v‚Èê‡‚Ínullptr</para>
+		/// <para>å½“ãŸã£ãŸã¨ãã®æƒ…å ±ãƒã‚¤ãƒ³ã‚¿æ¸¡ã—</para>
+		/// <para>ä¸è¦ãªå ´åˆã¯nullptr</para>
 		/// </param>
 		/// <returns></returns>
 		static bool IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* _pOther, CollisionInfo* _pCollisionInfo = nullptr);
 
 		/// <summary>
-		/// ƒZƒNƒVƒ‡ƒ“‚Æ‹…‚ª“–‚½‚Á‚Ä‚¢‚é‚©
+		/// ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã¨çƒãŒå½“ãŸã£ã¦ã„ã‚‹ã‹
 		/// </summary>
-		/// <param name="_pSphere">‹…ƒRƒ‰ƒCƒ_</param>
-		/// <param name="_pSection">ƒZƒNƒVƒ‡ƒ“ƒRƒ‰ƒCƒ_</param>
+		/// <param name="_pSphere">çƒã‚³ãƒ©ã‚¤ãƒ€</param>
+		/// <param name="_pSection">ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã‚³ãƒ©ã‚¤ãƒ€</param>
 		/// <param name="_pCollisionInfo">
-		/// <para>“–‚½‚Á‚½‚Æ‚«‚Ìî•ñƒ|ƒCƒ“ƒ^“n‚µ</para>
-		/// <para>•s—v‚Èê‡‚Ínullptr</para>
+		/// <para>å½“ãŸã£ãŸã¨ãã®æƒ…å ±ãƒã‚¤ãƒ³ã‚¿æ¸¡ã—</para>
+		/// <para>ä¸è¦ãªå ´åˆã¯nullptr</para>
 		/// </param>
-		/// <returns>“–‚½‚Á‚Ä‚¢‚é true / false</returns>
+		/// <returns>å½“ãŸã£ã¦ã„ã‚‹ true / false</returns>
 		static bool IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet* _pSection, CollisionInfo* _pCollisionInfo = nullptr);
 
 		/// <summary>
-		/// ‹…‚Æ‹…‚ª“–‚½‚Á‚Ä‚¢‚é‚©
+		/// çƒã¨çƒãŒå½“ãŸã£ã¦ã„ã‚‹ã‹
 		/// </summary>
-		/// <param name="_pSphereA">‹…ƒRƒ‰ƒCƒ_A</param>
-		/// <param name="_pSphereB">‹…ƒRƒ‰ƒCƒ_B</param>
+		/// <param name="_pSphereA">çƒã‚³ãƒ©ã‚¤ãƒ€A</param>
+		/// <param name="_pSphereB">çƒã‚³ãƒ©ã‚¤ãƒ€B</param>
 		/// <param name="_pCollisionInfo">
-		/// <para>“–‚½‚Á‚½‚Æ‚«‚Ìî•ñƒ|ƒCƒ“ƒ^“n‚µ</para>
-		/// <para>•s—v‚Èê‡‚Ínullptr</para>
+		/// <para>å½“ãŸã£ãŸã¨ãã®æƒ…å ±ãƒã‚¤ãƒ³ã‚¿æ¸¡ã—</para>
+		/// <para>ä¸è¦ãªå ´åˆã¯nullptr</para>
 		/// </param>
-		/// <returns>“–‚½‚Á‚Ä‚¢‚é true / false</returns>
+		/// <returns>å½“ãŸã£ã¦ã„ã‚‹ true / false</returns>
 		static bool IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet* _pSphereB, CollisionInfo* _pCollisionInfo = nullptr);
 
 		/// <summary>
-		/// ‰Ÿ‚µo‚µ‚ğæ“¾
+		/// æŠ¼ã—å‡ºã—ã‚’å–å¾—
 		/// </summary>
-		/// <param name="_pSelf">©g‚ÌƒRƒ‰ƒCƒ_[</param>
-		/// <param name="_pOther">‘Šè‚ÌƒRƒ‰ƒCƒ_[</param>
+		/// <param name="_pSelf">è‡ªèº«ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+		/// <param name="_pOther">ç›¸æ‰‹ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
 		/// <returns></returns>
 		static Vector3 GetPush(ColliderSet* _pSelf, ColliderSet* _pOther);
 	private:

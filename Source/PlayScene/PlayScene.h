@@ -3,7 +3,7 @@
 #include "WorldSetting.h"
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ªâ‚ğ~‚éƒvƒŒƒCƒV[ƒ“
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå‚ã‚’é™ã‚‹ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³
 /// </summary>
 class PlayScene : public GameScene
 {
@@ -15,16 +15,16 @@ public:
 	void Update() override;
 
 	/// <summary>
-	/// ƒ[ƒ‹ƒh‚Ìİ’è‚ğæ“¾‚·‚é
+	/// ãƒ¯ãƒ¼ãƒ«ãƒ‰ã®è¨­å®šã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>ƒ[ƒ‹ƒh‚Ìİ’è</returns>
+	/// <returns>ãƒ¯ãƒ¼ãƒ«ãƒ‰ã®è¨­å®š</returns>
 	inline WorldConfig GetWorldConfig() const { return worldConfig_; }
 
 	/// <summary>
-	/// ƒtƒBƒjƒbƒVƒ…‚µ‚½I
+	/// ãƒ•ã‚£ãƒ‹ãƒƒã‚·ãƒ¥ã—ãŸï¼
 	/// </summary>
 	void Finished();
 
 private:
-	WorldConfig worldConfig_;  // ƒ[ƒ‹ƒh‚Ìİ’è
+	WorldConfig worldConfig_;  // ãƒ¯ãƒ¼ãƒ«ãƒ‰ã®è¨­å®š
 };

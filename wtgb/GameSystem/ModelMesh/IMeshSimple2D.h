@@ -5,13 +5,13 @@
 namespace wtgb
 {
 	/// <summary>
-	/// 2D—pƒVƒ“ƒvƒ‹‚ÈƒƒbƒVƒ…
+	/// 2Dç”¨ã‚·ãƒ³ãƒ—ãƒ«ãªãƒ¡ãƒƒã‚·ãƒ¥
 	/// </summary>
 	class IMeshSimple2D : public IResource<ViewerCached>
 	{
 	public:
 		/// <summary>
-		/// ’¸“_î•ñ
+		/// é ‚ç‚¹æƒ…å ±
 		/// </summary>
 		struct Vertex
 		{
@@ -20,14 +20,14 @@ namespace wtgb
 		};
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@
+		/// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		struct ConstantBuffer
 		{
-			Matrix4x4 matrixProj;          // ƒvƒƒWƒFƒNƒVƒ‡ƒ“‚Ì‡¬s—ñ
-			Matrix4x4 matrixUV;            // UV•ÏŠ·s—ñ
-			Color color;                   // ƒeƒNƒXƒ`ƒƒ‚ª–³‚¢ê‡‚ÌƒfƒBƒtƒ…[ƒYF
-			float alpha;                   // “§–¾“x
+			Matrix4x4 matrixProj;          // ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ã®åˆæˆè¡Œåˆ—
+			Matrix4x4 matrixUV;            // UVå¤‰æ›è¡Œåˆ—
+			Color color;                   // ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒç„¡ã„å ´åˆã®ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+			float alpha;                   // é€æ˜åº¦
 		};
 
 	public:
@@ -35,49 +35,49 @@ namespace wtgb
 		virtual ~IMeshSimple2D();
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		virtual void Init(ViewerCached _system) override = 0;
 		/// <summary>
-		/// ‰ğ•úˆ—
+		/// è§£æ”¾å‡¦ç†
 		/// </summary>
 		virtual void Release(ViewerCached _system) override = 0;
 		/// <summary>
-		/// ’¸“_\‘¢‘Ì‚ÌƒTƒCƒY‚ğæ“¾‚·‚é
+		/// é ‚ç‚¹æ§‹é€ ä½“ã®ã‚µã‚¤ã‚ºã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>’¸“_\‘¢‘Ì‚ÌƒTƒCƒY(byte)</returns>
+		/// <returns>é ‚ç‚¹æ§‹é€ ä½“ã®ã‚µã‚¤ã‚º(byte)</returns>
 		virtual size_t GetVertexSize() const { return sizeof(Vertex); };
 		/// <summary>
-		/// ƒCƒ“ƒfƒNƒX‚Ì”‚ğæ“¾‚·‚é
+		/// ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹ã®æ•°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒCƒ“ƒfƒbƒNƒX”</returns>
+		/// <returns>ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°</returns>
 		virtual uint32_t GetIndexCount() const = 0;
 		/// <summary>
-		/// ’¸“_”‚ğæ“¾‚·‚é
+		/// é ‚ç‚¹æ•°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>’¸“_”</returns>
+		/// <returns>é ‚ç‚¹æ•°</returns>
 		virtual uint32_t GetVertexCount() const = 0;
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒƒnƒ“ƒhƒ‹‚ğæ“¾‚·‚é (”CˆÓ)
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—ã™ã‚‹ (ä»»æ„)
 		/// </summary>
-		/// <returns>ƒeƒNƒXƒ`ƒƒ‚ª‚ ‚éê‡ƒnƒ“ƒhƒ‹ / ‚È‚¯‚ê‚Î–³Œøƒnƒ“ƒhƒ‹</returns>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒã‚ã‚‹å ´åˆãƒãƒ³ãƒ‰ãƒ« / ãªã‘ã‚Œã°ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«</returns>
 		virtual TextureHandle GetTextureHandle() const { return INVALID_HANDLE; }
 
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@‚ğæ“¾‚·‚é
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>’¸“_ƒoƒbƒtƒ@</returns>
+		/// <returns>é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡</returns>
 		virtual ComPtr<ID3D11Buffer>& GetVertexBuffer() = 0;
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ğæ“¾‚·‚é
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@</returns>
+		/// <returns>ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡</returns>
 		virtual ComPtr<ID3D11Buffer>& GetIndexBuffer() = 0;
 		/// <summary>
-		/// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğæ“¾‚·‚é
+		/// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@</returns>
+		/// <returns>ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡</returns>
 		virtual ComPtr<ID3D11Buffer>& GetConstantBuffer() = 0;
 	};
 }

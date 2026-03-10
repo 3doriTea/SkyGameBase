@@ -6,15 +6,15 @@ Vector3 PlayerTargeting::GetToTargetVelocity(const PLAYER_TARGETTING_PARAMS& par
 
 	const auto&[pPos, pVel, tPos, g]{ params };
 
-	// ターゲットまでの距離
+	// 繧ｿ繝ｼ繧ｲ繝�繝医∪縺ｧ縺ｮ霍晞屬
 	float dist{ XMVectorGetX(XMVector3Length(tPos - pPos)) };
-	// 現在の速度
+	// 迴ｾ蝨ｨ縺ｮ騾溷ｺｦ
 	float speed{ XMVectorGetX(XMVector3Length(pVel)) };
 
 	float t{ dist / speed };
 
 	float up{ 0.0f };
-	if (tPos.y < pPos.y)  // プレイヤーの位置が高い
+	if (tPos.y < pPos.y)  // 繝励Ξ繧､繝､繝ｼ縺ｮ菴咲ｽｮ縺碁ｫ倥＞
 	{
 		up = (g * t) / 2.0f;
 	}

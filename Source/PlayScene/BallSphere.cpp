@@ -3,7 +3,7 @@
 BallSphere::BallSphere(const EntityId _targetChara) :
 	GameObject{ "Play/BallSphere.json" }
 {
-	// ’Ç]‚·‚é‚½‚ß‚ÉeqŠÖŒW‚ğŒ‹‚Ô
+	// è¿½å¾“ã™ã‚‹ãŸã‚ã«è¦ªå­é–¢ä¿‚ã‚’çµã¶
 	Property().SetParent(_targetChara);
 }
 

@@ -5,7 +5,7 @@ namespace wtgb
 	class GameSystemCollection;
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒ‹[ƒv‚ğÀs‚·‚éƒNƒ‰ƒX
+	/// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã‚’å®Ÿè¡Œã™ã‚‹ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class GameLoop
 	{
@@ -14,16 +14,16 @@ namespace wtgb
 		~GameLoop();
 
 		/// <summary>
-		/// ƒ‹[ƒvÀs
+		/// ãƒ«ãƒ¼ãƒ—å®Ÿè¡Œ
 		/// </summary>
 		Result RunLoop(GameSystemCollection* _pGameSystemRegister);
 
 		/// <summary>
-		/// ƒ‹[ƒv‚ğ~‚ß‚é
+		/// ãƒ«ãƒ¼ãƒ—ã‚’æ­¢ã‚ã‚‹
 		/// </summary>
 		void Stop();
 
 	private:
-		bool isRunning_;  // ƒQ[ƒ€ƒ‹[ƒvÀs’† true / false
+		bool isRunning_;  // ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—å®Ÿè¡Œä¸­ true / false
 	};
 }

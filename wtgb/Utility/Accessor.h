@@ -4,9 +4,9 @@
 namespace wtgb
 {
 	/// <summary>
-	/// –{‘Ì‚Ö‚Ì’¼ÚƒAƒNƒZƒX‚ğ‚³‚¹‚¸A•ª—£‚³‚¹‚éŠî’êƒNƒ‰ƒX
+	/// æœ¬ä½“ã¸ã®ç›´æ¥ã‚¢ã‚¯ã‚»ã‚¹ã‚’ã•ã›ãšã€åˆ†é›¢ã•ã›ã‚‹åŸºåº•ã‚¯ãƒ©ã‚¹
 	/// </summary>
-	/// <typeparam name="T">–{‘Ì‚ÌŒ^</typeparam>
+	/// <typeparam name="T">æœ¬ä½“ã®å‹</typeparam>
 	template<typename T>
 	class Accessor
 	{
@@ -16,13 +16,13 @@ namespace wtgb
 
 	protected:
 		/// <summary>
-		/// –{‘Ì‚Ìƒ|ƒCƒ“ƒ^‚ğæ“¾
+		/// æœ¬ä½“ã®ãƒã‚¤ãƒ³ã‚¿ã‚’å–å¾—
 		/// </summary>
-		/// <returns>–{‘Ì‚Ìƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>æœ¬ä½“ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 		T* GetAccess() const;
 
 	private:
-		T* target_;  //@ƒAƒNƒZƒXæ‚Ìƒ|ƒCƒ“ƒ^
+		T* target_;  //ã€€ã‚¢ã‚¯ã‚»ã‚¹å…ˆã®ãƒã‚¤ãƒ³ã‚¿
 	};
 }
 
@@ -30,11 +30,11 @@ template<typename T>
 inline wtgb::Accessor<T>::Accessor(T* _pTarget) :
 	target_{ _pTarget }
 {
-	//assert(_pTarget && "ƒAƒNƒZƒXæw’è‚Ånullptr‚Í–³Œø");
+	//assert(_pTarget && "ã‚¢ã‚¯ã‚»ã‚¹å…ˆæŒ‡å®šã§nullptrã¯ç„¡åŠ¹");
 }
 template<typename T>
 inline T* wtgb::Accessor<T>::GetAccess() const
 {
-	assert(target_ && "nullptr‚ÉƒAƒNƒZƒX‚µ‚æ‚¤‚Æ‚µ‚½");
+	assert(target_ && "nullptrã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã‚ˆã†ã¨ã—ãŸ");
 	return target_;
 }

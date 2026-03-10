@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// 表示するUIのインタフェース
+/// 陦ｨ遉ｺ縺吶ｋUI縺ｮ繧､繝ｳ繧ｿ繝輔ぉ繝ｼ繧ｹ
 /// </summary>
 class IVisual
 {
@@ -11,11 +11,11 @@ public:
 	inline virtual ~IVisual() {}
 
 	/// <summary>
-	/// 表示する
+	/// 陦ｨ遉ｺ縺吶ｋ
 	/// </summary>
 	virtual void Show() = 0;
 	/// <summary>
-	/// 非表示にする
+	/// 髱櫁｡ｨ遉ｺ縺ｫ縺吶ｋ
 	/// </summary>
 	virtual void Hide() = 0;
 };

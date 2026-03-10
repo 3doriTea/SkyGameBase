@@ -11,7 +11,7 @@ namespace wtgb
 	class Direct3DResource;
 
 	/// <summary>
-	/// DirectX11-3DŒn‚ÌŠÇ—ƒNƒ‰ƒX
+	/// DirectX11-3Dç³»ã®ç®¡ç†ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class Direct3D : public IGameSystem
 	{
@@ -35,71 +35,71 @@ namespace wtgb
 		~Direct3D();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// •`‰æ‚·‚é
+		/// æç”»ã™ã‚‹
 		/// </summary>
 		void Render();
 
 		/// <summary>
-		/// ƒVƒF[ƒ_‚ğƒZƒbƒg‚·‚é
+		/// ã‚·ã‚§ãƒ¼ãƒ€ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
-		/// <param name="_hShader">ƒVƒF[ƒ_ƒnƒ“ƒhƒ‹</param>
+		/// <param name="_hShader">ã‚·ã‚§ãƒ¼ãƒ€ãƒãƒ³ãƒ‰ãƒ«</param>
 		void SetShader(const ShaderHandle _hShader);
 
 		/// <summary>
-		/// [“xƒoƒbƒtƒ@‚ğg‚¤‚©‚ğİ’è‚·‚é
+		/// æ·±åº¦ãƒãƒƒãƒ•ã‚¡ã‚’ä½¿ã†ã‹ã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="_useDepthBuffer">[“xƒoƒbƒtƒ@‚ğg‚¤ true / false</param>
+		/// <param name="_useDepthBuffer">æ·±åº¦ãƒãƒƒãƒ•ã‚¡ã‚’ä½¿ã† true / false</param>
 		void SetUseDepthBuffer(const bool _useDepthBuffer);
 
 		/// <summary>
-		/// ƒuƒŒƒ“ƒhƒ‚[ƒh‚ğİ’è‚·‚é
+		/// ãƒ–ãƒ¬ãƒ³ãƒ‰ãƒ¢ãƒ¼ãƒ‰ã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="_mode">ƒuƒŒƒ“ƒhƒ‚[ƒh</param>
+		/// <param name="_mode">ãƒ–ãƒ¬ãƒ³ãƒ‰ãƒ¢ãƒ¼ãƒ‰</param>
 		void SetBlend(const BlendMode _mode);
 
 		/// <summary>
-		/// [“xƒoƒbƒtƒ@‚Ìƒ‚[ƒh‚ğİ’è‚·‚é
+		/// æ·±åº¦ãƒãƒƒãƒ•ã‚¡ã®ãƒ¢ãƒ¼ãƒ‰ã‚’è¨­å®šã™ã‚‹
 		/// </summary>
 		/// <param name="_mode"></param>
 		void SetZBuffer(const ZBufferMode _mode);
 
 		/// <summary>
-		/// ƒŠƒ\[ƒXƒAƒNƒZƒbƒT‚ğæ“¾
+		/// ãƒªã‚½ãƒ¼ã‚¹ã‚¢ã‚¯ã‚»ãƒƒã‚µã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒŠƒ\[ƒX‚Ö‚ÌƒAƒNƒZƒbƒT</returns>
+		/// <returns>ãƒªã‚½ãƒ¼ã‚¹ã¸ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µ</returns>
 		ResourceAccessor& Resource() { return resourceAccessor_; }
 
 		/// <summary>
-		/// •`‰æ’¼‘O‚ÌƒR[ƒ‹ƒoƒbƒN
+		/// æç”»ç›´å‰ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
 		/// </summary>
-		/// <param name="_callback">•`‰æ’¼‘O‚ÉŒÄ‚Ño‚µ‚½‚¢ˆ—</param>
+		/// <param name="_callback">æç”»ç›´å‰ã«å‘¼ã³å‡ºã—ãŸã„å‡¦ç†</param>
 		void AddRenderListener(const std::function<void()>& _callback);
 
 	private:
-		std::list<std::function<void()>> renderCallbacks_;  // •`‰æ’¼‘O‚ÌƒR[ƒ‹ƒoƒbƒNˆ—
+		std::list<std::function<void()>> renderCallbacks_;  // æç”»ç›´å‰ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯å‡¦ç†
 
-		std::unique_ptr<Direct3DResource> pResource_;  // ƒŠƒ\[ƒX‚Ìƒ|ƒCƒ“ƒ^
+		std::unique_ptr<Direct3DResource> pResource_;  // ãƒªã‚½ãƒ¼ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
 
-		ViewerCached system_;  // ƒVƒXƒeƒ€ƒAƒNƒZƒX—p
-		ResourceAccessor resourceAccessor_;  // ƒŠƒ\[ƒX‚Ö‚ÌƒAƒNƒZƒbƒT
+		ViewerCached system_;  // ã‚·ã‚¹ãƒ†ãƒ ã‚¢ã‚¯ã‚»ã‚¹ç”¨
+		ResourceAccessor resourceAccessor_;  // ãƒªã‚½ãƒ¼ã‚¹ã¸ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µ
 	};
 }

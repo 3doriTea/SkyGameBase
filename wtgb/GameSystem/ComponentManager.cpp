@@ -36,7 +36,7 @@ wtgb::EntityId wtgb::ComponentManager::GenerateEntity()
 void wtgb::ComponentManager::RemoveEntity(const EntityId _entityId)
 {
 	toRemoveEntityIndices_.push_back(_entityId.index);
-	// TODO: ‚±‚ê‚à‚µ‚©‚µ‚½‚çƒŠƒZƒbƒgŽž‚É‚·‚é‚Ù‚¤‚ª‚¢‚¢‚©‚à[[[[[
+	// TODO: ã“ã‚Œã‚‚ã—ã‹ã—ãŸã‚‰ãƒªã‚»ãƒƒãƒˆæ™‚ã«ã™ã‚‹ã»ã†ãŒã„ã„ã‹ã‚‚ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼
 }
 
 void wtgb::ComponentManager::ResetToRemoveEntityIndices()

@@ -4,19 +4,19 @@
 using HeightPoints = std::vector<float>;
 
 /// <summary>
-/// …–Ê‚ÌƒƒbƒVƒ…î•ñ
+/// æ°´é¢ã®ãƒ¡ãƒƒã‚·ãƒ¥æƒ…å ±
 /// </summary>
 class WaterMesh : public wtgb::IMeshSimple
 {
 public:
 	/// <summary>
-	/// …–ÊƒƒbƒVƒ…î•ñ‚Ìİ’è
+	/// æ°´é¢ãƒ¡ãƒƒã‚·ãƒ¥æƒ…å ±ã®è¨­å®š
 	/// </summary>
 	struct Config
 	{
-		HeightPoints& points;            // ’¸“_‚½‚¿‚Ì‚‚³î•ñQÆ
-		const Vector2Int verticesCount;  // ’¸“_”
-		const Vector2 verticesDistance;  // ’¸“_ŠÔ‚Ì‹——£
+		HeightPoints& points;            // é ‚ç‚¹ãŸã¡ã®é«˜ã•æƒ…å ±å‚ç…§
+		const Vector2Int verticesCount;  // é ‚ç‚¹æ•°
+		const Vector2 verticesDistance;  // é ‚ç‚¹é–“ã®è·é›¢
 	};
 
 public:
@@ -37,21 +37,21 @@ public:
 
 private:
 	/// <summary>
-	/// ƒTƒCƒY•ÏX‚È‚Ç‚Å’¸“_‚ğƒŠƒZƒbƒg‚·‚é
+	/// ã‚µã‚¤ã‚ºå¤‰æ›´ãªã©ã§é ‚ç‚¹ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 	/// </summary>
 	void ResetVertices();
 
 private:
-	const Vector2Int SIZE_;            // ’¸“_ŒÂ”
-	const Vector2 VERTICES_DISTANCE_;  // ’¸“_ŠÔ‚Ì‹——£
+	const Vector2Int SIZE_;            // é ‚ç‚¹å€‹æ•°
+	const Vector2 VERTICES_DISTANCE_;  // é ‚ç‚¹é–“ã®è·é›¢
 
-	HeightPoints& points_;  // ”g‚Ì’¸“_î•ñ
-	uint32_t vertexCount_;  // ’¸“_”
-	uint32_t indexCount_;   // ƒCƒ“ƒfƒbƒNƒX”
+	HeightPoints& points_;  // æ³¢ã®é ‚ç‚¹æƒ…å ±
+	uint32_t vertexCount_;  // é ‚ç‚¹æ•°
+	uint32_t indexCount_;   // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
 
-	ComPtr<ID3D11Buffer> pVertexBuffer_;    // ’¸“_ƒoƒbƒtƒ@
-	ComPtr<ID3D11Buffer> pIndexBuffer_;     // ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
-	ComPtr<ID3D11Buffer> pConstantBuffer_;  // ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@
+	ComPtr<ID3D11Buffer> pVertexBuffer_;    // é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
+	ComPtr<ID3D11Buffer> pIndexBuffer_;     // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
+	ComPtr<ID3D11Buffer> pConstantBuffer_;  // ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡
 
-	std::vector<Vertex> vertices_;  // ’¸“_î•ñ
+	std::vector<Vertex> vertices_;  // é ‚ç‚¹æƒ…å ±
 };

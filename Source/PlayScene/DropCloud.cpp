@@ -63,24 +63,24 @@ void DropCloud::Init()
 	{
 		Audio& audio{ System().Get<Audio>() };
 		StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
-		wassert(pStageLine && "ƒXƒe[ƒWƒ‰ƒCƒ“‚ªƒV[ƒ“‚É‘¶İ‚µ‚È‚¢‚æI");
+		wassert(pStageLine && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ©ã‚¤ãƒ³ãŒã‚·ãƒ¼ãƒ³ã«å­˜åœ¨ã—ãªã„ã‚ˆï¼");
 
 		hAudioBase_ = audio.Load(toneAudioFilePathBase_);
 		hAudioCat_ = audio.Load(playToneAudioFilePath_);
 		hAudioTuba_ = audio.Load(toneAudioFilePathTuba_);
 		hAudioDrum_ = audio.Load(toneAudioFilePathDrum_);
 		hAudioGlocken_ = audio.Load(toneAudioFilePathGlocken_);
-		// ƒm[ƒcÄ¶‚Ì‰¹Œ¹“Ç‚İ‚İ && ƒZƒbƒg
+		// ãƒãƒ¼ãƒ„å†ç”Ÿæ™‚ã®éŸ³æºèª­ã¿è¾¼ã¿ && ã‚»ãƒƒãƒˆ
 		/*pSMFPlayer->SetToneAudioHandle(
 			);*/
 
-		// ƒm[ƒc‚Ìˆ—‚ğ“o˜^
+		// ãƒãƒ¼ãƒ„ã®å‡¦ç†ã‚’ç™»éŒ²
 		pSMFPlayer->OnNote([this, pSMFPlayer, pStageLine](Note _note)
 			{
 				PlayScene* pPlayScene{ GetScene<PlayScene>() };
 				if (pPlayScene == nullptr)
 				{
-					return;  // ƒvƒŒƒCƒV[ƒ“‚ªæ“¾‚Å‚«‚È‚¯‚ê‚Î‰½‚à‚µ‚È‚¢
+					return;  // ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ãŒå–å¾—ã§ããªã‘ã‚Œã°ä½•ã‚‚ã—ãªã„
 				}
 
 				DroppedPresent droppedPresent
@@ -146,7 +146,7 @@ void DropCloud::Init()
 				{
 					if (_nextType == PlayState::Type::Falling)
 					{
-						// Ÿ‚Ìó‘Ô‚ª‰ºR‚È‚çÄ¶ŠJn
+						// æ¬¡ã®çŠ¶æ…‹ãŒä¸‹å±±ãªã‚‰å†ç”Ÿé–‹å§‹
 						pSMFPlayer->Play();
 						return true;
 					}
@@ -164,22 +164,22 @@ void DropCloud::Update()
 	PlayState* playState{ FindGameObject<PlayState>(playState_) };
 	if (playState && playState->GetState() != PlayState::Type::Falling)
 	{
-		return;  // ‰ºR’†ˆÈŠO‚Í–³‹
+		return;  // ä¸‹å±±ä¸­ä»¥å¤–ã¯ç„¡è¦–
 	}
 
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 
 	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
-	wassert(pSMFPlayer && "SMFPlayer‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
+	wassert(pSMFPlayer && "SMFPlayerãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ");
 	Player* pPlayer{ FindGameObject<Player>(player_) };
-	wassert(pPlayer && "ƒvƒŒƒCƒ„[‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
+	wassert(pPlayer && "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ");
 	StageLine* pStageLine{ FindGameObject<StageLine>(stageLine_) };
-	wassert(pStageLine && "ƒXƒe[ƒWƒ‰ƒCƒ“‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
+	wassert(pStageLine && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ©ã‚¤ãƒ³ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ");
 	ISpeedController* pSpeedController{ FindGameObject<ISpeedController>(speedController_) };
-	wassert(pSpeedController && "ƒXƒs[ƒhƒRƒ“ƒgƒ[ƒ‰‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
+	wassert(pSpeedController && "ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ");
 
 
-#pragma region Ä¶‚ªI—¹‚µ‚½‚ç1‰ñ‚¾‚¯ƒS[ƒ‹ˆ—
+#pragma region å†ç”ŸãŒçµ‚äº†ã—ãŸã‚‰1å›ã ã‘ã‚´ãƒ¼ãƒ«å‡¦ç†
 	if (pSMFPlayer
 		&& isFinished_ == false
 		&& pSMFPlayer->IsFinished())
@@ -188,7 +188,7 @@ void DropCloud::Update()
 		isFinished_ = true;
 		System().Get<Alarm>().Add([this]
 			{
-				// ŠÔ‚ªŒo‚Á‚½‚çŒ‹‰ÊƒV[ƒ“‚É‘JˆÚ‚·‚é
+				// æ™‚é–“ãŒçµŒã£ãŸã‚‰çµæœã‚·ãƒ¼ãƒ³ã«é·ç§»ã™ã‚‹
 				System()
 					.Get<SceneManager>()
 					.Move<ResultScene>();
@@ -197,7 +197,7 @@ void DropCloud::Update()
 	}
 #pragma endregion
 
-#pragma region ƒvƒŒƒCƒ„‚ªi‚Ş‚½‚Ñ‚É‰¹•„‚ği‚ß‚éˆ—
+#pragma region ãƒ—ãƒ¬ã‚¤ãƒ¤ãŒé€²ã‚€ãŸã³ã«éŸ³ç¬¦ã‚’é€²ã‚ã‚‹å‡¦ç†
 	RigidBody& playerRigidBody{ pPlayer->GetComponent<RigidBody>() };
 
 	Vector3 velocity{ playerRigidBody.GetVelocity()};
@@ -210,21 +210,21 @@ void DropCloud::Update()
 		switch (speedType)
 		{
 		case SpeedType::Stop:
-			// ~‚Ü‚Á‚Ä‚¢‚é‚È‚çŠ®‘S‚É~‚ß‚é
+			// æ­¢ã¾ã£ã¦ã„ã‚‹ãªã‚‰å®Œå…¨ã«æ­¢ã‚ã‚‹
 			playRate = 0.0f;
 			break;
 		case SpeedType::TooSlow:
-			// \•ª‚Å‚Í‚È‚¢‚ª‚ ‚é’ö“xi‚ñ‚Å‚¢‚é‚È‚ç‚»‚ÌƒXƒs[ƒh‚É‡‚í‚¹‚é
+			// ååˆ†ã§ã¯ãªã„ãŒã‚ã‚‹ç¨‹åº¦é€²ã‚“ã§ã„ã‚‹ãªã‚‰ãã®ã‚¹ãƒ”ãƒ¼ãƒ‰ã«åˆã‚ã›ã‚‹
 			playRate = velocity.z / playRatioMaxVelocity_;
 			perfectTimer_ -= dt;
 			break;
 		case SpeedType::Good:
-			// \•ªƒXƒs[ƒh‚ª‚ ‚é‚È‚ç’ÊíÄ¶
+			// ååˆ†ã‚¹ãƒ”ãƒ¼ãƒ‰ãŒã‚ã‚‹ãªã‚‰é€šå¸¸å†ç”Ÿ
 			playRate = 1.0f;
 			perfectTimer_ += dt;
 			break;
 		case SpeedType::Excissive:
-			// ‘¬‚·‚¬‚é‚È‚ç~‚ß‚é
+			// é€Ÿã™ãã‚‹ãªã‚‰æ­¢ã‚ã‚‹
 			perfectTimer_ -= dt;
 			playRate = 0.0f;
 			break;
@@ -235,27 +235,27 @@ void DropCloud::Update()
 	}
 #pragma endregion
 
-#pragma region ƒŒƒxƒ‹‚ÌƒAƒbƒvƒ_ƒEƒ“ˆ—
+#pragma region ãƒ¬ãƒ™ãƒ«ã®ã‚¢ãƒƒãƒ—ãƒ€ã‚¦ãƒ³å‡¦ç†
 	if (pSMFPlayer)
 	{
-		// 1¬ß‚Ì•b”
+		// 1å°ç¯€ã®ç§’æ•°
 		const float BAR_TIME_SEC{ pSMFPlayer->GetQuarterSec() * 4.0f };
 
 		int currBar{ static_cast<int>(pSMFPlayer->GetPlayTime() / BAR_TIME_SEC) };
 
-		// 1¬ß‚Ì‹æØ‚è–Ú
+		// 1å°ç¯€ã®åŒºåˆ‡ã‚Šç›®
 		if (currBar != prevBar_)
 		{
 			if (perfectTimer_ >= BAR_TIME_SEC)
 			{
 				perfectTimer_ = 0.0f;
 
-				level_ = static_cast<CloudLevel>(level_ + 1);  // ƒŒƒxƒ‹ƒAƒbƒv
+				level_ = static_cast<CloudLevel>(level_ + 1);  // ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—
 				if (level_ >= CLOUD_LEVEL_MAX)
 				{
 					level_ = static_cast<CloudLevel>(CLOUD_LEVEL_MAX - 1);
 				}
-				LOGFLN("ƒŒƒxƒ‹ƒAƒbƒv:{}", (int)level_);
+				LOGFLN("ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—:{}", (int)level_);
 
 				SpawanMiniChara();
 			}
@@ -263,12 +263,12 @@ void DropCloud::Update()
 			{
 				perfectTimer_ = 0;
 
-				level_ = static_cast<CloudLevel>(level_ - 1);  // ƒŒƒxƒ‹ƒ_ƒEƒ“
+				level_ = static_cast<CloudLevel>(level_ - 1);  // ãƒ¬ãƒ™ãƒ«ãƒ€ã‚¦ãƒ³
 				if (level_ < 0)
 				{
 					level_ = static_cast<CloudLevel>(0);
 				}
-				LOGFLN("ƒŒƒxƒ‹ƒ_ƒEƒ“:{}", (int)level_);
+				LOGFLN("ãƒ¬ãƒ™ãƒ«ãƒ€ã‚¦ãƒ³:{}", (int)level_);
 			}
 		}
 

@@ -4,7 +4,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// エンティティの最大数
+	/// 繧ｨ繝ｳ繝�繧｣繝�繧｣縺ｮ譛螟ｧ謨ｰ
 	/// </summary>
 	static const size_t ENTITY_CAPACITY
 	{

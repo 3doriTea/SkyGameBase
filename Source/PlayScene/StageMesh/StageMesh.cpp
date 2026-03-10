@@ -19,14 +19,14 @@ void StageMesh::Init(ViewerCached _system)
 {
 	using namespace DirectX;
 
-	// ’¸“_‚¸
+	// é ‚ç‚¹ãš
 	std::vector<Vertex> vertices;
 
-#pragma endregion ’¸“_‚ğ‹‚ß‚é
+#pragma endregion é ‚ç‚¹ã‚’æ±‚ã‚ã‚‹
 	{
 		if (points_.size() < 2)
 		{
-			wassert(false && "•½–Ê’¸“_”‚ª2ˆÈã‚Å‚È‚¢‚Æ•`‰æ‚Å‚«‚È‚¢");
+			wassert(false && "å¹³é¢é ‚ç‚¹æ•°ãŒ2ä»¥ä¸Šã§ãªã„ã¨æç”»ã§ããªã„");
 			throw -1;
 		}
 
@@ -40,7 +40,7 @@ void StageMesh::Init(ViewerCached _system)
 				.normal = { 0.0f, 0.0f, 0.0f },
 				.uv = { 0.0f, static_cast<float>(pos2D.x) / 20.0f }
 			};
-			if (i == 0)  // Å‰‚Ìƒ|ƒCƒ“ƒg‚È‚ç
+			if (i == 0)  // æœ€åˆã®ãƒã‚¤ãƒ³ãƒˆãªã‚‰
 			{
 				Vector2 toPrev2D{ 0.0f, 1.0f };
 				Vector2 posNext2D{ static_cast<float>(points_[i + 1].x), static_cast<float>(points_[i + 1].y) };
@@ -49,7 +49,7 @@ void StageMesh::Init(ViewerCached _system)
 				Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toNext2D) };
 				v.normal = { 0.0f, normal2D.y, normal2D.x };
 
-				// ‰ºŒü‚«‚Ì–@ü‚ª‚Å‚«‚Ä‚µ‚Ü‚Á‚½‚çãŒü‚«‚É•ÏŠ·
+				// ä¸‹å‘ãã®æ³•ç·šãŒã§ãã¦ã—ã¾ã£ãŸã‚‰ä¸Šå‘ãã«å¤‰æ›
 				if (v.normal.y <= 0.0f)
 				{
 					v.normal = v.normal * -1.0f;
@@ -60,7 +60,7 @@ void StageMesh::Init(ViewerCached _system)
 				SetPosXValue(1.0f, &v);
 				vertices.push_back(v);
 			}
-			else if (i == points_.size() - 1)  // ÅŒã‚Ìƒ|ƒCƒ“ƒg‚È‚ç
+			else if (i == points_.size() - 1)  // æœ€å¾Œã®ãƒã‚¤ãƒ³ãƒˆãªã‚‰
 			{
 				Vector2 posPrev2D{ static_cast<float>(points_[i - 1].x), static_cast<float>(points_[i - 1].y) };
 				Vector2 toPrev2D{ posPrev2D - pos2D };
@@ -69,7 +69,7 @@ void StageMesh::Init(ViewerCached _system)
 				Vector2 normal2D{ XMVector3Normalize(toPrev2D + toNext2D) };
 				v.normal = { 0.0f, normal2D.y, normal2D.x };
 
-				// ‰ºŒü‚«‚Ì–@ü‚ª‚Å‚«‚Ä‚µ‚Ü‚Á‚½‚çãŒü‚«‚É•ÏŠ·
+				// ä¸‹å‘ãã®æ³•ç·šãŒã§ãã¦ã—ã¾ã£ãŸã‚‰ä¸Šå‘ãã«å¤‰æ›
 				if (v.normal.y <= 0.0f)
 				{
 					v.normal = v.normal * -1.0f;
@@ -80,7 +80,7 @@ void StageMesh::Init(ViewerCached _system)
 				SetPosXValue(1.0f, &v);
 				vertices.push_back(v);
 			}
-			else  // Å‰ˆÈŠO‚Ì’†ŠÔƒ|ƒCƒ“ƒg
+			else  // æœ€åˆä»¥å¤–ã®ä¸­é–“ãƒã‚¤ãƒ³ãƒˆ
 			{
 				Vector2 posPrev2D{ static_cast<float>(points_[i - 1].x), static_cast<float>(points_[i - 1].y) };
 				Vector2 toPrev2D{ posPrev2D - pos2D };
@@ -90,7 +90,7 @@ void StageMesh::Init(ViewerCached _system)
 				Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toNext2D) };
 				v.normal = { 0.0f, normal2D.y, normal2D.x };
 
-				// ‰ºŒü‚«‚Ì–@ü‚ª‚Å‚«‚Ä‚µ‚Ü‚Á‚½‚çãŒü‚«‚É•ÏŠ·
+				// ä¸‹å‘ãã®æ³•ç·šãŒã§ãã¦ã—ã¾ã£ãŸã‚‰ä¸Šå‘ãã«å¤‰æ›
 				if (v.normal.y <= 0.0f)
 				{
 					v.normal = v.normal * -1.0f;
@@ -108,18 +108,18 @@ void StageMesh::Init(ViewerCached _system)
 
 		vertexCount_ = static_cast<uint32_t>(vertices.size());
 
-		// ƒoƒbƒtƒ@ì¬
+		// ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};
 
 		const D3D11_BUFFER_DESC VERTEX_DESC
 		{
-			// Œ^‚Ì‘å‚«‚³
+			// å‹ã®å¤§ãã•
 			.ByteWidth = static_cast<UINT>(sizeof(Vertex) * vertexCount_),
-			.Usage = D3D11_USAGE_DEFAULT,                // •ÏX‚·‚é‚©
-			.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-			.CPUAccessFlags = 0,                         // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-			.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+			.Usage = D3D11_USAGE_DEFAULT,                // å¤‰æ›´ã™ã‚‹ã‹
+			.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+			.CPUAccessFlags = 0,                         // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+			.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 			.StructureByteStride = sizeof(Vertex),
 		};
 		const D3D11_SUBRESOURCE_DATA VERTEX_DATA
@@ -130,7 +130,7 @@ void StageMesh::Init(ViewerCached _system)
 		};
 
 		hResult = pDevice->CreateBuffer(&VERTEX_DESC, &VERTEX_DATA, pVertexBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ƒXƒe[ƒWƒƒbƒVƒ…’¸“_ƒoƒbƒtƒ@ì¬‚É¸”s");
+		wassert(SUCCEEDED(hResult) && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¡ãƒƒã‚·ãƒ¥é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 	}
 #pragma endregion
 
@@ -154,10 +154,10 @@ void StageMesh::Init(ViewerCached _system)
 			vertices[i].normal.x, vertices[i].normal.y, vertices[i].normal.z);
 	}*/
 
-	// ƒCƒ“ƒfƒNƒX‚½‚¿
+	// ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹ãŸã¡
 	std::vector<uint32_t> indexes{};
 
-#pragma region ƒCƒ“ƒfƒbƒNƒX‚ğ‹‚ß‚é
+#pragma region ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’æ±‚ã‚ã‚‹
 	{
 		static const uint32_t INDEX_SET_ARRAY[] { 0,2,1,2,3,1 };
 		static const size_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(int) };
@@ -188,12 +188,12 @@ void StageMesh::Init(ViewerCached _system)
 
 		const D3D11_BUFFER_DESC INDEX_DESC
 		{
-			// Œ^‚Ì‘å‚«‚³
+			// å‹ã®å¤§ãã•
 			.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * indexCount_),
-			.Usage = D3D11_USAGE_DEFAULT,                // •ÏX‚·‚é‚©
-			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-			.CPUAccessFlags = 0,                         // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-			.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+			.Usage = D3D11_USAGE_DEFAULT,                // å¤‰æ›´ã™ã‚‹ã‹
+			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+			.CPUAccessFlags = 0,                         // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+			.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 			.StructureByteStride = 0,
 		};
 		const D3D11_SUBRESOURCE_DATA INDEX_DATA
@@ -204,7 +204,7 @@ void StageMesh::Init(ViewerCached _system)
 		};
 
 		hResult = pDevice->CreateBuffer(&INDEX_DESC, &INDEX_DATA, pIndexBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ƒXƒe[ƒWƒƒbƒVƒ…‚ÌƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ì¬‚É¸”s");
+		wassert(SUCCEEDED(hResult) && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¡ãƒƒã‚·ãƒ¥ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 	}
 #pragma endregion
 
@@ -219,19 +219,19 @@ void StageMesh::Init(ViewerCached _system)
 	//	}
 	//}
 
-#pragma region ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğì‚Á‚Ä‚¨‚­
+#pragma region ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’ä½œã£ã¦ãŠã
 	{
 		UINT cbSize = static_cast<UINT>(sizeof(ConstantBuffer));
 		cbSize = (cbSize + 15u) & ~15u;
 
 		const D3D11_BUFFER_DESC CONSTANT_DESC
 		{
-			// Œ^‚Ì‘å‚«‚³
+			// å‹ã®å¤§ãã•
 			.ByteWidth = cbSize,
-			.Usage = D3D11_USAGE_DYNAMIC,                // •ÏX‚·‚é‚©
-			.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-			.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-			.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+			.Usage = D3D11_USAGE_DYNAMIC,                // å¤‰æ›´ã™ã‚‹ã‹
+			.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+			.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+			.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 			.StructureByteStride = 0,
 		};
 
@@ -239,7 +239,7 @@ void StageMesh::Init(ViewerCached _system)
 		HRESULT hResult{};
 
 		hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ƒXƒe[ƒWƒƒbƒVƒ…ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@ì¬‚É¸”s");
+		wassert(SUCCEEDED(hResult) && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 	}
 #pragma endregion
 }

@@ -2,12 +2,12 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ”š‚ğ•\¦‚·‚éUI
+/// æ•°å­—ã‚’è¡¨ç¤ºã™ã‚‹UI
 /// </summary>
 class NumberPlate : public GameObject
 {
 	/// <summary>
-	/// ”š
+	/// æ•°å­—
 	/// </summary>
 	enum NUMBER : int8_t
 	{
@@ -31,48 +31,48 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// •\¦‚·‚é”š‚Ì‘å‚«‚³
+	/// è¡¨ç¤ºã™ã‚‹æ•°å­—ã®å¤§ãã•
 	/// </summary>
-	/// <param name="_size">‘å‚«‚³(ƒsƒNƒZƒ‹’PˆÊ)</param>
+	/// <param name="_size">å¤§ãã•(ãƒ”ã‚¯ã‚»ãƒ«å˜ä½)</param>
 	void SetSize(const Vector2Int _size) { sizePix_ = _size; }
 
 	/// <summary>
-	/// •\¦‚·‚é”’l‚ğİ’è‚·‚é
+	/// è¡¨ç¤ºã™ã‚‹æ•°å€¤ã‚’è¨­å®šã™ã‚‹
 	/// </summary>
-	/// <param name="_number">•\¦‚·‚é•„†‚È‚µ32bit®”</param>
+	/// <param name="_number">è¡¨ç¤ºã™ã‚‹ç¬¦å·ãªã—32bitæ•´æ•°</param>
 	void SetNumber(const uint32_t _number) { number_ = _number; }
 	/// <summary>
-	/// Œ»İ•\¦‚·‚é”’l‚ğæ“¾‚·‚é
+	/// ç¾åœ¨è¡¨ç¤ºã™ã‚‹æ•°å€¤ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>•„†‚È‚µ32bit®”</returns>
+	/// <returns>ç¬¦å·ãªã—32bitæ•´æ•°</returns>
 	uint32_t GetNumber() const { return number_; }
 	/// <summary>
-	/// •\¦‚·‚éÀ•W (¶ãŠî€) ‚ğİ’è‚·‚é
+	/// è¡¨ç¤ºã™ã‚‹åº§æ¨™ (å·¦ä¸ŠåŸºæº–) ã‚’è¨­å®šã™ã‚‹
 	/// </summary>
-	/// <param name="_drawPosition">•`‰æÀ•W</param>
+	/// <param name="_drawPosition">æç”»åº§æ¨™</param>
 	inline void SetPosition(const Vector2Int _drawPosition) { beginDrawPos_ = _drawPosition; }
 
 	/// <summary>
-	/// <para>İŒv‚ÌƒLƒƒƒ“ƒoƒXƒTƒCƒY‚ğİ’è‚·‚é</para>
-	/// <para>(0.0, 0.0) ‚Å–³Œø‰»</para>
+	/// <para>è¨­è¨ˆæ™‚ã®ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚µã‚¤ã‚ºã‚’è¨­å®šã™ã‚‹</para>
+	/// <para>(0.0, 0.0) ã§ç„¡åŠ¹åŒ–</para>
 	/// </summary>
-	/// <param name="_size">İŒv‚ÌƒLƒƒƒ“ƒoƒXƒTƒCƒY</param>
+	/// <param name="_size">è¨­è¨ˆæ™‚ã®ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚µã‚¤ã‚º</param>
 	inline void SetBaseCanvasSize(const Vector2Int _size) { baseCanvasSize_ = _size; }
 
 private:
 	/// <summary>
-	/// ”š‚Ì•`‰æˆ—
+	/// æ•°å­—ã®æç”»å‡¦ç†
 	/// </summary>
-	/// <param name="_number">•`‰æ‚·‚é”š‚Ìí—Ş</param>
+	/// <param name="_number">æç”»ã™ã‚‹æ•°å­—ã®ç¨®é¡</param>
 	void DrawNumber(const NUMBER _number);
 
 private:
-	uint32_t number_;                  // •\¦‚·‚é”’l
-	TextureHandle hNumberImage_;       // ”š‚Ì‰¡’·‰æ‘œƒnƒ“ƒhƒ‹
-	Vector2Int baseCanvasSize_;        // İŒv‚ÌƒLƒƒƒ“ƒoƒXƒTƒCƒY
-	Vector2Int beginDrawPos_;          // •`‰æÀ•W
-	Vector2Int currDrawPos_;           // •`‰æ“r’†‚ÌÀ•W
-	Vector2Int sizePix_;               // •¶š‚Ì•`‰æƒTƒCƒY
-	int marginPix_;                    // •¶š“¯m‚Ì—]”’
-	std::string numberImageFilePath_;  // ”š‚Ì‰æ‘œƒtƒ@ƒCƒ‹ƒpƒX
+	uint32_t number_;                  // è¡¨ç¤ºã™ã‚‹æ•°å€¤
+	TextureHandle hNumberImage_;       // æ•°å­—ã®æ¨ªé•·ç”»åƒãƒãƒ³ãƒ‰ãƒ«
+	Vector2Int baseCanvasSize_;        // è¨­è¨ˆæ™‚ã®ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚µã‚¤ã‚º
+	Vector2Int beginDrawPos_;          // æç”»åº§æ¨™
+	Vector2Int currDrawPos_;           // æç”»é€”ä¸­ã®åº§æ¨™
+	Vector2Int sizePix_;               // æ–‡å­—ã®æç”»ã‚µã‚¤ã‚º
+	int marginPix_;                    // æ–‡å­—åŒå£«ã®ä½™ç™½
+	std::string numberImageFilePath_;  // æ•°å­—ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 };

@@ -8,9 +8,9 @@
 
 namespace
 {
-	static float POLE_DISTANCE{ 100 };  // ‚±‚±‚Ìƒ|[ƒ‹‚Ì‹——£
-	static float POLE_POS_X{ 10.0f };  // ƒ|[ƒ‹‚ğ”z’u‚·‚éxÀ•W
-	static float POLE_HEIGHT{ 20.0f };  // ƒ|[ƒ‹‚Ì’n–Ê‚©‚çƒ‰ƒCƒ“‚Ü‚Å‚Ì‚‚³
+	static float POLE_DISTANCE{ 100 };  // ã“ã“ã®ãƒãƒ¼ãƒ«ã®è·é›¢
+	static float POLE_POS_X{ 10.0f };  // ãƒãƒ¼ãƒ«ã‚’é…ç½®ã™ã‚‹xåº§æ¨™
+	static float POLE_HEIGHT{ 20.0f };  // ãƒãƒ¼ãƒ«ã®åœ°é¢ã‹ã‚‰ãƒ©ã‚¤ãƒ³ã¾ã§ã®é«˜ã•
 }
 
 Lift::Lift(EntityId _stage) :
@@ -19,7 +19,7 @@ Lift::Lift(EntityId _stage) :
 	rotationSpeedPerSec_{ 6.0f },
 	loopPole_{ INVALID_ENTITY, INVALID_ENTITY }
 {
-	// ƒ|[ƒ‹‚ğŒš‚Ä‚éx²‚¾‚¯w’è‚µ‚Ä‚¨‚­
+	// ãƒãƒ¼ãƒ«ã‚’å»ºã¦ã‚‹xè»¸ã ã‘æŒ‡å®šã—ã¦ãŠã
 	Transform().SetPosition({ POLE_POS_X, 0, 0 });
 }
 
@@ -30,18 +30,18 @@ Lift::~Lift()
 void Lift::Init()
 {
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
-	wassert(pPlayScene && "ƒvƒŒƒCƒV[ƒ“‚Ìæ“¾‚É¸”s");
+	wassert(pPlayScene && "ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—");
 
 	if (pPlayScene == nullptr)
 	{
-		return;  // ƒvƒŒƒCƒV[ƒ“‚Ìæ“¾‚É¸”s‚µ‚½‚Æ‚«‚Í‚È‚É‚à‚Å‚«‚È‚¢
+		return;  // ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—ã—ãŸã¨ãã¯ãªã«ã‚‚ã§ããªã„
 	}
 
 	StageLine* pStage{ dynamic_cast<StageLine*>(FindGameObject(stage_)) };
 
 	if (pStage == nullptr)
 	{
-		wassert(false && "ƒXƒe[ƒWƒ‰ƒCƒ“ƒIƒuƒWƒFƒNƒg‚ªŒ©‚Â‚©‚ç‚È‚¢");
+		wassert(false && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ©ã‚¤ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¦‹ã¤ã‹ã‚‰ãªã„");
 		return;
 	}
 
@@ -53,12 +53,12 @@ void Lift::Init()
 	
 	EntityId instantiatedEntity{ INVALID_ENTITY };
 
-	// Å‰‚Ìƒ‹[ƒv‚Í‚¶‚ß‚ğİ’u (ƒ|[ƒ‹‚Æd•¡‚·‚é)
+	// æœ€åˆã®ãƒ«ãƒ¼ãƒ—ã¯ã˜ã‚ã‚’è¨­ç½® (ãƒãƒ¼ãƒ«ã¨é‡è¤‡ã™ã‚‹)
 	loopPole_[LOOP_POLE_UPPER] = pPlayScene->Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
 	
 	while (currZ < STAGE_LENGTH_Z)
 	{
-		// ƒ|[ƒ‹‚ğ—§‚Ä‚Ä‚¢‚­
+		// ãƒãƒ¼ãƒ«ã‚’ç«‹ã¦ã¦ã„ã
 		instantiatedEntity = pPlayScene->Instantiate<LiftPole>(GetPolePosition(currZ), parentEntity);
 		poles_.push_back(instantiatedEntity);
 		currZ += POLE_DISTANCE;
@@ -66,7 +66,7 @@ void Lift::Init()
 
 	currZ -= POLE_DISTANCE;
 	
-	// ÅŒã‚Ìƒ‹[ƒv’[‚ğİ’u (ƒ|[ƒ‹‚Æd•¡‚·‚é)
+	// æœ€å¾Œã®ãƒ«ãƒ¼ãƒ—ç«¯ã‚’è¨­ç½® (ãƒãƒ¼ãƒ«ã¨é‡è¤‡ã™ã‚‹)
 	loopPole_[LOOP_POLE_LOWER] = pPlayScene->Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
 
 	for (float z = 0; z < 1000.0f; z += 50.0f)
@@ -88,7 +88,7 @@ void Lift::Release()
 Vector3 Lift::GetPolePosition(const float _z)
 {
 	StageLine* pStage{ dynamic_cast<StageLine*>(FindGameObject(stage_)) };
-	wassert(pStage && "ƒXƒe[ƒWƒ‰ƒCƒ“ƒIƒuƒWƒFƒNƒg‚ªŒ©‚Â‚©‚ç‚È‚¢");
+	wassert(pStage && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ©ã‚¤ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¦‹ã¤ã‹ã‚‰ãªã„");
 
 	return Vector3
 	{
@@ -100,10 +100,10 @@ Vector3 Lift::GetPolePosition(const float _z)
 
 bool Lift::TryGetLinePosition(const float _z, Vector3* _pPosition)
 {
-	// ”ÍˆÍn‚Ü‚è‚É‚¢‚éƒ|[ƒ‹‚ÌƒCƒ“ƒfƒNƒX
+	// ç¯„å›²å§‹ã¾ã‚Šã«ã„ã‚‹ãƒãƒ¼ãƒ«ã®ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹
 	const int POLE_INDEX{ static_cast<int>(_z / POLE_DISTANCE) };
 	
-	// Z‚ª0–¢– ‚â ÅŒã‚Ìƒ|[ƒ‹‚æ‚è‰œ ‚Í”ÍˆÍŠO‚Ì‚½‚ß¸”s
+	// ZãŒ0æœªæº€ ã‚„ æœ€å¾Œã®ãƒãƒ¼ãƒ«ã‚ˆã‚Šå¥¥ ã¯ç¯„å›²å¤–ã®ãŸã‚å¤±æ•—
 	if (_z < 0 || (poles_.size() - 1) <= POLE_INDEX)
 	{
 		return false;
@@ -113,7 +113,7 @@ bool Lift::TryGetLinePosition(const float _z, Vector3* _pPosition)
 	GameObject* pEnd{ FindGameObject(poles_.at(POLE_INDEX + 1).entityId) };
 
 
-	// ƒ|[ƒ‹“à‚Ì‚Ç‚ÌˆÊ’u‚É‚¢‚é‚©‚Ì—¦
+	// ãƒãƒ¼ãƒ«å†…ã®ã©ã®ä½ç½®ã«ã„ã‚‹ã‹ã®ç‡
 	const float RATIO{ std::fmodf(_z, POLE_DISTANCE) / POLE_DISTANCE };
 
 
@@ -124,7 +124,7 @@ bool Lift::TryGetLinePosition(const float _z, Vector3* _pPosition)
 	//beginPos = beginPos + Vector3::Up() * POLE_HEIGHT;
 	//endPos = endPos + Vector3::Up() * POLE_HEIGHT;
 
-	// 2“_ŠÔ‚ğüŒ`•âŠÔ‚µ‚ÄÀ•W‚ğ‹‚ß‚é
+	// 2ç‚¹é–“ã‚’ç·šå½¢è£œé–“ã—ã¦åº§æ¨™ã‚’æ±‚ã‚ã‚‹
 	*_pPosition = Mathf::Lerp(
 		beginPos,
 		endPos,
@@ -132,7 +132,7 @@ bool Lift::TryGetLinePosition(const float _z, Vector3* _pPosition)
 
 	_pPosition->y += POLE_HEIGHT;
 
-	return true;  // ¬Œ÷
+	return true;  // æˆåŠŸ
 }
 
 Lift::Pole::Pole(const EntityId _entityId) :

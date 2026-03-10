@@ -4,75 +4,75 @@
 #include "CoreType/Vector3.h"
 
 /// <summary>
-/// 32bit•‚“®¬”“_”‚Ì”Šwƒ†[ƒeƒBƒŠƒeƒB
+/// 32bitæµ®å‹•å°æ•°ç‚¹æ•°ã®æ•°å­¦ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£
 /// </summary>
 namespace wtgb::Mathf
 {
 	/// <summary>
-	/// —”‚ğì‚é‚â‚Â
+	/// ä¹±æ•°ã‚’ä½œã‚‹ã‚„ã¤
 	/// </summary>
 	class Randomer
 	{
 	public:
 		/// <summary>
-		/// ƒV[ƒh’lw’è
+		/// ã‚·ãƒ¼ãƒ‰å€¤æŒ‡å®š
 		/// </summary>
-		/// <param name="_seed">ƒV[ƒh’l</param>
+		/// <param name="_seed">ã‚·ãƒ¼ãƒ‰å€¤</param>
 		Randomer(const uint32_t _seed);
 		/// <summary>
-		/// ƒV[ƒh’l‚ğ–{“–‚Ìƒ‰ƒ“ƒ_ƒ€‚É
+		/// ã‚·ãƒ¼ãƒ‰å€¤ã‚’æœ¬å½“ã®ãƒ©ãƒ³ãƒ€ãƒ ã«
 		/// </summary>
 		Randomer();
 		~Randomer();
 
 		/// <summary>
-		/// Ÿ‚Ì—”‚ğ¶¬‚·‚é
+		/// æ¬¡ã®ä¹±æ•°ã‚’ç”Ÿæˆã™ã‚‹
 		/// </summary>
-		/// <param name="_max">Å‘å’l</param>
-		/// <returns>—”®”’l</returns>
+		/// <param name="_max">æœ€å¤§å€¤</param>
+		/// <returns>ä¹±æ•°æ•´æ•°å€¤</returns>
 		int NextInt(int _max = INT_MAX);
 
 		/// <summary>
-		/// —”‚ğ0`1‚Ì”ÍˆÍ‚Åæ“¾‚·‚é
+		/// ä¹±æ•°ã‚’0ã€œ1ã®ç¯„å›²ã§å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>0..1</returns>
 		float Rand();
 
 	private:
-		std::mt19937 randomEngine_;  // —”ƒGƒ“ƒWƒ“
+		std::mt19937 randomEngine_;  // ä¹±æ•°ã‚¨ãƒ³ã‚¸ãƒ³
 	};
 
 	/// <summary>
-	/// ‹æŠÔ“à‚Å‚Ì—¦‚ğ‹‚ß‚é
+	/// åŒºé–“å†…ã§ã®ç‡ã‚’æ±‚ã‚ã‚‹
 	/// </summary>
-	/// <param name="_min">Å¬’l(ŠÜ‚Ş)</param>
-	/// <param name="_max">Å‘å’l(ŠÜ‚Ş)</param>
-	/// <param name="_value">’l</param>
+	/// <param name="_min">æœ€å°å€¤(å«ã‚€)</param>
+	/// <param name="_max">æœ€å¤§å€¤(å«ã‚€)</param>
+	/// <param name="_value">å€¤</param>
 	/// <returns>0.0f ~ 1.0f</returns>
 	float InvLerp(const float _min, const float _max, const float _value);
 
 	/// <summary>
-	/// À•WƒxƒNƒgƒ‹ A, B ‚ğüŒ`•âŠÔ‚·‚é
+	/// åº§æ¨™ãƒ™ã‚¯ãƒˆãƒ« A, B ã‚’ç·šå½¢è£œé–“ã™ã‚‹
 	/// </summary>
-	/// <param name="_a">À•WƒxƒNƒgƒ‹A</param>
-	/// <param name="_b">À•WƒxƒNƒgƒ‹B</param>
-	/// <param name="_rate">ƒŒ[ƒg</param>
-	/// <returns>üŒ`•âŠÔ‚µ‚½Œ‹‰Ê</returns>
+	/// <param name="_a">åº§æ¨™ãƒ™ã‚¯ãƒˆãƒ«A</param>
+	/// <param name="_b">åº§æ¨™ãƒ™ã‚¯ãƒˆãƒ«B</param>
+	/// <param name="_rate">ãƒ¬ãƒ¼ãƒˆ</param>
+	/// <returns>ç·šå½¢è£œé–“ã—ãŸçµæœ</returns>
 	Vector3 Lerp(const Vector3 _a, const Vector3 _b, const float _rate);
 	/// <summary>
-	/// À•W‚×‚£‚Æ‚é A, B ‚ğüŒ`•âŠÔ‚·‚é
+	/// åº§æ¨™ã¹ã…ã¨ã‚‹ A, B ã‚’ç·šå½¢è£œé–“ã™ã‚‹
 	/// </summary>
-	/// <param name="_a">À•WƒxƒNƒgƒ‹A</param>
-	/// <param name="_b">À•WƒxƒNƒgƒ‹B</param>
-	/// <param name="_rate">ƒŒ[ƒg</param>
-	/// <returns>üŒ`•âŠÔ‚µ‚½Œ‹‰Ê</returns>
+	/// <param name="_a">åº§æ¨™ãƒ™ã‚¯ãƒˆãƒ«A</param>
+	/// <param name="_b">åº§æ¨™ãƒ™ã‚¯ãƒˆãƒ«B</param>
+	/// <param name="_rate">ãƒ¬ãƒ¼ãƒˆ</param>
+	/// <returns>ç·šå½¢è£œé–“ã—ãŸçµæœ</returns>
 	Vector2 Lerp(const Vector2 _a, const Vector2 _b, const float _rate);
 	/// <summary>
-	/// À•W A, B ‚ğüŒ`•âŠÔ‚·‚é
+	/// åº§æ¨™ A, B ã‚’ç·šå½¢è£œé–“ã™ã‚‹
 	/// </summary>
-	/// <param name="_a">À•W A</param>
-	/// <param name="_b">À•W B</param>
-	/// <param name="_rate">ƒŒ[ƒg</param>
-	/// <returns>üŒ`•âŠÔ‚µ‚½Œ‹‰Ê</returns>
+	/// <param name="_a">åº§æ¨™ A</param>
+	/// <param name="_b">åº§æ¨™ B</param>
+	/// <param name="_rate">ãƒ¬ãƒ¼ãƒˆ</param>
+	/// <returns>ç·šå½¢è£œé–“ã—ãŸçµæœ</returns>
 	float Lerp(const float _a, const float _b, const float _rate);
 }

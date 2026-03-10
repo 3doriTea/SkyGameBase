@@ -13,16 +13,16 @@ namespace wtgb
 		COMPONENT_HEAD(ModelMesh)
 	public:
 		/// <summary>
-		/// ƒ‚ƒfƒ‹ƒƒbƒVƒ…‚Ìí—Ş
+		/// ãƒ¢ãƒ‡ãƒ«ãƒ¡ãƒƒã‚·ãƒ¥ã®ç¨®é¡
 		/// </summary>
 		enum struct Type
 		{
-			Other,         // ‚»‚Ì‘¼’m‚ç‚È‚¢
+			Other,         // ãã®ä»–çŸ¥ã‚‰ãªã„
 			Fbx,           // FBX
-			SimpleMesh,    // ƒVƒ“ƒvƒ‹‚ÈƒƒbƒVƒ…•`‰æ
-			SimpleMesh2D,  // ƒVƒ“ƒvƒ‹‚ÈƒƒbƒVƒ…2D•`‰æ
-			FbxBack,       // Å”w–Ê‚É•`‰æ‚µ‚½‚¢FBX
-			FbxAplha,      // “§–¾“x‚ğ“K—p‚µ‚½‚¢FBX
+			SimpleMesh,    // ã‚·ãƒ³ãƒ—ãƒ«ãªãƒ¡ãƒƒã‚·ãƒ¥æç”»
+			SimpleMesh2D,  // ã‚·ãƒ³ãƒ—ãƒ«ãªãƒ¡ãƒƒã‚·ãƒ¥2Dæç”»
+			FbxBack,       // æœ€èƒŒé¢ã«æç”»ã—ãŸã„FBX
+			FbxAplha,      // é€æ˜åº¦ã‚’é©ç”¨ã—ãŸã„FBX
 		};
 
 		friend class CPMeshRenderer;
@@ -45,17 +45,17 @@ namespace wtgb
 		void End() override;
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹ƒƒbƒVƒ…‚Ìí—Ş‚ğæ“¾
+		/// ãƒ¢ãƒ‡ãƒ«ãƒ¡ãƒƒã‚·ãƒ¥ã®ç¨®é¡ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒ‚ƒfƒ‹ƒƒbƒVƒ…‚Ìí—Ş</returns>
+		/// <returns>ãƒ¢ãƒ‡ãƒ«ãƒ¡ãƒƒã‚·ãƒ¥ã®ç¨®é¡</returns>
 		Type GetType() const { return modelMeshType_; }
 
 	private:
-		std::string fileName_;  // ƒ‚ƒfƒ‹‚Ìƒtƒ@ƒCƒ‹–¼
-		IMeshSimple* pOriginalMesh_;  // ƒVƒ“ƒvƒ‹‚È‚çƒIƒŠƒWƒiƒ‹ƒƒbƒVƒ…
+		std::string fileName_;  // ãƒ¢ãƒ‡ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«å
+		IMeshSimple* pOriginalMesh_;  // ã‚·ãƒ³ãƒ—ãƒ«ãªã‚‰ã‚ªãƒªã‚¸ãƒŠãƒ«ãƒ¡ãƒƒã‚·ãƒ¥
 
-		ModelHandle hModel_;  // ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹
+		ModelHandle hModel_;  // ãƒ¢ãƒ‡ãƒ«ãƒãƒ³ãƒ‰ãƒ«
 
-		Type modelMeshType_;  // ƒ‚ƒfƒ‹ƒƒbƒVƒ…‚Ìí—Ş
+		Type modelMeshType_;  // ãƒ¢ãƒ‡ãƒ«ãƒ¡ãƒƒã‚·ãƒ¥ã®ç¨®é¡
 	};
 }

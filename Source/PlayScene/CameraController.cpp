@@ -18,7 +18,7 @@ CameraController::~CameraController()
 
 void CameraController::Init()
 {
-	SetMode(Mode::Play);  // Å‰‚Í©—RƒJƒƒ‰
+	SetMode(Mode::Play);  // æœ€åˆã¯è‡ªç”±ã‚«ãƒ¡ãƒ©
 }
 
 void CameraController::Update()
@@ -57,17 +57,17 @@ void CameraController::Update()
 		}
 		break;
 	default:
-		wassert(false && "–¢ˆ—‚ÌƒJƒƒ‰ƒ‚[ƒh");
+		wassert(false && "æœªå‡¦ç†ã®ã‚«ãƒ¡ãƒ©ãƒ¢ãƒ¼ãƒ‰");
 		break;
 	}
 }
 
 void CameraController::Release()
 {
-	// ‚µ‚Á‚©‚è‰ğ•ú
+	// ã—ã£ã‹ã‚Šè§£æ”¾
 	SAFE_DELETE(pCameraMove_);
 
-	// ƒJ[ƒ\ƒ‹‚ÌŒã•Ğ•t‚¯‚ğ‚µ‚Á‚©‚è
+	// ã‚«ãƒ¼ã‚½ãƒ«ã®å¾Œç‰‡ä»˜ã‘ã‚’ã—ã£ã‹ã‚Š
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	Cursor& cursor{ System().Get<Cursor>() };
 	cursor.SetShow(true);
@@ -92,7 +92,7 @@ void CameraController::SetMode(const Mode _mode)
 		pCameraMove_ = new CameraMovePlay{};
 		break;
 	default:
-		wassert(false && "–¢À‘•‚ÌƒJƒƒ‰ƒ‚[ƒh");
+		wassert(false && "æœªå®Ÿè£…ã®ã‚«ãƒ¡ãƒ©ãƒ¢ãƒ¼ãƒ‰");
 		return;
 	}
 

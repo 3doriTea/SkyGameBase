@@ -36,7 +36,7 @@ void wtgb::Camera::Update(const ViewerUpdate& _system)
 
 	if (XMVectorGetX(XMVector3Length(position_ - targetPosition_)) <= FLT_EPSILON)
 	{
-		return;  // ƒJƒƒ‰‚Æ’Ž‹“_‚Ì‹——£‚ª‚Ù‚Ú0‚È‚çXV‚µ‚È‚¢
+		return;  // ã‚«ãƒ¡ãƒ©ã¨æ³¨è¦–ç‚¹ã®è·é›¢ãŒã»ã¼0ãªã‚‰æ›´æ–°ã—ãªã„
 	}
 
 	viewMatrix_ = XMMatrixLookAtLH(

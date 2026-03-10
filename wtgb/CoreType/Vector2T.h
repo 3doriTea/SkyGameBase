@@ -23,16 +23,16 @@ namespace mtgb
 		
 		Vector2T() = default;
 		Vector2T(T x, T y);
-		// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		Vector2T(const Vector2T& other) = default;
 
-		// ƒ€[ƒuƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ãƒ ãƒ¼ãƒ–ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		Vector2T(Vector2T&& other)  = default;
 		Vector2T& operator=(const Vector2T&) = default;
 		Vector2T& operator=(Vector2T&&) = default;
 		~Vector2T() = default;
 
-#pragma region l‘¥‰‰Z
+#pragma region å››å‰‡æ¼”ç®—
 		inline Vector2T& operator*=(T _scalar) { x *= _scalar; y *= _scalar; return *this; }
 		inline Vector2T& operator*=(const Vector2T& _other) { x *= _other.x; y *= _other.y; return *this; }
 		inline Vector2T& operator/=(T _scalar) { x /= _scalar; y /= _scalar; return *this; }
@@ -42,7 +42,7 @@ namespace mtgb
 		inline Vector2T& operator-=(const Vector2T& _other) { x -= _other.x; y -= _other.y; return *this; }
 #pragma endregion
 
-#pragma region ’è”
+#pragma region å®šæ•°
 		static Vector2T Zero() 
 		{
 			return Vector2T( T{}, T{} );
@@ -55,7 +55,7 @@ namespace mtgb
 
 
 	};
-	#pragma region ƒOƒ[ƒoƒ‹ƒIƒyƒŒ[ƒ^
+	#pragma region ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚ªãƒšãƒ¬ãƒ¼ã‚¿
 		template<typename T>
 		inline Vector2T<T> operator*(const Vector2T<T>& _v, T _scalar) { return Vector2T<T>{ _v } *= _scalar; }
 		template<typename T>
@@ -71,7 +71,7 @@ namespace mtgb
 		template<typename T>
 		inline Vector2T<T> operator-(const Vector2T<T>& _v1, const Vector2T<T>& _v2) { return Vector2T<T>{ _v1 } -= _v2; }
 		
-		// ˆÙ‚È‚éŒ^“¯m‚Ì‰‰Z
+		// ç•°ãªã‚‹å‹åŒå£«ã®æ¼”ç®—
 
 		template<typename T, typename U>
 		inline auto operator+(const Vector2T<T>& _v1, const Vector2T<U>& _v2)

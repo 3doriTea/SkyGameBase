@@ -4,28 +4,28 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ˆê˜A‚Ì‰Šú‰»ˆ—‚ğˆµ‚¤ƒNƒ‰ƒX
+	/// ä¸€é€£ã®åˆæœŸåŒ–å‡¦ç†ã‚’æ‰±ã†ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class InitSequence
 	{
 	public:
 		/// <summary>
-		/// ŠJn
+		/// é–‹å§‹
 		/// </summary>
 		/// <returns></returns>
 		static InitSequence& Begin();
 
 		/// <summary>
-		/// ‚µ‚ÉÀsˆ—
+		/// è©¦ã—ã«å®Ÿè¡Œå‡¦ç†
 		/// </summary>
 		/// <param name="_callback"></param>
 		/// <returns></returns>
 		InitSequence& TryRun(const std::function<HRESULT()>& _callback, const std::string_view& _errorMessage);
 
 		/// <summary>
-		/// I—¹
+		/// çµ‚äº†
 		/// </summary>
-		/// <returns>I—¹ƒR[ƒh</returns>
+		/// <returns>çµ‚äº†ã‚³ãƒ¼ãƒ‰</returns>
 		HRESULT End();
 
 	private:

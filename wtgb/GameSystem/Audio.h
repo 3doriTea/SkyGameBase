@@ -13,59 +13,59 @@ namespace wtgb
 		~Audio();
 
 		/// <summary>
-		/// XV‚ÌŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// ‰¹ºÄ¶‚·‚é‚â‚Â‚ğì¬‚·‚é
+		/// éŸ³å£°å†ç”Ÿã™ã‚‹ã‚„ã¤ã‚’ä½œæˆã™ã‚‹
 		/// </summary>
-		/// <param name="_ppSourceVoice">ì¬æ‚Ìƒ|ƒCƒ“ƒ^</param>
-		/// <param name="_format">ƒtƒH[ƒ}ƒbƒg</param>
+		/// <param name="_ppSourceVoice">ä½œæˆå…ˆã®ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="_format">ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ</param>
 		void CreateSourceVoice(IXAudio2SourceVoice** _ppSourceVoice, const WAVEFORMATEX& _format);
 		/// <summary>
-		/// ‰¹º‚ğ—\‚ß“Ç‚İ‚ñ‚Å‚¨‚­
+		/// éŸ³å£°ã‚’äºˆã‚èª­ã¿è¾¼ã‚“ã§ãŠã
 		/// </summary>
-		/// <param name="_audioFileName">‰¹ºƒtƒ@ƒCƒ‹ƒpƒX</param>
+		/// <param name="_audioFileName">éŸ³å£°ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
 		[[nodiscard]]
 		AudioHandle Load(const fs::path& _audioFileName);
 		/// <summary>
-		/// —\‚ß“Ç‚İ‚ñ‚¾‰¹º‚ğÄ¶
+		/// äºˆã‚èª­ã¿è¾¼ã‚“ã éŸ³å£°ã‚’å†ç”Ÿ
 		/// </summary>
-		/// <param name="_hAudio">‰¹º‚Ìƒnƒ“ƒhƒ‹</param>
-		/// <param name="_time">Ä¶ŠÔ</param>
-		/// <param name="_samplePerSec">ƒTƒ“ƒvƒŠƒ“ƒOü”g”</param>
+		/// <param name="_hAudio">éŸ³å£°ã®ãƒãƒ³ãƒ‰ãƒ«</param>
+		/// <param name="_time">å†ç”Ÿæ™‚é–“</param>
+		/// <param name="_samplePerSec">ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°å‘¨æ³¢æ•°</param>
 		void Play(const AudioHandle _hAudio, const float _time = 0.0f, const unsigned long _samplePerSec = 0);
 		/// <summary>
-		/// ‘¦“Ç‚İ‚ñ‚ÅÄ¶‚·‚é
+		/// å³èª­ã¿è¾¼ã‚“ã§å†ç”Ÿã™ã‚‹
 		/// </summary>
-		/// <param name="_audioFileName">‰¹ºƒtƒ@ƒCƒ‹ƒpƒX</param>
+		/// <param name="_audioFileName">éŸ³å£°ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
 		void PlayOneShot(const fs::path& _audioFileName);
 
 		/// <summary>
-		/// “Ç‚İ‚ñ‚¾ƒtƒH[ƒ}ƒbƒg‚ğæ“¾‚·‚é
+		/// èª­ã¿è¾¼ã‚“ã ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>“Ç‚İ‚ñ‚¾ƒtƒH[ƒ}ƒbƒg</returns>
+		/// <returns>èª­ã¿è¾¼ã‚“ã ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ</returns>
 		WAVEFORMATEX GetFormat(const AudioHandle _hAudio) const;
 
 	private:
-		ComPtr<IXAudio2> pXAudio2_;                             // XAudio2–{‘Ì‚ÌƒCƒ“ƒ^ƒtƒF[ƒX
-		UniqueXAudio2MasteringVoice pMasteringVoice_;           // å‰¹º
-		AudioPlayer audioPlayer_;                               // ‰¹ºÄ¶‚·‚é‚â‚Â
-		HandlerCollection<AudioClip, AudioHandle> audioClips_;  // ƒNƒŠƒbƒv‚Ìƒnƒ“ƒhƒ‹ƒRƒŒƒNƒVƒ‡ƒ“
+		ComPtr<IXAudio2> pXAudio2_;                             // XAudio2æœ¬ä½“ã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹
+		UniqueXAudio2MasteringVoice pMasteringVoice_;           // ä¸»éŸ³å£°
+		AudioPlayer audioPlayer_;                               // éŸ³å£°å†ç”Ÿã™ã‚‹ã‚„ã¤
+		HandlerCollection<AudioClip, AudioHandle> audioClips_;  // ã‚¯ãƒªãƒƒãƒ—ã®ãƒãƒ³ãƒ‰ãƒ«ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
 	};
 }

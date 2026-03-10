@@ -3,12 +3,12 @@
 
 
 /// <summary>
-/// ƒ^ƒCƒgƒ‹ƒV[ƒ“‚Ì”L
+/// ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®çŒ«
 /// </summary>
 class TitleNeco : public GameObject
 {
 	/// <summary>
-	/// ƒ€[ƒuƒŒ[ƒg‚Ìƒpƒ‰ƒ[ƒ^
+	/// ãƒ ãƒ¼ãƒ–ãƒ¬ãƒ¼ãƒˆã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	/// </summary>
 	struct MoveRatioConfig
 	{
@@ -34,43 +34,43 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ˆÚ“®ƒŒ[ƒg‚ğæ“¾‚·‚é
+	/// ç§»å‹•ãƒ¬ãƒ¼ãƒˆã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>ˆÚ“®ƒŒ[ƒg 0.0 .. 1.0</returns>
+	/// <returns>ç§»å‹•ãƒ¬ãƒ¼ãƒˆ 0.0 .. 1.0</returns>
 	float GetMoveRaito() const { return moveRatio_; }
 
 private:
 	/// <summary>
-	/// json‚©‚çƒpƒ‰ƒ[ƒ^‚ğ“Ç‚İ‚Ş
+	/// jsonã‹ã‚‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
 	/// </summary>
-	/// <param name="_json">ƒpƒ‰ƒ[ƒ^‚Ìjson</param>
+	/// <param name="_json">ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®json</param>
 	void OnLoadParam(const json& _json);
 
 private:
 	TextureHandle hImages_[IMAGE::I_MAX];
-	float moveRatio_;  // ƒ€[ƒuƒŒ[ƒg
-	bool isDrag_;  // ƒhƒ‰ƒbƒO’†‚©
+	float moveRatio_;  // ãƒ ãƒ¼ãƒ–ãƒ¬ãƒ¼ãƒˆ
+	bool isDrag_;  // ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã‹
 
-	Vector2Int playButtonShowPos_;  // ƒvƒŒƒCƒ{ƒ^ƒ“‚ğ•\¦‚³‚¹‚é‚Æ‚«‚ÌˆÊ’u
+	Vector2Int playButtonShowPos_;  // ãƒ—ãƒ¬ã‚¤ãƒœã‚¿ãƒ³ã‚’è¡¨ç¤ºã•ã›ã‚‹ã¨ãã®ä½ç½®
 
-	EntityId dragPoint_;  // ƒhƒ‰ƒbƒO‚µ‚Ä’Í‚Ş‰~
-	EntityId playButton_;  // ƒvƒŒƒCƒ{ƒ^ƒ“
+	EntityId dragPoint_;  // ãƒ‰ãƒ©ãƒƒã‚°ã—ã¦æ´ã‚€å††
+	EntityId playButton_;  // ãƒ—ãƒ¬ã‚¤ãƒœã‚¿ãƒ³
 
 	TextureHandle hButtonOff_;
 	TextureHandle hButtonOn_;
 
-	std::string playToneAudioFile_;  // ƒg[ƒ“‚Æ‚µ‚Ä—¬‚·‰¹‚Ìƒtƒ@ƒCƒ‹ƒpƒX
+	std::string playToneAudioFile_;  // ãƒˆãƒ¼ãƒ³ã¨ã—ã¦æµã™éŸ³ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 
-	int uiLayoutConfigOrder_;  // UIƒŒƒCƒAƒEƒgİ’è‚Ì•`‰æ‡”Ô
+	int uiLayoutConfigOrder_;  // UIãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®šã®æç”»é †ç•ª
 
-	MoveRatioConfig moveRatioConfig_;  // ƒ€[ƒuƒŒ[ƒg‚Ìİ’è
+	MoveRatioConfig moveRatioConfig_;  // ãƒ ãƒ¼ãƒ–ãƒ¬ãƒ¼ãƒˆã®è¨­å®š
 
 	int dragCircleRadius_;
 	int playButtonRadius_;
 	int playNoteChannel_;
 	int playNoteDiffOffset_;
 
-	int dragCircleOffsetX_;                 // ƒhƒ‰ƒbƒO‰~‚ÌxÀ•W
-	int dragCircleOffsetXPP_;               // ƒhƒ‰ƒbƒO‰~‚ÌxÀ•W++
-	float dragCircleOffsetScreenSizeYDiv_;  // ƒhƒ‰ƒbƒO‰~‚ÌyÀ•W ƒXƒNƒŠ[ƒ“ƒTƒCƒYy‚Æ‚ÌŠ„‡
+	int dragCircleOffsetX_;                 // ãƒ‰ãƒ©ãƒƒã‚°å††ã®xåº§æ¨™
+	int dragCircleOffsetXPP_;               // ãƒ‰ãƒ©ãƒƒã‚°å††ã®xåº§æ¨™++
+	float dragCircleOffsetScreenSizeYDiv_;  // ãƒ‰ãƒ©ãƒƒã‚°å††ã®yåº§æ¨™ ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚µã‚¤ã‚ºyã¨ã®å‰²åˆ
 };

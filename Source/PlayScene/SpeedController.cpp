@@ -27,18 +27,18 @@ void SpeedController::Update()
 	using DirectX::XMVector3Length;
 	using DirectX::XMVectorGetX;
 
-	// ‚Ğ‚½‚·‚çƒ^[ƒQƒbƒg‚Ì‘¬“x‚ğæ“¾‚µ‚ÄXV‚·‚é
+	// ã²ãŸã™ã‚‰ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®é€Ÿåº¦ã‚’å–å¾—ã—ã¦æ›´æ–°ã™ã‚‹
 
 	const float FPS{ System().Get<GameTime>().GetFPS() };
 
 	GameObject* pTargetGameObject{ FindGameObject(targetEntity_) };
-	wassert(pTargetGameObject && "ƒXƒs[ƒhƒRƒ“ƒgƒ[ƒ‹‘ÎÛ‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
+	wassert(pTargetGameObject && "ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«å¯¾è±¡ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ");
 
 	RigidBody& targetRB{ pTargetGameObject->GetComponent<RigidBody>() };
 	float speedPerSec{ XMVectorGetX(XMVector3Length(targetRB.GetVelocity())) };
 
-	// RigidBody - Velocity‚Í1•bŠÔ‚ ‚½‚è‚Ì‘¬“x‚Å‚ ‚é‚½‚ßA1ƒtƒŒ[ƒ€“–‚½‚è‚Ì‘¬“x‚É•ÏŠ·
-	wassert(FPS != 0 && "FPS‚ª0‚É‚æ‚é0œZ‚ª”­¶‚·‚é‚æ");
+	// RigidBody - Velocityã¯1ç§’é–“ã‚ãŸã‚Šã®é€Ÿåº¦ã§ã‚ã‚‹ãŸã‚ã€1ãƒ•ãƒ¬ãƒ¼ãƒ å½“ãŸã‚Šã®é€Ÿåº¦ã«å¤‰æ›
+	wassert(FPS != 0 && "FPSãŒ0ã«ã‚ˆã‚‹0é™¤ç®—ãŒç™ºç”Ÿã™ã‚‹ã‚ˆ");
 	SetSpeed(speedPerSec / FPS);
 
 	LOGFLN("Speed:{}", speedPerSec / FPS);
@@ -62,17 +62,17 @@ SpeedType SpeedController::GetSpeedType() const
 {
 	if (currentSpeedValue_ <= speedStopMin_)
 	{
-		return SpeedType::Stop;  // ~‚Ü‚Á‚Ä‚¢‚é”»’è
+		return SpeedType::Stop;  // æ­¢ã¾ã£ã¦ã„ã‚‹åˆ¤å®š
 	}
 	else if (currentSpeedValue_ < speedGoodMin_)
 	{
-		return SpeedType::TooSlow;  // —Ç‚­‚È‚¢’x‚¢‘¬“x
+		return SpeedType::TooSlow;  // è‰¯ããªã„é…ã„é€Ÿåº¦
 	}
 	else if (currentSpeedValue_ < speedHighMin_)
 	{
-		return SpeedType::Good;  // ‘¬‚·‚¬‚È‚¢—Ç‚¢‘¬“x
+		return SpeedType::Good;  // é€Ÿã™ããªã„è‰¯ã„é€Ÿåº¦
 	}
-	else  // ‘¬‚·‚¬‚é
+	else  // é€Ÿã™ãã‚‹
 	{
 		return SpeedType::Excissive;
 	}

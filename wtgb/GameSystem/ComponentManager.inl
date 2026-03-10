@@ -3,7 +3,7 @@
 template<typename T>
 inline T& wtgb::ComponentManager::Add(const EntityId _entityId)
 {
-	assert(entityGenerator_.IsInvalidId(_entityId) == false && "–³Œø‚ÈƒGƒ“ƒeƒBƒeƒBId‚ªw’è‚³‚ê‚½");
+	assert(entityGenerator_.IsInvalidId(_entityId) == false && "ç„¡åŠ¹ãªã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£IdãŒæŒ‡å®šã•ã‚ŒãŸ");
 
 	return system_.Get<typename T::PoolT>().Add(_entityId);
 }
@@ -19,7 +19,7 @@ template<typename T>
 inline const T& wtgb::ComponentManager::Get(const EntityId _entityId) const
 {
 	const T* pComponent{ dynamic_cast<const T*>(typeToPools_.at(typeid(T))) };
-	assert(pComponent && "w’è‚µ‚½ƒRƒ“ƒ|[ƒlƒ“ƒg‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
+	assert(pComponent && "æŒ‡å®šã—ãŸã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ");
 
 	return *pComponent;
 }

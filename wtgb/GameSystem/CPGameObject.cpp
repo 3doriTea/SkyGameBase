@@ -55,7 +55,7 @@ void wtgb::CPGameObject::End()
 const wtgb::EntityId wtgb::CPGameObject::GetEntityId(const size_t _index) const
 {
 	GameObject* pGameObject{ at(_index).get() };
-	wassert(pGameObject && "ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ª‚Ü‚¾ì‚ç‚ê‚Ä‚¢‚È‚¢");
+	wassert(pGameObject && "ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã¾ã ä½œã‚‰ã‚Œã¦ã„ãªã„");
 	if (pGameObject)
 	{
 		return pGameObject->entityId_;

@@ -30,9 +30,9 @@ public:
 		uint32_t vertexCount_;
 		uint32_t indexCount_;
 
-		ComPtr<ID3D11Buffer> pVertexBuffer_;    // ’¸“_ƒoƒbƒtƒ@
-		ComPtr<ID3D11Buffer> pIndexBuffer_;    // ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
-		ComPtr<ID3D11Buffer> pConstantBuffer_;  // ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@
+		ComPtr<ID3D11Buffer> pVertexBuffer_;    // é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
+		ComPtr<ID3D11Buffer> pIndexBuffer_;    // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
+		ComPtr<ID3D11Buffer> pConstantBuffer_;  // ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡
 	};
 
 public:

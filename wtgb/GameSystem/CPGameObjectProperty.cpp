@@ -22,20 +22,20 @@ void wtgb::CPGameObjectProperty::SetFamily(const EntityId _parent, const EntityI
 {
 	if (_parent == INVALID_ENTITY && _child == INVALID_ENTITY)
 	{
-		assert(false && "eq‚Æ‚à‚É–³Œø‚È’l‚ªw’è‚³‚ê‚½");
-		return;  // –³ˆÓ–¡‚È‚Ì‚Å–³‹
+		assert(false && "è¦ªå­ã¨ã‚‚ã«ç„¡åŠ¹ãªå€¤ãŒæŒ‡å®šã•ã‚ŒãŸ");
+		return;  // ç„¡æ„å‘³ãªã®ã§ç„¡è¦–
 	}
 
 	if (_child == INVALID_ENTITY)
 	{
-		// MEMO: q‚Ìw’è‚ª–³Œø’l‚Ìê‡A‚·‚×‚Ä‚Ìq‚ğØ‚è—£‚·‚æ‚¤‚É‚µ‚Ä‚¢‚½‚ªAŠëŒ¯‚È‚½‚ß—áŠOƒXƒ[‚É‚µ‚½B
-		assert(false && "q‚ª–³Œø‚È’l");
-		throw "q‚Ìw’è‚ª‚ ‚è‚Ü‚¹‚ñ";
-		// q‚ğØ‚è—£‚·
+		// MEMO: å­ã®æŒ‡å®šãŒç„¡åŠ¹å€¤ã®å ´åˆã€ã™ã¹ã¦ã®å­ã‚’åˆ‡ã‚Šé›¢ã™ã‚ˆã†ã«ã—ã¦ã„ãŸãŒã€å±é™ºãªãŸã‚ä¾‹å¤–ã‚¹ãƒ­ãƒ¼ã«ã—ãŸã€‚
+		assert(false && "å­ãŒç„¡åŠ¹ãªå€¤");
+		throw "å­ã®æŒ‡å®šãŒã‚ã‚Šã¾ã›ã‚“";
+		// å­ã‚’åˆ‡ã‚Šé›¢ã™
 		//at(_parent).RemoveAllChild();
 	}
 
-	// ‚Ü‚¸e‚ª‚¢‚é‚È‚çŠÖŒW‚ğ‘Å‚¿Ø‚é
+	// ã¾ãšè¦ªãŒã„ã‚‹ãªã‚‰é–¢ä¿‚ã‚’æ‰“ã¡åˆ‡ã‚‹
 	if (at(_child).parent_ != INVALID_ENTITY)
 	{
 		at(at(_child).parent_).RemoveChild(_child);
@@ -44,11 +44,11 @@ void wtgb::CPGameObjectProperty::SetFamily(const EntityId _parent, const EntityI
 
 	if (_parent == INVALID_ENTITY)
 	{
-		// e–³‚µ‚É‚·‚é‚È‚ç‚»‚Ì‚Ü‚Ü
+		// è¦ªç„¡ã—ã«ã™ã‚‹ãªã‚‰ãã®ã¾ã¾
 	}
 	else
 	{
-		// e‚Éq‚ğ’Ç‰Á‚µAq‚Íe‚ğİ’è‚·‚é
+		// è¦ªã«å­ã‚’è¿½åŠ ã—ã€å­ã¯è¦ªã‚’è¨­å®šã™ã‚‹
 		at(_parent).AddChild(_child);
 		at(_child).parent_ = _parent;
 	}
@@ -69,7 +69,7 @@ const wtgb::EntityId wtgb::CPGameObjectProperty::FindEntityByName(const std::str
 			if (_gameObjectProperty.GetName() == _name)
 			{
 				foundEntityId = _gameObjectProperty.GetEntityId();
-				return true;  // Œ©‚Â‚©‚Á‚½‚©‚çƒ‹[ƒv‚ğ~‚ß‚é
+				return true;  // è¦‹ã¤ã‹ã£ãŸã‹ã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æ­¢ã‚ã‚‹
 			}
 			return false;
 		});

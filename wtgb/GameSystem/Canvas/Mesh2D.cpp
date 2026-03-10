@@ -12,31 +12,31 @@ wtgb::Mesh2D::~Mesh2D()
 
 void wtgb::Mesh2D::Init(ViewerCached _system)
 {
-#pragma region ’¸“_‚ğ‹‚ß‚é
+#pragma region é ‚ç‚¹ã‚’æ±‚ã‚ã‚‹
 	{
-		// ’¸“_î•ñ
+		// é ‚ç‚¹æƒ…å ±
 		Vertex vertices[]
 		{
-			{ Vector4{ -1,  1 }, Vector4{ 0, 0 } },  // ¶ã
-			{ Vector4{  1,  1 }, Vector4{ 1, 0 } },  // ‰Eã
-			{ Vector4{ -1, -1 }, Vector4{ 0, 1 } },  // ¶‰º
-			{ Vector4{  1, -1 }, Vector4{ 1, 1 } },  // ‰E‰º
+			{ Vector4{ -1,  1 }, Vector4{ 0, 0 } },  // å·¦ä¸Š
+			{ Vector4{  1,  1 }, Vector4{ 1, 0 } },  // å³ä¸Š
+			{ Vector4{ -1, -1 }, Vector4{ 0, 1 } },  // å·¦ä¸‹
+			{ Vector4{  1, -1 }, Vector4{ 1, 1 } },  // å³ä¸‹
 		};
 
 		vertexCount_ = static_cast<uint32_t>(sizeof(vertices) / sizeof(Vertex));
 
-		// ƒoƒbƒtƒ@ì¬
+		// ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};
 
 		const D3D11_BUFFER_DESC VERTEX_DESC
 		{
-			// Œ^‚Ì‘å‚«‚³
+			// å‹ã®å¤§ãã•
 			.ByteWidth = static_cast<UINT>(sizeof(Vertex) * vertexCount_),
-			.Usage = D3D11_USAGE_DEFAULT,                // •ÏX‚·‚é‚©
-			.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-			.CPUAccessFlags = 0,                         // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-			.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+			.Usage = D3D11_USAGE_DEFAULT,                // å¤‰æ›´ã™ã‚‹ã‹
+			.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+			.CPUAccessFlags = 0,                         // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+			.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 			.StructureByteStride = sizeof(Vertex),
 		};
 		const D3D11_SUBRESOURCE_DATA VERTEX_DATA
@@ -47,11 +47,11 @@ void wtgb::Mesh2D::Init(ViewerCached _system)
 		};
 
 		hResult = pDevice->CreateBuffer(&VERTEX_DESC, &VERTEX_DATA, pVertexBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ƒXƒe[ƒWƒƒbƒVƒ…’¸“_ƒoƒbƒtƒ@ì¬‚É¸”s");
+		wassert(SUCCEEDED(hResult) && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¡ãƒƒã‚·ãƒ¥é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 	}
 #pragma endregion
 
-#pragma region ƒCƒ“ƒfƒbƒNƒX
+#pragma region ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 	{
 		const int INDICES[]{ 2, 1, 0, 2, 3, 1 };
 
@@ -63,12 +63,12 @@ void wtgb::Mesh2D::Init(ViewerCached _system)
 
 		const D3D11_BUFFER_DESC INDEX_DESC
 		{
-			// Œ^‚Ì‘å‚«‚³
+			// å‹ã®å¤§ãã•
 			.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * indexCount_),
-			.Usage = D3D11_USAGE_DEFAULT,                // •ÏX‚·‚é‚©
-			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-			.CPUAccessFlags = 0,                         // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-			.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+			.Usage = D3D11_USAGE_DEFAULT,                // å¤‰æ›´ã™ã‚‹ã‹
+			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+			.CPUAccessFlags = 0,                         // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+			.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 			.StructureByteStride = 0,
 		};
 		const D3D11_SUBRESOURCE_DATA INDEX_DATA
@@ -79,23 +79,23 @@ void wtgb::Mesh2D::Init(ViewerCached _system)
 		};
 
 		hResult = pDevice->CreateBuffer(&INDEX_DESC, &INDEX_DATA, pIndexBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ƒXƒe[ƒWƒƒbƒVƒ…‚ÌƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ì¬‚É¸”s");
+		wassert(SUCCEEDED(hResult) && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¡ãƒƒã‚·ãƒ¥ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 	}
 #pragma endregion
 
-#pragma region ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğì‚Á‚Ä‚¨‚­
+#pragma region ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’ä½œã£ã¦ãŠã
 	{
 		UINT cbSize = static_cast<UINT>(sizeof(ConstantBuffer));
 		cbSize = (cbSize + 15u) & ~15u;
 
 		const D3D11_BUFFER_DESC CONSTANT_DESC
 		{
-			// Œ^‚Ì‘å‚«‚³
+			// å‹ã®å¤§ãã•
 			.ByteWidth = cbSize,
-			.Usage = D3D11_USAGE_DYNAMIC,                // •ÏX‚·‚é‚©
-			.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-			.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-			.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+			.Usage = D3D11_USAGE_DYNAMIC,                // å¤‰æ›´ã™ã‚‹ã‹
+			.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+			.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+			.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 			.StructureByteStride = 0,
 		};
 
@@ -103,7 +103,7 @@ void wtgb::Mesh2D::Init(ViewerCached _system)
 		HRESULT hResult{};
 
 		hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ƒXƒe[ƒWƒƒbƒVƒ…ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@ì¬‚É¸”s");
+		wassert(SUCCEEDED(hResult) && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 	}
 #pragma endregion
 }

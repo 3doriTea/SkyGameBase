@@ -3,7 +3,7 @@
 
 
 /// <summary>
-/// ƒhƒ‰ƒbƒO‚Å‚«‚éêŠ‚ğ¦‚·UI
+/// ãƒ‰ãƒ©ãƒƒã‚°ã§ãã‚‹å ´æ‰€ã‚’ç¤ºã™UI
 /// </summary>
 class DragPointCue : public GameObject
 {
@@ -22,11 +22,11 @@ public:
 	void Release() override;
 
 private:
-	float timeLeft_;             // ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒJƒEƒ“ƒgƒ_ƒEƒ“
-	float animTotalTimeSec_;     // 1ƒAƒjƒ[ƒVƒ‡ƒ“ƒ‹[ƒv‚Ì•b”
-	Vector2Int baseCanvasSize_;  // UIİŒv‚ÌƒLƒƒƒ“ƒoƒXƒTƒCƒY
-	Vector2Int drawPosition_;    // •`‰æ‚·‚éÀ•W
-	Vector2Int drawSize_;        // •`‰æ‚·‚éƒTƒCƒY
-	std::string imageFilePath_;  // ‰æ‘œƒtƒ@ƒCƒ‹‚ÌƒpƒX
-	TextureHandle hImage_;       // ‰~Œ`‚ğ¦‚·‚½‚ß‚Ì‰æ‘œ
+	float timeLeft_;             // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³
+	float animTotalTimeSec_;     // 1ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ«ãƒ¼ãƒ—ã®ç§’æ•°
+	Vector2Int baseCanvasSize_;  // UIè¨­è¨ˆæ™‚ã®ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚µã‚¤ã‚º
+	Vector2Int drawPosition_;    // æç”»ã™ã‚‹åº§æ¨™
+	Vector2Int drawSize_;        // æç”»ã™ã‚‹ã‚µã‚¤ã‚º
+	std::string imageFilePath_;  // ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹
+	TextureHandle hImage_;       // å††å½¢ã‚’ç¤ºã™ãŸã‚ã®ç”»åƒ
 };

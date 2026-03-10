@@ -30,7 +30,7 @@ private:
 	EntityId stageObjManager_;
 	EntityId player_;
 
-	std::vector<EntityId> rings_;       // ‰ñ‚è‚ğ‰ñ‚é‰~
-	std::vector<Vector3> ringsAngles_;  // ‰ñ‚è‚ğ‰ñ‚é‰~‚ÌŠp“x
-	float rotAngleSpeedPerSec_;         // ‰ñ‚è‚ğ‰ñ‚é‰~‚ÌƒXƒs[ƒh
+	std::vector<EntityId> rings_;       // å›ã‚Šã‚’å›ã‚‹å††
+	std::vector<Vector3> ringsAngles_;  // å›ã‚Šã‚’å›ã‚‹å††ã®è§’åº¦
+	float rotAngleSpeedPerSec_;         // å›ã‚Šã‚’å›ã‚‹å††ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
 };

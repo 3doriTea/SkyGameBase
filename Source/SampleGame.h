@@ -7,7 +7,7 @@ public:
 	SampleGame() {}
 	~SampleGame() {}
 
-	const char* GetTitle() const override { return "ƒTƒ“ƒvƒ‹ƒQ[ƒ€"; }
+	const char* GetTitle() const override { return "ã‚µãƒ³ãƒ—ãƒ«ã‚²ãƒ¼ãƒ "; }
 	const char* GetVersion() const override { return "0.0.1"; }
 
 	void StartRegister(const GameSystemCollection::GameSystemAdder& _pGameSystemAdder) override;

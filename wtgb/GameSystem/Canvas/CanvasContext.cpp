@@ -18,7 +18,7 @@ void wtgb::UI::CanvasContext::Init(ViewerCached _system)
 
 	ShaderCompile& shaderCompiler{ _system.Get<ShaderCompile>() };
 
-	// 2DƒVƒF[ƒ_‚É‹¤’Ê‚·‚éƒRƒ“ƒpƒCƒ‹İ’è
+	// 2Dã‚·ã‚§ãƒ¼ãƒ€ã«å…±é€šã™ã‚‹ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«è¨­å®š
 	auto shader2DConfig
 	{
 		[](const std::string& _fileName) -> ShaderCompile::CompileConfig
@@ -38,11 +38,11 @@ void wtgb::UI::CanvasContext::Init(ViewerCached _system)
 				},
 				.vertexInputLayout
 				{
-					{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // ˆÊ’u
+					{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // ä½ç½®
 					{ "TEXCOORD", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },   // UV
 				},
-				.fillMode = D3D11_FILL_SOLID,  // “h‚è‚Â‚Ô‚µ
-				.cullMode = D3D11_CULL_NONE,   // ‰B–ÊÁ‹‚µ‚È‚¢
+				.fillMode = D3D11_FILL_SOLID,  // å¡—ã‚Šã¤ã¶ã—
+				.cullMode = D3D11_CULL_NONE,   // éš é¢æ¶ˆå»ã—ãªã„
 				.backIsClockwise = false,
 			};
 		}
@@ -69,7 +69,7 @@ void wtgb::UI::CanvasContext::DrawBox(const Color _color, const float _angle) co
 void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture, const float _angle, const RectF& _cut) const
 {
 	Texture* pTexture{ system_.Get<ResourceSystem>().GetTexture(_hTexture) };
-	wassert(pTexture && "ƒeƒNƒXƒ`ƒƒ‚Ìæ“¾‚É¸”s");
+	wassert(pTexture && "ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å–å¾—ã«å¤±æ•—");
 	if (pTexture == nullptr)
 	{
 		return;
@@ -79,7 +79,7 @@ void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture, const flo
 
 	RectF cut{ _cut };
 
-	// ƒJƒbƒgƒTƒCƒY‚ª–³Œø‚È‚çŒ³‚Ì‰æ‘œƒTƒCƒY‚»‚Ì‚Ü‚Ü’ñ‹Ÿ‚·‚é
+	// ã‚«ãƒƒãƒˆã‚µã‚¤ã‚ºãŒç„¡åŠ¹ãªã‚‰å…ƒã®ç”»åƒã‚µã‚¤ã‚ºãã®ã¾ã¾æä¾›ã™ã‚‹
 	if (cut.size.x <= 0.0f || cut.size.y <= 0.0f)
 	{
 		cut.point = Vector2::Zero();
@@ -91,7 +91,7 @@ void wtgb::UI::CanvasContext::DrawImage(const TextureHandle _hTexture, const flo
 
 void wtgb::UI::CanvasContext::AddRenderOrder(const RenderContentVT& _content) const
 {
-	// ƒLƒƒƒ“ƒoƒX‚ÌQÆ‚ğæ‚Á‚Ä‚¨‚­
+	// ã‚­ãƒ£ãƒ³ãƒã‚¹ã®å‚ç…§ã‚’å–ã£ã¦ãŠã
 	Canvas& canvas{ *GetAccess() };
 
 	ConfigAndContent contentAndConfig{ {}, _content };
@@ -99,23 +99,23 @@ void wtgb::UI::CanvasContext::AddRenderOrder(const RenderContentVT& _content) co
 
 	LayoutConfig* pRefConfig{ canvas.pReferenceLayoutConfig_ };
 	if (pRefConfig != nullptr)
-	{  // QÆ‚ª‚ ‚é‚È‚çƒRƒs[‚µ‚Äg—p
+	{  // å‚ç…§ãŒã‚ã‚‹ãªã‚‰ã‚³ãƒ”ãƒ¼ã—ã¦ä½¿ç”¨
 		config = *pRefConfig;
 	}
 
-	// •`‰æƒI[ƒ_[‚Å“KØ‚ÈêŠ‚É‘}“ü‚·‚é
+	// æç”»ã‚ªãƒ¼ãƒ€ãƒ¼ã§é©åˆ‡ãªå ´æ‰€ã«æŒ¿å…¥ã™ã‚‹
 	for (auto itr = canvas.renderOrder_.begin();
 		itr != canvas.renderOrder_.end();
 		itr++)
 	{
 		if (auto& [pickConfig, pickContent] = *itr;
-			pickConfig.order_ < config.order_)  // ’²‚×‚½—v‘f‚ªƒfƒJ‚©‚Á‚½‚ç‚»‚Ìè‘O‚É‘}“ü
+			pickConfig.order_ < config.order_)  // èª¿ã¹ãŸè¦ç´ ãŒãƒ‡ã‚«ã‹ã£ãŸã‚‰ãã®æ‰‹å‰ã«æŒ¿å…¥
 		{
 			canvas.renderOrder_.insert(itr, contentAndConfig);
-			return;  // ‘}“ü‚Å‚«‚½‚½‚ß‰ñ‹A
+			return;  // æŒ¿å…¥ã§ããŸãŸã‚å›å¸°
 		}
 	}
 
-	// ‚à‚µŒ©‚Â‚©‚ç‚È‚¯‚ê‚ÎÅŒã‚É’Ç‰Á
+	// ã‚‚ã—è¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°æœ€å¾Œã«è¿½åŠ 
 	canvas.renderOrder_.push_back(contentAndConfig);
 }

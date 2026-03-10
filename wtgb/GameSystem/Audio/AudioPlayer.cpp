@@ -15,35 +15,35 @@ wtgb::AudioPlayer::~AudioPlayer()
 
 void wtgb::AudioPlayer::Update(const float _dt)
 {
-	// MEMO: CPU‚ÌSleepƒvƒƒZƒX‚ğQl‚É‚µ‚Ü‚µ‚½B
+	// MEMO: CPUã®Sleepãƒ—ãƒ­ã‚»ã‚¹ã‚’å‚è€ƒã«ã—ã¾ã—ãŸã€‚
 
 	if (entryQueue_.size() <= 0)
 	{
-		return;  // Ä¶‚³‚ê‚Ä‚È‚¢‚È‚ç‰ñ‹A
+		return;  // å†ç”Ÿã•ã‚Œã¦ãªã„ãªã‚‰å›å¸°
 	}
 
-	// Ä¶I—¹‚ğƒfƒLƒ…[‚·‚é
+	// å†ç”Ÿçµ‚äº†ã‚’ãƒ‡ã‚­ãƒ¥ãƒ¼ã™ã‚‹
 
 	auto itr = entryQueue_.begin();
-	while (itr != entryQueue_.end())  // –¾¦“I‚É
+	while (itr != entryQueue_.end())  // æ˜ç¤ºçš„ã«
 	{
 		itr->timeLeft -= _dt;
 
 		float diff{ itr->timeLeft };
-		if (diff > 0.0f)  // c‚èŠÔ‚ª‚Ü‚¾‚ ‚é
+		if (diff > 0.0f)  // æ®‹ã‚Šæ™‚é–“ãŒã¾ã ã‚ã‚‹
 		{
-			break;  // Ä¶I—¹‚µ‚Ä‚¢‚È‚¢‚½‚ß—£’E
+			break;  // å†ç”Ÿçµ‚äº†ã—ã¦ã„ãªã„ãŸã‚é›¢è„±
 		}
-		else  // c‚èŠÔ‚ªƒ}ƒCƒiƒX
+		else  // æ®‹ã‚Šæ™‚é–“ãŒãƒã‚¤ãƒŠã‚¹
 		{
-			// Ä¶I—¹‚Ì‚½‚ß‰ğ•ú
+			// å†ç”Ÿçµ‚äº†ã®ãŸã‚è§£æ”¾
 			itr = entryQueue_.erase(itr);
 
 			if (itr == entryQueue_.end())
 			{
-				break;  // ƒLƒ…[‚ª‹ó‚Á‚Û‚È‚ç—£’E
+				break;  // ã‚­ãƒ¥ãƒ¼ãŒç©ºã£ã½ãªã‚‰é›¢è„±
 			}
-			itr->timeLeft += diff + _dt;  // ƒ}ƒCƒiƒX‚Ì•ª‚ğŒã‘±‚É“K—p
+			itr->timeLeft += diff + _dt;  // ãƒã‚¤ãƒŠã‚¹ã®åˆ†ã‚’å¾Œç¶šã«é©ç”¨
 			continue;
 		}
 	}
@@ -69,7 +69,7 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 	Audio& _audioSystem)
 {
 	SourceVoiceIndex index{};
-	// ƒCƒ“ƒfƒNƒX‚ğ‹‚ß‚é
+	// ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹ã‚’æ±‚ã‚ã‚‹
 	for (index = 0; index < sourceVoices_.size(); index++)
 	{
 		if (!useFlag_.at(index))
@@ -80,7 +80,7 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 
 	//index = static_cast<SourceVoiceIndex>(sourceVoices_.size());
 
-	// ‘S•”g‚í‚ê‚Ä‚¢‚½‚ç’Ç‰Á‚·‚é
+	// å…¨éƒ¨ä½¿ã‚ã‚Œã¦ã„ãŸã‚‰è¿½åŠ ã™ã‚‹
 	if (index == sourceVoices_.size())
 	{
 		IXAudio2SourceVoice* pSourceVoice{ nullptr };
@@ -97,7 +97,7 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 
 	HRESULT hResult{};
 	hResult = sourceVoices_.at(index)->FlushSourceBuffers();
-	wassert(SUCCEEDED(hResult) && "‰¹ºƒoƒbƒtƒ@‚Ì‰Šú‰»‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "éŸ³å£°ãƒãƒƒãƒ•ã‚¡ã®åˆæœŸåŒ–ã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return -1;
@@ -105,7 +105,7 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 
 	hResult = sourceVoices_.at(index)->SubmitSourceBuffer(&_buffer);
 
-	wassert(SUCCEEDED(hResult) && "‰¹º‚Ì“o˜^‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "éŸ³å£°ã®ç™»éŒ²ã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
 		return -1;
@@ -120,10 +120,10 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 
 void wtgb::AudioPlayer::InsertEntryQueue(float _timeLeft, const SourceVoiceIndex _index)
 {
-	float lefter{ _timeLeft };  // Œ¸Z—p
-	float righter{ 0 };         // ‰ÁZ—p
+	float lefter{ _timeLeft };  // æ¸›ç®—ç”¨
+	float righter{ 0 };         // åŠ ç®—ç”¨
 
-	// “KØ‚È‘}“üƒ|ƒCƒ“ƒg‚ğŒ©‚Â‚¯‚é
+	// é©åˆ‡ãªæŒ¿å…¥ãƒã‚¤ãƒ³ãƒˆã‚’è¦‹ã¤ã‘ã‚‹
 	for (auto itr = entryQueue_.begin(); itr != entryQueue_.end(); itr++)
 	{
 		if (lefter <= righter + itr->timeLeft)
@@ -136,7 +136,7 @@ void wtgb::AudioPlayer::InsertEntryQueue(float _timeLeft, const SourceVoiceIndex
 		}
 		righter += itr->timeLeft;
 	}
-	// Œ©‚Â‚©‚ç‚È‚©‚Á‚½‚ç––’[‚É’Ç‰Á
+	// è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸã‚‰æœ«ç«¯ã«è¿½åŠ 
 	entryQueue_.emplace_back(_timeLeft, *this, _index);
 }
 

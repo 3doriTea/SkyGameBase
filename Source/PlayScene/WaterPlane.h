@@ -3,7 +3,7 @@
 #include "WaterPlane/WaterMesh.h"
 
 /// <summary>
-/// …–ÊƒIƒuƒWƒFƒNƒg
+/// æ°´é¢ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 /// </summary>
 class WaterPlane : public GameObject
 {
@@ -16,6 +16,6 @@ public:
 	void Release() override;
 
 private:
-	std::vector<float> pointsHeight_;  // Še”g’¸“_‚Ì‚‚³ y² (0 ~ 1)
-	WaterMesh waterMesh_;              // …–Ê‚ÌƒƒbƒVƒ…î•ñ
+	std::vector<float> pointsHeight_;  // å„æ³¢é ‚ç‚¹ã®é«˜ã• yè»¸ (0 ~ 1)
+	WaterMesh waterMesh_;              // æ°´é¢ã®ãƒ¡ãƒƒã‚·ãƒ¥æƒ…å ±
 };

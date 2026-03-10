@@ -10,7 +10,7 @@ namespace wtgb
 	class Transform;
 
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹ : ƒƒbƒVƒ…•`‰æ
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ« : ãƒ¡ãƒƒã‚·ãƒ¥æç”»
 	/// </summary>
 	class CPMeshRenderer : public ComponentPool<MeshRenderer>
 	{
@@ -19,11 +19,11 @@ namespace wtgb
 		~CPMeshRenderer();
 
 		/// <summary>
-		/// ƒVƒ“ƒvƒ‹ƒƒbƒVƒ…‚ğ’P‘Ì‚Å•`‰æ‚·‚é
+		/// ã‚·ãƒ³ãƒ—ãƒ«ãƒ¡ãƒƒã‚·ãƒ¥ã‚’å˜ä½“ã§æç”»ã™ã‚‹
 		/// </summary>
-		/// <param name="_pMeshSimple">ƒVƒ“ƒvƒ‹ƒƒbƒVƒ…‚Ì”h¶</param>
-		/// <param name="_pTransform">À•WŒn</param>
-		/// <param name="_hShader">ƒVƒF[ƒ_</param>
+		/// <param name="_pMeshSimple">ã‚·ãƒ³ãƒ—ãƒ«ãƒ¡ãƒƒã‚·ãƒ¥ã®æ´¾ç”Ÿ</param>
+		/// <param name="_pTransform">åº§æ¨™ç³»</param>
+		/// <param name="_hShader">ã‚·ã‚§ãƒ¼ãƒ€</param>
 		void Render(IMeshSimple* _pMeshSimple, Transform* _pTransform, const ShaderHandle _hShader, const Color& _diffuseColor = Color::GREEN);
 
 		void Render2D(
@@ -38,11 +38,11 @@ namespace wtgb
 		void SetRenderConstant();
 	private:
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update() override;
 

@@ -4,7 +4,7 @@
 namespace mtbin
 {
 	/// <summary>
-	/// �o�C�g�z��̓ǂݎ���p�Ƃ���N���X
+	/// バイト配列の読み取り専用とするクラス
 	/// </summary>
 	class BinaryWriter : public MemoryStreamCore
 	{

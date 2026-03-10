@@ -1,4 +1,4 @@
-﻿#include "pch\pch.h"
+#include "pch\pch.h"
 #include "Direct3D.h"
 #include "Direct3D/Direct3DResource.h"
 #include "WTGBAssert.h"

@@ -10,7 +10,7 @@ namespace wtgb
 	class ComponentOption;
 
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒg“à‚ÌƒZƒbƒ^[ƒIƒvƒVƒ‡ƒ“‚ÌŠî’êƒNƒ‰ƒX
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå†…ã®ã‚»ãƒƒã‚¿ãƒ¼ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åŸºåº•ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	/// <typeparam name="ComponentT"></typeparam>
 	template<typename ComponentT>
@@ -29,9 +29,9 @@ namespace wtgb
 		virtual ~ComponentSetter() {}
 
 		/// <summary>
-		/// ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌÝ’èI—¹
+		/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®è¨­å®šçµ‚äº†
 		/// </summary>
-		/// <returns>ƒrƒ‹ƒ_[</returns>
+		/// <returns>ãƒ“ãƒ«ãƒ€ãƒ¼</returns>
 		GameObjectBuilder& EndSetter();
 
 	private:

@@ -11,44 +11,44 @@ namespace wtgb
 	concept GameT = std::is_base_of_v<IGame, T>;
 
 	/// <summary>
-	/// wtgb‚Åì‚éƒQ[ƒ€–{‘Ì
+	/// wtgbã§ä½œã‚‹ã‚²ãƒ¼ãƒ æœ¬ä½“
 	/// </summary>
 	class Game
 	{
 	public:
 		/// <summary>
-		/// ƒQ[ƒ€‚ðŽÀs‚·‚éI
+		/// ã‚²ãƒ¼ãƒ ã‚’å®Ÿè¡Œã™ã‚‹ï¼
 		/// </summary>
-		/// <typeparam name="T">IGame‚ðŒp³‚µ‚½Œ^</typeparam>
-		/// <returns>ƒvƒƒOƒ‰ƒ€‚ÌI—¹ƒR[ƒh</returns>
+		/// <typeparam name="T">IGameã‚’ç¶™æ‰¿ã—ãŸåž‹</typeparam>
+		/// <returns>ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®çµ‚äº†ã‚³ãƒ¼ãƒ‰</returns>
 		template<GameT T>
 		static int Run();
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒ^ƒCƒgƒ‹‚ðŽæ“¾‚·‚é
+		/// ã‚²ãƒ¼ãƒ ã‚¿ã‚¤ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒQ[ƒ€ƒ^ƒCƒgƒ‹•¶Žš—ñ</returns>
+		/// <returns>ã‚²ãƒ¼ãƒ ã‚¿ã‚¤ãƒˆãƒ«æ–‡å­—åˆ—</returns>
 		static std::string_view Title();
 		/// <summary>
-		/// ƒQ[ƒ€ƒo[ƒWƒ‡ƒ“‚ðŽæ“¾‚·‚é
+		/// ã‚²ãƒ¼ãƒ ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒo[ƒWƒ‡ƒ“‚Ì•¶Žš—ñ</returns>
+		/// <returns>ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®æ–‡å­—åˆ—</returns>
 		static std::string_view Version();
 
 		/// <summary>
-		/// ƒQ[ƒ€‚ðI—¹‚·‚é
+		/// ã‚²ãƒ¼ãƒ ã‚’çµ‚äº†ã™ã‚‹
 		/// </summary>
 		static void Exit();
 
 	private:
 		/// <summary>
-		/// ƒQ[ƒ€‚ÌŽÀsƒvƒƒZƒX
+		/// ã‚²ãƒ¼ãƒ ã®å®Ÿè¡Œãƒ—ãƒ­ã‚»ã‚¹
 		/// </summary>
 		static void RunProcess();
 
 	private:
-		static IGame* pGame_;  // ƒQ[ƒ€ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^
-		static GameLoop* pGameLoop_;  // ƒQ[ƒ€ƒ‹[ƒv‚Ìƒ|ƒCƒ“ƒ^
+		static IGame* pGame_;  // ã‚²ãƒ¼ãƒ ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+		static GameLoop* pGameLoop_;  // ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã®ãƒã‚¤ãƒ³ã‚¿
 	};
 }
 

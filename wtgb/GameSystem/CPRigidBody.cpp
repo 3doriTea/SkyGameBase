@@ -9,12 +9,12 @@
 
 namespace
 {
-	// TODO: ƒ\[ƒX‚ÆƒŠƒ\[ƒX‚ğ•ª‚¯‚é ¨ json‚ÅŠÇ—‚·‚é
+	// TODO: ã‚½ãƒ¼ã‚¹ã¨ãƒªã‚½ãƒ¼ã‚¹ã‚’åˆ†ã‘ã‚‹ â†’ jsonã§ç®¡ç†ã™ã‚‹
 	const wtgb::PhysicsConfig PHYSICS_CONFIG_DEFAULT
 	{
-		//.gravity = 9.8f,  // d—Í‰Á‘¬“x
-		.gravity = 13.0f,  // d—Í‰Á‘¬“x
-		.gravityDirection = wtgb::Vector3::Down(),  // d—Í‚ÌŒü‚«
+		//.gravity = 9.8f,  // é‡åŠ›åŠ é€Ÿåº¦
+		.gravity = 13.0f,  // é‡åŠ›åŠ é€Ÿåº¦
+		.gravityDirection = wtgb::Vector3::Down(),  // é‡åŠ›ã®å‘ã
 	};
 }
 
@@ -51,13 +51,13 @@ void wtgb::CPRigidBody::Update()
 
 			Transform* pTransform{ cpTransform.Get(entityId) };
 
-			wassert(pTransform && "Transformæ“¾‚É¸”s");
+			wassert(pTransform && "Transformå–å¾—ã«å¤±æ•—");
 			if (pTransform == nullptr)
 			{
 				return {};
 			}
 
-			// d—Í‚Ì“K—p
+			// é‡åŠ›ã®é©ç”¨
 			if (_rb.useGravity_)
 			{
 				// MEMO: v = v + GDir * G * dt
@@ -65,27 +65,27 @@ void wtgb::CPRigidBody::Update()
 					+ (physicsConfig_.gravityDirection * (physicsConfig_.gravity * DT));
 			}
 
-			// „‘Ì‘¬“x‚Ì“K—p
+			// å‰›ä½“é€Ÿåº¦ã®é©ç”¨
 			Vector3 position{ pTransform->GetPositionWorld() };
 			position = position + _rb.velocity_ * DT;
 			pTransform->SetPositionWorld(position);
 			_rb.velocity_ = _rb.velocity_ * _rb.drag_;
 
-			// ƒ‰ƒWƒAƒ“ƒIƒCƒ‰[‰ñ“]Šp‘¬“x‚Ì“K—p
+			// ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼å›è»¢è§’é€Ÿåº¦ã®é©ç”¨
 			Vector3 rotation{ pTransform->GetRotationWorld() };
 			rotation = rotation + _rb.angularVelocity_ * DT;
 			pTransform->SetRotationWorld(rotation);
 			_rb.angularVelocity_ = _rb.angularVelocity_ * _rb.drag_;
 
 			Collider* pCollider{ cpCollider.Get(entityId) };
-			wassert(pCollider && "ƒRƒ‰ƒCƒ_‚Â‚¢‚Ä‚È‚¢‚æ[");
+			wassert(pCollider && "ã‚³ãƒ©ã‚¤ãƒ€ã¤ã„ã¦ãªã„ã‚ˆãƒ¼");
 			if (pCollider == nullptr)
 			{
-				// ƒRƒ‰ƒCƒ_[‚ª‚Â‚¢‚Ä‚¢‚È‚¢‚È‚ç–³‹
+				// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒã¤ã„ã¦ã„ãªã„ãªã‚‰ç„¡è¦–
 				return {};
 			}
 
-			// “–‚½‚è”»’è
+			// å½“ãŸã‚Šåˆ¤å®š
 			ColliderSet selfSet{ .pCollider = pCollider, .pTransform = pTransform, .pRigidBody = &_rb };
 			switch (pCollider->GetColliderType())
 			{
@@ -96,13 +96,13 @@ void wtgb::CPRigidBody::Update()
 					{
 						if (_index == _otherIndex)
 						{
-							return {};  // ©•ª©g‚Ì‚ÆÕ“Ë‚ğ”rœ
+							return {};  // è‡ªåˆ†è‡ªèº«ã®ã¨è¡çªã‚’æ’é™¤
 						}
 
 						EntityId otherEntityId{ cpGameObject.GetEntityId(_otherIndex) };
 
 						Transform* pOtherTransform{ cpTransform.Get(otherEntityId) };
-						wassert(pOtherTransform && "ƒRƒ‰ƒCƒ_[•t‚«‚Ì‘Šè‚ÉTransform‚ª‚Â‚¢‚Ä‚¢‚È‚©‚Á‚½‚æ");
+						wassert(pOtherTransform && "ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ä»˜ãã®ç›¸æ‰‹ã«TransformãŒã¤ã„ã¦ã„ãªã‹ã£ãŸã‚ˆ");
 
 						ColliderSet otherSet{ .pCollider = &_otherCollider, .pTransform = pOtherTransform };
 

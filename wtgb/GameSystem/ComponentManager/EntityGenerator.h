@@ -6,7 +6,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒGƒ“ƒeƒBƒeƒB‚Ì¶¬‚ğ‚·‚é
+	/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ç”Ÿæˆã‚’ã™ã‚‹
 	/// </summary>
 	class EntityGenerator
 	{
@@ -15,31 +15,31 @@ namespace wtgb
 		~EntityGenerator();
 
 		/// <summary>
-		/// V‹KƒGƒ“ƒeƒBƒeƒB‚ğ¶¬‚·‚é
+		/// æ–°è¦ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚’ç”Ÿæˆã™ã‚‹
 		/// </summary>
-		/// <returns>V‹KƒGƒ“ƒeƒBƒeƒB‚ÌId</returns>
+		/// <returns>æ–°è¦ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®Id</returns>
 		EntityId Generate();
 
 		/// <summary>
-		/// ƒGƒ“ƒeƒBƒeƒB‚ğœ‹‚·‚é
+		/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚’é™¤å»ã™ã‚‹
 		/// </summary>
-		/// <param name="_entityId">–³Œø‚Æ‚È‚éƒGƒ“ƒeƒBƒeƒBId</param>
+		/// <param name="_entityId">ç„¡åŠ¹ã¨ãªã‚‹ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
 		void Remove(const EntityId _entityId);
 		/// <summary>
-		/// ƒGƒ“ƒeƒBƒeƒB‚ğœ‹‚·‚é
+		/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚’é™¤å»ã™ã‚‹
 		/// </summary>
-		/// <param name="_index">ƒGƒ“ƒeƒBƒeƒB‚ÌƒCƒ“ƒfƒNƒX</param>
+		/// <param name="_index">ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹</param>
 		void RemoveAt(const uint32_t _index);
 
 		/// <summary>
-		/// –³Œø‚ÈƒGƒ“ƒeƒBƒeƒBId‚©Šm”F‚·‚é
+		/// ç„¡åŠ¹ãªã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Idã‹ç¢ºèªã™ã‚‹
 		/// </summary>
-		/// <param name="_checkId">Šm”F‚·‚éƒGƒ“ƒeƒBƒeƒBId</param>
-		/// <returns>–³Œø‚Å‚ ‚é true / false</returns>
+		/// <param name="_checkId">ç¢ºèªã™ã‚‹ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
+		/// <returns>ç„¡åŠ¹ã§ã‚ã‚‹ true / false</returns>
 		const bool IsInvalidId(const EntityId _checkId) const;
 
 		/// <summary>
-		/// ‚·‚×‚Ä‚ÌƒGƒ“ƒeƒBƒeƒB‚ğœ‹‚·‚é
+		/// ã™ã¹ã¦ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚’é™¤å»ã™ã‚‹
 		/// </summary>
 		void RemoveAll();
 
@@ -47,8 +47,8 @@ namespace wtgb
 		//const bool IsEmpty(const EntityId)
 
 	private:
-		//uint32_t nextIndex_;  // Ÿ¶¬‚·‚é‚Æ‚«‚ÌƒGƒ“ƒeƒBƒeƒBId
-		std::vector<uint32_t> versions_;  // ƒGƒ“ƒeƒBƒeƒB‚ÌÅVƒo[ƒWƒ‡ƒ“
-		std::bitset<ENTITY_CAPACITY> useFlag_;  // ƒGƒ“ƒeƒBƒeƒB‚ª‘¶İ‚µ‚Ä‚¢‚é‚©‚Ìƒtƒ‰ƒO
+		//uint32_t nextIndex_;  // æ¬¡ç”Ÿæˆã™ã‚‹ã¨ãã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id
+		std::vector<uint32_t> versions_;  // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®æœ€æ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³
+		std::bitset<ENTITY_CAPACITY> useFlag_;  // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ãŒå­˜åœ¨ã—ã¦ã„ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°
 	};
 }

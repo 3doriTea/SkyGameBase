@@ -19,46 +19,46 @@ public:
 	void Release() override;
 	
 	/// <summary>
-	/// �{�^���̍���̕`��ʒu���s�N�Z���P�ʂŎw�肷��
+	/// ボタンの左上の描画位置をピクセル単位で指定する
 	/// </summary>
 	/// <param name="_position"></param>
 	void SetPosition(const Vector2Int _position) { position_ = _position; }
 	/// <summary>
-	/// �{�^���̃T�C�Y���s�N�Z���P�ʂŎw�肷��
+	/// ボタンのサイズをピクセル単位で指定する
 	/// </summary>
 	/// <param name="_size"></param>
 	void SetSize(const Vector2Int _size) { size_ = _size; }
 
 	/// <summary>
-	/// ���݂̃t���[���Ń{�^���������ꂽ��
+	/// 現在のフレームでボタンが押されたか
 	/// </summary>
-	/// <returns>�����ꂽ true / false</returns>
+	/// <returns>押された true / false</returns>
 	bool IsPushedFrame() const { return isPushedFrame_; }
 
 	/// <summary>
-	/// �{�^�����������܂�Ă��邩 (�܂�������Ă��Ȃ�)
+	/// ボタンが押し込まれているか (まだ離されていない)
 	/// </summary>
 	/// <returns></returns>
 	bool IsPressing() const { return isPressing_; }
 
 	/// <summary>
-	/// �J�[�\�����{�^����ɂ��邩
+	/// カーソルがボタン上にあるか
 	/// </summary>
 	/// <returns></returns>
 	bool IsOnCursor() const { return isOnCursor_; }
 
 	/// <summary>
-	/// �J�[�\�����{�^����ɂ��邩�̔��菈��
+	/// カーソルがボタン上にあるかの判定処理
 	/// </summary>
-	/// <param name="_func">�I���W�i���̔��菈��</param>
+	/// <param name="_func">オリジナルの判定処理</param>
 	inline void SetInOnCursorFunc(const IsOnCursorFunc& _func) { isOnCursorFunc_ = _func; }
 
 private:
-	bool isPushedFrame_;  // �{�^���������ꂽ�t���[����
-	bool isOnCursor_;     // �{�^�����J�[�\���ɐG��Ă��邩
-	bool isPressing_;     // �{�^�����������܂�Ă��邩
+	bool isPushedFrame_;  // ボタンが押されたフレームか
+	bool isOnCursor_;     // ボタンがカーソルに触れているか
+	bool isPressing_;     // ボタンが押し込まれているか
 
-	IsOnCursorFunc isOnCursorFunc_;  // �J�[�\�����G��Ă��邩���`�F�b�N����
+	IsOnCursorFunc isOnCursorFunc_;  // カーソルが触れているかをチェックする
 
 	Vector2Int size_;
 	Vector2Int position_;

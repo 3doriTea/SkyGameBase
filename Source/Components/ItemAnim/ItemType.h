@@ -2,5 +2,5 @@
 
 enum struct ItemType : uint32_t
 {
-	PresentRedSphere,  // ÔŠÛƒvƒŒƒ[ƒ“ƒg
+	PresentRedSphere,  // èµ¤ä¸¸ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆ
 };

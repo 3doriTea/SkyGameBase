@@ -4,8 +4,8 @@
 #include "ISpeedController.h"
 
 /// <summary>
-/// <para>‘¬“x‚ğ‘€ì‚·‚é‚â‚Â</para>
-/// <para>¦Speed = m/f</para>
+/// <para>é€Ÿåº¦ã‚’æ“ä½œã™ã‚‹ã‚„ã¤</para>
+/// <para>â€»Speed = m/f</para>
 /// </summary>
 class SpeedController : public GameObject, public ISpeedController
 {
@@ -18,25 +18,25 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ƒOƒŒƒCƒAƒEƒg(‰ñ‚è‚ª”’•‚É‚È‚é‚â‚Â)‚Ì”ä—¦‚ğæ“¾
+	/// ã‚°ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ(å›ã‚ŠãŒç™½é»’ã«ãªã‚‹ã‚„ã¤)ã®æ¯”ç‡ã‚’å–å¾—
 	/// </summary>
 	/// <returns>0.0f ~ 1.0f</returns>
 	float GetGreyOutRatio() const override;
 	/// <summary>
-	/// Š®‘S‚É‹Câó‘Ô‚©æ“¾
+	/// å®Œå…¨ã«æ°—çµ¶çŠ¶æ…‹ã‹å–å¾—
 	/// </summary>
-	/// <returns>‹Câó‘Ô true / false</returns>
+	/// <returns>æ°—çµ¶çŠ¶æ…‹ true / false</returns>
 	bool IsGLOC() const override;
 
 	/// <summary>
-	/// Œ»İ‚ÌƒXƒs[ƒhí—Ş‚ğæ“¾
+	/// ç¾åœ¨ã®ã‚¹ãƒ”ãƒ¼ãƒ‰ç¨®é¡ã‚’å–å¾—
 	/// </summary>
-	/// <returns>ƒXƒs[ƒh‚Ìí—Ş</returns>
+	/// <returns>ã‚¹ãƒ”ãƒ¼ãƒ‰ã®ç¨®é¡</returns>
 	SpeedType GetSpeedType() const override;
 
 private:
 	/// <summary>
-	/// ƒXƒs[ƒh(1ƒtƒŒ[ƒ€“–‚½‚è‚ÌˆÚ“®—Ê)
+	/// ã‚¹ãƒ”ãƒ¼ãƒ‰(1ãƒ•ãƒ¬ãƒ¼ãƒ å½“ãŸã‚Šã®ç§»å‹•é‡)
 	/// </summary>
 	/// <param name="_perFrame">m/f</param>
 	void SetSpeed(const float _perFrame);
@@ -44,13 +44,13 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
-	EntityId targetEntity_;  // ƒXƒs[ƒh‚ğƒRƒ“ƒgƒ[ƒ‹‚·‚é‘ÎÛƒGƒ“ƒeƒBƒeƒB
+	EntityId targetEntity_;  // ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã™ã‚‹å¯¾è±¡ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£
 
-	float speedStopMin_;   // “®‚©‚È‚¢”»’è‚ÌÅ’á’l
-	float speedGoodMin_;   // “K³ƒXƒs[ƒh‚ÌÅ’á’l
-	float speedHighMin_;   // ‘‚·‚¬‚éƒXƒs[ƒh
-	float speedGLOCLine_;  // ‹Câ‚ª‹N‚«‚é-ƒXƒs[ƒh‚ÌÅ‘å’l
+	float speedStopMin_;   // å‹•ã‹ãªã„åˆ¤å®šã®æœ€ä½å€¤
+	float speedGoodMin_;   // é©æ­£ã‚¹ãƒ”ãƒ¼ãƒ‰ã®æœ€ä½å€¤
+	float speedHighMin_;   // æ—©ã™ãã‚‹ã‚¹ãƒ”ãƒ¼ãƒ‰
+	float speedGLOCLine_;  // æ°—çµ¶ãŒèµ·ãã‚‹-ã‚¹ãƒ”ãƒ¼ãƒ‰ã®æœ€å¤§å€¤
 
-	float currentSpeedValue_;  // Œ»İ‚Ì‘¬“x
-	float previousSpeedValue_;  // ‘O‰ñ‚ÌƒtƒŒ[ƒ€‚Ì‘¬“x
+	float currentSpeedValue_;  // ç¾åœ¨ã®é€Ÿåº¦
+	float previousSpeedValue_;  // å‰å›ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®é€Ÿåº¦
 };

@@ -4,33 +4,33 @@
 namespace wtgb
 {
 	/// <summary>
-	/// json‚Ì’l‚ğˆÀ‘S‚Éæ“¾‚·‚é
+	/// jsonã®å€¤ã‚’å®‰å…¨ã«å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <typeparam name="T">’l‚ÌŒ^</typeparam>
+	/// <typeparam name="T">å€¤ã®å‹</typeparam>
 	/// <param name="_j">Json</param>
-	/// <param name="_key">ƒL[</param>
-	/// <returns>’l</returns>
+	/// <param name="_key">ã‚­ãƒ¼</param>
+	/// <returns>å€¤</returns>
 	template<typename T>
 	T SafeGet(const json& _j, const std::string_view _key);
 
 	/// <summary>
-	/// json‚Ì’l‚ğˆÀ‘S‚Éæ“¾‚·‚é
+	/// jsonã®å€¤ã‚’å®‰å…¨ã«å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <typeparam name="T">’l‚ÌŒ^</typeparam>
+	/// <typeparam name="T">å€¤ã®å‹</typeparam>
 	/// <param name="_j">Json</param>
-	/// <param name="_key">ƒL[</param>
-	/// <param name="_defaultValue">æ“¾‚Å‚«‚È‚©‚Á‚½‚ÌƒfƒtƒHƒ‹ƒg‚Ì’l</param>
-	/// <returns>’l</returns>
+	/// <param name="_key">ã‚­ãƒ¼</param>
+	/// <param name="_defaultValue">å–å¾—ã§ããªã‹ã£ãŸæ™‚ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤</param>
+	/// <returns>å€¤</returns>
 	template<typename T>
 	T SafeGet(const json& _j, const std::string_view _key, const T _defaultValue);
 
 	/// <summary>
-	/// ‚µ‚É’l‚ğæ“¾‚·‚é
+	/// è©¦ã—ã«å€¤ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <param name="_key">—v‘f‚ÌƒL[</param>
-	/// <param name="_ppDistJson">æ“¾‚µ‚½æ‚ÌŠi”[ jsonƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^</param>
-	/// <param name="_srcJson">æ“¾‚·‚éŒ³‚Ì jsonƒIƒuƒWƒFƒNƒg</param>
-	/// <returns>æ“¾‚Å‚«‚½ true / false</returns>
+	/// <param name="_key">è¦ç´ ã®ã‚­ãƒ¼</param>
+	/// <param name="_ppDistJson">å–å¾—ã—ãŸå…ˆã®æ ¼ç´ jsonã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿</param>
+	/// <param name="_srcJson">å–å¾—ã™ã‚‹å…ƒã® jsonã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
+	/// <returns>å–å¾—ã§ããŸ true / false</returns>
 	bool TryGet(const std::string_view _key, json** _ppDistJson, json& _srcJson);
 }
 

@@ -12,25 +12,25 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ’µ‚Ë•Ô‚è‚ª‹N‚«‚½‚©‚ğƒ`ƒFƒbƒN‚·‚é
+	/// è·³ã­è¿”ã‚ŠãŒèµ·ããŸã‹ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹
 	/// </summary>
-	/// <returns>’µ‚Ë•Ô‚è‚ª‹N‚«‚½ true / false</returns>
+	/// <returns>è·³ã­è¿”ã‚ŠãŒèµ·ããŸ true / false</returns>
 	bool CheckOnBounded();
 
 	/// <summary>
-	/// ƒvƒŒƒ[ƒ“ƒg‚ªæ‚ç‚ê‚½‚©
+	/// ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆãŒå–ã‚‰ã‚ŒãŸã‹
 	/// </summary>
-	/// <returns>æ‚ç‚ê‚½ true / false</returns>
+	/// <returns>å–ã‚‰ã‚ŒãŸ true / false</returns>
 	inline bool IsHit() const { return isHitted_; }
 
 private:
-	bool isBounded_;      // ’µ‚Ë•Ô‚è‚ª‹N‚«‚½‚©
-	bool isBoundedOnce_;  // ’µ‚Ë•Ô‚è‚ª‹N‚«‚½‚© ˆê“x‚¾‚¯‚Ì true
-	//bool isBounding_;   // ’µ‚Ë•Ô‚è‚ª‹N‚«‚Ä‚¢‚é‚©
-	//float timeLeft_;   // ~‚Ü‚é‚Ü‚Å‚Ìc‚èŠÔ
-	//bool isStopping_;  // ’µ‚Ë•Ô‚è‚ªI‚í‚è~‚Ü‚Á‚Ä‚¢‚é‚©
+	bool isBounded_;      // è·³ã­è¿”ã‚ŠãŒèµ·ããŸã‹
+	bool isBoundedOnce_;  // è·³ã­è¿”ã‚ŠãŒèµ·ããŸã‹ ä¸€åº¦ã ã‘ã® true
+	//bool isBounding_;   // è·³ã­è¿”ã‚ŠãŒèµ·ãã¦ã„ã‚‹ã‹
+	//float timeLeft_;   // æ­¢ã¾ã‚‹ã¾ã§ã®æ®‹ã‚Šæ™‚é–“
+	//bool isStopping_;  // è·³ã­è¿”ã‚ŠãŒçµ‚ã‚ã‚Šæ­¢ã¾ã£ã¦ã„ã‚‹ã‹
 
-	bool isHitted_;  // ƒvƒŒƒCƒ„[‚Æ“–‚½‚Á‚½
+	bool isHitted_;  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨å½“ãŸã£ãŸ
 
-	EntityId player_;  // ƒvƒŒƒCƒ„[
+	EntityId player_;  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 };

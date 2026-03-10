@@ -58,14 +58,14 @@ void NumberPlate::DrawNumber(const NUMBER _number)
 	const Canvas::Context& context{ System().Get<Canvas>().GetContext() };
 	Texture* pTexture{ System().Get<ResourceSystem>().GetTexture(hNumberImage_) };
 
-	wassert(pTexture && "ƒeƒNƒXƒ`ƒƒ‚Ìæ“¾‚É¸”s");
+	wassert(pTexture && "ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å–å¾—ã«å¤±æ•—");
 
 	if (pTexture == nullptr)
 	{
 		return;
 	}
 
-	// •¶š‚Ì• pixel
+	// æ–‡å­—ã®å¹… pixel
 	int widthPix{ pTexture->GetImageSizePix().y };
 	float widthPixF{ static_cast<float>(widthPix) };
 
@@ -86,6 +86,6 @@ void NumberPlate::DrawNumber(const NUMBER _number)
 		0.0f,
 		rect);
 
-	// ‘‚¢‚½‚ç‰¡ˆÚ“®
+	// æ›¸ã„ãŸã‚‰æ¨ªç§»å‹•
 	currDrawPos_.x += sizePix_.x + marginPix_;
 }

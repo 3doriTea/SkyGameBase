@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ƒŠƒUƒ‹ƒgƒV[ƒ““®‚­Œ‹‰Êƒpƒlƒ‹
+/// ãƒªã‚¶ãƒ«ãƒˆã‚·ãƒ¼ãƒ³å‹•ãçµæœãƒ‘ãƒãƒ«
 /// </summary>
 class ResultPanel : public GameObject
 {
@@ -18,17 +18,17 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
-	Vector2Int baseCanvasSize_;       // UIİŒv‚ÌƒLƒƒƒ“ƒoƒXƒTƒCƒY
-	std::string panelImageFile_;      // ƒpƒlƒ‹‚Ì‰æ‘œƒtƒ@ƒCƒ‹ƒpƒX
-	TextureHandle hPanelImage_;       // ƒpƒlƒ‹‰æ‘œ‚Ìƒnƒ“ƒhƒ‹
-	Vector2Int dragCirclePositionDown_;  // ‰º‚ª‚Á‚Ä‚¢‚é‚Æ‚«‚Ìƒhƒ‰ƒbƒOÀ•W
-	Vector2Int dragCirclePositionUp_;    // ã‚ª‚Á‚Ä‚¢‚é‚Æ‚«‚Ìƒhƒ‰ƒbƒOÀ•W
-	int dragCircleSizePix_;           // ƒhƒ‰ƒbƒO‰~‚Ì’¼Œa pixcel
+	Vector2Int baseCanvasSize_;       // UIè¨­è¨ˆæ™‚ã®ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚µã‚¤ã‚º
+	std::string panelImageFile_;      // ãƒ‘ãƒãƒ«ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	TextureHandle hPanelImage_;       // ãƒ‘ãƒãƒ«ç”»åƒã®ãƒãƒ³ãƒ‰ãƒ«
+	Vector2Int dragCirclePositionDown_;  // ä¸‹ãŒã£ã¦ã„ã‚‹ã¨ãã®ãƒ‰ãƒ©ãƒƒã‚°åº§æ¨™
+	Vector2Int dragCirclePositionUp_;    // ä¸ŠãŒã£ã¦ã„ã‚‹ã¨ãã®ãƒ‰ãƒ©ãƒƒã‚°åº§æ¨™
+	int dragCircleSizePix_;           // ãƒ‰ãƒ©ãƒƒã‚°å††ã®ç›´å¾„ pixcel
 
-	EntityId dragPoint_;  // ’Í‚Ş‰~‚ÌUI
-	float animOffsetY_;    // ƒAƒjƒ[ƒVƒ‡ƒ“‚Å“®‚¢‚½y
-	float moveRatio_;      // ƒ€[ƒuƒŒ[ƒg
-	bool isDrag_;          // ’Í‚ñ‚Å‚¢‚é true / false
-	float toTitleTime_;    // ƒ^ƒCƒgƒ‹‚ÉƒV[ƒ“‘JˆÚ‚·‚é
+	EntityId dragPoint_;  // æ´ã‚€å††ã®UI
+	float animOffsetY_;    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã§å‹•ã„ãŸy
+	float moveRatio_;      // ãƒ ãƒ¼ãƒ–ãƒ¬ãƒ¼ãƒˆ
+	bool isDrag_;          // æ´ã‚“ã§ã„ã‚‹ true / false
+	float toTitleTime_;    // ã‚¿ã‚¤ãƒˆãƒ«ã«ã‚·ãƒ¼ãƒ³é·ç§»ã™ã‚‹
 };
 

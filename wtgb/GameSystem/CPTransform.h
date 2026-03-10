@@ -6,7 +6,7 @@ namespace wtgb
 {
 	class Transform;
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹ : À•W•ÏŠ·(Transform)
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ« : åº§æ¨™å¤‰æ›(Transform)
 	/// </summary>
 	class CPTransform : public ComponentPool<Transform>
 	{
@@ -15,24 +15,24 @@ namespace wtgb
 		~CPTransform();
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update() override;
 
 		/// <summary>
-		/// À•WŒn‚Ìƒ[ƒJƒ‹—v‘f‚¾‚¯ŒvŽZ‚ð‚·‚é
+		/// åº§æ¨™ç³»ã®ãƒ­ãƒ¼ã‚«ãƒ«è¦ç´ ã ã‘è¨ˆç®—ã‚’ã™ã‚‹
 		/// </summary>
-		/// <param name="_pTransform">ŒvŽZ‚·‚éÀ•WŒn‚Ìƒ|ƒCƒ“ƒ^</param>
+		/// <param name="_pTransform">è¨ˆç®—ã™ã‚‹åº§æ¨™ç³»ã®ãƒã‚¤ãƒ³ã‚¿</param>
 		void CalculateLocalTransform(Transform* _pTransform);
 
 		/// <summary>
-		/// e‚ª‚¢‚È‚¢À•WŒn‚ÌŒvŽZ‚ð‚·‚é
+		/// è¦ªãŒã„ãªã„åº§æ¨™ç³»ã®è¨ˆç®—ã‚’ã™ã‚‹
 		/// </summary>
-		/// <param name="_pRoot">ŒvŽZ‚·‚éÀ•WŒn‚Ìƒ|ƒCƒ“ƒ^</param>
+		/// <param name="_pRoot">è¨ˆç®—ã™ã‚‹åº§æ¨™ç³»ã®ãƒã‚¤ãƒ³ã‚¿</param>
 		void CalculateTransformRoot(Transform* _pRoot);
 	};
 }

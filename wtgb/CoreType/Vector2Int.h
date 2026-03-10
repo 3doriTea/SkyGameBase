@@ -5,11 +5,11 @@
 namespace wtgb
 {
 	/// <summary>
-	/// 2ŸŒ³ƒxƒNƒgƒ‹‚ğˆµ‚¤\‘¢‘Ì
+	/// 2æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã‚’æ‰±ã†æ§‹é€ ä½“
 	/// </summary>
 	struct Vector2Int : public DirectX::XMINT2
 	{
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚à‚»‚Ì‚Ü‚ÜŒp³
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚‚ãã®ã¾ã¾ç¶™æ‰¿
 		using DirectX::XMINT2::XMINT2;
 
 		enum
@@ -22,23 +22,23 @@ namespace wtgb
 			Vector2Int{ static_cast<int>(_x), static_cast<int>(_y) }
 		{}
 
-#pragma region ƒIƒyƒŒ[ƒ^[ƒI[ƒo[ƒ[ƒh - l‘¥‰‰Z
+#pragma region ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰ - å››å‰‡æ¼”ç®—
 		inline Vector2Int& operator*=(const int& _scalar) { x *= _scalar; y *= _scalar; return *this; }
 		inline Vector2Int& operator/=(const int& _scalar) { x /= _scalar; y /= _scalar; return *this; }
 		inline Vector2Int& operator+=(const Vector2Int& _other) { x += _other.x; y += _other.y; return *this; }
 		inline Vector2Int& operator-=(const Vector2Int& _other) { x -= _other.x; y -= _other.y; return *this; }
 #pragma endregion
 
-#pragma region ‚æ‚­g‚¤ƒxƒNƒgƒ‹
+#pragma region ã‚ˆãä½¿ã†ãƒ™ã‚¯ãƒˆãƒ«
 		/// <summary>
-		/// —ëƒxƒNƒgƒ‹
+		/// é›¶ãƒ™ã‚¯ãƒˆãƒ«
 		/// </summary>
 		/// <returns>(0, 0)</returns>
 		inline static constexpr Vector2Int Zero() { return { 0, 0 }; }
 #pragma endregion
 	};
 
-#pragma region ƒOƒ[ƒoƒ‹ƒIƒyƒŒ[ƒ^[ƒI[ƒo[ƒ[ƒh - l‘¥‰‰Z
+#pragma region ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰ - å››å‰‡æ¼”ç®—
 	inline Vector2Int operator*(const Vector2Int& _v, const int& _scalar) { return Vector2Int{ _v } *= _scalar; }
 	inline Vector2Int operator*(const int& _scalar, const Vector2Int& _v) { return Vector2Int{ _v } *= _scalar; }
 	inline Vector2Int operator/(const Vector2Int& _v, const int& _scalar) { return Vector2Int{ _v } /= _scalar; }
@@ -47,7 +47,7 @@ namespace wtgb
 	inline Vector2Int operator-(const Vector2Int& _v1, const Vector2Int& _v2) { return Vector2Int{ _v1 } -= _v2; }
 #pragma endregion
 
-#pragma region ƒOƒ[ƒoƒ‹ƒIƒyƒŒ[ƒ^[ƒI[ƒo[ƒ[ƒh - “™®
+#pragma region ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰ - ç­‰å¼
 	inline bool operator==(const Vector2Int& _v1, const Vector2Int& _v2) { return _v1.x - _v2.x == 0 && _v1.y - _v2.y == 0; }
 	inline bool operator!=(const Vector2Int& _v1, const Vector2Int& _v2) { return !(_v1 == _v2); }
 #pragma endregion

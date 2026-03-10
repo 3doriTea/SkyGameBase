@@ -2,15 +2,15 @@
 #include "ICameraMove.h"
 
 /// <summary>
-/// ƒJƒƒ‰‚ÌˆÚ“®•û–@ - ƒQ[ƒ€ƒvƒŒƒC
+/// ã‚«ãƒ¡ãƒ©ã®ç§»å‹•æ–¹æ³• - ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤
 /// </summary>
 class CameraMovePlay : public ICameraMove
 {
 private:
 	enum struct ControlMode
 	{
-		MoveView,    // ‹“_ˆÚ“®
-		MovePlayer,  // ƒvƒŒƒCƒ„[‘€ì
+		MoveView,    // è¦–ç‚¹ç§»å‹•
+		MovePlayer,  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ“ä½œ
 	};
 
 public:
@@ -22,34 +22,34 @@ public:
 	void End(GameObjectReference _ref) override;
 
 private:
-	Vector2Int previous_;  // ‘O‰ñ‚Ìƒ}ƒEƒXÀ•W
-	Vector2Int diffValue_;  // ‘S‘Ì“I‚ÈˆÚ“®·•ª
+	Vector2Int previous_;  // å‰å›ã®ãƒã‚¦ã‚¹åº§æ¨™
+	Vector2Int diffValue_;  // å…¨ä½“çš„ãªç§»å‹•å·®åˆ†
 
-	float angleX_;  // x²‚Ì‰ñ“]Šp“x
-	float angleY_;  // y²‚Ì‰ñ“]Šp“x
-	bool isDragging_;          // ƒ}ƒEƒX‚ªƒhƒ‰ƒbƒO’†‚©
-	ControlMode controlMode_;  // ƒ}ƒEƒX‚ğƒhƒ‰ƒbƒO’†‚Ì‘€ìƒ‚[ƒh
+	float angleX_;  // xè»¸ã®å›è»¢è§’åº¦
+	float angleY_;  // yè»¸ã®å›è»¢è§’åº¦
+	bool isDragging_;          // ãƒã‚¦ã‚¹ãŒãƒ‰ãƒ©ãƒƒã‚°ä¸­ã‹
+	ControlMode controlMode_;  // ãƒã‚¦ã‚¹ã‚’ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®æ“ä½œãƒ¢ãƒ¼ãƒ‰
 
-	float emphasisBoost_;  // ƒoƒEƒ“ƒh‚µ‚½‚Æ‚«‚ÌÕŒ‚‚ğ‰ÁZ‚·‚é
-	float emphasisPrevYOffset_;  // ‘OƒtƒŒ[ƒ€‚Ìy²ƒIƒtƒZƒbƒg
+	float emphasisBoost_;  // ãƒã‚¦ãƒ³ãƒ‰ã—ãŸã¨ãã®è¡æ’ƒã‚’åŠ ç®—ã™ã‚‹
+	float emphasisPrevYOffset_;  // å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®yè»¸ã‚ªãƒ•ã‚»ãƒƒãƒˆ
 
 	struct
 	{
 		float responseRatio = 0.5f;
-		float boostThreshold = 15.0f;  // ƒoƒEƒ“ƒh‚µ‚½”»’è
-		float boostValue = 0.3f;  // ƒoƒEƒ“ƒh‚µ‚ÄÕŒ‚‚Ì‰ÁZ’l
-		float boostDecayRatePerSec = 0.1f;  // Œ¸Š’l (/sec)
-	} emphasis_;  // ‹­’²‚³‚ê‚½ƒJƒƒ‰
+		float boostThreshold = 15.0f;  // ãƒã‚¦ãƒ³ãƒ‰ã—ãŸåˆ¤å®š
+		float boostValue = 0.3f;  // ãƒã‚¦ãƒ³ãƒ‰ã—ã¦è¡æ’ƒã®åŠ ç®—å€¤
+		float boostDecayRatePerSec = 0.1f;  // æ¸›è¡°å€¤ (/sec)
+	} emphasis_;  // å¼·èª¿ã•ã‚ŒãŸã‚«ãƒ¡ãƒ©
 
-	Vector3 bounceImpactIntensity_;  // ƒoƒEƒ“ƒhÕŒ‚-Še²‚Ì—h‚ê‚Ì‹­‚³
-	Vector3 bounceImpactPlayRatio_;  // ƒoƒEƒ“ƒhÕŒ‚-Še²‚ÌÄ¶ƒŒ[ƒg
+	Vector3 bounceImpactIntensity_;  // ãƒã‚¦ãƒ³ãƒ‰è¡æ’ƒ-å„è»¸ã®æºã‚Œã®å¼·ã•
+	Vector3 bounceImpactPlayRatio_;  // ãƒã‚¦ãƒ³ãƒ‰è¡æ’ƒ-å„è»¸ã®å†ç”Ÿãƒ¬ãƒ¼ãƒˆ
 
 	struct
 	{
-		Vector3 frequencyPerSec = Vector3::One() * 2.0f;  // —h‚ê‚é‰•œ”(/sec)
-		Vector3 startIntensity = Vector3::One() * 3.0f;   // ŠJn‚Ì—h‚ê•
-		float dampingRatioPerSec = 0.3f;  // Œ¸Š—¦(/sec)(0.0‚Å~‚Ü‚ç‚È‚¢, 1.0‚Å‚·‚®~‚Ü‚é)
+		Vector3 frequencyPerSec = Vector3::One() * 2.0f;  // æºã‚Œã‚‹å¾€å¾©æ•°(/sec)
+		Vector3 startIntensity = Vector3::One() * 3.0f;   // é–‹å§‹æ™‚ã®æºã‚Œå¹…
+		float dampingRatioPerSec = 0.3f;  // æ¸›è¡°ç‡(/sec)(0.0ã§æ­¢ã¾ã‚‰ãªã„, 1.0ã§ã™ãæ­¢ã¾ã‚‹)
 	} bounceImpact;
 
-	EntityId stageLine_;  // ƒXƒe[ƒWƒ‰ƒCƒ“‚ÌƒGƒ“ƒeƒBƒeƒB
+	EntityId stageLine_;  // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ©ã‚¤ãƒ³ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£
 };

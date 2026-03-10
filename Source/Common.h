@@ -2,10 +2,10 @@
 #include <wtgb.h>
 
 /// <summary>
-/// 当たり判定のタグ
+/// 蠖薙◆繧雁愛螳壹�ｮ繧ｿ繧ｰ
 /// </summary>
 enum COLLIDER_TAG : uint32_t
 {
-	CT_PLAYER,  // プレイヤータグ
-	CT_PRESENT_SPHERE,  // プレゼント球のタグ
+	CT_PLAYER,  // 繝励Ξ繧､繝､繝ｼ繧ｿ繧ｰ
+	CT_PRESENT_SPHERE,  // 繝励Ξ繧ｼ繝ｳ繝育帥縺ｮ繧ｿ繧ｰ
 };

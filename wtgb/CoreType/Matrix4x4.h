@@ -5,7 +5,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// 4x4 s—ñ
+	/// 4x4 è¡Œåˆ—
 	/// </summary>
 	struct Matrix4x4 : DirectX::XMMATRIX
 	{

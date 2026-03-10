@@ -8,7 +8,7 @@ namespace wtgb
 	class RigidBody;
 
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹ : „‘Ì(RigidBody)
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ« : å‰›ä½“(RigidBody)
 	/// </summary>
 	class CPRigidBody : public ComponentPool<RigidBody>
 	{
@@ -17,11 +17,11 @@ namespace wtgb
 		~CPRigidBody();
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update() override;
 

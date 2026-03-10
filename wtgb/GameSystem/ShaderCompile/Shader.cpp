@@ -17,7 +17,7 @@ void wtgb::Shader::Init()
 
 void wtgb::Shader::Release()
 {
-	// –¾¦“I‚É‰ğ•ú
+	// æ˜ç¤ºçš„ã«è§£æ”¾
 
 	pVertexShader_.Reset();
 	pPixelShader_.Reset();

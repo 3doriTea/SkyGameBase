@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ƒJƒƒ‰ˆÚ“®•û–@‚ÌƒCƒ“ƒ^ƒtƒF[ƒX
+/// ã‚«ãƒ¡ãƒ©ç§»å‹•æ–¹æ³•ã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹
 /// </summary>
 class ICameraMove
 {
@@ -13,16 +13,16 @@ public:
 	virtual ~ICameraMove() {}
 
 	/// <summary>
-	/// ‰Šú‰»ˆ—
+	/// åˆæœŸåŒ–å‡¦ç†
 	/// </summary>
 	virtual void Start(GameObjectReference _ref) = 0;
 	/// <summary>
-	/// XVˆ—
+	/// æ›´æ–°å‡¦ç†
 	/// </summary>
 	/// <param name=""></param>
 	virtual void Update(GameObjectReference _ref) = 0;
 	/// <summary>
-	/// I—¹ˆ—
+	/// çµ‚äº†å‡¦ç†
 	/// </summary>
 	virtual void End(GameObjectReference _ref) = 0;
 };

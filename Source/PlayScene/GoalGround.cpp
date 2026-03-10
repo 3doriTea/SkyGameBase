@@ -20,20 +20,20 @@ void GoalGround::Init()
 	OnLoadParam(GetComponent<Parameter>().Load());
 
 	target_ = FindGameObject(targetName_)->GetEntityId();
-	wassert(target_ != INVALID_ENTITY && "ƒS[ƒ‹‚³‚¹‚éƒIƒuƒWƒFƒNƒg‚ªŒ©‚Â‚©‚ç‚¸");
+	wassert(target_ != INVALID_ENTITY && "ã‚´ãƒ¼ãƒ«ã•ã›ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¦‹ã¤ã‹ã‚‰ãš");
 
 	playStater_ = FindGameObject("PlayState")->GetEntityId();
-	wassert(playStater_ != INVALID_ENTITY && "ƒvƒŒƒCó‘Ô‚ğŠÇ—‚·‚éƒIƒuƒWƒFƒNƒg‚ªŒ©‚Â‚©‚ç‚¸");
+	wassert(playStater_ != INVALID_ENTITY && "ãƒ—ãƒ¬ã‚¤çŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¦‹ã¤ã‹ã‚‰ãš");
 }
 
 void GoalGround::Update()
 {
 	GameObject* pTargetGameObject{ FindGameObject(target_) };
 
-	// ƒ^[ƒQƒbƒg‚ªŒ©‚Â‚©‚Á‚½‚È‚ç
+	// ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒè¦‹ã¤ã‹ã£ãŸãªã‚‰
 	if (pTargetGameObject)
 	{
-		// ‚Ğ‚½‚·‚çƒ^[ƒQƒbƒg‚ÌxÀ•W‚Åx‰‡‚·‚é
+		// ã²ãŸã™ã‚‰ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®xåº§æ¨™ã§æ”¯æ´ã™ã‚‹
 		Vector3 position{ Transform().GetPosition() };
 		Vector3 targetPosition{ pTargetGameObject->Transform().GetPositionWorld() };
 		position.x = targetPosition.x;
@@ -41,7 +41,7 @@ void GoalGround::Update()
 
 		if (targetPosition.z > position.z)
 		{
-			// ƒ^[ƒQƒbƒg‚ªƒS[ƒ‹‚Ì’†SÀ•W‚ğ’´‚¦‚½III@Œê\\\\ƒ‹
+			// ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒã‚´ãƒ¼ãƒ«ã®ä¸­å¿ƒåº§æ¨™ã‚’è¶…ãˆãŸï¼ï¼ï¼ã€€èªâ€”â€”â€”â€”ãƒ«
 			PlayState* pPlayState{ FindGameObject<PlayState>(playStater_) };
 			pPlayState->ChangeState(PlayState::Type::Finished);
 		}

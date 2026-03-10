@@ -24,7 +24,7 @@ void wtgb::Fbx::Init(ViewerCached _system)
 	fs::path current{ fs::current_path() };
 	modelFile_ = current / FileName();
 
-	wassert(fs::is_regular_file(modelFile_) == true && "ƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚È‚¢");
+	wassert(fs::is_regular_file(modelFile_) == true && "ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã—ãªã„");
 
 	FbxManager* pFbxManager{ FbxManager::Create() };
 	FbxImporter* pFbxImporter{ FbxImporter::Create(pFbxManager, "importer") };
@@ -37,9 +37,9 @@ void wtgb::Fbx::Init(ViewerCached _system)
 	FbxNode* pNode{ pRootNode->GetChild(0) };
 	FbxMesh* pMesh{ pNode->GetMesh() };
 
-	vertexCount_ = pMesh->GetControlPointsCount();  // ’¸“_”
-	polygonCount_ = pMesh->GetPolygonCount();       // ƒ|ƒŠƒSƒ“”
-	materialCount_ = pNode->GetMaterialCount();     // ƒ}ƒeƒŠƒAƒ‹”
+	vertexCount_ = pMesh->GetControlPointsCount();  // é ‚ç‚¹æ•°
+	polygonCount_ = pMesh->GetPolygonCount();       // ãƒãƒªã‚´ãƒ³æ•°
+	materialCount_ = pNode->GetMaterialCount();     // ãƒãƒ†ãƒªã‚¢ãƒ«æ•°
 
 	InitVertex(_system, pMesh);
 	InitIndex(_system, pMesh);
@@ -53,7 +53,7 @@ void wtgb::Fbx::Init(ViewerCached _system)
 
 void wtgb::Fbx::Release(ViewerCached _system)
 {
-	// –¾¦“I‚É‰ğ•ú
+	// æ˜ç¤ºçš„ã«è§£æ”¾
 
 	pVertexBuffer_.Reset();
 	for (auto& pIndexBuffer : pIndexBuffers_)
@@ -71,7 +71,7 @@ void wtgb::Fbx::InitVertex(ViewerCached _system, FbxMesh* _pMesh)
 	std::vector<Vertex> vertexes{};
 	vertexes.resize(vertexCount_);
 
-	// ’¸“_‚ÌUV
+	// é ‚ç‚¹ã®UV
 	FbxLayerElementUV* pUV = _pMesh->GetLayer(0)->GetUVs();
 	FbxLayerElement::EMappingMode mappingMode{ pUV->GetMappingMode() };
 	FbxLayerElement::EReferenceMode referenceMode{ pUV->GetReferenceMode() };
@@ -90,7 +90,7 @@ void wtgb::Fbx::InitVertex(ViewerCached _system, FbxMesh* _pMesh)
 				static_cast<float>(position[Z])
 			};
 
-			// ’¸“_‚ÌUV
+			// é ‚ç‚¹ã®UV
 			FbxLayerElementUV* pUV = _pMesh->GetLayer(0)->GetUVs();
 
 			switch (pUV->GetReferenceMode())
@@ -100,8 +100,8 @@ void wtgb::Fbx::InitVertex(ViewerCached _system, FbxMesh* _pMesh)
 				int uvIndex{ _pMesh->GetTextureUVIndex(p, v, FbxLayerElement::eTextureDiffuse) };
 				FbxVector2 uv{ pUV->GetDirectArray().GetAt(uvIndex) };
 				
-				// UV‚ğæ“¾
-				// NOTE: UV‚Ìc•ûŒü‚ÌŠî€‚ª‹t‚É‚È‚é‚½‚ß‹t‚É‚·‚é
+				// UVã‚’å–å¾—
+				// NOTE: UVã®ç¸¦æ–¹å‘ã®åŸºæº–ãŒé€†ã«ãªã‚‹ãŸã‚é€†ã«ã™ã‚‹
 				vertexes[index].uv =
 				{
 					static_cast<float>(uv.mData[U]),
@@ -127,11 +127,11 @@ void wtgb::Fbx::InitVertex(ViewerCached _system, FbxMesh* _pMesh)
 				break;
 			}
 			default:
-				wassert(false && "‘Î‰‚µ‚Ä‚¢‚È‚¢UV‚Ìƒ}ƒbƒsƒ“ƒO•û–@");
+				wassert(false && "å¯¾å¿œã—ã¦ã„ãªã„UVã®ãƒãƒƒãƒ”ãƒ³ã‚°æ–¹æ³•");
 				break;
 			}
 
-			// –@ü‚ğæ“¾
+			// æ³•ç·šã‚’å–å¾—
 			FbxVector4 normal{};
 			_pMesh->GetPolygonVertexNormal(p, v, normal);
 			vertexes[index].normal =
@@ -143,19 +143,19 @@ void wtgb::Fbx::InitVertex(ViewerCached _system, FbxMesh* _pMesh)
 		}
 	}
 
-#pragma region ’¸“_ƒoƒbƒtƒ@ì¬
+#pragma region é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 	ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 	HRESULT hResult{};
 
 	const D3D11_BUFFER_DESC VERTEX_DESC
 	{
-		// Œ^‚Ì‘å‚«‚³
+		// å‹ã®å¤§ãã•
 		.ByteWidth = static_cast<UINT>(sizeof(Vertex) * vertexCount_),
-		.Usage = D3D11_USAGE_DEFAULT,                // •ÏX‚·‚é‚©
-		//.Usage = D3D11_USAGE_STAGING,                // •ÏX‚·‚é‚©
-		.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-		.CPUAccessFlags = 0,                         // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-		.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+		.Usage = D3D11_USAGE_DEFAULT,                // å¤‰æ›´ã™ã‚‹ã‹
+		//.Usage = D3D11_USAGE_STAGING,                // å¤‰æ›´ã™ã‚‹ã‹
+		.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+		.CPUAccessFlags = 0,                         // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+		.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 		.StructureByteStride = sizeof(Vertex),
 	};
 	const D3D11_SUBRESOURCE_DATA VERTEX_DATA
@@ -166,17 +166,17 @@ void wtgb::Fbx::InitVertex(ViewerCached _system, FbxMesh* _pMesh)
 	};
 
 	hResult = pDevice->CreateBuffer(&VERTEX_DESC, &VERTEX_DATA, pVertexBuffer_.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "Fbx’¸“_ƒoƒbƒtƒ@ì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "Fbxé ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 #pragma endregion
 }
 
 void wtgb::Fbx::InitIndex(ViewerCached _system, FbxMesh* _pMesh)
 {
-	// ƒ}ƒeƒŠƒAƒ‹‚Ì”‚¾‚¯ì‚é
-	pIndexBuffers_.resize(materialCount_);  // ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
-	indexCounts_.resize(materialCount_);    // ƒCƒ“ƒfƒbƒNƒX”
+	// ãƒãƒ†ãƒªã‚¢ãƒ«ã®æ•°ã ã‘ä½œã‚‹
+	pIndexBuffers_.resize(materialCount_);  // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
+	indexCounts_.resize(materialCount_);    // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
 
-	// Šeƒ}ƒeƒŠƒAƒ‹‚²‚Æ‚É
+	// å„ãƒãƒ†ãƒªã‚¢ãƒ«ã”ã¨ã«
 	for (int i = 0; i < materialCount_; i++)
 	{
 		int count{ 0 };
@@ -200,18 +200,18 @@ void wtgb::Fbx::InitIndex(ViewerCached _system, FbxMesh* _pMesh)
 
 		indexCounts_[i] = count;
 
-#pragma region Šeƒ}ƒeƒŠƒAƒ‹ - ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ì¬
+#pragma region å„ãƒãƒ†ãƒªã‚¢ãƒ« - ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};
 
 		const D3D11_BUFFER_DESC INDEX_DESC
 		{
-			// Œ^‚Ì‘å‚«‚³
+			// å‹ã®å¤§ãã•
 			.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * polygonCount_ * 3),
-			.Usage = D3D11_USAGE_DEFAULT,                // •ÏX‚·‚é‚©
-			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-			.CPUAccessFlags = 0,                         // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-			.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+			.Usage = D3D11_USAGE_DEFAULT,                // å¤‰æ›´ã™ã‚‹ã‹
+			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+			.CPUAccessFlags = 0,                         // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+			.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 			.StructureByteStride = 0,
 		};
 		const D3D11_SUBRESOURCE_DATA INDEX_DATA
@@ -222,7 +222,7 @@ void wtgb::Fbx::InitIndex(ViewerCached _system, FbxMesh* _pMesh)
 		};
 
 		hResult = pDevice->CreateBuffer(&INDEX_DESC, &INDEX_DATA, pIndexBuffers_[i].GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "FbxƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ì¬‚É¸”s");
+		wassert(SUCCEEDED(hResult) && "Fbxã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 #pragma endregion
 	}
 }
@@ -234,12 +234,12 @@ void wtgb::Fbx::InitConstant(ViewerCached _system)
 
 	const D3D11_BUFFER_DESC CONSTANT_DESC
 	{
-		// Œ^‚Ì‘å‚«‚³
+		// å‹ã®å¤§ãã•
 		.ByteWidth = cbSize,
-		.Usage = D3D11_USAGE_DYNAMIC,                // •ÏX‚·‚é‚©
-		.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-		.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-		.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+		.Usage = D3D11_USAGE_DYNAMIC,                // å¤‰æ›´ã™ã‚‹ã‹
+		.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+		.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+		.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 		.StructureByteStride = 0,
 	};
 
@@ -247,7 +247,7 @@ void wtgb::Fbx::InitConstant(ViewerCached _system)
 	HRESULT hResult{};
 
 	hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "FbxƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@ì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "Fbxã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 
 }
 
@@ -264,29 +264,29 @@ void wtgb::Fbx::InitMaterial(ViewerCached _system, FbxNode* _pNode)
 		FbxSurfaceMaterial* pMaterial{ _pNode->GetMaterial(i) };
 		if (pMaterial == nullptr)
 		{
-			wassert(false && "ƒ}ƒeƒŠƒAƒ‹‚Ìæ“¾‚É¸”s");
+			wassert(false && "ãƒãƒ†ãƒªã‚¢ãƒ«ã®å–å¾—ã«å¤±æ•—");
 			continue;
 		}
 
 		fbxsdk::FbxProperty fbxProperty{ pMaterial->FindProperty(FbxSurfaceMaterial::sDiffuse) };
 		if (!fbxProperty.IsValid())
 		{
-			wassert(false && "–³Œø‚ÈƒvƒƒpƒeƒB’l");
+			wassert(false && "ç„¡åŠ¹ãªãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å€¤");
 			continue;
 		}
 
-#pragma region ƒeƒNƒXƒ`ƒƒŠÖŒW
+#pragma region ãƒ†ã‚¯ã‚¹ãƒãƒ£é–¢ä¿‚
 		int fileTextureCount{ fbxProperty.GetSrcObjectCount<FbxFileTexture>() };
 
 		//materials_[i].textureFile = "";
 		
-		if (fileTextureCount > 0)  // ƒeƒNƒXƒ`ƒƒ‚ª“\‚Á‚Ä‚ ‚é‚È‚ç
+		if (fileTextureCount > 0)  // ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒè²¼ã£ã¦ã‚ã‚‹ãªã‚‰
 		{
 			FbxFileTexture* pTextureInfo{ fbxProperty.GetSrcObject<FbxFileTexture>(0) };
 			fs::path textureFile{ modelFile_.parent_path() / pTextureInfo->GetRelativeFileName() };
 
 
-			// NOTE: ƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚âƒfƒBƒŒƒNƒgƒŠ‚ğœŠO‚·‚é‚½‚ß‚Éis_regular_file‚ğg‚¤‚æ‚¤‚É‚·‚é
+			// NOTE: ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãƒªãƒ³ã‚¯ã‚„ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’é™¤å¤–ã™ã‚‹ãŸã‚ã«is_regular_fileã‚’ä½¿ã†ã‚ˆã†ã«ã™ã‚‹
 			//  BAD: fs::exists(materials_[i].textureFile)
 			// GOOD: fs::is_regular_file(materials_[i].textureFile)
 			if (fs::is_regular_file(textureFile))
@@ -296,16 +296,16 @@ void wtgb::Fbx::InitMaterial(ViewerCached _system, FbxNode* _pNode)
 			}
 			else
 			{
-				wassert(false && "ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚È‚¢");
+				wassert(false && "ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã—ãªã„");
 			}
 			
 			materials_[i].diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
 		}
-		else  // ƒeƒNƒXƒ`ƒƒ‚ª‚È‚¢‚È‚ç
+		else  // ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒãªã„ãªã‚‰
 		{
 			if (pMaterial->GetClassId().Is(FbxSurfaceLambert::ClassId) == false)
 			{
-				wassert(false && "ƒ‰ƒ“ƒo[ƒgƒVƒF[ƒ_ˆÈŠO‘Î‰‚µ‚Ä‚¢‚Ü‚¹‚ñ");
+				wassert(false && "ãƒ©ãƒ³ãƒãƒ¼ãƒˆã‚·ã‚§ãƒ¼ãƒ€ä»¥å¤–å¯¾å¿œã—ã¦ã„ã¾ã›ã‚“");
 				return;
 			}
 
@@ -317,7 +317,7 @@ void wtgb::Fbx::InitMaterial(ViewerCached _system, FbxNode* _pNode)
 				static_cast<float>(color[R]),
 				static_cast<float>(color[G]),
 				static_cast<float>(color[B]),
-				1.0f  // ƒAƒ‹ƒtƒ@’l‚Í 1.0f
+				1.0f  // ã‚¢ãƒ«ãƒ•ã‚¡å€¤ã¯ 1.0f
 			};
 		}
 

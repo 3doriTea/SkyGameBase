@@ -49,9 +49,9 @@ void TitleMountain::Init()
 
 	StageLoader stageLoader{ points_ };
 	bool succeed{ stageLoader.TryLoad("TitleMountain.json") };
-	wassert(succeed && "ƒ^ƒCƒgƒ‹R‚Ìƒf[ƒ^“Ç‚İ‚İ‚É¸”s");
+	wassert(succeed && "ã‚¿ã‚¤ãƒˆãƒ«å±±ã®ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿ã«å¤±æ•—");
 
-	// ‘S‚Ä‚Ì y ²‚ğ - ‚É‚·‚é
+	// å…¨ã¦ã® y è»¸ã‚’ - ã«ã™ã‚‹
 	for (auto& point : points_)
 	{
 		point.y = -point.y;

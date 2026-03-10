@@ -43,7 +43,7 @@ void VisualSequence::ShowAt(const int _index)
 
 	if (currentIndex_ < 0 || visuals_.size() <= currentIndex_)
 	{
-		// �͈͊O�Ȃ疳����
+		// 範囲外なら無効化
 		currentIndex_ = INVALID_INDEX_;
 		return;
 	}

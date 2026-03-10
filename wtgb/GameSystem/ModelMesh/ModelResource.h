@@ -7,7 +7,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒ‚ƒfƒ‹‚Ì’ŠÛƒNƒ‰ƒX
+	/// ãƒ¢ãƒ‡ãƒ«ã®æŠ½è±¡ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class ModelResource : public IMeshSimple
 	{
@@ -16,18 +16,18 @@ namespace wtgb
 		virtual ~ModelResource() {}
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹‚Ìƒtƒ@ƒCƒ‹–¼‚ğæ“¾‚·‚é
+		/// ãƒ¢ãƒ‡ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns></returns>
 		std::string_view FileName() const { return FILE_NAME_; }
 
 	protected:
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		virtual void Init(ViewerCached _system) override = 0;
 		/// <summary>
-		/// ‰ğ•úˆ—
+		/// è§£æ”¾å‡¦ç†
 		/// </summary>
 		virtual void Release(ViewerCached _system) override = 0;
 

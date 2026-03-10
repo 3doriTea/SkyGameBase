@@ -1,12 +1,12 @@
 #pragma once
 
 /// <summary>
-/// ƒXƒs[ƒh‚ÌŽí—Þ
+/// ã‚¹ãƒ”ãƒ¼ãƒ‰ã®ç¨®é¡ž
 /// </summary>
 enum struct SpeedType
 {
-	Stop,       // Ž~‚Ü‚Á‚Ä‚¢‚é
-	TooSlow,    // ’x‚·‚¬
-	Good,       // —Ç‚¢‘¬“x
-	Excissive,  // ‘¬‚·‚¬
+	Stop,       // æ­¢ã¾ã£ã¦ã„ã‚‹
+	TooSlow,    // é…ã™ãŽ
+	Good,       // è‰¯ã„é€Ÿåº¦
+	Excissive,  // é€Ÿã™ãŽ
 };

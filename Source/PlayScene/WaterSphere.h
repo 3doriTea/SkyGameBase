@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// …‚Ì‹…
+/// æ°´ã®çƒ
 /// </summary>
 class WaterSphere : public GameObject
 {

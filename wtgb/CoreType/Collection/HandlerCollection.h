@@ -4,11 +4,11 @@
 
 namespace wtgb
 {
-	// –³Œø‚Èƒnƒ“ƒhƒ‹’l
+	// ç„¡åŠ¹ãªãƒãƒ³ãƒ‰ãƒ«å€¤
 	static const uint32_t INVALID_HANDLE{ 0 };
 
 	/// <summary>
-	/// ƒnƒ“ƒhƒ‹‚ªƒL[‚Ì˜A‘z”z—ñAƒRƒŒƒNƒVƒ‡ƒ“ƒNƒ‰ƒX
+	/// ãƒãƒ³ãƒ‰ãƒ«ãŒã‚­ãƒ¼ã®é€£æƒ³é…åˆ—ã€ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	/// <typeparam name="ValueT"></typeparam>
 	/// <typeparam name="HandleT"></typeparam>
@@ -22,44 +22,44 @@ namespace wtgb
 		~HandlerCollection();
 
 		/// <summary>
-		/// ƒnƒ“ƒhƒ‰‚ğ’Ç‰Á (“o˜^‚·‚é)
+		/// ãƒãƒ³ãƒ‰ãƒ©ã‚’è¿½åŠ  (ç™»éŒ²ã™ã‚‹)
 		/// </summary>
-		/// <typeparam name="...Args">’Ç‰Á‚·‚é‚Æ‚«‚É“n‚·ƒRƒ“ƒXƒgƒ‰ƒNƒ^ˆø”‚ÌŒ^</typeparam>
-		/// <param name="...args">’Ç‰Á‚·‚é‚Æ‚«‚É“n‚·ƒRƒ“ƒXƒgƒ‰ƒNƒ^ˆø”</param>
-		/// <returns>’Ç‰Á‚³‚ê‚½ƒnƒ“ƒhƒ‰</returns>
+		/// <typeparam name="...Args">è¿½åŠ ã™ã‚‹ã¨ãã«æ¸¡ã™ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿å¼•æ•°ã®å‹</typeparam>
+		/// <param name="...args">è¿½åŠ ã™ã‚‹ã¨ãã«æ¸¡ã™ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿å¼•æ•°</param>
+		/// <returns>è¿½åŠ ã•ã‚ŒãŸãƒãƒ³ãƒ‰ãƒ©</returns>
 		template<typename ...Args>
 		HandleT Emplace(Args&& ...args);
 		/// <summary>
-		/// ƒnƒ“ƒhƒ‰‚ğ–³Œø‰»‚·‚é
+		/// ãƒãƒ³ãƒ‰ãƒ©ã‚’ç„¡åŠ¹åŒ–ã™ã‚‹
 		/// </summary>
-		/// <param name="_handle">–³Œø‰»‚·‚éƒnƒ“ƒhƒ‹</param>
+		/// <param name="_handle">ç„¡åŠ¹åŒ–ã™ã‚‹ãƒãƒ³ãƒ‰ãƒ«</param>
 		/// <returns></returns>
 		bool Remove(const HandleT _handle);
 		/// <summary>
-		/// ƒnƒ“ƒhƒ‰‚ğ‘S‚Ä‰ğ•ú‚·‚é
+		/// ãƒãƒ³ãƒ‰ãƒ©ã‚’å…¨ã¦è§£æ”¾ã™ã‚‹
 		/// </summary>
 		void Release(const std::function<void(ValueT& _value)>& _callback = [](ValueT& _value){});
 		/// <summary>
-		/// “o˜^‚³‚ê‚Ä‚¢‚éƒnƒ“ƒhƒ‰‚ª‹ó‚Á‚Û‚©
+		/// ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ãƒãƒ³ãƒ‰ãƒ©ãŒç©ºã£ã½ã‹
 		/// </summary>
-		/// <returns>‹ó‚Á‚Û‚Å‚ ‚é true / false</returns>
+		/// <returns>ç©ºã£ã½ã§ã‚ã‚‹ true / false</returns>
 		bool IsEmpty() const { return this->counter_ <= 0; }
 		/// <summary>
-		/// d•¡‚·‚é—v‘fƒnƒ“ƒhƒ‹‚ğæ“¾
+		/// é‡è¤‡ã™ã‚‹è¦ç´ ãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—
 		/// </summary>
-		/// <param name="_callback">d•¡‚ğƒ`ƒFƒbƒN‚·‚éƒR[ƒ‹ƒoƒbƒNŠÖ”</param>
-		/// <returns>d•¡‚·‚éƒnƒ“ƒhƒ‹ / Œ©‚Â‚©‚ç‚È‚¯‚ê‚Î–³Œøƒnƒ“ƒhƒ‹</returns>
+		/// <param name="_callback">é‡è¤‡ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°</param>
+		/// <returns>é‡è¤‡ã™ã‚‹ãƒãƒ³ãƒ‰ãƒ« / è¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«</returns>
 		HandleT GetContainsDuplicate(const std::function<bool(ValueT& _value)>& _callback);
 
 		/// <summary>
-		/// “ªƒCƒeƒŒ[ƒ^æ“¾
+		/// é ­ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>“ªƒCƒeƒŒ[ƒ^</returns>
+		/// <returns>é ­ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿</returns>
 		InnerMap::iterator begin() { return innerMap.begin(); }
 		/// <summary>
-		/// ”öƒCƒeƒŒ[ƒ^æ“¾
+		/// å°¾ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>”öƒCƒeƒŒ[ƒ^</returns>
+		/// <returns>å°¾ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿</returns>
 		InnerMap::iterator end() { return innerMap.end(); }
 
 		std::remove_pointer_t<ValueT>& At(const HandleT _handle);

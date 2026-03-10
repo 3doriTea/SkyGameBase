@@ -23,10 +23,10 @@ void ResultPanel::Init()
 	Vector2Int screenSize{ System().Get<GameWindow>().GetMainWindowSize() };
 
 	ResultScene* pResultScene{ GetScene<ResultScene>() };
-	wassert(pResultScene && "Œ‹‰ÊƒV[ƒ“‚Ìæ“¾‚É¸”s");
+	wassert(pResultScene && "çµæœã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—");
 	if (pResultScene == nullptr)
 	{
-		return;  // Œ‹‰ÊƒV[ƒ“‚Ìæ“¾‚É¸”s‚·‚é‚Æ‰½‚à‚Å‚«‚È‚¢
+		return;  // çµæœã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—ã™ã‚‹ã¨ä½•ã‚‚ã§ããªã„
 	}
 
 	hPanelImage_ = System().Get<ResourceSystem>().LoadTexture(panelImageFile_);
@@ -34,7 +34,7 @@ void ResultPanel::Init()
 	CoordinateTransformer transformer{ screenSize, baseCanvasSize_ };
 	dragPoint_ = pResultScene->Instantiate<DragPoint>(transformer);
 
-	// ’Í‚Ş‰~
+	// æ´ã‚€å††
 	DragPoint* pDragPoint{ dynamic_cast<DragPoint*>(FindGameObject(dragPoint_)) };
 	assert(pDragPoint);
 	pDragPoint->SetRadius(dragCircleSizePix_);
@@ -58,7 +58,7 @@ void ResultPanel::Update()
 	const Vector2 screenSize{ static_cast<float>(screenSizeInt.x), static_cast<float>(screenSizeInt.y) };
 
 	Texture* pTexture{ System().Get<ResourceSystem>().GetTexture(hPanelImage_) };
-	wassert(pTexture && "ƒeƒNƒXƒ`ƒƒ‚Ìæ“¾‚É¸”s");
+	wassert(pTexture && "ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å–å¾—ã«å¤±æ•—");
 
 	if (pTexture == nullptr)
 	{
@@ -74,14 +74,14 @@ void ResultPanel::Update()
 
 	if (pDragPoint && pDragPoint->IsDrag())
 	{
-		// ’Í‚ñ‚¾•ª‰ÁZ‚·‚é
+		// æ´ã‚“ã åˆ†åŠ ç®—ã™ã‚‹
 		Vector2Int displacement{ pDragPoint->GetDisplacement() };
 		moveRatio_ += static_cast<float>(-displacement.y) / screenSize.y;
-		LOGFLN("ƒhƒ‰ƒbƒO‚³‚ê‚½{}", moveRatio_);
+		LOGFLN("ãƒ‰ãƒ©ãƒƒã‚°ã•ã‚ŒãŸ{}", moveRatio_);
 	}
 	else
 	{
-		// ’Í‚Ü‚ê‚Ä‚¢‚È‚¢‚È‚çA©“®‚Åˆø˜U‚é
+		// æ´ã¾ã‚Œã¦ã„ãªã„ãªã‚‰ã€è‡ªå‹•ã§å¼•ç¯­ã‚‹
 		if (moveRatio_ < 0.5f)
 		{
 			moveRatio_ -= dt / 3.0f;
@@ -96,7 +96,7 @@ void ResultPanel::Update()
 
 	if (pDragPoint)
 	{
-		// TODO: ƒ{ƒ^ƒ“ƒhƒ‰ƒbƒOˆÊ’u‚ğŠm’è‚³‚¹‚é
+		// TODO: ãƒœã‚¿ãƒ³ãƒ‰ãƒ©ãƒƒã‚°ä½ç½®ã‚’ç¢ºå®šã•ã›ã‚‹
 		isDrag_ = pDragPoint->IsDrag();
 		//Mathf::Lerp()
 		//pDragPoint->SetPosition({ 430 + OFFSET_X, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });

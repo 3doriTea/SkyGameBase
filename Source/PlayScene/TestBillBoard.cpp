@@ -16,34 +16,34 @@ void TestBillBoard::BillBoard::Init(ViewerCached _system)
 {
 	using namespace DirectX;
 
-	// ’¸“_‚¸
+	// é ‚ç‚¹ãš
 	std::vector<Vertex> vertices;
 
-	// ’¸“_‚ğ‹‚ß‚é
+	// é ‚ç‚¹ã‚’æ±‚ã‚ã‚‹
 	{
 		vertices =
 		{
 			// { { POSITION }, { NORMAL }, { UV } }
-			{ { -30.0f,  30.0f, 20.0f, 0.0f }, { 0, 0, -1, 0 }, { 0.0f, 0.0f, 0, 0 } },  // lŠpŒ`‚Ì’¸“_i¶ãj
-			{ {  30.0f,  30.0f, 20.0f, 0.0f }, { 0, 0, -1, 0 }, { 1.0f, 0.0f, 0, 0 } },  // lŠpŒ`‚Ì’¸“_i‰Eãj
-			{ {  30.0f, -30.0f, 20.0f, 0.0f }, { 0, 0, -1, 0 }, { 1.0f, 1.0f, 0, 0 } },  // lŠpŒ`‚Ì’¸“_i‰E‰ºj
-			{ { -30.0f, -30.0f, 20.0f, 0.0f }, { 0, 0, -1, 0 }, { 0.0f, 1.0f, 0, 0 } },  // lŠpŒ`‚Ì’¸“_i¶‰ºj
+			{ { -30.0f,  30.0f, 20.0f, 0.0f }, { 0, 0, -1, 0 }, { 0.0f, 0.0f, 0, 0 } },  // å››è§’å½¢ã®é ‚ç‚¹ï¼ˆå·¦ä¸Šï¼‰
+			{ {  30.0f,  30.0f, 20.0f, 0.0f }, { 0, 0, -1, 0 }, { 1.0f, 0.0f, 0, 0 } },  // å››è§’å½¢ã®é ‚ç‚¹ï¼ˆå³ä¸Šï¼‰
+			{ {  30.0f, -30.0f, 20.0f, 0.0f }, { 0, 0, -1, 0 }, { 1.0f, 1.0f, 0, 0 } },  // å››è§’å½¢ã®é ‚ç‚¹ï¼ˆå³ä¸‹ï¼‰
+			{ { -30.0f, -30.0f, 20.0f, 0.0f }, { 0, 0, -1, 0 }, { 0.0f, 1.0f, 0, 0 } },  // å››è§’å½¢ã®é ‚ç‚¹ï¼ˆå·¦ä¸‹ï¼‰
 		};
 
 		vertexCount_ = static_cast<uint32_t>(vertices.size());
 
-		// ƒoƒbƒtƒ@ì¬
+		// ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};
 
 		const D3D11_BUFFER_DESC VERTEX_DESC
 		{
-			// Œ^‚Ì‘å‚«‚³
+			// å‹ã®å¤§ãã•
 			.ByteWidth = static_cast<UINT>(sizeof(Vertex) * vertexCount_),
-			.Usage = D3D11_USAGE_DEFAULT,                // •ÏX‚·‚é‚©
-			.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-			.CPUAccessFlags = 0,                         // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-			.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+			.Usage = D3D11_USAGE_DEFAULT,                // å¤‰æ›´ã™ã‚‹ã‹
+			.BindFlags = D3D11_BIND_VERTEX_BUFFER,       // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+			.CPUAccessFlags = 0,                         // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+			.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 			.StructureByteStride = sizeof(Vertex),
 		};
 		const D3D11_SUBRESOURCE_DATA VERTEX_DATA
@@ -54,13 +54,13 @@ void TestBillBoard::BillBoard::Init(ViewerCached _system)
 		};
 
 		hResult = pDevice->CreateBuffer(&VERTEX_DESC, &VERTEX_DATA, pVertexBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ƒXƒe[ƒWƒƒbƒVƒ…’¸“_ƒoƒbƒtƒ@ì¬‚É¸”s");
+		wassert(SUCCEEDED(hResult) && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¡ãƒƒã‚·ãƒ¥é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 	}
 
-	// ƒCƒ“ƒfƒNƒX‚½‚¿
+	// ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹ãŸã¡
 	std::vector<uint32_t> indexes{};
 
-	// ƒCƒ“ƒfƒbƒNƒX‚ğ‹‚ß‚é
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’æ±‚ã‚ã‚‹
 	{
 		static const uint32_t INDEX_SET_ARRAY[]{ 0, 2, 3, 0, 1, 2 };
 		static const size_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(int) };
@@ -82,12 +82,12 @@ void TestBillBoard::BillBoard::Init(ViewerCached _system)
 
 		const D3D11_BUFFER_DESC INDEX_DESC
 		{
-			// Œ^‚Ì‘å‚«‚³
+			// å‹ã®å¤§ãã•
 			.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * indexCount_),
-			.Usage = D3D11_USAGE_DEFAULT,                // •ÏX‚·‚é‚©
-			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-			.CPUAccessFlags = 0,                         // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-			.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+			.Usage = D3D11_USAGE_DEFAULT,                // å¤‰æ›´ã™ã‚‹ã‹
+			.BindFlags = D3D11_BIND_INDEX_BUFFER,        // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+			.CPUAccessFlags = 0,                         // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+			.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 			.StructureByteStride = 0,
 		};
 		const D3D11_SUBRESOURCE_DATA INDEX_DATA
@@ -98,7 +98,7 @@ void TestBillBoard::BillBoard::Init(ViewerCached _system)
 		};
 
 		hResult = pDevice->CreateBuffer(&INDEX_DESC, &INDEX_DATA, pIndexBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ƒXƒe[ƒWƒƒbƒVƒ…‚ÌƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ì¬‚É¸”s");
+		wassert(SUCCEEDED(hResult) && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¡ãƒƒã‚·ãƒ¥ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 	}
 
 	for (int i = 0; i < indexes.size(); i++)
@@ -106,16 +106,16 @@ void TestBillBoard::BillBoard::Init(ViewerCached _system)
 		LOGFLN("{}, {}", i, indexes[i]);
 	}
 
-	// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğì‚Á‚Ä‚¨‚­
+	// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’ä½œã£ã¦ãŠã
 	{
 		const D3D11_BUFFER_DESC CONSTANT_DESC
 		{
-			// Œ^‚Ì‘å‚«‚³
+			// å‹ã®å¤§ãã•
 			.ByteWidth = static_cast<UINT>(sizeof(ConstantBuffer)),
-			.Usage = D3D11_USAGE_DYNAMIC,                // •ÏX‚·‚é‚©
-			.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-			.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-			.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+			.Usage = D3D11_USAGE_DYNAMIC,                // å¤‰æ›´ã™ã‚‹ã‹
+			.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+			.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+			.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 			.StructureByteStride = 0,
 		};
 
@@ -123,7 +123,7 @@ void TestBillBoard::BillBoard::Init(ViewerCached _system)
 		HRESULT hResult{};
 
 		hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
-		wassert(SUCCEEDED(hResult) && "ƒXƒe[ƒWƒƒbƒVƒ…ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@ì¬‚É¸”s");
+		wassert(SUCCEEDED(hResult) && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 	}
 }
 

@@ -3,7 +3,7 @@
 
 
 /// <summary>
-/// ƒ^ƒCƒgƒ‹ƒV[ƒ“‚ÌƒJƒƒ‰İ’è
+/// ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®ã‚«ãƒ¡ãƒ©è¨­å®š
 /// </summary>
 class TitleCameraPlayer : public GameObject
 {

@@ -1,16 +1,16 @@
 #pragma once
 #include "pch/pch.h"
 
-//  REF: dinput.h ���R�s�y
-// MEMO: �L�[�R�[�h�� ���O��ԕt���񋓌^�ōĒ�`����Ӗ�
-//     : �d���̉\��������}�N����`����������
-//     : DIK_���KeyCode::�̂ق���������₷��
-//     : Windows�ˑ��E�p
+//  REF: dinput.h よりコピペ
+// MEMO: キーコードを 名前空間付き列挙型で再定義する意味
+//     : 重複の可能性があるマクロ定義を消したい
+//     : DIK_よりKeyCode::のほうが分かりやすい
+//     : Windows依存脱却
 
 namespace wtgb
 {
 	/// <summary>
-	/// �L�[�{�[�h�̃L�[�R�[�h
+	/// キーボードのキーコード
 	/// </summary>
 	enum struct KeyCode : uint8_t
 	{

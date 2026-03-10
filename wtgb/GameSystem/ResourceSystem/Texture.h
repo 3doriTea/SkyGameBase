@@ -6,7 +6,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ‰æ‘œ‚ÌƒeƒNƒXƒ`ƒƒ
+	/// ç”»åƒã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	/// </summary>
 	class Texture : public IResource<>
 	{
@@ -19,11 +19,11 @@ namespace wtgb
 
 	private:
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override;
 		/// <summary>
-		/// ‰ğ•úˆ—
+		/// è§£æ”¾å‡¦ç†
 		/// </summary>
 		void Release() override;
 
@@ -33,27 +33,27 @@ namespace wtgb
 
 	public:
 		/// <summary>
-		/// ƒTƒ“ƒvƒ‰ƒXƒe[ƒg‚ğì¬‚·‚é
+		/// ã‚µãƒ³ãƒ—ãƒ©ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä½œæˆã™ã‚‹
 		/// </summary>
-		/// <param name="_pDevice">ƒfƒoƒCƒX</param>
+		/// <param name="_pDevice">ãƒ‡ãƒã‚¤ã‚¹</param>
 		void CreateSamplerState(ID3D11Device* _pDevice);
 		/// <summary>
-		/// ƒVƒF[ƒ_ƒŠƒ\[ƒXƒrƒ…[‚ğì¬‚·‚é
+		/// ã‚·ã‚§ãƒ¼ãƒ€ãƒªã‚½ãƒ¼ã‚¹ãƒ“ãƒ¥ãƒ¼ã‚’ä½œæˆã™ã‚‹
 		/// </summary>
-		/// <param name="_pDevice">ƒfƒoƒCƒX</param>
+		/// <param name="_pDevice">ãƒ‡ãƒã‚¤ã‚¹</param>
 		void CreateShaderResourceView(ID3D11Device* _pDevice);
 
 		/// <summary>
-		/// ‰æ‘œ‚ÌƒTƒCƒYƒsƒNƒZƒ‹‚ğæ“¾‚·‚é
+		/// ç”»åƒã®ã‚µã‚¤ã‚ºãƒ”ã‚¯ã‚»ãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>‰æ‘œ‚ÌƒTƒCƒY</returns>
+		/// <returns>ç”»åƒã®ã‚µã‚¤ã‚º</returns>
 		inline Vector2Int GetImageSizePix() const { return imageSize_; }
 
 	private:
-		Config config_;  // İ’è
+		Config config_;  // è¨­å®š
 
-		ComPtr<ID3D11SamplerState> pSamplerState_;              // ƒTƒ“ƒvƒ‰[ƒXƒe[ƒg
-		ComPtr<ID3D11ShaderResourceView> pShaderResourceView_;  // ƒVƒF[ƒ_ƒŠƒ\[ƒXƒrƒ…[
-		Vector2Int imageSize_;                                  // ‰æ‘œƒ\[ƒX‚ÌƒTƒCƒY
+		ComPtr<ID3D11SamplerState> pSamplerState_;              // ã‚µãƒ³ãƒ—ãƒ©ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆ
+		ComPtr<ID3D11ShaderResourceView> pShaderResourceView_;  // ã‚·ã‚§ãƒ¼ãƒ€ãƒªã‚½ãƒ¼ã‚¹ãƒ“ãƒ¥ãƒ¼
+		Vector2Int imageSize_;                                  // ç”»åƒã‚½ãƒ¼ã‚¹ã®ã‚µã‚¤ã‚º
 	};
 }

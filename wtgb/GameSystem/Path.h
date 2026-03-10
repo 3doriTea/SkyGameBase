@@ -5,39 +5,39 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒtƒ@ƒCƒ‹ƒpƒXƒVƒXƒeƒ€
+	/// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚·ã‚¹ãƒ†ãƒ 
 	/// </summary>
 	class Path : public IGameSystem
 	{
 	public:
 		/// <summary>
-		/// Œ»İ‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğw‚·
+		/// ç¾åœ¨ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’æŒ‡ã™
 		/// </summary>
 		class Current
 		{
-			friend Path;  // ƒpƒXƒVƒXƒeƒ€‚©‚ç‚ÍƒAƒNƒZƒX‚Å‚«‚é‚æ‚¤‚É‚·‚és
+			friend Path;  // ãƒ‘ã‚¹ã‚·ã‚¹ãƒ†ãƒ ã‹ã‚‰ã¯ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹s
 		private:
 			Current(const fs::path& _currentPath);
 			~Current() {}
 
 		private:
-			fs::path currentPath_;  // ƒJƒŒƒ“ƒgƒpƒX
+			fs::path currentPath_;  // ã‚«ãƒ¬ãƒ³ãƒˆãƒ‘ã‚¹
 
 		public:
 			/// <summary>
-			/// Œ»İ‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğæ“¾‚·‚é
+			/// ç¾åœ¨ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’å–å¾—ã™ã‚‹
 			/// </summary>
 			static fs::path Directory();
 
 			/// <summary>
-			/// ƒtƒ@ƒCƒ‹‚ª‘¶İ‚·‚é‚©ƒ`ƒFƒbƒN‚·‚é
+			/// ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹
 			/// </summary>
-			/// <param name="_path">ƒ`ƒFƒbƒN‚·‚éƒtƒ@ƒCƒ‹‚ÌƒpƒX</param>
-			/// <returns>‘¶İ‚·‚é true / false</returns>
+			/// <param name="_path">ãƒã‚§ãƒƒã‚¯ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹</param>
+			/// <returns>å­˜åœ¨ã™ã‚‹ true / false</returns>
 			static bool Exists(const fs::path& _path);
 
 		private:
-			static Current* pInstance_;  // ƒVƒ“ƒOƒ‹ƒgƒ“—p—Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+			static Current* pInstance_;  // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ç”¨å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 		};
 
 	public:
@@ -45,21 +45,21 @@ namespace wtgb
 		~Path();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::DoNotUpdate; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override {};
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 	};

@@ -5,7 +5,7 @@ namespace wtgb
 {
 	struct PhysicsConfig
 	{
-		float gravity;  // d—Í‰Á‘¬“x
-		Vector3 gravityDirection;  // d—Í‚Ì•ûŒü
+		float gravity;  // é‡åŠ›åŠ é€Ÿåº¦
+		Vector3 gravityDirection;  // é‡åŠ›ã®æ–¹å‘
 	};
 }

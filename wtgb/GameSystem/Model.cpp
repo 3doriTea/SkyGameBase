@@ -45,7 +45,7 @@ wtgb::ModelHandle wtgb::Model::Load(const std::string& _fileName)
 
 	if (foundHandle != INVALID_HANDLE)
 	{
-		// ���ɓǂݍ��ݍς݂Ȃ炻�̃n���h����Ԃ�
+		// 既に読み込み済みならそのハンドルを返す
 		return foundHandle;
 	}
 

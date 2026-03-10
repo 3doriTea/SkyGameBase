@@ -6,7 +6,7 @@ namespace wtgb
 {
 	class ModelMesh;
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹ : ƒ‚ƒfƒ‹ƒƒbƒVƒ…
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ« : ãƒ¢ãƒ‡ãƒ«ãƒ¡ãƒƒã‚·ãƒ¥
 	/// </summary>
 	class CPModelMesh : public ComponentPool<ModelMesh>
 	{
@@ -15,11 +15,11 @@ namespace wtgb
 		~CPModelMesh();
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update() override;
 	};

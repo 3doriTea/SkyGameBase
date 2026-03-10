@@ -40,7 +40,7 @@ void SMFPlayer::Init()
 
 	if (!smf)
 	{
-		wassert(false && "ƒtƒ@ƒCƒ‹“Ç‚İ‚İ¸”s");
+		wassert(false && "ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿å¤±æ•—");
 		return;
 	}
 
@@ -54,7 +54,7 @@ void SMFPlayer::Init()
 		std::istreambuf_iterator<char>(smf),
 		std::istreambuf_iterator<char>()
 	};
-	smf.close();  // ƒtƒ@ƒCƒ‹‚ÍŒ©I‚í‚Á‚½‚©‚ç•Â‚¶‚é
+	smf.close();  // ãƒ•ã‚¡ã‚¤ãƒ«ã¯è¦‹çµ‚ã‚ã£ãŸã‹ã‚‰é–‰ã˜ã‚‹
 
 	BinaryReader br{ fileBuffer.data(), fileBuffer.size() };
 	br.Seek(SeekAt::Head);
@@ -62,10 +62,10 @@ void SMFPlayer::Init()
 	std::array<Byte, 4> buff4{};
 	std::array<Byte, 2> buff2{};
 
-#pragma region ƒwƒbƒ_ƒ`ƒƒƒ“ƒN
+#pragma region ãƒ˜ãƒƒãƒ€ãƒãƒ£ãƒ³ã‚¯
 	if (br.Read(buff4.data(), 4, 4); !CompareId(buff4, "MThd"))
 	{
-		wassert(false && "ƒwƒbƒ_•sˆê’v");
+		wassert(false && "ãƒ˜ãƒƒãƒ€ä¸ä¸€è‡´");
 		return;
 	}
 
@@ -83,27 +83,27 @@ void SMFPlayer::Init()
 	int16_t timeUnit{ br.ReadRev<int16_t>() };
 	if (timeUnit < 0)
 	{
-		wassert("•ª‰ğ”\‚ª‰½•ª‰½•b‰½ƒtƒŒ[ƒ€‚Í‘Î‰‚µ‚Ä‚¢‚È‚¢‚æ");
+		wassert("åˆ†è§£èƒ½ãŒä½•åˆ†ä½•ç§’ä½•ãƒ•ãƒ¬ãƒ¼ãƒ ã¯å¯¾å¿œã—ã¦ã„ãªã„ã‚ˆ");
 	}
 	smfHeader_.quarterUnit = timeUnit;
 	LOGFLN("timeUnit:{}", timeUnit);
 #pragma endregion
 
-#pragma region ƒgƒ‰ƒbƒNƒ`ƒƒƒ“ƒN
+#pragma region ãƒˆãƒ©ãƒƒã‚¯ãƒãƒ£ãƒ³ã‚¯
 	int truckId{ 0 };
 	while (br.Current() < br.Size())
 	{
 		LOGFLN("--------------------truckCount:{} / {}--------------------", truckId, truckCount);
 		if (br.Read(buff4.data(), 4, 4); !CompareId(buff4, "MTrk"))
 		{
-			wassert(false && "ƒgƒ‰ƒbƒNƒwƒbƒ_•sˆê’v");
+			wassert(false && "ãƒˆãƒ©ãƒƒã‚¯ãƒ˜ãƒƒãƒ€ä¸ä¸€è‡´");
 			return;
 		}
 
 		uint32_t headerSize{ br.ReadRev<uint32_t>() };
 		LOGFLN("HeaderSize:{}", headerSize);
 
-		uint8_t prevStatus{};  // ƒ‰ƒ“ƒjƒ“ƒOƒXƒe[ƒ^ƒX—p
+		uint8_t prevStatus{};  // ãƒ©ãƒ³ãƒ‹ãƒ³ã‚°ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç”¨
 		size_t endOfTruckPos{ br.Current() + headerSize };
 
 		TruckGenerator truckGen{ smfTrucks_.at(truckId), smfHeader_ };
@@ -117,13 +117,13 @@ void SMFPlayer::Init()
 
 			uint8_t status{};
 			uint8_t peekStatus{ br.Peek<uint8_t>() };
-			if (peekStatus < 0x80)  // ƒ‰ƒ“ƒjƒ“ƒOƒXƒe[ƒ^ƒX‘Îô
+			if (peekStatus < 0x80)  // ãƒ©ãƒ³ãƒ‹ãƒ³ã‚°ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å¯¾ç­–
 			{
-				// 0x80–¢–‚È‚ç‘O‰ñ‚Ì‚ğg‚¤
+				// 0x80æœªæº€ãªã‚‰å‰å›ã®ã‚’ä½¿ã†
 
 				if (prevStatus == 0x00)
-				{  // ‚Å‚à‘O‰ñ‚Ì‚ª‚È‚©‚Á‚½‚çƒtƒ@ƒCƒ‹‚ª‚¨‚©‚µ‚¢
-					wassert(false && "ƒ‰ƒ“ƒjƒ“ƒOƒXƒe[ƒ^ƒX‚È‚¢‚æ");
+				{  // ã§ã‚‚å‰å›ã®ãŒãªã‹ã£ãŸã‚‰ãƒ•ã‚¡ã‚¤ãƒ«ãŒãŠã‹ã—ã„
+					wassert(false && "ãƒ©ãƒ³ãƒ‹ãƒ³ã‚°ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãªã„ã‚ˆ");
 					return;
 				}
 
@@ -138,17 +138,17 @@ void SMFPlayer::Init()
 
 			if (status != 0xF0 && status != 0xF7)
 			{
-				prevStatus = status;  // SystemExˆÈŠO‚Íƒ‰ƒ“ƒjƒ“ƒO‚Ég‚¦‚é
+				prevStatus = status;  // SystemExä»¥å¤–ã¯ãƒ©ãƒ³ãƒ‹ãƒ³ã‚°ã«ä½¿ãˆã‚‹
 			}
 
 			if (status == 0xFF)
-			{  // ƒƒ^ƒCƒxƒ“ƒg
+			{  // ãƒ¡ã‚¿ã‚¤ãƒ™ãƒ³ãƒˆ
 				uint8_t subStatus{ br.Read<uint8_t>() };
 				LOGFLN("meta");
 
 				switch (subStatus)
 				{
-				case 0x00:  // ƒV[ƒPƒ“ƒX”Ô†
+				case 0x00:  // ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ç•ªå·
 				{
 					uint8_t size{ br.Read<uint8_t>() };
 					uint16_t sequenceNumber{ br.ReadRev<uint16_t>() };
@@ -186,7 +186,7 @@ void SMFPlayer::Init()
 
 					break;
 				}
-				case 0x20:  // MIDIƒ`ƒƒƒ“ƒlƒ‹ƒvƒŒƒtƒBƒbƒNƒX
+				case 0x20:  // MIDIãƒãƒ£ãƒ³ãƒãƒ«ãƒ—ãƒ¬ãƒ•ã‚£ãƒƒã‚¯ã‚¹
 				{
 					uint8_t size{ br.Read<uint8_t>() };
 					uint8_t channel{ br.Read<uint8_t>() };
@@ -194,21 +194,21 @@ void SMFPlayer::Init()
 					//LOGFLN("channel prefix channel{} size{}", channel, size);
 					break;
 				}
-				case 0x21:  // MIDIƒ|[ƒgƒvƒŒƒtƒBƒbƒNƒX
+				case 0x21:  // MIDIãƒãƒ¼ãƒˆãƒ—ãƒ¬ãƒ•ã‚£ãƒƒã‚¯ã‚¹
 				{
 					uint8_t size{ br.Read<uint8_t>() };
-					uint8_t port{ br.Read<uint8_t>() };  // ƒ|[ƒg”Ô†
+					uint8_t port{ br.Read<uint8_t>() };  // ãƒãƒ¼ãƒˆç•ªå·
 
 					//LOGFLN("port prefix port{} size{}", port, size);
 					break;
 				}
-				case 0x2F:  // ƒgƒ‰ƒbƒNÅŒãI
+				case 0x2F:  // ãƒˆãƒ©ãƒƒã‚¯æœ€å¾Œï¼
 				{
 					uint8_t size{ br.Read<uint8_t>() };
 					endOfTruckFlag = true;
 					break;
 				}
-				case 0x51:  // ƒeƒ“ƒ|‚Ìİ’è
+				case 0x51:  // ãƒ†ãƒ³ãƒã®è¨­å®š
 				{
 					uint8_t size{ br.Read<uint8_t>() };
 					std::array<Byte, 3> buff{};
@@ -235,7 +235,7 @@ void SMFPlayer::Init()
 				}
 			}
 			else if (status == 0xF0 || status == 0xF7)
-			{  // ƒVƒXƒeƒ€Šg’£ƒCƒxƒ“ƒg
+			{  // ã‚·ã‚¹ãƒ†ãƒ æ‹¡å¼µã‚¤ãƒ™ãƒ³ãƒˆ
 				int size{ static_cast<int>(ReadDelta(br)) };
 
 				if (status == 0xF0)
@@ -252,7 +252,7 @@ void SMFPlayer::Init()
 				LOGFLN("SystemEx size:{}", size);
 			}
 			else if (0xB0 <= status && status <= 0xBF)
-			{  // ƒRƒ“ƒgƒ[ƒ‹ƒ`ƒFƒ“ƒW
+			{  // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ãƒã‚§ãƒ³ã‚¸
 				uint8_t channel{ static_cast<uint8_t>(status - 0xB0) };
 				uint8_t ccNum{ br.Read<uint8_t>() };
 				uint8_t ccValue{ br.Read<uint8_t>() };
@@ -260,21 +260,21 @@ void SMFPlayer::Init()
 				LOGFLN("CC - channel:{}, number:{}, value:{}", channel, ccNum, ccValue);
 			}
 			else if (0xC0 <= status && status <= 0xCF)
-			{  // ƒvƒƒOƒ‰ƒ€ƒ`ƒFƒ“ƒW
+			{  // ãƒ—ãƒ­ã‚°ãƒ©ãƒ ãƒã‚§ãƒ³ã‚¸
 				uint8_t channel{ static_cast<uint8_t>(status - 0xC0) };
 				uint8_t pcNum{ br.Read<uint8_t>() };
 
 				LOGFLN("PC - channel:{}, number:{}", channel, pcNum);
 			}
 			else if (0xD0 <= status && status <= 0xDF)
-			{  // ƒ`ƒƒƒ“ƒlƒ‹ƒvƒŒƒbƒVƒƒ[ / ƒAƒtƒ^[ƒ^ƒbƒ`
+			{  // ãƒãƒ£ãƒ³ãƒãƒ«ãƒ—ãƒ¬ãƒƒã‚·ãƒ£ãƒ¼ / ã‚¢ãƒ•ã‚¿ãƒ¼ã‚¿ãƒƒãƒ
 				uint8_t channel{ static_cast<uint8_t>(status - 0xD0) };
 				uint8_t cpValue{ br.Read<uint8_t>() };
 
 				LOGFLN("CP - channel:{}, cpValue:{}", channel, cpValue);
 			}
 			else if (0xE0 <= status && status <= 0xEF)
-			{  // ƒsƒbƒ`ƒxƒ“ƒhƒ`ƒFƒ“ƒW
+			{  // ãƒ”ãƒƒãƒãƒ™ãƒ³ãƒ‰ãƒã‚§ãƒ³ã‚¸
 				uint8_t channel{ static_cast<uint8_t>(status - 0xE0) };
 				uint8_t leftSide{ br.Read<uint8_t>() };
 				uint8_t rightSide{ br.Read<uint8_t>() };
@@ -283,7 +283,7 @@ void SMFPlayer::Init()
 				LOGFLN("Pitch bend - channel:{}, LSB:{:x}, MSB:{:x}", channel, leftSide, rightSide);
 			}
 			else if (0xA0 <= status && status <= 0xAF)
-			{  // ƒL[ƒvƒŒƒbƒVƒƒ[
+			{  // ã‚­ãƒ¼ãƒ—ãƒ¬ãƒƒã‚·ãƒ£ãƒ¼
 				uint8_t channel{ static_cast<uint8_t>(status - 0xA0) };
 				uint8_t note{ br.Read<uint8_t>() };
 				uint8_t press{ br.Read<uint8_t>() };
@@ -291,19 +291,19 @@ void SMFPlayer::Init()
 				LOGFLN("Key pressure - channel:{}, note:{}, press:{}", channel, note, press);
 			}
 			else if (0x80 <= status && status <= 0x8F)
-			{  // ƒm[ƒgƒIƒt
-				uint8_t channel{ static_cast<uint8_t>(status - 0x80) };  // ƒ`ƒƒƒ“ƒlƒ‹
-				uint8_t note{ br.Read<uint8_t>() };  // ‰¹‚Ì‚‚³
-				uint8_t velocity{ br.Read<uint8_t>() };  // ‰¹‚Ì‹­‚³
+			{  // ãƒãƒ¼ãƒˆã‚ªãƒ•
+				uint8_t channel{ static_cast<uint8_t>(status - 0x80) };  // ãƒãƒ£ãƒ³ãƒãƒ«
+				uint8_t note{ br.Read<uint8_t>() };  // éŸ³ã®é«˜ã•
+				uint8_t velocity{ br.Read<uint8_t>() };  // éŸ³ã®å¼·ã•
 				
 				truckGen.Off(channel, note, velocity);
 				LOGFLN("note off - channel:{}, note:{}, velo:{}", channel, note, velocity);
 			}
 			else if (0x90 <= status && status <= 0x9F)
-			{  // ƒm[ƒgƒIƒ“
-				uint8_t channel{ static_cast<uint8_t>(status - 0x90) };  // ƒ`ƒƒƒ“ƒlƒ‹
-				uint8_t note{ br.Read<uint8_t>() };  // ‰¹‚Ì‚‚³
-				uint8_t velocity{ br.Read<uint8_t>() };  // ‰¹‚Ì‹­‚³
+			{  // ãƒãƒ¼ãƒˆã‚ªãƒ³
+				uint8_t channel{ static_cast<uint8_t>(status - 0x90) };  // ãƒãƒ£ãƒ³ãƒãƒ«
+				uint8_t note{ br.Read<uint8_t>() };  // éŸ³ã®é«˜ã•
+				uint8_t velocity{ br.Read<uint8_t>() };  // éŸ³ã®å¼·ã•
 
 				if (velocity == 0)
 				{
@@ -318,14 +318,14 @@ void SMFPlayer::Init()
 			}
 			else
 			{
-				wassert(false && "–¢‘Î‰‚ÌƒtƒH[ƒ}ƒbƒg");
+				wassert(false && "æœªå¯¾å¿œã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ");
 			}
 		}
 		truckId++;
 	}
 #pragma endregion
 
-#pragma region ‹È‘S‘Ì‚Ìî•ñæ“¾
+#pragma region æ›²å…¨ä½“ã®æƒ…å ±å–å¾—
 	totalPlayTime_ = 0.0f;
 	for (const auto& truck : smfTrucks_)
 	{
@@ -336,7 +336,7 @@ void SMFPlayer::Init()
 		const Note& lastNote{ truck.notes.at(truck.notes.size() - 1) };
 		const float TOTAL_PLAY_TIME{ lastNote.totalTime + lastNote.playTime };
 
-		// Šeƒgƒ‰ƒbƒN‚ÅÅ‘åŠÔ‚ğ‘S’Tõ‚µ‚ÄŒ©‚Â‚¯‚é
+		// å„ãƒˆãƒ©ãƒƒã‚¯ã§æœ€å¤§æ™‚é–“ã‚’å…¨æ¢ç´¢ã—ã¦è¦‹ã¤ã‘ã‚‹
 		if (TOTAL_PLAY_TIME > totalPlayTime_)
 		{
 			totalPlayTime_ = TOTAL_PLAY_TIME;
@@ -344,7 +344,7 @@ void SMFPlayer::Init()
 	}
 #pragma endregion
 
-#pragma region Ä¶ƒf[ƒ^‚Ì‰Šú‰»
+#pragma region å†ç”Ÿãƒ‡ãƒ¼ã‚¿ã®åˆæœŸåŒ–
 	readCurr_.clear();
 	readCurr_.resize(truckCount, 0);
 #pragma endregion
@@ -353,7 +353,7 @@ void SMFPlayer::Init()
 void SMFPlayer::Update()
 {
 	if (isPlaying_ == false)
-	{  // Ä¶‚³‚ê‚Ä‚¢‚È‚¢‚È‚ç‰ñ‹A
+	{  // å†ç”Ÿã•ã‚Œã¦ã„ãªã„ãªã‚‰å›å¸°
 		return;
 	}
 
@@ -361,26 +361,26 @@ void SMFPlayer::Update()
 
 	playTime_ += dt * playRate_;
 
-	// Šeƒgƒ‰ƒbƒN‚ğü‰ñ‚·‚é
+	// å„ãƒˆãƒ©ãƒƒã‚¯ã‚’å‘¨å›ã™ã‚‹
 	for (int truckId = 0; truckId < smfTrucks_.size(); truckId++)
 	{
 		if (readCurr_[truckId] >= smfTrucks_[truckId].notes.size())
 		{
-			continue;  // ‚±‚Ìƒgƒ‰ƒbƒN‚Í––’[‚Ü‚Å“Ç‚ñ‚¾‚½‚ß–³‹
+			continue;  // ã“ã®ãƒˆãƒ©ãƒƒã‚¯ã¯æœ«ç«¯ã¾ã§èª­ã‚“ã ãŸã‚ç„¡è¦–
 		}
 
-		// Ÿ‚ğ‘Ò‚Á‚Ä‚¢‚éƒm[ƒh‚ÉÄ¶ŠÔ‚ª‚â‚Á‚Ä‚«‚½‚© (‚»‚ÌŸ‚ÌŸ‚àƒ`ƒFƒbƒN‚Ì‚½‚ß while)
+		// æ¬¡ã‚’å¾…ã£ã¦ã„ã‚‹ãƒãƒ¼ãƒ‰ã«å†ç”Ÿæ™‚é–“ãŒã‚„ã£ã¦ããŸã‹ (ãã®æ¬¡ã®æ¬¡ã‚‚ãƒã‚§ãƒƒã‚¯ã®ãŸã‚ while)
 		while (playTime_ >= smfTrucks_[truckId].notes.at(readCurr_[truckId]).totalTime)
 		{
 			const Note& note{ smfTrucks_[truckId].notes.at(readCurr_[truckId]) };
 			readCurr_[truckId]++;
 
-			// ƒR[ƒ‹ƒoƒbƒN‚ğŒÄ‚Ño‚·
+			// ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚’å‘¼ã³å‡ºã™
 			onNoteCallback_(note);
 
 			if (readCurr_[truckId] >= smfTrucks_[truckId].notes.size())
 			{
-				break;  // ƒgƒ‰ƒbƒN‚Ì––’[‚Ü‚Å“Ç‚ñ‚¾
+				break;  // ãƒˆãƒ©ãƒƒã‚¯ã®æœ«ç«¯ã¾ã§èª­ã‚“ã 
 			}
 		}
 	}
@@ -398,14 +398,14 @@ uint64_t SMFPlayer::ReadDelta(mtbin::BinaryReader& _br)
 	while (true)
 	{
 		currentByte = _br.Read<uint8_t>();
-		// ‘g‚İ—§‚Ä’†‚Ì’l(value)‚ğ7ƒrƒbƒg¶‚ÉƒVƒtƒg‚·‚é
+		// çµ„ã¿ç«‹ã¦ä¸­ã®å€¤(value)ã‚’7ãƒ“ãƒƒãƒˆå·¦ã«ã‚·ãƒ•ãƒˆã™ã‚‹
 		value <<= 7;
-		// “Ç‚İæ‚Á‚½ƒoƒCƒg‚Ì‰ºˆÊ7ƒrƒbƒg‚ğ‡‘Ì
+		// èª­ã¿å–ã£ãŸãƒã‚¤ãƒˆã®ä¸‹ä½7ãƒ“ãƒƒãƒˆã‚’åˆä½“
 		value |= (currentByte & 0x7F);
 
 		if (currentByte & 0x80)
 		{
-			// MSB(0x80)‚ª—§‚Á‚Ä‚¢‚éŠÔ‚Íƒ‹[ƒv‚ğ‘±‚¯‚é
+			// MSB(0x80)ãŒç«‹ã£ã¦ã„ã‚‹é–“ã¯ãƒ«ãƒ¼ãƒ—ã‚’ç¶šã‘ã‚‹
 			continue;
 		}
 		else
@@ -424,7 +424,7 @@ void SMFPlayer::PlayTone(const Note& _note, const AudioHandle _hTone, const int3
 {
 	if (_hTone == INVALID_HANDLE)
 	{
-		return;  // –³Œøƒnƒ“ƒhƒ‹‚È‚çÄ¶‚µ‚È‚¢
+		return;  // ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«ãªã‚‰å†ç”Ÿã—ãªã„
 	}
 	SetToneAudioHandle(_hTone);
 
@@ -445,7 +445,7 @@ void SMFPlayer::PlayTone(const Note& _note, const AudioHandle _hTone, const int3
 
 	float sampleRate{ static_cast<float>(toneSampleRateHz_) * ratio };
 
-	// ƒŠƒ~ƒbƒgˆÈ‰º‚È‚çÄ¶
+	// ãƒªãƒŸãƒƒãƒˆä»¥ä¸‹ãªã‚‰å†ç”Ÿ
 	if (sampleRate <= playableSampleRateLimit_)
 	{
 		audio.Play(_hTone, _note.playTime, static_cast<unsigned long>(sampleRate));
@@ -456,8 +456,8 @@ void SMFPlayer::SetToneAudioHandle(const AudioHandle _hAudio)
 {
 	Audio& audio{ System().Get<Audio>() };
 
-	hTone_ = _hAudio;  // ‰¹Œ¹ƒnƒ“ƒhƒ‹w’è‚µ‚Â‚Â
-	// ƒTƒ“ƒvƒ‹ƒŒ[ƒg‚àXV‚·‚é
+	hTone_ = _hAudio;  // éŸ³æºãƒãƒ³ãƒ‰ãƒ«æŒ‡å®šã—ã¤ã¤
+	// ã‚µãƒ³ãƒ—ãƒ«ãƒ¬ãƒ¼ãƒˆã‚‚æ›´æ–°ã™ã‚‹
 	toneSampleRateHz_ = static_cast<float>(audio.GetFormat(_hAudio).nSamplesPerSec);
 }
 
@@ -490,13 +490,13 @@ void SMFPlayer::TruckGenerator::On(const uint8_t _channel, const uint8_t _note, 
 
 void SMFPlayer::TruckGenerator::Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
-	// “¯‚¶ƒ`ƒƒƒ“ƒlƒ‹‚Ì“¯‚¶ƒg[ƒ“‚Ìƒm[ƒc‚ğ’T‚·
+	// åŒã˜ãƒãƒ£ãƒ³ãƒãƒ«ã®åŒã˜ãƒˆãƒ¼ãƒ³ã®ãƒãƒ¼ãƒ„ã‚’æ¢ã™
 	for (auto itr = truck_.notes.rbegin(); itr != truck_.notes.rend(); itr++)
 	{
 		if (itr->channel == _channel && itr->noteNumber == _note)
-		{  // Œ©‚Â‚©‚Á‚½
+		{  // è¦‹ã¤ã‹ã£ãŸ
 			itr->playTime = itr->totalTime - currentTime_;
-			return;  // ŠÔw’è‚µ‚Ä‰ñ‹A
+			return;  // æ™‚é–“æŒ‡å®šã—ã¦å›å¸°
 		}
 	}
 }
@@ -505,11 +505,11 @@ void SMFPlayer::TruckGenerator::AddDeltaTime(const uint64_t _dt)
 {
 	if (_dt == 0)
 	{
-		return;  // ƒfƒ‹ƒ^ƒ^ƒCƒ€‚ª 0 ‚È‚ç–³‹
+		return;  // ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ ãŒ 0 ãªã‚‰ç„¡è¦–
 	}
 	wassert(quarterSec_ != 0);
 	float dtSec{ static_cast<float>(_dt) / static_cast<float>(HEADER_.quarterUnit) * quarterSec_ };
-	// ƒfƒ‹ƒ^ƒ^ƒCƒ€‚ğ•b”‚Å‰ÁZ‚·‚é
+	// ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ ã‚’ç§’æ•°ã§åŠ ç®—ã™ã‚‹
 	currentTime_ += dtSec;
 }
 

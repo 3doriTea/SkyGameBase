@@ -3,14 +3,14 @@
 
 namespace
 {
-	// ƒL[ƒ{[ƒh‚ÌƒXƒe[ƒg‚Ì—v‘f”
+	// ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®è¦ç´ æ•°
 	const size_t KEY_BOARD_STATE_SIZE{ 256 };
 }
 
 namespace wtgb
 {
 	/// <summary>
-	/// “ü—Íƒf[ƒ^ƒLƒƒƒŠƒA
+	/// å…¥åŠ›ãƒ‡ãƒ¼ã‚¿ã‚­ãƒ£ãƒªã‚¢
 	/// </summary>
 	class InputData
 	{
@@ -30,17 +30,17 @@ namespace wtgb
 		~InputData() {}
 
 	private:
-		// Œ»İ‚ÌƒL[ƒ{[ƒhó‘Ô
+		// ç¾åœ¨ã®ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰çŠ¶æ…‹
 		KeyBoardStateArray keyBoardState_;
-		// ‘O‰ñ‚ÌƒL[ƒ{[ƒhó‘Ô
+		// å‰å›ã®ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰çŠ¶æ…‹
 		KeyBoardStateArray keyBoardStatePrev_;
-		// Œ»İ‚Ìƒ}ƒEƒXÀ•W
+		// ç¾åœ¨ã®ãƒã‚¦ã‚¹åº§æ¨™
 		Vector2Int mousePosition_;
-		// ‘O‰ñ‚Ìƒ}ƒEƒXÀ•W
+		// å‰å›ã®ãƒã‚¦ã‚¹åº§æ¨™
 		Vector2Int mousePositionPrev_;
-		// Œ»İ‚Ìƒ}ƒEƒXó‘Ô
+		// ç¾åœ¨ã®ãƒã‚¦ã‚¹çŠ¶æ…‹
 		DIMOUSESTATE mouseState_;
-		// ‘O‰ñ‚Ìƒ}ƒEƒXó‘Ô
+		// å‰å›ã®ãƒã‚¦ã‚¹çŠ¶æ…‹
 		DIMOUSESTATE mouseStatePrev_;
 	};
 }

@@ -6,6 +6,6 @@ wtgb::GameObjectBuilder& wtgb::ComponentSetter<ComponentT>::EndSetter()
 	delete pOption_;
 
 	GameObjectBuilder& builder{ builder_ };
-	delete this;  // NOTE: ‚±‚êˆÈ~ƒƒ“ƒo‚ÉƒAƒNƒZƒX‚µ‚Ä‚Í‚¢‚¯‚È‚¢
+	delete this;  // NOTE: ã“ã‚Œä»¥é™ãƒ¡ãƒ³ãƒã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¦ã¯ã„ã‘ãªã„
 	return builder;
 }

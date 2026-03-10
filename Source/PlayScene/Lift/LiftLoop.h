@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ƒŠƒtƒg‚Ìƒ‹[ƒv‚½‚ñ
+/// ãƒªãƒ•ãƒˆã®ãƒ«ãƒ¼ãƒ—ãŸã‚“
 /// </summary>
 class LiftLoop : public GameObject
 {

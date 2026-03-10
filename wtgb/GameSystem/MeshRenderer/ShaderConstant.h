@@ -6,43 +6,43 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒVƒF[ƒ_‚ÌƒRƒ“ƒXƒ^ƒ“ƒg
+	/// ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆ
 	/// </summary>
 	template<typename StructT>
 	class ShaderConstant
 	{
 		static_assert(alignof(StructT) == 16
-			&& "ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚Ì\‘¢‘Ì‚ÍƒAƒ‰ƒCƒ“ƒƒ“ƒg‚ª16byte‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·B");
+			&& "ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã®æ§‹é€ ä½“ã¯ã‚¢ãƒ©ã‚¤ãƒ³ãƒ¡ãƒ³ãƒˆãŒ16byteã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚");
 	public:
 		ShaderConstant();
 		~ShaderConstant();
 
 		/// <summary>
-		/// g—p‚·‚éŠî’ê‚ÌƒŒƒWƒXƒ^”Ô†‚ğƒZƒbƒg‚·‚é
+		/// ä½¿ç”¨ã™ã‚‹åŸºåº•ã®ãƒ¬ã‚¸ã‚¹ã‚¿ç•ªå·ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
-		/// <param name="_registerNumber">ƒŒƒWƒXƒ^”Ô†</param>
+		/// <param name="_registerNumber">ãƒ¬ã‚¸ã‚¹ã‚¿ç•ªå·</param>
 		void SetBaseRegistryNumber(const UINT _registerNumber) { beginSlot_ = _registerNumber; }
 		/// <summary>
-		/// g—p‚·‚éƒŒƒWƒXƒ^”‚ğƒZƒbƒg‚·‚é
+		/// ä½¿ç”¨ã™ã‚‹ãƒ¬ã‚¸ã‚¹ã‚¿æ•°ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
 		/// <param name="_count"></param>
 		void SetUseRegistryCount(const UINT _count) { slotCount_ = _count; }
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚Ì‰Šú‰»ˆ—
+		/// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã®åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€QÆ</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ å‚ç…§</param>
 		void Init(ViewerCached _system);
 		/// <summary>
-		/// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ÌGPU‘—Mˆ—
+		/// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã®GPUé€ä¿¡å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€QÆ</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ å‚ç…§</param>
 		void Send(ViewerCached _system);
 
 	private:
 		ComPtr<ID3D11Buffer> pConstantBuffer_;
-		UINT beginSlot_;  // ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğƒZƒbƒg‚·‚éŠî’êƒŒƒWƒXƒ^”Ô†
-		UINT slotCount_;  // Šî’êƒŒƒWƒXƒ^‚©‚çg—p‚·‚éƒŒƒWƒXƒ^‚Ì”
+		UINT beginSlot_;  // ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆã™ã‚‹åŸºåº•ãƒ¬ã‚¸ã‚¹ã‚¿ç•ªå·
+		UINT slotCount_;  // åŸºåº•ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰ä½¿ç”¨ã™ã‚‹ãƒ¬ã‚¸ã‚¹ã‚¿ã®æ•°
 	};
 }
 

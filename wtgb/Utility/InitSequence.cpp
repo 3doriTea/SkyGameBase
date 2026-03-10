@@ -21,7 +21,7 @@ wtgb::InitSequence& wtgb::InitSequence::TryRun(const std::function<HRESULT()>& _
 	if (FAILED(hResult_))
 	{
 		LOGFLN("InitSequence Error:{}", _errorMessage);
-		// ¸”s‚µ‚Ä‚¢‚½‚ç‚»‚±‚Åˆ—‚ğ‚µ‚È‚¢
+		// å¤±æ•—ã—ã¦ã„ãŸã‚‰ãã“ã§å‡¦ç†ã‚’ã—ãªã„
 		return *this;
 	}
 
@@ -33,7 +33,7 @@ wtgb::InitSequence& wtgb::InitSequence::TryRun(const std::function<HRESULT()>& _
 HRESULT wtgb::InitSequence::End()
 {
 	HRESULT hResult{ hResult_ };
-	delete this;  // NOTE: ŠëŒ¯H
+	delete this;  // NOTE: å±é™ºï¼Ÿ
 
 	return hResult;
 }

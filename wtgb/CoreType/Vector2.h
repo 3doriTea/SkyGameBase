@@ -8,11 +8,11 @@ namespace wtgb
 	struct Vector2Int;
 
 	/// <summary>
-	/// 2ŸŒ³ƒxƒNƒgƒ‹‚ğˆµ‚¤\‘¢‘Ì
+	/// 2æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã‚’æ‰±ã†æ§‹é€ ä½“
 	/// </summary>
 	struct Vector2 : public DirectX::XMFLOAT2
 	{
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚à‚»‚Ì‚Ü‚ÜŒp³
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚‚ãã®ã¾ã¾ç¶™æ‰¿
 		using DirectX::XMFLOAT2::XMFLOAT2;
 
 		enum
@@ -38,29 +38,29 @@ namespace wtgb
 		}
 
 		/// <summary>
-		/// XMVECTOR‚ÉˆÃ–Ù“I•ÏŠ·‚·‚é
+		/// XMVECTORã«æš—é»™çš„å¤‰æ›ã™ã‚‹
 		/// </summary>
 		inline operator DirectX::XMVECTOR() const { return DirectX::XMLoadFloat2(this); }
 		
 		/// <summary>
-		/// mtgb::Vector2Tƒfloat„ ‚ÉˆÃ–Ù“I•ÏŠ·‚·‚é
+		/// mtgb::Vector2Tï¼œfloatï¼ ã«æš—é»™çš„å¤‰æ›ã™ã‚‹
 		/// </summary>
 		inline operator mtgb::Vector2T<float>() const { return { x, y }; }
 
 		/// <summary>
-		/// —ëƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// é›¶ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(0, 0)</returns>
 		inline static Vector2 Zero() { return { 0.0f, 0.0f }; }
 
 		/// <summary>
-		/// Y‚¾‚¯+1‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// Yã ã‘+1ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(0, 1)</returns>
 		inline static Vector2 Up() { return { 0.0f, 1.0f }; }
 
 		/// <summary>
-		/// XY‚Æ‚à‚É+1‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// XYã¨ã‚‚ã«+1ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(1, 1)</returns>
 		inline static Vector2 One() { return { 1.0f, 1.0f }; }

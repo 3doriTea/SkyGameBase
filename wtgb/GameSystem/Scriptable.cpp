@@ -44,11 +44,11 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 
 	fs::path inPrefabPath{ "./Prefab" / _jsonPath };
 
-	wassert(fs::is_regular_file(inPrefabPath) && "jsonƒtƒ@ƒCƒ‹‚ª³‚µ‚­“Ç‚İ‚ß‚Ä‚¢‚È‚¢");
+	wassert(fs::is_regular_file(inPrefabPath) && "jsonãƒ•ã‚¡ã‚¤ãƒ«ãŒæ­£ã—ãèª­ã¿è¾¼ã‚ã¦ã„ãªã„");
 
 	std::ifstream ifs{ inPrefabPath };
 
-	wassert(!!ifs && "ƒvƒŒƒtƒ@ƒuƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ‚É¸”s jsonƒtƒ@ƒCƒ‹–¼‚ª³‚µ‚¢‚©Šm”F‚µ‚Ä");
+	wassert(!!ifs && "ãƒ—ãƒ¬ãƒ•ã‚¡ãƒ–ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã«å¤±æ•— jsonãƒ•ã‚¡ã‚¤ãƒ«åãŒæ­£ã—ã„ã‹ç¢ºèªã—ã¦");
 
 	json j{};
 	try
@@ -57,8 +57,8 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 	}
 	catch (std::exception& ex)
 	{
-		(void)ex;  // ˆÓ}“I‚ÉƒLƒƒƒXƒg
-		wassert(false && "jsonƒtƒ@ƒCƒ‹‚ÌƒtƒH[ƒ}ƒbƒgƒGƒ‰[");
+		(void)ex;  // æ„å›³çš„ã«ã‚­ãƒ£ã‚¹ãƒˆ
+		wassert(false && "jsonãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚¨ãƒ©ãƒ¼");
 		return;
 	}
 	ifs.close();
@@ -70,8 +70,8 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 		LoadComponents(_builder, *pComponents);
 	}
 
-	// ParameterƒRƒ“ƒ|[ƒlƒ“ƒg‚Í“Á•Ê
-	// json“à Components ‚É‘‚©‚¸‚Æ‚à Param ‚ª‚ ‚ê‚ÎƒRƒ“ƒ|[ƒlƒ“ƒg‚Æ‚µ‚Ä’Ç‰Á
+	// Parameterã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¯ç‰¹åˆ¥
+	// jsonå†… Components ã«æ›¸ã‹ãšã¨ã‚‚ Param ãŒã‚ã‚Œã°ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¨ã—ã¦è¿½åŠ 
 	json* pParams{ nullptr };
 	if (TryGet("Param", &pParams, j))
 	{
@@ -86,7 +86,7 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 
 void wtgb::Scriptable::LoadComponents(GameObjectBuilder& _builder, json& _components)
 {
-	// TODO: ‚±‚±‚Ìèì‹Æ‚ğÈ‚­ ex:ƒRƒ“ƒ|[ƒlƒ“ƒg‘¤‚Éjson‚Ì“ü—ÍŠÖ”‚ğ‚Â‚¯‚Ä‚¨‚­H
+	// TODO: ã“ã“ã®æ‰‹ä½œæ¥­ã‚’çœã ex:ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå´ã«jsonã®å…¥åŠ›é–¢æ•°ã‚’ã¤ã‘ã¦ãŠãï¼Ÿ
 	for (auto& component : _components.items())
 	{
 		const std::string& componentName{ component.key() };
@@ -150,11 +150,11 @@ void wtgb::Scriptable::LoadComponents(GameObjectBuilder& _builder, json& _compon
 		}
 		else if (componentName == "Param")
 		{
-			wassert(false && "Param‚ÍƒRƒ“ƒ|[ƒlƒ“ƒg‚Æ‚µ‚Ä’Ç‰Á‚Å‚«‚Ü‚¹‚ñB");
+			wassert(false && "Paramã¯ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¨ã—ã¦è¿½åŠ ã§ãã¾ã›ã‚“ã€‚");
 		}
 		else
 		{
-			wassert(false && "–¢‘Î‰‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ğˆ—‚Å‚«‚Ü‚¹‚ñ");
+			wassert(false && "æœªå¯¾å¿œã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å‡¦ç†ã§ãã¾ã›ã‚“");
 		}
 	}
 }

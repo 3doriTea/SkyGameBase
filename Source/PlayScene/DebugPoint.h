@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// デバッグ用に座標点を表示する
+/// 繝�繝舌ャ繧ｰ逕ｨ縺ｫ蠎ｧ讓咏せ繧定｡ｨ遉ｺ縺吶ｋ
 /// </summary>
 class DebugPoint : public GameObject
 {

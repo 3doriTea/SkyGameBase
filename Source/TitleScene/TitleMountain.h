@@ -13,6 +13,6 @@ public:
 	void Release() override {}
 
 private:
-	StageMesh stageMesh_;  // ’nŒ`ƒƒbƒVƒ…
-	std::vector<Vector2> points_;  // Še’¸“_‚ÌÀ•W (xy•½–Ê‚Ål‚¦‚é)
+	StageMesh stageMesh_;  // åœ°å½¢ãƒ¡ãƒƒã‚·ãƒ¥
+	std::vector<Vector2> points_;  // å„é ‚ç‚¹ã®åº§æ¨™ (xyå¹³é¢ã§è€ƒãˆã‚‹)
 };

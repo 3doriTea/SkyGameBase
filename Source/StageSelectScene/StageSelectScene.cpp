@@ -12,7 +12,7 @@ StageSelectScene::~StageSelectScene()
 
 void StageSelectScene::Start()
 {
-	// ‘I‘ğƒ{[ƒ‹
+	// é¸æŠãƒœãƒ¼ãƒ«
 }
 
 void StageSelectScene::Update()

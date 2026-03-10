@@ -48,7 +48,7 @@ void PlayScene::Start()
 
 	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
 
-	// TODO: ステージライン作ったらリフト作る
+	// TODO: 繧ｹ繝�繝ｼ繧ｸ繝ｩ繧､繝ｳ菴懊▲縺溘ｉ繝ｪ繝輔ヨ菴懊ｋ
 	Instantiate<Lift>(stageLine);
 	
 	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
@@ -66,7 +66,7 @@ void PlayScene::Start()
 	
 	Instantiate<MiniChara>(dropCloud, smfPlayer, MiniCharaType::Monkitty);
 
-	// TODO: 当たったら倒れる看板を作る
+	// TODO: 蠖薙◆縺｣縺溘ｉ蛟偵ｌ繧狗恚譚ｿ繧剃ｽ懊ｋ
 }
 
 void PlayScene::Update()

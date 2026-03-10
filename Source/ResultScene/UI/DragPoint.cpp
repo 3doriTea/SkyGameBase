@@ -24,10 +24,10 @@ void DragPoint::Update()
 	GameWindow& gameWindow{ System().Get<GameWindow>() };
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 
-	// ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚Ì§Œä
-	if (input.IsMouseDown(MouseCode::Left)  // ƒ}ƒEƒX¶‰Ÿ‚³‚ê‚½
-		&& gameWindow.IsActiveMainWindow()  // ‚©‚ÂƒEƒBƒ“ƒhƒE‚ªÅ‘O–Ê
-		&& gameWindow.IsDefaultControled())  // ‚©‚ÂƒQ[ƒ€‰æ–Ê‚Ì‘€ì
+	// ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®åˆ¶å¾¡
+	if (input.IsMouseDown(MouseCode::Left)  // ãƒã‚¦ã‚¹å·¦æŠ¼ã•ã‚ŒãŸ
+		&& gameWindow.IsActiveMainWindow()  // ã‹ã¤ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒæœ€å‰é¢
+		&& gameWindow.IsDefaultControled())  // ã‹ã¤ã‚²ãƒ¼ãƒ ç”»é¢ã®æ“ä½œ
 	{
 		Vector2Int cursorPosition{ cursor.GetPosition() };
 
@@ -36,7 +36,7 @@ void DragPoint::Update()
 
 		LOGFLN("DragPointdist:{}", std::sqrtf(mouseDistanceSq));
 
-		// ƒ}ƒEƒX‚Ö‚Ì‹——£
+		// ãƒã‚¦ã‚¹ã¸ã®è·é›¢
 		if (mouseDistanceSq <= radiusSq_)
 		{
 			isDrag_ = true;

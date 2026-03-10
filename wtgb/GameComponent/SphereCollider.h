@@ -21,11 +21,11 @@
 //		~RigidBody() {}
 //
 //		/// <summary>
-//		/// ‰Šú‰»ˆ—
+//		/// åˆæœŸåŒ–å‡¦ç†
 //		/// </summary>
 //		void Init(ViewerCached _system) override {}
 //		/// <summary>
-//		/// XVˆ—
+//		/// æ›´æ–°å‡¦ç†
 //		/// </summary>
 //		void Update(ViewerCached _system) override {}
 //

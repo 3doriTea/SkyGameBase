@@ -12,7 +12,7 @@ public:
 			quarterUnit{}
 		{}
 
-		uint16_t quarterUnit;  // l•ª‰¹•„‚Ì•ª‰ğ”\
+		uint16_t quarterUnit;  // å››åˆ†éŸ³ç¬¦ã®åˆ†è§£èƒ½
 	};
 
 	struct Truck
@@ -41,9 +41,9 @@ public:
 		void SetName(const std::string& _name);
 		void SetTempo(const uint32_t _value);
 		/// <summary>
-		/// l•ª‰¹•„‚Ì•b”‚ğæ“¾‚·‚é
+		/// å››åˆ†éŸ³ç¬¦ã®ç§’æ•°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>l•ª‰¹•„‚Ì•b”</returns>
+		/// <returns>å››åˆ†éŸ³ç¬¦ã®ç§’æ•°</returns>
 		inline float GetQuarterSec() const { return quarterSec_; }
 		void On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity);
 		void Off(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity);
@@ -51,10 +51,10 @@ public:
 		void AddDeltaTime(const uint64_t _dt);
 
 	private:
-		const Header& HEADER_;     // ƒwƒbƒ_‚Ö‚ÌQÆ
-		static float quarterSec_;  // l•ª‰¹•„‚Ì•b”
-		float currentTime_;        // ‰ÁZƒ^ƒCƒ}
-		Truck& truck_;             // ì‚éƒgƒ‰ƒbƒN
+		const Header& HEADER_;     // ãƒ˜ãƒƒãƒ€ã¸ã®å‚ç…§
+		static float quarterSec_;  // å››åˆ†éŸ³ç¬¦ã®ç§’æ•°
+		float currentTime_;        // åŠ ç®—ã‚¿ã‚¤ãƒ
+		Truck& truck_;             // ä½œã‚‹ãƒˆãƒ©ãƒƒã‚¯
 	};
 
 public:
@@ -62,7 +62,7 @@ public:
 	~SMFPlayer();
 
 	/// <summary>
-	/// ƒm[ƒc‚ª—ˆ‚½‚Æ‚«‚Ìˆ—
+	/// ãƒãƒ¼ãƒ„ãŒæ¥ãŸã¨ãã®å‡¦ç†
 	/// </summary>
 	/// <param name="_callback"></param>
 	void OnNote(const std::function<void(Note)> _callback);
@@ -72,82 +72,82 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ƒfƒ‹ƒ^ƒ^ƒCƒ€‚ğæ“¾‚·‚é
+	/// ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <param name="_br">“Ç‚İæ‚éƒŠ[ƒ_[</param>
-	/// <returns>ƒfƒ‹ƒ^ƒ^ƒCƒ€</returns>
+	/// <param name="_br">èª­ã¿å–ã‚‹ãƒªãƒ¼ãƒ€ãƒ¼</param>
+	/// <returns>ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ </returns>
 	static uint64_t ReadDelta(mtbin::BinaryReader& _br);
 
 	/// <summary>
-	/// ƒm[ƒc‚ğÄ¶‚·‚é
+	/// ãƒãƒ¼ãƒ„ã‚’å†ç”Ÿã™ã‚‹
 	/// </summary>
 	/// <param name="_note"></param>
 	void PlayTone(const Note& _note);
 	/// <summary>
-	/// ƒm[ƒc‚ğÄ¶‚·‚é
+	/// ãƒãƒ¼ãƒ„ã‚’å†ç”Ÿã™ã‚‹
 	/// </summary>
-	/// <param name="_note">ƒm[ƒc</param>
-	/// <param name="_hTone">‰¹F‚Ì‰¹ºƒnƒ“ƒhƒ‹</param>
+	/// <param name="_note">ãƒãƒ¼ãƒ„</param>
+	/// <param name="_hTone">éŸ³è‰²ã®éŸ³å£°ãƒãƒ³ãƒ‰ãƒ«</param>
 	void PlayTone(const Note& _note, const AudioHandle _hTone, const int32_t _offset);
 
 	/// <summary>
-	/// Ä¶‚·‚é
+	/// å†ç”Ÿã™ã‚‹
 	/// </summary>
 	inline void Play() { isPlaying_ = true; }
 	/// <summary>
-	/// ’â~‚·‚é
+	/// åœæ­¢ã™ã‚‹
 	/// </summary>
 	inline void Stop() { isPlaying_ = false; }
 	
 	/// <summary>
-	/// Ä¶”{—¦‚ğƒZƒbƒg‚·‚é
+	/// å†ç”Ÿå€ç‡ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	/// </summary>
-	/// <param name="_rate">Ä¶”{—¦(0.0 .. 1.0 ..)</param>
+	/// <param name="_rate">å†ç”Ÿå€ç‡(0.0 .. 1.0 ..)</param>
 	inline void SetPlayRate(const float _rate) { playRate_ = _rate; }
 
 	/// <summary>
-	/// Ä¶‚·‚é‰¹F‰¹Œ¹‚ğƒZƒbƒg‚·‚é
+	/// å†ç”Ÿã™ã‚‹éŸ³è‰²éŸ³æºã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	/// </summary>
-	/// <param name="_hAudio">‰¹F‚Æ‚È‚é‰¹Œ¹</param>
+	/// <param name="_hAudio">éŸ³è‰²ã¨ãªã‚‹éŸ³æº</param>
 	void SetToneAudioHandle(const AudioHandle _hAudio);
 
 	/// <summary>
-	/// Ä¶‚ªI—¹‚µ‚½‚©
+	/// å†ç”ŸãŒçµ‚äº†ã—ãŸã‹
 	/// </summary>
-	/// <returns>I—¹‚µ‚½ true / false</returns>
+	/// <returns>çµ‚äº†ã—ãŸ true / false</returns>
 	inline bool IsFinished() const { return playTime_ >= totalPlayTime_; }
 
 	/// <summary>
-	/// l•ª‰¹•„‚Ì•b”‚ğæ“¾‚·‚é
+	/// å››åˆ†éŸ³ç¬¦ã®ç§’æ•°ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>l•ª‰¹•„‚Ì•b”</returns>
+	/// <returns>å››åˆ†éŸ³ç¬¦ã®ç§’æ•°</returns>
 	inline float GetQuarterSec() const { return quarterSec_; }
 
 	/// <summary>
-	/// Ä¶ŠÔ‚ğæ“¾‚·‚é
+	/// å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>Ä¶ŠÔ</returns>
+	/// <returns>å†ç”Ÿæ™‚é–“</returns>
 	inline float GetPlayTime() const { return playTime_; }
 
 private:
 	void OnLoadParam(const json& _json);
 
 private:
-	std::function<void(const Note&)> onNoteCallback_;  // ƒm[ƒcÄ¶‚ÌƒCƒxƒ“ƒg
-	fs::path file_;                 // smf‚ÌƒpƒX
-	Header smfHeader_;              // smf‚Ìƒwƒbƒ_ƒf[ƒ^
-	std::vector<Truck> smfTrucks_;  // smf‚Ìƒgƒ‰ƒbƒNƒf[ƒ^
-	std::vector<size_t> readCurr_;  // Šeƒgƒ‰ƒbƒN‚ÌÄ¶‚µ‚½ƒm[ƒcƒCƒ“ƒfƒNƒX
-	float totalPlayTime_;           // ‘Ä¶ŠÔ
-	float quarterSec_;              // l•ª‰¹•„‚Ì•b”
+	std::function<void(const Note&)> onNoteCallback_;  // ãƒãƒ¼ãƒ„å†ç”Ÿæ™‚ã®ã‚¤ãƒ™ãƒ³ãƒˆ
+	fs::path file_;                 // smfã®ãƒ‘ã‚¹
+	Header smfHeader_;              // smfã®ãƒ˜ãƒƒãƒ€ãƒ‡ãƒ¼ã‚¿
+	std::vector<Truck> smfTrucks_;  // smfã®ãƒˆãƒ©ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿
+	std::vector<size_t> readCurr_;  // å„ãƒˆãƒ©ãƒƒã‚¯ã®å†ç”Ÿã—ãŸãƒãƒ¼ãƒ„ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹
+	float totalPlayTime_;           // ç·å†ç”Ÿæ™‚é–“
+	float quarterSec_;              // å››åˆ†éŸ³ç¬¦ã®ç§’æ•°
 
-	float playTime_;  // Ä¶ŠÔ
-	float playRate_;  // ”{‘¬‚©
-	bool isPlaying_;  // Ä¶’†‚©
+	float playTime_;  // å†ç”Ÿæ™‚é–“
+	float playRate_;  // å€é€Ÿã‹
+	bool isPlaying_;  // å†ç”Ÿä¸­ã‹
 
-	float playableSampleRateLimit_;  // Ä¶‰Â”\‚ÈƒTƒ“ƒvƒ‹ƒŒ[ƒg‚ÌÅ‘å’l
+	float playableSampleRateLimit_;  // å†ç”Ÿå¯èƒ½ãªã‚µãƒ³ãƒ—ãƒ«ãƒ¬ãƒ¼ãƒˆã®æœ€å¤§å€¤
 
-	float toneSampleRateHz_;  // ƒTƒ“ƒvƒ‹ƒg[ƒ“‚Ìü”g”
+	float toneSampleRateHz_;  // ã‚µãƒ³ãƒ—ãƒ«ãƒˆãƒ¼ãƒ³ã®å‘¨æ³¢æ•°
 
-	AudioHandle hTone_;       // Ä¶‚·‚é‰¹F
+	AudioHandle hTone_;       // å†ç”Ÿã™ã‚‹éŸ³è‰²
 };

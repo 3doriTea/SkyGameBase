@@ -15,7 +15,7 @@ wtgb::GameSystemCollection::~GameSystemCollection()
 	callFrameIndexes_.clear();
 	callCycleIndexes_.clear();
 
-	// TODO: ‚±‚±‚Å—áŠO‚Å‚é’²‚×‚é
+	// TODO: ã“ã“ã§ä¾‹å¤–ã§ã‚‹èª¿ã¹ã‚‹
 	for (auto& pGameSystem : gameSystems_)
 	{
 		pGameSystem.reset();
@@ -57,11 +57,11 @@ wtgb::GameSystemCollection::GameSystemCachedViewer
 
 void wtgb::GameSystemCollection::ComponentPoolAccessor::ForEachAll(const ForEachCallback& _callback)
 {
-	// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚¾‚¯ƒAƒNƒZƒX
+	// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã ã‘ã‚¢ã‚¯ã‚»ã‚¹
 	for (const auto index : GetAccess()->componentPoolIndexes_)
 	{
 		IComponentPool* pComponentPool{ dynamic_cast<IComponentPool*>(GetAccess()->gameSystems_[index].get()) };
-		wassert(pComponentPool != nullptr && "ComponentPool‚Å‚Í‚È‚¢ƒQ[ƒ€ƒVƒXƒeƒ€‚ÉƒAƒNƒZƒX‚µ‚æ‚¤‚Æ‚µ‚½");
+		wassert(pComponentPool != nullptr && "ComponentPoolã§ã¯ãªã„ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã‚ˆã†ã¨ã—ãŸ");
 
 		_callback(pComponentPool);
 	}

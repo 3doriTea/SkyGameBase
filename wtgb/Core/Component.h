@@ -5,15 +5,15 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌŠî’êƒNƒ‰ƒX
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®åŸºåº•ã‚¯ãƒ©ã‚¹
 	/// </summary>
-	/// <typeparam name="ComponentPoolT">Š‘®‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹Œ^</typeparam>
+	/// <typeparam name="ComponentPoolT">æ‰€å±ã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«å‹</typeparam>
 	template<typename ComponentPoolT>
 	class Component : public IComponent
 	{
 	public:
 		/// <summary>
-		/// Š‘®‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚ÌŒ^
+		/// æ‰€å±ã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã®å‹
 		/// </summary>
 		using PoolT = ComponentPoolT;
 
@@ -22,17 +22,17 @@ namespace wtgb
 		virtual ~Component() {}
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€QÆ</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ å‚ç…§</param>
 		virtual void Init(ViewerCached _system) override {};
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€QÆ</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ å‚ç…§</param>
 		virtual void Update(ViewerCached _system) override {};
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void End() override{};
 	};

@@ -4,11 +4,11 @@
 namespace wtgb::UI
 {
 	/// <summary>
-	/// Šî€“_
+	/// åŸºæº–ç‚¹
 	/// </summary>
 	enum struct Pivot : uint32_t
 	{
-		TopLeft,  // ¶ã
-		Center,   // ’†S
+		TopLeft,  // å·¦ä¸Š
+		Center,   // ä¸­å¿ƒ
 	};
 }

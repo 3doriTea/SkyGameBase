@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// 単純に曲を流す
+/// 蜊倡ｴ斐↓譖ｲ繧呈ｵ√☆
 /// </summary>
 class MusicPlayer : public GameObject
 {
@@ -18,6 +18,6 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
-	std::string smfPath_;           // smfのパス
-	std::string toneAudioFilePath_;  // 再生する音の音源ファイルのパス
+	std::string smfPath_;           // smf縺ｮ繝代せ
+	std::string toneAudioFilePath_;  // 蜀咲函縺吶ｋ髻ｳ縺ｮ髻ｳ貅舌ヵ繧｡繧､繝ｫ縺ｮ繝代せ
 };

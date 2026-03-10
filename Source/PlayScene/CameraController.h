@@ -8,8 +8,8 @@ class CameraController : public GameObject
 public:
 	enum struct Mode
 	{
-		Free,  // ©—RˆÚ“®
-		Play,  // ƒvƒŒƒC‚·‚é
+		Free,  // è‡ªç”±ç§»å‹•
+		Play,  // ãƒ—ãƒ¬ã‚¤ã™ã‚‹
 	};
 
 public:
@@ -21,23 +21,23 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ƒJƒƒ‰ƒ‚[ƒh‚ğƒZƒbƒg‚·‚é
+	/// ã‚«ãƒ¡ãƒ©ãƒ¢ãƒ¼ãƒ‰ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	/// </summary>
-	/// <param name="_mode">ƒJƒƒ‰ƒ‚[ƒh</param>
+	/// <param name="_mode">ã‚«ãƒ¡ãƒ©ãƒ¢ãƒ¼ãƒ‰</param>
 	void SetMode(const Mode _mode);
 
 	/// <summary>
-	/// Œ»İ‚ÌƒJƒƒ‰ƒ‚[ƒh‚ğæ“¾‚·‚é
+	/// ç¾åœ¨ã®ã‚«ãƒ¡ãƒ©ãƒ¢ãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
 	/// <returns></returns>
 	inline Mode GetMode() const { return mode_; }
 
 private:
-	EntityId lookTarget_;  // ƒJƒƒ‰‚Ì’‹“_‚Æ‚È‚éƒ^[ƒQƒbƒgƒGƒ“ƒeƒBƒeƒB
+	EntityId lookTarget_;  // ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–ç‚¹ã¨ãªã‚‹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£
 
 	Mode mode_;
 
-	Vector2Int prevMousePos_;  // ‘OƒtƒŒ[ƒ€‚Ìƒ}ƒEƒXƒXƒNƒŠ[ƒ“À•W
+	Vector2Int prevMousePos_;  // å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®ãƒã‚¦ã‚¹ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™
 
-	ICameraMove* pCameraMove_;  // ƒJƒƒ‰‚ÌˆÚ“®•û–@
+	ICameraMove* pCameraMove_;  // ã‚«ãƒ¡ãƒ©ã®ç§»å‹•æ–¹æ³•
 };

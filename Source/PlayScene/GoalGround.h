@@ -3,7 +3,7 @@
 
 
 /// <summary>
-/// ‹È‚ÌÄ¶‚ªI‚í‚é‚ÆŒ»‚ê‚éƒS[ƒ‹
+/// æ›²ã®å†ç”ŸãŒçµ‚ã‚ã‚‹ã¨ç¾ã‚Œã‚‹ã‚´ãƒ¼ãƒ«
 /// </summary>
 class GoalGround : public GameObject
 {
@@ -20,7 +20,7 @@ private:
 
 private:
 	std::string targetName_;
-	EntityId target_;     // ƒS[ƒ‹‚ðŽx‰‡‚·‚éƒ^[ƒQƒbƒg
-	EntityId playStater_;  // ƒvƒŒƒCó‘Ô‚ðŠÇ—‚·‚é‚â‚Â
+	EntityId target_;     // ã‚´ãƒ¼ãƒ«ã‚’æ”¯æ´ã™ã‚‹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+	EntityId playStater_;  // ãƒ—ãƒ¬ã‚¤çŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹ã‚„ã¤
 };
 

@@ -30,19 +30,19 @@ namespace wtgb
 		void Update(ViewerCached _system) override;
 
 		/// <summary>
-		/// –¼‘O‚ğæ“¾‚·‚é
+		/// åå‰ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>–¼‘O</returns>
+		/// <returns>åå‰</returns>
 		std::string_view GetName() const { return { name_ }; }
 
 		/// <summary>
-		/// –¼‘O‚ğİ’è‚·‚é
+		/// åå‰ã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="_name">V‚µ‚­İ’è‚·‚é–¼‘O</param>
+		/// <param name="_name">æ–°ã—ãè¨­å®šã™ã‚‹åå‰</param>
 		void SetName(const std::string& _name);
 
 		/// <summary>
-		/// eƒGƒ“ƒeƒBƒeƒB‚ğİ’è‚·‚é
+		/// è¦ªã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚’è¨­å®šã™ã‚‹
 		/// </summary>
 		/// <param name="_parent"></param>
 		void SetParent(const EntityId _parent);
@@ -50,25 +50,25 @@ namespace wtgb
 		const EntityId GetParent() const { return parent_; }
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÉŠ„‚è“–‚Ä‚ç‚ê‚½ƒGƒ“ƒeƒBƒeƒBId‚ğæ“¾‚·‚é
+		/// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å‰²ã‚Šå½“ã¦ã‚‰ã‚ŒãŸã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Idã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒGƒ“ƒeƒBƒeƒBId</returns>
+		/// <returns>ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</returns>
 		const EntityId GetEntityId();
 
 		void CountChilds() const;
 
 		/// <summary>
-		/// q‚ğ’Ç‰Á‚·‚é
+		/// å­ã‚’è¿½åŠ ã™ã‚‹
 		/// </summary>
-		/// <param name="_entityId">q‚ÌƒGƒ“ƒeƒBƒeƒBId</param>
+		/// <param name="_entityId">å­ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
 		void AddChild(const EntityId _entityId);
 		/// <summary>
-		/// q‚ğœ‹‚·‚é
+		/// å­ã‚’é™¤å»ã™ã‚‹
 		/// </summary>
-		/// <param name="_entityId">q‚ÌƒGƒ“ƒeƒBƒeƒBId</param>
+		/// <param name="_entityId">å­ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
 		void RemoveChild(const EntityId _entityId);
 		/// <summary>
-		/// ‚·‚×‚Ä‚Ìq‚ğœ‹‚·‚é
+		/// ã™ã¹ã¦ã®å­ã‚’é™¤å»ã™ã‚‹
 		/// </summary>
 		void RemoveAllChild();
 
@@ -78,11 +78,11 @@ namespace wtgb
 		const ViewerCached& System() const { return system_; }
 
 	private:
-		EntityId self_;         // ‚±‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌƒGƒ“ƒeƒBƒeƒBId
-		char name_[NAME_SIZE];  // ƒIƒuƒWƒFƒNƒg‚Ì–¼‘O
-		EntityId parent_;       // e‚ÌƒGƒ“ƒeƒBƒeƒBId
-		int childsCount_;       // q‚ÌƒGƒ“ƒeƒBƒeƒB‚Ì”
-		std::array<EntityId, CHILD_COUNT_MAX> childs_;  // q‚ÌƒGƒ“ƒeƒBƒeƒB”
+		EntityId self_;         // ã“ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id
+		char name_[NAME_SIZE];  // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åå‰
+		EntityId parent_;       // è¦ªã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id
+		int childsCount_;       // å­ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®æ•°
+		std::array<EntityId, CHILD_COUNT_MAX> childs_;  // å­ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£æ•°
 
 		ViewerCached system_;
 	};

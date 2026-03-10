@@ -4,7 +4,7 @@
 
 
 /// <summary>
-/// ƒXƒe[ƒW‚Ì–Ê
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ã®é¢
 /// </summary>
 class StageLine : public GameObject
 {
@@ -17,19 +17,19 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// w’è‚µ‚½À•W‚Ìy²ã‚ÅƒXƒe[ƒW–Ê‚ÌyÀ•W‚ğæ“¾‚·‚é
+	/// æŒ‡å®šã—ãŸåº§æ¨™ã®yè»¸ä¸Šã§ã‚¹ãƒ†ãƒ¼ã‚¸é¢ã®yåº§æ¨™ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <param name="_worldPosition">ƒ[ƒ‹ƒhÀ•W</param>
-	/// <returns>ƒXƒe[ƒW‚ÌyÀ•W</returns>
+	/// <param name="_worldPosition">ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™</param>
+	/// <returns>ã‚¹ãƒ†ãƒ¼ã‚¸ã®yåº§æ¨™</returns>
 	float GetPosY(const Vector3& _worldPosition);
 
 	/// <summary>
-	/// ƒXƒe[ƒW‚ÌZ²‚Ì’·‚³‚ğæ“¾
+	/// ã‚¹ãƒ†ãƒ¼ã‚¸ã®Zè»¸ã®é•·ã•ã‚’å–å¾—
 	/// </summary>
-	/// <returns>ƒXƒe[ƒW‚ÌZ²’·‚³ m</returns>
+	/// <returns>ã‚¹ãƒ†ãƒ¼ã‚¸ã®Zè»¸é•·ã• m</returns>
 	float GetStageLengthZ() const;
 
 private:
-	std::vector<Vector2> points_;  // Še’¸“_‚ÌÀ•W (xy•½–Ê‚Ål‚¦‚é)
-	StageMesh stageMesh_;          // ƒXƒe[ƒW‚ÌƒƒbƒVƒ…î•ñ
+	std::vector<Vector2> points_;  // å„é ‚ç‚¹ã®åº§æ¨™ (xyå¹³é¢ã§è€ƒãˆã‚‹)
+	StageMesh stageMesh_;          // ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒ¡ãƒƒã‚·ãƒ¥æƒ…å ±
 };

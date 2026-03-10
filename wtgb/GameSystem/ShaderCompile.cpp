@@ -33,9 +33,9 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 {
 	std::string_view fileName{ _config.fileName };
 
-	wassert(fs::is_regular_file(fileName) && "ƒtƒ@ƒCƒ‹ƒpƒX‚ª•s³");
+	wassert(fs::is_regular_file(fileName) && "ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ãŒä¸æ­£");
 	
-	// d•¡‚ğ’T‚·
+	// é‡è¤‡ã‚’æ¢ã™
 	ShaderHandle foundHandle
 	{
 		shaders_.GetContainsDuplicate([&fileName](Shader& _shader) -> bool
@@ -46,8 +46,8 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 
 	if (foundHandle != INVALID_HANDLE)
 	{
-		//LOGFLN("::WARN:: d•¡‚µ‚½ƒVƒF[ƒ_‚ğ“Ç‚İ‚ñ‚Å‚¢‚é");
-		// d•¡‚ª‚ ‚é‚È‚ç‚»‚Ìƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+		//LOGFLN("::WARN:: é‡è¤‡ã—ãŸã‚·ã‚§ãƒ¼ãƒ€ã‚’èª­ã¿è¾¼ã‚“ã§ã„ã‚‹");
+		// é‡è¤‡ãŒã‚ã‚‹ãªã‚‰ãã®ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 		return foundHandle;
 	}
 
@@ -60,10 +60,10 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 	ComPtr<ID3DBlob> pCompileVS{ nullptr };
 	ComPtr<ID3DBlob> pCompilePS{ nullptr };
 
-#pragma region ’¸“_ƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹
+#pragma region é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
 	std::wstring fileNameW{ _config.fileName.begin(), _config.fileName.end() };
 
-	// ’¸“_ƒVƒF[ƒ_‚ğƒtƒ@ƒCƒ‹‚©‚çƒRƒ“ƒpƒCƒ‹
+	// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
 	hResult = D3DCompileFromFile(
 		fileNameW.c_str(),
 		_config.pDefines,
@@ -74,11 +74,11 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 		_config.flag2,
 		pCompileVS.GetAddressOf(),
 		pError.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "’¸“_ƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
-		LOGFLN("’¸“_ƒVƒF[ƒ_ƒRƒ“ƒpƒCƒ‹ƒGƒ‰[F{}", reinterpret_cast<char*>(pError.Get()));
-		// ¸”s‚µ‚½‚È‚ç–³Œøƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+		LOGFLN("é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼ï¼š{}", reinterpret_cast<char*>(pError.Get()));
+		// å¤±æ•—ã—ãŸãªã‚‰ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 		return INVALID_HANDLE;
 	}
 
@@ -87,31 +87,31 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 		pCompileVS->GetBufferSize(),
 		nullptr,
 		shaders_.At(hShader).VertexShader().GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "’¸“_ƒVƒF[ƒ_‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
-		// ¸”s‚µ‚½‚È‚ç–³Œøƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+		// å¤±æ•—ã—ãŸãªã‚‰ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 		return INVALID_HANDLE;
 	}
 #pragma endregion
 
-#pragma region ’¸“_ƒCƒ“ƒvƒbƒgƒŒƒCƒAƒEƒg
+#pragma region é ‚ç‚¹ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
 	hResult = pDevice->CreateInputLayout(
 		_config.vertexInputLayout.data(),
 		static_cast<UINT>(_config.vertexInputLayout.size()),
 		pCompileVS->GetBufferPointer(),
 		pCompileVS->GetBufferSize(),
 		shaders_.At(hShader).VertexLayout().GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "’¸“_ƒCƒ“ƒvƒbƒgƒŒƒCƒAƒEƒg‚Ìì¬¸”s");
+	wassert(SUCCEEDED(hResult) && "é ‚ç‚¹ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã®ä½œæˆå¤±æ•—");
 	if (FAILED(hResult))
 	{
-		// ¸”s‚µ‚½‚È‚ç–³Œøƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+		// å¤±æ•—ã—ãŸãªã‚‰ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 		return INVALID_HANDLE;
 	}
 #pragma endregion
 
-#pragma region ƒsƒNƒZƒ‹ƒVƒF[ƒ_
-	// ƒsƒNƒZƒ‹ƒVƒF[ƒ_‚ğƒtƒ@ƒCƒ‹‚©‚çƒRƒ“ƒpƒCƒ‹
+#pragma region ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€
+	// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
 	hResult = D3DCompileFromFile(
 		fileNameW.c_str(),
 		_config.pDefines,
@@ -122,11 +122,11 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 		_config.flag2,
 		pCompilePS.GetAddressOf(),
 		pError.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "ƒsƒNƒZƒ‹ƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
-		LOGFLN("ƒsƒNƒZƒ‹ƒVƒF[ƒ_ƒRƒ“ƒpƒCƒ‹ƒGƒ‰[F{}", reinterpret_cast<char*>(pError.Get()));
-		// ¸”s‚µ‚½‚È‚ç–³Œøƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+		LOGFLN("ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼ï¼š{}", reinterpret_cast<char*>(pError.Get()));
+		// å¤±æ•—ã—ãŸãªã‚‰ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 		return INVALID_HANDLE;
 	}
 
@@ -135,15 +135,15 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 		pCompilePS->GetBufferSize(),
 		nullptr,
 		shaders_.At(hShader).PixelShader().GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "ƒsƒNƒZƒ‹ƒVƒF[ƒ_‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
-		// ¸”s‚µ‚½‚È‚ç–³Œøƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+		// å¤±æ•—ã—ãŸãªã‚‰ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 		return INVALID_HANDLE;
 	}
 #pragma endregion
 
-#pragma region ƒ‰ƒXƒ^ƒ‰ƒCƒU
+#pragma region ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶
 	const D3D11_RASTERIZER_DESC RASTERIZER_DESC
 	{
 		.FillMode = _config.fillMode,
@@ -157,19 +157,19 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 		.MultisampleEnable = {},
 		.AntialiasedLineEnable = {},
 	};
-	// ƒ‰ƒXƒ^ƒ‰ƒCƒUƒXƒe[ƒg‚ğì¬‚·‚é
+	// ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä½œæˆã™ã‚‹
 	hResult = pDevice->CreateRasterizerState(
 		&RASTERIZER_DESC,
 		shaders_.At(hShader).RasterizerState().GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "ƒ‰ƒXƒ^ƒ‰ƒCƒUƒXƒe[ƒg‚Ìì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ã‚¹ãƒ†ãƒ¼ãƒˆã®ä½œæˆã«å¤±æ•—");
 	if (FAILED(hResult))
 	{
-		// ¸”s‚µ‚½‚È‚ç–³Œøƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+		// å¤±æ•—ã—ãŸãªã‚‰ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 		return INVALID_HANDLE;
 	}
 #pragma endregion
 
-	// –¾¦“I‚É‰ğ•ú
+	// æ˜ç¤ºçš„ã«è§£æ”¾
 
 	pError.Reset();
 	pCompileVS.Reset();

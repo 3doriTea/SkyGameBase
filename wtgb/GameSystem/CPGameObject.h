@@ -7,7 +7,7 @@ namespace wtgb
 	class GameObject;
 
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹ : ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ« : ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	/// </summary>
 	class CPGameObject : public ComponentPool<std::shared_ptr<GameObject>>
 	{
@@ -16,42 +16,42 @@ namespace wtgb
 		~CPGameObject();
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update() override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 	public:
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒX‚©‚çƒGƒ“ƒeƒBƒeƒB‚ÌId‚ðŽæ“¾‚·‚é
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‹ã‚‰ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®Idã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <param name="_index">ƒCƒ“ƒfƒbƒNƒX</param>
-		/// <returns>ƒGƒ“ƒeƒBƒeƒBId</returns>
+		/// <param name="_index">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
+		/// <returns>ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</returns>
 		const EntityId GetEntityId(const size_t _index) const;
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ð–¼‘O‚©‚çŽæ“¾‚·‚é
+		/// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’åå‰ã‹ã‚‰å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <param name="_name">ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì–¼‘O</param>
-		/// <returns>Œ©‚Â‚©‚Á‚½ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="_name">ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åå‰</param>
+		/// <returns>è¦‹ã¤ã‹ã£ãŸã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿</returns>
 		GameObject* FindGameObject(const std::string_view _name);
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ðƒGƒ“ƒeƒBƒeƒBId‚©‚çŽæ“¾‚·‚é
+		/// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Idã‹ã‚‰å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <param name="_entityId">ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌƒGƒ“ƒeƒBƒeƒBId</param>
-		/// <returns>Œ©‚Â‚©‚Á‚½ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="_entityId">ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
+		/// <returns>è¦‹ã¤ã‹ã£ãŸã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿</returns>
 		GameObject* FindGameObject(const EntityId _entityId);
 
 		/// <summary>
-		/// •`‰æˆ—
+		/// æç”»å‡¦ç†
 		/// </summary>
 		void Draw() const;
 	};

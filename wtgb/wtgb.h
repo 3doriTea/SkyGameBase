@@ -1,14 +1,14 @@
 #pragma once
 
 /*
-* ƒoƒfƒB[ƒYEƒXƒJƒCEƒRƒ“ƒoƒbƒgÄ\’z‚Ì‚½‚ß‚Éì‚ç‚ê‚éƒQ[ƒ€ƒx[ƒX
-* Œˆ‚µ‚ÄƒQ[ƒ€ƒGƒ“ƒWƒ“§ì‚É‚Ì‚ß‚è‚ñ‚Å‚Í‚¢‚¯‚È‚¢
-* ì‚Á‚½ƒQ[ƒ€‚ğ‚¨‹q—l‚ÉŠy‚µ‚ñ‚Å‚à‚ç‚¤‚±‚Æ‚ªÅI–Ú•W‚Å‚ ‚èA‚»‚Ì–Ú•W‚Ì‚½‚ß‚Ìƒx[ƒX‚ª wtgb
-* “Ç‚İ•û‚Í ƒ_ƒuƒeƒB[ƒW[ƒr[
-* —R—ˆ‚Í mtgb ‚Ì m ‚ğ …•½²”½“]‚µ‚½‚¾‚¯
+* ãƒãƒ‡ã‚£ãƒ¼ã‚ºãƒ»ã‚¹ã‚«ã‚¤ãƒ»ã‚³ãƒ³ãƒãƒƒãƒˆå†æ§‹ç¯‰ã®ãŸã‚ã«ä½œã‚‰ã‚Œã‚‹ã‚²ãƒ¼ãƒ ãƒ™ãƒ¼ã‚¹
+* æ±ºã—ã¦ã‚²ãƒ¼ãƒ ã‚¨ãƒ³ã‚¸ãƒ³åˆ¶ä½œã«ã®ã‚ã‚Šè¾¼ã‚“ã§ã¯ã„ã‘ãªã„
+* ä½œã£ãŸã‚²ãƒ¼ãƒ ã‚’ãŠå®¢æ§˜ã«æ¥½ã—ã‚“ã§ã‚‚ã‚‰ã†ã“ã¨ãŒæœ€çµ‚ç›®æ¨™ã§ã‚ã‚Šã€ãã®ç›®æ¨™ã®ãŸã‚ã®ãƒ™ãƒ¼ã‚¹ãŒ wtgb
+* èª­ã¿æ–¹ã¯ ãƒ€ãƒ–ãƒ†ã‚£ãƒ¼ã‚¸ãƒ¼ãƒ“ãƒ¼
+* ç”±æ¥ã¯ mtgb ã® m ã‚’ æ°´å¹³è»¸åè»¢ã—ãŸã ã‘
 */
 
-// •Ö—˜Œn
+// ä¾¿åˆ©ç³»
 #include "WTGBAssert.h"
 #include "Utility/Mathf.h"
 #include "Utility/Ease.h"
@@ -19,11 +19,11 @@
 #include "CoreType/ExtJson/Vector2.h"
 #include "CoreType/ExtJson/Vector2Int.h"
 
-// ƒCƒ“ƒ^ƒtƒF[ƒXŒn
+// ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹ç³»
 #include "Core/IGame.h"
 #include "Core/IGameSystem.h"
 
-// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹
+// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«
 #include "GameSystem/CPCollider.h"
 #include "GameSystem/CPGameObject.h"
 #include "GameSystem/CPGameObjectProperty.h"
@@ -33,12 +33,12 @@
 #include "GameSystem/CPTransform.h"
 #include "GameSystem/CPParameter.h"
 
-// ‘¼ƒRƒAŒn
+// ä»–ã‚³ã‚¢ç³»
 #include "Core/GameSystemCollection.h"
 #include "Core/GameScene.h"
 #include "Core/Game.h"
 
-// ƒRƒ“ƒ|[ƒlƒ“ƒg
+// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 #include "GameComponent/GameObject.h"
 #include "GameComponent/GameObjectProperty.h"
 #include "GameComponent/Transform.h"
@@ -48,7 +48,7 @@
 #include "GameComponent/RigidBody.h"
 #include "GameComponent/Parameter.h"
 
-// ‘¼ƒVƒXƒeƒ€
+// ä»–ã‚·ã‚¹ãƒ†ãƒ 
 #include "GameSystem/GameTime.h"
 #include "GameSystem/Alarm.h"
 #include "GameSystem/GameWindow.h"
@@ -64,10 +64,10 @@
 #include "GameSystem/Direct3D.h"
 #include "GameSystem/PostProcessing.h"
 
-// ƒrƒ‹ƒ_[
+// ãƒ“ãƒ«ãƒ€ãƒ¼
 #include "Core/GameObjectBuilder.h"
 
-// ƒGƒCƒŠƒAƒX
+// ã‚¨ã‚¤ãƒªã‚¢ã‚¹
 using wtgb::IGame;
 using wtgb::IGameSystem;
 using wtgb::GameSystemCollection;

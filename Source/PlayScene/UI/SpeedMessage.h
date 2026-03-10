@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚Ì‘¬“x‚É‰ž‚¶‚Ä•\Ž¦‚·‚éƒƒbƒZ[ƒWUI
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€Ÿåº¦ã«å¿œã˜ã¦è¡¨ç¤ºã™ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸UI
 /// </summary>
 class SpeedMessage : public GameObject
 {
@@ -16,13 +16,13 @@ public:
 	void Release() override;
 
 private:
-	TextureHandle hTextureTooFast_;  // ‘¬‚·‚¬ƒƒbƒZ[ƒWƒeƒNƒXƒ`ƒƒƒnƒ“ƒhƒ‰
-	TextureHandle hTextureTooSlow_;  // ’x‚·‚¬ƒƒbƒZ[ƒWƒeƒNƒXƒ`ƒƒƒnƒ“ƒhƒ‰
+	TextureHandle hTextureTooFast_;  // é€Ÿã™ãŽãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ©
+	TextureHandle hTextureTooSlow_;  // é…ã™ãŽãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ©
 
-	fs::path imageFileTooFast_;  // ‘¬‚·‚¬ƒƒbƒZ[ƒW‰æ‘œƒtƒ@ƒCƒ‹
-	fs::path imageFileTooSlow_;  // ’x‚·‚¬ƒƒbƒZ[ƒW‰æ‘œƒtƒ@ƒCƒ‹
+	fs::path imageFileTooFast_;  // é€Ÿã™ãŽãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«
+	fs::path imageFileTooSlow_;  // é…ã™ãŽãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«
 
-	EntityId speedController_;  // ƒXƒs[ƒh‚ðŽæ“¾‚·‚éƒvƒŒƒCƒ„[ƒGƒ“ƒeƒBƒeƒB
+	EntityId speedController_;  // ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£
 
-	Vector2Int imageSize_;  // ‰æ‘œƒTƒCƒY
+	Vector2Int imageSize_;  // ç”»åƒã‚µã‚¤ã‚º
 };

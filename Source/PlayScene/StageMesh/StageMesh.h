@@ -5,7 +5,7 @@
 using StagePoints = std::vector<Vector2>;
 
 /// <summary>
-/// âƒXƒe[ƒW‚ÌƒƒbƒVƒ…î•ñ
+/// å‚ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒ¡ãƒƒã‚·ãƒ¥æƒ…å ±
 /// </summary>
 class StageMesh : public wtgb::IMeshSimple
 {
@@ -20,36 +20,36 @@ public:
 	ComPtr<ID3D11Buffer>& GetIndexBuffer() override    { return pIndexBuffer_; }
 	ComPtr<ID3D11Buffer>& GetConstantBuffer() override { return pConstantBuffer_; }
 	/// <summary>
-	/// ’¸“_‚ÌƒTƒCƒY‚ğæ“¾
+	/// é ‚ç‚¹ã®ã‚µã‚¤ã‚ºã‚’å–å¾—
 	/// </summary>
-	/// <returns>’¸“_‚Ì\‘¢‘ÌƒTƒCƒY(byte)</returns>
+	/// <returns>é ‚ç‚¹ã®æ§‹é€ ä½“ã‚µã‚¤ã‚º(byte)</returns>
 	size_t GetVertexSize() const override { return sizeof(Vertex); }
 
 	/// <summary>
-	/// ’¸“_”‚ğæ“¾‚·‚é
+	/// é ‚ç‚¹æ•°ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
 	/// <returns></returns>
 	uint32_t GetVertexCount() const override { return vertexCount_; }
 
 	/// <summary>
-	/// ƒCƒ“ƒfƒbƒNƒX”‚ğæ“¾‚·‚é
+	/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>ƒCƒ“ƒfƒbƒNƒX”</returns>
+	/// <returns>ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°</returns>
 	uint32_t GetIndexCount() const override { return indexCount_; }
 
 	/// <summary>
-	/// ƒeƒNƒXƒ`ƒƒƒnƒ“ƒhƒ‹‚ğæ“¾‚·‚é
+	/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
 	/// <returns></returns>
 	TextureHandle GetTextureHandle() const override { return hTexture_; }
 
 private:
 	/// <summary>
-	/// <para>’¸“_‚Ìx"À•W"‚Ì’l‚ğ‚Ü‚Æ‚ß‚ÄƒZƒbƒg‚·‚é</para>
-	/// <para>position.x‚Æ uv.x@¦–@ü‚Ìx‚ÍÀ•W‚Å‚Í‚È‚¢‚½‚ßœ‚­</para>
+	/// <para>é ‚ç‚¹ã®x"åº§æ¨™"ã®å€¤ã‚’ã¾ã¨ã‚ã¦ã‚»ãƒƒãƒˆã™ã‚‹</para>
+	/// <para>position.xã¨ uv.xã€€â€»æ³•ç·šã®xã¯åº§æ¨™ã§ã¯ãªã„ãŸã‚é™¤ã</para>
 	/// </summary>
-	/// <param name="_xValue">x‚Ì’l</param>
-	/// <param name="_vertex">ƒZƒbƒg‚µ‚½‚¢’¸“_</param>
+	/// <param name="_xValue">xã®å€¤</param>
+	/// <param name="_vertex">ã‚»ãƒƒãƒˆã—ãŸã„é ‚ç‚¹</param>
 	static void SetPosXValue(const float _xValue, Vertex* _vertex);
 
 private:
@@ -58,9 +58,9 @@ private:
 	uint32_t vertexCount_;
 	uint32_t indexCount_;
 
-	TextureHandle hTexture_;  // ƒeƒNƒXƒ`ƒƒ‚Ìƒnƒ“ƒhƒ‹
+	TextureHandle hTexture_;  // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒãƒ³ãƒ‰ãƒ«
 
-	ComPtr<ID3D11Buffer> pVertexBuffer_;    // ’¸“_ƒoƒbƒtƒ@
-	ComPtr<ID3D11Buffer> pIndexBuffer_;     // ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
-	ComPtr<ID3D11Buffer> pConstantBuffer_;  // ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@
+	ComPtr<ID3D11Buffer> pVertexBuffer_;    // é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
+	ComPtr<ID3D11Buffer> pIndexBuffer_;     // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
+	ComPtr<ID3D11Buffer> pConstantBuffer_;  // ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡
 };

@@ -30,7 +30,7 @@ namespace wtgb
 		}
 
 	private:
-		GameObject& target_;  // \’z‚·‚éƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
+		GameObject& target_;  // æ§‹ç¯‰ã™ã‚‹ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	};
 }
 

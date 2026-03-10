@@ -4,17 +4,17 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒGƒ“ƒeƒBƒeƒB‚ÌŽ¯•Ê’l
+	/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®è­˜åˆ¥å€¤
 	/// </summary>
 	struct EntityId
 	{
 		union 
 		{
-			uint64_t id;  // ƒGƒ“ƒeƒBƒeƒBŽ¯•Ê”Ô†
+			uint64_t id;  // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£è­˜åˆ¥ç•ªå·
 			struct
 			{
-				uint32_t version;  // ƒGƒ“ƒeƒBƒeƒB‚ÌŠ‘®¢ŠEƒo[ƒWƒ‡ƒ“
-				uint32_t index;    // ƒGƒ“ƒeƒBƒeƒB‚Ì”z—ñ”Ô†
+				uint32_t version;  // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®æ‰€å±žä¸–ç•Œãƒãƒ¼ã‚¸ãƒ§ãƒ³
+				uint32_t index;    // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®é…åˆ—ç•ªå·
 			};
 		};
 	};
@@ -24,19 +24,19 @@ namespace wtgb
 	inline bool operator<(const EntityId _left, const EntityId _right)  { return _left.id < _right.id; }
 
 	/// <summary>
-	/// –³Œø‚ÈƒGƒ“ƒeƒBƒeƒBId
+	/// ç„¡åŠ¹ãªã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id
 	/// </summary>
 	static const uint64_t INVALIED_ID{ 0 };
 	/// <summary>
-	/// –³Œø‚ÈƒGƒ“ƒeƒBƒeƒBƒo[ƒWƒ‡ƒ“
+	/// ç„¡åŠ¹ãªã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 	/// </summary>
 	static const uint32_t INVALIED_VERSION{ 0 };
 	/// <summary>
-	/// –³Œø‚ÈƒGƒ“ƒeƒBƒeƒBƒCƒ“ƒfƒNƒX
+	/// ç„¡åŠ¹ãªã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹
 	/// </summary>
 	static const uint32_t INVALIED_INDEX{ 0 };
 	/// <summary>
-	/// –³Œø‚ÈƒGƒ“ƒeƒBƒeƒB
+	/// ç„¡åŠ¹ãªã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£
 	/// </summary>
 	static const EntityId INVALID_ENTITY{ INVALIED_ID };
 

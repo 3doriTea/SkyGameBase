@@ -10,11 +10,11 @@ namespace wtgb
 		~DebugSphere();
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init(ViewerCached _system) override;
 		/// <summary>
-		/// ‰ğ•úˆ—
+		/// è§£æ”¾å‡¦ç†
 		/// </summary>
 		void Release(ViewerCached _system) override;
 		uint32_t GetIndexCount() const override;

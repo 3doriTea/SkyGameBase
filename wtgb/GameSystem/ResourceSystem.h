@@ -12,67 +12,67 @@ namespace wtgb
 		~ResourceSystem();
 
 		/// <summary>
-		/// XVƒ^ƒCƒ~ƒ“ƒO‚ðŽæ“¾‚·‚é
+		/// æ›´æ–°ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::DoNotUpdate; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_viewer">‘¼ƒVƒXƒeƒ€‚ÌƒAƒNƒZƒbƒT</param>
-		/// <returns>Œ‹‰Ê</returns>
+		/// <param name="_viewer">ä»–ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µ</param>
+		/// <returns>çµæžœ</returns>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
-		/// <param name="_system">‘¼ƒVƒXƒeƒ€‚ÌƒAƒNƒZƒbƒT</param>
+		/// <param name="_system">ä»–ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µ</param>
 		void Update(const ViewerUpdate& _system) override {}
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ‚ð“Ç‚Ýž‚Þ
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
 		/// </summary>
-		/// <param name="_fileName">ƒeƒNƒXƒ`ƒƒ‚Ì‰æ‘œƒtƒ@ƒCƒ‹–¼</param>
-		/// <returns>ƒeƒNƒXƒ`ƒƒ‚Ìƒnƒ“ƒhƒ‹</returns>
+		/// <param name="_fileName">ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«å</param>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒãƒ³ãƒ‰ãƒ«</returns>
 		TextureHandle LoadTexture(const fs::path& _fileName);
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ‚ð“Ç‚Ýž‚Þ
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
 		/// </summary>
-		/// <param name="_fileName">ƒeƒNƒXƒ`ƒƒ‚Ì‰æ‘œƒtƒ@ƒCƒ‹–¼</param>
-		/// <returns>ƒeƒNƒXƒ`ƒƒ‚Ìƒnƒ“ƒhƒ‹</returns>
+		/// <param name="_fileName">ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«å</param>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒãƒ³ãƒ‰ãƒ«</returns>
 		TextureHandle LoadTexture(const std::string& _fileName);
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ‚ð“Ç‚Ýž‚Þ
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
 		/// </summary>
-		/// <param name="_fileName">ƒeƒNƒXƒ`ƒƒ‚Ì‰æ‘œƒtƒ@ƒCƒ‹–¼</param>
-		/// <returns>ƒeƒNƒXƒ`ƒƒ‚Ìƒnƒ“ƒhƒ‹</returns>
+		/// <param name="_fileName">ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«å</param>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒãƒ³ãƒ‰ãƒ«</returns>
 		TextureHandle LoadTexture(const char* _fileName);
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ‚ðÝ’è
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="_config">ƒeƒNƒXƒ`ƒƒ‚ÌÚ×Ý’è</param>
-		/// <returns>ƒeƒNƒXƒ`ƒƒ‚Ìƒnƒ“ƒhƒ‹</returns>
+		/// <param name="_config">ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è©³ç´°è¨­å®š</param>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒãƒ³ãƒ‰ãƒ«</returns>
 		TextureHandle LoadTexture(const Texture::Config& _config);
 
 		/// <summary>
-		/// ƒtƒ@ƒCƒ‹–¼‚©‚çƒeƒNƒXƒ`ƒƒ‚ðŽæ“¾
+		/// ãƒ•ã‚¡ã‚¤ãƒ«åã‹ã‚‰ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
 		/// </summary>
-		/// <param name="_fileName">ƒtƒ@ƒCƒ‹–¼</param>
-		/// <returns>ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^ / ‚È‚¯‚ê‚Î nullptr</returns>
+		/// <param name="_fileName">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒã‚¤ãƒ³ã‚¿ / ãªã‘ã‚Œã° nullptr</returns>
 		Texture* GetTexture(const std::string& _fileName);
 
 		/// <summary>
-		/// ƒnƒ“ƒhƒ‹‚©‚çƒeƒNƒXƒ`ƒƒ‚ðŽæ“¾
+		/// ãƒãƒ³ãƒ‰ãƒ«ã‹ã‚‰ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
 		/// </summary>
-		/// <param name="_hTexture">ƒeƒNƒXƒ`ƒƒ‚Ìƒnƒ“ƒhƒ‹</param>
-		/// <returns>ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^ / ‚È‚¯‚ê‚Î nullptr</returns>
+		/// <param name="_hTexture">ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒãƒ³ãƒ‰ãƒ«</param>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒã‚¤ãƒ³ã‚¿ / ãªã‘ã‚Œã° nullptr</returns>
 		Texture* GetTexture(const TextureHandle _hTexture);
 
 	private:

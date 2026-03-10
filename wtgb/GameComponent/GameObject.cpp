@@ -20,7 +20,7 @@ wtgb::GameObject::GameObject(const fs::path& _prefabJson) :
 	entityId_{ System().Get<ComponentManager>().GetPrevEntity() },
 	toDestroy_{ false }
 {
-	// TODO: d•¡‚µ‚Ä‚¢‚é
+	// TODO: é‡è¤‡ã—ã¦ã„ã‚‹
 	System().Get<CPGameObject>().Add(entityId_, this);
 
 	Scriptable& scriptable{ System().Get<Scriptable>() };
@@ -45,7 +45,7 @@ wtgb::GameObject::GameObject(std::function<void(GameObjectBuilder&)> _callback) 
 	GameObjectBuilder builder{ *this };
 	_callback(builder);
 
-	// TODO: d•¡‚µ‚Ä‚¢‚é
+	// TODO: é‡è¤‡ã—ã¦ã„ã‚‹
 }
 
 wtgb::GameObject::~GameObject()
@@ -64,7 +64,7 @@ wtgb::Transform& wtgb::GameObject::Transform()
 
 wtgb::ViewerCached& wtgb::GameObject::System() const
 {
-	assert(pCachedSystem_ && "ƒVƒXƒeƒ€‚Ìcache‚ª‚È‚¢ó‘Ô‚ÅƒAƒNƒZƒX‚Å‚«‚È‚¢");
+	assert(pCachedSystem_ && "ã‚·ã‚¹ãƒ†ãƒ ã®cacheãŒãªã„çŠ¶æ…‹ã§ã‚¢ã‚¯ã‚»ã‚¹ã§ããªã„");
 
 	return *pCachedSystem_;
 }
@@ -81,9 +81,9 @@ wtgb::GameObject* wtgb::GameObject::FindGameObject(const std::string& _name)
 	wtgb::EntityId foundEntityId{ System().Get<CPGameObjectProperty>().FindEntityByName(_name) };
 	if (foundEntityId == INVALID_ENTITY)
 	{
-		return nullptr;  // –¼‘O‚ÅŒ©‚Â‚©‚ç‚È‚¯‚ê‚Î nullptr •Ô‚·
+		return nullptr;  // åå‰ã§è¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã° nullptr è¿”ã™
 	}
-	// –¼‘O‚ÅŒ©‚Â‚©‚Á‚½‚È‚çæ“¾‚µ‚Ä‚­‚é
+	// åå‰ã§è¦‹ã¤ã‹ã£ãŸãªã‚‰å–å¾—ã—ã¦ãã‚‹
 	return System().Get<CPGameObject>().Get(foundEntityId)->get();
 }
 
@@ -103,9 +103,9 @@ bool wtgb::GameObject::FindGameObjects(
 				if (foundEntityId != INVALID_ENTITY)
 				{
 					if (_pFoundGameObjects == nullptr)
-					{  // ‚à‚µŒ©‚Â‚¯‚½ƒQ[ƒ€ƒIƒuƒWƒFƒNƒgŠi”[æ‚ª–³‚¢‚È‚ç
+					{  // ã‚‚ã—è¦‹ã¤ã‘ãŸã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ ¼ç´å…ˆãŒç„¡ã„ãªã‚‰
 						isFound = true;
-						return true;  // Œ©‚Â‚©‚Á‚½“_‚Å~‚ß‚é
+						return true;  // è¦‹ã¤ã‹ã£ãŸæ™‚ç‚¹ã§æ­¢ã‚ã‚‹
 					}
 					foundEntityIds.push_back(foundEntityId);
 				}
@@ -115,8 +115,8 @@ bool wtgb::GameObject::FindGameObjects(
 		});
 
 	if (_pFoundGameObjects == nullptr)
-	{  // ‚à‚µŒ©‚Â‚¯‚½ƒQ[ƒ€ƒIƒuƒWƒFƒNƒgŠi”[æ‚ª–³‚¢‚È‚ç
-		return isFound;  // Œ©‚Â‚©‚Á‚½‚©‚Ç‚¤‚©‚ğ‘¦•Ô‚·
+	{  // ã‚‚ã—è¦‹ã¤ã‘ãŸã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ ¼ç´å…ˆãŒç„¡ã„ãªã‚‰
+		return isFound;  // è¦‹ã¤ã‹ã£ãŸã‹ã©ã†ã‹ã‚’å³è¿”ã™
 	}
 	
 	_pFoundGameObjects->clear();

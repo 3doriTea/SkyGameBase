@@ -2,7 +2,7 @@
 #include "ICameraMove.h"
 
 /// <summary>
-/// ƒJƒƒ‰ˆÚ“®•û–@ - ©—R
+/// ã‚«ãƒ¡ãƒ©ç§»å‹•æ–¹æ³• - è‡ªç”±
 /// </summary>
 class CameraMoveFree : public ICameraMove
 {
@@ -11,18 +11,18 @@ public:
 	~CameraMoveFree();
 
 	/// <summary>
-	/// ‰Šú‰»ˆ—
+	/// åˆæœŸåŒ–å‡¦ç†
 	/// </summary>
 	void Start(GameObjectReference _ref) override;
 	/// <summary>
-	/// XVˆ—
+	/// æ›´æ–°å‡¦ç†
 	/// </summary>
 	void Update(GameObjectReference _ref) override;
 	/// <summary>
-	/// I—¹ˆ—
+	/// çµ‚äº†å‡¦ç†
 	/// </summary>
 	void End(GameObjectReference _ref) override;
 
 private:
-	float speedBoost_;         // ¶ƒVƒtƒgƒL[‰Ÿ‚µ‚È‚ª‚ç‚Å‰Á‘¬‚·‚é”{—¦
+	float speedBoost_;         // å·¦ã‚·ãƒ•ãƒˆã‚­ãƒ¼æŠ¼ã—ãªãŒã‚‰ã§åŠ é€Ÿã™ã‚‹å€ç‡
 };

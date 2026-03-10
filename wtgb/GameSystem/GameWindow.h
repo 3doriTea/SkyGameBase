@@ -7,20 +7,20 @@ namespace wtgb
 	{
 	public:
 		/// <summary>
-		/// ‰æ–Ê‚ÌƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg
+		/// ç”»é¢ã®ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆ
 		/// </summary>
 		struct RefreshRate
 		{
 			/// <summary>
-			/// FPS‚ÅƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg‚ğw’è
+			/// FPSã§ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆã‚’æŒ‡å®š
 			/// </summary>
 			/// <param name="fps">Frame par sec</param>
 			RefreshRate(const uint32_t fps) :
 				denominator{ 1U },
 				numerator{ fps }
 			{}
-			uint32_t denominator;  // •ªq
-			uint32_t numerator;  // •ª•ê
+			uint32_t denominator;  // åˆ†å­
+			uint32_t numerator;  // åˆ†æ¯
 		};
 	public:
 		struct CreateWindowConfig
@@ -32,34 +32,34 @@ namespace wtgb
 			HICON iconSmile;
 			HCURSOR cursor;
 			// REF: https://learn.microsoft.com/ja-jp/windows/win32/winmsg/window-styles
-			DWORD clientStyle{ WS_OVERLAPPEDWINDOW };  // ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚ÌƒXƒ^ƒCƒ‹
+			DWORD clientStyle{ WS_OVERLAPPEDWINDOW };  // ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã®ã‚¹ã‚¿ã‚¤ãƒ«
 			// REF: https://learn.microsoft.com/ja-jp/windows/win32/winmsg/extended-window-styles
-			DWORD clientStyleEx{ WS_EX_OVERLAPPEDWINDOW };  // ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚ÌŠg’£
+			DWORD clientStyleEx{ WS_EX_OVERLAPPEDWINDOW };  // ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã®æ‹¡å¼µ
 			BOOL hasMenu{ FALSE };
 
 			Vector2Int windowScreenSize;
-			// ƒEƒBƒ“ƒhƒE‚Ì‰ŠúÀ•W
+			// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®åˆæœŸåº§æ¨™
 			Vector2Int initPosition;
-			// ƒEƒBƒ“ƒhƒE‚ÌeƒEƒBƒ“ƒhƒE
+			// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¦ªã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
 			HWND hWndParent{ nullptr };
-			// ‰æ–Ê‚ÌXV•p“x (•b)
+			// ç”»é¢ã®æ›´æ–°é »åº¦ (ç§’)
 			RefreshRate refreshRateSec;
-			// ƒEƒBƒ“ƒhƒE‚Å‚ ‚é‚©
+			// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã§ã‚ã‚‹ã‹
 			BOOL windowed{ TRUE };
 		};
 
 	private:
 		/// <summary>
-		/// ì¬‚µ‚½ƒEƒBƒ“ƒhƒE‚Ìî•ñ
+		/// ä½œæˆã—ãŸã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æƒ…å ±
 		/// </summary>
 		struct CreatedWindowData
 		{
 			/// <summary>
-			/// ì¬‚ÌƒEƒBƒ“ƒhƒEİ’è
+			/// ä½œæˆæ™‚ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦è¨­å®š
 			/// </summary>
 			CreateWindowConfig config;
 			/// <summary>
-			/// ƒEƒBƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹
+			/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«
 			/// </summary>
 			HWND hWnd;
 		};
@@ -69,66 +69,66 @@ namespace wtgb
 		~GameWindow();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Cycle; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// ƒEƒBƒ“ƒhƒE‚ğì¬‚·‚é
+		/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ä½œæˆã™ã‚‹
 		/// </summary>
-		/// <param name="_config">ì¬‚·‚éƒEƒBƒ“ƒhƒE‚Ìİ’è</param>
-		/// <returns>ƒEƒBƒ“ƒhƒE‚ğ“Á’è‚·‚éƒnƒ“ƒhƒ‹</returns>
+		/// <param name="_config">ä½œæˆã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¨­å®š</param>
+		/// <returns>ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ç‰¹å®šã™ã‚‹ãƒãƒ³ãƒ‰ãƒ«</returns>
 		GameWindowHandle Create(const CreateWindowConfig& _config);
 
 		/// <summary>
-		/// ƒƒCƒ“ƒEƒBƒ“ƒhƒE‚ÌƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹‚ğæ“¾
+		/// ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹</returns>
+		/// <returns>ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«</returns>
 		HWND GetMainWindowHandle();
 
 		/// <summary>
-		/// ƒƒCƒ“ƒEƒBƒ“ƒhƒE‚ÌƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğæ“¾
+		/// ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’å–å¾—
 		/// </summary>
-		/// <returns>2ŸŒ³‚Ì®”ƒxƒNƒgƒ‹</returns>
+		/// <returns>2æ¬¡å…ƒã®æ•´æ•°ãƒ™ã‚¯ãƒˆãƒ«</returns>
 		Vector2Int GetMainWindowSize();
 		/// <summary>
-		/// ‰æ–Ê‚ÌXVŠÔŠu (•b) ‚ğæ“¾
+		/// ç”»é¢ã®æ›´æ–°é–“éš” (ç§’) ã‚’å–å¾—
 		/// </summary>
-		/// <returns>‰æ–Ê‚ÌXVŠÔŠu (•b)</returns>
+		/// <returns>ç”»é¢ã®æ›´æ–°é–“éš” (ç§’)</returns>
 		RefreshRate GetMainWindowRefreshRate();
 		/// <summary>
-		/// ƒƒCƒ“ƒEƒBƒ“ƒhƒE‚ªƒEƒBƒ“ƒhƒE‚Å‚ ‚é‚©‚ğæ“¾
+		/// ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã§ã‚ã‚‹ã‹ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒEƒBƒ“ƒhƒE‚Å‚ ‚é true / false</returns>
+		/// <returns>ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã§ã‚ã‚‹ true / false</returns>
 		BOOL GetMainWindowIsWindowed();
 
 		/// <summary>
-		/// ƒƒCƒ“ƒEƒBƒ“ƒhƒE‚ªƒAƒNƒeƒBƒu(‘I‘ğ’†‚ÌƒEƒBƒ“ƒhƒE)‚©‚Ç‚¤‚©
+		/// ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–(é¸æŠä¸­ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦)ã‹ã©ã†ã‹
 		/// </summary>
-		/// <returns>ƒAƒNƒeƒBƒu‚Å‚ ‚é true / false</returns>
+		/// <returns>ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã§ã‚ã‚‹ true / false</returns>
 		BOOL IsActiveMainWindow();
 
 		/// <summary>
-		/// WinProc‚ÌƒCƒxƒ“ƒg‚ğó‚¯æ‚é
+		/// WinProcã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’å—ã‘å–ã‚‹
 		/// </summary>
 		/// <param name="_callback"></param>
 		void AddWinProcListener(const std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>& _callback);
 		/// <summary>
-		/// ¡‚ÌƒTƒCƒNƒ‹‚ÅƒfƒtƒHƒ‹ƒg‚Ì‘€ì‚ª‚³‚ê‚½‚©
+		/// ä»Šã®ã‚µã‚¤ã‚¯ãƒ«ã§ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®æ“ä½œãŒã•ã‚ŒãŸã‹
 		/// </summary>
 		/// <returns></returns>
 		inline bool IsDefaultControled() const { return isDefaultControled_; }
@@ -137,24 +137,24 @@ namespace wtgb
 
 	private:
 		/// <summary>
-		/// ƒEƒBƒ“ƒhƒEƒCƒxƒ“ƒg‚ÌƒR[ƒ‹ƒoƒbƒNˆ—
+		/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¤ãƒ™ãƒ³ãƒˆã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯å‡¦ç†
 		/// </summary>
-		/// <param name="hWnd">ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹</param>
-		/// <param name="message">ƒƒbƒZ[ƒW</param>
-		/// <param name="wParam">’Ç‰Áƒf[ƒ^ ó‘ÔIdƒtƒ‰ƒO‚È‚Ç</param>
-		/// <param name="lParam">Ú×ƒf[ƒ^ 2‚Â‚Ì’l‚âƒ|ƒCƒ“ƒ^‚È‚Ç</param>
-		/// <returns>Œ‹‰ÊƒR[ƒh</returns>
+		/// <param name="hWnd">ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«</param>
+		/// <param name="message">ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸</param>
+		/// <param name="wParam">è¿½åŠ ãƒ‡ãƒ¼ã‚¿ çŠ¶æ…‹Idãƒ•ãƒ©ã‚°ãªã©</param>
+		/// <param name="lParam">è©³ç´°ãƒ‡ãƒ¼ã‚¿ 2ã¤ã®å€¤ã‚„ãƒã‚¤ãƒ³ã‚¿ãªã©</param>
+		/// <returns>çµæœã‚³ãƒ¼ãƒ‰</returns>
 		static LRESULT WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	private:
-		// ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹‚ÌƒRƒŒƒNƒVƒ‡ƒ“
+		// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«ã®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
 		HandlerCollection<CreatedWindowData, GameWindowHandle> windowHandles_;
 		MSG peekedMessage_;
 
 	private:
-		// win proc ‚Åˆ—‚·‚éƒR[ƒ‹ƒoƒbƒN
+		// win proc ã§å‡¦ç†ã™ã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
 		static std::list<std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>> winProcCallbacks_;
-		static Vector2Int mousePosition_;  // ƒ}ƒEƒXÀ•W (WinProc‚ÅXV’l‰¼’u‚«) ‚¨D‚«‚É‚Æ‚Á‚ÄI
-		static bool isDefaultControled_;  // ƒfƒtƒHƒ‹ƒgƒƒbƒZ[ƒW‚ğó‚¯æ‚Á‚½‚©
+		static Vector2Int mousePosition_;  // ãƒã‚¦ã‚¹åº§æ¨™ (WinProcã§æ›´æ–°å€¤ä»®ç½®ã) ãŠå¥½ãã«ã¨ã£ã¦ï¼
+		static bool isDefaultControled_;  // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å—ã‘å–ã£ãŸã‹
 	};
 }

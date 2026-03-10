@@ -33,7 +33,7 @@ void wtgb::CPTransform::Update()
 	CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
 	CPGameObjectProperty& cpGameObjectProperty{ System().Get<CPGameObjectProperty>() };
 
-	// eî•ñ‚ğæ“¾‚µ‚Ä‚¢‚­
+	// è¦ªæƒ…å ±ã‚’å–å¾—ã—ã¦ã„ã
 	std::map<EntityId, EntityId> parentMap{};
 	std::map<EntityId, bool> check{};
 
@@ -47,8 +47,8 @@ void wtgb::CPTransform::Update()
 				return false;
 			}
 			
-			wassert(!check.count(currentId) && "Šù‚É“¯‚¶EntityId‚ª‚ ‚é");
-			wassert(!parentMap.count(currentId) && "Šù‚É“¯‚¶EntityId‚ª‚ ‚é");
+			wassert(!check.count(currentId) && "æ—¢ã«åŒã˜EntityIdãŒã‚ã‚‹");
+			wassert(!parentMap.count(currentId) && "æ—¢ã«åŒã˜EntityIdãŒã‚ã‚‹");
 			
 			parentMap.insert({ currentId, pCurrentProperty->GetParent() });
 			check.insert({ currentId, false });
@@ -56,7 +56,7 @@ void wtgb::CPTransform::Update()
 			return false;
 		});
 
-	// ­‚µ’Z‚­ŒvZ
+	// å°‘ã—çŸ­ãè¨ˆç®—
 	std::stack<EntityId> calculateStack{};
 	for (auto itr = parentMap.begin(); itr != parentMap.end(); itr++)
 	{
@@ -76,12 +76,12 @@ void wtgb::CPTransform::Update()
 		{
 			if (parentMap[calculateStack.top()] == INVALID_ENTITY)
 			{
-				// e‚ª‚¢‚È‚¢‚È‚ç
+				// è¦ªãŒã„ãªã„ãªã‚‰
 				CalculateTransformRoot(&at(calculateStack.top()));
 			}
 			else
 			{
-				// e‚ª‚¢‚é‚È‚çe‚Æ‚ÌŒvZ‚ğ‚·‚é
+				// è¦ªãŒã„ã‚‹ãªã‚‰è¦ªã¨ã®è¨ˆç®—ã‚’ã™ã‚‹
 				Transform& child{ at(calculateStack.top()) };
 				Transform& parent{ at(parentMap[calculateStack.top()]) };
 
@@ -119,7 +119,7 @@ void wtgb::CPTransform::CalculateLocalTransform(Transform* _pTransform)
 
 void wtgb::CPTransform::CalculateTransformRoot(Transform* _pRoot)
 {
-	// ƒ‹[ƒg‚Í©g‚Ìƒ[ƒJƒ‹s—ñ‚ªƒ[ƒ‹ƒhs—ñ‚Æ‚µ‚Äg‚¦‚é
+	// ãƒ«ãƒ¼ãƒˆã¯è‡ªèº«ã®ãƒ­ãƒ¼ã‚«ãƒ«è¡Œåˆ—ãŒãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã¨ã—ã¦ä½¿ãˆã‚‹
 	_pRoot->worldMatrix_ = _pRoot->localMatrix_;
 	_pRoot->worldRotateMatrix_ = _pRoot->rotateMatrix_;
 }

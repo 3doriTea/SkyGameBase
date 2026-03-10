@@ -4,7 +4,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// •½sŒõü‚ğŠÇ—‚·‚éƒVƒXƒeƒ€
+	/// å¹³è¡Œå…‰ç·šã‚’ç®¡ç†ã™ã‚‹ã‚·ã‚¹ãƒ†ãƒ 
 	/// </summary>
 	class DirectionalLight : public IGameSystem
 	{
@@ -13,50 +13,50 @@ namespace wtgb
 		~DirectionalLight();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::DoNotUpdate; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override {};
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// ŒõŒ¹‚Ì•ûŒü‚ğæ“¾‚·‚é
+		/// å…‰æºã®æ–¹å‘ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ŒõŒ¹‚Ì•ûŒü</returns>
+		/// <returns>å…‰æºã®æ–¹å‘</returns>
 		Vector3 GetDirection() const { return direction_; }
 
 		/// <summary>
-		/// ŒõŒ¹‚Ì•ûŒü‚ğİ’è‚·‚é
+		/// å…‰æºã®æ–¹å‘ã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="_direction">ŒõŒ¹‚Ì•ûŒü</param>
+		/// <param name="_direction">å…‰æºã®æ–¹å‘</param>
 		void SetDirection(const Vector3& _direction) { direction_ = _direction; }
 
 		/// <summary>
-		/// ŒõŒ¹‚ÌF‚ğİ’è‚·‚é
+		/// å…‰æºã®è‰²ã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="_color">ŒõŒ¹‚ÌF</param>
+		/// <param name="_color">å…‰æºã®è‰²</param>
 		void SetColor(const Color _color) { color_ = _color; }
 
 		/// <summary>
-		/// ŒõŒ¹‚ÌF‚ğæ“¾‚·‚é
+		/// å…‰æºã®è‰²ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ŒõŒ¹‚ÌF</returns>
+		/// <returns>å…‰æºã®è‰²</returns>
 		Color GetColor() const { return color_; }
 
 	private:
-		Vector3 direction_;  // •½sŒõŒ¹‚Ì•ûŒü
-		Color color_;        // ŒõŒ¹‚ÌF
+		Vector3 direction_;  // å¹³è¡Œå…‰æºã®æ–¹å‘
+		Color color_;        // å…‰æºã®è‰²
 	};
 }

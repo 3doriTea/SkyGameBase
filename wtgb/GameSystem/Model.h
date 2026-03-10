@@ -11,42 +11,42 @@ namespace wtgb
 		~Model();
 
 		/// <summary>
-		/// XVƒ^ƒCƒ~ƒ“ƒO‚ğæ“¾
+		/// æ›´æ–°ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’å–å¾—
 		/// </summary>
-		/// <returns>XV‚µ‚È‚¢</returns>
+		/// <returns>æ›´æ–°ã—ãªã„</returns>
 		const CallType GetCallType() override { return CallType::DoNotUpdate; }
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_viewer">ƒVƒXƒeƒ€‚Ö‚Ìƒrƒ…ƒA</param>
-		/// <returns>‰Šú‰»ˆ—‚ÌŒ‹‰Ê</returns>
+		/// <param name="_viewer">ã‚·ã‚¹ãƒ†ãƒ ã¸ã®ãƒ“ãƒ¥ã‚¢</param>
+		/// <returns>åˆæœŸåŒ–å‡¦ç†ã®çµæœ</returns>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€‚Ö‚Ìƒrƒ…ƒA</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ ã¸ã®ãƒ“ãƒ¥ã‚¢</param>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹‚ğ“Ç‚İ‚ñ‚Åƒnƒ“ƒhƒ‹‚ğæ“¾‚·‚é
+		/// ãƒ¢ãƒ‡ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§ãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <param name="_fileName">ƒ‚ƒfƒ‹‚Ìƒtƒ@ƒCƒ‹ƒpƒX</param>
+		/// <param name="_fileName">ãƒ¢ãƒ‡ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
 		[[nodiscard]]
 		wtgb::ModelHandle Load(const std::string& _fileName);
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹‚ğæ“¾‚·‚é
+		/// ãƒ¢ãƒ‡ãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <param name="_hModel">ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹</param>
+		/// <param name="_hModel">ãƒ¢ãƒ‡ãƒ«ãƒãƒ³ãƒ‰ãƒ«</param>
 		/// <returns></returns>
 		ModelResource* GetModel(ModelHandle _hModel);
 
 	private:
-		ViewerCached system_;  // ƒVƒXƒeƒ€ƒAƒNƒZƒX—p
-		HandlerCollection<ModelResource*, ModelHandle> models_;  // ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‰ƒRƒŒƒNƒVƒ‡ƒ“
+		ViewerCached system_;  // ã‚·ã‚¹ãƒ†ãƒ ã‚¢ã‚¯ã‚»ã‚¹ç”¨
+		HandlerCollection<ModelResource*, ModelHandle> models_;  // ãƒ¢ãƒ‡ãƒ«ãƒãƒ³ãƒ‰ãƒ©ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
 	};
 }

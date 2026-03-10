@@ -12,9 +12,9 @@ namespace wtgb
 		~Scriptable();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		Result Init(const ViewerInit& _viewer) override;
@@ -29,10 +29,10 @@ namespace wtgb
 
 	private:
 		/// <summary>
-		/// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚É•t‚¯‚éƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ“Ç‚İ‚ñ‚Å‚¢‚­
+		/// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ä»˜ã‘ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’èª­ã¿è¾¼ã‚“ã§ã„ã
 		/// </summary>
-		/// <param name="_builder">ƒrƒ‹ƒh’†‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg</param>
-		/// <param name="_components">ƒRƒ“ƒ|[ƒlƒ“ƒg•”•ª‚ÌjsonƒIƒuƒWƒFƒNƒg</param>
+		/// <param name="_builder">ãƒ“ãƒ«ãƒ‰ä¸­ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
+		/// <param name="_components">ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆéƒ¨åˆ†ã®jsonã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
 		void LoadComponents(GameObjectBuilder& _builder, json& _components);
 
 	private:

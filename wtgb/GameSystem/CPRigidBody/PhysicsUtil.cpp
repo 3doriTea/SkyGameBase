@@ -9,7 +9,7 @@
 
 using DirectX::XMVector3TransformCoord;
 //using DirectX::XMVector3Length;
-using DirectX::XMVector3LengthSq;  // ŒvZ‚ğÈ‚­
+using DirectX::XMVector3LengthSq;  // è¨ˆç®—ã‚’çœã
 using DirectX::XMVector3TransformCoordStream;
 using DirectX::XMMatrixInverse;
 
@@ -19,7 +19,7 @@ namespace
 {
 	const float DELTA_TIME{ 1.0f / 60 };
 
-	// “¯‚Æ”»’è‚·‚éŠÔ· (•b)
+	// åŒæ™‚ã¨åˆ¤å®šã™ã‚‹æ™‚é–“å·® (ç§’)
 	//const float SIMULTANEOUS_THRESHOLD_SEC{ 1.0f };
 	const float SIMULTANEOUS_THRESHOLD_SEC{ DELTA_TIME };
 }
@@ -42,11 +42,11 @@ bool wtgb::PhysicsUtil::IsHit(ColliderSet* _pSelf, ColliderSet* _pOther)
 bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet* _pOther, CollisionInfo* _pCollisionInfo)
 {
 	wassert(_pSelfSection->pCollider->GetColliderType() == Collider::Type::Section
-		&& "©g‚ÌƒRƒ‰ƒCƒ_[‚ÍƒZƒNƒVƒ‡ƒ“‚Å‚ ‚é•K—v‚ª‚ ‚é");
+		&& "è‡ªèº«ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã¯ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚‹");
 
 	if (_pSelfSection->pCollider->GetColliderType() != Collider::Type::Section)
 	{
-		// ©g‚ÌƒRƒ‰ƒCƒ_[‚ª•sˆê’v
+		// è‡ªèº«ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒä¸ä¸€è‡´
 		return IsHit(_pSelfSection, _pOther);
 	}
 
@@ -77,7 +77,7 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 
 			if (XMVector2Cross(S, A).m128_f32[0] < 0)
 			{
-				return true;  // ‰º‚É‚¢‚é
+				return true;  // ä¸‹ã«ã„ã‚‹
 			}
 
 			const Vector2 B{ circle - points[i + 1] };
@@ -85,7 +85,7 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 			{
 				if (XMVector2Cross(XMVector2Dot(A, S), XMVector2Dot(B, S)).m128_f32[0] > 0)
 				{
-					// ü•ª‚ª“–‚½‚Á‚½
+					// ç·šåˆ†ãŒå½“ãŸã£ãŸ
 					return true;
 				}
 				else
@@ -93,7 +93,7 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 					if (radius > XMVector2Length(A).m128_f32[0]
 						|| radius > XMVector2Length(B).m128_f32[0])
 					{
-						// ü•ª‚ª“–‚½‚Á‚½
+						// ç·šåˆ†ãŒå½“ãŸã£ãŸ
 						return true;
 					}
 				}
@@ -124,7 +124,7 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 		break;
 	}
 	case Collider::Type::Section:
-		wassert(false && "ƒZƒNƒVƒ‡ƒ““¯m‚Ì“–‚½‚è”»’è‚Í‚Å‚«‚Ü‚¹‚ñB");
+		wassert(false && "ã‚»ã‚¯ã‚·ãƒ§ãƒ³åŒå£«ã®å½“ãŸã‚Šåˆ¤å®šã¯ã§ãã¾ã›ã‚“ã€‚");
 		break;
 	default:
 		break;
@@ -135,39 +135,39 @@ bool wtgb::PhysicsUtil::IsHitFromSection(ColliderSet* _pSelfSection, ColliderSet
 
 bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* _pOther, CollisionInfo* _pCollisionInfo)
 {
-#pragma region ƒRƒ‰ƒCƒ_[ƒZƒbƒgŠm”F
+#pragma region ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚»ãƒƒãƒˆç¢ºèª
 	if (!_pSelfSphere || !_pOther)
 	{
-		wassert(false && "ƒRƒ‰ƒCƒ_ƒZƒbƒg‚ªnullptr‚¾‚Á‚½");
+		wassert(false && "ã‚³ãƒ©ã‚¤ãƒ€ã‚»ãƒƒãƒˆãŒnullptrã ã£ãŸ");
 		return false;
 	}
 
 	if (_pSelfSphere == _pOther)
 	{
-		wassert(false && "©g‚Æ‘Šè‚ÌƒRƒ‰ƒCƒ_ƒZƒbƒg‚ª“¯‚¶");
+		wassert(false && "è‡ªèº«ã¨ç›¸æ‰‹ã®ã‚³ãƒ©ã‚¤ãƒ€ã‚»ãƒƒãƒˆãŒåŒã˜");
 		return false;
 	}
 
 	if (!_pSelfSphere->pCollider || !_pOther->pCollider)
 	{
-		wassert(false && "ƒRƒ‰ƒCƒ_‚ªnullptr‚¾‚Á‚½");
+		wassert(false && "ã‚³ãƒ©ã‚¤ãƒ€ãŒnullptrã ã£ãŸ");
 		return false;
 	}
 
 	if (_pSelfSphere->pCollider == _pOther->pCollider)
 	{
-		wassert(false && "©g‚Æ‘Šè‚ÌƒRƒ‰ƒCƒ_‚ª“¯‚¶");
+		wassert(false && "è‡ªèº«ã¨ç›¸æ‰‹ã®ã‚³ãƒ©ã‚¤ãƒ€ãŒåŒã˜");
 		return false;
 	}
 
-	wassert(_pSelfSphere->pTransform != _pOther->pTransform && "Transformˆê‚¾‚Á‚½");
+	wassert(_pSelfSphere->pTransform != _pOther->pTransform && "Transformä¸€ç·’ã ã£ãŸ");
 
 	wassert(_pSelfSphere->pCollider->GetColliderType() == Collider::Type::Sphere
-		&& "©g‚ÌƒRƒ‰ƒCƒ_[‚Í‹…‚Å‚ ‚é•K—v‚ª‚ ‚é");
+		&& "è‡ªèº«ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã¯çƒã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚‹");
 
 	if (_pSelfSphere->pCollider->GetColliderType() != Collider::Type::Sphere)
 	{
-		// ©g‚ÌƒRƒ‰ƒCƒ_[‚ª•sˆê’v
+		// è‡ªèº«ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒä¸ä¸€è‡´
 		return IsHit(_pSelfSphere, _pOther);
 	}
 #pragma endregion
@@ -186,23 +186,23 @@ bool wtgb::PhysicsUtil::IsHitFromSphere(ColliderSet* _pSelfSphere, ColliderSet* 
 }
 
 /// <summary>
-/// “®‚­‰~
+/// å‹•ãå††
 /// </summary>
 struct CircleBody
 {
-	wtgb::Vector2 center;      // ‰~‚Ì’†SÀ•W
-	wtgb::Vector2 velocity;    // ‘¬“x
-	float radius;              // ”¼Œa
-	float bounciness;          // ”½”­—Í
+	wtgb::Vector2 center;      // å††ã®ä¸­å¿ƒåº§æ¨™
+	wtgb::Vector2 velocity;    // é€Ÿåº¦
+	float radius;              // åŠå¾„
+	float bounciness;          // åç™ºåŠ›
 };
 
 /// <summary>
-/// ’f–Ê’nŒ`
+/// æ–­é¢åœ°å½¢
 /// </summary>
 struct Section
 {
-	wtgb::Vector2 begin;  // n“_
-	wtgb::Vector2 end;    // I“_
+	wtgb::Vector2 begin;  // å§‹ç‚¹
+	wtgb::Vector2 end;    // çµ‚ç‚¹
 };
 
 
@@ -218,10 +218,10 @@ void CircleBodyVSSegment(
 	CollisionInfo info{};
 	info.time = FLT_MAX;
 
-	// Œ»İ‚Ì‰~‚Ì’†SÀ•W
+	// ç¾åœ¨ã®å††ã®ä¸­å¿ƒåº§æ¨™
 	const Vector2 CURR_CENTER{ _circleBody.center };
 
-#pragma region â‘Î‚É“–‚½‚ç‚È‚¢ê‡œŠO
+#pragma region çµ¶å¯¾ã«å½“ãŸã‚‰ãªã„å ´åˆé™¤å¤–
 	const float CIRCLE_MAX_X{ CURR_CENTER.x + _circleBody.radius };
 	const float CIRCLE_MIN_X{ CURR_CENTER.x - _circleBody.radius };
 	
@@ -235,60 +235,60 @@ void CircleBodyVSSegment(
 		{
 			*_pCollisionInfo = info;
 		}
-		return; // â‘Î‚É“–‚½‚ç‚È‚¢‚©‚ç‘ŠúƒŠƒ^[ƒ“
+		return; // çµ¶å¯¾ã«å½“ãŸã‚‰ãªã„ã‹ã‚‰æ—©æœŸãƒªã‚¿ãƒ¼ãƒ³
 	}
 #pragma endregion
 
-	// ü•ªƒxƒNƒgƒ‹
+	// ç·šåˆ†ãƒ™ã‚¯ãƒˆãƒ«
 	const Vector2 V{ _section.end - _section.begin };
-	// ü•ªn“_‚©‚ç‰~‚Ì’†S
+	// ç·šåˆ†å§‹ç‚¹ã‹ã‚‰å††ã®ä¸­å¿ƒ
 	const Vector2 W{ CURR_CENTER - _section.begin };
-	// ‰~‚Ì”¼Œa
+	// å††ã®åŠå¾„
 	const float RADIUS{ _circleBody.radius };
 
-	// ü•ª‚Ì’·‚³‚Ì2æ
+	// ç·šåˆ†ã®é•·ã•ã®2ä¹—
 	const float SEGMENT_LENGTH_SQ{ XMVectorGetX(XMVector2LengthSq(V)) };
 
-	// Å‹ßÚ“_
+	// æœ€è¿‘æ¥ç‚¹
 	Vector2 point2D{};
 
-	// ü•ª‚É‚’¼‚È–@üƒxƒNƒgƒ‹i‰¼j
+	// ç·šåˆ†ã«å‚ç›´ãªæ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ï¼ˆä»®ï¼‰
 	Vector2 SEGMENT_NORM{ XMVector2Normalize(Vector2{ -V.y, V.x }) };
 
-	// –@ü‚ªã‚ğŒü‚­‚æ‚¤‚É’²® (’nŒ`‚Æ‚µ‚Äˆµ‚¤‚½‚ßAí‚É‰~‚ª‘¶İ‚·‚×‚«‘¤‚ğw‚·‚æ‚¤‚É‚·‚é)
-	// ˆê”Ê‚É+Y‚ªã‚Å‚ ‚ê‚ÎA–@ü‚ÌY¬•ª‚ª•‰‚È‚ç”½“]‚³‚¹‚é
+	// æ³•ç·šãŒä¸Šã‚’å‘ãã‚ˆã†ã«èª¿æ•´ (åœ°å½¢ã¨ã—ã¦æ‰±ã†ãŸã‚ã€å¸¸ã«å††ãŒå­˜åœ¨ã™ã¹ãå´ã‚’æŒ‡ã™ã‚ˆã†ã«ã™ã‚‹)
+	// ä¸€èˆ¬ã«+YãŒä¸Šã§ã‚ã‚Œã°ã€æ³•ç·šã®Yæˆåˆ†ãŒè² ãªã‚‰åè»¢ã•ã›ã‚‹
 	if (SEGMENT_NORM.y < 0.0f)
 	{
 		SEGMENT_NORM = SEGMENT_NORM * -1.0f;
 	}
 
-	// ü•ª‚ª‚à‚¤‚Ù‚Ú“_‚ÆŒ¾‚Á‚Ä‰ßŒ¾‚Å‚Í‚È‚¢ (’[“_Õ“Ë)
+	// ç·šåˆ†ãŒã‚‚ã†ã»ã¼ç‚¹ã¨è¨€ã£ã¦éè¨€ã§ã¯ãªã„ (ç«¯ç‚¹è¡çª)
 	if (SEGMENT_LENGTH_SQ < FLT_EPSILON)
 	{
 		point2D = _section.begin;
 	}
-	else // ü•ª‚Æ‚µ‚Ä‚Ìˆ—
+	else // ç·šåˆ†ã¨ã—ã¦ã®å‡¦ç†
 	{
-		// ü•ªã‚Å‚ÌÚ“_‚ÌŠ„‡ t
+		// ç·šåˆ†ä¸Šã§ã®æ¥ç‚¹ã®å‰²åˆ t
 		float t{ XMVectorGetX(XMVector2Dot(W, V)) / SEGMENT_LENGTH_SQ };
 
-		if (t < 0.0f) // n“_‚æ‚è‘O‚É‚ ‚é -> n“_‚ªÅ‹ßÚ“_
+		if (t < 0.0f) // å§‹ç‚¹ã‚ˆã‚Šå‰ã«ã‚ã‚‹ -> å§‹ç‚¹ãŒæœ€è¿‘æ¥ç‚¹
 		{
 			point2D = _section.begin;
 		}
-		else if (t > 1.0f) // I“_‚æ‚èŒã‚É‚ ‚é -> I“_‚ªÅ‹ßÚ“_
+		else if (t > 1.0f) // çµ‚ç‚¹ã‚ˆã‚Šå¾Œã«ã‚ã‚‹ -> çµ‚ç‚¹ãŒæœ€è¿‘æ¥ç‚¹
 		{
 			point2D = _section.end;
 		}
-		else // ü•ª‚ÌŠÔ -> ‚’¼‚È“_‚ªÅ‹ßÚ“_
+		else // ç·šåˆ†ã®é–“ -> å‚ç›´ãªç‚¹ãŒæœ€è¿‘æ¥ç‚¹
 		{
 			point2D = V * t + _section.begin;
 		}
 	}
 
-	// ‰~‚Ì’†S‚©‚çÅ‹ßÚ“_‚Ö‚ÌƒxƒNƒgƒ‹
+	// å††ã®ä¸­å¿ƒã‹ã‚‰æœ€è¿‘æ¥ç‚¹ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
 	const Vector2 CENTER_TO_POINT{ point2D - CURR_CENTER };
-	// ‹——£
+	// è·é›¢
 	const float DISTANCE{ XMVectorGetX(XMVector2Length(CENTER_TO_POINT)) };
 
 	if (CENTER_TO_POINT.y > 0.0f)
@@ -298,65 +298,65 @@ void CircleBodyVSSegment(
 	}
 	else
 	{
-		// –„‚ß‚İ‹ï‡ (•‰‚Ì’l‚È‚ç–„‚Ü‚Á‚Ä‚¢‚é)
+		// åŸ‹ã‚è¾¼ã¿å…·åˆ (è² ã®å€¤ãªã‚‰åŸ‹ã¾ã£ã¦ã„ã‚‹)
 		info.depth = RADIUS - DISTANCE;
 
-		// “–‚½‚Á‚Ä‚¢‚é‚©i–„‚Ü‚è‚İ‚ª‚ ‚é‚©j
+		// å½“ãŸã£ã¦ã„ã‚‹ã‹ï¼ˆåŸ‹ã¾ã‚Šè¾¼ã¿ãŒã‚ã‚‹ã‹ï¼‰
 		info.isHit = info.depth >= 0.0f;
 	}
 
 
-	// Õ“Ë“_‚ÍÅ‹ßÚ“_
+	// è¡çªç‚¹ã¯æœ€è¿‘æ¥ç‚¹
 	info.hitPoint = { 0.0f, point2D.y, point2D.x };
 
 	if (info.isHit)
 	{
 		Vector2 hitNormal = XMVector2Normalize(CURR_CENTER - point2D);
 
-		const float SKIN_WIDTH = 0.001f; // ó‹µ‚É‰‚¶‚Ä 0.01f ` 0.1f ‚É’²®
+		const float SKIN_WIDTH = 0.001f; // çŠ¶æ³ã«å¿œã˜ã¦ 0.01f ã€œ 0.1f ã«èª¿æ•´
 		float pushAmount = info.depth + SKIN_WIDTH;
 
-		// ‰Ÿ‚µo‚µƒxƒNƒgƒ‹ (–@ü•ûŒü‚É–„‚Ü‚è‚İ—Ê•ª‰Ÿ‚µ–ß‚·)
-		// ‚±‚±‚Åg‚¤–@ü‚ÍAƒZƒOƒƒ“ƒg‚ÌuãŒü‚«v–@ü‚ğg—p
+		// æŠ¼ã—å‡ºã—ãƒ™ã‚¯ãƒˆãƒ« (æ³•ç·šæ–¹å‘ã«åŸ‹ã¾ã‚Šè¾¼ã¿é‡åˆ†æŠ¼ã—æˆ»ã™)
+		// ã“ã“ã§ä½¿ã†æ³•ç·šã¯ã€ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã®ã€Œä¸Šå‘ãã€æ³•ç·šã‚’ä½¿ç”¨
 		//const Vector2 push2D = SEGMENT_NORM * info.depth;
 
-		// –@ü•ûŒü‚É‰Ÿ‚µo‚·
+		// æ³•ç·šæ–¹å‘ã«æŠ¼ã—å‡ºã™
 		Vector2 push2D = hitNormal * pushAmount;
 
-		// ‰Ÿ‚µo‚µ•ûŒü‚ÌŠm”F: 
-		// ÀÛ‚Ì–„‚Ü‚è‚İ•ûŒü‚Í CENTER_TO_POINT ‚Ì‹t•ûŒü‚Å‚·‚ªA
-		// ’nŒ`Õ“Ë‚Å‚ÍSEGMENT_NORM‚Ì•ûŒü‚É‰Ÿ‚µo‚·‚±‚Æ‚Åu’nŒ`‚ÌŠO‘¤v‚Éo‚µ‚Ü‚·B
+		// æŠ¼ã—å‡ºã—æ–¹å‘ã®ç¢ºèª: 
+		// å®Ÿéš›ã®åŸ‹ã¾ã‚Šè¾¼ã¿æ–¹å‘ã¯ CENTER_TO_POINT ã®é€†æ–¹å‘ã§ã™ãŒã€
+		// åœ°å½¢è¡çªã§ã¯SEGMENT_NORMã®æ–¹å‘ã«æŠ¼ã—å‡ºã™ã“ã¨ã§ã€Œåœ°å½¢ã®å¤–å´ã€ã«å‡ºã—ã¾ã™ã€‚
 
-		// ‰Ÿ‚µo‚µ
+		// æŠ¼ã—å‡ºã—
 		info.push = Vector3{ 0.0f, push2D.y, push2D.x };
 
-		// Õ“Ë‚ªŒ»İ‚ÌˆÊ’u‚ÅŒŸo‚³‚ê‚½‚½‚ßA“–‚½‚é‚Ü‚Å‚ÌŠÔ‚Í 0 ‚ÆŒ©‚È‚·
+		// è¡çªãŒç¾åœ¨ã®ä½ç½®ã§æ¤œå‡ºã•ã‚ŒãŸãŸã‚ã€å½“ãŸã‚‹ã¾ã§ã®æ™‚é–“ã¯ 0 ã¨è¦‹ãªã™
 		info.time = 0.0f;
 
-		// N“ü‘¬“x
+		// ä¾µå…¥é€Ÿåº¦
 		const Vector2 F{ _circleBody.velocity };
 
-		// –@ü(SEGMENT_NORM)‚ÉŒü‚©‚Á‚Ä‚­‚é‘¬“x¬•ª‚Ì“àÏ + f‚Ì’·‚³
+		// æ³•ç·š(SEGMENT_NORM)ã«å‘ã‹ã£ã¦ãã‚‹é€Ÿåº¦æˆåˆ†ã®å†…ç© + fã®é•·ã•
 		const float DOT_FN = XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM));
 
-		// ‘¬“x‚ª‚ß‚è‚İ•ûŒü(DOT_FN < 0.0f)‚Å‚È‚¯‚ê‚Î”½Ëˆ—‚Í•s—v
+		// é€Ÿåº¦ãŒã‚ã‚Šè¾¼ã¿æ–¹å‘(DOT_FN < 0.0f)ã§ãªã‘ã‚Œã°åå°„å‡¦ç†ã¯ä¸è¦
 		if (DOT_FN < 0.0f)
 		{
-			// ”½”­—Í e ‚ğl—¶‚µ‚½”½ËŒW”
+			// åç™ºåŠ› e ã‚’è€ƒæ…®ã—ãŸåå°„ä¿‚æ•°
 			const float E = 1.0f + _circleBody.bounciness;
 
-			// ”½ËƒxƒNƒgƒ‹ (R) ‚ÌŒvZ: R = F - (1 + e) * (F . N) * N
+			// åå°„ãƒ™ã‚¯ãƒˆãƒ« (R) ã®è¨ˆç®—: R = F - (1 + e) * (F . N) * N
 			Vector2 r{ F - E * DOT_FN * SEGMENT_NORM };
 
-			// yC³zŠp“x”»’è(ang)‚â‘¬“x·”»’è(speedDiff)‚ğíœ‚µA
-			// ŒvZ‚µ‚½”½ËƒxƒNƒgƒ‹ r ‚ğ‚»‚Ì‚Ü‚Ü“K—p‚·‚é
+			// ã€ä¿®æ­£ã€‘è§’åº¦åˆ¤å®š(ang)ã‚„é€Ÿåº¦å·®åˆ¤å®š(speedDiff)ã‚’å‰Šé™¤ã—ã€
+			// è¨ˆç®—ã—ãŸåå°„ãƒ™ã‚¯ãƒˆãƒ« r ã‚’ãã®ã¾ã¾é©ç”¨ã™ã‚‹
 
-			// Vector2(x, y) ‚ğ Vector3(0, y, x) ‚É•ÏŠ·‚µ‚ÄŠi”[
+			// Vector2(x, y) ã‚’ Vector3(0, y, x) ã«å¤‰æ›ã—ã¦æ ¼ç´
 			//info.reflectionVelocity = Vector3{ 0.0f, r.y, r.x };
 
 			//if (XMVectorGetX(XMVector2Length(r)) < 5.0f)
 			//{
-			//	// ƒƒOo—Í‚ª•K—v‚Å‚ ‚ê‚Î‚±‚±‚Å r ‚Ì’l‚ğo—Í
+			//	// ãƒ­ã‚°å‡ºåŠ›ãŒå¿…è¦ã§ã‚ã‚Œã°ã“ã“ã§ r ã®å€¤ã‚’å‡ºåŠ›
 			//	//LOGFLN("Reflect: ({}, {})", r.x, r.y);
 			//}
 			//else
@@ -367,12 +367,12 @@ void CircleBodyVSSegment(
 		}
 		else
 		{
-			// —£‚ê•ûŒü‚Ü‚½‚ÍÚü•ûŒü‚Ì‘¬“x¬•ª‚Ì‚İA‚»‚Ì‚Ü‚ÜŸ‚Ì‘¬“x‚Æ‚·‚é
+			// é›¢ã‚Œæ–¹å‘ã¾ãŸã¯æ¥ç·šæ–¹å‘ã®é€Ÿåº¦æˆåˆ†ã®ã¿ã€ãã®ã¾ã¾æ¬¡ã®é€Ÿåº¦ã¨ã™ã‚‹
 			info.reflectionVelocity = Vector3{ 0.0f, F.y, F.x };
 		}
 	}
 
-	// “–‚½‚è”»’èî•ñ‚ª•K—v‚È‚ç“n‚·
+	// å½“ãŸã‚Šåˆ¤å®šæƒ…å ±ãŒå¿…è¦ãªã‚‰æ¸¡ã™
 	if (_pCollisionInfo)
 	{
 		*_pCollisionInfo = info;
@@ -388,13 +388,13 @@ void CircleBodyVSSegment(
 	using namespace DirectX;
 
 	CollisionInfo info{};
-	info.time = FLT_MAX;  // “–‚½‚ç‚È‚¢‚È‚ç“–‚½‚é‚Ü‚Å‚ÌŠÔ‚Í–³ŒÀ‚É‚µ‚Ä‚¨‚­
+	info.time = FLT_MAX;  // å½“ãŸã‚‰ãªã„ãªã‚‰å½“ãŸã‚‹ã¾ã§ã®æ™‚é–“ã¯ç„¡é™ã«ã—ã¦ãŠã
 
-	// ‚Ü‚¸‚ÍŸ‚ÌƒtƒŒ[ƒ€‚Å“–‚½‚Á‚Ä‚¢‚é‚©
+	// ã¾ãšã¯æ¬¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§å½“ãŸã£ã¦ã„ã‚‹ã‹
 	const Vector2 CURR_CENTER{ _circleBody.center };
 	const Vector2 NEXT_CENTER{ CURR_CENTER + (_circleBody.velocity * DELTA_TIME) };
 
-#pragma region â‘Î‚É“–‚½‚ç‚È‚¢ê‡œŠO
+#pragma region çµ¶å¯¾ã«å½“ãŸã‚‰ãªã„å ´åˆé™¤å¤–
 	const float CIRCLE_MAX_X{ max(CURR_CENTER.x, NEXT_CENTER.x) + (_circleBody.radius * 2.0f) };
 	const float CIRCLE_MIN_X{ min(CURR_CENTER.x, NEXT_CENTER.x) - (_circleBody.radius * 2.0f) };
 
@@ -405,65 +405,65 @@ void CircleBodyVSSegment(
 	}
 #pragma endregion
 
-	// ü•ªƒxƒNƒgƒ‹
+	// ç·šåˆ†ãƒ™ã‚¯ãƒˆãƒ«
 	const Vector2 V{ _section.end - _section.begin };
-	// ü•ªn“_‚©‚ç‰~‚Ì’†S
+	// ç·šåˆ†å§‹ç‚¹ã‹ã‚‰å††ã®ä¸­å¿ƒ
 	const Vector2 W{ _circleBody.center - _section.begin };
-	// ‰~‚Ì”¼Œa‚Ì2æ
+	// å††ã®åŠå¾„ã®2ä¹—
 	const float RADIUS_SQ{ _circleBody.radius * _circleBody.radius };
 
-	// ü•ª‚Ì’·‚³‚Ì2æ
+	// ç·šåˆ†ã®é•·ã•ã®2ä¹—
 	const float SEGMENT_LENGTH_SQ{ XMVectorGetX(XMVector2LengthSq(V)) };
 
-	// Å‹ßÚ“_
+	// æœ€è¿‘æ¥ç‚¹
 	Vector2 point2D{};
 
-	// ü•ª‚ª‚à‚¤‚Ù‚Ú“_‚ÆŒ¾‚Á‚Ä‰ßŒ¾‚Å‚Í‚È‚¢
+	// ç·šåˆ†ãŒã‚‚ã†ã»ã¼ç‚¹ã¨è¨€ã£ã¦éè¨€ã§ã¯ãªã„
 	if (SEGMENT_LENGTH_SQ < FLT_EPSILON)
 	{
 		point2D = _section.begin;
 
-		// –„‚ß‚İ‹ï‡
+		// åŸ‹ã‚è¾¼ã¿å…·åˆ
 		info.depth = RADIUS_SQ - XMVectorGetX(XMVector2LengthSq(W));
 
-		// ‚È‚ç“_‚Æ‰~‚Ì“–‚½‚è”»’è
+		// ãªã‚‰ç‚¹ã¨å††ã®å½“ãŸã‚Šåˆ¤å®š
 		info.isHit = info.depth >= 0.0f;
 	}
-	else  // ü•ª‚Æ‚µ‚Ä‚Ìˆ—
+	else  // ç·šåˆ†ã¨ã—ã¦ã®å‡¦ç†
 	{
-		// ü•ªã‚Å‚ÌÚ“_‚ÌŠ„‡
+		// ç·šåˆ†ä¸Šã§ã®æ¥ç‚¹ã®å‰²åˆ
 		float t{ XMVectorGetX(XMVector2Dot(W, V)) / SEGMENT_LENGTH_SQ };
 
-		if (t < 0.0f)  // n“_‚æ‚è‘O‚É‚ ‚é
+		if (t < 0.0f)  // å§‹ç‚¹ã‚ˆã‚Šå‰ã«ã‚ã‚‹
 		{
 			point2D = _section.begin;
 		}
-		else if (t > 1.0f)  // I“_‚æ‚èŒã‚É‚ ‚é
+		else if (t > 1.0f)  // çµ‚ç‚¹ã‚ˆã‚Šå¾Œã«ã‚ã‚‹
 		{
 			point2D = _section.end;
 		}
-		else  // ü•ª‚ÌŠÔ
+		else  // ç·šåˆ†ã®é–“
 		{
 			point2D = V * t + _section.begin;
 		}
 
-		// ‰~‚Ì’†S‚©‚çÅ‹ßÚ“_‚Ö‚Ì‹——£‚Ì2æ
+		// å††ã®ä¸­å¿ƒã‹ã‚‰æœ€è¿‘æ¥ç‚¹ã¸ã®è·é›¢ã®2ä¹—
 		const float DISTANCE_SQ{ XMVectorGetX(XMVector2LengthSq(point2D - NEXT_CENTER)) };
 
-		// –„‚ß‚İ‹ï‡
+		// åŸ‹ã‚è¾¼ã¿å…·åˆ
 		info.depth = std::sqrtf(RADIUS_SQ) - std::sqrtf(DISTANCE_SQ);
 
-		// ‚È‚ç“_‚Æ‰~‚Ì“–‚½‚è”»’è
+		// ãªã‚‰ç‚¹ã¨å††ã®å½“ãŸã‚Šåˆ¤å®š
 		info.isHit = DISTANCE_SQ <= RADIUS_SQ;
 	}
 
 	info.hitPoint = { 0.0f, point2D.y, point2D.x };
 
-	// ‰~‚Ì’†S‚©‚çÅ‹ßÚ“_‚Ö‚ÌƒxƒNƒgƒ‹
+	// å††ã®ä¸­å¿ƒã‹ã‚‰æœ€è¿‘æ¥ç‚¹ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
 	const Vector2 CENTER_TO_POINT_P{ point2D - CURR_CENTER };
 	const float DISTANCE{ XMVectorGetX(XMVector2Length(CENTER_TO_POINT_P)) };
 
-	// ‰Ÿ‚µo‚µ•ûŒü (–@üƒxƒNƒgƒ‹ N) - í‚É‰~‚Ì’†S‚©‚çŠO‘¤‚ğw‚·
+	// æŠ¼ã—å‡ºã—æ–¹å‘ (æ³•ç·šãƒ™ã‚¯ãƒˆãƒ« N) - å¸¸ã«å††ã®ä¸­å¿ƒã‹ã‚‰å¤–å´ã‚’æŒ‡ã™
 	Vector2 norm{ XMVector2Normalize(-CENTER_TO_POINT_P) };
 
 	if (DISTANCE <= FLT_EPSILON)
@@ -475,32 +475,32 @@ void CircleBodyVSSegment(
 		}
 	}
 
-	// –„‚ß‚İ—Ê
+	// åŸ‹ã‚è¾¼ã¿é‡
 	info.depth = _circleBody.radius - DISTANCE;
 
 	if (info.isHit)
 	{
-		// ‰Ÿ‚µo‚µƒxƒNƒgƒ‹‚ğŒvZ
+		// æŠ¼ã—å‡ºã—ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¨ˆç®—
 		const Vector2 push2D = norm * info.depth;
 		info.push = Vector3{ 0.0f, push2D.y, push2D.x };
 
-		// Õ“Ë‚ÍA‚±‚Ìu‰Ÿ‚µo‚µvƒx[ƒX‚Ìˆ—‚Å‚ÍŒµ–§‚É‹‚Ü‚è‚Ü‚¹‚ñB
-		// info.time‚ğ0‚É‚µ‚ÄAuÕ“Ë‚Í‚·‚Å‚É‹N‚±‚Á‚Ä‚¢‚év‚ÆŒ©‚È‚·‚Ì‚ªˆê”Ê“I‚Å‚·B
+		// è¡çªæ™‚åˆ»ã¯ã€ã“ã®ã€ŒæŠ¼ã—å‡ºã—ã€ãƒ™ãƒ¼ã‚¹ã®å‡¦ç†ã§ã¯å³å¯†ã«æ±‚ã¾ã‚Šã¾ã›ã‚“ã€‚
+		// info.timeã‚’0ã«ã—ã¦ã€ã€Œè¡çªã¯ã™ã§ã«èµ·ã“ã£ã¦ã„ã‚‹ã€ã¨è¦‹ãªã™ã®ãŒä¸€èˆ¬çš„ã§ã™ã€‚
 		info.time = 0.0f;
 
-		// “üË‘¬“x (F)
+		// å…¥å°„é€Ÿåº¦ (F)
 		const Vector2 F{ _circleBody.velocity };
 
-		// –@ü(N)‚Æ‘¬“x‚Ì“àÏ
+		// æ³•ç·š(N)ã¨é€Ÿåº¦ã®å†…ç©
 		const float DOT_FN = XMVectorGetX(XMVector2Dot(F, norm));
 
-		// –@ü•ûŒü‚Ö‚Ì‘¬“xi‚ß‚è‚İ‘¬“xj‚ª³i—£‚ê‚é•ûŒüj‚È‚ç”½Ë‚µ‚È‚¢
+		// æ³•ç·šæ–¹å‘ã¸ã®é€Ÿåº¦ï¼ˆã‚ã‚Šè¾¼ã¿é€Ÿåº¦ï¼‰ãŒæ­£ï¼ˆé›¢ã‚Œã‚‹æ–¹å‘ï¼‰ãªã‚‰åå°„ã—ãªã„
 		if (DOT_FN < 0.0f)
 		{
-			// Õ“ËŒW”i1 + ”½”­—Íj
+			// è¡çªä¿‚æ•°ï¼ˆ1 + åç™ºåŠ›ï¼‰
 			const float E = 1.0f + _circleBody.bounciness;
 
-			// ”½ËƒxƒNƒgƒ‹ (R)
+			// åå°„ãƒ™ã‚¯ãƒˆãƒ« (R)
 			// R = F - (1 + bounciness) * (F . N) * N
 			Vector2 r{ F - E * DOT_FN * norm };
 
@@ -508,24 +508,24 @@ void CircleBodyVSSegment(
 		}
 		else
 		{
-			// —£‚ê‚Ä‚¢‚­•ûŒü‚È‚Ì‚ÅA”½Ë‚Í‹N‚±‚³‚¸Œ»İ‚Ì‘¬“x‚Ì‚Ü‚Ü
+			// é›¢ã‚Œã¦ã„ãæ–¹å‘ãªã®ã§ã€åå°„ã¯èµ·ã“ã•ãšç¾åœ¨ã®é€Ÿåº¦ã®ã¾ã¾
 			info.reflectionVelocity = { 0.0f, F.y, F.x };
 		}
 
-		//// “–‚½‚Á‚Ä‚¢‚é‚È‚ç‰Ÿ‚µo‚µ‚Æ‚ğ•Ô‚·
+		//// å½“ãŸã£ã¦ã„ã‚‹ãªã‚‰æŠ¼ã—å‡ºã—ã¨æ™‚åˆ»ã‚’è¿”ã™
 		//Vector2 push2D{};
 
 
-		//// 1ƒtƒŒ[ƒ€‚ÅˆÚ“®
+		//// 1ãƒ•ãƒ¬ãƒ¼ãƒ ã§ç§»å‹•
 		//const Vector2 MOVE{ NEXT_CENTER - CURR_CENTER };
 		//
-		//// ‰~‚Ì’†S‚©‚çÅ‹ßÚ“_
+		//// å††ã®ä¸­å¿ƒã‹ã‚‰æœ€è¿‘æ¥ç‚¹
 		//const Vector2 CENTER_TO_POINT{ point2D - CURR_CENTER };
 
-		//// ü•ª‚É‚’¼‚È–@üƒxƒNƒgƒ‹
+		//// ç·šåˆ†ã«å‚ç›´ãªæ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
 		//const Vector2 SEGMENT_NORM{ XMVector2Normalize(Vector2{ -V.y, V.x }) };
 
-		//// ”½”­‚·‚é•ûŒü
+		//// åç™ºã™ã‚‹æ–¹å‘
 		//Vector2 retDir{ XMVector2Normalize(CENTER_TO_POINT * -1.0f) };
 		////Vector2 retDir{ SEGMENT_NORM };
 
@@ -534,25 +534,25 @@ void CircleBodyVSSegment(
 		//	retDir = Vector2::Up();
 		//}
 
-		//// ”¼Œa•ª–ß‚·ƒxƒNƒgƒ‹
+		//// åŠå¾„åˆ†æˆ»ã™ãƒ™ã‚¯ãƒˆãƒ«
 		//const Vector2 RET_RADIUS{ retDir * _circleBody.radius };
 
-		//// ”¼Œa•ª–ß‚µ‚½ƒxƒNƒgƒ‹
+		//// åŠå¾„åˆ†æˆ»ã—ãŸãƒ™ã‚¯ãƒˆãƒ«
 		//const Vector2 TO_HIT_POS{ CENTER_TO_POINT + RET_RADIUS };
 
-		//// “–‚½‚é‚±‚Æ‚ª—\’è‚³‚ê‚é‚½‚ß“®‚©‚·•ª
+		//// å½“ãŸã‚‹ã“ã¨ãŒäºˆå®šã•ã‚Œã‚‹ãŸã‚å‹•ã‹ã™åˆ†
 		//push2D = (NEXT_CENTER + TO_HIT_POS) - CURR_CENTER;
 
-		//// “–‚½‚é‚Ü‚Å‚ÌŠÔ‚ğæ‚Á‚Ä‚¨‚­
+		//// å½“ãŸã‚‹ã¾ã§ã®æ™‚é–“ã‚’å–ã£ã¦ãŠã
 		//info.time = XMVectorGetX(XMVector2Length(MOVE - push2D));
 
-		//// N“ü‘¬“x
+		//// ä¾µå…¥é€Ÿåº¦
 		//const Vector2 F{ _circleBody.velocity };
 
-		//// –@ü‚ÉŒü‚©‚Á‚Ä‚­‚é‘¬“xƒxƒNƒgƒ‹‚È‚ç”½Ë‚·‚é
+		//// æ³•ç·šã«å‘ã‹ã£ã¦ãã‚‹é€Ÿåº¦ãƒ™ã‚¯ãƒˆãƒ«ãªã‚‰åå°„ã™ã‚‹
 		////if (XMVectorGetX(XMVector2Dot(SEGMENT_NORM, F)) <= 0.0f)
 
-		//// ”½ËƒxƒNƒgƒ‹
+		//// åå°„ãƒ™ã‚¯ãƒˆãƒ«
 		////Vector2 r{ F - 2.0f * XMVectorGetX(XMVector2Dot(F, SEGMENT_NORM)) * SEGMENT_NORM };
 		////Vector2 r{ F + 2.0f * XMVectorGetX(XMVector2Length(F)) * SEGMENT_NORM };
 		//Vector2 r{ F + 2.0f * XMVectorGetX(XMVector3Dot(-F, SEGMENT_NORM)) * SEGMENT_NORM };
@@ -568,7 +568,7 @@ void CircleBodyVSSegment(
 		//info.push = Vector3{ 0.0f, push2D.y, push2D.x } * 1.0f;
 	}
 
-	// “–‚½‚è”»’èî•ñ‚ª•K—v‚È‚ç“n‚·
+	// å½“ãŸã‚Šåˆ¤å®šæƒ…å ±ãŒå¿…è¦ãªã‚‰æ¸¡ã™
 	if (_pCollisionInfo)
 	{
 		*_pCollisionInfo = info;
@@ -578,54 +578,54 @@ void CircleBodyVSSegment(
 
 bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet* _pSection, CollisionInfo* _pCollisionInfo)
 {
-#pragma region ƒRƒ‰ƒCƒ_[ƒZƒbƒgŠm”F
+#pragma region ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚»ãƒƒãƒˆç¢ºèª
 	using namespace DirectX;
 
 	if (!_pSphere || !_pSection)
 	{
-		wassert(false && "ƒRƒ‰ƒCƒ_ƒZƒbƒg‚ªnullptr‚¾‚Á‚½");
+		wassert(false && "ã‚³ãƒ©ã‚¤ãƒ€ã‚»ãƒƒãƒˆãŒnullptrã ã£ãŸ");
 		return false;
 	}
 
 	if (_pSphere == _pSection)
 	{
-		wassert(false && "©g‚Æ‘Šè‚ÌƒRƒ‰ƒCƒ_ƒZƒbƒg‚ª“¯‚¶");
+		wassert(false && "è‡ªèº«ã¨ç›¸æ‰‹ã®ã‚³ãƒ©ã‚¤ãƒ€ã‚»ãƒƒãƒˆãŒåŒã˜");
 		return false;
 	}
 
 	if (!_pSphere->pCollider || !_pSection->pCollider)
 	{
-		wassert(false && "ƒRƒ‰ƒCƒ_‚ªnullptr‚¾‚Á‚½");
+		wassert(false && "ã‚³ãƒ©ã‚¤ãƒ€ãŒnullptrã ã£ãŸ");
 		return false;
 	}
 
 	if (_pSphere->pCollider == _pSection->pCollider)
 	{
-		wassert(false && "©g‚Æ‘Šè‚ÌƒRƒ‰ƒCƒ_‚ª“¯‚¶");
+		wassert(false && "è‡ªèº«ã¨ç›¸æ‰‹ã®ã‚³ãƒ©ã‚¤ãƒ€ãŒåŒã˜");
 		return false;
 	}
 
-	wassert(_pSphere->pTransform != _pSection->pTransform && "Transformˆê‚¾‚Á‚½");
+	wassert(_pSphere->pTransform != _pSection->pTransform && "Transformä¸€ç·’ã ã£ãŸ");
 
 	if (_pSphere->pCollider->GetColliderType() != Collider::Type::Sphere
 		|| _pSection->pCollider->GetColliderType() != Collider::Type::Section)
 	{
-		wassert(false && "ƒRƒ‰ƒCƒ_ƒ^ƒCƒv‚ª•sˆê’v");
+		wassert(false && "ã‚³ãƒ©ã‚¤ãƒ€ã‚¿ã‚¤ãƒ—ãŒä¸ä¸€è‡´");
 		return false;
 	}
 
 	if (!_pSphere->pRigidBody)
 	{
-		wassert(false && "‹…‚ÌRigidBody‚ªw’è‚³‚ê‚Ä‚¢‚È‚¢");
+		wassert(false && "çƒã®RigidBodyãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„");
 		return false;
 	}
 #pragma endregion
 
-	// ‰~‚Ì’†Sƒ[ƒ‹ƒhÀ•W
+	// å††ã®ä¸­å¿ƒãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™
 	Vector3 worldCenterPos{ XMVector3TransformCoord(_pSphere->pCollider->sphere.center, _pSphere->pTransform->GetWorldMatrix()) };
-	// ü•ª‚½‚¿
+	// ç·šåˆ†ãŸã¡
 	std::vector<Vector2>& points{ _pSection->pCollider->section.points2D };
-	// ‰~‚Ì”¼Œa
+	// å††ã®åŠå¾„
 	const float RADIUS{ _pSphere->pCollider->sphere.radius };
 
 	const Vector3 VELOCITY{ _pSphere->pRigidBody->GetVelocity() };
@@ -657,37 +657,37 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 		if (info.isIgnoreFar)
 		{
-			continue;  // ‰“‚·‚¬‚é‚È‚çŠ®‘S–³‹
+			continue;  // é ã™ãã‚‹ãªã‚‰å®Œå…¨ç„¡è¦–
 		}
 
-		// Ú“_‚ÌxÀ•W‚Í“ü‚Á‚Ä‚¢‚È‚¢‚½‚ß“ü‚ê‚é
+		// æ¥ç‚¹ã®xåº§æ¨™ã¯å…¥ã£ã¦ã„ãªã„ãŸã‚å…¥ã‚Œã‚‹
 		info.hitPoint.x = _pSphere->pTransform->GetPositionWorld().x;
 
-		if (info.isHit)  // “–‚½‚Á‚Ä‚¢‚é‚È‚ç
+		if (info.isHit)  // å½“ãŸã£ã¦ã„ã‚‹ãªã‚‰
 		{
 			if (bestInfo.isHit == false)
 			{
-				// ‘O‚Ìî•ñ‚ª“–‚½‚Á‚Ä‚¢‚È‚¢‚Æ‚«‚È‚ç•K‚¸ã‘‚«
+				// å‰ã®æƒ…å ±ãŒå½“ãŸã£ã¦ã„ãªã„ã¨ããªã‚‰å¿…ãšä¸Šæ›¸ã
 				bestInfo = info;
 			}
 			else
 			{
-				LOGFLN("ŠÔ·:{}", std::fabsf(info.time - bestInfo.time));
+				LOGFLN("æ™‚é–“å·®:{}", std::fabsf(info.time - bestInfo.time));
 
-				if (std::fabsf(info.time - bestInfo.time) <= SIMULTANEOUS_THRESHOLD_SEC)  // “–‚½‚é‚Ü‚Å‚ÌŠÔ‚ª‚Ù‚Ú“¯‚¶‚È‚ç
+				if (std::fabsf(info.time - bestInfo.time) <= SIMULTANEOUS_THRESHOLD_SEC)  // å½“ãŸã‚‹ã¾ã§ã®æ™‚é–“ãŒã»ã¼åŒã˜ãªã‚‰
 				{
-					LOGF("“¯‚ÉÕ“Ë");
+					LOGF("åŒæ™‚ã«è¡çª");
 
 					bestInfo.push = bestInfo.push + info.push;
 					bestInfo.normal = XMVector3Normalize(bestInfo.normal + info.normal);
-					// ‚±‚±‚Íƒn[ƒt‚¢‚ç‚È‚¢‚©‚àH
+					// ã“ã“ã¯ãƒãƒ¼ãƒ•ã„ã‚‰ãªã„ã‹ã‚‚ï¼Ÿ
 					//bestInfo.push = XMVectorScale((bestInfo.push + info.push), 0.5f);
 					
 					//bestInfo.reflectionVelocity = XMVectorScale((bestInfo.reflectionVelocity + info.reflectionVelocity), 0.5f);
 					float length{ XMVectorGetX(XMVector3Length(bestInfo.reflectionVelocity)) };
 					bestInfo.reflectionVelocity = XMVectorScale(XMVector3Normalize(bestInfo.reflectionVelocity + info.reflectionVelocity), length);
 				}
-				else if (info.time < bestInfo.time)  // “–‚½‚é‚Ü‚Å‚ÌŠÔ‚ª’Z‚¢•û‚ğ“K—p
+				else if (info.time < bestInfo.time)  // å½“ãŸã‚‹ã¾ã§ã®æ™‚é–“ãŒçŸ­ã„æ–¹ã‚’é©ç”¨
 				{
 					bestInfo = info;
 				}
@@ -705,39 +705,39 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 
 bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet* _pSphereB, CollisionInfo* _pCollisionInfo)
 {
-	return false;  // TODO: collision ƒ`ƒFƒbƒNƒŒƒCƒ„[®‚É‚·‚é
+	return false;  // TODO: collision ãƒã‚§ãƒƒã‚¯ãƒ¬ã‚¤ãƒ¤ãƒ¼å¼ã«ã™ã‚‹
 	using namespace DirectX;
 
 	if (!_pSphereA || !_pSphereB)
 	{
-		wassert(false && "ƒRƒ‰ƒCƒ_ƒZƒbƒg‚ªnullptr‚¾‚Á‚½");
+		wassert(false && "ã‚³ãƒ©ã‚¤ãƒ€ã‚»ãƒƒãƒˆãŒnullptrã ã£ãŸ");
 		return false;
 	}
 
 	if (_pSphereA == _pSphereB)
 	{
-		wassert(false && "©g‚Æ‘Šè‚ÌƒRƒ‰ƒCƒ_ƒZƒbƒg‚ª“¯‚¶");
+		wassert(false && "è‡ªèº«ã¨ç›¸æ‰‹ã®ã‚³ãƒ©ã‚¤ãƒ€ã‚»ãƒƒãƒˆãŒåŒã˜");
 		return false;
 	}
 
 	if (!_pSphereA->pCollider || !_pSphereB->pCollider)
 	{
-		wassert(false && "ƒRƒ‰ƒCƒ_‚ªnullptr‚¾‚Á‚½");
+		wassert(false && "ã‚³ãƒ©ã‚¤ãƒ€ãŒnullptrã ã£ãŸ");
 		return false;
 	}
 
 	if (_pSphereA->pCollider == _pSphereB->pCollider)
 	{
-		wassert(false && "©g‚Æ‘Šè‚ÌƒRƒ‰ƒCƒ_‚ª“¯‚¶");
+		wassert(false && "è‡ªèº«ã¨ç›¸æ‰‹ã®ã‚³ãƒ©ã‚¤ãƒ€ãŒåŒã˜");
 		return false;
 	}
 
-	wassert(_pSphereA->pTransform != _pSphereB->pTransform && "Transformˆê‚¾‚Á‚½");
+	wassert(_pSphereA->pTransform != _pSphereB->pTransform && "Transformä¸€ç·’ã ã£ãŸ");
 
 	if (_pSphereA->pCollider->GetColliderType() != Collider::Type::Sphere
 		|| _pSphereB->pCollider->GetColliderType() != Collider::Type::Sphere)
 	{
-		wassert(false && "ƒRƒ‰ƒCƒ_ƒ^ƒCƒv‚ª•sˆê’v");
+		wassert(false && "ã‚³ãƒ©ã‚¤ãƒ€ã‚¿ã‚¤ãƒ—ãŒä¸ä¸€è‡´");
 		return false;
 	}
 
@@ -746,16 +746,16 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSphere(ColliderSet* _pSphereA, ColliderSet*
 
 	Vector3 diff{ otherCenterWorld - selfCenterWorld };
 
-	// ‹——£
+	// è·é›¢
 	float distanceSq{ XMVector3LengthSq(diff).m128_f32[0] };
-	// “–‚½‚Á‚Ä‚¢‚éè‡’l
+	// å½“ãŸã£ã¦ã„ã‚‹é–¾å€¤
 	float threshold{ _pSphereA->pCollider->sphere.radius + _pSphereB->pCollider->sphere.radius };
 	float thresholdSq{ threshold * threshold };
 
-	// “ñæ“¯m‚Å”»’è
+	// äºŒä¹—åŒå£«ã§åˆ¤å®š
 	if (distanceSq <= thresholdSq)
 	{
-		// “–‚½‚Á‚Ä‚¢‚é
+		// å½“ãŸã£ã¦ã„ã‚‹
 		if (_pCollisionInfo)
 		{
 			_pCollisionInfo->isHit = true;

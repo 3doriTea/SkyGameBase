@@ -30,22 +30,22 @@ void wtgb::MeshRenderer::Init(ViewerCached _system)
 			},
 			.vertexInputLayout
 			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // �ʒu
-				{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },     // �@���x�N�g��
-				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },      // UV���W
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // 位置
+				{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },     // 法線ベクトル
+				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },      // UV座標
 			},
-			.fillMode = D3D11_FILL_SOLID,  // �h��Ԃ�
-			.cullMode = D3D11_CULL_BACK,   // �B�ʏ���
-			//.cullMode = D3D11_CULL_NONE,   // �B�ʏ���
+			.fillMode = D3D11_FILL_SOLID,  // 塗りつぶし
+			.cullMode = D3D11_CULL_BACK,   // 隠面消去
+			//.cullMode = D3D11_CULL_NONE,   // 隠面消去
 			.backIsClockwise = false,
 		});
 
-	// �e�N�X�`���̃t�@�C������"�w�肳��Ă���"�Ȃ�ݒ肵�ēǂݍ���
+	// テクスチャのファイル名が"指定されている"なら設定して読み込み
 	if (texture_.empty() == false)
 	{
 		hTexture_ = _system.Get<ResourceSystem>().LoadTexture(texture_);
 	}
-	// �e�N�X�`���ǂݍ��ݐݒ肪����Ă���Ȃ�A�ݒ肩��ǂݍ���
+	// テクスチャ読み込み設定がされているなら、設定から読み込む
 	else if (textureConfig_.fileName.empty() == false)
 	{
 		hTexture_ = _system.Get<ResourceSystem>().LoadTexture(textureConfig_);

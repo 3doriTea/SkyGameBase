@@ -21,39 +21,39 @@ public:
 	void Init(wtgb::ViewerCached _system) override;
 
 	/// <summary>
-	/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶ƒŒ[ƒg‚ğæ“¾‚·‚é
+	/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿãƒ¬ãƒ¼ãƒˆã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>Ä¶’†‚ÌˆÊ’u 0.0 ~ 1.0</returns>
+	/// <returns>å†ç”Ÿä¸­ã®ä½ç½® 0.0 ~ 1.0</returns>
 	inline float GetRatio() const { return timerUp_ / totalTime_; }
 
 	/// <summary>
-	/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹‚µ‚½‚©
+	/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ãŸã‹
 	/// </summary>
-	/// <returns>I—¹‚µ‚½ true / false</returns>
+	/// <returns>çµ‚äº†ã—ãŸ true / false</returns>
 	inline bool IsFinished() const { return isFinished_; }
 
 	/// <summary>
-	/// ‘Ä¶ŠÔ‚ğİ’è‚·‚é
+	/// ç·å†ç”Ÿæ™‚é–“ã‚’è¨­å®šã™ã‚‹
 	/// </summary>
-	/// <param name="_totalTime">‘Ä¶ŠÔ(•b)</param>
+	/// <param name="_totalTime">ç·å†ç”Ÿæ™‚é–“(ç§’)</param>
 	inline void SetTotalTime(const float _totalTimeSec) { totalTime_ = _totalTimeSec; }
 
 	/// <summary>
-	/// ŠJn’n“_
+	/// é–‹å§‹åœ°ç‚¹
 	/// </summary>
 	/// <param name="_position"></param>
 	inline void SetStartPos(const wtgb::Vector3& _position) { startPos_ = _position; }
 	/// <summary>
-	/// I—¹’n“_
+	/// çµ‚äº†åœ°ç‚¹
 	/// </summary>
 	/// <param name="_position"></param>
 	inline void SetEndPos(const wtgb::Vector3& _position) { endPos_ = _position; }
 
 private:
-	ItemType itemType_;       // í—Ş
-	float totalTime_;         // ‘Ä¶ŠÔ
-	float timerUp_;          // c‚èŠÔ
-	wtgb::Vector3 startPos_;  // ŠJn’n“_
-	wtgb::Vector3 endPos_;    // I—¹’n“_
-	bool isFinished_;         // ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹‚µ‚½‚©
+	ItemType itemType_;       // ç¨®é¡
+	float totalTime_;         // ç·å†ç”Ÿæ™‚é–“
+	float timerUp_;          // æ®‹ã‚Šæ™‚é–“
+	wtgb::Vector3 startPos_;  // é–‹å§‹åœ°ç‚¹
+	wtgb::Vector3 endPos_;    // çµ‚äº†åœ°ç‚¹
+	bool isFinished_;         // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ãŸã‹
 };

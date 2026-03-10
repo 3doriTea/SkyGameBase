@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ƒJƒEƒ“ƒgƒ_ƒEƒ“UI
+/// ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³UI
 /// </summary>
 class CountDown : public GameObject
 {
@@ -16,20 +16,20 @@ public:
 
 private:
 	/// <summary>
-	/// GO‚Ì‚Æ‚«‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+	/// GOã®ã¨ãã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	/// </summary>
 	void PlayAnimGo(RectF& _rectF);
 	void PlayAnimCountDown(RectF& _rectF);
 	void OnLoadParam(const json& _json);
 
 private:
-	float timeLeft_;                // ƒJƒEƒ“ƒgƒ_ƒEƒ“
-	float timeScaleSec_;            // ƒ_ƒEƒ“‚µ‚Ä‚¢‚­•b”
-	float moveTimeRatio_;           // ƒ_ƒEƒ“‚µ‚Ä‚¢‚­•b”‚Ì‚¤‚¿“®‚¢‚Ä‚¢‚éŠ„‡
-	TextureHandle hSlideImage_;     // ƒXƒ‰ƒCƒh‚µ‚Ä‚¢‚­‰æ‘œƒnƒ“ƒhƒ‹
-	Vector2Int cellSize_;           // ‚P‚Â‚Ì•\¦ƒTƒCƒY
-	Vector2Int imageSize_;          // ‰æ‘œ‚ÌƒTƒCƒY
-	Vector2Int baseSize_;           // UI”z’u‚ÌŠî€‚Æ‚È‚éƒTƒCƒY
-	Vector2Int drawPos_;            // •`‰æ‚·‚é¶ãÀ•W
-	Vector2Int smallingPerFScale_;  // GOƒAƒjƒ[ƒVƒ‡ƒ“, 1ƒtƒŒ[ƒ€‚Å¬‚³‚­‚È‚éƒTƒCƒY
+	float timeLeft_;                // ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³
+	float timeScaleSec_;            // ãƒ€ã‚¦ãƒ³ã—ã¦ã„ãç§’æ•°
+	float moveTimeRatio_;           // ãƒ€ã‚¦ãƒ³ã—ã¦ã„ãç§’æ•°ã®ã†ã¡å‹•ã„ã¦ã„ã‚‹å‰²åˆ
+	TextureHandle hSlideImage_;     // ã‚¹ãƒ©ã‚¤ãƒ‰ã—ã¦ã„ãç”»åƒãƒãƒ³ãƒ‰ãƒ«
+	Vector2Int cellSize_;           // ï¼‘ã¤ã®è¡¨ç¤ºã‚µã‚¤ã‚º
+	Vector2Int imageSize_;          // ç”»åƒã®ã‚µã‚¤ã‚º
+	Vector2Int baseSize_;           // UIé…ç½®ã®åŸºæº–ã¨ãªã‚‹ã‚µã‚¤ã‚º
+	Vector2Int drawPos_;            // æç”»ã™ã‚‹å·¦ä¸Šåº§æ¨™
+	Vector2Int smallingPerFScale_;  // GOã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ™‚, 1ãƒ•ãƒ¬ãƒ¼ãƒ ã§å°ã•ããªã‚‹ã‚µã‚¤ã‚º
 };

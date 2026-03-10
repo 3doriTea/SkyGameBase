@@ -26,10 +26,10 @@ wtgb::Matrix4x4 wtgb::UI::LayoutConfig::GetProjectionMatrix(const Vector2Int _sc
 
 	RectF cartesianBox{ position_, scale_ };
 
-	// ‚à‚µİŒvƒTƒCƒY‚ªŒˆ‚Ü‚Á‚Ä‚¢‚é‚È‚ç
+	// ã‚‚ã—è¨­è¨ˆã‚µã‚¤ã‚ºãŒæ±ºã¾ã£ã¦ã„ã‚‹ãªã‚‰
 	if (baseCanvasSize_.x > 0 && baseCanvasSize_.y > 0)
 	{
-		// İŒvƒTƒCƒY‚©‚ç•`‰æƒTƒCƒY‚É•ÏŠ·
+		// è¨­è¨ˆã‚µã‚¤ã‚ºã‹ã‚‰æç”»ã‚µã‚¤ã‚ºã«å¤‰æ›
 		const float RATIO_X{ static_cast<float>(_screenSize.x) / baseCanvasSize_.x };
 		const float RATIO_Y{ static_cast<float>(_screenSize.y) / baseCanvasSize_.y };
 
@@ -39,44 +39,44 @@ wtgb::Matrix4x4 wtgb::UI::LayoutConfig::GetProjectionMatrix(const Vector2Int _sc
 		cartesianBox.height *= RATIO_Y;
 	}
 
-	// ”ŠwÀ•W‚Æ•`‰æÀ•W‚Ìy²·ˆÙ‰ğÁ
+	// æ•°å­¦åº§æ¨™ã¨æç”»åº§æ¨™ã®yè»¸å·®ç•°è§£æ¶ˆ
 	cartesianBox.y = _screenSize.y - cartesianBox.y;
 	cartesianBox.height *= -1;
 
 	const Vector2 VIEW_BEGIN{ cartesianBox.GetBegin() };
 	const Vector2 VIEW_END{ cartesianBox.GetEnd() };
 
-	// •\¦‚·‚éƒTƒCƒY‚É‡‚í‚¹‚é
+	// è¡¨ç¤ºã™ã‚‹ã‚µã‚¤ã‚ºã«åˆã‚ã›ã‚‹
 	Matrix4x4 scalingBox = XMMatrixScaling(
 		std::abs(VIEW_END.x - VIEW_BEGIN.x) * 2.0f,
 		std::abs(VIEW_END.y - VIEW_BEGIN.y) * 2.0f,
 		1.0f);
 
-	// •\¦‚·‚éƒ{ƒbƒNƒX‚ÌˆÊ’u‚ğˆÚ“®‚·‚é
+	// è¡¨ç¤ºã™ã‚‹ãƒœãƒƒã‚¯ã‚¹ã®ä½ç½®ã‚’ç§»å‹•ã™ã‚‹
 	Matrix4x4 moveBox = XMMatrixTranslation(
 		((VIEW_END.x - VIEW_BEGIN.x) / 2.0f + VIEW_BEGIN.x) / (_screenSize.x / 2.0f),
 		((VIEW_BEGIN.y - VIEW_END.y) / 2.0f + VIEW_END.y) / (_screenSize.y / 2.0f),
 		0.0f);
 
-	// ‰æ–Ê‚É‡‚í‚¹‚é
+	// ç”»é¢ã«åˆã‚ã›ã‚‹
 	Matrix4x4 scalingView = XMMatrixScaling(
 		1.0f / (_screenSize.x * 2),
 		1.0f / (_screenSize.y * 2),
 		1.0f);
 
-	// ƒIƒtƒZƒbƒg - ‰æ–Ê’†S‚Í(0, 0) ¶‰º‚Í(-1, -1)
+	// ã‚ªãƒ•ã‚»ãƒƒãƒˆ - ç”»é¢ä¸­å¿ƒã¯(0, 0) å·¦ä¸‹ã¯(-1, -1)
 	Matrix4x4 offsetView
 	{
 		XMMatrixTranslation(-1.0f, -1.0f, 0.0f)
 	};
 
-	// ÅI“I‚Ès—ñ
+	// æœ€çµ‚çš„ãªè¡Œåˆ—
 	Matrix4x4 world
 	{
 		scalingBox * scalingView * moveBox * offsetView
 	};
 
-	// ‹éŒ`ˆÚ“®s—ñ
+	// çŸ©å½¢ç§»å‹•è¡Œåˆ—
 	Matrix4x4 matrixProjection{ XMMatrixTranspose(world) };
 
 	return matrixProjection;

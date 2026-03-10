@@ -4,7 +4,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// •`‰æ‚ği‚éƒVƒXƒeƒ€
+	/// æç”»ã‚’å¸ã‚‹ã‚·ã‚¹ãƒ†ãƒ 
 	/// </summary>
 	class Rendering : public IGameSystem
 	{
@@ -13,24 +13,24 @@ namespace wtgb
 		~Rendering();
 
 		/// <summary>
-		/// XVƒ^ƒCƒ~ƒ“ƒO‚ğæ“¾‚·‚é
+		/// æ›´æ–°ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_viewer">‘¼ƒVƒXƒeƒ€‚ÌƒAƒNƒZƒbƒT</param>
-		/// <returns>Œ‹‰Ê</returns>
+		/// <param name="_viewer">ä»–ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µ</param>
+		/// <returns>çµæœ</returns>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
-		/// <param name="_system">‘¼ƒVƒXƒeƒ€‚ÌƒAƒNƒZƒbƒT</param>
+		/// <param name="_system">ä»–ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µ</param>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 	};

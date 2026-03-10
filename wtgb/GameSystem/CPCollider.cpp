@@ -23,7 +23,7 @@ void wtgb::CPCollider::Update()
 
 			Transform* pTransform{ cpTransform.Get(entityId) };
 
-			wassert(pTransform && "Transform‚ª‚È‚©‚Á‚½");
+			wassert(pTransform && "TransformãŒãªã‹ã£ãŸ");
 			if (pTransform == nullptr)
 			{
 				return {};

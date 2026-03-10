@@ -9,7 +9,7 @@ namespace
 	const int FPS{ 60 };
 }
 
-const UINT wtgb::GameTime::PERIOD_MILLI{ 1 };  // •ª‰ğ”\‚ğİ’è
+const UINT wtgb::GameTime::PERIOD_MILLI{ 1 };  // åˆ†è§£èƒ½ã‚’è¨­å®š
 const LONGLONG wtgb::GameTime::ONE_SEC_TO_MICRO{ 1000000 };
 const float wtgb::GameTime::MICRO_TO_SEC{ 0.0000001f };
 
@@ -31,7 +31,7 @@ void wtgb::GameTime::SetTimeStopped(const bool _timeStopped)
 {
 	if (_timeStopped)
 	{
-		timeScale_ = 0.0f;  // ŠÔ‚ğŠ®‘S’â~
+		timeScale_ = 0.0f;  // æ™‚é–“ã‚’å®Œå…¨åœæ­¢
 		deltaTimeSec_ = 0.0f;
 	}
 	else
@@ -55,7 +55,7 @@ wtgb::Result wtgb::GameTime::Init(const ViewerInit& _viewer)
 {
 	timeBeginPeriod(PERIOD_MILLI);
 	BOOL succeed{ QueryPerformanceCounter(&previousMicro_) };
-	wassert(succeed && "CPUŠÔ‚Ìæ“¾‚É¸”s");
+	wassert(succeed && "CPUæ™‚é–“ã®å–å¾—ã«å¤±æ•—");
 
 	if (succeed)
 	{
@@ -71,16 +71,16 @@ void wtgb::GameTime::Update(const ViewerUpdate& _system)
 {
 	if (QueryPerformanceCounter(&currentMicro_) == FALSE)
 	{
-		LOGFW("CPUŠÔæ“¾‚É¸”s");
+		LOGFW("CPUæ™‚é–“å–å¾—ã«å¤±æ•—");
 		return;
 	}
 
-	// ‘OƒtƒŒ[ƒ€‚Æ¡‚Ìƒ}ƒCƒNƒ•b·
+	// å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã¨ä»Šã®ãƒã‚¤ã‚¯ãƒ­ç§’å·®
 	const LONGLONG diff{ currentMicro_.QuadPart - previousMicro_.QuadPart };
-	// ·‚ğFPS”{‚µ‚Ä1•b‚ğ’´‚¦‚é = ·‚ª 1 / FPS ‚È‚çXVƒ^ƒCƒ~ƒ“ƒO
+	// å·®ã‚’FPSå€ã—ã¦1ç§’ã‚’è¶…ãˆã‚‹ = å·®ãŒ 1 / FPS ãªã‚‰æ›´æ–°ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 	isFrameDue_ = (diff * FPS >= ONE_SEC_TO_MICRO);
 	
-	// XVƒ^ƒCƒ~ƒ“ƒO‚È‚ç
+	// æ›´æ–°ã‚¿ã‚¤ãƒŸãƒ³ã‚°ãªã‚‰
 	if (isFrameDue_)
 	{
 		deltaTimeSec_ = static_cast<float>(diff) * MICRO_TO_SEC * timeScale_;

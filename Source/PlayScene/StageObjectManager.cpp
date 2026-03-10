@@ -12,25 +12,25 @@
 
 namespace
 {
-	// ƒXƒ|[ƒ“‚·‚é‚Ü‚Å‚ÌƒCƒ“ƒ^[ƒoƒ‹•b”
+	// ã‚¹ãƒãƒ¼ãƒ³ã™ã‚‹ã¾ã§ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ç§’æ•°
 	const float SPAWN_INTERVAL_SEC{ 5.0f };
 
-	// ŠgU‚·‚éŠp“x (degree)
+	// æ‹¡æ•£ã™ã‚‹è§’åº¦ (degree)
 	const float CONE_ANGLE_DEG{ 10.0f };
 
-	// ŠgU‚·‚é‰~‚Ì“™•ªŠ„Šp“x (degree)
+	// æ‹¡æ•£ã™ã‚‹å††ã®ç­‰åˆ†å‰²è§’åº¦ (degree)
 	const float DIVISION_ANGLE{ 30.0f };
 
-	// oŒ»‚·‚éÅ’áŒÀ‚Ì‹——£
+	// å‡ºç¾ã™ã‚‹æœ€ä½é™ã®è·é›¢
 	const float SPAWN_DISTANCE_OFFSET{ 100.0f };
 
-	// oŒ»‚·‚é‹——£‚ÅƒXƒs[ƒh‚ÌŒW”
+	// å‡ºç¾ã™ã‚‹è·é›¢ã§ã‚¹ãƒ”ãƒ¼ãƒ‰ã®ä¿‚æ•°
 	const float SPAWN_DISTANCE_PER_SPEED{ 10.0f };
 
-	// oŒ»‚·‚é’n–Ê‚©‚ç‚Ì‚‚³
+	// å‡ºç¾ã™ã‚‹åœ°é¢ã‹ã‚‰ã®é«˜ã•
 	const float SPAWN_HEIGHT{ 20.0f };
 
-	// ƒ{[ƒ‹‚ªoŒ»‚·‚é‹——£
+	// ãƒœãƒ¼ãƒ«ãŒå‡ºç¾ã™ã‚‹è·é›¢
 	const float SPECIAL_BALL_DINSTANCE{ 5.0f };
 }
 
@@ -62,34 +62,34 @@ void StageObjectManager::Update()
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
 	if (pPlayScene == nullptr)
 	{
-		return;  // ƒvƒŒƒCƒV[ƒ“‚Ìæ“¾‚É¸”s‚·‚é‚Æ‚È‚É‚à‚Å‚«‚È‚¢
+		return;  // ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—ã™ã‚‹ã¨ãªã«ã‚‚ã§ããªã„
 	}
 
 	PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
 	if (playState && playState->GetState() != PlayState::Type::Falling)
 	{
-		return;  // ‰ºR’†ˆÈŠO‚Í–³‹
+		return;  // ä¸‹å±±ä¸­ä»¥å¤–ã¯ç„¡è¦–
 	}
 
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 
 	spawnTimeLeftSec_ -= dt;
-	// ‚Ü‚¾ƒXƒ|[ƒ“‚Ìƒ^ƒCƒ~ƒ“ƒO‚ª—ˆ‚Ä‚¢‚È‚¢‚È‚ç
+	// ã¾ã ã‚¹ãƒãƒ¼ãƒ³ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ãŒæ¥ã¦ã„ãªã„ãªã‚‰
 	if (spawnTimeLeftSec_ > 0.0f)
 	{
-		return;  // ‰ñ‹A
+		return;  // å›å¸°
 	}
-	// ƒXƒ|[ƒ“‚Ìƒ^ƒCƒ~ƒ“ƒO‚È‚ç
+	// ã‚¹ãƒãƒ¼ãƒ³ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ãªã‚‰
 	spawnTimeLeftSec_ += SPAWN_INTERVAL_SEC;
 
 
 	GameObject* pStageLineObj{ FindGameObject(stageLine_) };
 	StageLine* pStageLine{ dynamic_cast<StageLine*>(pStageLineObj) };
-	wassert(pStageLine && "ƒXƒe[ƒWƒ‰ƒCƒ“‚Ìæ“¾‚É¸”s");
+	wassert(pStageLine && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ©ã‚¤ãƒ³ã®å–å¾—ã«å¤±æ•—");
 
 	GameObject* pPlayerObj{ FindGameObject(player_) };
 	Player* pPlayer{ dynamic_cast<Player*>(pPlayerObj) };
-	wassert(pPlayer && "ƒvƒŒƒCƒ„[‚Ìæ“¾‚É¸”s");
+	wassert(pPlayer && "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å–å¾—ã«å¤±æ•—");
 
 	RigidBody& playerRB{ pPlayer->GetComponent<RigidBody>() };
 
@@ -113,12 +113,12 @@ void StageObjectManager::Fire()
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
 	if (pPlayScene == nullptr)
 	{
-		return;  // ƒvƒŒƒCƒV[ƒ“‚ªæ“¾‚Å‚«‚È‚¯‚ê‚Î‰½‚à‚µ‚È‚¢
+		return;  // ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ãŒå–å¾—ã§ããªã‘ã‚Œã°ä½•ã‚‚ã—ãªã„
 	}
 
 	GameObject* pPlayerObj{ FindGameObject(player_) };
 	Player* pPlayer{ dynamic_cast<Player*>(pPlayerObj) };
-	wassert(pPlayer && "ƒvƒŒƒCƒ„[‚Ìæ“¾‚É¸”s");
+	wassert(pPlayer && "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å–å¾—ã«å¤±æ•—");
 
 	RigidBody& playerRB{ pPlayer->GetComponent<RigidBody>() };
 

@@ -29,26 +29,26 @@ void SpeedMessage::Init()
 
 	hTextureTooFast_ = rsrcSystem.LoadTexture(imageFileTooFast_);
 	wassert(hTextureTooFast_ != INVALID_HANDLE
-		&& "imageFileTooFast‚Ì“Ç‚İ‚İ¸”s");
+		&& "imageFileTooFastã®èª­ã¿è¾¼ã¿å¤±æ•—");
 	
 	hTextureTooSlow_ = rsrcSystem.LoadTexture(imageFileTooSlow_);
 	wassert(hTextureTooSlow_ != INVALID_HANDLE
-		&& "imageFileTooSlow‚Ì“Ç‚İ‚İ¸”s");
+		&& "imageFileTooSlowã®èª­ã¿è¾¼ã¿å¤±æ•—");
 
 	Vector2Int tooFastImageSize{ rsrcSystem.GetTexture(hTextureTooFast_)->GetImageSizePix() };
 	Vector2Int tooSlowImageSize{ rsrcSystem.GetTexture(hTextureTooSlow_)->GetImageSizePix() };
 
 	wassert(tooFastImageSize == tooSlowImageSize
-		&& "‘¬‚·‚¬’x‚·‚¬‚Ì‰æ‘œƒTƒCƒY‚ª•sˆê’v");
+		&& "é€Ÿã™ãé…ã™ãã®ç”»åƒã‚µã‚¤ã‚ºãŒä¸ä¸€è‡´");
 
-	// ‰æ‘œƒTƒCƒY‚ğ“ü‚ê‚Ä‚¨‚­
+	// ç”»åƒã‚µã‚¤ã‚ºã‚’å…¥ã‚Œã¦ãŠã
 	imageSize_ = tooFastImageSize;
 }
 
 void SpeedMessage::Update()
 {
 	ISpeedController* pSpeedController{ FindGameObject<ISpeedController>(speedController_) };
-	wassert(pSpeedController && "speedController‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½I");
+	wassert(pSpeedController && "speedControllerãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸï¼");
 
 	const Canvas::Context& CONTEXT{ System().Get<Canvas>().GetContext() };
 
@@ -64,21 +64,21 @@ void SpeedMessage::Update()
 	{
 		SpeedType speedType{ pSpeedController->GetSpeedType() };
 
-		// ŠeƒXƒs[ƒhó‘Ô‚É‰‚¶‚Ä•\¦‚·‚é
+		// å„ã‚¹ãƒ”ãƒ¼ãƒ‰çŠ¶æ…‹ã«å¿œã˜ã¦è¡¨ç¤ºã™ã‚‹
 		switch (speedType)
 		{
-		case SpeedType::TooSlow:  // ’x‚·‚¬
+		case SpeedType::TooSlow:  // é…ã™ã
 			CONTEXT.DrawImage(hTextureTooSlow_);
 			break;
-		case SpeedType::Excissive:  // ‘¬‚·‚¬
+		case SpeedType::Excissive:  // é€Ÿã™ã
 			CONTEXT.DrawImage(hTextureTooFast_);
 			break;
-		// ‘¼‚Í–³‹
+		// ä»–ã¯ç„¡è¦–
 		case SpeedType::Stop:
 		case SpeedType::Good:
 			break;
 		default:
-			wassert("–¢À‘•‚ÌSpeedType‚ªw’è‚³‚ê‚Ü‚µ‚½B");
+			wassert("æœªå®Ÿè£…ã®SpeedTypeãŒæŒ‡å®šã•ã‚Œã¾ã—ãŸã€‚");
 			break;
 		}
 	}

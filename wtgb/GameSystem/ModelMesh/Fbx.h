@@ -9,39 +9,39 @@ namespace wtgb
 	{
 	public:
 		/// <summary>
-		/// ’¸“_
+		/// é ‚ç‚¹
 		/// </summary>
 		struct Vertex
 		{
-			DirectX::XMVECTOR position;  // À•W
-			DirectX::XMVECTOR normal;    // –@ü
-			DirectX::XMVECTOR uv;        // UVÀ•W
+			DirectX::XMVECTOR position;  // åº§æ¨™
+			DirectX::XMVECTOR normal;    // æ³•ç·š
+			DirectX::XMVECTOR uv;        // UVåº§æ¨™
 		};
 
 		/// <summary>
-		/// ’è”ƒoƒbƒtƒ@
+		/// å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		struct ConstantBuffer
 		{
 			//DirectX::XMMATRIX matWVP;
 			//DirectX::XMMATRIX matNormal;
 			//DirectX::XMFLOAT4 diffuse;
-			//BOOL materialFLag;  // 16byte’PˆÊ‚Å‘—‚ç‚ê‚é‚©‚çd•û‚È‚¢
+			//BOOL materialFLag;  // 16byteå˜ä½ã§é€ã‚‰ã‚Œã‚‹ã‹ã‚‰ä»•æ–¹ãªã„
 
-			Matrix4x4 matrixProjection;   // Projections—ñ
-			Matrix4x4 matrixView;         // Views—ñ
-			Matrix4x4 matrixWVP;          // ƒ[ƒ‹ƒhƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“‚Ì‡¬s—ñ
-			Matrix4x4 matrixUV;           // UV•ÏŠ·s—ñ
-			Matrix4x4 matrixRotateWorld;  // ƒ[ƒ‹ƒh‰ñ“]s—ñ
-			Vector4 lightDirection;       // ƒ‰ƒCƒg‚ÌŒü‚«
-			Color lightColor;             // ƒ‰ƒCƒg‚ÌF
-			Color diffuseColor;           // ƒfƒBƒtƒ…[ƒYƒJƒ‰[
-			FLOAT ambientValue;           // ŠÂ‹«Œõ‚Ì—Ê
-			BOOL hasTexture;              // ƒeƒNƒXƒ`ƒƒ‚ğ‚Á‚Ä‚¢‚é‚©
+			Matrix4x4 matrixProjection;   // Projectionè¡Œåˆ—
+			Matrix4x4 matrixView;         // Viewè¡Œåˆ—
+			Matrix4x4 matrixWVP;          // ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ã®åˆæˆè¡Œåˆ—
+			Matrix4x4 matrixUV;           // UVå¤‰æ›è¡Œåˆ—
+			Matrix4x4 matrixRotateWorld;  // ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢è¡Œåˆ—
+			Vector4 lightDirection;       // ãƒ©ã‚¤ãƒˆã®å‘ã
+			Color lightColor;             // ãƒ©ã‚¤ãƒˆã®è‰²
+			Color diffuseColor;           // ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºã‚«ãƒ©ãƒ¼
+			FLOAT ambientValue;           // ç’°å¢ƒå…‰ã®é‡
+			BOOL hasTexture;              // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æŒã£ã¦ã„ã‚‹ã‹
 		};
 
 		/// <summary>
-		/// ƒ}ƒeƒŠƒAƒ‹î•ñ
+		/// ãƒãƒ†ãƒªã‚¢ãƒ«æƒ…å ±
 		/// </summary>
 		struct Material
 		{
@@ -56,9 +56,9 @@ namespace wtgb
 		~Fbx();
 
 		/// <summary>
-		/// Fbx‚ğ•`‰æ‚·‚é
+		/// Fbxã‚’æç”»ã™ã‚‹
 		/// </summary>
-		/// <param name="_transform">•`‰æ‚·‚éƒ‚ƒfƒ‹‚ÌÀ•WŒn</param>
+		/// <param name="_transform">æç”»ã™ã‚‹ãƒ¢ãƒ‡ãƒ«ã®åº§æ¨™ç³»</param>
 		void Draw(Transform& _transform);
 
 		inline ComPtr<ID3D11Buffer>& GetVertexBuffer() { return pVertexBuffer_; }
@@ -66,40 +66,40 @@ namespace wtgb
 		inline ComPtr<ID3D11Buffer>& GetIndexBuffer() { return GetIndexBufferAt(0); }
 		inline ComPtr<ID3D11Buffer>& GetConstantBuffer() { return pConstantBuffer_; }
 		/// <summary>
-		/// Fbx‚ÉƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚éƒ}ƒeƒŠƒAƒ‹”‚ğæ“¾
+		/// Fbxã«ã‚¢ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ã‚‹ãƒãƒ†ãƒªã‚¢ãƒ«æ•°ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒ}ƒeƒŠƒAƒ‹”</returns>
+		/// <returns>ãƒãƒ†ãƒªã‚¢ãƒ«æ•°</returns>
 		inline size_t GetMaterialCount() const { return materialCount_; }
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒX”‚ğæ“¾‚·‚é
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒCƒ“ƒfƒbƒNƒX”</returns>
+		/// <returns>ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°</returns>
 		inline size_t GetIndexCountAt(const size_t _index) const { return indexCounts_.at(_index); }
 		/// <summary>
-		/// ’¸“_”‚ğæ“¾‚·‚é
+		/// é ‚ç‚¹æ•°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>’¸“_”</returns>
+		/// <returns>é ‚ç‚¹æ•°</returns>
 		inline uint32_t GetVertexCount() const override { return static_cast<uint32_t>(vertexCount_); }
 		/// <summary>
-		/// •¡”‚ ‚éƒ}ƒeƒŠƒAƒ‹‚Ì1‚Â‚ğæ“¾
+		/// è¤‡æ•°ã‚ã‚‹ãƒãƒ†ãƒªã‚¢ãƒ«ã®1ã¤ã‚’å–å¾—
 		/// </summary>
-		/// <param name="_index">ƒCƒ“ƒfƒbƒNƒX</param>
-		/// <returns>ƒ}ƒeƒŠƒAƒ‹‚ÌQÆƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="_index">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
+		/// <returns>ãƒãƒ†ãƒªã‚¢ãƒ«ã®å‚ç…§ãƒã‚¤ãƒ³ã‚¿</returns>
 		inline Material& GetMaterialAt(const size_t _index) { return materials_.at(_index); }
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒX”‚ğæ“¾‚·‚é
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒCƒ“ƒfƒbƒNƒX”</returns>
+		/// <returns>ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°</returns>
 		inline uint32_t GetIndexCount() const override { return static_cast<uint32_t>(GetIndexCountAt(0)); }
 
 	private:
 		/// <summary>
-		/// Fbx‚ğƒ[ƒh‚·‚é
+		/// Fbxã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
 		/// </summary>
 		void Init(ViewerCached _system) override;
 
 		/// <summary>
-		/// “Ç‚İ‚ñ‚¾ƒ‚ƒfƒ‹‚Ì‰ğ•úˆ—
+		/// èª­ã¿è¾¼ã‚“ã ãƒ¢ãƒ‡ãƒ«ã®è§£æ”¾å‡¦ç†
 		/// </summary>
 		void Release(ViewerCached _system) override;
 
@@ -109,16 +109,16 @@ namespace wtgb
 		void InitMaterial(ViewerCached _system, FbxNode* _pNode);
 
 	private:
-		fs::path modelFile_;  // ƒtƒ@ƒCƒ‹ƒpƒX
+		fs::path modelFile_;  // ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 
-		size_t vertexCount_;               // ’¸“_”
-		size_t polygonCount_;              // ƒ|ƒŠƒSƒ“”
-		size_t materialCount_;             // ƒ}ƒeƒŠƒAƒ‹‚ÌŒÂ”
-		std::vector<size_t> indexCounts_;  // ƒCƒ“ƒfƒbƒNƒX”
+		size_t vertexCount_;               // é ‚ç‚¹æ•°
+		size_t polygonCount_;              // ãƒãƒªã‚´ãƒ³æ•°
+		size_t materialCount_;             // ãƒãƒ†ãƒªã‚¢ãƒ«ã®å€‹æ•°
+		std::vector<size_t> indexCounts_;  // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
 
-		ComPtr<ID3D11Buffer> pVertexBuffer_;               // ’¸“_ƒoƒbƒtƒ@
-		std::vector<ComPtr<ID3D11Buffer>> pIndexBuffers_;  // ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
-		ComPtr<ID3D11Buffer> pConstantBuffer_;             // ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@
-		std::vector<Material> materials_;  // ƒ}ƒeƒŠƒAƒ‹î•ñ
+		ComPtr<ID3D11Buffer> pVertexBuffer_;               // é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
+		std::vector<ComPtr<ID3D11Buffer>> pIndexBuffers_;  // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
+		ComPtr<ID3D11Buffer> pConstantBuffer_;             // ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡
+		std::vector<Material> materials_;  // ãƒãƒ†ãƒªã‚¢ãƒ«æƒ…å ±
 	};
 }

@@ -4,11 +4,11 @@
 namespace wtgb
 {
 	/// <summary>
-	/// 4ŸŒ³ƒxƒNƒgƒ‹‚ğˆµ‚¤\‘¢‘Ì
+	/// 4æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã‚’æ‰±ã†æ§‹é€ ä½“
 	/// </summary>
 	struct Vector4 : public DirectX::XMFLOAT4
 	{
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚à‚»‚Ì‚Ü‚ÜŒp³
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚‚ãã®ã¾ã¾ç¶™æ‰¿
 		using DirectX::XMFLOAT4::XMFLOAT4;
 
 		Vector4(const DirectX::XMVECTOR& _xmV)
@@ -29,22 +29,22 @@ namespace wtgb
 		}
 
 		/// <summary>
-		/// XMVECTOR‚ÉˆÃ–Ù“I•ÏŠ·‚·‚é
+		/// XMVECTORã«æš—é»™çš„å¤‰æ›ã™ã‚‹
 		/// </summary>
 		inline operator DirectX::XMVECTOR() const { return DirectX::XMLoadFloat4(this); }
 
 		/// <summary>
-		/// —ëƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// é›¶ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(0, 0, 0, 0)</returns>
 		inline static Vector4 Zero() { return { 0, 0, 0, 0 }; }
 		/// <summary>
-		/// Z‚¾‚¯+1‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// Zã ã‘+1ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(0, 0, 1, 0)</returns>
 		inline static Vector4 Forward() { return { 0, 0, 1.0f, 0 }; }
 		/// <summary>
-		/// ‘S¬•ª‚ª1‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// å…¨æˆåˆ†ãŒ1ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(1, 1, 1, 1)</returns>
 		inline static Vector4 One() { return { 1.0f, 1.0f, 1.0f, 1.0f }; }

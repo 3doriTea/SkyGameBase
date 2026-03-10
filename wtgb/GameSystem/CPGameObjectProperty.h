@@ -13,28 +13,28 @@ namespace wtgb
 		~CPGameObjectProperty();
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update() override;
 
 		/// <summary>
-		/// eqŠÖŒW‚ğƒZƒbƒg‚·‚é
+		/// è¦ªå­é–¢ä¿‚ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
-		/// <param name="_parent">e‚ÌƒGƒ“ƒeƒBƒeƒBId</param>
-		/// <param name="_child">q‚ÌƒGƒ“ƒeƒBƒeƒBId</param>
+		/// <param name="_parent">è¦ªã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
+		/// <param name="_child">å­ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
 		void SetFamily(const EntityId _parent, const EntityId _child);
 
 		const EntityId GetEntityId(const GameObjectProperty* _p) const;
 
 		/// <summary>
-		/// ƒGƒ“ƒeƒBƒeƒB‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg–¼‚©‚çƒGƒ“ƒeƒBƒeƒBId‚ğæ“¾‚·‚é
+		/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåã‹ã‚‰ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Idã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <param name="_name">ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg–¼</param>
-		/// <returns>Œ©‚Â‚©‚Á‚½ƒGƒ“ƒeƒBƒeƒBId / Œ©‚Â‚©‚ç‚È‚©‚Á‚½ INVALID_ENTITY</returns>
+		/// <param name="_name">ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå</param>
+		/// <returns>è¦‹ã¤ã‹ã£ãŸã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id / è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ INVALID_ENTITY</returns>
 		const EntityId FindEntityByName(const std::string_view _name);
 	};
 }

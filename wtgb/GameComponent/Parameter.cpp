@@ -13,12 +13,12 @@ const json& wtgb::Parameter::Load()
 {
 	json_ = {};
 
-	wassert(fs::is_regular_file(jsonFilePath_) && "w’è‚³‚ê‚½jsonƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚È‚¢");
+	wassert(fs::is_regular_file(jsonFilePath_) && "æŒ‡å®šã•ã‚ŒãŸjsonãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã—ãªã„");
 
 	std::ifstream ifs{ jsonFilePath_ };
 	ifs >> json_;
 
-	wassert(json_.contains("Param") && "w’è‚³‚ê‚½jsonƒtƒ@ƒCƒ‹“à‚ÉParamƒL[‚ª‘¶İ‚µ‚È‚¢");
+	wassert(json_.contains("Param") && "æŒ‡å®šã•ã‚ŒãŸjsonãƒ•ã‚¡ã‚¤ãƒ«å†…ã«Paramã‚­ãƒ¼ãŒå­˜åœ¨ã—ãªã„");
 
 	return json_.at("Param");
 }

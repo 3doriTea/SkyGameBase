@@ -14,16 +14,16 @@ namespace wtgb
 namespace wtgb::UI
 {
 	/// <summary>
-	/// UI•`‰æ“à—e‚Ìí—Ş
+	/// UIæç”»å†…å®¹ã®ç¨®é¡
 	/// </summary>
 	enum struct RenderContentType
 	{
-		Image,  // ‰æ‘œ‚Ì•`‰æ
-		Box,    // ‹éŒ`‚Ì•`‰æ
+		Image,  // ç”»åƒã®æç”»
+		Box,    // çŸ©å½¢ã®æç”»
 	};
 
 	/// <summary>
-	/// UI‚Ì•`‰æ“à—eF‰æ‘œ
+	/// UIã®æç”»å†…å®¹ï¼šç”»åƒ
 	/// </summary>
 	struct RenderContentImage : IRenderContent
 	{
@@ -42,16 +42,16 @@ namespace wtgb::UI
 			CPMeshRenderer& _meshRenderer,
 			const LayoutConfig& _layoutConfig) const override;
 
-		TextureHandle hTexture;  // ƒeƒNƒXƒ`ƒƒƒnƒ“ƒhƒ‹
-		float angle;             // ‰ñ“]Šp“x
-		float alpha;             // “§–¾“x
-		RectF cut;               // ƒgƒŠƒ~ƒ“ƒO”ÍˆÍ
-		Vector2Int imageSize;    // ‰æ‘œƒTƒCƒY
-		ShaderHandle hShader;    // ƒVƒF[ƒ_ƒnƒ“ƒhƒ‹
+		TextureHandle hTexture;  // ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ«
+		float angle;             // å›è»¢è§’åº¦
+		float alpha;             // é€æ˜åº¦
+		RectF cut;               // ãƒˆãƒªãƒŸãƒ³ã‚°ç¯„å›²
+		Vector2Int imageSize;    // ç”»åƒã‚µã‚¤ã‚º
+		ShaderHandle hShader;    // ã‚·ã‚§ãƒ¼ãƒ€ãƒãƒ³ãƒ‰ãƒ«
 	};
 
 	/// <summary>
-	/// UI•`‰æ“à—eF‹éŒ`
+	/// UIæç”»å†…å®¹ï¼šçŸ©å½¢
 	/// </summary>
 	struct RenderContentBox : IRenderContent
 	{
@@ -68,15 +68,15 @@ namespace wtgb::UI
 			CPMeshRenderer& _meshRenderer,
 			const LayoutConfig& _layoutConfig) const override;
 
-		Color color;           // F
-		float angle;           // ‰ñ“]Šp“x
-		float alpha;           // “§–¾“x
-		ShaderHandle hShader;  // ƒVƒF[ƒ_ƒnƒ“ƒhƒ‹
+		Color color;           // è‰²
+		float angle;           // å›è»¢è§’åº¦
+		float alpha;           // é€æ˜åº¦
+		ShaderHandle hShader;  // ã‚·ã‚§ãƒ¼ãƒ€ãƒãƒ³ãƒ‰ãƒ«
 	};
 
 	
 	/// <summary>
-	/// •`‰æ“à—e‚Ì‹¤’ÊŒ^
+	/// æç”»å†…å®¹ã®å…±é€šå‹
 	/// </summary>
 	using RenderContentVT = std::variant<
 		RenderContentBox,

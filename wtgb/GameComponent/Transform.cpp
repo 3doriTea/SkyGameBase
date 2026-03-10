@@ -15,10 +15,10 @@ void wtgb::Transform::SetPositionWorld(const Vector3& _worldPosition)
 	using DirectX::XMVector3TransformCoord;
 	using DirectX::XMMatrixInverse;
 
-	// ƒ[ƒJƒ‹À•W‚É•ÏŠ·‚·‚és—ñ‚ðì‚é
+	// ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã«å¤‰æ›ã™ã‚‹è¡Œåˆ—ã‚’ä½œã‚‹
 	Matrix4x4 toLocalMatrix{ XMMatrixInverse(nullptr, worldMatrix_ * XMMatrixInverse(nullptr, localMatrix_)) };
 
-	// ƒ[ƒJƒ‹À•W‚Æ‚µ‚ÄƒZƒbƒg‚·‚é
+	// ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã¨ã—ã¦ã‚»ãƒƒãƒˆã™ã‚‹
 	position_ = XMVector3TransformCoord(_worldPosition, toLocalMatrix);
 }
 
@@ -26,7 +26,7 @@ wtgb::Vector3 wtgb::Transform::GetPositionWorld() const
 {
 	using DirectX::XMVector3TransformCoord;
 
-	// ƒ[ƒJƒ‹À•W‚ðƒ[ƒ‹ƒhÀ•W‚É•ÏŠ·‚·‚é
+	// ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã‚’ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã«å¤‰æ›ã™ã‚‹
 	return XMVector3TransformCoord(position_, worldMatrix_ * XMMatrixInverse(nullptr, localMatrix_));
 }
 
@@ -35,10 +35,10 @@ void wtgb::Transform::SetRotationWorld(const Vector3& _worldRotation)
 	using DirectX::XMVector3TransformCoord;
 	using DirectX::XMMatrixInverse;
 
-	// ƒ[ƒJƒ‹ƒ‰ƒWƒAƒ“ƒIƒCƒ‰[Šp‚É•ÏŠ·‚·‚és—ñ‚ðì‚é
+	// ãƒ­ãƒ¼ã‚«ãƒ«ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼è§’ã«å¤‰æ›ã™ã‚‹è¡Œåˆ—ã‚’ä½œã‚‹
 	Matrix4x4 toLocalMatrix{ XMMatrixInverse(nullptr, worldRotateMatrix_ * XMMatrixInverse(nullptr, rotateMatrix_)) };
 
-	// ƒ[ƒJƒ‹ƒ‰ƒWƒAƒ“ƒIƒCƒ‰[Šp‚Æ‚µ‚ÄƒZƒbƒg‚·‚é
+	// ãƒ­ãƒ¼ã‚«ãƒ«ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼è§’ã¨ã—ã¦ã‚»ãƒƒãƒˆã™ã‚‹
 	rotation_ = XMVector3TransformCoord(_worldRotation, toLocalMatrix);
 }
 
@@ -46,6 +46,6 @@ wtgb::Vector3 wtgb::Transform::GetRotationWorld() const
 {
 	using DirectX::XMVector3TransformCoord;
 	
-	// ƒ[ƒJƒ‹ƒ‰ƒWƒAƒ“ƒIƒCƒ‰[Šp‚ðƒ[ƒ‹ƒhƒ‰ƒWƒAƒ“ƒIƒCƒ‰[Šp‚É•ÏŠ·‚·‚é
+	// ãƒ­ãƒ¼ã‚«ãƒ«ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼è§’ã‚’ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼è§’ã«å¤‰æ›ã™ã‚‹
 	return XMVector3TransformCoord(rotation_, worldRotateMatrix_ * XMMatrixInverse(nullptr, rotateMatrix_));
 }

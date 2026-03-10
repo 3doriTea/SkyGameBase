@@ -8,7 +8,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒŠƒ\[ƒX‚ÌƒCƒ“ƒ^ƒtƒF[ƒX
+	/// ãƒªã‚½ãƒ¼ã‚¹ã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹
 	/// </summary>
 	template<typename... Args>
 	class IResource
@@ -23,7 +23,7 @@ namespace wtgb
 		virtual ~IResource();
 
 		/// <summary>
-		/// ‰Šú‰»ˆ— (ŠO•”‚©‚çŒÄ‚Ño‚µ—p)
+		/// åˆæœŸåŒ–å‡¦ç† (å¤–éƒ¨ã‹ã‚‰å‘¼ã³å‡ºã—ç”¨)
 		/// </summary>
 		inline virtual void CallInit(Args... args) final
 		{
@@ -33,7 +33,7 @@ namespace wtgb
 			Init(args...);
 		}
 		/// <summary>
-		/// ‰ð•úˆ— (ŠO•”‚©‚çŒÄ‚Ño‚µ—p)
+		/// è§£æ”¾å‡¦ç† (å¤–éƒ¨ã‹ã‚‰å‘¼ã³å‡ºã—ç”¨)
 		/// </summary>
 		inline virtual void CallRelease(Args... args) final
 		{
@@ -45,11 +45,11 @@ namespace wtgb
 
 protected:
 	/// <summary>
-	/// ‰Šú‰»ˆ—
+	/// åˆæœŸåŒ–å‡¦ç†
 	/// </summary>
 	virtual void Init(Args... args) = 0;
 	/// <summary>
-	/// ‰ð•úˆ—
+	/// è§£æ”¾å‡¦ç†
 	/// </summary>
 	virtual void Release(Args... args) = 0;
 

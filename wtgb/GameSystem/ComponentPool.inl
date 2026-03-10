@@ -22,12 +22,12 @@ void wtgb::ComponentPool<ComponentT>::Update(const ViewerUpdate& _system)
 template<typename ComponentT>
 inline std::remove_pointer_t<ComponentT>* wtgb::ComponentPool<ComponentT>::Get(const EntityId _entityId)
 {
-	// –³Œø‚ÈEntityId ‚È‚çæ“¾‚µ‚È‚¢
+	// ç„¡åŠ¹ãªEntityId ãªã‚‰å–å¾—ã—ãªã„
 	if (IsInvalidEntity(_entityId))
 	{
 		if (_entityId.index >= wtgb::ENTITY_CAPACITY)
 		{
-			return nullptr;  // index‚ªƒTƒCƒY’´‚¦‚Ä‚¢‚½‚çæ“¾¸”s
+			return nullptr;  // indexãŒã‚µã‚¤ã‚ºè¶…ãˆã¦ã„ãŸã‚‰å–å¾—å¤±æ•—
 		}
 		useFlag_[_entityId.index] = false;
 		return nullptr;
@@ -37,12 +37,12 @@ inline std::remove_pointer_t<ComponentT>* wtgb::ComponentPool<ComponentT>::Get(c
 	{
 		if constexpr (std::is_pointer_v<ComponentT>)
 		{
-			// ƒRƒ“ƒ|[ƒlƒ“ƒg‚ªƒ|ƒCƒ“ƒ^‚Å•Û‘¶‚³‚ê‚Ä‚¢‚é‚È‚ç‚»‚Ì‚Ü‚Ü•Ô‚·
+			// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒãƒã‚¤ãƒ³ã‚¿ã§ä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãªã‚‰ãã®ã¾ã¾è¿”ã™
 			return pool_[_entityId.index];
 		}
 		else
 		{
-			// ƒRƒ“ƒ|[ƒlƒ“ƒg‚ªÀ‘Ì‚Ì‚Ü‚Ü•Û‘¶‚³‚ê‚Ä‚¢‚é‚È‚ç‚»‚Ìƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+			// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒå®Ÿä½“ã®ã¾ã¾ä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãªã‚‰ãã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 			return &pool_[_entityId.index];
 		}
 	}
@@ -55,7 +55,7 @@ inline std::remove_pointer_t<ComponentT>* wtgb::ComponentPool<ComponentT>::Get(c
 template<typename ComponentT>
 inline void wtgb::ComponentPool<ComponentT>::Remove(const EntityId _entityId)
 {
-	// g‚í‚È‚¢‚©‚çƒtƒ‰ƒO~‚ë‚·‚¾‚¯
+	// ä½¿ã‚ãªã„ã‹ã‚‰ãƒ•ãƒ©ã‚°é™ã‚ã™ã ã‘
 	useFlag_[_entityId.index] = false;
 }
 
@@ -65,7 +65,7 @@ inline void wtgb::ComponentPool<ComponentT>::Clear()
 
 	ForEach([](ComponentT& component) -> BreakToken
 		{
-			// I—¹ˆ—ŒÄ‚Ño‚µ‚Ä‚¢‚­
+			// çµ‚äº†å‡¦ç†å‘¼ã³å‡ºã—ã¦ã„ã
 			if constexpr (std::is_pointer_v<ComponentT>)
 			{
 				component->End();
@@ -88,7 +88,7 @@ inline void wtgb::ComponentPool<ComponentT>::Clear()
 template<typename ComponentT>
 inline void wtgb::ComponentPool<ComponentT>::ClearAt(const size_t _index)
 {
-	// I—¹ˆ—ŒÄ‚Ño‚µ‚Ä‚¢‚­
+	// çµ‚äº†å‡¦ç†å‘¼ã³å‡ºã—ã¦ã„ã
 	if constexpr (std::is_pointer_v<ComponentT>)
 	{
 		at(_index)->End();
@@ -115,7 +115,7 @@ inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<BreakTo
 			BreakToken token{ _callback(pool_.at(i)) };
 			if (token.toBreak)
 			{
-				return;  // ’â~–½—ß‚ªo‚½‚È‚ç~‚ß‚é
+				return;  // åœæ­¢å‘½ä»¤ãŒå‡ºãŸãªã‚‰æ­¢ã‚ã‚‹
 			}
 		}
 	}
@@ -131,7 +131,7 @@ inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<BreakTo
 			BreakToken token{ _callback(pool_.at(i), i) };
 			if (token.toBreak)
 			{
-				return;  // ’â~–½—ß‚ªo‚½‚È‚ç~‚ß‚é
+				return;  // åœæ­¢å‘½ä»¤ãŒå‡ºãŸãªã‚‰æ­¢ã‚ã‚‹
 			}
 		}
 	}
@@ -147,7 +147,7 @@ inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<BreakTo
 			BreakToken token{ _callback(pool_.at(i)) };
 			if (token.toBreak)
 			{
-				return;  // ’â~–½—ß‚ªo‚½‚È‚ç~‚ß‚é
+				return;  // åœæ­¢å‘½ä»¤ãŒå‡ºãŸãªã‚‰æ­¢ã‚ã‚‹
 			}
 		}
 	}
@@ -163,7 +163,7 @@ inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<BreakTo
 			BreakToken token{ _callback(pool_.at(i), i) };
 			if (token.toBreak)
 			{
-				return;  // ’â~–½—ß‚ªo‚½‚È‚ç~‚ß‚é
+				return;  // åœæ­¢å‘½ä»¤ãŒå‡ºãŸãªã‚‰æ­¢ã‚ã‚‹
 			}
 		}
 	}
@@ -172,7 +172,7 @@ inline void wtgb::ComponentPool<ComponentT>::ForEach(const std::function<BreakTo
 template<typename ComponentT>
 inline wtgb::ComponentPool<ComponentT>::Pool::iterator wtgb::ComponentPool<ComponentT>::GetUsedBeginItr()
 {
-	// g‚í‚ê‚Ä‚¢‚éƒRƒ“ƒ|[ƒlƒ“ƒg‚Ü‚Å‘–¸‚·‚é
+	// ä½¿ã‚ã‚Œã¦ã„ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¾ã§èµ°æŸ»ã™ã‚‹
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
 	{
 		if (useFlag_[i])
@@ -181,14 +181,14 @@ inline wtgb::ComponentPool<ComponentT>::Pool::iterator wtgb::ComponentPool<Compo
 		}
 	}
 	
-	// Œ©‚Â‚©‚ç‚È‚¯‚ê‚Î end ‚ğ•Ô‚·
+	// è¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã° end ã‚’è¿”ã™
 	return pool_.end();
 }
 
 template<typename ComponentT>
 inline wtgb::ComponentPool<ComponentT>::Pool::const_iterator wtgb::ComponentPool<ComponentT>::GetUsedBeginItr() const
 {
-	// g‚í‚ê‚Ä‚¢‚éƒRƒ“ƒ|[ƒlƒ“ƒg‚Ü‚Å‘–¸‚·‚é
+	// ä½¿ã‚ã‚Œã¦ã„ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¾ã§èµ°æŸ»ã™ã‚‹
 	for (size_t i = 0; i < ENTITY_CAPACITY; i++)
 	{
 		if (useFlag_[i])
@@ -197,7 +197,7 @@ inline wtgb::ComponentPool<ComponentT>::Pool::const_iterator wtgb::ComponentPool
 		}
 	}
 
-	// Œ©‚Â‚©‚ç‚È‚¯‚ê‚Î end ‚ğ•Ô‚·
+	// è¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã° end ã‚’è¿”ã™
 	return pool_.end();
 }
 
@@ -212,7 +212,7 @@ template<typename T, typename ...Args>
 ComponentT& wtgb::ComponentPool<ComponentT>::Add(const EntityId _entityId, const Args& ...args)
 {
 	pool_[_entityId.index] = T{ args... };
-	// g‚Á‚Ä‚¢‚é‚©‚çƒtƒ‰ƒO‚ğ—§‚Ä‚é
+	// ä½¿ã£ã¦ã„ã‚‹ã‹ã‚‰ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
 	useFlag_[_entityId.index] = true;
 	return pool_[_entityId.index];
 }

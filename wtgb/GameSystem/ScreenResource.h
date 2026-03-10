@@ -10,9 +10,9 @@ namespace wtgb
 		~ScreenResource();
 
 	private:
-		IDXGISwapChain* pSwapChain_;                 // �_�u���o�b�t�@�����O�Ńo�b�t�@��؂�ւ�����
-		ID3D11RenderTargetView* pRenderTargetView_;  // �`���̃r���[
-		ID3D11Texture2D* pDepthStencil_;             // �[�x�o�b�t�@
-		ID3D11DepthStencilView* pDepthStencilView_;  // �[�x�o�b�t�@�̃r���[
+		IDXGISwapChain* pSwapChain_;                 // ダブルバッファリングでバッファを切り替えるやつ
+		ID3D11RenderTargetView* pRenderTargetView_;  // 描画先のビュー
+		ID3D11Texture2D* pDepthStencil_;             // 深度バッファ
+		ID3D11DepthStencilView* pDepthStencilView_;  // 深度バッファのビュー
 	};
 }

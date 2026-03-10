@@ -3,12 +3,12 @@
 namespace wtgb
 {
 	/// <summary>
-	/// Œ‹‰Ê‚ğ•\Œ»‚·‚é\‘¢‘Ì
+	/// çµæœã‚’è¡¨ç¾ã™ã‚‹æ§‹é€ ä½“
 	/// </summary>
 	struct Result
 	{
 		/// <summary>
-		/// Œ‹‰ÊƒR[ƒh
+		/// çµæœã‚³ãƒ¼ãƒ‰
 		/// </summary>
 		enum struct Code : int
 		{
@@ -26,6 +26,6 @@ namespace wtgb
 			code{ static_cast<int>(_code) }
 		{}
 
-		int code;  // Œ‹‰ÊƒR[ƒh
+		int code;  // çµæœã‚³ãƒ¼ãƒ‰
 	};
 }

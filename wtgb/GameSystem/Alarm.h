@@ -4,20 +4,20 @@
 namespace wtgb
 {
 	/// <summary>
-	/// w’èŠÔŒã‚Éˆ—‚·‚éƒVƒXƒeƒ€
+	/// æŒ‡å®šæ™‚é–“å¾Œã«å‡¦ç†ã™ã‚‹ã‚·ã‚¹ãƒ†ãƒ 
 	/// </summary>
 	class Alarm : public IGameSystem
 	{
 	private:
 		/// <summary>
-		/// w’èŠÔŒã‚Ìˆ—ƒyƒA
+		/// æŒ‡å®šæ™‚é–“å¾Œã®å‡¦ç†ãƒšã‚¢
 		/// </summary>
 		struct AlarmPair
 		{
 			AlarmPair(const std::function<void()>& _callback, const float _timeLeft);
 
-			std::function<void()> callback;  // ˆ—
-			float timeLeft;                  // ƒJƒEƒ“ƒgƒ_ƒEƒ“ƒ^ƒCƒ}[
+			std::function<void()> callback;  // å‡¦ç†
+			float timeLeft;                  // ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã‚¿ã‚¤ãƒãƒ¼
 		};
 
 	public:
@@ -25,42 +25,42 @@ namespace wtgb
 		~Alarm();
 
 		/// <summary>
-		/// XVƒ^ƒCƒ~ƒ“ƒO‚ğæ“¾‚·‚é
+		/// æ›´æ–°ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_viewer">ƒVƒXƒeƒ€‚Ìƒrƒ…ƒA</param>
-		/// <returns>Œ‹‰Ê</returns>
+		/// <param name="_viewer">ã‚·ã‚¹ãƒ†ãƒ ã®ãƒ“ãƒ¥ã‚¢</param>
+		/// <returns>çµæœ</returns>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€‚Ìƒrƒ…ƒA</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ ã®ãƒ“ãƒ¥ã‚¢</param>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// w’èŠÔŒã‚É‹N“®‚·‚éˆ—‚ğ“o˜^‚·‚é
+		/// æŒ‡å®šæ™‚é–“å¾Œã«èµ·å‹•ã™ã‚‹å‡¦ç†ã‚’ç™»éŒ²ã™ã‚‹
 		/// </summary>
-		/// <param name="_callback">ˆ—‚ÌƒR[ƒ‹ƒoƒbƒN</param>
-		/// <param name="_time">ŠÔw’è</param>
-		/// <returns>ƒAƒ‰[ƒ€ƒnƒ“ƒhƒ‹</returns>
+		/// <param name="_callback">å‡¦ç†ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯</param>
+		/// <param name="_time">æ™‚é–“æŒ‡å®š</param>
+		/// <returns>ã‚¢ãƒ©ãƒ¼ãƒ ãƒãƒ³ãƒ‰ãƒ«</returns>
 		AlarmHandle Add(const std::function<void()>& _callback, const float _time);
 
 		/// <summary>
-		/// ƒAƒ‰[ƒ€‚ğƒLƒƒƒ“ƒZƒ‹‚·‚é
+		/// ã‚¢ãƒ©ãƒ¼ãƒ ã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã™ã‚‹
 		/// </summary>
-		/// <param name="_hAlarm">ƒAƒ‰[ƒ€ƒnƒ“ƒhƒ‹</param>
+		/// <param name="_hAlarm">ã‚¢ãƒ©ãƒ¼ãƒ ãƒãƒ³ãƒ‰ãƒ«</param>
 		void Cancel(const AlarmHandle _hAlarm);
 	
 	private:
-		HandlerCollection<AlarmPair, ModelHandle> registry_;  // ƒAƒ‰[ƒ€ƒnƒ“ƒhƒ‰ƒRƒŒƒNƒVƒ‡ƒ“
+		HandlerCollection<AlarmPair, ModelHandle> registry_;  // ã‚¢ãƒ©ãƒ¼ãƒ ãƒãƒ³ãƒ‰ãƒ©ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
 	};
 }

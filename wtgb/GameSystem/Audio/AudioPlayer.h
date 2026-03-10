@@ -9,7 +9,7 @@ namespace wtgb
 	class Audio;
 
 	/// <summary>
-	/// ‰¹ºÄ¶‚·‚é‚â‚Â
+	/// éŸ³å£°å†ç”Ÿã™ã‚‹ã‚„ã¤
 	/// </summary>
 	class AudioPlayer
 	{
@@ -18,9 +18,9 @@ namespace wtgb
 			AudioEntry(const float _timeLeft, AudioPlayer& _audioPlayer, const SourceVoiceIndex _sourceVoiceIndex);
 			~AudioEntry();
 
-			float timeLeft;              // c‚è‚ÌÄ¶ŠÔ
-			SourceVoiceIndex sourceVoiceIndex;  // g‚Á‚Ä‚¢‚éÄ¶‹@‚ÌƒCƒ“ƒfƒNƒX
-			AudioPlayer& audioPlayer;  // Ä¶‚·‚é‚â‚Â‚Ö‚ÌQÆ
+			float timeLeft;              // æ®‹ã‚Šã®å†ç”Ÿæ™‚é–“
+			SourceVoiceIndex sourceVoiceIndex;  // ä½¿ã£ã¦ã„ã‚‹å†ç”Ÿæ©Ÿã®ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹
+			AudioPlayer& audioPlayer;  // å†ç”Ÿã™ã‚‹ã‚„ã¤ã¸ã®å‚ç…§
 		};
 
 	public:
@@ -28,22 +28,22 @@ namespace wtgb
 		~AudioPlayer();
 
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
-		/// <param name="_dt">ƒtƒŒ[ƒ€ŠÔŠÔ</param>
+		/// <param name="_dt">ãƒ•ãƒ¬ãƒ¼ãƒ é–“æ™‚é–“</param>
 		void Update(const float _dt);
 
 		/// <summary>
-		/// Ä¶ƒLƒ…[‚ğƒNƒŠƒA‚·‚é
+		/// å†ç”Ÿã‚­ãƒ¥ãƒ¼ã‚’ã‚¯ãƒªã‚¢ã™ã‚‹
 		/// </summary>
 		void Clear();
 
 		/// <summary>
-		/// Ä¶‚·‚é
+		/// å†ç”Ÿã™ã‚‹
 		/// </summary>
-		/// <param name="_buffer">Ä¶‚·‚éƒoƒbƒtƒ@</param>
-		/// <param name="_format">Ä¶‚·‚éƒtƒH[ƒ}ƒbƒg</param>
-		/// <param name="_audioSystem">‰¹ºƒVƒXƒeƒ€‚ÌQÆ</param>
+		/// <param name="_buffer">å†ç”Ÿã™ã‚‹ãƒãƒƒãƒ•ã‚¡</param>
+		/// <param name="_format">å†ç”Ÿã™ã‚‹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ</param>
+		/// <param name="_audioSystem">éŸ³å£°ã‚·ã‚¹ãƒ†ãƒ ã®å‚ç…§</param>
 		SourceVoiceIndex Play(
 			const float _playTimeSec,
 			const XAUDIO2_BUFFER& _buffer,
@@ -54,10 +54,10 @@ namespace wtgb
 		void InsertEntryQueue(float _timeLeft, const SourceVoiceIndex _index);
 
 	private:
-		// ‰¹ºÄ¶‹@
+		// éŸ³å£°å†ç”Ÿæ©Ÿ
 		std::vector<UniqueXAudio2SourceVoice> sourceVoices_;
-		std::vector<bool> useFlag_;  // Ä¶‹@‚Ìg—pƒtƒ‰ƒO
+		std::vector<bool> useFlag_;  // å†ç”Ÿæ©Ÿã®ä½¿ç”¨ãƒ•ãƒ©ã‚°
 
-		std::list<AudioEntry> entryQueue_;  // Ä¶ƒLƒ…[
+		std::list<AudioEntry> entryQueue_;  // å†ç”Ÿã‚­ãƒ¥ãƒ¼
 	};
 }

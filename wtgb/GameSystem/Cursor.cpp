@@ -66,7 +66,7 @@ void wtgb::Cursor::SetPositionCenter()
 {
 	GameWindow& gameWindow{ System().Get<GameWindow>() };
 
-	// ƒEƒBƒ“ƒhƒEƒNƒ‰ƒCƒAƒ“ƒg“à‚Ì’†SÀ•W
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆå†…ã®ä¸­å¿ƒåº§æ¨™
 	SetPosition(gameWindow.GetMainWindowSize() / 2);
 }
 
@@ -74,7 +74,7 @@ void wtgb::Cursor::SetPosition(const Vector2Int _position)
 {
 	GameWindow& gameWindow{ System().Get<GameWindow>() };
 
-	POINT position  // ƒEƒBƒ“ƒhƒEƒNƒ‰ƒCƒAƒ“ƒg“à‚Ì’†SÀ•W
+	POINT position  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆå†…ã®ä¸­å¿ƒåº§æ¨™
 	{
 		_position.x, _position.y
 	};
@@ -85,9 +85,9 @@ void wtgb::Cursor::SetPosition(const Vector2Int _position)
 	};
 	frameMoveDelta_ -= moveDiff;
 
-	// ƒXƒNƒŠ[ƒ““à‚ÌÀ•W‚Ö•ÏŠ·
+	// ã‚¹ã‚¯ãƒªãƒ¼ãƒ³å†…ã®åº§æ¨™ã¸å¤‰æ›
 	ClientToScreen(gameWindow.GetMainWindowHandle(), &position);
-	// ƒJ[ƒ\ƒ‹À•W‚ğƒZƒbƒg
+	// ã‚«ãƒ¼ã‚½ãƒ«åº§æ¨™ã‚’ã‚»ãƒƒãƒˆ
 	SetCursorPos(position.x, position.y);
 }
 
@@ -97,23 +97,23 @@ void wtgb::Cursor::CursorUpdater::UpdatePosition(const Vector2Int& _clientPos)
 
 	if (cursor.isIgnoreMoveFlag_)
 	{
-		// –³‹‚·‚éƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚é‚È‚çAˆÚ“®—Ê‚ğ‰ÁZ‚¹‚¸‚É‰º‚·
+		// ç„¡è¦–ã™ã‚‹ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚‹ãªã‚‰ã€ç§»å‹•é‡ã‚’åŠ ç®—ã›ãšã«ä¸‹ã™
 		cursor.isIgnoreMoveFlag_ = false;
 	}
 	else
 	{
-		// ˆÚ“®—Ê‚ğ‰ÁZ‚·‚é
+		// ç§»å‹•é‡ã‚’åŠ ç®—ã™ã‚‹
 		cursor.frameMoveDelta_ += _clientPos - cursor.previousPosition_;
 
 		//LOGFLN("frameMoveDelta:({}, {})", cursor.frameMoveDelta_.x, cursor.frameMoveDelta_.y);
 
 		if (cursor.isLock_)
 		{
-			// ƒƒbƒNƒ‚[ƒh‚È‚çƒƒbƒN‚·‚éÀ•W‚ÖƒZƒbƒg
+			// ãƒ­ãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰ãªã‚‰ãƒ­ãƒƒã‚¯ã™ã‚‹åº§æ¨™ã¸ã‚»ãƒƒãƒˆ
 			cursor.SetPosition(cursor.lockPosition_);
 		}
 	}
 
-	// ‘O‰ñ‚ÌƒJ[ƒ\ƒ‹À•W‚ğXV
+	// å‰å›ã®ã‚«ãƒ¼ã‚½ãƒ«åº§æ¨™ã‚’æ›´æ–°
 	cursor.previousPosition_ = _clientPos;
 }

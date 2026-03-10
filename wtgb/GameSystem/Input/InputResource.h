@@ -5,20 +5,20 @@
 namespace wtgb
 {
 	/// <summary>
-	/// “ü—ÍƒŠƒ\[ƒX
+	/// å…¥åŠ›ãƒªã‚½ãƒ¼ã‚¹
 	/// </summary>
 	class InputResource : public IResource<>
 	{
 	public:
 		/// <summary>
-		/// İ’è
+		/// è¨­å®š
 		/// </summary>
 		struct Config
 		{
-			// TODO: ƒnƒ“ƒhƒ‹ŠÇ—‚·‚éƒVƒXƒeƒ€‚©‚çæ“¾‚·‚é
-			HWND hWnd;  // ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
+			// TODO: ãƒãƒ³ãƒ‰ãƒ«ç®¡ç†ã™ã‚‹ã‚·ã‚¹ãƒ†ãƒ ã‹ã‚‰å–å¾—ã™ã‚‹
+			HWND hWnd;  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
 			// REF: https://learn.microsoft.com/en-us/previous-versions/windows/desktop/ee417921(v=vs.85)
-			DWORD cooperativeLevelFlag;  // Š±Â“x‡‚¢ƒtƒ‰ƒO
+			DWORD cooperativeLevelFlag;  // å¹²æ¸‰åº¦åˆã„ãƒ•ãƒ©ã‚°
 		};
 
 	public:
@@ -26,23 +26,23 @@ namespace wtgb
 		~InputResource();
 
 		/// <summary>
-		/// ƒL[ƒ{[ƒh‚ÌƒfƒoƒCƒXƒ|ƒCƒ“ƒ^‚ğæ“¾
+		/// ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒL[ƒ{[ƒh‚ÌƒfƒoƒCƒXƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿</returns>
 		LPDIRECTINPUTDEVICE8 GetKeyDevice() const { return pKeyDevice_; }
 		/// <summary>
-		/// ƒ}ƒEƒX‚ÌƒfƒoƒCƒXƒ|ƒCƒ“ƒ^‚ğæ“¾
+		/// ãƒã‚¦ã‚¹ã®ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒ}ƒEƒX‚ÌƒfƒoƒCƒXƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ãƒã‚¦ã‚¹ã®ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿</returns>
 		LPDIRECTINPUTDEVICE8 GetMouseDevice() const { return pMouseDevice_; }
 
 	private:
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override;
 		/// <summary>
-		/// ‰ğ•úˆ—
+		/// è§£æ”¾å‡¦ç†
 		/// </summary>
 		void Release() override;
 
@@ -51,6 +51,6 @@ namespace wtgb
 		LPDIRECTINPUTDEVICE8 pKeyDevice_;
 		LPDIRECTINPUTDEVICE8 pMouseDevice_;
 
-		Config config_;  // İ’è
+		Config config_;  // è¨­å®š
 	};
 }

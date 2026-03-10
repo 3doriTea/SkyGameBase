@@ -20,12 +20,12 @@ namespace wtgb
 
 	public:
 		/// <summary>
-		/// À•W•ÏŠ·‚ÌƒIƒvƒVƒ‡ƒ“
+		/// åº§æ¨™å¤‰æ›ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³
 		/// </summary>
 		enum Option
 		{
-			OPT_FIXED_CAMERA_CENTER,  // ƒJƒƒ‰À•W‚ÉŒÅ’è
-			OPT_MAX,  // ƒIƒvƒVƒ‡ƒ“‚Ìí—Ş”
+			OPT_FIXED_CAMERA_CENTER,  // ã‚«ãƒ¡ãƒ©åº§æ¨™ã«å›ºå®š
+			OPT_MAX,  // ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®ç¨®é¡æ•°
 		};
 
 	public:
@@ -33,99 +33,99 @@ namespace wtgb
 		~Transform() {}
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init(ViewerCached _system) override {}
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(ViewerCached _system) override {}
 
 		/// <summary>
-		/// ƒ[ƒJƒ‹À•W‚ğƒZƒbƒg‚·‚é
+		/// ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
 		inline void SetPosition(const Vector3& _position) { position_ = _position; }
 		/// <summary>
-		/// ƒ[ƒJƒ‹‰ñ“]Šp“x‚ğƒZƒbƒg‚·‚é
+		/// ãƒ­ãƒ¼ã‚«ãƒ«å›è»¢è§’åº¦ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
-		/// <param name="_rotation">ƒ‰ƒWƒAƒ“ƒIƒCƒ‰[Šp</param>
+		/// <param name="_rotation">ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼è§’</param>
 		inline void SetRotation(const Vector3& _rotation) { rotation_ = _rotation; }
 		/// <summary>
-		/// ƒ[ƒJƒ‹ƒXƒP[ƒ‹‚ğƒZƒbƒg‚·‚é
+		/// ãƒ­ãƒ¼ã‚«ãƒ«ã‚¹ã‚±ãƒ¼ãƒ«ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
-		/// <param name="_scale">ƒXƒP[ƒ‹</param>
+		/// <param name="_scale">ã‚¹ã‚±ãƒ¼ãƒ«</param>
 		inline void SetScale(const Vector3& _scale)       { scale_ = _scale; }
 		/// <summary>
-		/// ƒ[ƒJƒ‹À•W‚ğæ“¾‚·‚é
+		/// ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒ[ƒJƒ‹À•W</returns>
+		/// <returns>ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™</returns>
 		inline Vector3 GetPosition() const                { return position_; }
 		/// <summary>
-		/// ƒ[ƒJƒ‹‰ñ“]Šp“x‚ğæ“¾‚·‚é
+		/// ãƒ­ãƒ¼ã‚«ãƒ«å›è»¢è§’åº¦ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒ‰ƒWƒAƒ“ƒIƒCƒ‰[Šp</returns>
+		/// <returns>ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼è§’</returns>
 		inline Vector3 GetRotation() const                { return rotation_; }
 		/// <summary>
-		/// ƒ[ƒJƒ‹ƒXƒP[ƒ‹‚ğæ“¾‚·‚é
+		/// ãƒ­ãƒ¼ã‚«ãƒ«ã‚¹ã‚±ãƒ¼ãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒXƒP[ƒ‹</returns>
+		/// <returns>ã‚¹ã‚±ãƒ¼ãƒ«</returns>
 		inline Vector3 GetScale() const                   { return scale_; }
 
 		/// <summary>
-		/// ƒ[ƒ‹ƒhÀ•W‚ğƒZƒbƒg‚·‚é
+		/// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
-		/// <param name="_worldPosition">ƒ[ƒ‹ƒhÀ•W</param>
+		/// <param name="_worldPosition">ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™</param>
 		void SetPositionWorld(const Vector3& _worldPosition);
 		/// <summary>
-		/// ƒ[ƒ‹ƒhÀ•W‚ğæ“¾‚·‚é
+		/// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒ[ƒ‹ƒhÀ•W</returns>
+		/// <returns>ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™</returns>
 		Vector3 GetPositionWorld() const;
 
 		/// <summary>
-		/// ƒ[ƒ‹ƒhƒ‰ƒWƒAƒ“ƒIƒCƒ‰[Šp‚ğƒZƒbƒg‚·‚é
+		/// ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼è§’ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
-		/// <param name="_worldPosition">ƒ[ƒ‹ƒhƒ‰ƒWƒAƒ“ƒIƒCƒ‰[Šp</param>
+		/// <param name="_worldPosition">ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼è§’</param>
 		void SetRotationWorld(const Vector3& _worldRotation);
 		/// <summary>
-		/// ƒ[ƒ‹ƒhƒ‰ƒWƒAƒ“ƒIƒCƒ‰[Šp‚ğæ“¾‚·‚é
+		/// ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼è§’ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒ[ƒ‹ƒhƒ‰ƒWƒAƒ“ƒIƒCƒ‰[Šp</returns>
+		/// <returns>ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒ©ã‚¸ã‚¢ãƒ³ã‚ªã‚¤ãƒ©ãƒ¼è§’</returns>
 		Vector3 GetRotationWorld() const;
 
 		/// <summary>
-		/// ƒ[ƒ‹ƒhs—ñ‚ğæ“¾‚·‚é
+		/// ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒ[ƒ‹ƒh•ÏŠ·s—ñ</returns>
+		/// <returns>ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—</returns>
 		inline Matrix4x4 GetWorldMatrix() const { return worldMatrix_; }
 		/// <summary>
-		/// –@ü‚Ì•ÏŠ·s—ñ (‰ñ“]s—ñ) ‚ğæ“¾‚·‚é
+		/// æ³•ç·šã®å¤‰æ›è¡Œåˆ— (å›è»¢è¡Œåˆ—) ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>–@ü‚Ì•ÏŠ·s—ñ</returns>
+		/// <returns>æ³•ç·šã®å¤‰æ›è¡Œåˆ—</returns>
 		inline Matrix4x4 GetNormalMatrix() const { return worldRotateMatrix_; }
 
 		/// <summary>
-		/// ƒ[ƒJƒ‹s—ñ‚ğæ“¾‚·‚é
+		/// ãƒ­ãƒ¼ã‚«ãƒ«è¡Œåˆ—ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒ[ƒJƒ‹•ÏŠ·s—ñ</returns>
+		/// <returns>ãƒ­ãƒ¼ã‚«ãƒ«å¤‰æ›è¡Œåˆ—</returns>
 		inline Matrix4x4 GetLocalMatrix() const { return localMatrix_; }
-#pragma region •ûŒüƒxƒNƒgƒ‹‚Ìæ“¾
+#pragma region æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®å–å¾—
 		inline Vector3 GetForward() const { return Vector3::Forward() *= worldRotateMatrix_; }
 #pragma endregion
 
 	private:
-		Vector3 position_;  // ƒ[ƒJƒ‹À•W
-		Vector3 rotation_;  // ƒ[ƒJƒ‹‰ñ“]Šp“x (ƒ‰ƒWƒAƒ“‚ÌƒIƒCƒ‰[Šp)
-		Vector3 scale_;     // ƒ[ƒJƒ‹ƒXƒP[ƒ‹
+		Vector3 position_;  // ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™
+		Vector3 rotation_;  // ãƒ­ãƒ¼ã‚«ãƒ«å›è»¢è§’åº¦ (ãƒ©ã‚¸ã‚¢ãƒ³ã®ã‚ªã‚¤ãƒ©ãƒ¼è§’)
+		Vector3 scale_;     // ãƒ­ãƒ¼ã‚«ãƒ«ã‚¹ã‚±ãƒ¼ãƒ«
 
-		Matrix4x4 translateMatrix_;  // ˆÚ“®s—ñ
-		Matrix4x4 rotateMatrix_;     // ‰ñ“]s—ñ
-		Matrix4x4 scaleMatrix_;      // Šgks—ñ
+		Matrix4x4 translateMatrix_;  // ç§»å‹•è¡Œåˆ—
+		Matrix4x4 rotateMatrix_;     // å›è»¢è¡Œåˆ—
+		Matrix4x4 scaleMatrix_;      // æ‹¡ç¸®è¡Œåˆ—
 
-		Matrix4x4 localMatrix_;        // ƒ[ƒJƒ‹s—ñ
-		Matrix4x4 worldMatrix_;        // ƒ[ƒ‹ƒhs—ñ
-		Matrix4x4 worldRotateMatrix_;  // ƒ[ƒ‹ƒh‰ñ“]s—ñ
+		Matrix4x4 localMatrix_;        // ãƒ­ãƒ¼ã‚«ãƒ«è¡Œåˆ—
+		Matrix4x4 worldMatrix_;        // ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—
+		Matrix4x4 worldRotateMatrix_;  // ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢è¡Œåˆ—
 		
-		std::bitset<OPT_MAX> options_;  // ×‚©‚¢İ’è
+		std::bitset<OPT_MAX> options_;  // ç´°ã‹ã„è¨­å®š
 	};
 }

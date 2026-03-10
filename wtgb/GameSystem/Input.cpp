@@ -17,7 +17,7 @@ wtgb::Input::Input() :
 	mouseUpdater_{ this },
 	inputGetter_{ this },
 	pResource_{ nullptr },
-	inputData_{},  // MEMO: ”O‚Ì‚½‚ß‰Šú‰»
+	inputData_{},  // MEMO: å¿µã®ãŸã‚åˆæœŸåŒ–
 	isKeyPress_
 	{
 		InputChecker::GenIsPress<InputData::KeyBoardStateArray, KeyCode>(
@@ -80,7 +80,7 @@ void wtgb::Input::End()
 
 bool wtgb::Input::InputGetter::IsKey(const KeyCode _keyCode) const
 {
-	// MEMO: ˆÈ‰º‚Ì‘‚«•û‚ªç’·‚¾‚Æl‚¦A‰ü—Ç‚µ‚Ü‚µ‚½
+	// MEMO: ä»¥ä¸‹ã®æ›¸ãæ–¹ãŒå†—é•·ã ã¨è€ƒãˆã€æ”¹è‰¯ã—ã¾ã—ãŸ
 	//     : InputData& data{ GetAccess()->inputData_ };
 	//     : return data.keyBoardState_[static_cast<int>(_keyCode)];
 	return GetAccess()->isKeyPress_(_keyCode);

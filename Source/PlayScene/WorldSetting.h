@@ -1,11 +1,11 @@
 #pragma once
 
 /// <summary>
-/// ƒ[ƒ‹ƒh‚Ìİ’è
+/// ãƒ¯ãƒ¼ãƒ«ãƒ‰ã®è¨­å®š
 /// </summary>
 struct WorldConfig
 {
-	float safeZoneXMin;  // ‰¡Å¬’l
-	float safeZoneXMax;  // ‰¡Å‘å’l
+	float safeZoneXMin;  // æ¨ªæœ€å°å€¤
+	float safeZoneXMax;  // æ¨ªæœ€å¤§å€¤
 	float eggGetDistance;
 };

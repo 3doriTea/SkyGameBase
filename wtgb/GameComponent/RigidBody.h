@@ -34,100 +34,100 @@ namespace wtgb
 		~RigidBody() {}
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init(ViewerCached _system) override {}
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(ViewerCached _system) override {}
 
 		/// <summary>
-		/// ‰½‚©‚µ‚ç‚É“–‚½‚Á‚Ä‚¢‚éƒRƒ‰ƒCƒ_”
+		/// ä½•ã‹ã—ã‚‰ã«å½“ãŸã£ã¦ã„ã‚‹ã‚³ãƒ©ã‚¤ãƒ€æ•°
 		/// </summary>
 		/// <returns></returns>
 		inline int GetHitCount() const { return static_cast<int>(onHitCollidersCount_); }
 		/// <summary>
-		/// ‰½‚©‚µ‚ç‚É“–‚½‚Á‚Ä‚¢‚é‚©
+		/// ä½•ã‹ã—ã‚‰ã«å½“ãŸã£ã¦ã„ã‚‹ã‹
 		/// </summary>
-		/// <returns>“–‚½‚Á‚Ä‚¢‚é true / false</returns>
+		/// <returns>å½“ãŸã£ã¦ã„ã‚‹ true / false</returns>
 		inline bool IsHit() const { return GetHitCount() > 0; }
 
 		/// <summary>
-		/// “–‚½‚Á‚Ä‚¢‚é‘SƒRƒ‰ƒCƒ_‚ğæ“¾‚·‚é
+		/// å½“ãŸã£ã¦ã„ã‚‹å…¨ã‚³ãƒ©ã‚¤ãƒ€ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <param name="_pHitColliderVector">“–‚½‚Á‚Ä‚¢‚éƒRƒ‰ƒCƒ_Ši”[—pvector‚Ìƒ|ƒCƒ“ƒ^“n‚µ</param>
+		/// <param name="_pHitColliderVector">å½“ãŸã£ã¦ã„ã‚‹ã‚³ãƒ©ã‚¤ãƒ€æ ¼ç´ç”¨vectorã®ãƒã‚¤ãƒ³ã‚¿æ¸¡ã—</param>
 		void GetHitColliders(std::vector<Collider*>* _pHitColliderVector);
 
 		/// <summary>
-		/// ‘¬“xƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// é€Ÿåº¦ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>‘¬“xƒxƒNƒgƒ‹</returns>
+		/// <returns>é€Ÿåº¦ãƒ™ã‚¯ãƒˆãƒ«</returns>
 		inline Vector3 GetVelocity() const { return velocity_; }
 		/// <summary>
-		/// ‘¬“x‚ğ‰Á‚¦‚é
+		/// é€Ÿåº¦ã‚’åŠ ãˆã‚‹
 		/// </summary>
-		/// <param name="_addV">ƒ[ƒ‹ƒhÀ•WŒn‚Å‚Ì‘¬“x</param>
+		/// <param name="_addV">ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã§ã®é€Ÿåº¦</param>
 		inline void AddVelocity(const Vector3& _addV) { velocity_ = velocity_ + _addV; }
 		/// <summary>
-		/// ‘¬“x‚ğİ’è‚·‚é
+		/// é€Ÿåº¦ã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="_velocity">ƒ[ƒ‹ƒhÀ•WŒn‚Å‚Ì‘¬“x</param>
+		/// <param name="_velocity">ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã§ã®é€Ÿåº¦</param>
 		inline void SetVelocity(const Vector3& _velocity) { velocity_ = _velocity; }
 		/// <summary>
-		/// ‰ñ“]‘¬“x‚ğ‰Á‚¦‚é
+		/// å›è»¢é€Ÿåº¦ã‚’åŠ ãˆã‚‹
 		/// </summary>
-		/// <param name="_addT">ƒ[ƒ‹ƒhÀ•WŒn‚Å‚Ì‘¬“x</param>
+		/// <param name="_addT">ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã§ã®é€Ÿåº¦</param>
 		inline void AddTorque(const Vector3& _addT) { angularVelocity_ = angularVelocity_ + _addT; }
 		/// <summary>
-		/// ”½”­—Í‚ğæ“¾‚·‚é
+		/// åç™ºåŠ›ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>”½”­—Í(N“ü‘¬“x‚Ì‰½”{‚Å”½Ë‚·‚é‚©)</returns>
+		/// <returns>åç™ºåŠ›(ä¾µå…¥é€Ÿåº¦ã®ä½•å€ã§åå°„ã™ã‚‹ã‹)</returns>
 		inline float GetBounciness() const { return bounciness_; }
 		/// <summary>
-		/// ”½”­—Í‚ğİ’è‚·‚é
+		/// åç™ºåŠ›ã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="_bounciness">”½”­—Í(N“ü‘¬“x‚Ì‰½”{‚Å”½Ë‚·‚é‚©)</param>
+		/// <param name="_bounciness">åç™ºåŠ›(ä¾µå…¥é€Ÿåº¦ã®ä½•å€ã§åå°„ã™ã‚‹ã‹)</param>
 		inline void SetBounciness(const float _bounciness) { bounciness_ = _bounciness; }
 		/// <summary>
-		/// d—Í‚ğg—p‚·‚é‚©İ’è‚·‚é
+		/// é‡åŠ›ã‚’ä½¿ç”¨ã™ã‚‹ã‹è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="_useGravity">d—Í‚ğg‚¤ true / false</param>
+		/// <param name="_useGravity">é‡åŠ›ã‚’ä½¿ã† true / false</param>
 		inline void SetUseGravity(const bool _useGravity) { useGravity_ = _useGravity; }
 
 	private:
 		/// <summary>
-		/// “–‚½‚Á‚Ä‚¢‚éƒRƒ‰ƒCƒ_‚ğ’Ç‰Á‚·‚é
+		/// å½“ãŸã£ã¦ã„ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ã‚’è¿½åŠ ã™ã‚‹
 		/// </summary>
 		void AddHitCollider(Collider* _pCollider);
 		/// <summary>
-		/// “–‚½‚Á‚Ä‚¢‚éƒRƒ‰ƒCƒ_‚ğ‘S‚ÄƒNƒŠƒA‚·‚é
+		/// å½“ãŸã£ã¦ã„ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ã‚’å…¨ã¦ã‚¯ãƒªã‚¢ã™ã‚‹
 		/// </summary>
 		void ClearHitCollider();
 
 	private:
-		float mass_;  // ¿—Ê (kg)
+		float mass_;  // è³ªé‡ (kg)
 
-		Vector3 velocity_;  // Œü‚«‚ğ‚Á‚½‘¬“x (m/s)
-		float drag_;      // R—Í
+		Vector3 velocity_;  // å‘ãã‚’æŒã£ãŸé€Ÿåº¦ (m/s)
+		float drag_;      // æŠ—åŠ›
 		
-		Vector3 angularVelocity_;  // ‰ñ“]‘¬“x (r/s)
-		float angularDrag_;      // ‰ñ“]R—Í
+		Vector3 angularVelocity_;  // å›è»¢é€Ÿåº¦ (r/s)
+		float angularDrag_;      // å›è»¢æŠ—åŠ›
 
-		bool useSphereCollider_;  // ‹…‚Ì“–‚½‚è”»’è‚ğg‚¤‚©
-		bool useGravity_;  // d—Í‚ª‚©‚©‚é‚©‚Ç‚¤‚©
+		bool useSphereCollider_;  // çƒã®å½“ãŸã‚Šåˆ¤å®šã‚’ä½¿ã†ã‹
+		bool useGravity_;  // é‡åŠ›ãŒã‹ã‹ã‚‹ã‹ã©ã†ã‹
 
-		// MEMO: e = 1     : Š®‘S’e«Õ“Ë ÊŞİ
-		//     : 0 < e < 1 : ’e« ÎŞ²İ
-		//     : e = 0     : Š®‘S”ñ’e« ÍßÀ¯
-		float bounciness_;  // ”½”­ŒW” = e
+		// MEMO: e = 1     : å®Œå…¨å¼¾æ€§è¡çª ãƒãƒ³
+		//     : 0 < e < 1 : å¼¾æ€§ ãƒœã‚¤ãƒ³
+		//     : e = 0     : å®Œå…¨éå¼¾æ€§ ãƒšã‚¿ãƒƒ
+		float bounciness_;  // åç™ºä¿‚æ•° = e
 
-		Vector3 push_;  // “à•”ŒvZ—p‰Ÿ‚µo‚µ
+		Vector3 push_;  // å†…éƒ¨è¨ˆç®—ç”¨æŠ¼ã—å‡ºã—
 
-		size_t onHitCollidersCount_;  // “–‚½‚Á‚Ä‚¢‚éƒRƒ‰ƒCƒ_”
-		// “–‚½‚Á‚Ä‚¢‚éƒRƒ‰ƒCƒ_ˆê——
+		size_t onHitCollidersCount_;  // å½“ãŸã£ã¦ã„ã‚‹ã‚³ãƒ©ã‚¤ãƒ€æ•°
+		// å½“ãŸã£ã¦ã„ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ä¸€è¦§
 		std::array<Collider*, HIT_COLLIDER_BUFFER_SIZE> onHitColliders_;
 
-		Vector3 prevPosition_;  // ‘O‰ñŒvZ‚Ìƒ[ƒ‹ƒhÀ•W
+		Vector3 prevPosition_;  // å‰å›è¨ˆç®—æ™‚ã®ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™
 	};
 }

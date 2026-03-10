@@ -3,16 +3,16 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒuƒŒƒ“ƒh‚ÌŽí—Þ
+	/// ãƒ–ãƒ¬ãƒ³ãƒ‰ã®ç¨®é¡ž
 	/// </summary>
 	enum struct BlendMode
 	{
-		None,   // ƒuƒŒƒ“ƒhƒ‚[ƒh“Á‚É‚È‚µ
-		Alpha,  // ”¼“§–¾•`‰æ‚·‚é
-		Max,    // Å‘å”
+		None,   // ãƒ–ãƒ¬ãƒ³ãƒ‰ãƒ¢ãƒ¼ãƒ‰ç‰¹ã«ãªã—
+		Alpha,  // åŠé€æ˜Žæç”»ã™ã‚‹
+		Max,    // æœ€å¤§æ•°
 	};
 	/// <summary>
-	/// ƒuƒŒƒ“ƒhƒ‚[ƒh‚Ì‘”
+	/// ãƒ–ãƒ¬ãƒ³ãƒ‰ãƒ¢ãƒ¼ãƒ‰ã®ç·æ•°
 	/// </summary>
 	static constexpr size_t BLEND_MODE_MAX{ static_cast<size_t>(BlendMode::Max) };
 }

@@ -25,12 +25,12 @@ bool wtgb::HandlerCollection<ValueT, HandleT>::Remove(const HandleT _handle)
 
 	if (itr == innerMap.end())
 	{
-		// Œ©‚Â‚©‚ç‚È‚©‚Á‚½‚½‚ßœ‹¸”s
+		// è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸãŸã‚é™¤å»å¤±æ•—
 		return false;
 	}
 	else
 	{
-		// Œ©‚Â‚©‚Á‚½‚½‚ßœ‹¬Œ÷
+		// è¦‹ã¤ã‹ã£ãŸãŸã‚é™¤å»æˆåŠŸ
 		innerMap.erase(itr);
 		return true;
 	}
@@ -41,11 +41,11 @@ void wtgb::HandlerCollection<ValueT, HandleT>::Release(const std::function<void(
 {
 	for (auto& [handle, value] : *this)
 	{
-		// ‰ğ•ú‘O‚Éü‰ñ‚·‚é
+		// è§£æ”¾å‰ã«å‘¨å›ã™ã‚‹
 		_callback(value);
 	}
 
-	// ‚¿‚á‚ñ‚Æ‰ğ•úI
+	// ã¡ã‚ƒã‚“ã¨è§£æ”¾ï¼
 	innerMap.clear();
 }
 
@@ -56,33 +56,33 @@ inline HandleT wtgb::HandlerCollection<ValueT, HandleT>::GetContainsDuplicate(co
 	{
 		if (_callback(value))
 		{
-			// Œ©‚Â‚©‚Á‚½I
+			// è¦‹ã¤ã‹ã£ãŸï¼
 			return handle;
 		}
 	}
 
-	// w’èƒnƒ“ƒhƒ‹‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½‚½‚ß–³Œøƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+	// æŒ‡å®šãƒãƒ³ãƒ‰ãƒ«ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸãŸã‚ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 	return wtgb::INVALID_HANDLE;
 }
 
 template<typename ValueT, std::unsigned_integral HandleT>
 inline std::remove_pointer_t<ValueT>& wtgb::HandlerCollection<ValueT, HandleT>::At(const HandleT _handle)
 {
-	assert(_handle != INVALID_HANDLE && "–³Œø‚Èƒnƒ“ƒhƒ‹’l‚ÉQÆ‚³‚ê‚Ü‚µ‚½");
+	assert(_handle != INVALID_HANDLE && "ç„¡åŠ¹ãªãƒãƒ³ãƒ‰ãƒ«å€¤ã«å‚ç…§ã•ã‚Œã¾ã—ãŸ");
 	if (_handle == INVALID_HANDLE)
 	{
-		throw "–³Œø‚Èƒnƒ“ƒhƒ‹’l‚ÉQÆ‚³‚ê‚Ü‚µ‚½";
+		throw "ç„¡åŠ¹ãªãƒãƒ³ãƒ‰ãƒ«å€¤ã«å‚ç…§ã•ã‚Œã¾ã—ãŸ";
 	}
 
 	auto& valueRef{ innerMap.at(_handle) };
 	if constexpr (std::is_pointer_v<ValueT>)
 	{
-		// ValueT‚ªƒ|ƒCƒ“ƒ^‚Ìê‡‚ÍÀ‘Ô‚ğ•Ô‚·
+		// ValueTãŒãƒã‚¤ãƒ³ã‚¿ã®å ´åˆã¯å®Ÿæ…‹ã‚’è¿”ã™
 		return *valueRef;
 	}
 	else
 	{
-		// ƒ|ƒCƒ“ƒ^‚Å‚È‚¯‚ê‚Î‚»‚Ì‚Ü‚Ü•Ô‚·
+		// ãƒã‚¤ãƒ³ã‚¿ã§ãªã‘ã‚Œã°ãã®ã¾ã¾è¿”ã™
 		return valueRef;
 	}
 }
@@ -90,21 +90,21 @@ inline std::remove_pointer_t<ValueT>& wtgb::HandlerCollection<ValueT, HandleT>::
 template<typename ValueT, std::unsigned_integral HandleT>
 inline const std::remove_pointer_t<ValueT>& wtgb::HandlerCollection<ValueT, HandleT>::At(const HandleT _handle) const
 {
-	assert(_handle != INVALID_HANDLE && "–³Œø‚Èƒnƒ“ƒhƒ‹’l‚ÉQÆ‚³‚ê‚Ü‚µ‚½");
+	assert(_handle != INVALID_HANDLE && "ç„¡åŠ¹ãªãƒãƒ³ãƒ‰ãƒ«å€¤ã«å‚ç…§ã•ã‚Œã¾ã—ãŸ");
 	if (_handle == INVALID_HANDLE)
 	{
-		throw "–³Œø‚Èƒnƒ“ƒhƒ‹’l‚ÉQÆ‚³‚ê‚Ü‚µ‚½";
+		throw "ç„¡åŠ¹ãªãƒãƒ³ãƒ‰ãƒ«å€¤ã«å‚ç…§ã•ã‚Œã¾ã—ãŸ";
 	}
 
 	auto& valueRef{ innerMap.at(_handle) };
 	if constexpr (std::is_pointer_v<ValueT>)
 	{
-		// ValueT‚ªƒ|ƒCƒ“ƒ^‚Ìê‡‚ÍÀ‘Ô‚ğ•Ô‚·
+		// ValueTãŒãƒã‚¤ãƒ³ã‚¿ã®å ´åˆã¯å®Ÿæ…‹ã‚’è¿”ã™
 		return *valueRef;
 	}
 	else
 	{
-		// ƒ|ƒCƒ“ƒ^‚Å‚È‚¯‚ê‚Î‚»‚Ì‚Ü‚Ü•Ô‚·
+		// ãƒã‚¤ãƒ³ã‚¿ã§ãªã‘ã‚Œã°ãã®ã¾ã¾è¿”ã™
 		return valueRef;
 	}
 }

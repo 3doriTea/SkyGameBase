@@ -17,15 +17,15 @@ namespace wtgb
 	class GameObjectBuilder;
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğŒp³‚µ‚Ä‚¢‚éŒ^
+	/// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç¶™æ‰¿ã—ã¦ã„ã‚‹å‹
 	/// </summary>
 	template<typename T>
 	concept GameObjectT = std::is_base_of_v<GameObject, T>;
 
 	/// <summary>
-	/// <para>ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg (’†g‚ÍƒGƒ“ƒeƒBƒeƒBId‚Ì‚İ)</para>
-	/// <para>Œy—Ê‚È‚½‚ß–{‘Ì‚ÍŠî–{“I‚ÉƒRƒs[‚µ‚Ä—˜—p</para>
-	/// <para>ƒIƒŠƒWƒiƒ‹ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Í‚±‚ê‚ğ”h¶‚µAQÆ‚ğ—˜—p</para>
+	/// <para>ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ (ä¸­èº«ã¯ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Idã®ã¿)</para>
+	/// <para>è»½é‡ãªãŸã‚æœ¬ä½“ã¯åŸºæœ¬çš„ã«ã‚³ãƒ”ãƒ¼ã—ã¦åˆ©ç”¨</para>
+	/// <para>ã‚ªãƒªã‚¸ãƒŠãƒ«ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯ã“ã‚Œã‚’æ´¾ç”Ÿã—ã€å‚ç…§ã‚’åˆ©ç”¨</para>
 	/// </summary>
 	class COMPONENT(GameObject)
 	{
@@ -57,19 +57,19 @@ namespace wtgb
 		virtual void Release() = 0;
 
 		/// <summary>
-		/// <para>ƒRƒ“ƒ|[ƒlƒ“ƒg‚Æ‚µ‚Ä‚ÌI—¹ˆ—</para>
-		/// <para>NOTE: I—¹ˆ—‚ğƒI[ƒo[ƒ‰ƒCƒh‚·‚éê‡‚ÍReleaseŠÖ”‚ğg‚¤</para>
+		/// <para>ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¨ã—ã¦ã®çµ‚äº†å‡¦ç†</para>
+		/// <para>NOTE: çµ‚äº†å‡¦ç†ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹å ´åˆã¯Releaseé–¢æ•°ã‚’ä½¿ã†</para>
 		/// </summary>
 		void End() override final;
 
 		/// <summary>
-		/// ‚±‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğíœ‚·‚é
+		/// ã“ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤ã™ã‚‹
 		/// </summary>
 		void DestroyMe() { toDestroy_ = true; }
 		/// <summary>
-		/// ‚±‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ííœ—\’è‚©
+		/// ã“ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯å‰Šé™¤äºˆå®šã‹
 		/// </summary>
-		/// <returns>íœ—\’è‚Å‚ ‚é true / false</returns>
+		/// <returns>å‰Šé™¤äºˆå®šã§ã‚ã‚‹ true / false</returns>
 		bool IsToDestroy() const { return toDestroy_; }
 
 		template<typename ComponentT>
@@ -79,74 +79,74 @@ namespace wtgb
 		ComponentT& AddComponent() { return System().Get<ComponentManager>().Add<ComponentT>(entityId_); }
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ªŠ‘®‚·‚éŒ»İ‚ÌƒV[ƒ“‚ğæ“¾‚·‚é
+		/// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæ‰€å±ã™ã‚‹ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <typeparam name="GameSceneT">ƒV[ƒ“‚ÌŒ^</typeparam>
-		/// <returns>ƒV[ƒ“‚ÌQÆ</returns>
+		/// <typeparam name="GameSceneT">ã‚·ãƒ¼ãƒ³ã®å‹</typeparam>
+		/// <returns>ã‚·ãƒ¼ãƒ³ã®å‚ç…§</returns>
 		template<typename GameSceneT = GameScene>
 		inline GameSceneT* GetScene()
 		{
 			//static_assert(
-			//	// TODO: ‚à‚µ‚­‚ÍGameScene || std::is_base_of_v<GameScene, GameSceneT>
-			//	&& "w’è‚·‚éŒ^‚ÍGameScene‚ğŒp³‚µ‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·B");
+			//	// TODO: ã‚‚ã—ãã¯GameScene || std::is_base_of_v<GameScene, GameSceneT>
+			//	&& "æŒ‡å®šã™ã‚‹å‹ã¯GameSceneã‚’ç¶™æ‰¿ã—ã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚");
 			GameScene* pCurrentScene{ System().Get<SceneManager>().GetCurrentScene() };
-			wassert(pCurrentScene && "Œ»İ‚ÌƒV[ƒ“‚ª‚È‚¢");
+			wassert(pCurrentScene && "ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ãŒãªã„");
 			GameSceneT* pCasted{ dynamic_cast<GameSceneT*>(pCurrentScene) };
 
 			return pCasted;
 
-			//wassert(pCasted && "Œ»İ‚ÌƒV[ƒ“‚ğw’èŒ^‚É•ÏŠ·‚Å‚«‚È‚©‚Á‚½");
+			//wassert(pCasted && "ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã‚’æŒ‡å®šå‹ã«å¤‰æ›ã§ããªã‹ã£ãŸ");
 		}
 
 		/// <summary>
-		/// ƒGƒ“ƒeƒBƒeƒBId‚©‚çƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğ’T‚·
+		/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Idã‹ã‚‰ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¢ã™
 		/// </summary>
-		/// <param name="_entityId">ƒGƒ“ƒeƒBƒeƒBId</param>
-		/// <returns>Œ©‚Â‚©‚Á‚½ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^ / Œ©‚Â‚©‚ç‚È‚¯‚ê‚Î nullptr</returns>
+		/// <param name="_entityId">ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
+		/// <returns>è¦‹ã¤ã‹ã£ãŸã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ / è¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã° nullptr</returns>
 		template<typename GameObjectT = GameObject>
 		GameObjectT* FindGameObject(const EntityId _entityId);
 
 		/// <summary>
-		/// –¼‘O‚©‚çƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğ’T‚·
+		/// åå‰ã‹ã‚‰ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¢ã™
 		/// </summary>
-		/// <param name="_name">–¼‘O</param>
-		/// <returns>Œ©‚Â‚©‚Á‚½ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^ / Œ©‚Â‚©‚ç‚È‚¯‚ê‚Î nullptr</returns>
+		/// <param name="_name">åå‰</param>
+		/// <returns>è¦‹ã¤ã‹ã£ãŸã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ / è¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã° nullptr</returns>
 		GameObject* FindGameObject(const std::string& _name);
 
 		/// <summary>
-		/// –¼‘O‚©‚ç•¡”‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğ’T‚·
+		/// åå‰ã‹ã‚‰è¤‡æ•°ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¢ã™
 		/// </summary>
-		/// <param name="_name">–¼‘O</param>
-		/// <param name="_pFoundGameObject">Œ©‚Â‚©‚Á‚½ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğŠi”[‚·‚éƒ|ƒCƒ“ƒ^</param>
+		/// <param name="_name">åå‰</param>
+		/// <param name="_pFoundGameObject">è¦‹ã¤ã‹ã£ãŸã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ ¼ç´ã™ã‚‹ãƒã‚¤ãƒ³ã‚¿</param>
 		bool FindGameObjects(const std::string& _name, std::vector<GameObject*>* _pFoundGameObjects);
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒgƒvƒƒpƒeƒB‚ğQÆ‚·‚é
+		/// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å‚ç…§ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒQ[ƒ€ƒIƒuƒWƒFƒNƒgƒvƒƒpƒeƒB‚ÌQÆ</returns>
+		/// <returns>ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®å‚ç…§</returns>
 		GameObjectProperty& Property();
 		/// <summary>
-		/// À•WŒnƒRƒ“ƒ|[ƒlƒ“ƒg‚ğQÆ‚·‚é
+		/// åº§æ¨™ç³»ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å‚ç…§ã™ã‚‹
 		/// </summary>
-		/// <returns>À•WŒnƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌQÆ</returns>
+		/// <returns>åº§æ¨™ç³»ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å‚ç…§</returns>
 		Transform& Transform();
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌƒGƒ“ƒeƒBƒeƒBId‚ğæ“¾‚·‚é
+		/// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Idã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒGƒ“ƒeƒBƒeƒBId</returns>
+		/// <returns>ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</returns>
 		inline EntityId GetEntityId() const { return entityId_; }
 
 	protected:
 		ViewerCached& System() const;
 
 	private:
-		EntityId entityId_;  // ƒGƒ“ƒeƒBƒeƒB‚ÌId
+		EntityId entityId_;  // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®Id
 
-		// TODO: entityId‚Ì‚İ‚É‚·‚é
-		bool toDestroy_;  // íœ—\’è‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚© true / false
+		// TODO: entityIdã®ã¿ã«ã™ã‚‹
+		bool toDestroy_;  // å‰Šé™¤äºˆå®šã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ true / false
 
-		// cacheÏ‚İ‚ÌƒQ[ƒ€ƒVƒXƒeƒ€
+		// cacheæ¸ˆã¿ã®ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ 
 		static ViewerCached* pCachedSystem_;
 	};
 }

@@ -19,24 +19,24 @@ public:
 	void Release() override {}
 
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[‚ğˆÚ“®‚³‚¹‚é
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç§»å‹•ã•ã›ã‚‹
 	/// </summary>
-	/// <param name="_move">ˆÚ“®</param>
+	/// <param name="_move">ç§»å‹•</param>
 	void AddMove(const Vector3 _move);
 
 private:
 	void OnLoadParam(const json& _json);
 
 private:
-	PlayerTargeting playerTargeting_;  // ƒvƒŒƒCƒ„[ƒ^[ƒQƒeƒBƒ“ƒOˆ—
-	bool isTargeting_;   // ƒ^[ƒQƒbƒg‚ª‚ ‚é‚©
-	float toTargetTime_;  // ƒ^[ƒQƒbƒg‚É“–‚½‚é‚Ü‚Å‚ÌŠÔ
+	PlayerTargeting playerTargeting_;  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ãƒ¼ã‚²ãƒ†ã‚£ãƒ³ã‚°å‡¦ç†
+	bool isTargeting_;   // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒã‚ã‚‹ã‹
+	float toTargetTime_;  // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«å½“ãŸã‚‹ã¾ã§ã®æ™‚é–“
 	float angle_;
-	float awakeTimeLeft_;       // ƒV[ƒ““Ç‚İ‚İ’¼Œã‚Ìƒ‰ƒO‚ğ‘Ò‚ÂƒJƒEƒ“ƒgƒ_ƒEƒ“ƒ^ƒCƒ}
-	EntityId playState_;        // ƒvƒŒƒCó‘Ô
-	float startLineZ_;          // ‰ºRŠJn‚Ìƒ‰ƒCƒ“ zÀ•W
+	float awakeTimeLeft_;       // ã‚·ãƒ¼ãƒ³èª­ã¿è¾¼ã¿ç›´å¾Œã®ãƒ©ã‚°ã‚’å¾…ã¤ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã‚¿ã‚¤ãƒ
+	EntityId playState_;        // ãƒ—ãƒ¬ã‚¤çŠ¶æ…‹
+	float startLineZ_;          // ä¸‹å±±é–‹å§‹ã®ãƒ©ã‚¤ãƒ³ zåº§æ¨™
 	
-	float slideVeloDampingPerSec_;  // 1•bŠÔ‚ ‚½‚è‚ÌƒXƒ‰ƒCƒh‘¬“x‚Ì’ïR
+	float slideVeloDampingPerSec_;  // 1ç§’é–“ã‚ãŸã‚Šã®ã‚¹ãƒ©ã‚¤ãƒ‰é€Ÿåº¦ã®æŠµæŠ—
 
-	float slideVelocityX_;  // ‰¡ƒXƒ‰ƒCƒh‘¬“x
+	float slideVelocityX_;  // æ¨ªã‚¹ãƒ©ã‚¤ãƒ‰é€Ÿåº¦
 };

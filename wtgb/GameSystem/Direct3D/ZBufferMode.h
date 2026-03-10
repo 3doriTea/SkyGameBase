@@ -3,17 +3,17 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒuƒŒƒ“ƒh‚Ìí—Ş
+	/// ãƒ–ãƒ¬ãƒ³ãƒ‰ã®ç¨®é¡
 	/// </summary>
 	enum struct ZBufferMode
 	{
-		None,  // “Á‚É‚È‚µ
-		Back,  // Å”w–Ê‚É•`‰æ‚·‚é
-		Max,   // Å‘å”
+		None,  // ç‰¹ã«ãªã—
+		Back,  // æœ€èƒŒé¢ã«æç”»ã™ã‚‹
+		Max,   // æœ€å¤§æ•°
 	};
 
 	/// <summary>
-	/// ƒuƒŒƒ“ƒhƒ‚[ƒh‚Ì‘”
+	/// ãƒ–ãƒ¬ãƒ³ãƒ‰ãƒ¢ãƒ¼ãƒ‰ã®ç·æ•°
 	/// </summary>
 	static constexpr size_t ZBUFFER_MODE_MAX{ static_cast<size_t>(ZBufferMode::Max) };
 }

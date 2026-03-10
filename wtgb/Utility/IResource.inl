@@ -6,8 +6,8 @@ inline wtgb::IResource<Args...>::~IResource()
 #ifdef _DEBUG  
 	if (!isReleased_)  
 	{
-		LOGFLN("::warn::" "ƒŠƒ\[ƒX‚ð‰ð•ú‚¹‚¸‚ÉƒfƒXƒgƒ‰ƒNƒ^‚ªŒÄ‚Î‚ê‚Ä‚¢‚é" "\n" "{}", GetStackTrace(2));  
-		//wassert(isReleased_ && "ƒŠƒ\[ƒX‚ð‰ð•ú‚¹‚¸‚ÉƒfƒXƒgƒ‰ƒNƒ^‚ªŒÄ‚Î‚ê‚Ä‚¢‚é");  
+		LOGFLN("::warn::" "ãƒªã‚½ãƒ¼ã‚¹ã‚’è§£æ”¾ã›ãšã«ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãŒå‘¼ã°ã‚Œã¦ã„ã‚‹" "\n" "{}", GetStackTrace(2));  
+		//wassert(isReleased_ && "ãƒªã‚½ãƒ¼ã‚¹ã‚’è§£æ”¾ã›ãšã«ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãŒå‘¼ã°ã‚Œã¦ã„ã‚‹");  
 	}
 #endif
 }

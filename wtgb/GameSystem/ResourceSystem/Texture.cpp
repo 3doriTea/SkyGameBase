@@ -19,7 +19,7 @@ void wtgb::Texture::Init()
 
 void wtgb::Texture::Release()
 {
-	// –¾¦“I‚É‰ğ•ú
+	// æ˜ç¤ºçš„ã«è§£æ”¾
 
 	pSamplerState_.Reset();
 	pShaderResourceView_.Reset();
@@ -27,11 +27,11 @@ void wtgb::Texture::Release()
 
 void wtgb::Texture::CreateSamplerState(ID3D11Device* _pDevice)
 {
-	// ƒeƒNƒXƒ`ƒƒ‚ÌƒTƒ“ƒvƒŠƒ“ƒOİ’è
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°è¨­å®š
 	const D3D11_SAMPLER_DESC DESC
 	{
-		.Filter = config_.filer,  // MEMO: üŒ`•âŠÔ‚àƒn[ƒhƒEƒFƒA‚Å‚â‚Á‚Ä‚­‚ê‚é
-		.AddressU = config_.addressMode,  // ŒJ‚è•Ô‚·
+		.Filter = config_.filer,  // MEMO: ç·šå½¢è£œé–“ã‚‚ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢ã§ã‚„ã£ã¦ãã‚Œã‚‹
+		.AddressU = config_.addressMode,  // ç¹°ã‚Šè¿”ã™
 		.AddressV = config_.addressMode,
 		.AddressW = config_.addressMode,
 		.MipLODBias = {},
@@ -46,7 +46,7 @@ void wtgb::Texture::CreateSamplerState(ID3D11Device* _pDevice)
 	hResult = _pDevice->CreateSamplerState(&DESC, pSamplerState_.GetAddressOf());
 	if (FAILED(hResult))
 	{
-		wassert(false && "ƒTƒ“ƒvƒ‰ƒXƒe[ƒg‚Ìì¬‚É¸”s");
+		wassert(false && "ã‚µãƒ³ãƒ—ãƒ©ã‚¹ãƒ†ãƒ¼ãƒˆã®ä½œæˆã«å¤±æ•—");
 		return;
 	}
 }
@@ -55,8 +55,8 @@ void wtgb::Texture::CreateShaderResourceView(ID3D11Device* _pDevice)
 {
 	using namespace DirectX;
 
-	TexMetadata metaData{};  // ‰æ‘œ‚Ì•t‘®ƒf[ƒ^
-	ScratchImage image{};    // ‰æ‘œ–{‘Ì
+	TexMetadata metaData{};  // ç”»åƒã®ä»˜å±ãƒ‡ãƒ¼ã‚¿
+	ScratchImage image{};    // ç”»åƒæœ¬ä½“
 
 	HRESULT hResult{};
 
@@ -66,7 +66,7 @@ void wtgb::Texture::CreateShaderResourceView(ID3D11Device* _pDevice)
 
 	if (existFile == false)
 	{
-		wassert(false && "“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚È‚¢");
+		wassert(false && "èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã—ãªã„");
 		return;
 	}
 
@@ -77,7 +77,7 @@ void wtgb::Texture::CreateShaderResourceView(ID3D11Device* _pDevice)
 		image);
 	if (FAILED(hResult))
 	{
-		wassert(false && "ƒeƒNƒXƒ`ƒƒ‰æ‘œ“Ç‚İ‚İ‚É¸”s");
+		wassert(false && "ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”»åƒèª­ã¿è¾¼ã¿ã«å¤±æ•—");
 		return;
 	}
 
@@ -91,7 +91,7 @@ void wtgb::Texture::CreateShaderResourceView(ID3D11Device* _pDevice)
 		.Texture2D
 		{
 			.MostDetailedMip = 0,
-			.MipLevels = 1,  // LOD‚Ìƒ~ƒbƒvƒ}ƒbƒvƒŒƒxƒ‹
+			.MipLevels = 1,  // LODã®ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ãƒ¬ãƒ™ãƒ«
 		},
 	};
 
@@ -105,7 +105,7 @@ void wtgb::Texture::CreateShaderResourceView(ID3D11Device* _pDevice)
 		pShaderResourceView_.GetAddressOf());
 	if (FAILED(hResult))
 	{
-		wassert(false && "ƒVƒF[ƒ_ƒŠƒ\[ƒXƒrƒ…[‚Ìì¬‚É¸”s");
+		wassert(false && "ã‚·ã‚§ãƒ¼ãƒ€ãƒªã‚½ãƒ¼ã‚¹ãƒ“ãƒ¥ãƒ¼ã®ä½œæˆã«å¤±æ•—");
 		return;
 	}
 }

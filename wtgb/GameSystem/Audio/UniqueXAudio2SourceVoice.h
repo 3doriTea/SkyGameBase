@@ -5,7 +5,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ‰ð•úŽž‚Ìˆ—
+	/// è§£æ”¾æ™‚ã®å‡¦ç†
 	/// </summary>
 	struct XAudio2SourceVoiceDeleter
 	{
@@ -21,7 +21,7 @@ namespace wtgb
 	};
 
 	/// <summary>
-	/// IXAudio2SouceVoiceƒ†ƒj[ƒNƒ|ƒCƒ“ƒ^
+	/// IXAudio2SouceVoiceãƒ¦ãƒ‹ãƒ¼ã‚¯ãƒã‚¤ãƒ³ã‚¿
 	/// </summary>
 	using UniqueXAudio2SourceVoice = std::unique_ptr<IXAudio2SourceVoice, XAudio2SourceVoiceDeleter>;
 }

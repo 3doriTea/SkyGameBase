@@ -4,7 +4,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒ}ƒEƒX‚Ìƒ{ƒ^ƒ“ƒR[ƒh
+	/// ãƒã‚¦ã‚¹ã®ãƒœã‚¿ãƒ³ã‚³ãƒ¼ãƒ‰
 	/// </summary>
 	enum struct MouseCode : uint8_t
 	{

@@ -9,7 +9,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class ComponentManager : public IGameSystem
 	{
@@ -18,49 +18,49 @@ namespace wtgb
 		~ComponentManager();
 
 		/// <summary>
-		/// ŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO‚Ìæ“¾
+		/// å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã®å–å¾—
 		/// </summary>
-		/// <returns>ŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		/// <param name="_viewer"></param>
-		/// <returns>Œ‹‰Ê</returns>
+		/// <returns>çµæœ</returns>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		/// <param name="_system"></param>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// ƒGƒ“ƒeƒBƒeƒB‚ğ¶¬‚·‚é
+		/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚’ç”Ÿæˆã™ã‚‹
 		/// </summary>
-		/// <returns>V‚µ‚­¶¬‚³‚ê‚½ƒGƒ“ƒeƒBƒeƒBId</returns>
+		/// <returns>æ–°ã—ãç”Ÿæˆã•ã‚ŒãŸã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</returns>
 		EntityId GenerateEntity();
 		/// <summary>
-		/// ‘O‚É¶¬‚µ‚½ƒGƒ“ƒeƒBƒeƒB‚ÌId‚ğæ“¾‚·‚é
+		/// å‰ã«ç”Ÿæˆã—ãŸã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®Idã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>‘O‚É¶¬‚µ‚½ƒGƒ“ƒeƒBƒeƒB‚ÌId</returns>
+		/// <returns>å‰ã«ç”Ÿæˆã—ãŸã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®Id</returns>
 		EntityId GetPrevEntity() const { return prevEntityId_; }
 
 		/// <summary>
-		/// ƒGƒ“ƒeƒBƒeƒBId‚ª–³Œø‚©”Û‚©
+		/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£IdãŒç„¡åŠ¹ã‹å¦ã‹
 		/// </summary>
 		/// <param name="_checkId"></param>
 		/// <returns></returns>
 		const bool IsInvalidId(const EntityId _checkId) const { return entityGenerator_.IsInvalidId(_checkId); }
 
 		/// <summary>
-		/// ƒGƒ“ƒeƒBƒeƒB‚ğÁ‚·
+		/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚’æ¶ˆã™
 		/// </summary>
-		/// <param name="_entityId">Á‚·ƒGƒ“ƒeƒBƒeƒBId</param>
+		/// <param name="_entityId">æ¶ˆã™ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
 		void RemoveEntity(const EntityId _entityId);
 
 		template<typename T>
@@ -73,40 +73,40 @@ namespace wtgb
 		const T& Get(const EntityId _entityId) const;
 
 		/// <summary>
-		/// íœ—\’è‚ÌƒGƒ“ƒeƒBƒeƒBƒCƒ“ƒfƒbƒNƒX‚ğæ“¾‚·‚é
+		/// å‰Šé™¤äºˆå®šã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒGƒ“ƒeƒBƒeƒBƒCƒ“ƒfƒbƒNƒX</returns>
+		/// <returns>ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</returns>
 		const std::vector<uint32_t>& GetToRemoveEntityIndices() const { return toRemoveEntityIndices_; }
 
 		/// <summary>
-		/// íœ—\’è‚ÌƒGƒ“ƒeƒBƒeƒBƒCƒ“ƒfƒbƒNƒX‚ğƒŠƒZƒbƒg‚·‚é
+		/// å‰Šé™¤äºˆå®šã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
 		void ResetToRemoveEntityIndices();
 
 		/// <summary>
-		/// ‘SƒGƒ“ƒeƒBƒeƒB‚ğœ‹‚·‚é
+		/// å…¨ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚’é™¤å»ã™ã‚‹
 		/// </summary>
 		void RemoveAllEntity();
 
 		/// <summary>
-		/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚Ì”jŠü‚ª•K—v‚©
+		/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã®ç ´æ£„ãŒå¿…è¦ã‹
 		/// </summary>
-		/// <returns>•K—v‚Å‚ ‚é true / false</returns>
+		/// <returns>å¿…è¦ã§ã‚ã‚‹ true / false</returns>
 		const bool NeedsClearComponents() const { return needsClearComponents_; }
 
 		/// <summary>
-		/// <para>‘SƒRƒ“ƒ|[ƒlƒ“ƒg‚Ì”jŠüˆË—Š‚ğ‚·‚é</para>
-		/// <para>NOTE: ‘SUpdate‚ªI‚í‚Á‚½‚ ‚Æ‚Éˆ—‚³‚ê‚é ¨ ‘‚ß‚ÌŒÄ‚Ño‚µ‚ª•K—v</para>
+		/// <para>å…¨ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®ç ´æ£„ä¾é ¼ã‚’ã™ã‚‹</para>
+		/// <para>NOTE: å…¨UpdateãŒçµ‚ã‚ã£ãŸã‚ã¨ã«å‡¦ç†ã•ã‚Œã‚‹ â†’ æ—©ã‚ã®å‘¼ã³å‡ºã—ãŒå¿…è¦</para>
 		/// </summary>
 		void ClearComponents() { needsClearComponents_ = true; }
 
 	private:
-		std::vector<uint32_t> toRemoveEntityIndices_;  // íœ‘ÎÛ‚ÌƒGƒ“ƒeƒBƒeƒBId
-		std::vector<IComponentPool*> pools_;  // ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚Ì‡”Ô‚ğ‚Á‚Ä‚¨‚­
-		std::map<std::type_index, IComponentPool*> typeToPools_;  // ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚ÌŒ^•ÏŠ·—p
-		EntityGenerator entityGenerator_;  // ƒGƒ“ƒeƒBƒeƒB¶¬
-		ViewerCached system_;    // ƒVƒXƒeƒ€ƒrƒ…[ƒA‚ÌƒLƒƒƒbƒVƒ…
-		EntityId prevEntityId_;  // ‘O‚É¶¬‚µ‚½ƒGƒ“ƒeƒBƒeƒB‚ÌId
+		std::vector<uint32_t> toRemoveEntityIndices_;  // å‰Šé™¤å¯¾è±¡ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id
+		std::vector<IComponentPool*> pools_;  // ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã®é †ç•ªã‚’æŒã£ã¦ãŠã
+		std::map<std::type_index, IComponentPool*> typeToPools_;  // ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã®å‹å¤‰æ›ç”¨
+		EntityGenerator entityGenerator_;  // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ç”Ÿæˆ
+		ViewerCached system_;    // ã‚·ã‚¹ãƒ†ãƒ ãƒ“ãƒ¥ãƒ¼ã‚¢ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥
+		EntityId prevEntityId_;  // å‰ã«ç”Ÿæˆã—ãŸã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®Id
 		GameSystemCollection::ComponentPoolAccessor componentPoolAccessor_;
 		bool needsClearComponents_;
 	};

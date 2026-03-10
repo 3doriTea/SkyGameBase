@@ -3,7 +3,7 @@
 
 
 /// <summary>
-/// ƒhƒ‰ƒbƒO‚Å‚«‚éƒ|ƒCƒ“ƒgUI
+/// ãƒ‰ãƒ©ãƒƒã‚°ã§ãã‚‹ãƒã‚¤ãƒ³ãƒˆUI
 /// </summary>
 class DragPoint : public GameObject
 {
@@ -16,40 +16,40 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ’Í‚ñ‚Å‚¢‚é‚©‚ğæ“¾
+	/// æ´ã‚“ã§ã„ã‚‹ã‹ã‚’å–å¾—
 	/// </summary>
-	/// <returns>’Í‚ñ‚Å‚¢‚é true / false</returns>
+	/// <returns>æ´ã‚“ã§ã„ã‚‹ true / false</returns>
 	inline bool IsDrag() const { return isDrag_; }
 
 	/// <summary>
-	/// ‰~‚Ì¶ãƒfƒUƒCƒ“À•W‚ğƒZƒbƒg‚·‚é
+	/// å††ã®å·¦ä¸Šãƒ‡ã‚¶ã‚¤ãƒ³åº§æ¨™ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	/// </summary>
-	/// <param name="_centerPosition">‰~‚Ì¶ãƒfƒUƒCƒ“À•W</param>
+	/// <param name="_centerPosition">å††ã®å·¦ä¸Šãƒ‡ã‚¶ã‚¤ãƒ³åº§æ¨™</param>
 	void SetPosition(const Vector2Int _topLeftPosition);
 	/// <summary>
-	/// ‰~‚Ì”¼Œa‚ğƒZƒbƒg‚·‚é
+	/// å††ã®åŠå¾„ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	/// </summary>
-	/// <param name="_radius">‰~‚Ì”¼Œa</param>
+	/// <param name="_radius">å††ã®åŠå¾„</param>
 	void SetRadius(const int _radius);
 
 	/// <summary>
-	/// ƒhƒ‰ƒbƒO‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+	/// ãƒ‰ãƒ©ãƒƒã‚°ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
 	/// <returns></returns>
 	inline Vector2Int GetDisplacement() const { return dragDisplacement_; }
 	/// <summary>
-	/// ƒhƒ‰ƒbƒO‚ÌŠJn’n“_‚ğæ“¾‚·‚é
+	/// ãƒ‰ãƒ©ãƒƒã‚°ã®é–‹å§‹åœ°ç‚¹ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>ŠJn’n“_‚ÌÀ•W</returns>
+	/// <returns>é–‹å§‹åœ°ç‚¹ã®åº§æ¨™</returns>
 	inline Vector2Int GetBegin() const { return dragBegin_; }
 
 private:
-	CoordinateTransformer transformer_;  // ƒfƒUƒCƒ“À•W‚ÆƒXƒNƒŠ[ƒ“À•W‚Ì•ÏŠ·
-	Vector2Int centerPosition_;  // ƒhƒ‰ƒbƒOƒ|ƒCƒ“ƒg‚ÌƒXƒNƒŠ[ƒ“À•W
-	float radius_;               // ƒhƒ‰ƒbƒO‚Å‚«‚é”ÍˆÍ
-	float radiusSq_;             // ƒhƒ‰ƒbƒO‚Å‚«‚é”ÍˆÍ‚Ì“ñæ
+	CoordinateTransformer transformer_;  // ãƒ‡ã‚¶ã‚¤ãƒ³åº§æ¨™ã¨ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã®å¤‰æ›
+	Vector2Int centerPosition_;  // ãƒ‰ãƒ©ãƒƒã‚°ãƒã‚¤ãƒ³ãƒˆã®ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™
+	float radius_;               // ãƒ‰ãƒ©ãƒƒã‚°ã§ãã‚‹ç¯„å›²
+	float radiusSq_;             // ãƒ‰ãƒ©ãƒƒã‚°ã§ãã‚‹ç¯„å›²ã®äºŒä¹—
 
-	bool isDrag_;                  // ƒhƒ‰ƒbƒO’†‚© true / false
-	Vector2Int dragBegin_;         // ’Í‚ñ‚¾n“_
-	Vector2Int dragDisplacement_;  // ’Í‚ñ‚¾‘å‚«‚³‚Æ•ûŒü
+	bool isDrag_;                  // ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã‹ true / false
+	Vector2Int dragBegin_;         // æ´ã‚“ã å§‹ç‚¹
+	Vector2Int dragDisplacement_;  // æ´ã‚“ã å¤§ãã•ã¨æ–¹å‘
 };

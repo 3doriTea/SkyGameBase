@@ -15,7 +15,7 @@ bool StageLoader::TryLoad(const fs::path& _fileName)
 	std::ifstream ifs{ _fileName };
 	if (!ifs)
 	{
-		return false;  // ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚É¸”s
+		return false;  // ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ã«å¤±æ•—
 	}
 	json j{};
 
@@ -26,7 +26,7 @@ bool StageLoader::TryLoad(const fs::path& _fileName)
 
 	points_.resize(POINTS_SIZE);
 
-	// json‚©‚çˆê•”ƒXƒe[ƒW‚ğ“Ç‚İæ‚Á‚Ä‚­‚é
+	// jsonã‹ã‚‰ä¸€éƒ¨ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’èª­ã¿å–ã£ã¦ãã‚‹
 	for (size_t i = 0; i < POINTS_SIZE; i++)
 	{
 		Vector2 pos

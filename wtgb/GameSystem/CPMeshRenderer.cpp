@@ -38,14 +38,14 @@ void wtgb::CPMeshRenderer::Render(
 
 
 	IMeshSimple* pMesh{ _pMeshSimple };
-	wassert(pMesh && "ƒƒbƒVƒ…‚ª‚È‚¢I");
+	wassert(pMesh && "ãƒ¡ãƒƒã‚·ãƒ¥ãŒãªã„ï¼");
 	if (pMesh == nullptr)
 	{
 		return;
 	}
 
 	Transform* pTransform{ _pTransform };
-	wassert(pTransform && "À•WŒn‚ª‚È‚¢I");
+	wassert(pTransform && "åº§æ¨™ç³»ãŒãªã„ï¼");
 	if (pTransform == nullptr)
 	{
 		return;
@@ -62,22 +62,22 @@ void wtgb::CPMeshRenderer::Render(
 
 	constantBuffer.hasTexture = FALSE;
 
-	// ’¸“_ƒoƒbƒtƒ@AƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@AƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@A‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÉƒZƒbƒg‚·‚é
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã€ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã€ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã€ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«ã‚»ãƒƒãƒˆã™ã‚‹
 	d3d.SetShader(_hShader);
 
 	UINT stride{ static_cast<UINT>(pMesh->GetVertexSize()) };
 	UINT offset{ 0 };
-	// ’¸“_ƒoƒbƒtƒ@‚ğƒZƒbƒg
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
 	pContext->IASetVertexBuffers(0, 1, pMesh->GetVertexBuffer().GetAddressOf(), &stride, &offset);
 
-	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ğƒZƒbƒg
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
 	stride = sizeof(uint32_t);
 	offset = 0;
 	pContext->IASetIndexBuffer(pMesh->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
 
-	// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğƒZƒbƒg
-	pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ’¸“_ƒVƒF[ƒ_—p
-	pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ƒsƒNƒZƒ‹ƒVƒF[ƒ_—p
+	// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
+	pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ç”¨
+	pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ç”¨
 
 
 	D3D11_MAPPED_SUBRESOURCE data{};
@@ -112,7 +112,7 @@ void wtgb::CPMeshRenderer::Render2D(
 
 
 	IMeshSimple2D* pMesh{ _pMeshSimple };
-	wassert(pMesh && "ƒƒbƒVƒ…‚ª‚È‚¢I");
+	wassert(pMesh && "ãƒ¡ãƒƒã‚·ãƒ¥ãŒãªã„ï¼");
 	if (pMesh == nullptr)
 	{
 		return;
@@ -125,30 +125,30 @@ void wtgb::CPMeshRenderer::Render2D(
 	constantBuffer.matrixUV = _matrixUV;
 	constantBuffer.alpha = _alpha;
 
-	// ’¸“_ƒoƒbƒtƒ@AƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@AƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@A‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÉƒZƒbƒg‚·‚é
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã€ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã€ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã€ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«ã‚»ãƒƒãƒˆã™ã‚‹
 	d3d.SetShader(_hShader);
 
 	UINT stride{ static_cast<UINT>(pMesh->GetVertexSize()) };
 	UINT offset{ 0 };
-	// ’¸“_ƒoƒbƒtƒ@‚ğƒZƒbƒg
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
 	pContext->IASetVertexBuffers(0, 1, pMesh->GetVertexBuffer().GetAddressOf(), &stride, &offset);
 
-	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ğƒZƒbƒg
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
 	stride = sizeof(uint32_t);
 	offset = 0;
 	pContext->IASetIndexBuffer(pMesh->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
 
-	// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğƒZƒbƒg
-	pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ’¸“_ƒVƒF[ƒ_—p
-	pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ƒsƒNƒZƒ‹ƒVƒF[ƒ_—p
+	// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
+	pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ç”¨
+	pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ç”¨
 
 	if (_hTexture != INVALID_HANDLE)
 	{
 		Texture* pTexture{ resource.GetTexture(_hTexture) };
 	
-		wassert(pTexture && "ƒeƒNƒXƒ`ƒƒ‚Ì“Ç‚İ‚İ‚É¸”s");
+		wassert(pTexture && "ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—");
 		
-		// ƒeƒNƒXƒ`ƒƒ‚ªw’è‚³‚ê‚Ä‚¢‚é‚È‚ç
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒæŒ‡å®šã•ã‚Œã¦ã„ã‚‹ãªã‚‰
 		if (pTexture)
 		{
 			pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
@@ -176,7 +176,7 @@ void wtgb::CPMeshRenderer::Init()
 
 void wtgb::CPMeshRenderer::Update()
 {
-	// TODO: ‚»‚ê‚¼‚ê‚ÌƒŒƒ“ƒ_ƒŠƒ“ƒOˆ—‚ğ•ª‚¯‚é
+	// TODO: ãã‚Œãã‚Œã®ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°å‡¦ç†ã‚’åˆ†ã‘ã‚‹
 
 	using namespace DirectX;
 
@@ -192,7 +192,7 @@ void wtgb::CPMeshRenderer::Update()
 	ID3D11DeviceContext* pContext{ System().Get<Direct3D>().Resource().Context() };
 	
 	//std::vector<size_t> 
-	// TODO: “§–¾—p‚É”ğ‚¯ƒXƒy[ƒXì‚é‚©ŒŸ“¢
+	// TODO: é€æ˜ç”¨ã«é¿ã‘ã‚¹ãƒšãƒ¼ã‚¹ä½œã‚‹ã‹æ¤œè¨
 
 	ForEach([
 		&camera,
@@ -210,7 +210,7 @@ void wtgb::CPMeshRenderer::Update()
 			EntityId entityId{ cpGameObject.GetEntityId(_index) };
 
 			ModelMesh* pModelMesh{ cpModelMesh.Get(entityId) };
-			if (pModelMesh == nullptr)  // –³Œø‚ÈƒƒbƒVƒ…ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾‚µ‚Ä‚µ‚Ü‚Á‚½‚ç‰ñ‹A
+			if (pModelMesh == nullptr)  // ç„¡åŠ¹ãªãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—ã—ã¦ã—ã¾ã£ãŸã‚‰å›å¸°
 			{
 				return {};
 			}
@@ -218,7 +218,7 @@ void wtgb::CPMeshRenderer::Update()
 			Transform* pTransform{ cpTransform.Get(entityId) };
 			if (pTransform == nullptr)
 			{
-				wassert(false && "Transform‚Ìæ“¾‚É¸”s");
+				wassert(false && "Transformã®å–å¾—ã«å¤±æ•—");
 				return {};
 			}
 
@@ -231,18 +231,18 @@ void wtgb::CPMeshRenderer::Update()
 				Fbx* pFbxModel{ dynamic_cast<Fbx*>(pModel) };
 				if (pFbxModel == nullptr)
 				{
-					LOGFLN("Warn:FbxˆÈŠO‚Ìƒ‚ƒfƒ‹‚ª“Ç‚İ‚Ü‚ê‚½I");
+					LOGFLN("Warn:Fbxä»¥å¤–ã®ãƒ¢ãƒ‡ãƒ«ãŒèª­ã¿è¾¼ã¾ã‚ŒãŸï¼");
 					return {};
 				}
 
 				if (pModelMesh->GetType() == ModelMesh::Type::FbxBack)
 				{
-					// Å”w–Ê‚É•`‰æ‚·‚é€”õ
+					// æœ€èƒŒé¢ã«æç”»ã™ã‚‹æº–å‚™
 					d3d.SetZBuffer(ZBufferMode::Back);
 				}
 				else if (pModelMesh->GetType() == ModelMesh::Type::FbxAplha)
 				{
-					// “§–¾“x•t‚«‚Å•`‰æ‚·‚é€”õ
+					// é€æ˜åº¦ä»˜ãã§æç”»ã™ã‚‹æº–å‚™
 					d3d.SetUseDepthBuffer(false);
 					d3d.SetBlend(BlendMode::Alpha);
 				}
@@ -257,15 +257,15 @@ void wtgb::CPMeshRenderer::Update()
 				constantBuffer.lightColor = directionalLight.GetColor();
 				constantBuffer.ambientValue = 0.3f;
 
-				// ’¸“_ƒoƒbƒtƒ@AƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@AƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@A‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÉƒZƒbƒg‚·‚é
+				// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã€ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã€ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã€ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«ã‚»ãƒƒãƒˆã™ã‚‹
 				d3d.SetShader(meshRenderer.hShader_);
 
 				UINT stride{ sizeof(Fbx::Vertex) };
 				UINT offset{ 0 };
-				// ’¸“_ƒoƒbƒtƒ@‚ğƒZƒbƒg
+				// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
 				pContext->IASetVertexBuffers(0, 1, pFbxModel->GetVertexBuffer().GetAddressOf(), &stride, &offset);
 
-				// Šeƒ}ƒeƒŠƒAƒ‹•ª
+				// å„ãƒãƒ†ãƒªã‚¢ãƒ«åˆ†
 				for (int i = 0; i < pFbxModel->GetMaterialCount(); i++)
 				{
 					constantBuffer.hasTexture = pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE;
@@ -275,14 +275,14 @@ void wtgb::CPMeshRenderer::Update()
 					hTexture = meshRenderer.hTexture_;
 
 
-					// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ğƒZƒbƒg
+					// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
 					stride = sizeof(int);
 					offset = 0;
 					pContext->IASetIndexBuffer(pFbxModel->GetIndexBufferAt(i).Get(), DXGI_FORMAT_R32_UINT, 0);
 
-					// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğƒZƒbƒg
-					pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ’¸“_ƒVƒF[ƒ_—p
-					pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ƒsƒNƒZƒ‹ƒVƒF[ƒ_—p
+					// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
+					pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ç”¨
+					pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ç”¨
 
 					if (constantBuffer.hasTexture)
 					{
@@ -314,12 +314,12 @@ void wtgb::CPMeshRenderer::Update()
 
 				if (pModelMesh->GetType() == ModelMesh::Type::FbxBack)
 				{
-					// Å”w–Ê‚É•`‰æ‚µ‚½‚È‚ç–ß‚·
+					// æœ€èƒŒé¢ã«æç”»ã—ãŸãªã‚‰æˆ»ã™
 					d3d.SetZBuffer(ZBufferMode::None);
 				}
 				else if (pModelMesh->GetType() == ModelMesh::Type::FbxAplha)
 				{
-					// “§–¾“x•t‚«‚Å•`‰æ‚µ‚½‚È‚ç–ß‚·
+					// é€æ˜åº¦ä»˜ãã§æç”»ã—ãŸãªã‚‰æˆ»ã™
 					d3d.SetUseDepthBuffer(true);
 					d3d.SetZBuffer(ZBufferMode::None);
 				}
@@ -327,7 +327,7 @@ void wtgb::CPMeshRenderer::Update()
 			else if (pModelMesh->GetType() == ModelMesh::Type::SimpleMesh)
 			{
 				IMeshSimple* pMesh{ pModelMesh->pOriginalMesh_ };
-				wassert(pMesh && "ƒƒbƒVƒ…‚ª‚È‚¢I");
+				wassert(pMesh && "ãƒ¡ãƒƒã‚·ãƒ¥ãŒãªã„ï¼");
 				if (pMesh == nullptr)
 				{
 					return {};
@@ -346,31 +346,31 @@ void wtgb::CPMeshRenderer::Update()
 				
 				constantBuffer.hasTexture = FALSE;
 
-				// ’¸“_ƒoƒbƒtƒ@AƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@AƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@A‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÉƒZƒbƒg‚·‚é
+				// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã€ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã€ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã€ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«ã‚»ãƒƒãƒˆã™ã‚‹
 				d3d.SetShader(meshRenderer.hShader_);
 
 				UINT stride{ static_cast<UINT>(pMesh->GetVertexSize()) };
 				UINT offset{ 0 };
-				// ’¸“_ƒoƒbƒtƒ@‚ğƒZƒbƒg
+				// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
 				pContext->IASetVertexBuffers(0, 1, pMesh->GetVertexBuffer().GetAddressOf(), &stride, &offset);
 
-				// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ğƒZƒbƒg
+				// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
 				stride = sizeof(uint32_t);
 				offset = 0;
 				pContext->IASetIndexBuffer(pMesh->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
 
-				// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğƒZƒbƒg
-				pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ’¸“_ƒVƒF[ƒ_—p
-				pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ƒsƒNƒZƒ‹ƒVƒF[ƒ_—p
+				// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
+				pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ç”¨
+				pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ç”¨
 
-				// ƒeƒNƒXƒ`ƒƒ‚ªw’è‚³‚ê‚Ä‚¢‚é‚È‚çg‚¤
+				// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒæŒ‡å®šã•ã‚Œã¦ã„ã‚‹ãªã‚‰ä½¿ã†
 				if (meshRenderer.hTexture_ != INVALID_HANDLE)
 				{
 					Texture* pTexture{ resource.GetTexture(meshRenderer.hTexture_) };
 					wassert(pTexture != nullptr);
 					if (pTexture)
 					{
-						constantBuffer.hasTexture = TRUE;  // ƒeƒNƒXƒ`ƒƒ‚ ‚é‚æ
+						constantBuffer.hasTexture = TRUE;  // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚ã‚‹ã‚ˆ
 
 						pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
 
@@ -400,35 +400,35 @@ void wtgb::CPMeshRenderer::Update()
 					std::vector<IMeshSimple::Vertex> vertexes{};
 					vertexes.resize(vertexCount);
 
-					// 1. Œ³ƒoƒbƒtƒ@‚Ìî•ñæ“¾
+					// 1. å…ƒãƒãƒƒãƒ•ã‚¡ã®æƒ…å ±å–å¾—
 					D3D11_BUFFER_DESC desc{};
 					pMesh->GetVertexBuffer()->GetDesc(&desc);
 
-					// 2. “Ç‚İæ‚è—pƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@‚Ìİ’è
+					// 2. èª­ã¿å–ã‚Šç”¨ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 					D3D11_BUFFER_DESC stagingDesc = desc;
 					stagingDesc.Usage = D3D11_USAGE_STAGING;
 					stagingDesc.BindFlags = 0;
 					stagingDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
 					stagingDesc.MiscFlags = 0;
 
-					// 3. ƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@‚ğì¬
+					// 3. ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ã‚’ä½œæˆ
 					ComPtr<ID3D11Buffer> pStagingBuffer{};
 					HRESULT hr = pDevice->CreateBuffer(&stagingDesc, nullptr, &pStagingBuffer);
 					if (FAILED(hr))
 					{
-						wassert(false && "ƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@‚Ìì¬‚É¸”s");
+						wassert(false && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆã«å¤±æ•—");
 						return {};
 					}
 
-					// 4. GPUƒoƒbƒtƒ@‚©‚çƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@‚ÉƒRƒs[
+					// 4. GPUãƒãƒƒãƒ•ã‚¡ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ã«ã‚³ãƒ”ãƒ¼
 					pContext->CopyResource(pStagingBuffer.Get(), pMesh->GetVertexBuffer().Get());
 
-					// 5. ƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@‚ğƒ}ƒbƒv‚µ‚ÄCPU‚Å“Ç‚İ‚İ
+					// 5. ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ã‚’ãƒãƒƒãƒ—ã—ã¦CPUã§èª­ã¿è¾¼ã¿
 					D3D11_MAPPED_SUBRESOURCE mapped{};
 					hr = pContext->Map(pStagingBuffer.Get(), 0, D3D11_MAP_READ, 0, &mapped);
 					if (SUCCEEDED(hr))
 					{
-						// ƒoƒbƒtƒ@‚Ì“à—e‚ğƒRƒs[
+						// ãƒãƒƒãƒ•ã‚¡ã®å†…å®¹ã‚’ã‚³ãƒ”ãƒ¼
 						memcpy(vertexes.data(), mapped.pData, sizeof(IMeshSimple::Vertex) * vertexCount);
 						pContext->Unmap(pStagingBuffer.Get(), 0);
 					}
@@ -451,35 +451,35 @@ void wtgb::CPMeshRenderer::Update()
 					std::vector<uint32_t> indexes{};
 					indexes.resize(indexCount);
 
-					// 1. Œ³ƒoƒbƒtƒ@‚Ìî•ñæ“¾
+					// 1. å…ƒãƒãƒƒãƒ•ã‚¡ã®æƒ…å ±å–å¾—
 					D3D11_BUFFER_DESC desc{};
 					pMesh->GetIndexBuffer()->GetDesc(&desc);
 
-					// 2. “Ç‚İæ‚è—pƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@‚Ìİ’è
+					// 2. èª­ã¿å–ã‚Šç”¨ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 					D3D11_BUFFER_DESC stagingDesc = desc;
 					stagingDesc.Usage = D3D11_USAGE_STAGING;
 					stagingDesc.BindFlags = 0;
 					stagingDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
 					stagingDesc.MiscFlags = 0;
 
-					// 3. ƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@‚ğì¬
+					// 3. ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ã‚’ä½œæˆ
 					ComPtr<ID3D11Buffer> pStagingBuffer{};
 					HRESULT hr = pDevice->CreateBuffer(&stagingDesc, nullptr, &pStagingBuffer);
 					if (FAILED(hr))
 					{
-						wassert(false && "ƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@‚Ìì¬‚É¸”s");
+						wassert(false && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆã«å¤±æ•—");
 						return;
 					}
 
-					// 4. GPUƒoƒbƒtƒ@‚©‚çƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@‚ÉƒRƒs[
+					// 4. GPUãƒãƒƒãƒ•ã‚¡ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ã«ã‚³ãƒ”ãƒ¼
 					pContext->CopyResource(pStagingBuffer.Get(), pMesh->GetIndexBuffer().Get());
 
-					// 5. ƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@‚ğƒ}ƒbƒv‚µ‚ÄCPU‚Å“Ç‚İ‚İ
+					// 5. ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ã‚’ãƒãƒƒãƒ—ã—ã¦CPUã§èª­ã¿è¾¼ã¿
 					D3D11_MAPPED_SUBRESOURCE mapped{};
 					hr = pContext->Map(pStagingBuffer.Get(), 0, D3D11_MAP_READ, 0, &mapped);
 					if (SUCCEEDED(hr))
 					{
-						// ƒoƒbƒtƒ@‚Ì“à—e‚ğƒRƒs[
+						// ãƒãƒƒãƒ•ã‚¡ã®å†…å®¹ã‚’ã‚³ãƒ”ãƒ¼
 						memcpy(indexes.data(), mapped.pData, sizeof(uint32_t) * indexCount);
 						pContext->Unmap(pStagingBuffer.Get(), 0);
 					}
@@ -497,7 +497,7 @@ void wtgb::CPMeshRenderer::Update()
 			}
 			else
 			{
-				wassert(false && "–¢‘Î‰‚ÌModelMeshType");
+				wassert(false && "æœªå¯¾å¿œã®ModelMeshType");
 			}
 			return {};
 		});

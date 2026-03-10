@@ -3,7 +3,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚ÌƒCƒ“ƒ^ƒtƒF[ƒX
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹
 	/// </summary>
 	class IComponentPool
 	{
@@ -12,14 +12,14 @@ namespace wtgb
 		virtual ~IComponentPool() {}
 
 		/// <summary>
-		/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹“à‚ð”jŠü‚·‚é
+		/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«å†…ã‚’ç ´æ£„ã™ã‚‹
 		/// </summary>
 		virtual void Clear() = 0;
 
 		/// <summary>
-		/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚Ì—v‘f‚ð1‚Â”jŠü‚·‚é
+		/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã®è¦ç´ ã‚’1ã¤ç ´æ£„ã™ã‚‹
 		/// </summary>
-		/// <param name="_index">Žw’è‚·‚é—v‘f‚ÌƒCƒ“ƒfƒNƒX</param>
+		/// <param name="_index">æŒ‡å®šã™ã‚‹è¦ç´ ã®ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹</param>
 		virtual void ClearAt(const size_t _index) = 0;
 	};
 }

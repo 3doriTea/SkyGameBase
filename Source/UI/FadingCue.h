@@ -4,7 +4,7 @@
 
 
 /// <summary>
-/// “§–¾“xƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‚·‚éƒqƒ“ƒgUI
+/// é€æ˜åº¦ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã™ã‚‹ãƒ’ãƒ³ãƒˆUI
 /// </summary>
 class FadingCue : public BaseCue
 {
@@ -14,10 +14,10 @@ public:
 
 private:
 	/// <summary>
-	/// •`‰æˆ—
+	/// æç”»å‡¦ç†
 	/// </summary>
-	/// <param name="_pLayout">’²®‚·‚éƒŒƒCƒAƒEƒg</param>
-	/// <param name="_animRatio">ƒAƒjƒ[ƒVƒ‡ƒ“ƒŒ[ƒg</param>
+	/// <param name="_pLayout">èª¿æ•´ã™ã‚‹ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ</param>
+	/// <param name="_animRatio">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ¬ãƒ¼ãƒˆ</param>
 	void Draw(UI::LayoutConfig* _pLayout, const float _animRatio) override;
 };
 

@@ -4,17 +4,17 @@
 
 namespace
 {
-	// ƒfƒOƒŠ‚ğƒ‰ƒWƒAƒ“‚É•ÏŠ·‚·‚é
+	// ãƒ‡ã‚°ãƒªã‚’ãƒ©ã‚¸ã‚¢ãƒ³ã«å¤‰æ›ã™ã‚‹
 	const float DEG_TO_RAD{ DirectX::XM_2PI / 360.0f };
 
-	// ƒ}ƒEƒXƒXƒNƒŠ[ƒ“ˆÚ“®‚É‘Î‚·‚é1•bŠÔ“–‚½‚è‚ÌƒJƒƒ‰‰ñ“]Šp“x(Degree)
+	// ãƒã‚¦ã‚¹ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ç§»å‹•ã«å¯¾ã™ã‚‹1ç§’é–“å½“ãŸã‚Šã®ã‚«ãƒ¡ãƒ©å›è»¢è§’åº¦(Degree)
 	const float CAMERA_ROTATE_DEG_SEC{ 10.0f };
-	// ƒJƒƒ‰ã‚ÌŠp“x‚Ì§ŒÀ
+	// ã‚«ãƒ¡ãƒ©ä¸Šã®è§’åº¦ã®åˆ¶é™
 	const float UPPER_ANGLE{ 80.0f };
-	// ƒJƒƒ‰‰º‚ÌŠp“x‚Ì§ŒÀ
+	// ã‚«ãƒ¡ãƒ©ä¸‹ã®è§’åº¦ã®åˆ¶é™
 	const float LOWER_ANGLE{ -70.0f };
 
-	// 1•bŠÔ‚ ‚½‚è‚ÌˆÚ“®‘¬“x
+	// 1ç§’é–“ã‚ãŸã‚Šã®ç§»å‹•é€Ÿåº¦
 	const float MOVE_SPEED_PER_SEC{ 10.0f };
 }
 
@@ -45,12 +45,12 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 	const Input::InputGetter& input{ systemView.Get<Input>().Getter() };
 
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
-	wassert(pTransform && "TransformƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìæ“¾‚É¸”s");
+	wassert(pTransform && "Transformã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—ã«å¤±æ•—");
 	/*RigidBody* pRigidBody{systemView.Get<CPRigidBody>().Get(entityId)};
-	wassert(pRigidBody && "RigidBodyƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìæ“¾‚É¸”s");*/
+	wassert(pRigidBody && "RigidBodyã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—ã«å¤±æ•—");*/
 
 
-	// ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚Ì§Œä
+	// ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®åˆ¶å¾¡
 	if (input.IsKeyDown(KeyCode::B))
 	{
 		cursor.SetCenterLock(true);
@@ -69,19 +69,19 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 
 	if (cursor.IsLock() == false || cursor.IsShow())
 	{
-		// •Ğ•û‚ª‚¤‚Ü‚­“®ì‚µ‚Ä‚¢‚È‚¢‚È‚çƒJƒƒ‰ˆÚ“®–³Œø‰»
+		// ç‰‡æ–¹ãŒã†ã¾ãå‹•ä½œã—ã¦ã„ãªã„ãªã‚‰ã‚«ãƒ¡ãƒ©ç§»å‹•ç„¡åŠ¹åŒ–
 		/*cursor.SetShow(true);
 		cursor.SetCenterLock(false);*/
 		return;
 	}
 
-	// ƒ}ƒEƒXˆÚ“®—Ê‚ğƒJƒƒ‰‚ÌŠp“x‚É“K—p
+	// ãƒã‚¦ã‚¹ç§»å‹•é‡ã‚’ã‚«ãƒ¡ãƒ©ã®è§’åº¦ã«é©ç”¨
 	Vector3 angles{ pTransform->GetRotation() };
 
 
 	angles.x += cursor.GetFrameMove().y / 10.0f * dt;
 
-	// ã‰º‚ÌŠp“x‚É§ŒÀ‚ğ•t‚¯‚é
+	// ä¸Šä¸‹ã®è§’åº¦ã«åˆ¶é™ã‚’ä»˜ã‘ã‚‹
 	if (angles.x < DEG_TO_RAD * LOWER_ANGLE)
 	{
 		angles.x = DEG_TO_RAD * LOWER_ANGLE;
@@ -97,7 +97,7 @@ void CameraMoveFree::Update(GameObjectReference _ref)
 
 	if (input.IsKey(KeyCode::LeftShift))
 	{
-		// ¶ƒVƒtƒgƒL[’·‰Ÿ‚µ‚Å‰Á‘¬
+		// å·¦ã‚·ãƒ•ãƒˆã‚­ãƒ¼é•·æŠ¼ã—ã§åŠ é€Ÿ
 		speedBoost_ += dt;
 	}
 	else

@@ -8,7 +8,7 @@ namespace wtgb
 	class GameObjectBuilder;
 
 	/// <summary>
-	/// ’Ç‰Á‚µ‚½ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìİ’è‚ğ‚·‚é‚©Aİ’è‚¹‚¸‚ÉƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ’Ç‰Á‚·‚é‚©A‚ÌƒIƒvƒVƒ‡ƒ“
+	/// è¿½åŠ ã—ãŸã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®è¨­å®šã‚’ã™ã‚‹ã‹ã€è¨­å®šã›ãšã«ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’è¿½åŠ ã™ã‚‹ã‹ã€ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³
 	/// </summary>
 	/// <typeparam name="ComponentT"></typeparam>
 	template<typename ComponentT>
@@ -25,7 +25,7 @@ namespace wtgb
 		}
 
 		/// <summary>
-		/// İ’è‚Í‚¹‚¸‚ÉƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ’Ç‰Á
+		/// è¨­å®šã¯ã›ãšã«ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’è¿½åŠ 
 		/// </summary>
 		/// <typeparam name="ComponentT"></typeparam>
 		/// <typeparam name="...Args"></typeparam>
@@ -46,9 +46,9 @@ namespace wtgb
 		}
 
 		/// <summary>
-		/// ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìİ’èŠJn
+		/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®è¨­å®šé–‹å§‹
 		/// </summary>
-		/// <returns>ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌƒZƒbƒ^[</returns>
+		/// <returns>ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®ã‚»ãƒƒã‚¿ãƒ¼</returns>
 		ComponentT::Setter& BeginSetter()
 		{
 			return *(new ComponentT::Setter{ builder_, Accessor<ComponentT>::GetAccess(), this });

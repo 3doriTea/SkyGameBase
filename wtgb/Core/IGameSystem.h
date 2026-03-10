@@ -7,7 +7,7 @@ namespace wtgb
 {
 	class GameSystemCollection;
 	/// <summary>
-	/// ƒQ[ƒ€ƒVƒXƒeƒ€
+	/// ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ 
 	/// </summary>
 	class IGameSystem
 	{
@@ -17,33 +17,33 @@ namespace wtgb
 		using ViewerCached = wtgb::ViewerCached;
 
 		/// <summary>
-		/// ŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO‚Ìí—Ş
+		/// å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã®ç¨®é¡
 		/// </summary>
 		enum struct CallType
 		{
-			DoNotUpdate,  // ŒÄ‚Ño‚µ•s—v
-			Cycle,  // ƒQ[ƒ€ƒ‹[ƒvƒTƒCƒNƒ‹
-			Frame,  // •`‰æƒtƒŒ[ƒ€
+			DoNotUpdate,  // å‘¼ã³å‡ºã—ä¸è¦
+			Cycle,  // ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã‚µã‚¤ã‚¯ãƒ«
+			Frame,  // æç”»ãƒ•ãƒ¬ãƒ¼ãƒ 
 		};
 	public:
 		IGameSystem() {}
 		virtual ~IGameSystem() {}
 
 		/// <summary>
-		/// ŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO‚Ìí—Ş‚ğæ“¾‚·‚é
+		/// å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã®ç¨®é¡ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO‚Ìí—Ş</returns>
+		/// <returns>å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã®ç¨®é¡</returns>
 		virtual const CallType GetCallType() = 0;
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		virtual Result Init(const ViewerInit& _viewer) = 0;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		virtual void Update(const ViewerUpdate& _system) = 0;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void End() = 0;
 	};

@@ -3,7 +3,7 @@
 
 
 /// <summary>
-/// UI‚ð‡”Ô‚É•\Ž¦‚³‚¹‚éƒV[ƒPƒ“ƒX
+/// UIã‚’é †ç•ªã«è¡¨ç¤ºã•ã›ã‚‹ã‚·ãƒ¼ã‚±ãƒ³ã‚¹
 /// </summary>
 class VisualSequence : public GameObject
 {
@@ -19,17 +19,17 @@ public:
 	VisualSequence& AddInSequence(const EntityId _visualEntity);
 
 	/// <summary>
-	/// ŽŸ‚ÌUI‚ð•\Ž¦‚·‚é
+	/// æ¬¡ã®UIã‚’è¡¨ç¤ºã™ã‚‹
 	/// </summary>
 	void ShowNext();
 	/// <summary>
-	/// <para>Žw’è‚ÌƒCƒ“ƒfƒNƒX‚ð•\Ž¦‚·‚é</para>
-	/// <para>Œ»Ý‚ÌƒCƒ“ƒfƒNƒX‚Æ“¯‚¶ê‡‚àXV‚ª‚©‚©‚é</para>
+	/// <para>æŒ‡å®šã®ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹ã‚’è¡¨ç¤ºã™ã‚‹</para>
+	/// <para>ç¾åœ¨ã®ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹ã¨åŒã˜å ´åˆã‚‚æ›´æ–°ãŒã‹ã‹ã‚‹</para>
 	/// </summary>
-	/// <param name="_index">ƒCƒ“ƒfƒNƒX</param>
+	/// <param name="_index">ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹</param>
 	void ShowAt(const int _index);
 private:
-	std::vector<EntityId> visuals_;  // •\Ž¦“à—e‚ÌƒRƒŒƒNƒVƒ‡ƒ“
-	int currentIndex_;               // •\Ž¦“à—e‚ÌƒCƒ“ƒfƒNƒX
-	static int INVALID_INDEX_;       // –³Œø‚ÈƒCƒ“ƒfƒNƒX
+	std::vector<EntityId> visuals_;  // è¡¨ç¤ºå†…å®¹ã®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
+	int currentIndex_;               // è¡¨ç¤ºå†…å®¹ã®ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹
+	static int INVALID_INDEX_;       // ç„¡åŠ¹ãªã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹
 };

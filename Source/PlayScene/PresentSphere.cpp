@@ -8,7 +8,7 @@ namespace
 {
 	static const float BOUNDING_TIME{ 2.0f };
 	static const float ANIM_TIME{ 3.0f };
-	static const float BOUNDED_RATIO{ 5.0f / 100.0f };  // ƒoƒEƒ“ƒh‚µ‚½Œã‚ÌƒŒ[ƒg
+	static const float BOUNDED_RATIO{ 5.0f / 100.0f };  // ãƒã‚¦ãƒ³ãƒ‰ã—ãŸå¾Œã®ãƒ¬ãƒ¼ãƒˆ
 }
 
 PresentSphere::PresentSphere(const EntityId _player, const Vector3& _position, const Vector3& _dropPosition) :
@@ -44,27 +44,27 @@ void PresentSphere::Update()
 	
 	if (isHitted_)
 	{
-		return;  // Šù‚É‚Æ‚Á‚Ä‚¢‚é
+		return;  // æ—¢ã«ã¨ã£ã¦ã„ã‚‹
 	}
 
-	if (itemAnim.IsFinished())  // ƒAƒjƒ[ƒVƒ‡ƒ“I‚í‚Á‚ÄŽæ“¾‰Â”\ó‘Ô
+	if (itemAnim.IsFinished())  // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³çµ‚ã‚ã£ã¦å–å¾—å¯èƒ½çŠ¶æ…‹
 	{
 		GameObject* pPlayerObj{ FindGameObject(player_) };
 
-		// TODO: ƒvƒŒƒCƒ„[ˆÈŠO‚àƒvƒŒƒ[ƒ“ƒg‚ðŽæ‚ê‚é‚æ‚¤‚É‚·‚é‚½‚ßA‹…‚Æ‹…‚Ì“–‚½‚è”»’è‚ð•œŠˆ‚³‚¹‚é
-		float toPlayerDistance  // ƒvƒŒƒCƒ„[‚Ü‚Å‚Ì‹——£
+		// TODO: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ä»¥å¤–ã‚‚ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆã‚’å–ã‚Œã‚‹ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã€çƒã¨çƒã®å½“ãŸã‚Šåˆ¤å®šã‚’å¾©æ´»ã•ã›ã‚‹
+		float toPlayerDistance  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¾ã§ã®è·é›¢
 		{
 			XMVectorGetX(XMVector3Length(pPlayerObj->Transform().GetPosition() - this->Transform().GetPosition()))
 		};
 
-		float threshold  // “–‚½‚Á‚½‚Æ‚Ý‚È‚·‚µ‚«‚¢’l
+		float threshold  // å½“ãŸã£ãŸã¨ã¿ãªã™ã—ãã„å€¤
 		{
 			pPlayerObj->Transform().GetScale().x + this->Transform().GetScale().x
 		};
 
 		if (toPlayerDistance <= threshold)
 		{
-			isHitted_ = true;  // “–‚½‚Á‚½‚©‚çŽæ‚ç‚ê‚½‚æI
+			isHitted_ = true;  // å½“ãŸã£ãŸã‹ã‚‰å–ã‚‰ã‚ŒãŸã‚ˆï¼
 		}
 		return;
 	}

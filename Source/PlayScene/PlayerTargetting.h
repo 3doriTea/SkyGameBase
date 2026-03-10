@@ -2,18 +2,18 @@
 #include <wtgb.h>
 
 /// <summary>
-/// �v���C���[���^�[�Q�b�g�܂œˌ����鋓���̌v�Z�p�����[�^
+/// プレイヤーがターゲットまで突撃する挙動の計算パラメータ
 /// </summary>
 struct PLAYER_TARGETTING_PARAMS
 {
-	Vector3 playerPos{};       // �v���C���[�̍��W
-	Vector3 playerVelocity{};  // �v���C���[�̌��݂̑��x
-	Vector3 targetPos{};       // �^�[�Q�b�g�̍��W
-	float gravity{};           // �d�͉����x
+	Vector3 playerPos{};       // プレイヤーの座標
+	Vector3 playerVelocity{};  // プレイヤーの現在の速度
+	Vector3 targetPos{};       // ターゲットの座標
+	float gravity{};           // 重力加速度
 };
 
 /// <summary>
-/// �v���C���[���^�[�Q�b�g�܂œˌ������鏈���N���X
+/// プレイヤーをターゲットまで突撃させる処理クラス
 /// </summary>
 class PlayerTargeting
 {
@@ -22,9 +22,9 @@ public:
 	inline ~PlayerTargeting() {}
 
 	/// <summary>
-	/// �^�[�Q�b�g�܂œˌ�������Ƃ��̑��x�����߂�
+	/// ターゲットまで突撃させるときの速度を求める
 	/// </summary>
-	/// <param name="params">�v�Z�p�����[�^</param>
-	/// <returns>���������̑��x</returns>
+	/// <param name="params">計算パラメータ</param>
+	/// <returns>いい感じの速度</returns>
 	Vector3 GetToTargetVelocity(const PLAYER_TARGETTING_PARAMS& params);
 };

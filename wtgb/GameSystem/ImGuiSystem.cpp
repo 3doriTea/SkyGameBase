@@ -6,7 +6,7 @@
 
 #define USE_IMGUI __DEBUG
 
-// ImGui‚ÌWinProc—pƒCƒxƒ“ƒg
+// ImGuiã®WinProcç”¨ã‚¤ãƒ™ãƒ³ãƒˆ
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 wtgb::ImGuiSystem::ImGuiSystem() :
@@ -44,15 +44,15 @@ wtgb::Result wtgb::ImGuiSystem::Init(const ViewerInit& _system)
 	bool succeed{ false };
 
 	succeed = ImGui_ImplWin32_Init(gameWindow.GetMainWindowHandle());
-	wassert(succeed && "ImGui Win32‰Šú‰»‚ÉŽ¸”s");
+	wassert(succeed && "ImGui Win32åˆæœŸåŒ–ã«å¤±æ•—");
 
 	ID3D11Device* pDevice{ direct3D.Resource().DeviceComPtr().Get() };
 	ID3D11DeviceContext* pContext{ direct3D.Resource().ContextComPtr().Get() };
 
 	succeed = ImGui_ImplDX11_Init(pDevice, pContext);
-	wassert(succeed && "ImGui DX11‰Šú‰»‚ÉŽ¸”s");
+	wassert(succeed && "ImGui DX11åˆæœŸåŒ–ã«å¤±æ•—");
 
-	// winproc‚É‚à“o˜^‚·‚é
+	// winprocã«ã‚‚ç™»éŒ²ã™ã‚‹
 	gameWindow.AddWinProcListener(
 		[](HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT
 		{

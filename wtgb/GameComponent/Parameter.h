@@ -21,18 +21,18 @@ namespace wtgb
 		inline ~Parameter() {}
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init(ViewerCached _system) override {}
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(ViewerCached _system) override {}
 
 		/// <summary>
-		/// json“Ç‚İ‚İ
+		/// jsonèª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <returns>“Ç‚İ‚ñ‚¾Json‚ÌQÆ</returns>
+		/// <returns>èª­ã¿è¾¼ã‚“ã Jsonã®å‚ç…§</returns>
 		const json& Load();
 
 	private:

@@ -2,38 +2,38 @@ template<typename T, typename ...Args>
 inline const wtgb::GameSystemCollection::GameSystemAdder&
 wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
 {
-	assert(GetAccess() && "ƒQ[ƒ€ƒVƒXƒeƒ€ƒRƒŒƒNƒVƒ‡ƒ“‚ªnullptrQÆ‚³‚ê‚Ä‚µ‚Ü‚¤");
+	assert(GetAccess() && "ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ãŒnullptrå‚ç…§ã•ã‚Œã¦ã—ã¾ã†");
 
-	// ƒRƒŒƒNƒVƒ‡ƒ“—v‘f‚Ö‚ÌQÆ
+	// ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³è¦ç´ ã¸ã®å‚ç…§
 	TypeKeys& gameSystemTypeKey{ GetAccess()->gameSystemTypeKey_ };
 	GameSystems& gameSystems{ GetAccess()->gameSystems_ };
 	Indexes& callFrameIndexes{ GetAccess()->callFrameIndexes_ };
 	Indexes& callCycleIndexes{ GetAccess()->callCycleIndexes_ };
 	
-	// TODO: ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹ŠÖ˜A‚Í•ÊƒNƒ‰ƒX‚ÉˆÚ‚·
+	// TODO: ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«é–¢é€£ã¯åˆ¥ã‚¯ãƒ©ã‚¹ã«ç§»ã™
 	Indexes& componentPoolIndexes{ GetAccess()->componentPoolIndexes_ };
 
-	// “o˜^‚·‚éƒQ[ƒ€ƒVƒXƒeƒ€‚ÉŠ„‚è“–‚Ä‚é—v‘f”Ô†
+	// ç™»éŒ²ã™ã‚‹ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã«å‰²ã‚Šå½“ã¦ã‚‹è¦ç´ ç•ªå·
 	const Index INDEX{ gameSystems.size() };
 
 	gameSystems.push_back(std::make_unique<T>(args...));
 	gameSystemTypeKey.emplace(typeid(T), INDEX);
 
-	// ŒÄ‚Ño‚·ƒ^ƒCƒ~ƒ“ƒO•Ê‚Å—v‘f”Ô†‚ğ•Û‘¶‚µ‚Ä‚¨‚­
+	// å‘¼ã³å‡ºã™ã‚¿ã‚¤ãƒŸãƒ³ã‚°åˆ¥ã§è¦ç´ ç•ªå·ã‚’ä¿å­˜ã—ã¦ãŠã
 	switch (gameSystems[INDEX].get()->GetCallType())
 	{
-	case IGameSystem::CallType::Frame:  // ƒtƒŒ[ƒ€–ˆ‚ÌŒÄ‚Ño‚µƒRƒŒƒNƒVƒ‡ƒ“‚É’Ç‰Á
+	case IGameSystem::CallType::Frame:  // ãƒ•ãƒ¬ãƒ¼ãƒ æ¯ã®å‘¼ã³å‡ºã—ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã«è¿½åŠ 
 		callFrameIndexes.push_back(INDEX);
 		break;
-	case IGameSystem::CallType::Cycle:  // ƒTƒCƒNƒ‹–ˆ‚ÌŒÄ‚Ño‚µƒRƒŒƒNƒVƒ‡ƒ“‚É’Ç‰Á
+	case IGameSystem::CallType::Cycle:  // ã‚µã‚¤ã‚¯ãƒ«æ¯ã®å‘¼ã³å‡ºã—ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã«è¿½åŠ 
 		callCycleIndexes.push_back(INDEX);
 		break;
-	case IGameSystem::CallType::DoNotUpdate:  // XV•s—v
+	case IGameSystem::CallType::DoNotUpdate:  // æ›´æ–°ä¸è¦
 	default:
 		break;
 	}
 
-	// IComponentPool ‚È‚çˆ—‚·‚é
+	// IComponentPool ãªã‚‰å‡¦ç†ã™ã‚‹
 	if constexpr (std::is_base_of_v<IComponentPool, T>)
 	{
 		componentPoolIndexes.push_back(INDEX);
@@ -55,9 +55,9 @@ inline T& wtgb::GameSystemCollection::GameSystemViewer::Get() const
 	}
 	catch (const std::out_of_range& exception)
 	{
-		(void)exception;  // ˆÓ}“I‚Ég‚Á‚Ä‚¢‚È‚¢‚æI
-		// Œ^‚ª“o˜^‚³‚ê‚Ä‚¢‚È‚¢
-		assert(false && "w’è‚³‚ê‚½ƒQ[ƒ€ƒVƒXƒeƒ€Œ^‚ª“o˜^‚³‚ê‚Ä‚¢‚È‚¢ ¦‚»‚à‚»‚à“o˜^‚·‚é—\’è‚ª‚È‚¢‰Â”\«‚ ‚èICP‚Ì‚Â‚¯–Y‚ê‚Ä‚Å‚Í‚È‚¢H");
+		(void)exception;  // æ„å›³çš„ã«ä½¿ã£ã¦ã„ãªã„ã‚ˆï¼
+		// å‹ãŒç™»éŒ²ã•ã‚Œã¦ã„ãªã„
+		assert(false && "æŒ‡å®šã•ã‚ŒãŸã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ å‹ãŒç™»éŒ²ã•ã‚Œã¦ã„ãªã„ â€»ãã‚‚ãã‚‚ç™»éŒ²ã™ã‚‹äºˆå®šãŒãªã„å¯èƒ½æ€§ã‚ã‚Šï¼CPã®ã¤ã‘å¿˜ã‚Œã¦ã§ã¯ãªã„ï¼Ÿ");
 	}
 
 	IGameSystem* pGameSystem{};
@@ -67,13 +67,13 @@ inline T& wtgb::GameSystemCollection::GameSystemViewer::Get() const
 	}
 	catch (const std::out_of_range& exception)
 	{
-		(void)exception;  // ˆÓ}“I‚Ég‚Á‚Ä‚¢‚È‚¢‚æI
-		// Œ^‚©‚çindex‚Íæ“¾Ï‚İAÀ‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ª–¢“o˜^
-		assert(false && "w’è‚³‚ê‚½ƒQ[ƒ€ƒVƒXƒeƒ€‚ª“o˜^‚³‚ê‚Ä‚¢‚È‚¢");
+		(void)exception;  // æ„å›³çš„ã«ä½¿ã£ã¦ã„ãªã„ã‚ˆï¼
+		// å‹ã‹ã‚‰indexã¯å–å¾—æ¸ˆã¿ã€å®Ÿä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãŒæœªç™»éŒ²
+		assert(false && "æŒ‡å®šã•ã‚ŒãŸã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ãŒç™»éŒ²ã•ã‚Œã¦ã„ãªã„");
 	}
 
 	T* p{ dynamic_cast<T*>(pGameSystem) };
-	assert(p != nullptr && "w’è‚³‚ê‚½Œ^‚ªƒQ[ƒ€ƒVƒXƒeƒ€‚Å‚Í‚È‚¢ @wtgb::GameSystemCollection::Get");
+	assert(p != nullptr && "æŒ‡å®šã•ã‚ŒãŸå‹ãŒã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã§ã¯ãªã„ @wtgb::GameSystemCollection::Get");
 
 	return *p;
 }

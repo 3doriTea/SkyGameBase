@@ -20,7 +20,7 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 {
 	if (_pGameSystemRegister == nullptr)
 	{
-		wassert(_pGameSystemRegister && "pGameSystemCollection‚ª nullptr‚¾‚Á‚½");
+		wassert(_pGameSystemRegister && "pGameSystemCollectionãŒ nullptrã ã£ãŸ");
 		return Result::Code::Error;
 	}
 	GameSystemCollection::GameSystemInitViewer gameSystemViewer{ _pGameSystemRegister };
@@ -33,13 +33,13 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 	{
 		_pGameSystemRegister->UpdateCycle();
 
-		// ƒtƒŒ[ƒ€ŒÄ‚Ño‚µ‚Ìƒ^ƒCƒ~ƒ“ƒO‚È‚çƒtƒŒ[ƒ€‚àXV
+		// ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã³å‡ºã—ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ãªã‚‰ãƒ•ãƒ¬ãƒ¼ãƒ ã‚‚æ›´æ–°
 		if (gameSystemViewer.Get<GameTime>().IsFrameDue())
 		{
 			_pGameSystemRegister->UpdateFrame();
 		}
 
-		// ‘SÁ‚µ‚ª”­¶‚µ‚½‚ç
+		// å…¨æ¶ˆã—ãŒç™ºç”Ÿã—ãŸã‚‰
 		if (gameSystemViewer.Get<ComponentManager>().NeedsClearComponents())
 		{
 			gameSystemViewer.Get<ComponentManager>().RemoveAllEntity();
@@ -49,14 +49,14 @@ wtgb::Result wtgb::GameLoop::RunLoop(GameSystemCollection* _pGameSystemRegister)
 					pComponentPool->Clear();
 				});
 		}
-		else  // ”jŠü‘ÎÛ‚ÌƒGƒ“ƒeƒBƒeƒB‚ª‘¶İ‚·‚é‚È‚ç”jŠüˆ—‚µ‚Ä‚¢‚­
+		else  // ç ´æ£„å¯¾è±¡ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ãŒå­˜åœ¨ã™ã‚‹ãªã‚‰ç ´æ£„å‡¦ç†ã—ã¦ã„ã
 		{
 			const std::vector<uint32_t>& toRemoveEntityIndices
 			{
 				gameSystemViewer.Get<ComponentManager>().GetToRemoveEntityIndices()
 			};
 
-			// ”jŠüˆ—‚µ‚Ä‚¢‚­
+			// ç ´æ£„å‡¦ç†ã—ã¦ã„ã
 			componentPools.ForEachAll([&toRemoveEntityIndices](IComponentPool* pComponentPool)
 				{
 					for (const uint32_t i : toRemoveEntityIndices)

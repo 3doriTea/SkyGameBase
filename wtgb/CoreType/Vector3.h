@@ -4,11 +4,11 @@
 namespace wtgb
 {
 	/// <summary>
-	/// 3ŸŒ³ƒxƒNƒgƒ‹‚ğˆµ‚¤\‘¢‘Ì
+	/// 3æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã‚’æ‰±ã†æ§‹é€ ä½“
 	/// </summary>
 	struct Vector3 : public DirectX::XMFLOAT3
 	{
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚à‚»‚Ì‚Ü‚ÜŒp³
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚‚ãã®ã¾ã¾ç¶™æ‰¿
 		using DirectX::XMFLOAT3::XMFLOAT3;
 
 		enum
@@ -24,41 +24,41 @@ namespace wtgb
 		}
 
 		/// <summary>
-		/// XMVECTOR‚ÉˆÃ–Ù“I•ÏŠ·‚·‚é
+		/// XMVECTORã«æš—é»™çš„å¤‰æ›ã™ã‚‹
 		/// </summary>
 		inline operator DirectX::XMVECTOR() const { return DirectX::XMLoadFloat3(this); }
 
 		/// <summary>
-		/// —ëƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// é›¶ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(0, 0, 0)</returns>
 		inline static Vector3 Zero() { return { 0, 0, 0 }; }
 		/// <summary>
-		/// Z‚¾‚¯+1‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// Zã ã‘+1ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(0, 0, 1)</returns>
 		inline static Vector3 Forward() { return { 0, 0, 1.0f }; }
 		/// <summary>
-		/// ‘S¬•ª‚ª1‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// å…¨æˆåˆ†ãŒ1ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(1, 1, 1)</returns>
 		inline static Vector3 One() { return { 1.0f, 1.0f, 1.0f }; }
 		/// <summary>
-		/// Y‚¾‚¯+1‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// Yã ã‘+1ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(0, 1, 0)</returns>
 		inline static Vector3 Up() { return { 0.0f, 1.0f, 0.0f }; }
 		/// <summary>
-		/// Y‚¾‚¯-1‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+		/// Yã ã‘-1ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>(0, -1, 0)</returns>
 		inline static Vector3 Down() { return { 0.0f, -1.0f, 0.0f }; }
 
 		/// <summary>
-		/// s—ñ‚Æ‚ÌŠ|‚¯Z
+		/// è¡Œåˆ—ã¨ã®æ›ã‘ç®—
 		/// </summary>
-		/// <param name="_matrix">s—ñ</param>
-		/// <returns>3ŸŒ³ƒxƒNƒgƒ‹</returns>
+		/// <param name="_matrix">è¡Œåˆ—</param>
+		/// <returns>3æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«</returns>
 		inline Vector3& operator*=(const DirectX::XMMATRIX _matrix)
 		{
 			using DirectX::XMVECTOR;

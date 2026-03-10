@@ -44,10 +44,10 @@ void DragCircle::Update()
 	UI::LayoutConfig config{ baseCanvasSize_ };
 	context.SetRefLayout(&config);
 
-	// ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚Ì§Œä
-	if (input.IsMouseDown(MouseCode::Left)  // ƒ}ƒEƒX¶‰Ÿ‚³‚ê‚½
-		&& gameWindow.IsActiveMainWindow()  // ‚©‚ÂƒEƒBƒ“ƒhƒE‚ªÅ‘O–Ê
-		&& gameWindow.IsDefaultControled())  // ‚©‚ÂƒQ[ƒ€‰æ–Ê‚Ì‘€ì
+	// ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®åˆ¶å¾¡
+	if (input.IsMouseDown(MouseCode::Left)  // ãƒã‚¦ã‚¹å·¦æŠ¼ã•ã‚ŒãŸ
+		&& gameWindow.IsActiveMainWindow()  // ã‹ã¤ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒæœ€å‰é¢
+		&& gameWindow.IsDefaultControled())  // ã‹ã¤ã‚²ãƒ¼ãƒ ç”»é¢ã®æ“ä½œ
 	{
 		Vector2Int cursorPosition{ cursor.GetPosition() };
 		

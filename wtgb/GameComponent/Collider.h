@@ -7,7 +7,7 @@
 namespace
 {
 	/// <summary>
-	/// ƒRƒ‰ƒCƒ_[ƒ^ƒO‚Ì”
+	/// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚¿ã‚°ã®æ•°
 	/// </summary>
 	const size_t TAG_COUNT{ sizeof(uint32_t) * 8 };
 }
@@ -21,13 +21,13 @@ namespace wtgb
 		COMPONENT_HEAD(Collider)
 	public:
 		/// <summary>
-		/// “–‚½‚è”»’èŒ`ó‚Ìí—Ş
+		/// å½“ãŸã‚Šåˆ¤å®šå½¢çŠ¶ã®ç¨®é¡
 		/// </summary>
 		enum struct Type
 		{
-			Sphere,   // ‹…
+			Sphere,   // çƒ
 			//AABB,   // 
-			Section,  // ’f–Ê
+			Section,  // æ–­é¢
 		};
 
 		class SETTER(Collider)
@@ -55,7 +55,7 @@ namespace wtgb
 				sphere = _other.sphere;
 				break;
 			default:
-				assert(false && "–¢À‘•‚Ì“–‚½‚è”»’èƒ^ƒCƒv");
+				assert(false && "æœªå®Ÿè£…ã®å½“ãŸã‚Šåˆ¤å®šã‚¿ã‚¤ãƒ—");
 				break;
 			}
 
@@ -63,37 +63,37 @@ namespace wtgb
 		}
 
 		/// <summary>
-		/// “–‚½‚è”»’è‚ÌŒ`óí—Ş‚ğæ“¾‚·‚é
+		/// å½“ãŸã‚Šåˆ¤å®šã®å½¢çŠ¶ç¨®é¡ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>“–‚½‚è”»’è‚ÌŒ`óí—Ş</returns>
+		/// <returns>å½“ãŸã‚Šåˆ¤å®šã®å½¢çŠ¶ç¨®é¡</returns>
 		Type GetColliderType() const { return colliderType_; }
 
 		/// <summary>
-		/// 2D‚Å‚Ì’f–Êxy’¸“_‚ğƒZƒbƒg‚·‚é
+		/// 2Dã§ã®æ–­é¢xyé ‚ç‚¹ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
-		/// <param name="_src">ƒ\[ƒX‚Æ‚È‚éxy’¸“_</param>
+		/// <param name="_src">ã‚½ãƒ¼ã‚¹ã¨ãªã‚‹xyé ‚ç‚¹</param>
 		void SetPoints2D(const std::vector<Vector2>& _src);
 
 		void SetRadius(const float _radius) { sphere.radius = _radius; }
 
 		/// <summary>
-		/// ƒ^ƒOƒtƒ‰ƒO‘S‘Ì‚ğƒZƒbƒg‚·‚é
+		/// ã‚¿ã‚°ãƒ•ãƒ©ã‚°å…¨ä½“ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
-		/// <param name="_flags">ƒtƒ‰ƒO’l</param>
+		/// <param name="_flags">ãƒ•ãƒ©ã‚°å€¤</param>
 		void SetTagFlag(const uint32_t _flags) { tag_ = _flags; }
 
 		/// <summary>
-		/// ‚P‚Â‚Ìƒ^ƒOƒtƒ‰ƒO‚ğƒZƒbƒg‚·‚é
+		/// ï¼‘ã¤ã®ã‚¿ã‚°ãƒ•ãƒ©ã‚°ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 		/// </summary>
-		/// <param name="_index">ƒtƒ‰ƒO‚ÌƒCƒ“ƒfƒNƒX(enum : uint32_t‚É‚µ‚Äg—p)</param>
-		/// <param name="_flag">—§‚Á‚Ä‚¢‚é true / false</param>
+		/// <param name="_index">ãƒ•ãƒ©ã‚°ã®ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹(enum : uint32_tã«ã—ã¦ä½¿ç”¨)</param>
+		/// <param name="_flag">ç«‹ã£ã¦ã„ã‚‹ true / false</param>
 		void SetTag(const size_t _index, const bool _flag) { tag_.set(_index, _flag); }
 
 		/// <summary>
-		/// w’è‚µ‚½ƒ^ƒO‚ª•t‚¢‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN‚·‚é
+		/// æŒ‡å®šã—ãŸã‚¿ã‚°ãŒä»˜ã„ã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹
 		/// </summary>
-		/// <param name="_index">ƒtƒ‰ƒO‚ÌƒCƒ“ƒfƒNƒX(enum : uint32_t‚É‚µ‚Äg—p)</param>
-		/// <returns>ƒ^ƒO‚ğ‚Á‚Ä‚¢‚é true / false</returns>
+		/// <param name="_index">ãƒ•ãƒ©ã‚°ã®ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹(enum : uint32_tã«ã—ã¦ä½¿ç”¨)</param>
+		/// <returns>ã‚¿ã‚°ã‚’æŒã£ã¦ã„ã‚‹ true / false</returns>
 		bool HasTag(const size_t _index) const { return tag_.test(_index); }
 
 	private:
@@ -102,12 +102,12 @@ namespace wtgb
 		//{
 			struct
 			{
-				float radius;    // ‹…‚Ì”¼Œa
-				Vector3 center;  // ‹…‚Ì’†S
+				float radius;    // çƒã®åŠå¾„
+				Vector3 center;  // çƒã®ä¸­å¿ƒ
 			} sphere;
 			struct
 			{
-				std::vector<Vector2> points2D;  // ’f–Êxy’¸“_
+				std::vector<Vector2> points2D;  // æ–­é¢xyé ‚ç‚¹
 			} section;
 		//};
 		std::bitset<TAG_COUNT> tag_;

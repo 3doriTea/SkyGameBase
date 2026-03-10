@@ -1,12 +1,12 @@
 #pragma once
 #include "pch/pch.h"
 
-//  REF: dinput.h ���R�s�y
+//  REF: dinput.h よりコピペ
 
 namespace wtgb
 {
 	/// <summary>
-	/// �Q�[���p�b�h�̃{�^���R�[�h
+	/// ゲームパッドのボタンコード
 	/// </summary>
 	enum struct XInputPadCode : WORD
 	{
@@ -15,7 +15,7 @@ namespace wtgb
 		Left = XINPUT_GAMEPAD_DPAD_LEFT,
 		Right = XINPUT_GAMEPAD_DPAD_RIGHT,
 		Start = XINPUT_GAMEPAD_START,
-		Back = XINPUT_GAMEPAD_BACK, // ������select�{�^���̂��ƁB
+		Back = XINPUT_GAMEPAD_BACK, // いわゆるselectボタンのこと。
 		LStick = XINPUT_GAMEPAD_LEFT_THUMB,
 		RStick = XINPUT_GAMEPAD_RIGHT_THUMB,
 		Lbutton = XINPUT_GAMEPAD_LEFT_SHOULDER,
@@ -27,7 +27,7 @@ namespace wtgb
 	};
 
 	/// <summary>
-	/// �Q�[���p�b�h��DirectInput�ł̃{�^���R�[�h
+	/// ゲームパッドのDirectInputでのボタンコード
 	/// </summary>
 	enum struct PadCode : uint8_t
 	{
@@ -45,12 +45,12 @@ namespace wtgb
 
 
 	/// <summary>
-	/// <para> �t���C�g�X�e�B�b�N�̃{�^���R�[�h </para>
-	/// <para> �ǂ̃C���f�b�N�X���ǂ̃{�^�����f�o�C�X�ɂ���ĈقȂ�\��������̂Œ��� </para>
+	/// <para> フライトスティックのボタンコード </para>
+	/// <para> どのインデックスがどのボタンかデバイスによって異なる可能性があるので注意 </para>
 	/// </summary>
 	enum struct FlightStickCode : uint8_t
 	{
-		Thumb = 0, // �e�w
+		Thumb = 0, // 親指
 		Trigger = 1,
 		Button3 = 2,
 		Button4 = 3,
@@ -58,8 +58,8 @@ namespace wtgb
 
 	enum struct PadIDState
 	{
-		INVALID,    // ����
-		ASSIGNED,   // ���蓖�čς�
-		UNASSIGNED, // ��
+		INVALID,    // 無効
+		ASSIGNED,   // 割り当て済み
+		UNASSIGNED, // 空き
 	};
 }

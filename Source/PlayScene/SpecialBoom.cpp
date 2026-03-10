@@ -50,7 +50,7 @@ void SpecialBoom::Update()
 	using namespace DirectX;
 
 	GameObject* pPlayerObj{ FindGameObject(player_) };
-	wassert(pPlayerObj && "ƒvƒŒƒCƒ„[‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
+	wassert(pPlayerObj && "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ");
 
 	Vector3 playerPos{ pPlayerObj->Transform().GetPosition() };
 	Vector3 selfPos{ Transform().GetPosition() };

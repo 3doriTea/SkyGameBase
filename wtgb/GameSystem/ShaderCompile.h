@@ -5,42 +5,42 @@
 
 namespace wtgb
 {
-	// TODO: ƒVƒF[ƒ_ ƒRƒ“ƒpƒCƒ‹ -> ƒRƒ“ƒpƒCƒ‰[‚É–¼‘O•ÏX‚ğl‚¦‚é
+	// TODO: ã‚·ã‚§ãƒ¼ãƒ€ ã‚³ãƒ³ãƒ‘ã‚¤ãƒ« -> ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©ãƒ¼ã«åå‰å¤‰æ›´ã‚’è€ƒãˆã‚‹
 	class ShaderCompile : public IGameSystem
 	{
 		friend class Direct3D;
 	public:
 		/// <summary>
-		/// ƒVƒF[ƒ_‚ğƒRƒ“ƒpƒCƒ‹‚·‚é‚Æ‚«‚Ìİ’è
+		/// ã‚·ã‚§ãƒ¼ãƒ€ã‚’ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã™ã‚‹ã¨ãã®è¨­å®š
 		/// </summary>
 		struct CompileConfig
 		{
 			/// <summary>
-			/// ŠeƒVƒF[ƒ_ŒÅ—L‚Ìw’è
+			/// å„ã‚·ã‚§ãƒ¼ãƒ€å›ºæœ‰ã®æŒ‡å®š
 			/// </summary>
 			struct ShaderTarget
 			{
-				std::string entryPointName;  // ƒGƒ“ƒgƒŠƒ|ƒCƒ“ƒg–¼
-				std::string compileVersion;  // ƒVƒF[ƒ_‚Ìƒo[ƒWƒ‡ƒ“
+				std::string entryPointName;  // ã‚¨ãƒ³ãƒˆãƒªãƒã‚¤ãƒ³ãƒˆå
+				std::string compileVersion;  // ã‚·ã‚§ãƒ¼ãƒ€ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 			};
 
-			std::string fileName;  // ƒtƒ@ƒCƒ‹–¼
+			std::string fileName;  // ãƒ•ã‚¡ã‚¤ãƒ«å
 
-			ShaderTarget vertexShader;  // ’¸“_ƒVƒF[ƒ_ŒÅ—L‚Ìw’è
-			ShaderTarget pixelShader;   // ƒsƒNƒZƒ‹ƒVƒF[ƒ_ŒÅ—L‚Ìw’è
+			ShaderTarget vertexShader;  // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€å›ºæœ‰ã®æŒ‡å®š
+			ShaderTarget pixelShader;   // ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€å›ºæœ‰ã®æŒ‡å®š
 
-			std::vector<D3D11_INPUT_ELEMENT_DESC> vertexInputLayout;  // ’¸“_ƒCƒ“ƒvƒbƒgƒŒƒCƒAƒEƒg
+			std::vector<D3D11_INPUT_ELEMENT_DESC> vertexInputLayout;  // é ‚ç‚¹ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
 
 
-			D3D11_FILL_MODE fillMode;  // “h‚è‚Â‚Ô‚µƒ‚[ƒh
-			D3D11_CULL_MODE cullMode;  // ‰A–ÊÁ‹ƒ‚[ƒh
-			bool backIsClockwise;  // Œv‰ñ‚è‚ğ— –Ê‚Æ‚·‚é‚©
+			D3D11_FILL_MODE fillMode;  // å¡—ã‚Šã¤ã¶ã—ãƒ¢ãƒ¼ãƒ‰
+			D3D11_CULL_MODE cullMode;  // é™°é¢æ¶ˆå»ãƒ¢ãƒ¼ãƒ‰
+			bool backIsClockwise;  // æ™‚è¨ˆå›ã‚Šã‚’è£é¢ã¨ã™ã‚‹ã‹
 
-			UINT flag1{ 0 };  // ƒtƒ‰ƒO1
-			UINT flag2{ 0 };  // ƒtƒ‰ƒO2
+			UINT flag1{ 0 };  // ãƒ•ãƒ©ã‚°1
+			UINT flag2{ 0 };  // ãƒ•ãƒ©ã‚°2
 
-			D3D_SHADER_MACRO* pDefines{ nullptr };                       // ƒ}ƒNƒ(’è‹`)ƒtƒ@ƒCƒ‹
-			ID3DInclude* pInclude{ D3D_COMPILE_STANDARD_FILE_INCLUDE };  // ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹‚ª—LŒø‚©
+			D3D_SHADER_MACRO* pDefines{ nullptr };                       // ãƒã‚¯ãƒ­(å®šç¾©)ãƒ•ã‚¡ã‚¤ãƒ«
+			ID3DInclude* pInclude{ D3D_COMPILE_STANDARD_FILE_INCLUDE };  // ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«ãŒæœ‰åŠ¹ã‹
 		};
 
 	public:
@@ -48,21 +48,21 @@ namespace wtgb
 		~ShaderCompile();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
@@ -76,7 +76,7 @@ namespace wtgb
 		ID3D11RasterizerState* GetRasterizerState(const ShaderHandle _hShader);
 
 	private:
-		HandlerCollection<Shader, ShaderHandle> shaders_;  // ƒVƒF[ƒ_ƒRƒŒƒNƒVƒ‡ƒ“
-		ViewerCached system_;  // ƒVƒXƒeƒ€‚ÉƒAƒNƒZƒX‚·‚é‚æ‚¤‚ÌƒLƒƒƒbƒVƒ…
+		HandlerCollection<Shader, ShaderHandle> shaders_;  // ã‚·ã‚§ãƒ¼ãƒ€ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
+		ViewerCached system_;  // ã‚·ã‚¹ãƒ†ãƒ ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ã‚ˆã†ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥
 	};
 }

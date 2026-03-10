@@ -3,7 +3,7 @@
 
 
 /// <summary>
-/// ƒqƒ“ƒgUI‚ÌŠî’êƒNƒ‰ƒX
+/// ãƒ’ãƒ³ãƒˆUIã®åŸºåº•ã‚¯ãƒ©ã‚¹
 /// </summary>
 class BaseCue : public GameObject
 {
@@ -21,18 +21,18 @@ public:
 
 protected:
 	/// <summary>
-	/// <para>•`‰æˆ—</para>
-	/// <para>Œp³æ‚ÅƒŒƒCƒAƒEƒg‚Ì•ÏX‚ğ‚·‚é</para>
+	/// <para>æç”»å‡¦ç†</para>
+	/// <para>ç¶™æ‰¿å…ˆã§ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã®å¤‰æ›´ã‚’ã™ã‚‹</para>
 	/// </summary>
-	/// <param name="_animRatio">ƒAƒjƒ[ƒVƒ‡ƒ“ŠÔ</param>
-	/// <param name="_pLayout">•`‰æƒŒƒCƒAƒEƒg</param>
+	/// <param name="_animRatio">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ™‚é–“</param>
+	/// <param name="_pLayout">æç”»ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ</param>
 	virtual void Draw(UI::LayoutConfig* _pLayout, const float _animRatio) = 0;
 
 private:
-	TextureHandle hImage_;   // ‰æ‘œƒnƒ“ƒhƒ‹
-	float animTimeLeft_;     // ƒAƒjƒ[ƒVƒ‡ƒ“ƒJƒEƒ“ƒgƒ_ƒEƒ“
-	float animTimeTotal_;    // ƒAƒjƒ[ƒVƒ‡ƒ“‘Ä¶ŠÔ
-	Vector2Int position_;    // •`‰æ‚·‚éÀ•W
-	Vector2Int canvasSize_;  // İŒv‚ÌƒLƒƒƒ“ƒoƒXƒTƒCƒY
-	bool isShow_;            // •\¦‚·‚é‚©
+	TextureHandle hImage_;   // ç”»åƒãƒãƒ³ãƒ‰ãƒ«
+	float animTimeLeft_;     // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³
+	float animTimeTotal_;    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç·å†ç”Ÿæ™‚é–“
+	Vector2Int position_;    // æç”»ã™ã‚‹åº§æ¨™
+	Vector2Int canvasSize_;  // è¨­è¨ˆæ™‚ã®ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚µã‚¤ã‚º
+	bool isShow_;            // è¡¨ç¤ºã™ã‚‹ã‹
 };

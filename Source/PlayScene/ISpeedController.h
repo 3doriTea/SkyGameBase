@@ -3,7 +3,7 @@
 
 
 /// <summary>
-/// ƒXƒs[ƒh‘€ìƒIƒuƒWƒFƒNƒg‚ÌƒCƒ“ƒ^ƒtƒF[ƒX
+/// ã‚¹ãƒ”ãƒ¼ãƒ‰æ“ä½œã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹
 /// </summary>
 class ISpeedController
 {
@@ -12,19 +12,19 @@ public:
 	inline virtual ~ISpeedController() {}
 
 	/// <summary>
-	/// ƒOƒŒƒCƒAƒEƒg(‰ñ‚è‚ª”’•‚É‚È‚é‚â‚Â)‚Ì”ä—¦‚ğæ“¾
+	/// ã‚°ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ(å›ã‚ŠãŒç™½é»’ã«ãªã‚‹ã‚„ã¤)ã®æ¯”ç‡ã‚’å–å¾—
 	/// </summary>
 	/// <returns>0.0f ~ 1.0f</returns>
 	inline virtual float GetGreyOutRatio() const = 0;
 	/// <summary>
-	/// Š®‘S‚É‹Câó‘Ô‚©æ“¾
+	/// å®Œå…¨ã«æ°—çµ¶çŠ¶æ…‹ã‹å–å¾—
 	/// </summary>
-	/// <returns>‹Câó‘Ô true / false</returns>
+	/// <returns>æ°—çµ¶çŠ¶æ…‹ true / false</returns>
 	inline virtual bool IsGLOC() const = 0;
 
 	/// <summary>
-	/// Œ»İ‚ÌƒXƒs[ƒhí—Ş‚ğæ“¾
+	/// ç¾åœ¨ã®ã‚¹ãƒ”ãƒ¼ãƒ‰ç¨®é¡ã‚’å–å¾—
 	/// </summary>
-	/// <returns>ƒXƒs[ƒh‚Ìí—Ş</returns>
+	/// <returns>ã‚¹ãƒ”ãƒ¼ãƒ‰ã®ç¨®é¡</returns>
 	inline virtual SpeedType GetSpeedType() const = 0;
 };

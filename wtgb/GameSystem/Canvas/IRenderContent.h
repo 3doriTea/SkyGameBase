@@ -5,7 +5,7 @@
 namespace wtgb::UI
 {
 	/// <summary>
-	/// 描画内容のインタフェース
+	/// 謠冗判蜀�螳ｹ縺ｮ繧､繝ｳ繧ｿ繝輔ぉ繝ｼ繧ｹ
 	/// </summary>
 	struct IRenderContent
 	{
@@ -13,7 +13,7 @@ namespace wtgb::UI
 		virtual ~IRenderContent() = default;
 		
 		/// <summary>
-		/// 描画処理
+		/// 謠冗判蜃ｦ逅�
 		/// </summary>
 		virtual void Render(
 			const Vector2Int _screenSize,

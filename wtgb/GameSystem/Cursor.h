@@ -5,13 +5,13 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒJ[ƒ\ƒ‹‚ği‚éƒQ[ƒ€ƒVƒXƒeƒ€
+	/// ã‚«ãƒ¼ã‚½ãƒ«ã‚’å¸ã‚‹ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ 
 	/// </summary>
 	class Cursor : public IGameSystem
 	{
 	public:
 		/// <summary>
-		/// ƒJ[ƒ\ƒ‹À•W‚ÌXVˆ—‚¾‚¯‚ÌƒAƒNƒZƒbƒT
+		/// ã‚«ãƒ¼ã‚½ãƒ«åº§æ¨™ã®æ›´æ–°å‡¦ç†ã ã‘ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µ
 		/// </summary>
 		class CursorUpdater : public Accessor<Cursor>
 		{
@@ -21,7 +21,7 @@ namespace wtgb
 			~CursorUpdater() {}
 
 			/// <summary>
-			/// ƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ğXV‚·‚é
+			/// ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®ã‚’æ›´æ–°ã™ã‚‹
 			/// </summary>
 			/// <param name="_position"></param>
 			void UpdatePosition(const Vector2Int& _position);
@@ -32,102 +32,102 @@ namespace wtgb
 		~Cursor();
 
 		/// <summary>
-		/// XV‚ÌŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 		
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ‚»‚Ìê‚ÉŒÅ’è‚·‚é‚©
+		/// ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’ãã®å ´ã«å›ºå®šã™ã‚‹ã‹
 		/// </summary>
-		/// <param name="_isLock">ŒÅ’è‚·‚é true / false</param>
-		/// <param name="_lockPosition">ŒÅ’è‚·‚éÀ•W</param>
+		/// <param name="_isLock">å›ºå®šã™ã‚‹ true / false</param>
+		/// <param name="_lockPosition">å›ºå®šã™ã‚‹åº§æ¨™</param>
 		void SetLock(const bool _isLock, const Vector2Int _lockPosition);
 
 		/// <summary>
-		/// ‰æ–Ê‚Ì’†S‚Éƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğŒÅ’è‚·‚é‚©
+		/// ç”»é¢ã®ä¸­å¿ƒã«ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’å›ºå®šã™ã‚‹ã‹
 		/// </summary>
-		/// <param name="_isCenterLock">ŒÅ’è‚·‚é true / false</param>
+		/// <param name="_isCenterLock">å›ºå®šã™ã‚‹ true / false</param>
 		void SetCenterLock(const bool _isCenterLock);
 
 		/// <summary>
-		/// ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ªŒÅ’è‚³‚ê‚Ä‚¢‚é‚©
+		/// ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ãŒå›ºå®šã•ã‚Œã¦ã„ã‚‹ã‹
 		/// </summary>
-		/// <returns>ŒÅ’è‚³‚ê‚Ä‚¢‚é true / false</returns>
+		/// <returns>å›ºå®šã•ã‚Œã¦ã„ã‚‹ true / false</returns>
 		inline bool IsLock() const { return isLock_; }
 
 		/// <summary>
-		/// 1ƒtƒŒ[ƒ€ŠÔ‚Å‚ÌƒJ[ƒ\ƒ‹‚Ì“®‚«‚ğæ“¾‚·‚é
+		/// 1ãƒ•ãƒ¬ãƒ¼ãƒ é–“ã§ã®ã‚«ãƒ¼ã‚½ãƒ«ã®å‹•ãã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>1ƒtƒŒ[ƒ€ŠÔ‚Å‚ÌƒJ[ƒ\ƒ‹‚ÌˆÚ“®—Ê</returns>
+		/// <returns>1ãƒ•ãƒ¬ãƒ¼ãƒ é–“ã§ã®ã‚«ãƒ¼ã‚½ãƒ«ã®ç§»å‹•é‡</returns>
 		Vector2Int GetFrameMove() const { return frameMove_; }
 
 		/// <summary>
-		/// À•WXVˆ—ƒAƒNƒZƒbƒT‚ğæ“¾‚·‚é
+		/// åº§æ¨™æ›´æ–°å‡¦ç†ã‚¢ã‚¯ã‚»ãƒƒã‚µã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒJ[ƒ\ƒ‹‚ÌÀ•WXVˆ—‚ÌƒAƒNƒZƒbƒT</returns>
+		/// <returns>ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™æ›´æ–°å‡¦ç†ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µ</returns>
 		CursorUpdater& GetUpdater() { return updater_; }
 
 		/// <summary>
-		/// ƒJ[ƒ\ƒ‹‚Ì•\¦‚ğİ’è‚·‚é
+		/// ã‚«ãƒ¼ã‚½ãƒ«ã®è¡¨ç¤ºã‚’è¨­å®šã™ã‚‹
 		/// </summary>
-		/// <param name="_isShow">ƒJ[ƒ\ƒ‹‚ğ•\¦‚·‚é</param>
+		/// <param name="_isShow">ã‚«ãƒ¼ã‚½ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹</param>
 		void SetShow(const bool _isShow);
 		/// <summary>
-		/// ƒJ[ƒ\ƒ‹‚ğ•\¦‚µ‚Ä‚¢‚é‚©‚ğæ“¾
+		/// ã‚«ãƒ¼ã‚½ãƒ«ã‚’è¡¨ç¤ºã—ã¦ã„ã‚‹ã‹ã‚’å–å¾—
 		/// </summary>
-		/// <returns>•\¦‚µ‚Ä‚¢‚é true / false</returns>
+		/// <returns>è¡¨ç¤ºã—ã¦ã„ã‚‹ true / false</returns>
 		bool IsShow() const { return isShow_; }
 
 		/// <summary>
-		/// ƒJ[ƒ\ƒ‹‚ÌÀ•W‚ğæ“¾‚·‚é
+		/// ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns></returns>
 		Vector2Int GetPosition() const;
 
 	private:
 		/// <summary>
-		/// ƒJ[ƒ\ƒ‹‚ÌÀ•W‚ğ’†‰›‚É‚·‚é
+		/// ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™ã‚’ä¸­å¤®ã«ã™ã‚‹
 		/// </summary>
 		void SetPositionCenter();
 
 		/// <summary>
-		/// ƒJ[ƒ\ƒ‹‚ÌÀ•W‚ğƒƒbƒNÀ•W‚É‚·‚é
+		/// ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™ã‚’ãƒ­ãƒƒã‚¯åº§æ¨™ã«ã™ã‚‹
 		/// </summary>
 		void SetPosition(const Vector2Int _position);
 
 	private:
 		/// <summary>
-		/// ƒVƒXƒeƒ€‚ÉƒAƒNƒZƒX
+		/// ã‚·ã‚¹ãƒ†ãƒ ã«ã‚¢ã‚¯ã‚»ã‚¹
 		/// </summary>
-		/// <returns>ƒVƒXƒeƒ€</returns>
+		/// <returns>ã‚·ã‚¹ãƒ†ãƒ </returns>
 		ViewerCached& System() { return system_; }
 
 	private:
-		Vector2Int previousPosition_;  // ‘O‰ñ‚ÌƒtƒŒ[ƒ€‚Å‚ÌƒJ[ƒ\ƒ‹À•W
-		bool isLock_;  // ƒJ[ƒ\ƒ‹‚ğŒÅ’è‚·‚é‚©
-		Vector2Int lockPosition_;  // ŒÅ’è‚·‚éƒJ[ƒ\ƒ‹À•W
-		//bool isCenterLock_;  // ƒJ[ƒ\ƒ‹‚ğ‰æ–Ê’†‰›‚ÉŒÅ’è‚·‚é‚©
-		bool isIgnoreMoveFlag_;  // 1‰ñ‚¾‚¯ˆÚ“®—Ê‚ğ–³‹‚·‚éƒtƒ‰ƒO
-		bool isShow_;  // •\¦‚³‚ê‚Ä‚¢‚é‚©
-		ViewerCached system_;  // ƒVƒXƒeƒ€ƒAƒNƒZƒX—p
-		Vector2Int frameMoveDelta_;  // 1ƒtƒŒ[ƒ€ŠÔ‚ÌˆÚ“®‰ÁZ
-		Vector2Int frameMove_;     // 1ƒtƒŒ[ƒ€‚Å‚ÌˆÚ“®—Ê
+		Vector2Int previousPosition_;  // å‰å›ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã®ã‚«ãƒ¼ã‚½ãƒ«åº§æ¨™
+		bool isLock_;  // ã‚«ãƒ¼ã‚½ãƒ«ã‚’å›ºå®šã™ã‚‹ã‹
+		Vector2Int lockPosition_;  // å›ºå®šã™ã‚‹ã‚«ãƒ¼ã‚½ãƒ«åº§æ¨™
+		//bool isCenterLock_;  // ã‚«ãƒ¼ã‚½ãƒ«ã‚’ç”»é¢ä¸­å¤®ã«å›ºå®šã™ã‚‹ã‹
+		bool isIgnoreMoveFlag_;  // 1å›ã ã‘ç§»å‹•é‡ã‚’ç„¡è¦–ã™ã‚‹ãƒ•ãƒ©ã‚°
+		bool isShow_;  // è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹ã‹
+		ViewerCached system_;  // ã‚·ã‚¹ãƒ†ãƒ ã‚¢ã‚¯ã‚»ã‚¹ç”¨
+		Vector2Int frameMoveDelta_;  // 1ãƒ•ãƒ¬ãƒ¼ãƒ é–“ã®ç§»å‹•åŠ ç®—
+		Vector2Int frameMove_;     // 1ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã®ç§»å‹•é‡
 
-		CursorUpdater updater_;  // ƒJ[ƒ\ƒ‹‚ÌÀ•WXVˆ—ƒAƒNƒZƒX—p
+		CursorUpdater updater_;  // ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™æ›´æ–°å‡¦ç†ã‚¢ã‚¯ã‚»ã‚¹ç”¨
 	};
 }
 

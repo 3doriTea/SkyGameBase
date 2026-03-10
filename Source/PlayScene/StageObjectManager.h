@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ƒXƒe[ƒWã‚ÌƒIƒuƒWƒFƒNƒg‚ğŠÇ—‚·‚é
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ä¸Šã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç®¡ç†ã™ã‚‹
 /// </summary>
 class StageObjectManager : public GameObject
 {
@@ -15,14 +15,14 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ”š”­‚³‚¹‚é
+	/// çˆ†ç™ºã•ã›ã‚‹
 	/// </summary>
 	void Fire();
 
 private:
-	float spawnTimeLeftSec_;  // ƒXƒ|[ƒ“‚Ü‚Å‚ÌƒJƒEƒ“ƒgƒ_ƒEƒ“ƒ^ƒCƒ}
-	EntityId stageLine_;      // ƒXƒe[ƒWƒ‰ƒCƒ“‚ÌƒGƒ“ƒeƒBƒeƒBId
-	EntityId player_;         // ƒvƒŒƒCƒ„[‚ÌƒGƒ“ƒeƒBƒeƒBId
-	EntityId playState_;      // ƒvƒŒƒCó‘Ô
+	float spawnTimeLeftSec_;  // ã‚¹ãƒãƒ¼ãƒ³ã¾ã§ã®ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã‚¿ã‚¤ãƒ
+	EntityId stageLine_;      // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ©ã‚¤ãƒ³ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id
+	EntityId player_;         // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id
+	EntityId playState_;      // ãƒ—ãƒ¬ã‚¤çŠ¶æ…‹
 };
 

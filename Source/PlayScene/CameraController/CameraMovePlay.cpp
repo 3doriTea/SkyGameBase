@@ -6,21 +6,21 @@
 
 namespace
 {
-	// ƒvƒŒƒCƒ„[‚Ü‚Å‚Ì‹——£
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¾ã§ã®è·é›¢
 	const float TO_PLAYER_DISTANCE{ 30.0f };
 
-	// ƒvƒŒƒCƒ„[‚Ìƒhƒ‰ƒbƒO”ÍˆÍ (ƒsƒNƒZƒ‹)
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‰ãƒ©ãƒƒã‚°ç¯„å›² (ãƒ”ã‚¯ã‚»ãƒ«)
 	const int PLAYER_DRAG_RADIUS_PIX{ 130 };
-	// ƒvƒŒƒCƒ„[‚Ìƒhƒ‰ƒbƒO”ÍˆÍ‚Ì2ˆÈã (ƒsƒNƒZƒ‹)
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‰ãƒ©ãƒƒã‚°ç¯„å›²ã®2ä»¥ä¸Š (ãƒ”ã‚¯ã‚»ãƒ«)
 	const int PLAYER_DRAG_RADIUS_PIX_SQ{ PLAYER_DRAG_RADIUS_PIX * PLAYER_DRAG_RADIUS_PIX };
 
-	// ‰ñ“]‘¬“x
+	// å›è»¢é€Ÿåº¦
 	const float MOVE_ANGLE_DEG{ 3.0f };
 
 	const float ANGLE_MAX_DEG{ 80.0f };
 	const float ANGLE_MIN_DEG{ -80.0f };
 
-	const float CAMERA_OFFSET_Y_ON_STAGE_LINE{ 3.0f };  // ƒXƒe[ƒW’n–Ê‚©‚ç‚ÌƒIƒtƒZƒbƒg
+	const float CAMERA_OFFSET_Y_ON_STAGE_LINE{ 3.0f };  // ã‚¹ãƒ†ãƒ¼ã‚¸åœ°é¢ã‹ã‚‰ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ
 }
 
 CameraMovePlay::CameraMovePlay() :
@@ -43,7 +43,7 @@ void CameraMovePlay::Start(GameObjectReference _ref)
 	auto [systemView, entityId]{ _ref };
 
 	GameObject* pStageLineObj{ systemView.Get<CPGameObject>().FindGameObject("StageLine") };
-	wassert(pStageLineObj && "ƒXƒe[ƒWƒ‰ƒCƒ“‚ªƒV[ƒ“‚É‘¶İ‚µ‚È‚¢‚æI");
+	wassert(pStageLineObj && "ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ©ã‚¤ãƒ³ãŒã‚·ãƒ¼ãƒ³ã«å­˜åœ¨ã—ãªã„ã‚ˆï¼");
 	if (pStageLineObj)
 	{
 		stageLine_ = pStageLineObj->GetEntityId();
@@ -61,16 +61,16 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	GameWindow& gameWindow{ systemView.Get<GameWindow>() };
 	const Input::InputGetter& input{ systemView.Get<Input>().Getter() };
 
-	// ƒJƒƒ‰ƒRƒ“ƒgƒ[ƒ‰‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ìî•ñ
+	// ã‚«ãƒ¡ãƒ©ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æƒ…å ±
 
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
 	GameObject* pGameObject{ systemView.Get<CPGameObject>().Get(entityId)->get() };
 	GameObject* pPlayer{ pGameObject->FindGameObject("Player") };
 
-	// ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚Ì§Œä
-	if (input.IsMouseDown(MouseCode::Left)  // ƒ}ƒEƒX¶‰Ÿ‚³‚ê‚½
-		&& gameWindow.IsActiveMainWindow()  // ‚©‚ÂƒEƒBƒ“ƒhƒE‚ªÅ‘O–Ê
-		&& gameWindow.IsDefaultControled())  // ‚©‚ÂƒQ[ƒ€‰æ–Ê‚Ì‘€ì
+	// ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®åˆ¶å¾¡
+	if (input.IsMouseDown(MouseCode::Left)  // ãƒã‚¦ã‚¹å·¦æŠ¼ã•ã‚ŒãŸ
+		&& gameWindow.IsActiveMainWindow()  // ã‹ã¤ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒæœ€å‰é¢
+		&& gameWindow.IsDefaultControled())  // ã‹ã¤ã‚²ãƒ¼ãƒ ç”»é¢ã®æ“ä½œ
 	{
 		isDragging_ = true;
 
@@ -101,14 +101,14 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 			cursor.SetCenterLock(false);
 			cursor.SetShow(true);
 		}
-		else  // ƒvƒŒƒCƒ„[‘€ì‚Ìó‘Ô‚¾‚Á‚½‚ç
+		else  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ“ä½œã®çŠ¶æ…‹ã ã£ãŸã‚‰
 		{
 			const float MOVE_MAX_SPEED{ 10.0f };
 			const float CURSOR_MOVE_TO_VELOCITY{ 0.1f };
 
 			Player* pp{ dynamic_cast<Player*>(pPlayer) };
 
-			// ƒ}ƒEƒX‚ÌˆÚ“®—Ê‚©‚ç‘¬“x‚ğ‹‚ß‚é
+			// ãƒã‚¦ã‚¹ã®ç§»å‹•é‡ã‹ã‚‰é€Ÿåº¦ã‚’æ±‚ã‚ã‚‹
 			Vector3 velocity
 			{
 				Vector3{ static_cast<float>(diffValue_.x), 0.0f, -static_cast<float>(diffValue_.y) }
@@ -117,7 +117,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 			//LOGFLN("v({}, {}, {})", velocity.x, velocity.y, velocity.z);
 
-			// ƒvƒŒƒCƒ„[‚Ìƒ[ƒJƒ‹•ûŒü‚Ö•ÏŠ·
+			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ­ãƒ¼ã‚«ãƒ«æ–¹å‘ã¸å¤‰æ›
 			velocity = XMVector3TransformCoord(velocity, XMMatrixRotationY(angleY_));
 
 			pp->AddMove(velocity);
@@ -127,15 +127,15 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		isDragging_ = false;
 	}
 
-	// MEMO: angleX_ ‚É‰ÁZ‚·‚é‚ÆƒJƒƒ‰‚Ì‘€ì‚Æ“¯Šú‚µ‚Ä‚í‚©‚ç‚È‚­‚È‚Á‚½
+	// MEMO: angleX_ ã«åŠ ç®—ã™ã‚‹ã¨ã‚«ãƒ¡ãƒ©ã®æ“ä½œã¨åŒæœŸã—ã¦ã‚ã‹ã‚‰ãªããªã£ãŸ
 
-	// –Ú•W’n“_
+	// ç›®æ¨™åœ°ç‚¹
 	Vector3 toPosition{};
 	const Vector3 OFFSET{ 0.0f, 0.0f, -TO_PLAYER_DISTANCE };
 	Matrix4x4 rotationMatrix{ XMMatrixRotationX(angleX_) * XMMatrixRotationY(angleY_) };
 	toPosition = XMVector3TransformCoord(OFFSET, rotationMatrix) + pPlayer->Transform().GetPositionWorld();
 
-#pragma region y²‘¬“x‚Ì•ª”——Í‚ğ‚à‚½‚¹‚é
+#pragma region yè»¸é€Ÿåº¦ã®åˆ†è¿«åŠ›ã‚’ã‚‚ãŸã›ã‚‹
 	RigidBody& rb{ pPlayer->GetComponent<RigidBody>() };
 	float emphasisCurrYOffset{ std::clamp(rb.GetVelocity().y, -10.0f, 10.0f) };
 
@@ -145,25 +145,25 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		emphasisBoost_ = 0.0f;
 	}
 
-	// ‰º‚ª‚Á‚Ä(-) ‚©‚ç ã‚ª‚é (+)
+	// ä¸‹ãŒã£ã¦(-) ã‹ã‚‰ ä¸ŠãŒã‚‹ (+)
 	if (emphasisPrevYOffset_ - emphasisCurrYOffset < emphasis_.boostThreshold)
 	{
-		// ÕŒ‚‚ğ‰Á‚¦‚é
+		// è¡æ’ƒã‚’åŠ ãˆã‚‹
 		emphasisBoost_ = emphasis_.boostValue;
 
-		// ƒoƒEƒ“ƒh‚ÌÕŒ‚‚à‰Á‚¦‚é
+		// ãƒã‚¦ãƒ³ãƒ‰ã®è¡æ’ƒã‚‚åŠ ãˆã‚‹
 		bounceImpactPlayRatio_ = { 0.3f, 0.8f, 0.0f };
 		bounceImpactIntensity_ = bounceImpact.startIntensity;
 	}
 
-	// MEMO: expf‚Ì’†‚Ì -‚ª”²‚¯‚é‚Æ–³ŒÀ‘å‚É”­U‚·‚é‚æ()
+	// MEMO: expfã®ä¸­ã® -ãŒæŠœã‘ã‚‹ã¨ç„¡é™å¤§ã«ç™ºæ•£ã™ã‚‹ã‚ˆ()
 	float t = 1.0f - std::expf(-(emphasis_.responseRatio + emphasisBoost_) * dt);
 	emphasisPrevYOffset_ = Mathf::Lerp(emphasisPrevYOffset_, emphasisCurrYOffset, t);
 	toPosition.y -= emphasisPrevYOffset_;
 #pragma endregion
 
-#pragma region ƒoƒEƒ“ƒh’†‚ÌÕŒ‚
-	// ƒJƒƒ‰‚ğ—h‚ç‚·
+#pragma region ãƒã‚¦ãƒ³ãƒ‰ä¸­ã®è¡æ’ƒ
+	// ã‚«ãƒ¡ãƒ©ã‚’æºã‚‰ã™
 	toPosition = toPosition + Vector3
 	{
 		std::sinf(bounceImpactPlayRatio_.x) * bounceImpactIntensity_.x,
@@ -171,13 +171,13 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		std::sinf(bounceImpactPlayRatio_.z) * bounceImpactIntensity_.z,
 	};
 
-	// Ä¶ƒŒ[ƒg‚ği‚ß‚é
+	// å†ç”Ÿãƒ¬ãƒ¼ãƒˆã‚’é€²ã‚ã‚‹
 	bounceImpactPlayRatio_ = bounceImpactPlayRatio_ + bounceImpact.frequencyPerSec * dt;
 	bounceImpactPlayRatio_.x = std::fmodf(bounceImpactPlayRatio_.x, 1.0f);
 	bounceImpactPlayRatio_.y = std::fmodf(bounceImpactPlayRatio_.y, 1.0f);
 	bounceImpactPlayRatio_.z = std::fmodf(bounceImpactPlayRatio_.z, 1.0f);
 
-	// —h‚ê‚Ì‹­‚³‚ğŒ¸Š‚³‚¹‚é
+	// æºã‚Œã®å¼·ã•ã‚’æ¸›è¡°ã•ã›ã‚‹
 	float dampingT = 1.0f - std::expf(-(bounceImpact.dampingRatioPerSec) * dt);
 	bounceImpactIntensity_ = Mathf::Lerp(
 		bounceImpactIntensity_,
@@ -188,7 +188,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 	pTransform->SetPositionWorld(toPosition);
 
-	{  // ƒvƒŒƒCƒ„[‚ª‘O‚Éi‚ñ‚Å‚¢‚é‚Æ‚«AƒJƒƒ‰‚ğ‚¾‚ñ‚¾‚ñ‚Æ‘O‚ÉŒü‚¯‚éˆ—
+	{  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå‰ã«é€²ã‚“ã§ã„ã‚‹ã¨ãã€ã‚«ãƒ¡ãƒ©ã‚’ã ã‚“ã ã‚“ã¨å‰ã«å‘ã‘ã‚‹å‡¦ç†
 		
 		if (rb.GetVelocity().z > 0.0f)
 		{
@@ -197,27 +197,27 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 			pTransform->SetRotation(rotation);
 		}
 	}
-	// ƒvƒŒƒCƒ„[‚Ü‚Å‚Ì·•ªƒxƒNƒgƒ‹
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¾ã§ã®å·®åˆ†ãƒ™ã‚¯ãƒˆãƒ«
 	Vector3 toPlayerDiff{ pPlayer->Transform().GetPositionWorld() - pTransform->GetPositionWorld() };
-	// ƒvƒŒƒCƒ„[‚ğŒü‚­•ûŒüƒxƒNƒgƒ‹
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å‘ãæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
 	Vector3 toPlayerDir{ XMVector3Normalize(toPlayerDiff) };
 
 	{
-		// MEMO: ‚ ‚éƒxƒNƒgƒ‹‚©‚ç‚ ‚éƒxƒNƒgƒ‹‚Ö‚Ì‰ñ“]‚Í•K‚¸2‰ñ‚Ì‘€ì‚ÅŠ®Œ‹‚·‚é
-		//     : 2‚Â‚É‚’¼‚È1‚Â‚Ì²ƒxƒNƒgƒ‹‚ğŒ©‚Â‚¯
-		//     : ‚»‚Ì²‚Å‰ñ“]‚³‚¹‚é
+		// MEMO: ã‚ã‚‹ãƒ™ã‚¯ãƒˆãƒ«ã‹ã‚‰ã‚ã‚‹ãƒ™ã‚¯ãƒˆãƒ«ã¸ã®å›è»¢ã¯å¿…ãš2å›ã®æ“ä½œã§å®Œçµã™ã‚‹
+		//     : 2ã¤ã«å‚ç›´ãª1ã¤ã®è»¸ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¦‹ã¤ã‘
+		//     : ãã®è»¸ã§å›è»¢ã•ã›ã‚‹
 
 		Vector3 forward{ Vector3::Forward() };
 
 		Vector3 direction{ toPlayerDir };
 
-		// 2²•½–Ê‚É‚’¼‚ÈƒxƒNƒgƒ‹ = ‰ñ“]²‚Æ‚È‚é–@üƒxƒNƒgƒ‹
+		// 2è»¸å¹³é¢ã«å‚ç›´ãªãƒ™ã‚¯ãƒˆãƒ« = å›è»¢è»¸ã¨ãªã‚‹æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
 		Vector3 normal{ XMVector3Cross(forward, direction) };
 
-		// ‚Ù‚Ú0‚È‚ç–@ü‚ª–³ŒÀ‚É‚ ‚é‚½‚ßŒvZ‚Å‚«‚È‚¢
+		// ã»ã¼0ãªã‚‰æ³•ç·šãŒç„¡é™ã«ã‚ã‚‹ãŸã‚è¨ˆç®—ã§ããªã„
 		if (XMVectorGetX(XMVector3Length(normal)) > FLT_EPSILON)
 		{
-			float rotationAngle  // ‰ñ“]Šp“x (ƒ‰ƒWƒAƒ“)
+			float rotationAngle  // å›è»¢è§’åº¦ (ãƒ©ã‚¸ã‚¢ãƒ³)
 			{
 				XMVectorGetX(XMVector3AngleBetweenVectors(forward, direction))
 			};
@@ -236,7 +236,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 				rotation.y = std::atan2(m._31, m._33);
 				rotation.z = std::atan2(m._12, m._22);
 			}
-			else  // ƒWƒ“ƒoƒ‹ƒƒbƒN‰ñ”ğ‚·‚é
+			else  // ã‚¸ãƒ³ãƒãƒ«ãƒ­ãƒƒã‚¯å›é¿ã™ã‚‹
 			{
 				rotation.x = std::copysign(XM_PIDIV2, -m._32);
 				rotation.y = std::atan2(-m._13, m._11);
@@ -245,23 +245,23 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 			pTransform->SetRotation(rotation);
 		}
-	}// ‚¤‚Ü‚­s‚Á‚Ä‚¢‚é‚Ù‚Çƒ`ƒƒƒlƒ‹‚ª‘‚¦‚é@‘¼‚ÌƒoƒbƒO‚Ì‰¹‚ª‘‚¦‚é‚±‚Æ‚ÅŠ´î‚ª‚‚Ô‚é
-// ¸”s‚·‚é‚ÆŒ¸‚Á‚Ä‚¢‚­
+	}// ã†ã¾ãè¡Œã£ã¦ã„ã‚‹ã»ã©ãƒãƒ£ãƒãƒ«ãŒå¢—ãˆã‚‹ã€€ä»–ã®ãƒãƒƒã‚°ã®éŸ³ãŒå¢—ãˆã‚‹ã“ã¨ã§æ„Ÿæƒ…ãŒé«˜ã¶ã‚‹
+// å¤±æ•—ã™ã‚‹ã¨æ¸›ã£ã¦ã„ã
 
 	if (stageLine_ != INVALID_ENTITY)
 	{
 		GameObject* pStageLineObj{ systemView.Get<CPGameObject>().FindGameObject(stageLine_) };
 		StageLine* pStageLine{ dynamic_cast<StageLine*>(pStageLineObj) };
 
-		wassert(pStageLine && "Œë‚Á‚½ƒXƒe[ƒWƒ‰ƒCƒ“‚ÌƒGƒ“ƒeƒBƒeƒBId‚ªæ“¾‚³‚ê‚Ä‚¢‚éI");
+		wassert(pStageLine && "èª¤ã£ãŸã‚¹ãƒ†ãƒ¼ã‚¸ãƒ©ã‚¤ãƒ³ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£IdãŒå–å¾—ã•ã‚Œã¦ã„ã‚‹ï¼");
 
 		if (pStageLine)
 		{
 			Vector3 cameraWorldPos{ pTransform->GetPosition() };
 			float posY{ pStageLine->GetPosY(cameraWorldPos) };
-			posY = posY + CAMERA_OFFSET_Y_ON_STAGE_LINE;  // ƒIƒtƒZƒbƒg•ªã‚°‚Ä‚ ‚°‚é
+			posY = posY + CAMERA_OFFSET_Y_ON_STAGE_LINE;  // ã‚ªãƒ•ã‚»ãƒƒãƒˆåˆ†ä¸Šã’ã¦ã‚ã’ã‚‹
 
-			// ƒJƒƒ‰‚ª’n–Ê‚É–„‚Ü‚Á‚Ä‚¢‚é‚È‚çã‚°‚é
+			// ã‚«ãƒ¡ãƒ©ãŒåœ°é¢ã«åŸ‹ã¾ã£ã¦ã„ã‚‹ãªã‚‰ä¸Šã’ã‚‹
 			if (cameraWorldPos.y <= posY)
 			{
 				Vector3 a{ toPlayerDir };
@@ -277,7 +277,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 		}
 	}
 
-	// ƒhƒ‰ƒbƒO’†‚Ìˆ—
+	// ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®å‡¦ç†
 	Vector2Int move{ cursor.GetFrameMove() };
 	if (isDragging_)
 	{

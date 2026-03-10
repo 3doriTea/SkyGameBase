@@ -55,29 +55,29 @@ void Button::Update()
 
 	if (isPushedFrame_)
 	{
-		// ‘O‚ª‰Ÿ‚³‚ê‚½ƒtƒŒ[ƒ€‚¾‚Á‚½‚Ì‚È‚ç–ß‚·
+		// å‰ãŒæŠ¼ã•ã‚ŒãŸãƒ•ãƒ¬ãƒ¼ãƒ ã ã£ãŸã®ãªã‚‰æˆ»ã™
 		isPushedFrame_ = false;
 	}
 
-	// ƒJ[ƒ\ƒ‹‚ª”ÍˆÍ“à‚©ƒ`ƒFƒbƒN
+	// ã‚«ãƒ¼ã‚½ãƒ«ãŒç¯„å›²å†…ã‹ãƒã‚§ãƒƒã‚¯
 	isOnCursor_ = isOnCursorFunc_(position_, size_, cursorPos);
 	
 	if (isOnCursor_)
 	{
 		if (input.IsMouseDown(MouseCode::Left))
 		{
-			// ƒ{ƒ^ƒ“‚Ì‰Ÿ‚µ‚İŠJn
+			// ãƒœã‚¿ãƒ³ã®æŠ¼ã—è¾¼ã¿é–‹å§‹
 			isPressing_ = true;
 		}
 	}
-	else  // ƒJ[ƒ\ƒ‹‚ª”ÍˆÍŠO‚È‚ç‰Ÿ‚µ‚İ‚ ‚è‚¦‚È‚¢
+	else  // ã‚«ãƒ¼ã‚½ãƒ«ãŒç¯„å›²å¤–ãªã‚‰æŠ¼ã—è¾¼ã¿ã‚ã‚Šãˆãªã„
 	{
 		isPressing_ = false;
 	}
 
 	if (isPressing_ && input.IsMouseUp(MouseCode::Left))
-	{  // ‰Ÿ‚µ‚İó‘Ô‚Åƒ}ƒEƒX¶ƒ{ƒ^ƒ“—£‚³‚ê‚½‚È‚ç
-		isPushedFrame_ = true;  // ‚±‚ÌƒtƒŒ[ƒ€‚Åƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½I
+	{  // æŠ¼ã—è¾¼ã¿çŠ¶æ…‹ã§ãƒã‚¦ã‚¹å·¦ãƒœã‚¿ãƒ³é›¢ã•ã‚ŒãŸãªã‚‰
+		isPushedFrame_ = true;  // ã“ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸï¼
 		isPressing_ = false;
 	}
 

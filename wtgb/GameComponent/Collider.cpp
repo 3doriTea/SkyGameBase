@@ -35,7 +35,7 @@ wtgb::Collider::Collider(const Collider& _other) :
 		sphere = _other.sphere;
 		break;
 	default:
-		wassert(false && "–¢À‘•‚Ì“–‚½‚è”»’èƒ^ƒCƒv");
+		wassert(false && "æœªå®Ÿè£…ã®å½“ãŸã‚Šåˆ¤å®šã‚¿ã‚¤ãƒ—");
 		break;
 	}
 }

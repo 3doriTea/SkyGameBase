@@ -8,7 +8,7 @@ namespace wtgb
 	{
 	public:
 		/// <summary>
-		/// ’¸“_î•ñ
+		/// é ‚ç‚¹æƒ…å ±
 		/// </summary>
 		struct Vertex
 		{
@@ -18,20 +18,20 @@ namespace wtgb
 		};
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@
+		/// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		struct ConstantBuffer
 		{
-			Matrix4x4 matrixProjection;   // Projections—ñ
-			Matrix4x4 matrixView;         // Views—ñ
-			Matrix4x4 matrixWVP;          // ƒ[ƒ‹ƒhƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“‚Ì‡¬s—ñ
-			Matrix4x4 matrixUV;           // UV•ÏŠ·s—ñ
-			Matrix4x4 matrixRotateWorld;  // –@ü—pƒ[ƒ‹ƒh‰ñ“]s—ñ
-			Vector4 lightDirection;       // •½sŒõü‚ÌŒü‚«
-			Color lightColor;             // •½sŒõü‚ÌF
-			Color diffuseColor;           // ƒeƒNƒXƒ`ƒƒ‚ª–³‚¢ê‡‚ÌƒfƒBƒtƒ…[ƒYF
-			FLOAT ambientValue;           // ŠÂ‹«Œõ‚Ì—Ê
-			BOOL hasTexture;              // ƒeƒNƒXƒ`ƒƒ‚ğ‚Á‚Ä‚¢‚é‚©
+			Matrix4x4 matrixProjection;   // Projectionè¡Œåˆ—
+			Matrix4x4 matrixView;         // Viewè¡Œåˆ—
+			Matrix4x4 matrixWVP;          // ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ã®åˆæˆè¡Œåˆ—
+			Matrix4x4 matrixUV;           // UVå¤‰æ›è¡Œåˆ—
+			Matrix4x4 matrixRotateWorld;  // æ³•ç·šç”¨ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢è¡Œåˆ—
+			Vector4 lightDirection;       // å¹³è¡Œå…‰ç·šã®å‘ã
+			Color lightColor;             // å¹³è¡Œå…‰ç·šã®è‰²
+			Color diffuseColor;           // ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒç„¡ã„å ´åˆã®ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+			FLOAT ambientValue;           // ç’°å¢ƒå…‰ã®é‡
+			BOOL hasTexture;              // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æŒã£ã¦ã„ã‚‹ã‹
 		};
 
 	public:
@@ -39,49 +39,49 @@ namespace wtgb
 		virtual ~IMeshSimple();
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		virtual void Init(ViewerCached _system) override = 0;
 		/// <summary>
-		/// ‰ğ•úˆ—
+		/// è§£æ”¾å‡¦ç†
 		/// </summary>
 		virtual void Release(ViewerCached _system) override = 0;
 		/// <summary>
-		/// ’¸“_\‘¢‘Ì‚ÌƒTƒCƒY‚ğæ“¾‚·‚é
+		/// é ‚ç‚¹æ§‹é€ ä½“ã®ã‚µã‚¤ã‚ºã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>’¸“_\‘¢‘Ì‚ÌƒTƒCƒY(byte)</returns>
+		/// <returns>é ‚ç‚¹æ§‹é€ ä½“ã®ã‚µã‚¤ã‚º(byte)</returns>
 		virtual size_t GetVertexSize() const { return sizeof(Vertex); };
 		/// <summary>
-		/// ƒCƒ“ƒfƒNƒX‚Ì”‚ğæ“¾‚·‚é
+		/// ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹ã®æ•°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒCƒ“ƒfƒbƒNƒX”</returns>
+		/// <returns>ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°</returns>
 		virtual uint32_t GetIndexCount() const = 0;
 		/// <summary>
-		/// ’¸“_”‚ğæ“¾‚·‚é
+		/// é ‚ç‚¹æ•°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>’¸“_”</returns>
+		/// <returns>é ‚ç‚¹æ•°</returns>
 		virtual uint32_t GetVertexCount() const = 0;
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒƒnƒ“ƒhƒ‹‚ğæ“¾‚·‚é (”CˆÓ)
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—ã™ã‚‹ (ä»»æ„)
 		/// </summary>
-		/// <returns>ƒeƒNƒXƒ`ƒƒ‚ª‚ ‚éê‡ƒnƒ“ƒhƒ‹ / ‚È‚¯‚ê‚Î–³Œøƒnƒ“ƒhƒ‹</returns>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒã‚ã‚‹å ´åˆãƒãƒ³ãƒ‰ãƒ« / ãªã‘ã‚Œã°ç„¡åŠ¹ãƒãƒ³ãƒ‰ãƒ«</returns>
 		virtual TextureHandle GetTextureHandle() const { return INVALID_HANDLE; }
 
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@‚ğæ“¾‚·‚é
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>’¸“_ƒoƒbƒtƒ@</returns>
+		/// <returns>é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡</returns>
 		virtual ComPtr<ID3D11Buffer>& GetVertexBuffer() = 0;
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ğæ“¾‚·‚é
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@</returns>
+		/// <returns>ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡</returns>
 		virtual ComPtr<ID3D11Buffer>& GetIndexBuffer() = 0;
 		/// <summary>
-		/// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğæ“¾‚·‚é
+		/// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@</returns>
+		/// <returns>ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡</returns>
 		virtual ComPtr<ID3D11Buffer>& GetConstantBuffer() = 0;
 	};
 }

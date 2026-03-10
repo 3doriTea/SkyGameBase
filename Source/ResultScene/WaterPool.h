@@ -4,7 +4,7 @@
 
 
 /// <summary>
-/// …–Êƒv[ƒ‹
+/// æ°´é¢ãƒ—ãƒ¼ãƒ«
 /// </summary>
 class WaterPool : public GameObject
 {
@@ -17,16 +17,16 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// w’è‚µ‚½À•W‚Ìy²ã‚ÅƒXƒe[ƒW–Ê‚ÌyÀ•W‚ğæ“¾‚·‚é
+	/// æŒ‡å®šã—ãŸåº§æ¨™ã®yè»¸ä¸Šã§ã‚¹ãƒ†ãƒ¼ã‚¸é¢ã®yåº§æ¨™ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <param name="_worldPosition">ƒ[ƒ‹ƒhÀ•W</param>
-	/// <returns>ƒXƒe[ƒW‚ÌyÀ•W</returns>
+	/// <param name="_worldPosition">ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™</param>
+	/// <returns>ã‚¹ãƒ†ãƒ¼ã‚¸ã®yåº§æ¨™</returns>
 	float GetPosY(const Vector3& _worldPosition) { return 0.0f; wassert(false); }
 
 	/// <summary>
-	/// ƒXƒe[ƒW‚ÌxzƒTƒCƒY‚ğæ“¾‚·‚é
+	/// ã‚¹ãƒ†ãƒ¼ã‚¸ã®xzã‚µã‚¤ã‚ºã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>xzƒTƒCƒY</returns>
+	/// <returns>xzã‚µã‚¤ã‚º</returns>
 	Vector2 GetSizeXZ() const
 	{
 		return
@@ -38,14 +38,14 @@ public:
 
 private:
 	/// <summary>
-	/// ƒpƒ‰ƒ[ƒ^‚ğ“Ç‚İ‚Ş
+	/// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
 	/// </summary>
-	/// <param name="_json">ƒpƒ‰ƒ[ƒ^‚Ìjson</param>
+	/// <param name="_json">ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®json</param>
 	void OnLoadParam(const json& _json);
 
 private:
-	Vector2 verticesDistance_;     // Še’¸“_ŠÔ‚Ì‹——£
-	Vector2Int verticesCount_;     // xz–Ê‚Ì’¸“_”
-	std::vector<float> points_;    // Še’¸“_‚Ì‚‚³ (y²‚¾‚¯‚Ìî•ñ)
-	WaterMesh waterMesh_;          // ƒXƒe[ƒW‚ÌƒƒbƒVƒ…î•ñ
+	Vector2 verticesDistance_;     // å„é ‚ç‚¹é–“ã®è·é›¢
+	Vector2Int verticesCount_;     // xzé¢ã®é ‚ç‚¹æ•°
+	std::vector<float> points_;    // å„é ‚ç‚¹ã®é«˜ã• (yè»¸ã ã‘ã®æƒ…å ±)
+	WaterMesh waterMesh_;          // ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒ¡ãƒƒã‚·ãƒ¥æƒ…å ±
 };

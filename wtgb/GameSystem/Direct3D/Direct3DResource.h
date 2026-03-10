@@ -32,47 +32,47 @@ namespace wtgb
 		ComPtr<ID3D11DepthStencilView>& DepthStencilView() { return pDepthStencilView_; }
 
 		/// <summary>
-		/// ƒuƒŒƒ“ƒhƒXƒe[ƒg‚ğæ“¾‚·‚é
+		/// ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <param name="_blendMode">ƒuƒŒƒ“ƒhƒ‚[ƒh</param>
-		/// <returns>ƒuƒŒƒ“ƒhƒXƒe[ƒg‚ğæ“¾‚·‚é</returns>
+		/// <param name="_blendMode">ãƒ–ãƒ¬ãƒ³ãƒ‰ãƒ¢ãƒ¼ãƒ‰</param>
+		/// <returns>ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å–å¾—ã™ã‚‹</returns>
 		ComPtr<ID3D11BlendState>& BlendStateAt(const BlendMode _blendMode);
 
 		/// <summary>
-		/// k“xƒXƒeƒ“ƒVƒ‹ƒXƒe[ƒg‚ğæ“¾‚·‚é
+		/// éœ‡åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <param name="_zbufferMode">[“xƒoƒbƒtƒ@ƒ‚[ƒh</param>
-		/// <returns>k“xƒXƒeƒ“ƒVƒ‹ƒXƒe[ƒg‚ğæ“¾‚·‚é</returns>
+		/// <param name="_zbufferMode">æ·±åº¦ãƒãƒƒãƒ•ã‚¡ãƒ¢ãƒ¼ãƒ‰</param>
+		/// <returns>éœ‡åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å–å¾—ã™ã‚‹</returns>
 		ComPtr<ID3D11DepthStencilState>& DepthStencilAt(const ZBufferMode _zbufferMode);
 
 	private:
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override;
 
 		/// <summary>
-		/// ‰ğ•úˆ—
+		/// è§£æ”¾å‡¦ç†
 		/// </summary>
 		void Release() override;
 
 	private:
-		Config config_;  // İ’è
+		Config config_;  // è¨­å®š
 
-		ComPtr<ID3D11Device> pDevice_;          // ƒfƒoƒCƒX
-		ComPtr<ID3D11DeviceContext> pContext_;  // ƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg
+		ComPtr<ID3D11Device> pDevice_;          // ãƒ‡ãƒã‚¤ã‚¹
+		ComPtr<ID3D11DeviceContext> pContext_;  // ãƒ‡ãƒã‚¤ã‚¹ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
 
-		ComPtr<IDXGIDevice1> pDXGIDevice_;   // •¡”ƒfƒBƒXƒvƒŒƒC§Œä // TODO ‚È‚ºDevice‚ÆDevice1‚ª‚ ‚é‚Ì‚©‚ğ’²‚×‚é
+		ComPtr<IDXGIDevice1> pDXGIDevice_;   // è¤‡æ•°ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤åˆ¶å¾¡ // TODO ãªãœDeviceã¨Device1ãŒã‚ã‚‹ã®ã‹ã‚’èª¿ã¹ã‚‹
 		ComPtr<IDXGIAdapter> pDXGIAdapter_;  // 
 		ComPtr<IDXGIFactory> pDXGIFactory_;  // 
 
-		ComPtr<IDXGISwapChain> pSwapChain_;  // ƒXƒƒbƒvƒ`ƒF[ƒ“
+		ComPtr<IDXGISwapChain> pSwapChain_;  // ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ãƒ¼ãƒ³
 
-		ComPtr<ID3D11RenderTargetView> pRenderTargetView_;  // ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒgƒrƒ…[
-		ComPtr<ID3D11Texture2D> pDepthBuffer_;              // [“xƒoƒbƒtƒ@
-		ComPtr<ID3D11DepthStencilView> pDepthStencilView_;  // [“xƒXƒeƒ“ƒVƒ‹ƒrƒ…[
+		ComPtr<ID3D11RenderTargetView> pRenderTargetView_;  // ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ“ãƒ¥ãƒ¼
+		ComPtr<ID3D11Texture2D> pDepthBuffer_;              // æ·±åº¦ãƒãƒƒãƒ•ã‚¡
+		ComPtr<ID3D11DepthStencilView> pDepthStencilView_;  // æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ãƒ“ãƒ¥ãƒ¼
 
-		std::array<ComPtr<ID3D11BlendState>, BLEND_MODE_MAX> pBlendStates_;  // ƒuƒŒƒ“ƒhƒXƒe[ƒg
-		std::array<ComPtr<ID3D11DepthStencilState>, ZBUFFER_MODE_MAX> pDepthStencilStates_;  // k“xƒXƒeƒ“ƒVƒ‹ƒXƒe[ƒg
+		std::array<ComPtr<ID3D11BlendState>, BLEND_MODE_MAX> pBlendStates_;  // ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆ
+		std::array<ComPtr<ID3D11DepthStencilState>, ZBUFFER_MODE_MAX> pDepthStencilStates_;  // éœ‡åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã‚¹ãƒ†ãƒ¼ãƒˆ
 	};
 }

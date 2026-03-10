@@ -52,27 +52,27 @@ void wtgb::UI::RenderContentImage::Render(
 {
 	{
 		using namespace DirectX;
-#pragma region UVŒvZ
-		// ƒgƒŠƒ~ƒ“ƒOŒvZ
+#pragma region UVè¨ˆç®—
+		// ãƒˆãƒªãƒŸãƒ³ã‚°è¨ˆç®—
 
 		const Vector2 CUT_BEGIN{ cut.GetBegin() };
 		const Vector2 CUT_END{ cut.GetEnd() };
 
 		Matrix4x4 uvRotate = XMMatrixRotationZ(angle);
 
-		// ƒgƒŠƒ~ƒ“ƒO‹éŒ`‚Ì¶ã“_‚ğ•ÀsˆÚ“®
+		// ãƒˆãƒªãƒŸãƒ³ã‚°çŸ©å½¢ã®å·¦ä¸Šç‚¹ã‚’ä¸¦è¡Œç§»å‹•
 		Matrix4x4 uvMove = XMMatrixTranslation(
 			CUT_BEGIN.x * 1.0f / imageSize.x,
 			CUT_BEGIN.y * 1.0f / imageSize.y,
 			0.0f);
 
-		// ƒgƒŠƒ~ƒ“ƒO‹éŒ`‚ÌŠgk
+		// ãƒˆãƒªãƒŸãƒ³ã‚°çŸ©å½¢ã®æ‹¡ç¸®
 		Matrix4x4 uvScaling = XMMatrixScaling(
 			static_cast<float>(CUT_END.x - CUT_BEGIN.x) / imageSize.x,
 			static_cast<float>(CUT_END.y - CUT_BEGIN.y) / imageSize.y,
 			1.0f);
 
-		// uv s—ñ
+		// uv è¡Œåˆ—
 		Matrix4x4 matrixUV{ XMMatrixTranspose(uvScaling * uvRotate * uvMove) };
 #pragma endregion
 

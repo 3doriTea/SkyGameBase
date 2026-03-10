@@ -4,27 +4,27 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ���f���ɓ\��t����e�N�X�`���n���h��
+	/// モデルに貼り付けるテクスチャハンドル
 	/// </summary>
 	using TextureHandle = uint32_t;
 	/// <summary>
-	/// �Q�[����`�悷��E�B���h�E�̃n���h��
+	/// ゲームを描画するウィンドウのハンドル
 	/// </summary>
 	using GameWindowHandle = uint32_t;
 	/// <summary>
-	/// �ǂݍ��񂾃V�F�[�_�̃n���h��
+	/// 読み込んだシェーダのハンドル
 	/// </summary>
 	using ShaderHandle = uint32_t;
 	/// <summary>
-	/// �ǂݍ��񂾃��f���̃n���h��
+	/// 読み込んだモデルのハンドル
 	/// </summary>
 	using ModelHandle = uint32_t;
 	/// <summary>
-	/// �ǂݍ��񂾉����n���h��
+	/// 読み込んだ音声ハンドル
 	/// </summary>
 	using AudioHandle = uint32_t;
 	/// <summary>
-	/// �w�莞�Ԍ�ɋN�����鏈���n���h��
+	/// 指定時間後に起動する処理ハンドル
 	/// </summary>
 	using AlarmHandle = uint32_t;
 }

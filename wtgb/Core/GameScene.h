@@ -9,13 +9,13 @@ namespace wtgb
 	class CPGameObject;
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒV[ƒ“
+	/// ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³
 	/// </summary>
 	class GameScene
 	{
 	public:
 		/// <summary>
-		/// ƒQ[ƒ€ƒV[ƒ“‚Ìİ’è
+		/// ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã®è¨­å®š
 		/// </summary>
 		struct Config
 		{
@@ -28,20 +28,20 @@ namespace wtgb
 
 	public:
 		/// <summary>
-		/// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğƒCƒ“ƒXƒ^ƒ“ƒX‚·‚é
+		/// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã™ã‚‹
 		/// </summary>
-		/// <typeparam name="T">ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌŒ^</typeparam>
-		/// <typeparam name="...Args">‰Â•Ï’·ˆø”Œ^</typeparam>
-		/// <param name="..._args">‰Â•Ï’·ˆø”</param>
-		/// <returns>ƒCƒ“ƒXƒ^ƒ“ƒX‚³‚ê‚½ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì ptr / nullptr</returns>
+		/// <typeparam name="T">ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å‹</typeparam>
+		/// <typeparam name="...Args">å¯å¤‰é•·å¼•æ•°å‹</typeparam>
+		/// <param name="..._args">å¯å¤‰é•·å¼•æ•°</param>
+		/// <returns>ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã•ã‚ŒãŸã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã® ptr / nullptr</returns>
 		template<typename T, typename ...Args>
 		EntityId Instantiate(Args... _args)
 		{
 			EntityId entityId{ cachedSystem_.Get<ComponentManager>().GenerateEntity() };
-			// NOTE: new ‚·‚é‚ÆƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Í©‚ç©“®‚Åƒv[ƒ‹‚É’Ç‰Á‚³‚ê‚é
+			// NOTE: new ã™ã‚‹ã¨ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯è‡ªã‚‰è‡ªå‹•ã§ãƒ—ãƒ¼ãƒ«ã«è¿½åŠ ã•ã‚Œã‚‹
 			GameObject* pGameObject{ new T{ _args... } };
 
-			pGameObject->Init();  // ‰Šú‰»‚Í‚·‚®ŒÄ‚Ô
+			pGameObject->Init();  // åˆæœŸåŒ–ã¯ã™ãå‘¼ã¶
 
 			return entityId;
 		}
@@ -56,6 +56,6 @@ namespace wtgb
 		ViewerCached System() { return cachedSystem_; }
 
 	private:
-		ViewerCached cachedSystem_;  // ƒVƒXƒeƒ€QÆ—p
+		ViewerCached cachedSystem_;  // ã‚·ã‚¹ãƒ†ãƒ å‚ç…§ç”¨
 	};
 }

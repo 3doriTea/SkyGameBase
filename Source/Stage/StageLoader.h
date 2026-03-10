@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ステージデータのjsonファイルから頂点を読み取る
+/// 繧ｹ繝�繝ｼ繧ｸ繝�繝ｼ繧ｿ縺ｮjson繝輔ぃ繧､繝ｫ縺九ｉ鬆らせ繧定ｪｭ縺ｿ蜿悶ｋ
 /// </summary>
 class StageLoader
 {

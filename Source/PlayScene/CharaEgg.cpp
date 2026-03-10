@@ -70,10 +70,10 @@ void CharaEgg::Init()
 	OnLoadParam(GetComponent<Parameter>().Load());
 
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
-	wassert(pPlayScene && "ƒvƒŒƒCƒV[ƒ“æ“¾‚É¸”s");
+	wassert(pPlayScene && "ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³å–å¾—ã«å¤±æ•—");
 	if (pPlayScene == nullptr)
 	{
-		return;  // ƒvƒŒƒCƒV[ƒ“æ“¾‚É¸”s‚µ‚½‚½‚ß‰½‚à‚Å‚«‚È‚¢
+		return;  // ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³å–å¾—ã«å¤±æ•—ã—ãŸãŸã‚ä½•ã‚‚ã§ããªã„
 	}
 
 	for (int i = 0; i < ringsAngles_.size(); i++)
@@ -95,7 +95,7 @@ void CharaEgg::Update()
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
 	if (pPlayScene == nullptr)
 	{
-		return;  // ƒvƒŒƒCƒV[ƒ“‚ªæ“¾‚Å‚«‚È‚¢‚È‚ç‰½‚à‚µ‚È‚¢
+		return;  // ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ãŒå–å¾—ã§ããªã„ãªã‚‰ä½•ã‚‚ã—ãªã„
 	}
 	
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
@@ -108,7 +108,7 @@ void CharaEgg::Update()
 	WorldConfig worldConfig{ pPlayScene->GetWorldConfig() };
 
 	GameObject* pPlayerObj{ FindGameObject(player_) };
-	wassert(pPlayerObj && "ƒvƒŒƒCƒ„[‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
+	wassert(pPlayerObj && "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ");
 
 	Vector3 playerPos{ pPlayerObj->Transform().GetPosition() };
 	Vector3 selfPos{ Transform().GetPosition() };
@@ -123,7 +123,7 @@ void CharaEgg::Update()
 
 		pStageObjectManager->Fire();
 
-		// ƒŠƒ“ƒO‚àÁ‚·
+		// ãƒªãƒ³ã‚°ã‚‚æ¶ˆã™
 		for (const auto& ringEntity : rings_)
 		{
 			FindGameObject(ringEntity)->DestroyMe();

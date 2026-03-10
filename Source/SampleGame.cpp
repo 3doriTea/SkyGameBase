@@ -19,13 +19,13 @@
 #include "GameSystem/Model.h"
 #include "GameSystem/PostProcessing.h"
 
-// ƒIƒŠƒWƒiƒ‹ƒQ[ƒ€ƒVƒXƒeƒ€
+// ã‚ªãƒªã‚¸ãƒŠãƒ«ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ 
 #include "Systems/MainWindow.h"
 #include "Systems/FirstSceneRegister.h"
 #include "Systems/CPItemAnim.h"
 #include "Systems/ScoreManager.h"
 
-// ƒx[ƒX‚ª—pˆÓ‚µ‚Ä‚¢‚éƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹
+// ãƒ™ãƒ¼ã‚¹ãŒç”¨æ„ã—ã¦ã„ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«
 #include "GameSystem/CPGameObject.h"
 #include "GameSystem/CPGameObjectProperty.h"
 #include "GameSystem/CPTransform.h"
@@ -45,8 +45,8 @@
 #include "GameSystem/ShaderCompile.h"
 
 #include "GameSystem/Scriptable.h"
-// MEMO: ‘å—Ê‚Ìincludeª‚ª”­¶‚µŠÇ—‚ª‘å•Ï
-//     : ¨ ‰ğŒˆ•û–@ @00
+// MEMO: å¤§é‡ã®includeâ†‘ãŒç™ºç”Ÿã—ç®¡ç†ãŒå¤§å¤‰
+//     : â†’ è§£æ±ºæ–¹æ³• @00
 
 
 using namespace wtgb;
@@ -54,30 +54,30 @@ using namespace wtgb;
 void SampleGame::StartRegister(
 	const GameSystemCollection::GameSystemAdder& _gameSystemRegister)
 {
-	// TODO: “o˜^‡”Ô‚ªŒµ‚µ‚¢‚Æ‚±‚ë‚ª“ï‹V
-	// MEMO: ƒIƒŠƒWƒiƒ‹‚ÌƒVƒXƒeƒ€‚ğ“o˜^‚·‚éƒ†[ƒU‚©‚ç‚·‚é‚Æ‚±‚±‚Í•s•Ö
-	//     : ¨ Json‚Å“o˜^‚·‚é‚æ‚¤‚É•ÏX‚·‚×‚«
+	// TODO: ç™»éŒ²é †ç•ªãŒå³ã—ã„ã¨ã“ã‚ãŒé›£å„€
+	// MEMO: ã‚ªãƒªã‚¸ãƒŠãƒ«ã®ã‚·ã‚¹ãƒ†ãƒ ã‚’ç™»éŒ²ã™ã‚‹ãƒ¦ãƒ¼ã‚¶ã‹ã‚‰ã™ã‚‹ã¨ã“ã“ã¯ä¸ä¾¿
+	//     : â†’ Jsonã§ç™»éŒ²ã™ã‚‹ã‚ˆã†ã«å¤‰æ›´ã™ã¹ã
 
 	_gameSystemRegister
 		.Register<GameTime>()
 		.Register<Path>()
 		.Register<GameWindow>()
 
-		// ƒQ[ƒ€ƒEƒBƒ“ƒhƒEƒVƒXƒeƒ€‚ğ“o˜^‚µ‚½‚ ‚Æ‚ÅƒƒCƒ“ƒEƒBƒ“ƒhƒE‚ğ“o˜^
+		// ã‚²ãƒ¼ãƒ ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚·ã‚¹ãƒ†ãƒ ã‚’ç™»éŒ²ã—ãŸã‚ã¨ã§ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ç™»éŒ²
 		.Register<MainWindow>()
 
-		// ƒƒCƒ“ƒEƒBƒ“ƒhƒE‚ğ“o˜^‚µ‚½‚ ‚Æ‚Å ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹‚ğg‚¤ƒVƒXƒeƒ€‚ğ“o˜^
+		// ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ç™»éŒ²ã—ãŸã‚ã¨ã§ ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«ã‚’ä½¿ã†ã‚·ã‚¹ãƒ†ãƒ ã‚’ç™»éŒ²
 		.Register<Direct3D>()
 
 		// ImGui
 		.Register<ImGuiSystem>()
 
-		// “ü—ÍŒn
+		// å…¥åŠ›ç³»
 		.Register<Cursor>()
 		.Register<Input>()
 
 		.Register<CPParameter>()
-		// ªƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì“Ç‚İ‚İ‚Ég‚¤‚à‚Ìª
+		// â†‘ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®èª­ã¿è¾¼ã¿ã«ä½¿ã†ã‚‚ã®â†‘
 
 		.Register<SceneManager>()
 		.Register<ResourceSystem>()
@@ -85,43 +85,43 @@ void SampleGame::StartRegister(
 		.Register<ShaderCompile>()
 		.Register<Model>()
 
-		// ƒV[ƒ“ƒ}ƒl[ƒW‚ğ“o˜^‚µ‚½‚ ‚Æ‚ÅÅ‰‚ÌƒV[ƒ“‚ğ“o˜^
+		// ã‚·ãƒ¼ãƒ³ãƒãƒãƒ¼ã‚¸ã‚’ç™»éŒ²ã—ãŸã‚ã¨ã§æœ€åˆã®ã‚·ãƒ¼ãƒ³ã‚’ç™»éŒ²
 		.Register<FirstSceneRegister>()
 
-		// NOTE: ComponentManager‚ğ’Ç‰Á‚µ‚Ä‚©‚ç ŠeComponentPoolƒVƒXƒeƒ€‚ğ’Ç‰Á‚·‚é
+		// NOTE: ComponentManagerã‚’è¿½åŠ ã—ã¦ã‹ã‚‰ å„ComponentPoolã‚·ã‚¹ãƒ†ãƒ ã‚’è¿½åŠ ã™ã‚‹
 		.Register<ComponentManager>()
 
-		// NOTE: ComponentManager‚ğ’Ç‰Á‚µ‚½Ÿ‚ÉƒXƒNƒŠƒvƒ^ƒuƒ‹‚ğ’Ç‰Á‚·‚é
+		// NOTE: ComponentManagerã‚’è¿½åŠ ã—ãŸæ¬¡ã«ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ–ãƒ«ã‚’è¿½åŠ ã™ã‚‹
 		.Register<Scriptable>()
 
-		// ƒIƒŠƒWƒiƒ‹ƒRƒ“ƒ|[ƒlƒ“ƒg
+		// ã‚ªãƒªã‚¸ãƒŠãƒ«ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 		.Register<CPItemAnim>()
 
 		.Register<CPGameObject>()
-		.Register<Alarm>()  // ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌXV‚ÌŸ
+		.Register<Alarm>()  // ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ›´æ–°ã®æ¬¡
 		.Register<CPGameObjectProperty>()
 		.Register<CPTransform>()
 
-		// •¨—‰‰ZŒn
+		// ç‰©ç†æ¼”ç®—ç³»
 		.Register<CPCollider>()
 		.Register<CPRigidBody>()
 
-		// •`‰æŒn
+		// æç”»ç³»
 		.Register<Camera>()
 		.Register<DirectionalLight>()
 		.Register<CPModelMesh>()
 		.Register<CPMeshRenderer>()
-		.Register<PostProcessing>()  // 3D•`‰æ‚ÌŒãˆ—
-		.Register<Canvas>()  // UI‚Ì•`‰æ‚Í3D•`‰æ‚ÌŒã‚ÉI
+		.Register<PostProcessing>()  // 3Dæç”»ã®å¾Œå‡¦ç†
+		.Register<Canvas>()  // UIã®æç”»ã¯3Dæç”»ã®å¾Œã«ï¼
 
 		.Register<Rendering>()
 
 		.Register<Audio>()
 
-		// ƒXƒRƒAŒn
+		// ã‚¹ã‚³ã‚¢ç³»
 		.Register<ScoreManager>()
 
-		// ƒfƒoƒbƒOŒn‚Íˆê”ÔÅŒã
+		// ãƒ‡ãƒãƒƒã‚°ç³»ã¯ä¸€ç•ªæœ€å¾Œ
 		.Register<Debug>()
 	;
 }

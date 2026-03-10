@@ -21,18 +21,18 @@ void wtgb::Alarm::Update(const ViewerUpdate& _system)
 	std::vector<AlarmHandle> toRemoveHandles;
 	for (auto& [hAlarm, content] : registry_)
 	{
-		// �J�E���g�_�E���^�C�}�[��i�߂�
+		// カウントダウンタイマーを進める
 		content.timeLeft -= DT;
 
 		if (content.timeLeft <= 0.0f)
 		{
-			// ���Ԃ�������Ăяo���č폜�\��ɒǉ�
+			// 時間が来たら呼び出して削除予定に追加
 			content.callback();
 			toRemoveHandles.push_back(hAlarm);
 		}
 	}
 
-	// �폜�\��̃n���h����S���폜���Ă���
+	// 削除予定のハンドルを全部削除していく
 	for (AlarmHandle handle : toRemoveHandles)
 	{
 		registry_.Remove(handle);

@@ -42,7 +42,7 @@ void LiftLoop::Update()
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 	Lift* lift{ dynamic_cast<Lift*>(FindGameObject(lift_)) };
 
-	wassert(lift && "ƒŠƒtƒgƒIƒuƒWƒFƒNƒg‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½I");
+	wassert(lift && "ãƒªãƒ•ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸï¼");
 
 	if (lift)
 	{

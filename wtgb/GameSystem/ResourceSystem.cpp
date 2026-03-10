@@ -32,10 +32,10 @@ wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const fs::path& _fileName)
 	return LoadTexture(Texture::Config
 		{
 			.fileName = _fileName.string(),
-			.filer = D3D11_FILTER_MIN_MAG_MIP_LINEAR,    // üŒ`•âŠÔ‚·‚é
-			.addressMode = D3D11_TEXTURE_ADDRESS_CLAMP,  // ’[‚Á‚±‚ÍŒJ‚è•Ô‚·
-			.format = DXGI_FORMAT_R8G8B8A8_UNORM,        // DXGIƒtƒH[ƒ}ƒbƒg
-			.dimension = D3D11_SRV_DIMENSION_TEXTURE2D,  // 2ŸŒ³‚ÌƒeƒNƒXƒ`ƒƒ‘z’è
+			.filer = D3D11_FILTER_MIN_MAG_MIP_LINEAR,    // ç·šå½¢è£œé–“ã™ã‚‹
+			.addressMode = D3D11_TEXTURE_ADDRESS_CLAMP,  // ç«¯ã£ã“ã¯ç¹°ã‚Šè¿”ã™
+			.format = DXGI_FORMAT_R8G8B8A8_UNORM,        // DXGIãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+			.dimension = D3D11_SRV_DIMENSION_TEXTURE2D,  // 2æ¬¡å…ƒã®ãƒ†ã‚¯ã‚¹ãƒãƒ£æƒ³å®š
 		});
 }
 
@@ -44,10 +44,10 @@ wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const std::string& _fileNa
 	return LoadTexture(Texture::Config
 		{
 			.fileName = _fileName,
-			.filer = D3D11_FILTER_MIN_MAG_MIP_LINEAR,    // üŒ`•âŠÔ‚·‚é
-			.addressMode = D3D11_TEXTURE_ADDRESS_CLAMP,  // ’[‚Á‚±‚ÍŒJ‚è•Ô‚·
-			.format = DXGI_FORMAT_R8G8B8A8_UNORM,        // DXGIƒtƒH[ƒ}ƒbƒg
-			.dimension = D3D11_SRV_DIMENSION_TEXTURE2D,  // 2ŸŒ³‚ÌƒeƒNƒXƒ`ƒƒ‘z’è
+			.filer = D3D11_FILTER_MIN_MAG_MIP_LINEAR,    // ç·šå½¢è£œé–“ã™ã‚‹
+			.addressMode = D3D11_TEXTURE_ADDRESS_CLAMP,  // ç«¯ã£ã“ã¯ç¹°ã‚Šè¿”ã™
+			.format = DXGI_FORMAT_R8G8B8A8_UNORM,        // DXGIãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+			.dimension = D3D11_SRV_DIMENSION_TEXTURE2D,  // 2æ¬¡å…ƒã®ãƒ†ã‚¯ã‚¹ãƒãƒ£æƒ³å®š
 		});
 }
 
@@ -62,7 +62,7 @@ wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const Texture::Config& _co
 
 	TextureHandle hTexture = textures_.Emplace(_config);
 
-	// ‰Šú‰»‚µ‚Ä‚¢‚­
+	// åˆæœŸåŒ–ã—ã¦ã„ã
 	textures_.At(hTexture).CallInit();
 	textures_.At(hTexture).CreateSamplerState(pDevice);
 	textures_.At(hTexture).CreateShaderResourceView(pDevice);
@@ -72,8 +72,8 @@ wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const Texture::Config& _co
 
 wtgb::Texture* wtgb::ResourceSystem::GetTexture(const std::string& _fileName)
 {
-	// TODO: ƒtƒ@ƒCƒ‹–¼‚ğmap‚Å•Û‘¶‚µ‚Ä‚¨‚­
-	wassert(false && "‘‚­À‘•‚µ‚Ä‚­‚¾‚³‚¢");
+	// TODO: ãƒ•ã‚¡ã‚¤ãƒ«åã‚’mapã§ä¿å­˜ã—ã¦ãŠã
+	wassert(false && "æ—©ãå®Ÿè£…ã—ã¦ãã ã•ã„");
 
 	return nullptr;
 }
@@ -86,8 +86,8 @@ wtgb::Texture* wtgb::ResourceSystem::GetTexture(const TextureHandle _hTexture)
 	}
 	catch (const std::string& e)
 	{
-		(void)e;  // –¾¦“I‚Ég—p
-		wassert(false && "–³Œø‚ÈƒeƒNƒXƒ`ƒƒƒnƒ“ƒhƒ‹‚ªw’è‚³‚ê‚½");
+		(void)e;  // æ˜ç¤ºçš„ã«ä½¿ç”¨
+		wassert(false && "ç„¡åŠ¹ãªãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ«ãŒæŒ‡å®šã•ã‚ŒãŸ");
 		return nullptr;
 	}
 }

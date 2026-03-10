@@ -5,7 +5,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒg‹¤’Ê‚ÌƒCƒ“ƒ^ƒtƒF[ƒX
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå…±é€šã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹
 	/// </summary>
 	class IComponent
 	{
@@ -14,17 +14,17 @@ namespace wtgb
 		virtual ~IComponent() {}
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="system_">ƒVƒXƒeƒ€ŽQÆ</param>
+		/// <param name="system_">ã‚·ã‚¹ãƒ†ãƒ å‚ç…§</param>
 		virtual void Init(ViewerCached system_) = 0;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
-		/// <param name="system_">ƒVƒXƒeƒ€ŽQÆ</param>
+		/// <param name="system_">ã‚·ã‚¹ãƒ†ãƒ å‚ç…§</param>
 		virtual void Update(ViewerCached system_) = 0;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void End() = 0;
 	};

@@ -8,38 +8,38 @@
 
 std::string wtgb::GetStackTrace(const int _skipFrames)
 {
-	// �ő�t���[����
+	// 最大フレーム数
 	static const int MAX_FRAMES = 64;
-	// �X�^�b�N�|�C���^���i�[����z��
+	// スタックポインタを格納する配列
 	void* stack[MAX_FRAMES]{};
 
-	// �v���Z�X�̃n���h�����擾
+	// プロセスのハンドルを取得
 	HANDLE hProcess{ GetCurrentProcess() };
 
-	// �Ăяo�������̃|�C���^���L���v�`������
-	// _skipFrames: �X�L�b�v����t���[���� (GetStackTrace�֐����̂��X�L�b�v���邽�߂� 1 �܂��� 2 ���w��)
-	// frames: �L���v�`�����ꂽ�t���[����
+	// 呼び出し履歴のポインタをキャプチャする
+	// _skipFrames: スキップするフレーム数 (GetStackTrace関数自体をスキップするために 1 または 2 を指定)
+	// frames: キャプチャされたフレーム数
 	const USHORT frames
 	{
 		CaptureStackBackTrace(
 			_skipFrames,
 			MAX_FRAMES,
 			stack,
-			nullptr) // �n�b�V���l�s�v
+			nullptr) // ハッシュ値不要
 	};
 
 	std::stringstream ss;
 
-	// �V���{�����̏�����
-	// NULL �͌����p�X�ɃJ�����g�f�B���N�g���Ɗ��ϐ� _NT_SYMBOL_PATH ���g�p
-	// TRUE �̓V���{���p�X�̍ċA�I������L���ɂ���
+	// シンボル情報の初期化
+	// NULL は検索パスにカレントディレクトリと環境変数 _NT_SYMBOL_PATH を使用
+	// TRUE はシンボルパスの再帰的検索を有効にする
 	if (!SymInitialize(hProcess, nullptr, TRUE))
 	{
 		ss << "SymInitialize failed (Error: " << GetLastError() << ")\n";
 		return ss.str();
 	}
 
-	// SYMBOL_INFO�\���͉̂ϒ��Ȃ̂ŁA�o�b�t�@���m��
+	// SYMBOL_INFO構造体は可変長なので、バッファを確保
 	static const size_t MAX_NAME_LENGTH = 1024;
 	SYMBOL_INFO* pSymbol
 	{
@@ -61,16 +61,16 @@ std::string wtgb::GetStackTrace(const int _skipFrames)
 
 	for (USHORT i = 0; i < frames; ++i)
 	{
-		// �֐����ƃA�h���X�̎擾 (SymFromAddr)
+		// 関数名とアドレスの取得 (SymFromAddr)
 		if (SymFromAddr(hProcess, (DWORD64)stack[i], 0, pSymbol))
 		{
-			// �t�@�C�����ƍs�ԍ��̎擾 (SymGetLineFromAddr64)
+			// ファイル名と行番号の取得 (SymGetLineFromAddr64)
 			IMAGEHLP_LINE64 lineInfo{ sizeof(IMAGEHLP_LINE64) };
-			DWORD dwDisplacement{}; // �s�̊J�n����̃I�t�Z�b�g
+			DWORD dwDisplacement{}; // 行の開始からのオフセット
 
 			if (SymGetLineFromAddr64(hProcess, (DWORD64)stack[i], &dwDisplacement, &lineInfo))
 			{
-				// �t�@�C�����ƍs�ԍ����擾�ł����ꍇ
+				// ファイル名と行番号が取得できた場合
 				ss << std::setw(3) << std::dec << frames - 1 - i << ": 0x"
 					<< std::hex << std::setw(16) << std::setfill('0') << pSymbol->Address
 					<< " in " << pSymbol->Name
@@ -78,7 +78,7 @@ std::string wtgb::GetStackTrace(const int _skipFrames)
 			}
 			else
 			{
-				// �֐����̂ݎ擾�ł����ꍇ
+				// 関数名のみ取得できた場合
 				ss << std::setw(3) << std::dec << frames - 1 - i << ": 0x"
 					<< std::hex << std::setw(16) << std::setfill('0') << pSymbol->Address
 					<< " in " << pSymbol->Name << " (No line info)\n";
@@ -86,7 +86,7 @@ std::string wtgb::GetStackTrace(const int _skipFrames)
 		}
 		else
 		{
-			// �V���{����񂪎擾�ł��Ȃ������ꍇ�i�A�h���X�̂݁j
+			// シンボル情報が取得できなかった場合（アドレスのみ）
 			ss << std::setw(3) << std::dec << frames - 1 - i << ": 0x"
 				<< std::hex << std::setw(16) << std::setfill('0') << (DWORD64)stack[i]
 				<< " (Symbol not found)\n";
@@ -95,7 +95,7 @@ std::string wtgb::GetStackTrace(const int _skipFrames)
 
 	ss << "--------------------\n";
 
-	// �N���[���A�b�v
+	// クリーンアップ
 	free(pSymbol);
 	SymCleanup(hProcess);
 

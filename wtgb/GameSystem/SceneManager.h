@@ -15,30 +15,30 @@ namespace wtgb
 		inline const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// ƒV[ƒ“‘JˆÚ‚·‚é
+		/// ã‚·ãƒ¼ãƒ³é·ç§»ã™ã‚‹
 		/// </summary>
-		/// <typeparam name="SceneT">Ÿ‚ÌƒV[ƒ“‚ÌŒ^</typeparam>
+		/// <typeparam name="SceneT">æ¬¡ã®ã‚·ãƒ¼ãƒ³ã®å‹</typeparam>
 		template<typename SceneT>
 		inline void Move()
 		{
-			assert(!pToNext_ && "Šù‚ÉŸ‚ÌƒV[ƒ“‘JˆÚ‚ªŒÄ‚Î‚ê‚Ä‚¢‚é");
+			assert(!pToNext_ && "æ—¢ã«æ¬¡ã®ã‚·ãƒ¼ãƒ³é·ç§»ãŒå‘¼ã°ã‚Œã¦ã„ã‚‹");
 
-			if (pCurrent_)  // ¡‚ÌƒV[ƒ“‚ª“®‚¢‚Ä‚¢‚é‚È‚ç
+			if (pCurrent_)  // ä»Šã®ã‚·ãƒ¼ãƒ³ãŒå‹•ã„ã¦ã„ã‚‹ãªã‚‰
 			{
-				RequestClearComponents();  // ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ì”jŠüˆË—Š‚ğ‚·‚é
+				RequestClearComponents();  // ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®ç ´æ£„ä¾é ¼ã‚’ã™ã‚‹
 			}
 
 			if (!pToNext_)
@@ -48,17 +48,17 @@ namespace wtgb
 		}
 
 		/// <summary>
-		/// Œ»İ‚ÌƒQ[ƒ€ƒV[ƒ“‚ğæ“¾‚·‚é
+		/// ç¾åœ¨ã®ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>Œ»İ‚ÌƒQ[ƒ€ƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ç¾åœ¨ã®ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 		inline GameScene* GetCurrentScene() const { return pCurrent_.get(); }
 
 	private:
 		void RequestClearComponents();
 
 	private:
-		std::unique_ptr<GameScene> pCurrent_;  // Œ»İ‚ÌƒV[ƒ“
-		std::unique_ptr<GameScene> pToNext_;   // Ÿ‚É—\’è‚³‚ê‚Ä‚¢‚éƒV[ƒ“
-		ViewerCached system_;  // ƒVƒXƒeƒ€‚ÌƒLƒƒƒbƒVƒ…
+		std::unique_ptr<GameScene> pCurrent_;  // ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³
+		std::unique_ptr<GameScene> pToNext_;   // æ¬¡ã«äºˆå®šã•ã‚Œã¦ã„ã‚‹ã‚·ãƒ¼ãƒ³
+		ViewerCached system_;  // ã‚·ã‚¹ãƒ†ãƒ ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥
 	};
 }

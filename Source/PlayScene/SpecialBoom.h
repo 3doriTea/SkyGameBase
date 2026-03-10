@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// スペシャルボム
+/// 繧ｹ繝壹す繝｣繝ｫ繝懊Β
 /// </summary>
 class SpecialBoom : public GameObject
 {

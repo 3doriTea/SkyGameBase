@@ -15,7 +15,7 @@ CountDown::~CountDown()
 
 void CountDown::PlayAnimGo(RectF& _rectF)
 {
-	// ‚Ğ‚½‚·‚ç¬‚³‚­‚·‚é
+	// ã²ãŸã™ã‚‰å°ã•ãã™ã‚‹
 	cellSize_ -= smallingPerFScale_;
 
 	if (cellSize_.x < 0.0f)
@@ -88,7 +88,7 @@ void CountDown::Update()
 		timeLeft_ -= dt;
 		PlayAnimCountDown(drawRectF);
 	}
-	else  // ƒJƒEƒ“ƒgƒ_ƒEƒ“I‚í‚Á‚ÄGOƒAƒjƒ[ƒVƒ‡ƒ“
+	else  // ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³çµ‚ã‚ã£ã¦GOã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	{
 		timeLeft_ = 0.0f;
 		PlayAnimGo(drawRectF);

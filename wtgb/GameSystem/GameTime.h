@@ -1,9 +1,9 @@
 #pragma once
 #include "Core/IGameSystem.h"
 
-#pragma comment(lib, "Winmm.lib")  // timeBeginPeriod‚Æ timeEndPeriod‚Å•K—v
+#pragma comment(lib, "Winmm.lib")  // timeBeginPeriodã¨ timeEndPeriodã§å¿…è¦
 
-// LARGE_INTEGER ‚Ì‘O•ûéŒ¾
+// LARGE_INTEGER ã®å‰æ–¹å®£è¨€
 typedef union _LARGE_INTEGER LARGE_INTEGER;
 
 namespace wtgb
@@ -15,63 +15,63 @@ namespace wtgb
 		~GameTime();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		inline const CallType GetCallType() override { return CallType::Cycle; }
 
 		/// <summary>
-		/// ƒtƒŒ[ƒ€ŠÔŠÔ‚ğæ“¾‚·‚é
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ é–“æ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns></returns>
 		const float GetDeltaTime() const { return deltaTimeSec_; }
 		/// <summary>
-		/// ƒtƒŒ[ƒ€‚ªØ‚è‘Ö‚í‚éƒ^ƒCƒ~ƒ“ƒO‚©‚Ç‚¤‚©
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ ãŒåˆ‡ã‚Šæ›¿ã‚ã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‹ã©ã†ã‹
 		/// </summary>
-		/// <returns>Ø‚è‘Ö‚í‚éƒ^ƒCƒ~ƒ“ƒO true / false</returns>
+		/// <returns>åˆ‡ã‚Šæ›¿ã‚ã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚° true / false</returns>
 		const bool IsFrameDue() const { return isFrameDue_; }
 
 		/// <summary>
-		/// ŠÔ‚ğ~‚ß‚é‚©
+		/// æ™‚é–“ã‚’æ­¢ã‚ã‚‹ã‹
 		/// </summary>
-		/// <param name="_timeStopped">ŠÔ‚ğ~‚ß‚é true / false</param>
+		/// <param name="_timeStopped">æ™‚é–“ã‚’æ­¢ã‚ã‚‹ true / false</param>
 		void SetTimeStopped(const bool _timeStopped);
 		
 		/// <summary>
-		/// ŠÔ‚Ì‘å‚«‚³‚ğŒˆ‚ß‚é
+		/// æ™‚é–“ã®å¤§ãã•ã‚’æ±ºã‚ã‚‹
 		/// </summary>
-		/// <param name="_timeScale">ŠÔ‚Ì‘å‚«‚³</param>
+		/// <param name="_timeScale">æ™‚é–“ã®å¤§ãã•</param>
 		void SetTimeScale(const float _timeScale);
 
 		/// <summary>
-		/// FPS’l‚ğæ“¾‚·‚é
+		/// FPSå€¤ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <returns>Frame per seconds</returns>
 		const float GetFPS() const;
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 	private:
-		bool isFrameDue_;  // ƒtƒŒ[ƒ€‚ªØ‚è‘Ö‚í‚éƒ^ƒCƒ~ƒ“ƒO true / false
-		float deltaTimeSec_;  // ƒtƒŒ[ƒ€ŠÔŠÔ
-		float timeScalePrev_;  // ‘O‰ñİ’è‚µ‚½ƒQ[ƒ€“àŠÔ‚Ì‘å‚«‚³
-		float timeScale_;      // ƒQ[ƒ€“àŠÔ‚Ì‘å‚«‚³
-		LARGE_INTEGER currentMicro_;  // Œ»İ‚ÌCPUŠÔ (ƒ}ƒCƒNƒ•b)
-		LARGE_INTEGER previousMicro_;  // ‘O‰ñ‚ÌCPUŠÔ (ƒ}ƒCƒNƒ•b)
+		bool isFrameDue_;  // ãƒ•ãƒ¬ãƒ¼ãƒ ãŒåˆ‡ã‚Šæ›¿ã‚ã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚° true / false
+		float deltaTimeSec_;  // ãƒ•ãƒ¬ãƒ¼ãƒ é–“æ™‚é–“
+		float timeScalePrev_;  // å‰å›è¨­å®šã—ãŸã‚²ãƒ¼ãƒ å†…æ™‚é–“ã®å¤§ãã•
+		float timeScale_;      // ã‚²ãƒ¼ãƒ å†…æ™‚é–“ã®å¤§ãã•
+		LARGE_INTEGER currentMicro_;  // ç¾åœ¨ã®CPUæ™‚é–“ (ãƒã‚¤ã‚¯ãƒ­ç§’)
+		LARGE_INTEGER previousMicro_;  // å‰å›ã®CPUæ™‚é–“ (ãƒã‚¤ã‚¯ãƒ­ç§’)
 	private:
-		static const UINT PERIOD_MILLI;  // •ª‰ğ”\(ƒ~ƒŠ•b)
-		static const LONGLONG ONE_SEC_TO_MICRO;  // 1•b‚Íƒ}ƒCƒNƒ•b‚Å•\‚·‚Æ
-		static const float MICRO_TO_SEC;  // ƒ}ƒCƒNƒ•b‚ğ•b‚É•ÏŠ·‚·‚é
+		static const UINT PERIOD_MILLI;  // åˆ†è§£èƒ½(ãƒŸãƒªç§’)
+		static const LONGLONG ONE_SEC_TO_MICRO;  // 1ç§’ã¯ãƒã‚¤ã‚¯ãƒ­ç§’ã§è¡¨ã™ã¨
+		static const float MICRO_TO_SEC;  // ãƒã‚¤ã‚¯ãƒ­ç§’ã‚’ç§’ã«å¤‰æ›ã™ã‚‹
 	};
 }

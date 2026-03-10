@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ’Í‚ß‚é‰~
+/// æ´ã‚ã‚‹å††
 /// </summary>
 class DragCircle : public GameObject
 {
@@ -16,67 +16,67 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ’Í‚ñ‚Å‚¢‚é‚©‚ğæ“¾
+	/// æ´ã‚“ã§ã„ã‚‹ã‹ã‚’å–å¾—
 	/// </summary>
-	/// <returns>’Í‚ñ‚Å‚¢‚é true / false</returns>
+	/// <returns>æ´ã‚“ã§ã„ã‚‹ true / false</returns>
 	inline bool IsDrag() const { return isDrag_; }
 
 	/// <summary>
-	/// ƒ}ƒEƒX‚ª‰~“à‚ÅƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«‚ÌƒR[ƒ‹ƒoƒbƒN
+	/// ãƒã‚¦ã‚¹ãŒå††å†…ã§ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ãã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
 	/// </summary>
 	/// <param name="_callback"></param>
 	inline void OnClickIn(const std::function<void()> _callback) { onClickInRadius_ = _callback; }
 	/// <summary>
-	/// ƒ}ƒEƒX‚ª‰~ŠO‚ÅƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«‚ÌƒR[ƒ‹ƒoƒbƒN
+	/// ãƒã‚¦ã‚¹ãŒå††å¤–ã§ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ãã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
 	/// </summary>
 	/// <param name="_callback"></param>
 	inline void OnClickOut(const std::function<void()> _callback) { onClickOutRadius_ = _callback; }
 	/// <summary>
-	/// ƒ}ƒEƒXƒhƒ‰ƒbƒO‚ªI‚í‚Á‚½‚Æ‚«‚ÌƒR[ƒ‹ƒoƒbƒN
+	/// ãƒã‚¦ã‚¹ãƒ‰ãƒ©ãƒƒã‚°ãŒçµ‚ã‚ã£ãŸã¨ãã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
 	/// </summary>
 	/// <param name="_callback"></param>
 	inline void OnOut(const std::function<void()> _callback) { onOut_ = _callback; }
 
 	/// <summary>
-	/// ‰~‚Ì’†SÀ•W‚ğƒZƒbƒg‚·‚é
+	/// å††ã®ä¸­å¿ƒåº§æ¨™ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	/// </summary>
-	/// <param name="_centerPosition">‰~‚Ì’†SÀ•W</param>
+	/// <param name="_centerPosition">å††ã®ä¸­å¿ƒåº§æ¨™</param>
 	inline void SetPosition(const Vector2Int _centerPosition) { centerPosition_ = _centerPosition; }
 
 	/// <summary>
-	/// ”ä—¦ˆÛ‚Ì‚½‚ß‚ÌİŒvƒLƒƒƒ“ƒoƒXƒTƒCƒY‚ğƒZƒbƒg‚·‚é
+	/// æ¯”ç‡ç¶­æŒã®ãŸã‚ã®è¨­è¨ˆæ™‚ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚µã‚¤ã‚ºã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	/// </summary>
-	/// <param name="_baseCanvasSize">İŒv‚ÌƒLƒƒƒ“ƒoƒXƒTƒCƒY</param>
+	/// <param name="_baseCanvasSize">è¨­è¨ˆæ™‚ã®ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚µã‚¤ã‚º</param>
 	inline void SetBaseCanvasSize(const Vector2Int _baseCanvasSize) { baseCanvasSize_ = _baseCanvasSize; }
 
 	/// <summary>
-	/// ‰~‚Ì”¼Œa‚ğƒZƒbƒg‚·‚é
+	/// å††ã®åŠå¾„ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	/// </summary>
-	/// <param name="_radius">‰~‚Ì”¼Œa</param>
+	/// <param name="_radius">å††ã®åŠå¾„</param>
 	void SetRadius(const int _radius);
 
 	/// <summary>
-	/// ƒhƒ‰ƒbƒO‚ÌƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+	/// ãƒ‰ãƒ©ãƒƒã‚°ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
 	/// <returns></returns>
 	inline Vector2Int GetDisplacement() const { return dragDisplacement_; }
 	/// <summary>
-	/// ƒhƒ‰ƒbƒO‚ÌŠJn’n“_‚ğæ“¾‚·‚é
+	/// ãƒ‰ãƒ©ãƒƒã‚°ã®é–‹å§‹åœ°ç‚¹ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
-	/// <returns>ŠJn’n“_‚ÌÀ•W</returns>
+	/// <returns>é–‹å§‹åœ°ç‚¹ã®åº§æ¨™</returns>
 	inline Vector2Int GetBegin() const { return dragBegin_; }
 
 private:
-	Vector2Int baseCanvasSize_;    // İŒv‚ÌƒLƒƒƒ“ƒoƒXƒTƒCƒY
-	TextureHandle hCircleImage_;   // ‰~‚Ì‰æ‘œ
-	bool isDrag_;                  // ’Í‚ñ‚Å‚¢‚é‚©
-	Vector2Int centerPosition_;    // ‰~‚Ì’†SÀ•W
-	Vector2Int dragBegin_;         // ’Í‚ñ‚¾n“_
-	Vector2Int dragDisplacement_;  // ’Í‚ñ‚¾‘å‚«‚³‚Æ•ûŒü
-	int radius_;                   // ’Í‚ß‚é‰~‚Ì”¼Œa
-	int radiusSq_;                 // ’Í‚ß‚é‰~‚Ì”¼Œa‚Ì2æ
+	Vector2Int baseCanvasSize_;    // è¨­è¨ˆæ™‚ã®ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚µã‚¤ã‚º
+	TextureHandle hCircleImage_;   // å††ã®ç”»åƒ
+	bool isDrag_;                  // æ´ã‚“ã§ã„ã‚‹ã‹
+	Vector2Int centerPosition_;    // å††ã®ä¸­å¿ƒåº§æ¨™
+	Vector2Int dragBegin_;         // æ´ã‚“ã å§‹ç‚¹
+	Vector2Int dragDisplacement_;  // æ´ã‚“ã å¤§ãã•ã¨æ–¹å‘
+	int radius_;                   // æ´ã‚ã‚‹å††ã®åŠå¾„
+	int radiusSq_;                 // æ´ã‚ã‚‹å††ã®åŠå¾„ã®2ä¹—
 
-	std::function<void()> onClickInRadius_;   // ƒ}ƒEƒX‚ªƒNƒŠƒbƒN‚³‚ê‚½ƒR[ƒ‹ƒoƒbƒN ‰~‚Ì’†
-	std::function<void()> onClickOutRadius_;  // ƒ}ƒEƒX‚ªƒNƒŠƒbƒN‚³‚ê‚½ƒR[ƒ‹ƒoƒbƒN ‰~‚ÌŠO
-	std::function<void()> onOut_;  // ƒhƒ‰ƒbƒO‚ª—£‚³‚ê‚½‚Æ‚«‚ÌƒR[ƒ‹ƒoƒbƒN
+	std::function<void()> onClickInRadius_;   // ãƒã‚¦ã‚¹ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ å††ã®ä¸­
+	std::function<void()> onClickOutRadius_;  // ãƒã‚¦ã‚¹ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ å††ã®å¤–
+	std::function<void()> onOut_;  // ãƒ‰ãƒ©ãƒƒã‚°ãŒé›¢ã•ã‚ŒãŸã¨ãã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
 };

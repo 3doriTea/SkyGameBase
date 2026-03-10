@@ -15,7 +15,7 @@ namespace wtgb
 namespace wtgb::UI
 {
 	/// <summary>
-	/// UI•`‰æ‚Ö‚ÌƒAƒNƒZƒX
+	/// UIæç”»ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹
 	/// </summary>
 	class CanvasContext : public Accessor<Canvas>, public IResource<ViewerCached>
 	{
@@ -24,50 +24,50 @@ namespace wtgb::UI
 		~CanvasContext() {}
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€ƒAƒNƒZƒX</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ ã‚¢ã‚¯ã‚»ã‚¹</param>
 		void Init(ViewerCached _system) override;
 		/// <summary>
-		/// ‰ğ•úˆ—
+		/// è§£æ”¾å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€ƒAƒNƒZƒX</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ ã‚¢ã‚¯ã‚»ã‚¹</param>
 		void Release(ViewerCached _system) override;
 
 		/// <summary>
-		/// QÆ‚·‚éƒŒƒCƒAƒEƒg‚ÌƒZƒbƒg‚ğ‚·‚é
+		/// å‚ç…§ã™ã‚‹ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã®ã‚»ãƒƒãƒˆã‚’ã™ã‚‹
 		/// </summary>
-		/// <param name="_pConfig">QÆ‚·‚éƒŒƒCƒAƒEƒg‚Ìİ’èƒ|ƒCƒ“ƒ^</param>
+		/// <param name="_pConfig">å‚ç…§ã™ã‚‹ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã®è¨­å®šãƒã‚¤ãƒ³ã‚¿</param>
 		void SetRefLayout(LayoutConfig* _pConfig) const;
 
 
 
 		/// <summary>
-		/// ‰æ‘œ‚Ì•`‰æ‚ğ‚·‚é
+		/// ç”»åƒã®æç”»ã‚’ã™ã‚‹
 		/// </summary>
-		/// <param name="_hTexture">ƒeƒNƒXƒ`ƒƒ‚Ìƒnƒ“ƒhƒ‹</param>
-		/// <param name="_angle">Šî€“_‚©‚ç‚Ì‰ñ“]Šp“x</param>
+		/// <param name="_hTexture">ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒãƒ³ãƒ‰ãƒ«</param>
+		/// <param name="_angle">åŸºæº–ç‚¹ã‹ã‚‰ã®å›è»¢è§’åº¦</param>
 		void DrawImage(const TextureHandle _hTexture, const float _angle = 0.0f, const RectF& _cut = {}) const;
 
 		/// <summary>
-		/// lŠpŒ`‚ğ•`‰æ‚·‚é
+		/// å››è§’å½¢ã‚’æç”»ã™ã‚‹
 		/// </summary>
-		/// <param name="_color">lŠpŒ`‚Ì“h‚è‚Â‚Ô‚µF</param>
-		/// <param name="_angle">Šî€“_‚©‚ç‚Ì‰ñ“]Šp“x</param>
+		/// <param name="_color">å››è§’å½¢ã®å¡—ã‚Šã¤ã¶ã—è‰²</param>
+		/// <param name="_angle">åŸºæº–ç‚¹ã‹ã‚‰ã®å›è»¢è§’åº¦</param>
 		void DrawBox(const Color _color, const float _angle = 0.0f) const;
 
 	private:
 		/// <summary>
-		/// •`‰æ—v‹‚ğ’Ç‰Á‚·‚é
+		/// æç”»è¦æ±‚ã‚’è¿½åŠ ã™ã‚‹
 		/// </summary>
-		/// <param name="_content">—v‹‚·‚é•`‰æ“à—e</param>
+		/// <param name="_content">è¦æ±‚ã™ã‚‹æç”»å†…å®¹</param>
 		void AddRenderOrder(const RenderContentVT& _content) const;
 
 	private:
-		LayoutConfig currentConfig_;  // Œ»İ‚Ìİ’è
+		LayoutConfig currentConfig_;  // ç¾åœ¨ã®è¨­å®š
 
-		ViewerCached system_;  // ƒVƒXƒeƒ€‚Ö‚ÌƒAƒNƒZƒX—p
-		ShaderHandle hBoxShader_;    // ƒ{ƒbƒNƒX•`‰æ—pƒVƒF[ƒ_
-		ShaderHandle hImageShader_;  // ‰æ‘œ•`‰æ—pƒVƒF[ƒ_
+		ViewerCached system_;  // ã‚·ã‚¹ãƒ†ãƒ ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ç”¨
+		ShaderHandle hBoxShader_;    // ãƒœãƒƒã‚¯ã‚¹æç”»ç”¨ã‚·ã‚§ãƒ¼ãƒ€
+		ShaderHandle hImageShader_;  // ç”»åƒæç”»ç”¨ã‚·ã‚§ãƒ¼ãƒ€
 	};
 }

@@ -14,13 +14,13 @@ namespace wtgb
 	class InputResource;
 
 	/// <summary>
-	/// “ü—ÍŒnŠÇ—ƒNƒ‰ƒX
+	/// å…¥åŠ›ç³»ç®¡ç†ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class Input : public IGameSystem
 	{
 	public:
 		/// <summary>
-		/// “ü—ÍƒXƒe[ƒgæ“¾‚Ì‚½‚ß‚¾‚¯‚ÌƒAƒNƒZƒbƒT[
+		/// å…¥åŠ›ã‚¹ãƒ†ãƒ¼ãƒˆå–å¾—ã®ãŸã‚ã ã‘ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µãƒ¼
 		/// </summary>
 		class InputGetter : public Accessor<Input>
 		{
@@ -41,19 +41,19 @@ namespace wtgb
 			bool IsMouseUp(const MouseCode _mouseCode) const;
 
 			/// <summary>
-			/// Œ»İ‚Ìƒ}ƒEƒXÀ•W
+			/// ç¾åœ¨ã®ãƒã‚¦ã‚¹åº§æ¨™
 			/// </summary>
-			/// <returns>ƒ}ƒEƒXÀ•W Vector2Int</returns>
+			/// <returns>ãƒã‚¦ã‚¹åº§æ¨™ Vector2Int</returns>
 			Vector2Int GetMousePosition() const;
 			/// <summary>
-			/// ƒ}ƒEƒX‚ÌˆÚ“®—Ê
+			/// ãƒã‚¦ã‚¹ã®ç§»å‹•é‡
 			/// </summary>
-			/// <returns>ƒ}ƒEƒX‚ÌˆÚ“®—Ê</returns>
+			/// <returns>ãƒã‚¦ã‚¹ã®ç§»å‹•é‡</returns>
 			Vector2Int GetMouseMove() const;
 		};
 
 		/// <summary>
-		/// ƒ}ƒEƒX‚Ìó‘ÔXV‚Ì‚½‚ß‚¾‚¯‚ÌƒAƒNƒZƒbƒT[
+		/// ãƒã‚¦ã‚¹ã®çŠ¶æ…‹æ›´æ–°ã®ãŸã‚ã ã‘ã®ã‚¢ã‚¯ã‚»ãƒƒã‚µãƒ¼
 		/// </summary>
 		class MouseUpdater : public Accessor<Input>
 		{
@@ -73,47 +73,47 @@ namespace wtgb
 		~Input();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <returns>Œ‹‰Ê</returns>
+		/// <returns>çµæœ</returns>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 		/// <summary>
-		/// “ü—Íæ“¾—pƒNƒ‰ƒX‚ÌQÆ
+		/// å…¥åŠ›å–å¾—ç”¨ã‚¯ãƒ©ã‚¹ã®å‚ç…§
 		/// </summary>
-		/// <returns>“ü—ÍƒQƒbƒ^[‚ÌQÆ</returns>
+		/// <returns>å…¥åŠ›ã‚²ãƒƒã‚¿ãƒ¼ã®å‚ç…§</returns>
 		const InputGetter& Getter() const { return inputGetter_; }
 
 		/// <summary>
-		/// <para>ƒ}ƒEƒXÀ•WXV—pƒAƒNƒZƒbƒT‚ğæ“¾</para>
-		/// <para>w’è‚µ‚½ƒNƒ‰ƒXˆÈŠO‚Íæ“¾‚·‚é——R‚Í‚È‚¢‚Å‚·</para>
+		/// <para>ãƒã‚¦ã‚¹åº§æ¨™æ›´æ–°ç”¨ã‚¢ã‚¯ã‚»ãƒƒã‚µã‚’å–å¾—</para>
+		/// <para>æŒ‡å®šã—ãŸã‚¯ãƒ©ã‚¹ä»¥å¤–ã¯å–å¾—ã™ã‚‹ç†ç”±ã¯ãªã„ã§ã™</para>
 		/// </summary>
-		/// <returns>ƒ}ƒEƒXÀ•WXV—pƒAƒNƒZƒbƒT‚ÌQÆ</returns>
+		/// <returns>ãƒã‚¦ã‚¹åº§æ¨™æ›´æ–°ç”¨ã‚¢ã‚¯ã‚»ãƒƒã‚µã®å‚ç…§</returns>
 		MouseUpdater& GetMouseUpdater() { return mouseUpdater_; }
 
 	private:
-		MouseUpdater mouseUpdater_;  // ƒ}ƒEƒXİ’èê—p
-		InputGetter inputGetter_;    // “ü—Íæ“¾—p
-		InputResource* pResource_;   // “ü—ÍƒfƒoƒCƒXŒn‚ÌƒŠƒ\[ƒX
-		InputData inputData_;        // “ü—ÍƒXƒe[ƒg‚Ìƒf[ƒ^ƒLƒƒƒŠƒA
+		MouseUpdater mouseUpdater_;  // ãƒã‚¦ã‚¹è¨­å®šå°‚ç”¨
+		InputGetter inputGetter_;    // å…¥åŠ›å–å¾—ç”¨
+		InputResource* pResource_;   // å…¥åŠ›ãƒ‡ãƒã‚¤ã‚¹ç³»ã®ãƒªã‚½ãƒ¼ã‚¹
+		InputData inputData_;        // å…¥åŠ›ã‚¹ãƒ†ãƒ¼ãƒˆã®ãƒ‡ãƒ¼ã‚¿ã‚­ãƒ£ãƒªã‚¢
 
-		InputChecker::Checker<KeyCode> isKeyPress_;  // ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©
-		InputChecker::Checker<KeyCode> isKeyDown_;   // ƒL[‚ª‰Ÿ‚³‚ê‚½uŠÔ‚©
-		InputChecker::Checker<KeyCode> isKeyUp_;     // ƒL[‚ª—£‚³‚ê‚½uŠÔ‚©
+		InputChecker::Checker<KeyCode> isKeyPress_;  // ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹
+		InputChecker::Checker<KeyCode> isKeyDown_;   // ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸç¬é–“ã‹
+		InputChecker::Checker<KeyCode> isKeyUp_;     // ã‚­ãƒ¼ãŒé›¢ã•ã‚ŒãŸç¬é–“ã‹
 	};
 }
 

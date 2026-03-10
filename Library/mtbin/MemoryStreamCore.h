@@ -6,16 +6,16 @@ namespace mtbin
 	using SeekPoint = size_t;
 
 	/// <summary>
-	/// ƒV[ƒNƒ|ƒCƒ“ƒg
+	/// ã‚·ãƒ¼ã‚¯ãƒã‚¤ãƒ³ãƒˆ
 	/// </summary>
 	enum struct SeekAt : SeekPoint
 	{
-		Head,  // ˆê”Ô“ª
-		Tail,  // ˆê”ÔŒã
+		Head,  // ä¸€ç•ªé ­
+		Tail,  // ä¸€ç•ªå¾Œ
 	};
 
 	/// <summary>
-	/// <para>Byte”z—ñ‚ÌƒXƒgƒŠ[ƒ€‚Ì‹@”\</para>
+	/// <para>Byteé…åˆ—ã®ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®æ©Ÿèƒ½</para>
 	/// </summary>
 	class MemoryStreamCore
 	{
@@ -25,143 +25,143 @@ namespace mtbin
 
 	protected:
 		/// <summary>
-		/// ƒƒ‚ƒŠƒXƒgƒŠ[ƒ€‚É”CˆÓ‚ÌŒ^‚ğ‘‚«‚Ş
+		/// ãƒ¡ãƒ¢ãƒªã‚¹ãƒˆãƒªãƒ¼ãƒ ã«ä»»æ„ã®å‹ã‚’æ›¸ãè¾¼ã‚€
 		/// </summary>
-		/// <typeparam name="T">”CˆÓ‚ÌŒ^</typeparam>
-		/// <param name="_value">‘‚«‚ŞƒIƒuƒWƒFƒNƒg</param>
+		/// <typeparam name="T">ä»»æ„ã®å‹</typeparam>
+		/// <param name="_value">æ›¸ãè¾¼ã‚€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
 		template<typename T>
 		void Write(T _value);
 
 		/// <summary>
-		/// ƒƒ‚ƒŠƒXƒgƒŠ[ƒ€‚É”CˆÓ‚ÌŒ^‚Ì”z—ñ‚ğ‘‚«‚Ş
+		/// ãƒ¡ãƒ¢ãƒªã‚¹ãƒˆãƒªãƒ¼ãƒ ã«ä»»æ„ã®å‹ã®é…åˆ—ã‚’æ›¸ãè¾¼ã‚€
 		/// </summary>
-		/// <param name="_pArray">”z—ñ‚Ìƒ|ƒCƒ“ƒ^</param>
-		/// <param name="_arrayLength">—v‘f”</param>
+		/// <param name="_pArray">é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="_arrayLength">è¦ç´ æ•°</param>
 		template<typename T>
 		void Write(T* _pArray, const int& _arrayLength);
 
 		/// <summary>
-		/// ƒƒ‚ƒŠƒXƒgƒŠ[ƒ€‚©‚ç”CˆÓ‚ÌŒ^ƒTƒCƒY•ª“Ç‚İæ‚é
+		/// ãƒ¡ãƒ¢ãƒªã‚¹ãƒˆãƒªãƒ¼ãƒ ã‹ã‚‰ä»»æ„ã®å‹ã‚µã‚¤ã‚ºåˆ†èª­ã¿å–ã‚‹
 		/// </summary>
-		/// <typeparam name="T">”CˆÓ‚ÌŒ^</typeparam>
-		/// <returns>“Ç‚İæ‚Á‚½ƒIƒuƒWƒFƒNƒg</returns>
+		/// <typeparam name="T">ä»»æ„ã®å‹</typeparam>
+		/// <returns>èª­ã¿å–ã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</returns>
 		template<typename T>
 		T Read();
 
 		/// <summary>
-		/// ƒƒ‚ƒŠƒXƒgƒŠ[ƒ€‚©‚ç”CˆÓ‚ÌŒ^ƒTƒCƒY•ª‚ğ“Ç‚İæ‚èƒGƒ“ƒfƒBƒAƒ“•ÏŠ·‚·‚é
+		/// ãƒ¡ãƒ¢ãƒªã‚¹ãƒˆãƒªãƒ¼ãƒ ã‹ã‚‰ä»»æ„ã®å‹ã‚µã‚¤ã‚ºåˆ†ã‚’èª­ã¿å–ã‚Šã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³å¤‰æ›ã™ã‚‹
 		/// </summary>
-		/// <returns>“Ç‚İæ‚Á‚½ƒIƒuƒWƒFƒNƒg</returns>
+		/// <returns>èª­ã¿å–ã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</returns>
 		template<typename T>
 		T ReadRev();
 
 		/// <summary>
-		/// ƒƒ‚ƒŠƒXƒgƒŠ[ƒ€‚©‚ç”CˆÓ‚ÌŒ^ƒTƒCƒY•ª‚ğƒ`ƒ‰Œ©‚·‚é
+		/// ãƒ¡ãƒ¢ãƒªã‚¹ãƒˆãƒªãƒ¼ãƒ ã‹ã‚‰ä»»æ„ã®å‹ã‚µã‚¤ã‚ºåˆ†ã‚’ãƒãƒ©è¦‹ã™ã‚‹
 		/// </summary>
-		/// <typeparam name="T">”CˆÓ‚ÌŒ^</typeparam>
-		/// <returns>ƒ`ƒ‰Œ©‚µ‚½ƒIƒuƒWƒFƒNƒg</returns>
+		/// <typeparam name="T">ä»»æ„ã®å‹</typeparam>
+		/// <returns>ãƒãƒ©è¦‹ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</returns>
 		template<typename T>
 		T Peek();
 
 		/// <summary>
-		/// ƒƒ‚ƒŠƒXƒgƒŠ[ƒ€‚©‚ç”CˆÓ‚ÌŒ^ƒTƒCƒY•ª‚ğƒ`ƒ‰Œ©‚µƒGƒ“ƒfƒBƒAƒ“•ÏŠ·‚·‚é
+		/// ãƒ¡ãƒ¢ãƒªã‚¹ãƒˆãƒªãƒ¼ãƒ ã‹ã‚‰ä»»æ„ã®å‹ã‚µã‚¤ã‚ºåˆ†ã‚’ãƒãƒ©è¦‹ã—ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³å¤‰æ›ã™ã‚‹
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		/// <returns>ƒ`ƒ‰Œ©‚µ‚½ƒIƒuƒWƒFƒNƒg</returns>
+		/// <returns>ãƒãƒ©è¦‹ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</returns>
 		template<typename T>
 		T PeekRev();
 
 		/// <summary>
-		/// ƒƒ‚ƒŠƒXƒgƒŠ[ƒ€‚©‚ç”CˆÓ‚ÌŒ^‚Ì”z—ñ‚ğƒ`ƒ‰Œ©‚·‚é
+		/// ãƒ¡ãƒ¢ãƒªã‚¹ãƒˆãƒªãƒ¼ãƒ ã‹ã‚‰ä»»æ„ã®å‹ã®é…åˆ—ã‚’ãƒãƒ©è¦‹ã™ã‚‹
 		/// </summary>
-		/// <param name="_pWriteBuffer">ƒ`ƒ‰Œ©‚µ‚Ä‘‚«‚Ş”z—ñ‚Ìƒ|ƒCƒ“ƒ^</param>
-		/// <param name="_writeBufferLength">ƒ`ƒ‰Œ©‚µ‚Ä‘‚«‚Ş”z—ñ‚Ì—v‘f”</param>
-		/// <param name="_arrayLength">—v‘f”</param>
+		/// <param name="_pWriteBuffer">ãƒãƒ©è¦‹ã—ã¦æ›¸ãè¾¼ã‚€é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="_writeBufferLength">ãƒãƒ©è¦‹ã—ã¦æ›¸ãè¾¼ã‚€é…åˆ—ã®è¦ç´ æ•°</param>
+		/// <param name="_arrayLength">è¦ç´ æ•°</param>
 		template<typename T>
 		void Peek(T* _pWriteBuffer, const int& _writeBufferLength, const int& _arrayLength);
 
 		/// <summary>
-		/// ƒƒ‚ƒŠƒXƒgƒŠ[ƒ€‚©‚ç”CˆÓ‚ÌŒ^‚Ì”z—ñ‚ğ“Ç‚İæ‚é
+		/// ãƒ¡ãƒ¢ãƒªã‚¹ãƒˆãƒªãƒ¼ãƒ ã‹ã‚‰ä»»æ„ã®å‹ã®é…åˆ—ã‚’èª­ã¿å–ã‚‹
 		/// </summary>
-		/// <param name="_pWriteBuffer">“Ç‚İæ‚Á‚Ä‘‚«‚Ş”z—ñ‚Ìƒ|ƒCƒ“ƒ^</param>
-		/// <param name="_writeBufferLength">“Ç‚İæ‚Á‚Ä‘‚«‚Ş”z—ñ‚Ì—v‘f”</param>
-		/// <param name="_arrayLength">—v‘f”</param>
+		/// <param name="_pWriteBuffer">èª­ã¿å–ã£ã¦æ›¸ãè¾¼ã‚€é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="_writeBufferLength">èª­ã¿å–ã£ã¦æ›¸ãè¾¼ã‚€é…åˆ—ã®è¦ç´ æ•°</param>
+		/// <param name="_arrayLength">è¦ç´ æ•°</param>
 		template<typename T>
 		void Read(T* _pWriteBuffer, const int& _writeBufferLength, const int& _arrayLength);
 
 		/// <summary>
-		/// “Ç‚İ‘‚«‚·‚éêŠ‚ğˆÚ“®‚·‚é
+		/// èª­ã¿æ›¸ãã™ã‚‹å ´æ‰€ã‚’ç§»å‹•ã™ã‚‹
 		/// </summary>
-		/// <param name="_point">ˆÚ“®‚·‚éêŠ(’¼)</param>
+		/// <param name="_point">ç§»å‹•ã™ã‚‹å ´æ‰€(ç›´)</param>
 		void Seek(SeekPoint _point);
 		/// <summary>
-		/// “Ç‚İ‘‚«‚·‚éêŠ‚ğˆÚ“®‚·‚é
+		/// èª­ã¿æ›¸ãã™ã‚‹å ´æ‰€ã‚’ç§»å‹•ã™ã‚‹
 		/// </summary>
-		/// <param name="_dir">â‘Î“I‚ÈêŠw’è</param>
+		/// <param name="_dir">çµ¶å¯¾çš„ãªå ´æ‰€æŒ‡å®š</param>
 		void Seek(SeekAt _dir);
 
 		/// <summary>
-		/// Œ»İ‚Ì“Ç‚İ‘‚«ˆÊ’u‚ğæ“¾
+		/// ç¾åœ¨ã®èª­ã¿æ›¸ãä½ç½®ã‚’å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		inline size_t Current() const { return currentIndex; }
 		
 		/// <summary>
-		/// ƒTƒCƒY(byte)
+		/// ã‚µã‚¤ã‚º(byte)
 		/// </summary>
 		/// <returns></returns>
 		inline size_t Size() const { return BUFFER_SIZE; }
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@‚Ìƒ|ƒCƒ“ƒ^‚ğæ“¾
+		/// ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒ³ã‚¿ã‚’å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		inline mtbin::Byte* Data() { return pBuffer_; }
 
 	private:
-		const size_t BUFFER_SIZE;  // ƒoƒbƒtƒ@”z—ñ‚ÌƒTƒCƒY
-		mtbin::Byte* pBuffer_;  // “Ç‚İ‘‚«‚·‚éƒoƒbƒtƒ@”z—ñ
-		size_t currentIndex;  // Œ»İ‚ÌƒCƒ“ƒfƒbƒNƒX
+		const size_t BUFFER_SIZE;  // ãƒãƒƒãƒ•ã‚¡é…åˆ—ã®ã‚µã‚¤ã‚º
+		mtbin::Byte* pBuffer_;  // èª­ã¿æ›¸ãã™ã‚‹ãƒãƒƒãƒ•ã‚¡é…åˆ—
+		size_t currentIndex;  // ç¾åœ¨ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 	};
 
 	template<typename T>
 	inline void MemoryStreamCore::Write(T _value)
 	{
-		assert((currentIndex + sizeof(T)) < BUFFER_SIZE  // ‘‚«‚ñ‚Å‚àƒI[ƒo[ƒ‰ƒ“‚µ‚È‚¢
+		assert((currentIndex + sizeof(T)) < BUFFER_SIZE  // æ›¸ãè¾¼ã‚“ã§ã‚‚ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒ³ã—ãªã„
 			&& "buffer over run @mtbin::MemoryStream::Write");
 
 		void* dist = &(pBuffer_[currentIndex]);
 		void* src = reinterpret_cast<void*>(&_value);
 		size_t size = sizeof(T);
-		// ‘‚«‚Ş
+		// æ›¸ãè¾¼ã‚€
 		::memcpy(dist, src, size);
-		currentIndex += sizeof(T);  // ƒTƒCƒY•ªi‚ß‚é
+		currentIndex += sizeof(T);  // ã‚µã‚¤ã‚ºåˆ†é€²ã‚ã‚‹
 	}
 
 	template<typename T>
 	inline void MemoryStreamCore::Write(T* _pArray, const int& _arrayLength)
 	{
-		size_t size{ sizeof(T) * _arrayLength };  // ‘‚«‚ŞƒTƒCƒY
-		assert((currentIndex + size) <= BUFFER_SIZE  // ‘‚«‚ñ‚Å‚àƒI[ƒo[ƒ‰ƒ“‚µ‚È‚¢
+		size_t size{ sizeof(T) * _arrayLength };  // æ›¸ãè¾¼ã‚€ã‚µã‚¤ã‚º
+		assert((currentIndex + size) <= BUFFER_SIZE  // æ›¸ãè¾¼ã‚“ã§ã‚‚ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒ³ã—ãªã„
 			&& "buffer over run @mtbin::MemoryStream::Write");
 
-		// ‘‚«‚Ş
+		// æ›¸ãè¾¼ã‚€
 		::memcpy(
 			&(pBuffer_[currentIndex]),
 			reinterpret_cast<mtbin::Byte*>(_pArray),
 			size);
-		currentIndex += size;  // ƒTƒCƒY•ªi‚ß‚é
+		currentIndex += size;  // ã‚µã‚¤ã‚ºåˆ†é€²ã‚ã‚‹
 	}
 
 	template<typename T>
 	inline T MemoryStreamCore::Read()
 	{
-		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // “Ç‚İ‚ñ‚Å‚àƒAƒ“ƒ_[ƒ‰ƒ“‚µ‚È‚¢
+		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // èª­ã¿è¾¼ã‚“ã§ã‚‚ã‚¢ãƒ³ãƒ€ãƒ¼ãƒ©ãƒ³ã—ãªã„
 			&& "buffer under run @mtbin::MemoryStream::Read");
 
-		T pickBuffer{};  // æ‚èo‚µ—pƒoƒbƒtƒ@—pˆÓ
-		::memcpy(&pickBuffer, &(pBuffer_[currentIndex]), sizeof(T));  // æ‚èo‚·
-		currentIndex += sizeof(T);  // ƒTƒCƒY•ªi‚ß‚é
+		T pickBuffer{};  // å–ã‚Šå‡ºã—ç”¨ãƒãƒƒãƒ•ã‚¡ç”¨æ„
+		::memcpy(&pickBuffer, &(pBuffer_[currentIndex]), sizeof(T));  // å–ã‚Šå‡ºã™
+		currentIndex += sizeof(T);  // ã‚µã‚¤ã‚ºåˆ†é€²ã‚ã‚‹
 
 		return pickBuffer;
 	}
@@ -169,16 +169,16 @@ namespace mtbin
 	template<typename T>
 	inline T MemoryStreamCore::ReadRev()
 	{
-		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // “Ç‚İ‚ñ‚Å‚àƒAƒ“ƒ_[ƒ‰ƒ“‚µ‚È‚¢
+		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // èª­ã¿è¾¼ã‚“ã§ã‚‚ã‚¢ãƒ³ãƒ€ãƒ¼ãƒ©ãƒ³ã—ãªã„
 			&& "buffer under run @mtbin::MemoryStream::ReadRev");
 		
-		// æ‚èo‚µ—pƒoƒbƒtƒ@—pˆÓ
+		// å–ã‚Šå‡ºã—ç”¨ãƒãƒƒãƒ•ã‚¡ç”¨æ„
 		std::array<Byte, sizeof(T)> buffer{};
 
-		::memcpy(reinterpret_cast<void*>(buffer.data()), &(pBuffer_[currentIndex]), sizeof(T));  // æ‚èo‚·
-		currentIndex += sizeof(T);  // ƒTƒCƒY•ªi‚ß‚é
+		::memcpy(reinterpret_cast<void*>(buffer.data()), &(pBuffer_[currentIndex]), sizeof(T));  // å–ã‚Šå‡ºã™
+		currentIndex += sizeof(T);  // ã‚µã‚¤ã‚ºåˆ†é€²ã‚ã‚‹
 
-		// ƒGƒ“ƒfƒBƒAƒ“‚Ì•ÏŠ·
+		// ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ã®å¤‰æ›
 		std::reverse(buffer.begin(), buffer.end());
 
 		return *(reinterpret_cast<T*>(buffer.data()));
@@ -187,11 +187,11 @@ namespace mtbin
 	template<typename T>
 	inline T MemoryStreamCore::Peek()
 	{
-		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // “Ç‚İ‚ñ‚Å‚àƒAƒ“ƒ_[ƒ‰ƒ“‚µ‚È‚¢
+		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // èª­ã¿è¾¼ã‚“ã§ã‚‚ã‚¢ãƒ³ãƒ€ãƒ¼ãƒ©ãƒ³ã—ãªã„
 			&& "buffer under run @mtbin::MemoryStream::Read");
 
-		T pickBuffer{};  // æ‚èo‚µ—pƒoƒbƒtƒ@—pˆÓ
-		::memcpy(&pickBuffer, &(pBuffer_[currentIndex]), sizeof(T));  // æ‚èo‚·
+		T pickBuffer{};  // å–ã‚Šå‡ºã—ç”¨ãƒãƒƒãƒ•ã‚¡ç”¨æ„
+		::memcpy(&pickBuffer, &(pBuffer_[currentIndex]), sizeof(T));  // å–ã‚Šå‡ºã™
 
 		return pickBuffer;
 	}
@@ -199,15 +199,15 @@ namespace mtbin
 	template<typename T>
 	inline T MemoryStreamCore::PeekRev()
 	{
-		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // “Ç‚İ‚ñ‚Å‚àƒAƒ“ƒ_[ƒ‰ƒ“‚µ‚È‚¢
+		assert((currentIndex + sizeof(T)) <= BUFFER_SIZE  // èª­ã¿è¾¼ã‚“ã§ã‚‚ã‚¢ãƒ³ãƒ€ãƒ¼ãƒ©ãƒ³ã—ãªã„
 			&& "buffer under run @mtbin::MemoryStream::PeekRev");
 
-		// æ‚èo‚µ—pƒoƒbƒtƒ@—pˆÓ
+		// å–ã‚Šå‡ºã—ç”¨ãƒãƒƒãƒ•ã‚¡ç”¨æ„
 		std::array<Byte, sizeof(T)> buffer{};
 
-		::memcpy(reinterpret_cast<void*>(buffer.data()), &(pBuffer_[currentIndex]), sizeof(T));  // æ‚èo‚·
+		::memcpy(reinterpret_cast<void*>(buffer.data()), &(pBuffer_[currentIndex]), sizeof(T));  // å–ã‚Šå‡ºã™
 		
-		// ƒGƒ“ƒfƒBƒAƒ“‚Ì•ÏŠ·
+		// ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ã®å¤‰æ›
 		std::reverse(buffer.begin(), buffer.end());
 
 		return *(reinterpret_cast<T*>(buffer.data()));
@@ -216,33 +216,33 @@ namespace mtbin
 	template<typename T>
 	inline void MemoryStreamCore::Peek(T* _pWriteBuffer, const int& _writeBufferLength, const int& _arrayLength)
 	{
-		assert(_pWriteBuffer != nullptr  // ‘‚«‚İæ‚Ínullptr‚Å‚Í‚È‚¢
+		assert(_pWriteBuffer != nullptr  // æ›¸ãè¾¼ã¿å…ˆã¯nullptrã§ã¯ãªã„
 			&& "write buffer is nullptr @mtbin::MemoryStream::Read");
 
-		assert(_writeBufferLength >= _arrayLength  // ‘‚«‚İæ‚É\•ª‚È—e—Ê‚ ‚è
+		assert(_writeBufferLength >= _arrayLength  // æ›¸ãè¾¼ã¿å…ˆã«ååˆ†ãªå®¹é‡ã‚ã‚Š
 			&& "write buffer under run @mtbin::MemoryStream::Read");
 
-		size_t size{ sizeof(T) * _arrayLength };  // “Ç‚İ‚ŞƒTƒCƒY
-		assert((currentIndex + size) <= BUFFER_SIZE  // “Ç‚İ‚ñ‚Å‚àƒAƒ“ƒ_[ƒ‰ƒ“‚µ‚È‚¢
+		size_t size{ sizeof(T) * _arrayLength };  // èª­ã¿è¾¼ã‚€ã‚µã‚¤ã‚º
+		assert((currentIndex + size) <= BUFFER_SIZE  // èª­ã¿è¾¼ã‚“ã§ã‚‚ã‚¢ãƒ³ãƒ€ãƒ¼ãƒ©ãƒ³ã—ãªã„
 			&& "buffer under run @mtbin::MemoryStream::Read");
 
-		::memcpy(_pWriteBuffer, &(pBuffer_[currentIndex]), size);  // æ‚èo‚·
+		::memcpy(_pWriteBuffer, &(pBuffer_[currentIndex]), size);  // å–ã‚Šå‡ºã™
 	}
 
 	template<typename T>
 	inline void MemoryStreamCore::Read(T* _pWriteBuffer, const int& _writeBufferLength, const int& _arrayLength)
 	{
-		assert(_pWriteBuffer != nullptr  // ‘‚«‚İæ‚Ínullptr‚Å‚Í‚È‚¢
+		assert(_pWriteBuffer != nullptr  // æ›¸ãè¾¼ã¿å…ˆã¯nullptrã§ã¯ãªã„
 			&& "write buffer is nullptr @mtbin::MemoryStream::Read");
 
-		assert(_writeBufferLength >= _arrayLength  // ‘‚«‚İæ‚É\•ª‚È—e—Ê‚ ‚è
+		assert(_writeBufferLength >= _arrayLength  // æ›¸ãè¾¼ã¿å…ˆã«ååˆ†ãªå®¹é‡ã‚ã‚Š
 			&& "write buffer under run @mtbin::MemoryStream::Read");
 
-		size_t size{ sizeof(T) * _arrayLength };  // “Ç‚İ‚ŞƒTƒCƒY
-		assert((currentIndex + size) <= BUFFER_SIZE  // “Ç‚İ‚ñ‚Å‚àƒAƒ“ƒ_[ƒ‰ƒ“‚µ‚È‚¢
+		size_t size{ sizeof(T) * _arrayLength };  // èª­ã¿è¾¼ã‚€ã‚µã‚¤ã‚º
+		assert((currentIndex + size) <= BUFFER_SIZE  // èª­ã¿è¾¼ã‚“ã§ã‚‚ã‚¢ãƒ³ãƒ€ãƒ¼ãƒ©ãƒ³ã—ãªã„
 			&& "buffer under run @mtbin::MemoryStream::Read");
 
-		::memcpy(_pWriteBuffer, &(pBuffer_[currentIndex]), size);  // æ‚èo‚·
-		currentIndex += size;  // ƒTƒCƒY•ªi‚ß‚é
+		::memcpy(_pWriteBuffer, &(pBuffer_[currentIndex]), size);  // å–ã‚Šå‡ºã™
+		currentIndex += size;  // ã‚µã‚¤ã‚ºåˆ†é€²ã‚ã‚‹
 	}
 }

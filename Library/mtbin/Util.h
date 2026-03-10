@@ -6,12 +6,12 @@ namespace mtbin
 	namespace util
 	{
 		/// <summary>
-		/// ƒ`ƒƒƒ“ƒNId‚ğ”äŠr‚·‚é
+		/// ãƒãƒ£ãƒ³ã‚¯Idã‚’æ¯”è¼ƒã™ã‚‹
 		/// </summary>
-		/// <typeparam name="Size">Id‚ÌƒoƒCƒg”</typeparam>
-		/// <param name="_chunk">ƒ`ƒƒƒ“ƒNIdŠi”[”z—ñ</param>
-		/// <param name="_str">”äŠrId•¶š—ñ</param>
-		/// <returns>‡’v true / false</returns>
+		/// <typeparam name="Size">Idã®ãƒã‚¤ãƒˆæ•°</typeparam>
+		/// <param name="_chunk">ãƒãƒ£ãƒ³ã‚¯Idæ ¼ç´é…åˆ—</param>
+		/// <param name="_str">æ¯”è¼ƒIdæ–‡å­—åˆ—</param>
+		/// <returns>åˆè‡´ true / false</returns>
 		template<size_t Size>
 		inline bool CompareId(const std::array<Byte, Size>& _chunk, const char* _str)
 		{

@@ -2,15 +2,15 @@
 
 
 /// <summary>
-/// smf‚ğÄ¶‚·‚é‚Æ‚«‚Ìİ’è
+/// smfã‚’å†ç”Ÿã™ã‚‹ã¨ãã®è¨­å®š
 /// </summary>
 struct PlaybackParam
 {
-	float normalPlayRatio;   // ’Êí‚ÌÄ¶”{—¦
-	float stoppedPlayRatio;  // ’â~’†‚ÌÄ¶”{—¦
+	float normalPlayRatio;   // é€šå¸¸ã®å†ç”Ÿå€ç‡
+	float stoppedPlayRatio;  // åœæ­¢ä¸­ã®å†ç”Ÿå€ç‡
 };
 
-// json‚É©“®•ÏŠ·‚·‚éŠÖ”ŒQ
+// jsonã«è‡ªå‹•å¤‰æ›ã™ã‚‹é–¢æ•°ç¾¤
 namespace
 {
 	inline void to_json(json& j, const PlaybackParam& _param)

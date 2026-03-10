@@ -16,33 +16,33 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 {
 	if (!fileName_.empty() && pOriginalMesh_ == nullptr)
 	{
-		if (modelMeshType_ == Type::FbxBack  // Å”w–Ê‚É•`‰æ‚µ‚½‚¢
-			|| modelMeshType_ == Type::FbxAplha)  // “§–¾“x‚ğ•t‚¯‚Ä•`‰æ‚µ‚½‚¢
+		if (modelMeshType_ == Type::FbxBack  // æœ€èƒŒé¢ã«æç”»ã—ãŸã„
+			|| modelMeshType_ == Type::FbxAplha)  // é€æ˜åº¦ã‚’ä»˜ã‘ã¦æç”»ã—ãŸã„
 		{
 		}
 		else
 		{
-			// ƒtƒ@ƒCƒ‹–¼‚ªw’è‚³‚ê‚Ä‚¢‚é ‚©‚Â ƒIƒŠƒWƒiƒ‹ƒƒbƒVƒ…‚ªw’è‚³‚ê‚Ä‚È‚¢
+			// ãƒ•ã‚¡ã‚¤ãƒ«åãŒæŒ‡å®šã•ã‚Œã¦ã„ã‚‹ ã‹ã¤ ã‚ªãƒªã‚¸ãƒŠãƒ«ãƒ¡ãƒƒã‚·ãƒ¥ãŒæŒ‡å®šã•ã‚Œã¦ãªã„
 			modelMeshType_ = Type::Fbx;
 		}
 	}
 	else if (fileName_.empty() && pOriginalMesh_ != nullptr)
 	{
-		// ƒtƒ@ƒCƒ‹–¼‚ªw’è‚³‚ê‚Ä‚¢‚È‚¢ ‚©‚Â ƒIƒŠƒWƒiƒ‹ƒƒbƒVƒ…‚ªw’è‚³‚ê‚Ä‚¢‚é
+		// ãƒ•ã‚¡ã‚¤ãƒ«åãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„ ã‹ã¤ ã‚ªãƒªã‚¸ãƒŠãƒ«ãƒ¡ãƒƒã‚·ãƒ¥ãŒæŒ‡å®šã•ã‚Œã¦ã„ã‚‹
 		modelMeshType_ = Type::SimpleMesh;
 	}
 	else
 	{
-		// ‚»‚Ì‘¼ ’m‚ç‚È‚¢
+		// ãã®ä»– çŸ¥ã‚‰ãªã„
 		modelMeshType_ = Type::Other;
 	}
 
-	// ƒ‚ƒfƒ‹ƒƒbƒVƒ…‚Ìí—Ş
+	// ãƒ¢ãƒ‡ãƒ«ãƒ¡ãƒƒã‚·ãƒ¥ã®ç¨®é¡
 	switch (modelMeshType_)
 	{
 	case wtgb::ModelMesh::Type::Fbx:
-	case wtgb::ModelMesh::Type::FbxBack:  // Å”w–Ê•`‰æ—p‚ÌFBX
-	case wtgb::ModelMesh::Type::FbxAplha:  // “§–¾“x‚ğw’è‚µ‚½‚¢FBX
+	case wtgb::ModelMesh::Type::FbxBack:  // æœ€èƒŒé¢æç”»ç”¨ã®FBX
+	case wtgb::ModelMesh::Type::FbxAplha:  // é€æ˜åº¦ã‚’æŒ‡å®šã—ãŸã„FBX
 		hModel_ = system_.Get<Model>().Load(fileName_);
 		break;
 	case wtgb::ModelMesh::Type::SimpleMesh:
@@ -50,7 +50,7 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 		break;
 	case wtgb::ModelMesh::Type::Other:
 	default:
-		wassert(false && "–¢‘Î‰‚ÌƒƒbƒVƒ…ƒ^ƒCƒv");
+		wassert(false && "æœªå¯¾å¿œã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚¿ã‚¤ãƒ—");
 		break;
 	}
 }

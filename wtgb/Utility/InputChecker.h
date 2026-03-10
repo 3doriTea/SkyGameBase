@@ -13,29 +13,29 @@ namespace wtgb
 
 		friend class Input;
 		
-		// TODO: ‚±‚ÌT‚ª^‹U’l‚ÉƒLƒƒƒXƒg‚Å‚«‚é‚±‚Æ‚ðƒRƒ“ƒZƒvƒg‚É‚·‚é
+		// TODO: ã“ã®TãŒçœŸå½å€¤ã«ã‚­ãƒ£ã‚¹ãƒˆã§ãã‚‹ã“ã¨ã‚’ã‚³ãƒ³ã‚»ãƒ—ãƒˆã«ã™ã‚‹
 		template <typename T>
 		inline static std::function<bool(const T _previous)> IsDown(const T _current)
 		{
 			return [_current](const T _previous)
 				{
-					return _current  // ¡‚ªON
-						&&           // ‚©‚Â
-						!_previous;  // ‘O‚ªOFF
-					// -> ‰Ÿ‚³‚ê‚½uŠÔI
+					return _current  // ä»ŠãŒON
+						&&           // ã‹ã¤
+						!_previous;  // å‰ãŒOFF
+					// -> æŠ¼ã•ã‚ŒãŸçž¬é–“ï¼
 				};
 		}
 
-		// TODO: ‚±‚ÌT‚ª^‹U’l‚ÉƒLƒƒƒXƒg‚Å‚«‚é‚±‚Æ‚ðƒRƒ“ƒZƒvƒg‚É‚·‚é
+		// TODO: ã“ã®TãŒçœŸå½å€¤ã«ã‚­ãƒ£ã‚¹ãƒˆã§ãã‚‹ã“ã¨ã‚’ã‚³ãƒ³ã‚»ãƒ—ãƒˆã«ã™ã‚‹
 		template <typename T>
 		inline static std::function<bool(const T _previous)> IsUp(const T _current)
 		{
 			return [_current](const T _previous)
 				{
-					return !_current  // ¡‚ªON
-						&&            // ‚©‚Â
-						_previous;    // ‘O‚ªOFF
-					// -> ‰Ÿ‚³‚ê‚½uŠÔI
+					return !_current  // ä»ŠãŒON
+						&&            // ã‹ã¤
+						_previous;    // å‰ãŒOFF
+					// -> æŠ¼ã•ã‚ŒãŸçž¬é–“ï¼
 				};
 		}
 

@@ -4,7 +4,7 @@
 
 wtgb::EntityGenerator::EntityGenerator() :
 	//nextIndex_{ 0 },
-	// NOTE: –³Œø‚ÈEntityId‚É‚È‚ç‚È‚¢‚æ‚¤‚ÉÅ‰‚Ìƒo[ƒWƒ‡ƒ“‚Í1
+	// NOTE: ç„¡åŠ¹ãªEntityIdã«ãªã‚‰ãªã„ã‚ˆã†ã«æœ€åˆã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯1
 	versions_(ENTITY_CAPACITY, 1),
 	useFlag_{}
 {
@@ -19,7 +19,7 @@ wtgb::EntityId wtgb::EntityGenerator::Generate()
 	EntityId entityId{ wtgb::INVALIED_ID };
 
 
-	// TODO: ƒAƒ‹ƒSƒŠƒYƒ€‰ü‘P‚ª•K—v
+	// TODO: ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ æ”¹å–„ãŒå¿…è¦
 	for (uint32_t i = 0; i < UINT32_MAX; i++)
 	{
 		if (!useFlag_[i])
@@ -43,26 +43,26 @@ void wtgb::EntityGenerator::Remove(const EntityId _entityId)
 
 void wtgb::EntityGenerator::RemoveAt(const uint32_t _index)
 {
-	// g‚Á‚Ä‚¢‚½êŠ‚ğ‘|œ
-	versions_[_index]++;    // ƒo[ƒWƒ‡ƒ“‚ğã‚°‚é
-	useFlag_[_index] = false;  // ‹ó‰Æ‚É‚·‚é
+	// ä½¿ã£ã¦ã„ãŸå ´æ‰€ã‚’æƒé™¤
+	versions_[_index]++;    // ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’ä¸Šã’ã‚‹
+	useFlag_[_index] = false;  // ç©ºå®¶ã«ã™ã‚‹
 }
 
 const bool wtgb::EntityGenerator::IsInvalidId(const EntityId _checkId) const
 {
-	// ƒGƒ“ƒeƒBƒeƒBƒLƒƒƒpƒVƒeƒBˆÈã‚Ì’l‚È‚ç–³Œø
+	// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚­ãƒ£ãƒ‘ã‚·ãƒ†ã‚£ä»¥ä¸Šã®å€¤ãªã‚‰ç„¡åŠ¹
 	if (_checkId.index >= ENTITY_CAPACITY)
 	{
 		return true;
 	}
 
-	// Œ»İg‚í‚ê‚Ä‚¢‚È‚¢ƒGƒ“ƒeƒBƒeƒB‚È‚ç–³Œø
+	// ç¾åœ¨ä½¿ã‚ã‚Œã¦ã„ãªã„ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ãªã‚‰ç„¡åŠ¹
 	if (!useFlag_[_checkId.index])
 	{
 		return true;
 	}
 
-	// ƒo[ƒWƒ‡ƒ“‚ª•sˆê’v‚È‚ç–³Œø
+	// ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãŒä¸ä¸€è‡´ãªã‚‰ç„¡åŠ¹
 	if (versions_[_checkId.index] != _checkId.version)
 	{
 		return true;

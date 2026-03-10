@@ -2,7 +2,7 @@
 #include "Core/IGameSystem.h"
 
 /// <summary>
-/// ゲームのメインウィンドウを司るシステムクラス
+/// 繧ｲ繝ｼ繝縺ｮ繝｡繧､繝ｳ繧ｦ繧｣繝ｳ繝峨え繧貞昇繧九す繧ｹ繝�繝繧ｯ繝ｩ繧ｹ
 /// </summary>
 class MainWindow : public wtgb::IGameSystem
 {

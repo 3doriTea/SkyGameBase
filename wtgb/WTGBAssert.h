@@ -4,15 +4,15 @@
 #include <cassert>
 
 /*
-* NOTE: wassert‚Ì®“à‚ÅRelease‚à•K—v‚ÈŠÖ”‚ğ“ü‚ê‚È‚¢‚Å‚­‚¾‚³‚¢B
-*     : wassert‚ÍReleaseƒrƒ‹ƒh‚É®‚²‚Æ–³‹‚³‚ê‚é‚½‚ßA“KØ‚ÈƒAƒT[ƒVƒ‡ƒ“ˆ—‚ğ‚µ‚Ä‚­‚¾‚³‚¢B
-*     : “KØ‚ÈƒAƒT[ƒVƒ‡ƒ“ˆ—‚ÍA–ß‚è’l‚ğˆê“x•Ï”‚ÉŠi”[‚µA‚»‚Ì•Ï”‚ğwassert‚Ì®‚É–„‚ß‚ŞŒ`‚É‚È‚è‚Ü‚·B
+* NOTE: wassertã®å¼å†…ã§Releaseæ™‚ã‚‚å¿…è¦ãªé–¢æ•°ã‚’å…¥ã‚Œãªã„ã§ãã ã•ã„ã€‚
+*     : wassertã¯Releaseãƒ“ãƒ«ãƒ‰æ™‚ã«å¼ã”ã¨ç„¡è¦–ã•ã‚Œã‚‹ãŸã‚ã€é©åˆ‡ãªã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†ã‚’ã—ã¦ãã ã•ã„ã€‚
+*     : é©åˆ‡ãªã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†ã¯ã€æˆ»ã‚Šå€¤ã‚’ä¸€åº¦å¤‰æ•°ã«æ ¼ç´ã—ã€ãã®å¤‰æ•°ã‚’wassertã®å¼ã«åŸ‹ã‚è¾¼ã‚€å½¢ã«ãªã‚Šã¾ã™ã€‚
 * Bad Code:
 *   wassert(RegisterClassEx(&WNDCLASSEX_DESC) != 0
-*     && "ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX“o˜^‚É¸”s");
+*     && "ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ç™»éŒ²ã«å¤±æ•—");
 * Good Code:
 *   ATOM atom{ RegisterClassEx(&WNDCLASSEX_DESC) };
-*   wassert(atom != 0 && "ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX“o˜^‚É¸”s");
+*   wassert(atom != 0 && "ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ç™»éŒ²ã«å¤±æ•—");
 */
 
 #ifdef _DEBUG
@@ -21,16 +21,16 @@
 if (!(expression))\
 {\
 	DWORD errorCode{ GetLastError() };\
-	std::string hint{ "“Á‚É‚È‚µ" };\
+	std::string hint{ "ç‰¹ã«ãªã—" };\
 	switch (errorCode)\
 	{\
-		case 3: hint = "ƒtƒ@ƒCƒ‹ƒpƒX‚ğŠÔˆá‚¦‚Ä‚¢‚é‚©‚àI"; break;\
+		case 3: hint = "ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’é–“é•ãˆã¦ã„ã‚‹ã‹ã‚‚ï¼"; break;\
 		default: break;\
 	}\
 	std::string description\
 	{\
 		std::format(\
-			"{}\r\n\"{}\"‚æ‚èA{}s–Ú‚Ì{}ŠÖ”“à‚Åwassert‚ª‹N“®‚µ‚Ü‚µ‚½B\r\nƒLƒƒƒ“ƒZƒ‹‚µ‚È‚¢ê‡A—áŠOƒXƒ[‚µ‚Ü‚·BWindows‚ÌÅIƒGƒ‰[‚ğæ“¾‚µ‚Ü‚·‚©H(‚Í‚¢/‚¢‚¢‚¦)\r\nƒqƒ“ƒgF{}",\
+			"{}\r\n\"{}\"ã‚ˆã‚Šã€{}è¡Œç›®ã®{}é–¢æ•°å†…ã§wassertãŒèµ·å‹•ã—ã¾ã—ãŸã€‚\r\nã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ãªã„å ´åˆã€ä¾‹å¤–ã‚¹ãƒ­ãƒ¼ã—ã¾ã™ã€‚Windowsã®æœ€çµ‚ã‚¨ãƒ©ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã‹ï¼Ÿ(ã¯ã„/ã„ã„ãˆ)\r\nãƒ’ãƒ³ãƒˆï¼š{}",\
 			#expression,\
 			__FILE__,\
 			__LINE__,\
@@ -45,14 +45,14 @@ if (!(expression))\
 	{\
 		MessageBox(NULL, description.c_str(), title.c_str(), MB_YESNOCANCEL | MB_ICONSTOP | MB_SYSTEMMODAL)\
 	};\
-	/* MessageBox‚Ì•\¦‚É¸”s‚µ‚½‚Æ‚«‚ÍA•W€‚Ìassert‚ğg‚¤ */\
+	/* MessageBoxã®è¡¨ç¤ºã«å¤±æ•—ã—ãŸã¨ãã¯ã€æ¨™æº–ã®assertã‚’ä½¿ã† */\
 	if (result == 0)\
 	{\
 		assert(false && "wassert: MessageBox failed to display. Falling back to standard assert.");\
 	}\
 	if (result == IDYES)\
 	{\
-		int secResult { MessageBox(NULL, std::format("ÅIƒGƒ‰[ƒR[ƒh:{}", errorCode).c_str(), title.c_str(), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL) };\
+		int secResult { MessageBox(NULL, std::format("æœ€çµ‚ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰:{}", errorCode).c_str(), title.c_str(), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL) };\
 		if (secResult == 0)\
 		{\
 			assert(false && "wassert: secondary MessageBox failed to display.");\

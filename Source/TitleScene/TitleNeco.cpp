@@ -6,7 +6,7 @@
 #include "TitleScene.h"
 #include "../PlayScene/PlayScene.h"
 
-// TODO: ƒ^ƒCƒgƒ‹”L‚ª‚¿‚·‚¬‚Ä‚é‚©‚ç•ª‚¯‚é
+// TODO: ã‚¿ã‚¤ãƒˆãƒ«çŒ«ãŒæŒã¡ã™ãã¦ã‚‹ã‹ã‚‰åˆ†ã‘ã‚‹
 
 TitleNeco::TitleNeco(const EntityId _dragCircle) :
 	GameObject{ "TitleNeco.json" },
@@ -35,7 +35,7 @@ void TitleNeco::OnLoadParam(const json& _json)
 {
 	ResourceSystem& rc{ System().Get<ResourceSystem>() };
 
-	wassert(_json.contains("necoImagePath") && "json‚Éƒpƒ‰ƒ[ƒ^‚ªŠÜ‚Ü‚ê‚Ä‚¢‚È‚¢");
+	wassert(_json.contains("necoImagePath") && "jsonã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãŒå«ã¾ã‚Œã¦ã„ãªã„");
 	const json& necoImagePath{ _json["necoImagePath"] };
 
 	hImages_[I_HAND] = rc.LoadTexture(
@@ -45,7 +45,7 @@ void TitleNeco::OnLoadParam(const json& _json)
 	hImages_[I_NORM] = rc.LoadTexture(
 		SafeGet<std::string>(necoImagePath, "norm"));
 	
-	wassert(_json.contains("playButtonImagePath") && "json‚Éƒpƒ‰ƒ[ƒ^‚ªŠÜ‚Ü‚ê‚Ä‚¢‚È‚¢");
+	wassert(_json.contains("playButtonImagePath") && "jsonã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãŒå«ã¾ã‚Œã¦ã„ãªã„");
 	const json& buttonImagePath{ _json["playButtonImagePath"] };
 
 	hButtonOff_ = rc.LoadTexture(
@@ -55,7 +55,7 @@ void TitleNeco::OnLoadParam(const json& _json)
 
 	playToneAudioFile_ = SafeGet<std::string>(_json, "playToneAudio");
 
-	wassert(_json.contains("uiLayoutConfig") && "json‚Éƒpƒ‰ƒ[ƒ^‚ªŠÜ‚Ü‚ê‚Ä‚¢‚È‚¢");
+	wassert(_json.contains("uiLayoutConfig") && "jsonã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãŒå«ã¾ã‚Œã¦ã„ãªã„");
 	const json& uiLayoutConfig{ _json["uiLayoutConfig"] };
 
 	uiLayoutConfigOrder_ = SafeGet<int>(uiLayoutConfig, "order");
@@ -85,11 +85,11 @@ void TitleNeco::Init()
 	const Vector2Int screenSizeInt{ System().Get<GameWindow>().GetMainWindowSize() };
 	const Vector2 screenSize{ static_cast<float>(screenSizeInt.x), static_cast<float>(screenSizeInt.y) };
 	TitleScene* pTitleScene{ GetScene<TitleScene>() };
-	wassert(pTitleScene && "ƒ^ƒCƒgƒ‹ƒV[ƒ“‚Ìæ“¾‚É¸”s");
+	wassert(pTitleScene && "ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—");
 
 	if (pTitleScene == nullptr)
 	{
-		return;  // ƒ^ƒCƒgƒ‹ƒV[ƒ“‚Ìæ“¾‚É¸”s‚·‚é‚Æ‰½‚à‚Å‚«‚È‚¢
+		return;  // ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—ã™ã‚‹ã¨ä½•ã‚‚ã§ããªã„
 	}
 
 	//dragPoint_ = GetScene<SampleScene>().Instantiate<DragCircle>(centerPosition, 30);
@@ -97,7 +97,7 @@ void TitleNeco::Init()
 
 	pDragCircle->SetRadius(dragCircleRadius_);
 
-#pragma region ƒvƒŒƒCƒ{ƒ^ƒ“
+#pragma region ãƒ—ãƒ¬ã‚¤ãƒœã‚¿ãƒ³
 	playButton_ = pTitleScene->Instantiate<Button>();
 	Button* pPlayButton{ dynamic_cast<Button*>(FindGameObject(playButton_)) };
 
@@ -120,7 +120,7 @@ void TitleNeco::Init()
 			Vector2Int diff{ center - _cursorPos };
 			if ((diff.x * diff.x + diff.y * diff.y) > PLAY_BUTTON_RADIUS_SQ)
 			{
-				return false;  // ‰~‚Ì”ÍˆÍŠO‚È‚ç“–‚½‚Á‚Ä‚¢‚È‚¢
+				return false;  // å††ã®ç¯„å›²å¤–ãªã‚‰å½“ãŸã£ã¦ã„ãªã„
 			}
 
 			return begin.x <= _cursorPos.x && _cursorPos.x <= end.x
@@ -133,10 +133,10 @@ void TitleNeco::Init()
 	{
 		Audio& audio{ System().Get<Audio>() };
 
-		// ƒm[ƒcÄ¶‚Ì‰¹Œ¹“Ç‚İ‚İ && ƒZƒbƒg
+		// ãƒãƒ¼ãƒ„å†ç”Ÿæ™‚ã®éŸ³æºèª­ã¿è¾¼ã¿ && ã‚»ãƒƒãƒˆ
 		pSMFPlayer->SetToneAudioHandle(audio.Load(playToneAudioFile_));
 
-		// ƒm[ƒc‚Ìˆ—‚ğ“o˜^
+		// ãƒãƒ¼ãƒ„ã®å‡¦ç†ã‚’ç™»éŒ²
 		pSMFPlayer->OnNote([this, pSMFPlayer](Note _note)
 			{
 				if (_note.channel == playNoteChannel_)
@@ -147,7 +147,7 @@ void TitleNeco::Init()
 			});
 
 
-		// Ä¶I
+		// å†ç”Ÿï¼
 		pSMFPlayer->Play();
 	}
 }
@@ -185,7 +185,7 @@ void TitleNeco::Update()
 
 	if (pDragCircle)
 	{
-		// TODO: ƒ{ƒ^ƒ“ƒhƒ‰ƒbƒOˆÊ’u‚ğŠm’è‚³‚¹‚é
+		// TODO: ãƒœã‚¿ãƒ³ãƒ‰ãƒ©ãƒƒã‚°ä½ç½®ã‚’ç¢ºå®šã•ã›ã‚‹
 		isDrag_ = pDragCircle->IsDrag();
 		pDragCircle->SetPosition(
 			{
@@ -213,7 +213,7 @@ void TitleNeco::Update()
 	context.DrawImage(hImages_[I_HAND]);
 
 	Button* pPlayButton{ dynamic_cast<Button*>(FindGameObject(playButton_)) };
-	wassert(pPlayButton && "ƒvƒŒƒCƒV[ƒ“‚Ös‚­ƒ{ƒ^ƒ“‚ª‚È‚¢‚æI");
+	wassert(pPlayButton && "ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã¸è¡Œããƒœã‚¿ãƒ³ãŒãªã„ã‚ˆï¼");
 
 	if (pPlayButton)
 	{

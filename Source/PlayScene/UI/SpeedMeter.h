@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ƒXƒs[ƒh’²®‚ğs‚¤UI
+/// ã‚¹ãƒ”ãƒ¼ãƒ‰èª¿æ•´ã‚’è¡Œã†UI
 /// </summary>
 class SpeedMeter : public GameObject
 {
@@ -19,10 +19,10 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
-	EntityId player_;       // ‘¬“x‚ğ‘ª‚éƒIƒuƒWƒFƒNƒg
-	EntityId numberPlate_;  // ”š‚ğ•\¦‚·‚éƒIƒuƒWƒFƒNƒg
+	EntityId player_;       // é€Ÿåº¦ã‚’æ¸¬ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	EntityId numberPlate_;  // æ•°å­—ã‚’è¡¨ç¤ºã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
-	Vector2Int baseCanvasSize_;     // UIİŒv‚ÌƒLƒƒƒ“ƒoƒXƒTƒCƒY
-	int numbersCenterOffset_;       // ƒXƒs[ƒh”š‚Ì’†S‚©‚ç‚¸‚ç‚·•ª
-	std::string numbersImageFile_;  // ”š‚Ì‰æ‘œ
+	Vector2Int baseCanvasSize_;     // UIè¨­è¨ˆæ™‚ã®ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚µã‚¤ã‚º
+	int numbersCenterOffset_;       // ã‚¹ãƒ”ãƒ¼ãƒ‰æ•°å­—ã®ä¸­å¿ƒã‹ã‚‰ãšã‚‰ã™åˆ†
+	std::string numbersImageFile_;  // æ•°å­—ã®ç”»åƒ
 };

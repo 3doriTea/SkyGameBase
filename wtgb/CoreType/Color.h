@@ -7,12 +7,12 @@ namespace wtgb
 	using ColorCode = uint32_t;
 
 	/// <summary>
-	/// 色を扱う
+	/// 濶ｲ繧呈桶縺�
 	/// </summary>
 	struct Color : public DirectX::XMFLOAT4
 	{
 
-		// コンストラクタもそのまま継承
+		// 繧ｳ繝ｳ繧ｹ繝医Λ繧ｯ繧ｿ繧ゅ◎縺ｮ縺ｾ縺ｾ邯呎価
 		using DirectX::XMFLOAT4::XMFLOAT4;
 
 		Color(const ColorCode _hexCode, const uint8_t _alpha = UINT8_MAX) :

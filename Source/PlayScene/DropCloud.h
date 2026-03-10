@@ -4,7 +4,7 @@
 
 
 /// <summary>
-/// ãè‚­‰‰‘t‚Å‚«‚Ä‚¢‚é‚Æã‚ª‚éƒŒƒxƒ‹
+/// ä¸Šæ‰‹ãæ¼”å¥ã§ãã¦ã„ã‚‹ã¨ä¸ŠãŒã‚‹ãƒ¬ãƒ™ãƒ«
 /// </summary>
 enum CloudLevel : int
 {
@@ -17,20 +17,20 @@ enum CloudLevel : int
 };
 
 /// <summary>
-/// ƒAƒCƒeƒ€‚ğ~‚ç‚¹‚é‰_
+/// ã‚¢ã‚¤ãƒ†ãƒ ã‚’é™ã‚‰ã›ã‚‹é›²
 /// </summary>
 class DropCloud : public GameObject
 {
 private:
 	/// <summary>
-	/// “Š‰º‚µ‚½ƒvƒŒƒ[ƒ“ƒgî•ñ
+	/// æŠ•ä¸‹ã—ãŸãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆæƒ…å ±
 	/// </summary>
 	struct DroppedPresent
 	{
-		EntityId entityId;  // ƒGƒ“ƒeƒBƒeƒB
-		Note note;          // ƒm[ƒcî•ñ
-		AudioHandle hTone;  // ‰¹Œ¹
-		int32_t toneOffset;    // ƒg[ƒ“‚ÌƒIƒtƒZƒbƒg
+		EntityId entityId;  // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£
+		Note note;          // ãƒãƒ¼ãƒ„æƒ…å ±
+		AudioHandle hTone;  // éŸ³æº
+		int32_t toneOffset;    // ãƒˆãƒ¼ãƒ³ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ
 	};
 
 public:
@@ -47,52 +47,52 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ƒ~ƒjƒLƒƒƒ‰‚ğ“oê‚³‚¹‚é
+	/// ãƒŸãƒ‹ã‚­ãƒ£ãƒ©ã‚’ç™»å ´ã•ã›ã‚‹
 	/// </summary>
 	void SpawanMiniChara();
 
 private:
 	/// <summary>
-	/// json‚©‚çƒpƒ‰ƒ[ƒ^‚ğ“Ç‚İ‚Ş
+	/// jsonã‹ã‚‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
 	/// </summary>
-	/// <param name="_json">ƒpƒ‰ƒ[ƒ^‚Ì json</param>
+	/// <param name="_json">ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã® json</param>
 	void OnLoadParam(const json& _json);
 
 private:
 	EntityId smfPlayer_;        // smfPlayer
-	EntityId player_;           // ƒvƒŒƒCƒ„[
-	EntityId stageLine_;        // ƒXƒe[ƒW
-	EntityId playState_;        // ƒvƒŒƒCó‘Ô
-	EntityId speedController_;  // ƒvƒŒƒCó‘Ô
+	EntityId player_;           // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+	EntityId stageLine_;        // ã‚¹ãƒ†ãƒ¼ã‚¸
+	EntityId playState_;        // ãƒ—ãƒ¬ã‚¤çŠ¶æ…‹
+	EntityId speedController_;  // ãƒ—ãƒ¬ã‚¤çŠ¶æ…‹
 
-	float toResultSceneTime_;  // Ä¶I—¹ŒãAŒ‹‰ÊƒV[ƒ“‚É‘JˆÚ‚·‚é‚Ü‚Å‚Ì•b”
-	float offsetHeight_;  // ’nã‚©‚ç‚Ì‚‚³
+	float toResultSceneTime_;  // å†ç”Ÿçµ‚äº†å¾Œã€çµæœã‚·ãƒ¼ãƒ³ã«é·ç§»ã™ã‚‹ã¾ã§ã®ç§’æ•°
+	float offsetHeight_;  // åœ°ä¸Šã‹ã‚‰ã®é«˜ã•
 
-	float destroyDistanceZ_;    // ƒvƒŒƒCƒ„[‚Æ‚Ì‹——£‚ª—£‚ê‚½‚Æ‚«‚ÉÁ‚·ˆ—
-	int playNoteNumberOffset_;  // Ä¶‚·‚é‰¹‚Ì‚‚³
+	float destroyDistanceZ_;    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®è·é›¢ãŒé›¢ã‚ŒãŸã¨ãã«æ¶ˆã™å‡¦ç†
+	int playNoteNumberOffset_;  // å†ç”Ÿã™ã‚‹éŸ³ã®é«˜ã•
 
-	float dropDistanceZ_;  // ƒm[ƒc‚ğ“Š‰º‚·‚é‚Æ‚«‚ÌƒvƒŒƒCƒ„[‚©‚ç‚Ì‹——£z
+	float dropDistanceZ_;  // ãƒãƒ¼ãƒ„ã‚’æŠ•ä¸‹ã™ã‚‹ã¨ãã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ã®è·é›¢z
 
-	float playRatioMaxVelocity_;  // Ä¶ƒŒ[ƒg‚ğ•Ï“®‚³‚¹‚éÅ‘å‘¬“x
+	float playRatioMaxVelocity_;  // å†ç”Ÿãƒ¬ãƒ¼ãƒˆã‚’å¤‰å‹•ã•ã›ã‚‹æœ€å¤§é€Ÿåº¦
 
-	std::string playSMFPath_;  // Ä¶‚·‚é smf
-	std::string playToneAudioFilePath_;     // Ä¶‚·‚é‰¹‚Ì‰¹Œ¹ƒtƒ@ƒCƒ‹
-	std::string toneAudioFilePathBase_;     // Ä¶‚·‚éƒx[ƒX‰¹‚Ì‰¹Œ¹ƒtƒ@ƒCƒ‹
-	std::string toneAudioFilePathTuba_;     // Ä¶‚·‚éƒ`ƒ…[ƒo‰¹‚Ì‰¹Œ¹ƒtƒ@ƒCƒ‹
-	std::string toneAudioFilePathDrum_;     // Ä¶‚·‚éƒhƒ‰ƒ€‰¹‚Ì‰¹Œ¹ƒtƒ@ƒCƒ‹
-	std::string toneAudioFilePathGlocken_;  // Ä¶‚·‚éƒOƒƒbƒPƒ“‰¹‚Ì‰¹Œ¹ƒtƒ@ƒCƒ‹
+	std::string playSMFPath_;  // å†ç”Ÿã™ã‚‹ smf
+	std::string playToneAudioFilePath_;     // å†ç”Ÿã™ã‚‹éŸ³ã®éŸ³æºãƒ•ã‚¡ã‚¤ãƒ«
+	std::string toneAudioFilePathBase_;     // å†ç”Ÿã™ã‚‹ãƒ™ãƒ¼ã‚¹éŸ³ã®éŸ³æºãƒ•ã‚¡ã‚¤ãƒ«
+	std::string toneAudioFilePathTuba_;     // å†ç”Ÿã™ã‚‹ãƒãƒ¥ãƒ¼ãƒéŸ³ã®éŸ³æºãƒ•ã‚¡ã‚¤ãƒ«
+	std::string toneAudioFilePathDrum_;     // å†ç”Ÿã™ã‚‹ãƒ‰ãƒ©ãƒ éŸ³ã®éŸ³æºãƒ•ã‚¡ã‚¤ãƒ«
+	std::string toneAudioFilePathGlocken_;  // å†ç”Ÿã™ã‚‹ã‚°ãƒ­ãƒƒã‚±ãƒ³éŸ³ã®éŸ³æºãƒ•ã‚¡ã‚¤ãƒ«
 
-	std::list<DroppedPresent> droppedPresents_;  // “Š‰º‚µ‚½ƒvƒŒƒ[ƒ“ƒgƒŠƒXƒg
+	std::list<DroppedPresent> droppedPresents_;  // æŠ•ä¸‹ã—ãŸãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆãƒªã‚¹ãƒˆ
 
-	bool isFinished_;  // ‘Sƒ{[ƒ‹‚ğo‚µI‚¦‚½‚©
+	bool isFinished_;  // å…¨ãƒœãƒ¼ãƒ«ã‚’å‡ºã—çµ‚ãˆãŸã‹
 
-	AudioHandle hAudioCat_;  // ”L‰¹
-	AudioHandle hAudioBase_;  // ƒx[ƒX‰¹
-	AudioHandle hAudioTuba_;  // ƒ`ƒ…[ƒo‰¹
-	AudioHandle hAudioDrum_;  // ƒhƒ‰ƒ€‰¹
-	AudioHandle hAudioGlocken_;  // ƒOƒƒbƒPƒ“ƒVƒ…ƒs[ƒ‹‰¹
+	AudioHandle hAudioCat_;  // çŒ«éŸ³
+	AudioHandle hAudioBase_;  // ãƒ™ãƒ¼ã‚¹éŸ³
+	AudioHandle hAudioTuba_;  // ãƒãƒ¥ãƒ¼ãƒéŸ³
+	AudioHandle hAudioDrum_;  // ãƒ‰ãƒ©ãƒ éŸ³
+	AudioHandle hAudioGlocken_;  // ã‚°ãƒ­ãƒƒã‚±ãƒ³ã‚·ãƒ¥ãƒ”ãƒ¼ãƒ«éŸ³
 
-	CloudLevel level_;    // ‚¤‚Ü‚­‰‰‘t‚µ‚Ä‚¢‚é‚Æã‚ª‚éƒŒƒxƒ‹
-	float perfectTimer_;  // ƒm[ƒ~ƒX‚Ì•b”
-	int prevBar_;         // ‘O‚ÌƒtƒŒ[ƒ€‚Å‚Ì¬ß
+	CloudLevel level_;    // ã†ã¾ãæ¼”å¥ã—ã¦ã„ã‚‹ã¨ä¸ŠãŒã‚‹ãƒ¬ãƒ™ãƒ«
+	float perfectTimer_;  // ãƒãƒ¼ãƒŸã‚¹ã®ç§’æ•°
+	int prevBar_;         // å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã®å°ç¯€
 };

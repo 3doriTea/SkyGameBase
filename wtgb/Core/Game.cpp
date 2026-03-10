@@ -36,27 +36,27 @@ void wtgb::Game::Exit()
 
 void wtgb::Game::RunProcess()
 {
-	// ƒVƒXƒeƒ€‚Ì‚Ü‚Æ‚ß‚Ä“®‚©‚·‚â‚Â
+	// ã‚·ã‚¹ãƒ†ãƒ ã®ã¾ã¨ã‚ã¦å‹•ã‹ã™ã‚„ã¤
 	GameSystemCollection gameSystemCollection{};
 	GameSystemCollection::GameSystemAdder adder{ &gameSystemCollection };
 
-	// ƒVƒXƒeƒ€‚Ì“o˜^‚ð‚µ‚Ä‚à‚ç‚¤
+	// ã‚·ã‚¹ãƒ†ãƒ ã®ç™»éŒ²ã‚’ã—ã¦ã‚‚ã‚‰ã†
 	pGame_->StartRegister(adder);
 
-	// “o˜^‚µ‚½ƒVƒXƒeƒ€‚Ì‰Šú‰»ˆ—
+	// ç™»éŒ²ã—ãŸã‚·ã‚¹ãƒ†ãƒ ã®åˆæœŸåŒ–å‡¦ç†
 	gameSystemCollection.Init();
 
-	// ƒQ[ƒ€ƒ‹[ƒv‚ðì‚é
-	GameLoop gameLoop{};  // stack‚Éì‚é
+	// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã‚’ä½œã‚‹
+	GameLoop gameLoop{};  // stackã«ä½œã‚‹
 	pGameLoop_ = &gameLoop;
 
-	// ƒQ[ƒ€ƒ‹[ƒv‚ðŽÀsI
+	// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã‚’å®Ÿè¡Œï¼
 	pGameLoop_->RunLoop(&gameSystemCollection);
 
-	// ƒQ[ƒ€ƒ‹[ƒv‚ªI—¹‚µ‚½
+	// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ãŒçµ‚äº†ã—ãŸ
 	pGameLoop_ = nullptr;
 
-	// ƒQ[ƒ€ƒ‹[ƒv‚ªI‚í‚Á‚½‚çƒVƒXƒeƒ€‚ÌI—¹ˆ—
+	// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ãŒçµ‚ã‚ã£ãŸã‚‰ã‚·ã‚¹ãƒ†ãƒ ã®çµ‚äº†å‡¦ç†
 	gameSystemCollection.End();
 }
 

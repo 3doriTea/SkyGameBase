@@ -72,7 +72,7 @@ void StageLine::Init()
 
 	points_.resize(POINTS_SIZE);
 
-	// json‚©‚çˆê•”ƒXƒe[ƒW‚ğ“Ç‚İæ‚Á‚Ä‚­‚é
+	// jsonã‹ã‚‰ä¸€éƒ¨ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’èª­ã¿å–ã£ã¦ãã‚‹
 	for (size_t i = 0; i < POINTS_SIZE; i++)
 	{
 		Vector2 pos
@@ -96,15 +96,15 @@ void StageLine::Init()
 	last = points_.at(points_.size() - 1);
 
 
-	// °‚ğì‚é
+	// åºŠã‚’ä½œã‚‹
 	last.x += GOAL_SIZE_Z;
 	points_.push_back(last);
 
-	// •Ç‚ğì‚é
+	// å£ã‚’ä½œã‚‹
 	last.y -= GOAL_WALL_HEIGHT;
 	points_.push_back(last);
 
-	// ‘S‚Ä‚Ì y ²‚ğ - ‚É‚·‚é
+	// å…¨ã¦ã® y è»¸ã‚’ - ã«ã™ã‚‹
 	for (auto& point : points_)
 	{
 		point.y = -point.y;
@@ -136,39 +136,39 @@ float StageLine::GetPosY(const Vector3& _worldPosition)
 		const float SEGMENT_LENGTH_SQ{ XMVectorGetX(XMVector2LengthSq(v)) };
 
 		if (begin.x <= _worldPosition.z && _worldPosition.z < end.x)
-		{  // ”ÍˆÍ“à‚È‚ç
-			// Å‹ßÚ“_
+		{  // ç¯„å›²å†…ãªã‚‰
+			// æœ€è¿‘æ¥ç‚¹
 			Vector2 point2D{};
 
-			// ü•ª‚É‚’¼‚È–@üƒxƒNƒgƒ‹i‰¼j
+			// ç·šåˆ†ã«å‚ç›´ãªæ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ï¼ˆä»®ï¼‰
 			Vector2 SEGMENT_NORM{ XMVector2Normalize(Vector2{ -v.y, v.x }) };
 
-			// –@ü‚ªã‚ğŒü‚­‚æ‚¤‚É’²® (’nŒ`‚Æ‚µ‚Äˆµ‚¤‚½‚ßAí‚É‰~‚ª‘¶İ‚·‚×‚«‘¤‚ğw‚·‚æ‚¤‚É‚·‚é)
-			// ˆê”Ê‚É+Y‚ªã‚Å‚ ‚ê‚ÎA–@ü‚ÌY¬•ª‚ª•‰‚È‚ç”½“]‚³‚¹‚é
+			// æ³•ç·šãŒä¸Šã‚’å‘ãã‚ˆã†ã«èª¿æ•´ (åœ°å½¢ã¨ã—ã¦æ‰±ã†ãŸã‚ã€å¸¸ã«å††ãŒå­˜åœ¨ã™ã¹ãå´ã‚’æŒ‡ã™ã‚ˆã†ã«ã™ã‚‹)
+			// ä¸€èˆ¬ã«+YãŒä¸Šã§ã‚ã‚Œã°ã€æ³•ç·šã®Yæˆåˆ†ãŒè² ãªã‚‰åè»¢ã•ã›ã‚‹
 			if (SEGMENT_NORM.y < 0.0f)
 			{
 				SEGMENT_NORM = SEGMENT_NORM * -1.0f;
 			}
 
-			// ü•ª‚ª‚à‚¤‚Ù‚Ú“_‚ÆŒ¾‚Á‚Ä‰ßŒ¾‚Å‚Í‚È‚¢ (’[“_Õ“Ë)
+			// ç·šåˆ†ãŒã‚‚ã†ã»ã¼ç‚¹ã¨è¨€ã£ã¦éè¨€ã§ã¯ãªã„ (ç«¯ç‚¹è¡çª)
 			if (SEGMENT_LENGTH_SQ < FLT_EPSILON)
 			{
 				point2D = begin;
 			}
-			else // ü•ª‚Æ‚µ‚Ä‚Ìˆ—
+			else // ç·šåˆ†ã¨ã—ã¦ã®å‡¦ç†
 			{
-				// ü•ªã‚Å‚ÌÚ“_‚ÌŠ„‡ t
+				// ç·šåˆ†ä¸Šã§ã®æ¥ç‚¹ã®å‰²åˆ t
 				float t{ XMVectorGetX(XMVector2Dot(w, v)) / SEGMENT_LENGTH_SQ };
 
-				if (t < 0.0f) // n“_‚æ‚è‘O‚É‚ ‚é -> n“_‚ªÅ‹ßÚ“_
+				if (t < 0.0f) // å§‹ç‚¹ã‚ˆã‚Šå‰ã«ã‚ã‚‹ -> å§‹ç‚¹ãŒæœ€è¿‘æ¥ç‚¹
 				{
 					point2D = begin;
 				}
-				else if (t > 1.0f) // I“_‚æ‚èŒã‚É‚ ‚é -> I“_‚ªÅ‹ßÚ“_
+				else if (t > 1.0f) // çµ‚ç‚¹ã‚ˆã‚Šå¾Œã«ã‚ã‚‹ -> çµ‚ç‚¹ãŒæœ€è¿‘æ¥ç‚¹
 				{
 					point2D = end;
 				}
-				else // ü•ª‚ÌŠÔ -> ‚’¼‚È“_‚ªÅ‹ßÚ“_
+				else // ç·šåˆ†ã®é–“ -> å‚ç›´ãªç‚¹ãŒæœ€è¿‘æ¥ç‚¹
 				{
 					point2D = v * t + begin;
 				}
@@ -178,7 +178,7 @@ float StageLine::GetPosY(const Vector3& _worldPosition)
 		}
 	}
 
-	// ‚»‚ê‚æ‚è‰œ‚ÍÅŒã‚Ì‚‚³‚ğˆÛ
+	// ãã‚Œã‚ˆã‚Šå¥¥ã¯æœ€å¾Œã®é«˜ã•ã‚’ç¶­æŒ
 	return points_.back().y;
 }
 
@@ -186,9 +186,9 @@ float StageLine::GetStageLengthZ() const
 {
 	if (points_.empty())
 	{
-		return 0.0f;  // ƒXƒe[ƒWƒ|ƒCƒ“ƒg‚ª‚È‚¢‚È‚ç 0.0f
+		return 0.0f;  // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒã‚¤ãƒ³ãƒˆãŒãªã„ãªã‚‰ 0.0f
 	}
 
-	// ƒXƒe[ƒWƒ|ƒCƒ“ƒg––’[‚Ìx²‚ªƒXƒe[ƒW‚Ì’·‚³‚É‚È‚é
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒã‚¤ãƒ³ãƒˆæœ«ç«¯ã®xè»¸ãŒã‚¹ãƒ†ãƒ¼ã‚¸ã®é•·ã•ã«ãªã‚‹
 	return points_.back().x;
 }

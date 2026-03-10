@@ -15,7 +15,7 @@ wtgb::AudioClip::AudioClip(mtbin::BinaryReader* _pReader, const std::string& _na
 	name_{ _name },
 	waveFormat_{}
 {
-	wassert(_pReader && "_pReader‚ğnullptr‚É‚Í‚Å‚«‚È‚¢");
+	wassert(_pReader && "_pReaderã‚’nullptrã«ã¯ã§ããªã„");
 }
 
 wtgb::AudioClip::~AudioClip()
@@ -29,7 +29,7 @@ void wtgb::AudioClip::Init()
 
 	if (pReader_ == nullptr)
 	{
-		wassert(false && "pReader‚ªnullptr‚¾‚Á‚½");
+		wassert(false && "pReaderãŒnullptrã ã£ãŸ");
 		return;
 	}
 	mtbin::BinaryReader& reader{ *pReader_ };
@@ -42,33 +42,33 @@ void wtgb::AudioClip::Init()
 	if (std::array<Byte, 4> waveCheck{ header };
 		CompareId(waveCheck, "RIFF"))
 	{
-		wassert(false && "TODO: –¢À‘•‚Ìwave“Ç‚İ‚İ");
-		// wave‚¾I
+		wassert(false && "TODO: æœªå®Ÿè£…ã®waveèª­ã¿è¾¼ã¿");
+		// waveã ï¼
 	}
-	else if (  // TODO: ‚¾‚¢‚Ô‚Ğ‚Ç‚¢
+	else if (  // TODO: ã ã„ã¶ã²ã©ã„
 		std::array<Byte, 3> mp3Check{ header.at(0), header.at(1), header.at(2) };
 		CompareId(mp3Check, "ID3")
 		|| (header.at(0) == 0xFF && (header.at(1) & 0b1110'0000) == 0b1110'0000))
 	{
-		// mp3‚¾I
+		// mp3ã ï¼
 		LoadMp3();
 	}
-	else  // –¢‘Î‰‚ÌƒtƒH[ƒ}ƒbƒg
+	else  // æœªå¯¾å¿œã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 	{
-		wassert(false && "‘Î‰‚µ‚Ä‚¢‚È‚¢ƒI[ƒfƒBƒIƒtƒH[ƒ}ƒbƒg");
+		wassert(false && "å¯¾å¿œã—ã¦ã„ãªã„ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ");
 	}
 
-	pReader_ = nullptr;  // “Ç‚İ‚İI‚í‚Á‚Äg‚í‚È‚¢‚½‚ßnullptr
+	pReader_ = nullptr;  // èª­ã¿è¾¼ã¿çµ‚ã‚ã£ã¦ä½¿ã‚ãªã„ãŸã‚nullptr
 }
 
 void wtgb::AudioClip::Release()
 {
-	buffer_.clear();  // ”O‚Ìˆ×
+	buffer_.clear();  // å¿µã®ç‚º
 }
 
 float wtgb::AudioClip::GetTotalTimeSec() const
 {
-	wassert(waveFormat_.nAvgBytesPerSec != 0 && "0œZ”­¶");
+	wassert(waveFormat_.nAvgBytesPerSec != 0 && "0é™¤ç®—ç™ºç”Ÿ");
 	return buffer_.size() / static_cast<float>(waveFormat_.nAvgBytesPerSec);
 }
 
@@ -81,27 +81,27 @@ void wtgb::AudioClip::LoadMp3()
 
 	size_t size{ reader.Size() };
 
-	// drmp3‚Ì•ÏŠ·€”õ
+	// drmp3ã®å¤‰æ›æº–å‚™
 	drmp3 config{};
 	drmp3_bool32 succeed{ drmp3_init_memory(&config, reader.Data(), reader.Size(), nullptr) };
-	wassert(succeed && "mp3“Ç‚İ‚İ€”õ‚É¸”s");
+	wassert(succeed && "mp3èª­ã¿è¾¼ã¿æº–å‚™ã«å¤±æ•—");
 	if (succeed == false)
 	{
 		return;
 	}
 	
-	// PCMƒTƒ“ƒvƒ‹”‚Ìæ“¾
+	// PCMã‚µãƒ³ãƒ—ãƒ«æ•°ã®å–å¾—
 	drmp3_uint64 totalSamples{ drmp3_get_pcm_frame_count(&config) };
 
-	// ƒoƒbƒtƒ@ƒTƒCƒY‚ÌŒvZ
+	// ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®è¨ˆç®—
 	size_t pcmSampleCount{ static_cast<size_t>(totalSamples * config.channels) };
 	size_t pcmBytes{ pcmSampleCount * sizeof(drmp3_int16) };
 
-	// ƒoƒbƒtƒ@‚Ì€”õ
+	// ãƒãƒƒãƒ•ã‚¡ã®æº–å‚™
 	buffer_.clear();
 	buffer_.resize(pcmBytes);
 
-	// ‚¢‚´“Ç‚İ‚Ş
+	// ã„ã–èª­ã¿è¾¼ã‚€
 	drmp3_read_pcm_frames_s16(&config, totalSamples, reinterpret_cast<drmp3_int16*>(buffer_.data()));
 
 	const WORD CHANNELS{ static_cast<WORD>(config.channels) };
@@ -109,7 +109,7 @@ void wtgb::AudioClip::LoadMp3()
 	const WORD BLOCK_ALIGN{ static_cast<WORD>(CHANNELS * BITS_PER_SAMPLE / 8) };
 	const DWORD SAMPLE_RATE{ static_cast<DWORD>(config.sampleRate) };
 
-	// waveƒtƒH[ƒ}ƒbƒgî•ñ‚Ìİ’è
+	// waveãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆæƒ…å ±ã®è¨­å®š
 	waveFormat_ = WAVEFORMATEX
 	{
 		.wFormatTag = 1,
@@ -120,6 +120,6 @@ void wtgb::AudioClip::LoadMp3()
 		.wBitsPerSample = BITS_PER_SAMPLE,
 	};
 
-	// Œã•Ğ•t‚¯
+	// å¾Œç‰‡ä»˜ã‘
 	drmp3_uninit(&config); 
 }

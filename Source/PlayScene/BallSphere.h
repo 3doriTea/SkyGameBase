@@ -3,7 +3,7 @@
 
 
 /// <summary>
-/// ƒLƒƒƒ‰‚ª‚©‚Ô‚Á‚Ä‚¢‚éƒ{[ƒ‹
+/// ã‚­ãƒ£ãƒ©ãŒã‹ã¶ã£ã¦ã„ã‚‹ãƒœãƒ¼ãƒ«
 /// </summary>
 class BallSphere : public GameObject
 {
@@ -16,5 +16,5 @@ public:
 	void Release() override;
 
 private:
-	EntityId targetChara_;  // ’Ç]‚·‚éƒLƒƒƒ‰
+	EntityId targetChara_;  // è¿½å¾“ã™ã‚‹ã‚­ãƒ£ãƒ©
 };

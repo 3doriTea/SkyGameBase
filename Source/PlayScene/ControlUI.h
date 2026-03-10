@@ -3,7 +3,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ����𑣂�UI
+/// 操作を促すUI
 /// </summary>
 class ControlUI : public GameObject
 {
@@ -16,5 +16,5 @@ public:
 	void Release() override;
 
 private:
-	TextureHandle hCenterCircleImage_;  // ���S�̃v���C���[����~�̉摜�n���h��
+	TextureHandle hCenterCircleImage_;  // 中心のプレイヤー操作円の画像ハンドル
 };

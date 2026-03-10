@@ -57,11 +57,11 @@ void wtgb::GameObjectProperty::AddChild(const EntityId _entityId)
 		{
 			*itr = _entityId;
 			childsCount_++;
-			return;  // ‹ó‚ÌêŠ‚ğŒ©‚Â‚¯‚½‚ç‚»‚±‚É“ü‚ê‚Ä‰ñ‹A
+			return;  // ç©ºã®å ´æ‰€ã‚’è¦‹ã¤ã‘ãŸã‚‰ãã“ã«å…¥ã‚Œã¦å›å¸°
 		}
 	}
-	wassert(false && "q‚ğ’Ç‰Á‚Å‚«‚éƒLƒƒƒpƒVƒeƒB‚ª•K—v");
-	throw "q‚Ì”‚ÌãŒÀ‚É’B‚µ‚Ü‚µ‚½";
+	wassert(false && "å­ã‚’è¿½åŠ ã§ãã‚‹ã‚­ãƒ£ãƒ‘ã‚·ãƒ†ã‚£ãŒå¿…è¦");
+	throw "å­ã®æ•°ã®ä¸Šé™ã«é”ã—ã¾ã—ãŸ";
 }
 
 void wtgb::GameObjectProperty::RemoveChild(const EntityId _entityId)
@@ -76,7 +76,7 @@ void wtgb::GameObjectProperty::RemoveChild(const EntityId _entityId)
 		}
 	}
 
-	//wassert(false && "íœ—\’è‚Ìq‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½");
+	//wassert(false && "å‰Šé™¤äºˆå®šã®å­ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ");
 }
 
 void wtgb::GameObjectProperty::RemoveAllChild()

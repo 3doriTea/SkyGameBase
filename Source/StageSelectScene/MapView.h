@@ -20,6 +20,6 @@ public:
 	void Release() override;
 
 private:
-	float mapSizePix_;                 // ƒ}ƒbƒv‚ÌƒTƒCƒY
-	std::vector<Vector2Int> mapPoints_;  // ƒ}ƒbƒvã‚Ìƒ|ƒCƒ“ƒg
+	float mapSizePix_;                 // ãƒãƒƒãƒ—ã®ã‚µã‚¤ã‚º
+	std::vector<Vector2Int> mapPoints_;  // ãƒãƒƒãƒ—ä¸Šã®ãƒã‚¤ãƒ³ãƒˆ
 };

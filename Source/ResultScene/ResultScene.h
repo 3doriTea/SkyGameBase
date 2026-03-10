@@ -3,7 +3,7 @@
 
 
 /// <summary>
-/// 坂を降り終わりスコアの表示を行うリザルトシーン
+/// 蝮ゅｒ髯阪ｊ邨ゅｏ繧翫せ繧ｳ繧｢縺ｮ陦ｨ遉ｺ繧定｡後≧繝ｪ繧ｶ繝ｫ繝医す繝ｼ繝ｳ
 /// </summary>
 class ResultScene : public GameScene
 {

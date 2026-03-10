@@ -55,10 +55,10 @@ wtgb::Result wtgb::Debug::Init(const ViewerInit& _viewer)
 			},
 			.vertexInputLayout
 			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // à íu
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // ‰ΩçÁΩÆ
 			},
-			.fillMode = D3D11_FILL_SOLID,  // ìhÇËÇ¬Ç‘Çµ
-			.cullMode = D3D11_CULL_BACK,   // âBñ è¡ãéÇµÇ»Ç¢
+			.fillMode = D3D11_FILL_SOLID,  // Â°ó„Çä„Å§„Å∂„Åó
+			.cullMode = D3D11_CULL_BACK,   // Èö†Èù¢Ê∂àÂéª„Åó„Å™„ÅÑ
 			.backIsClockwise = false,
 		});
 
@@ -78,10 +78,10 @@ wtgb::Result wtgb::Debug::Init(const ViewerInit& _viewer)
 			},
 			.vertexInputLayout
 			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // à íu
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },   // ‰ΩçÁΩÆ
 			},
-			.fillMode = D3D11_FILL_WIREFRAME,  // ÉèÉCÉÑÅ[ÉtÉåÅ[ÉÄ
-			.cullMode = D3D11_CULL_NONE,       // âBñ è¡ãéÇµÇ»Ç¢
+			.fillMode = D3D11_FILL_WIREFRAME,  // „ÉØ„Ç§„É§„Éº„Éï„É¨„Éº„É†
+			.cullMode = D3D11_CULL_NONE,       // Èö†Èù¢Ê∂àÂéª„Åó„Å™„ÅÑ
 			.backIsClockwise = false,
 		});
 	return Result::Code::Ok;

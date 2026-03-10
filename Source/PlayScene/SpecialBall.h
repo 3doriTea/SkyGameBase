@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// スペシャルボール
+/// 繧ｹ繝壹す繝｣繝ｫ繝懊�ｼ繝ｫ
 /// </summary>
 class SpecialBall : public GameObject
 {

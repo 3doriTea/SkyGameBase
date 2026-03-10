@@ -8,7 +8,7 @@
 namespace wtgb::UI
 {
 	/// <summary>
-	/// �z�u�̐ݒ�
+	/// 配置の設定
 	/// </summary>
 	class LayoutConfig
 	{
@@ -19,33 +19,33 @@ namespace wtgb::UI
 		~LayoutConfig();
 
 		/// <summary>
-		/// �w����W�̊�_
+		/// 指定座標の基準点
 		/// </summary>
 		LAYOUT_BUILDER_SETTER_PARAM(Pivot, positionPivot)
 		/// <summary>
-		/// ��`�̊�_���W
+		/// 矩形の基準点座標
 		/// </summary>
 		LAYOUT_BUILDER_SETTER_PARAM(Vector2, position)
 		/// <summary>
-		/// ��`�̊�_����̑傫��
+		/// 矩形の基準点からの大きさ
 		/// </summary>
 		LAYOUT_BUILDER_SETTER_PARAM(Vector2, scale)
 		/// <summary>
-		/// <para>�`�揇�Ԃ̎w��</para>
-		/// <para>�l�������قǐ�ɕ`�悳���(=���ɕ`�悳���)</para>
+		/// <para>描画順番の指定</para>
+		/// <para>値が高いほど先に描画される(=奥に描画される)</para>
 		/// </summary>
 		LAYOUT_BUILDER_SETTER_PARAM(int, order)
 
 		/// <summary>
-		/// �X�N���[���T�C�Y�����`�̍s����擾����
+		/// スクリーンサイズから矩形の行列を取得する
 		/// </summary>
 		Matrix4x4 GetProjectionMatrix(const Vector2Int _screenSize) const;
 
 	private:
-		int order_;                  // �ǂ̂��炢��O�ɕ`�悷�邩
-		Pivot positionPivot_;        // ��`�̎n�_�͉�ʂ̂ǂ����
-		Vector2 position_;           // ��`�̎n�_
-		Vector2 scale_;              // ��`�̑傫��
-		Vector2Int baseCanvasSize_;  // ��Ƃ���L�����o�X�T�C�Y
+		int order_;                  // どのぐらい手前に描画するか
+		Pivot positionPivot_;        // 矩形の始点は画面のどこ基準か
+		Vector2 position_;           // 矩形の始点
+		Vector2 scale_;              // 矩形の大きさ
+		Vector2Int baseCanvasSize_;  // 基準とするキャンバスサイズ
 	};
 }

@@ -23,10 +23,10 @@ void SpeedMeter::OnLoadParam(const json& _json)
 void SpeedMeter::Init()
 {
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
-	wassert(pPlayScene && "ƒvƒŒƒCƒV[ƒ“‚Ìæ“¾‚É¸”s");
+	wassert(pPlayScene && "ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—");
 	if (pPlayScene == nullptr)
 	{
-		return;  // ƒvƒŒƒCƒV[ƒ“‚Ìæ“¾‚É¸”s‚·‚é‚Æ‰½‚à‚Å‚«‚È‚¢
+		return;  // ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—ã™ã‚‹ã¨ä½•ã‚‚ã§ããªã„
 	}
 
 	numberPlate_ = pPlayScene->Instantiate<NumberPlate>(numbersImageFile_);
@@ -38,10 +38,10 @@ void SpeedMeter::Init()
 void SpeedMeter::Update()
 {
 	Player* pPlayer{ dynamic_cast<Player*>(FindGameObject(player_)) };
-	wassert(pPlayer && "ƒvƒŒƒCƒ„[‚ªŒ©‚Â‚©‚ç‚È‚¢");
+	wassert(pPlayer && "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¦‹ã¤ã‹ã‚‰ãªã„");
 	
 	NumberPlate* pNumberPlate{ dynamic_cast<NumberPlate*>(FindGameObject(numberPlate_)) };
-	wassert(pNumberPlate && "ƒiƒ“ƒo[ƒvƒŒ[ƒg‚ªŒ©‚Â‚©‚ç‚È‚¢");
+	wassert(pNumberPlate && "ãƒŠãƒ³ãƒãƒ¼ãƒ—ãƒ¬ãƒ¼ãƒˆãŒè¦‹ã¤ã‹ã‚‰ãªã„");
 
 
 	if (pPlayer && pNumberPlate)

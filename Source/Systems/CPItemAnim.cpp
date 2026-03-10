@@ -29,7 +29,7 @@ void CPItemAnim::Update()
 	{
 		if (_itemAnim.isFinished_)
 		{
-			return false;  // ‚·‚Å‚ÉI—¹‚µ‚½‚È‚ç–³‹
+			return false;  // ã™ã§ã«çµ‚äº†ã—ãŸãªã‚‰ç„¡è¦–
 		}
 
 		_itemAnim.timerUp_ += dt;

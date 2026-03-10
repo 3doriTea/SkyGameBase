@@ -6,31 +6,31 @@
 namespace wtgb
 {
 	/// <summary>
-	/// ƒQ[ƒ€–{‘Ì‚ÌƒCƒ“ƒ^ƒtƒF[ƒX
+	/// ã‚²ãƒ¼ãƒ æœ¬ä½“ã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹
 	/// </summary>
 	class IGame
 	{
-		friend class Game;  // ƒQ[ƒ€ƒNƒ‰ƒX‚©‚ç‚Í private‘€ì‰Â”\
+		friend class Game;  // ã‚²ãƒ¼ãƒ ã‚¯ãƒ©ã‚¹ã‹ã‚‰ã¯ privateæ“ä½œå¯èƒ½
 
 	protected:
 		inline IGame() {};
 		inline virtual ~IGame() {};
 
 		/// <summary>
-		/// ƒQ[ƒ€‚Ìƒ^ƒCƒgƒ‹‚ğæ“¾
+		/// ã‚²ãƒ¼ãƒ ã®ã‚¿ã‚¤ãƒˆãƒ«ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒQ[ƒ€‚Ìƒ^ƒCƒgƒ‹•¶š—ñ</returns>
+		/// <returns>ã‚²ãƒ¼ãƒ ã®ã‚¿ã‚¤ãƒˆãƒ«æ–‡å­—åˆ—</returns>
 		virtual const char* GetTitle() const = 0;
 		/// <summary>
-		/// ƒQ[ƒ€‚Ìƒo[ƒWƒ‡ƒ“‚ğæ“¾
+		/// ã‚²ãƒ¼ãƒ ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ƒQ[ƒ€ƒo[ƒWƒ‡ƒ“‚Ìæ“¾</returns>
+		/// <returns>ã‚²ãƒ¼ãƒ ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®å–å¾—</returns>
 		virtual const char* GetVersion() const = 0;
 
 		/// <summary>
-		/// “o˜^ŠJnˆ—
+		/// ç™»éŒ²é–‹å§‹å‡¦ç†
 		/// </summary>
-		/// <param name="_pGameSystemAdder">ƒVƒXƒeƒ€‚ğ“o˜^‚µ‚Ä‚à‚ç‚¤</param>
+		/// <param name="_pGameSystemAdder">ã‚·ã‚¹ãƒ†ãƒ ã‚’ç™»éŒ²ã—ã¦ã‚‚ã‚‰ã†</param>
 		virtual void StartRegister(const GameSystemCollection::GameSystemAdder& _pGameSystemAdder) = 0;
 	};
 }

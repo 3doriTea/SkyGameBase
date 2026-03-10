@@ -40,7 +40,7 @@ void ControlUI::Update()
 	const Vector2Int SCREEN_CENTER{ SCREEN_SIZE / 2 };
 
 	Texture* pCenterCircleImage{ resourceSystem.GetTexture(hCenterCircleImage_) };
-	wassert(pCenterCircleImage && "�摜�̓ǂݍ��݂Ɏ��s");
+	wassert(pCenterCircleImage && "画像の読み込みに失敗");
 
 	Vector2Int imageSize{ pCenterCircleImage->GetImageSizePix() };
 

@@ -10,37 +10,37 @@ namespace wtgb
 		~ImGuiSystem();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Cycle; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€ƒAƒNƒZƒX</param>
-		/// <returns>Œ‹‰Ê</returns>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ ã‚¢ã‚¯ã‚»ã‚¹</param>
+		/// <returns>çµæžœ</returns>
 		Result Init(const ViewerInit& _system) override;
 
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€ƒAƒNƒZƒX</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ ã‚¢ã‚¯ã‚»ã‚¹</param>
 		void Update(const ViewerUpdate& _system) override;
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
 	private:
 		/// <summary>
-		/// •`‰æˆ—
+		/// æç”»å‡¦ç†
 		/// </summary>
 		void Render();
 
 	private:
-		bool isNeedNewFrame_;  // VƒtƒŒ[ƒ€‚ª•K—v‚©
-		bool needRender_;  // •`‰æ‚ª•K—v‚©
+		bool isNeedNewFrame_;  // æ–°ãƒ•ãƒ¬ãƒ¼ãƒ ãŒå¿…è¦ã‹
+		bool needRender_;  // æç”»ãŒå¿…è¦ã‹
 	};
 }

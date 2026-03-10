@@ -3,7 +3,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// メッシュの描画に必要なマテリアル
+	/// 繝｡繝�繧ｷ繝･縺ｮ謠冗判縺ｫ蠢�隕√↑繝槭ユ繝ｪ繧｢繝ｫ
 	/// </summary>
 	struct Material
 	{

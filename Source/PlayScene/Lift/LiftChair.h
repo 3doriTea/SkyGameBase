@@ -2,7 +2,7 @@
 #include <wtgb.h>
 
 /// <summary>
-/// ƒŠƒtƒg‚Ì‚©‚²‚Å‚ ‚éˆÖqƒIƒuƒWƒFƒNƒg
+/// ãƒªãƒ•ãƒˆã®ã‹ã”ã§ã‚ã‚‹æ¤…å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 /// </summary>
 class LiftChair : public GameObject
 {
@@ -15,18 +15,18 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// “]‰ñŠJn
+	/// è»¢å›é–‹å§‹
 	/// </summary>
 	void StartUTurn();
 
 	/// <summary>
-	/// “]‰ñI—¹
+	/// è»¢å›çµ‚äº†
 	/// </summary>
 	void EndUTurn();
 
 private:
-	EntityId lift_;    // ƒŠƒtƒg–{‘Ì
-	float positionZ_;  // ƒŠƒtƒg‚ÌêŠ
-	bool isUpping_;    // “o‚è•ûŒü‚©”Û‚©
-	bool isRotating_;  // ‰ñ“]’†‚©
+	EntityId lift_;    // ãƒªãƒ•ãƒˆæœ¬ä½“
+	float positionZ_;  // ãƒªãƒ•ãƒˆã®å ´æ‰€
+	bool isUpping_;    // ç™»ã‚Šæ–¹å‘ã‹å¦ã‹
+	bool isRotating_;  // å›è»¢ä¸­ã‹
 };

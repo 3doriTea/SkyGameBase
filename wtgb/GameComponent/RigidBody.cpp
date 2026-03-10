@@ -23,7 +23,7 @@ void wtgb::RigidBody::AddHitCollider(Collider* _pCollider)
 {
 	if (onHitCollidersCount_ >= HIT_COLLIDER_BUFFER_SIZE)
 	{
-		wassert(false && "ƒRƒ‰ƒCƒ_‚É“–‚½‚è‚·‚¬‚Äƒoƒbƒtƒ@‚ª‘«‚è‚È‚¢");
+		wassert(false && "ã‚³ãƒ©ã‚¤ãƒ€ã«å½“ãŸã‚Šã™ãã¦ãƒãƒƒãƒ•ã‚¡ãŒè¶³ã‚Šãªã„");
 		return;
 	}
 	onHitColliders_.at(onHitCollidersCount_) = _pCollider;

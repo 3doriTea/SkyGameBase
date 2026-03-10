@@ -13,22 +13,22 @@ namespace wtgb
 		void Release() override;
 
 		/// <summary>
-		/// ‘Ä¶ŠÔ‚ğæ“¾‚·‚é
+		/// ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>‘Ä¶ŠÔ(•b)</returns>
+		/// <returns>ç·å†ç”Ÿæ™‚é–“(ç§’)</returns>
 		float GetTotalTimeSec() const;
 		/// <summary>
-		/// ‘Ä¶ŠÔ‚ğæ“¾‚·‚é
+		/// ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>‘Ä¶ŠÔ(•b)</returns>
+		/// <returns>ç·å†ç”Ÿæ™‚é–“(ç§’)</returns>
 		//static float GetTotalTimeSec(const WAVEFORMATEX& _format);
 
 		inline size_t GetBufferSize() const { return buffer_.size(); }
 		inline const int8_t* GetBufferData() const { return buffer_.data(); }
 		/// <summary>
-		/// –¼‘O‚ğæ“¾
+		/// åå‰ã‚’å–å¾—
 		/// </summary>
-		/// <returns>¯•Ê–¼</returns>
+		/// <returns>è­˜åˆ¥å</returns>
 		inline std::string_view GetName() const { return name_; }
 
 		WAVEFORMATEX GetFormat() const { return waveFormat_; }
@@ -37,10 +37,10 @@ namespace wtgb
 		void LoadMp3();
 
 	private:
-		std::string name_;  // ¯•Ê–¼
+		std::string name_;  // è­˜åˆ¥å
 
-		mtbin::BinaryReader* pReader_;  // “Ç‚İæ‚è‚·‚é
-		WAVEFORMATEX waveFormat_;  // ƒtƒH[ƒ}ƒbƒg
-		std::vector<int8_t> buffer_;  // ƒoƒbƒtƒ@
+		mtbin::BinaryReader* pReader_;  // èª­ã¿å–ã‚Šã™ã‚‹
+		WAVEFORMATEX waveFormat_;  // ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+		std::vector<int8_t> buffer_;  // ãƒãƒƒãƒ•ã‚¡
 	};
 }

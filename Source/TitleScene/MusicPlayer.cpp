@@ -24,24 +24,24 @@ void MusicPlayer::Init()
 	OnLoadParam(GetComponent<Parameter>().Load());
 
 	TitleScene* pTitleScene{ GetScene<TitleScene>() };
-	wassert(pTitleScene && "ƒ^ƒCƒgƒ‹ƒV[ƒ“‚ÌŽæ“¾‚ÉŽ¸”s");
+	wassert(pTitleScene && "ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—");
 	if (pTitleScene == nullptr)
 	{
-		return;  // ƒ^ƒCƒgƒ‹ƒV[ƒ“‚ÌŽæ“¾‚ÉŽ¸”s‚·‚é‚Æ‰½‚à‚Å‚«‚È‚¢
+		return;  // ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—ã™ã‚‹ã¨ä½•ã‚‚ã§ããªã„
 	}
 
-	// smf ƒvƒŒƒCƒ„[‚ð“oê‚³‚¹‚é
+	// smf ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç™»å ´ã•ã›ã‚‹
 	EntityId smfPlayer
 	{
 		pTitleScene->Instantiate<SMFPlayer>(smfPath_)
 	};
 	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject(smfPlayer)) };
 
-	// ƒm[ƒcÄ¶Žž‚Ì‰¹Œ¹“Ç‚Ýž‚Ý && ƒZƒbƒg
+	// ãƒŽãƒ¼ãƒ„å†ç”Ÿæ™‚ã®éŸ³æºèª­ã¿è¾¼ã¿ && ã‚»ãƒƒãƒˆ
 	pSMFPlayer->SetToneAudioHandle(
 		audio.Load(toneAudioFilePath_));
 
-	// ƒm[ƒc‚Ìˆ—‚ð“o˜^
+	// ãƒŽãƒ¼ãƒ„ã®å‡¦ç†ã‚’ç™»éŒ²
 	pSMFPlayer->OnNote([this, pSMFPlayer](Note _note)
 		{
 			if (_note.channel == 0x03)
@@ -50,7 +50,7 @@ void MusicPlayer::Init()
 			}
 		});
 
-	// Ä¶I
+	// å†ç”Ÿï¼
 	pSMFPlayer->Play();
 }
 

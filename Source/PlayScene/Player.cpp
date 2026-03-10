@@ -24,16 +24,16 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 	Transform().SetPosition(_localPos);
 
 	RigidBody& rb{ GetComponent<RigidBody>() };
-	rb.SetUseGravity(false);  // ƒV[ƒ““Ç‚İ‚İ’¼Œã‚Ìƒ‰ƒO‚ğ‘Ò‚Â‚½‚ß‚Éd—Í–³Œø‰»
+	rb.SetUseGravity(false);  // ã‚·ãƒ¼ãƒ³èª­ã¿è¾¼ã¿ç›´å¾Œã®ãƒ©ã‚°ã‚’å¾…ã¤ãŸã‚ã«é‡åŠ›ç„¡åŠ¹åŒ–
 
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
-	wassert(pPlayScene && "ƒvƒŒƒCƒV[ƒ“‚Ìæ“¾‚É¸”s");
+	wassert(pPlayScene && "ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—");
 	if (pPlayScene == nullptr)
 	{
-		return;  // ƒvƒŒƒCƒV[ƒ“‚Ìæ“¾‚É¸”s‚µ‚½‚½‚ß–³‹‚¹‚´‚éI‚¦‚È‚¢
+		return;  // ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã®å–å¾—ã«å¤±æ•—ã—ãŸãŸã‚ç„¡è¦–ã›ã–ã‚‹çµ‚ãˆãªã„
 	}
 
-	// æ‚é‚½‚ß‚Ìƒ{[ƒ‹‚ğoŒ»‚³‚¹‚é
+	// ä¹—ã‚‹ãŸã‚ã®ãƒœãƒ¼ãƒ«ã‚’å‡ºç¾ã•ã›ã‚‹
 	pPlayScene->Instantiate<BallSphere>(GetEntityId());
 }
 
@@ -55,7 +55,7 @@ void Player::Init()
 
 	Collider& collider{ GetComponent<Collider>() };
 
-	// TODO: ƒvƒŒƒCƒ„[‚Ì‹…ƒRƒ‰ƒCƒ_‚Ì”¼Œa‚ğ json‚É
+	// TODO: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çƒã‚³ãƒ©ã‚¤ãƒ€ã®åŠå¾„ã‚’ jsonã«
 	collider.SetRadius(2.0f);
 
 	angle_ = 0.0f;
@@ -66,7 +66,7 @@ void Player::Update()
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
 	if (pPlayScene == nullptr)
 	{
-		return;  // ƒvƒŒƒCƒV[ƒ“‚Å‚Í‚È‚¢‚È‚ç‰½‚à‚µ‚È‚¢
+		return;  // ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã§ã¯ãªã„ãªã‚‰ä½•ã‚‚ã—ãªã„
 	}
 
 	float dt{ System().Get<GameTime>().GetDeltaTime() };
@@ -75,13 +75,13 @@ void Player::Update()
 
 	WorldConfig worldConfig{ pPlayScene->GetWorldConfig() };
 
-	// ƒV[ƒ““Ç‚İ‚İ’¼Œã‚Ìƒ‰ƒO‚ğ‘Ò‚Â
+	// ã‚·ãƒ¼ãƒ³èª­ã¿è¾¼ã¿ç›´å¾Œã®ãƒ©ã‚°ã‚’å¾…ã¤
 	if (awakeTimeLeft_ > 0.0f)
 	{
 		awakeTimeLeft_ -= dt;
 		if (awakeTimeLeft_ <= 0.0f)
 		{
-			rb.SetUseGravity(true);  // d—Í‚Ì‰e‹¿‚ğó‚¯‚é‚æ‚¤‚É‚·‚é
+			rb.SetUseGravity(true);  // é‡åŠ›ã®å½±éŸ¿ã‚’å—ã‘ã‚‹ã‚ˆã†ã«ã™ã‚‹
 		}
 		return;
 	}
@@ -96,7 +96,7 @@ void Player::Update()
 	}
 
 #if _DEBUG
-	// TODO: ƒfƒoƒbƒO—p
+	// TODO: ãƒ‡ãƒãƒƒã‚°ç”¨
 	if (input.IsKeyDown(KeyCode::Space))
 	{
 		rb.AddVelocity({ 0.0f, -500.0f, 0.0f });
@@ -110,21 +110,21 @@ void Player::Update()
 	{
 		if (pColl && pColl->GetColliderType() == Collider::Type::Section)
 		{
-			// TODO: ‚±‚±‚Ì‰ñ“]ƒgƒ‹ƒN’l‚ğjson‰»‚·‚é
+			// TODO: ã“ã“ã®å›è»¢ãƒˆãƒ«ã‚¯å€¤ã‚’jsonåŒ–ã™ã‚‹
 			rb.AddTorque({ 0.03f, 0.0f, 0.0f });
 		}
 	}
 
 #if _DEBUG
-	// TODO: ƒfƒoƒbƒO—p
-	// MEMO: ŠÈˆÕ“IƒWƒƒƒ“ƒv
+	// TODO: ãƒ‡ãƒãƒƒã‚°ç”¨
+	// MEMO: ç°¡æ˜“çš„ã‚¸ãƒ£ãƒ³ãƒ—
 	if (input.IsKeyDown(KeyCode::Space))
 	{
 		rb.AddVelocity({ 0.0f, 3.0f, 0.0f });
 	}
 #endif
 
-	// ƒvƒŒƒCƒ„[‚ğ”ÍˆÍŠO‚Éo‚³‚È‚¢‚½‚ß‚Ì‰‰Z
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç¯„å›²å¤–ã«å‡ºã•ãªã„ãŸã‚ã®æ¼”ç®—
 	Vector3 v{ rb.GetVelocity() };
 
 
@@ -167,7 +167,7 @@ void Player::AddMove(const Vector3 _move)
 	Vector3 selfDir{ camera.GetDirection() };
 
 
-#pragma region ƒLƒƒƒ‰ƒGƒbƒO‚ÉƒtƒH[ƒJƒXˆ—
+#pragma region ã‚­ãƒ£ãƒ©ã‚¨ãƒƒã‚°ã«ãƒ•ã‚©ãƒ¼ã‚«ã‚¹å‡¦ç†
 	std::vector<GameObject*> foundGameObjects{};
 	if (FindGameObjects("CharaEgg", &foundGameObjects))
 	{
@@ -191,7 +191,7 @@ void Player::AddMove(const Vector3 _move)
 					})
 				};
 				rb.SetVelocity(v);
-				return;  // ‘¬“x‚ğ“K—p‚µ‚Ä‰ñ‹A
+				return;  // é€Ÿåº¦ã‚’é©ç”¨ã—ã¦å›å¸°
 			}
 		}
 	}

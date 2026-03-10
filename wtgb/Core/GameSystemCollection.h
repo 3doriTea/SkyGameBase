@@ -12,37 +12,37 @@ namespace wtgb
 	concept GameSystemT = std::is_base_of_v<IGameSystem, T>;
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒVƒXƒeƒ€‚ð‚Ü‚Æ‚ß‚éƒNƒ‰ƒX
+	/// ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚’ã¾ã¨ã‚ã‚‹ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class GameSystemCollection
 	{
 	private:
 		/// <summary>
-		/// “o˜^‚³‚ê‚Ä‚¢‚éƒQ[ƒ€ƒVƒXƒeƒ€‚ÌƒCƒ“ƒfƒbƒNƒX
+		/// ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 		/// </summary>
 		using Index = size_t;
 		/// <summary>
-		/// Œ^ƒCƒ“ƒfƒbƒNƒX‚©‚çƒQ[ƒ€ƒVƒXƒeƒ€‚ÌƒCƒ“ƒfƒbƒNƒX‚ÖƒAƒNƒZƒX—p˜A‘z”z—ñ
+		/// åž‹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‹ã‚‰ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã¸ã‚¢ã‚¯ã‚»ã‚¹ç”¨é€£æƒ³é…åˆ—
 		/// </summary>
 		using TypeKeys = std::map<std::type_index, Index>;
 		/// <summary>
-		/// “o˜^‚³‚ê‚éƒQ[ƒ€ƒVƒXƒeƒ€‚Ì”z—ñ
+		/// ç™»éŒ²ã•ã‚Œã‚‹ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã®é…åˆ—
 		/// </summary>
 		using GameSystems = std::vector<std::shared_ptr<IGameSystem>>;
 		/// <summary>
-		/// “o˜^‚³‚ê‚Ä‚¢‚éƒQ[ƒ€ƒVƒXƒeƒ€‚ÌƒCƒ“ƒfƒbƒNƒX”z—ñ
+		/// ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—
 		/// </summary>
 		using Indexes = std::vector<Index>;
 
 	public:
 		/// <summary>
-		/// ƒQ[ƒ€ƒVƒXƒeƒ€‚ÉƒAƒNƒZƒX‚·‚éŠî’êƒNƒ‰ƒX
+		/// ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹åŸºåº•ã‚¯ãƒ©ã‚¹
 		/// </summary>
 		using GameSystemAccessor = Accessor<GameSystemCollection>;
 
 		/// <summary>
-		/// <para>ƒQ[ƒ€ƒVƒXƒeƒ€‚ÉƒAƒNƒZƒX‚µ’Ç‰Á‚¾‚¯‚·‚éƒNƒ‰ƒX</para>
-		/// <para>’Ç‰ÁŒãŽ©ŒÈŽQÆ‚ð•Ô‚·‚½‚ßAŠÖ”Œ^‚Ì‚æ‚¤‚É‘‚¯‚é</para>
+		/// <para>ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã«ã‚¢ã‚¯ã‚»ã‚¹ã—è¿½åŠ ã ã‘ã™ã‚‹ã‚¯ãƒ©ã‚¹</para>
+		/// <para>è¿½åŠ å¾Œè‡ªå·±å‚ç…§ã‚’è¿”ã™ãŸã‚ã€é–¢æ•°åž‹ã®ã‚ˆã†ã«æ›¸ã‘ã‚‹</para>
 		/// </summary>
 		class GameSystemAdder : public GameSystemAccessor
 		{
@@ -51,23 +51,23 @@ namespace wtgb
 			~GameSystemAdder() {};
 
 			// <summary>
-			/// ƒQ[ƒ€ƒVƒXƒeƒ€‚ÉƒAƒNƒZƒX‚µ“o˜^‚¾‚¯‚·‚éƒNƒ‰ƒX
+			/// ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ç™»éŒ²ã ã‘ã™ã‚‹ã‚¯ãƒ©ã‚¹
 			/// </summary>
-			/// <typeparam name="T">ƒQ[ƒ€ƒVƒXƒeƒ€‚ÌŒ^</typeparam>
-			/// <returns>GameSystemAdderŽ©ŒÈŽQÆ</returns>
+			/// <typeparam name="T">ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã®åž‹</typeparam>
+			/// <returns>GameSystemAdderè‡ªå·±å‚ç…§</returns>
 			template<typename T, typename ...Args>
 			const GameSystemAdder& Register(Args&& ...args) const;
 		};
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒVƒXƒeƒ€‚Ì‚¤‚¿ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚ÉƒAƒNƒZƒX‚·‚é‚¾‚¯‚ÌƒNƒ‰ƒX
+		/// ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã®ã†ã¡ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ã ã‘ã®ã‚¯ãƒ©ã‚¹
 		/// </summary>
 		class ComponentPoolAccessor : public Accessor<GameSystemCollection>
 		{
 			friend class ComponentManager;
 		public:
 			/// <summary>
-			/// <para>‘–¸‚·‚éƒR[ƒ‹ƒoƒbƒNŠÖ”</para>
+			/// <para>èµ°æŸ»ã™ã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°</para>
 			/// <para>void(IComponentPool*)</para>
 			/// </summary>
 			using ForEachCallback = std::function<void(IComponentPool*)>;
@@ -77,14 +77,14 @@ namespace wtgb
 			~ComponentPoolAccessor() {}
 
 			/// <summary>
-			/// “o˜^‚³‚ê‚Ä‚¢‚é	‘SƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚ð‘–¸
+			/// ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹	å…¨ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã‚’èµ°æŸ»
 			/// </summary>
 			/// <param name="_callback">void(IComponentPool*)</param>
 			void ForEachAll(const ForEachCallback& _callback);
 		};
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒVƒXƒeƒ€‚ÌŽQÆ‚¾‚¯ƒNƒ‰ƒX
+		/// ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã®å‚ç…§ã ã‘ã‚¯ãƒ©ã‚¹
 		/// </summary>
 		class GameSystemViewer : public GameSystemAccessor
 		{
@@ -93,18 +93,18 @@ namespace wtgb
 			~GameSystemViewer() {};
 
 			/// <summary>
-			/// Žw’è‚µ‚½Œ^‚ÌƒQ[ƒ€ƒVƒXƒeƒ€‚ðŽæ“¾‚·‚é
+			/// æŒ‡å®šã—ãŸåž‹ã®ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚’å–å¾—ã™ã‚‹
 			/// </summary>
-			/// <typeparam name="T">Žw’è‚·‚éŒ^</typeparam>
-			/// <returns>ƒQ[ƒ€ƒVƒXƒeƒ€</returns>
+			/// <typeparam name="T">æŒ‡å®šã™ã‚‹åž‹</typeparam>
+			/// <returns>ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ </returns>
 			template<typename T>
 			[[nodiscard]]
 			T& Get() const;
 		};
 
 		/// <summary>
-		/// <para>ŠeƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÖŽQÆ‚¾‚¯’ñ‹Ÿ</para>
-		/// <para>ƒƒ“ƒo•Ï”‚Æ‚µ‚Ä•ÛŽ‚µ‚Ä‚¨‚­—p</para>
+		/// <para>å„ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸å‚ç…§ã ã‘æä¾›</para>
+		/// <para>ãƒ¡ãƒ³ãƒå¤‰æ•°ã¨ã—ã¦ä¿æŒã—ã¦ãŠãç”¨</para>
 		/// </summary>
 		class GameSystemCachedViewer : public GameSystemViewer
 		{
@@ -114,7 +114,7 @@ namespace wtgb
 		};
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒVƒXƒeƒ€‰Šú‰»‚ÌŽž‚ÌŽQÆ‚¾‚¯’ñ‹Ÿ
+		/// ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ åˆæœŸåŒ–ã®æ™‚ã®å‚ç…§ã ã‘æä¾›
 		/// </summary>
 		class GameSystemInitViewer : public GameSystemViewer
 		{
@@ -126,7 +126,7 @@ namespace wtgb
 		};
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒVƒXƒeƒ€XV‚ÌŽž‚ÌŽQÆ‚¾‚¯’ñ‹Ÿ
+		/// ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ æ›´æ–°ã®æ™‚ã®å‚ç…§ã ã‘æä¾›
 		/// </summary>
 		class GameSystemUpdateViewer : public GameSystemViewer
 		{
@@ -140,45 +140,45 @@ namespace wtgb
 		~GameSystemCollection();
 
 		/// <summary>
-		/// “o˜^‚³‚ê‚½‘SƒQ[ƒ€ƒVƒXƒeƒ€‚ð‰Šú‰»‚·‚é
+		/// ç™»éŒ²ã•ã‚ŒãŸå…¨ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚’åˆæœŸåŒ–ã™ã‚‹
 		/// </summary>
 		void Init() { InitForEachAll(); }
 		/// <summary>
-		/// ƒtƒŒ[ƒ€ŒÄ‚Ño‚µ‚Æ‚µ‚Ä“o˜^‚³‚ê‚½ƒQ[ƒ€ƒVƒXƒeƒ€‚ðXV
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã³å‡ºã—ã¨ã—ã¦ç™»éŒ²ã•ã‚ŒãŸã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚’æ›´æ–°
 		/// </summary>
 		void UpdateFrame() { UpdateForEach(callFrameIndexes_); }
 		/// <summary>
-		/// ƒTƒCƒNƒ‹ŒÄ‚Ño‚µ‚Æ‚µ‚Ä“o˜^‚³‚ê‚½ƒQ[ƒ€ƒVƒXƒeƒ€‚ðXV
+		/// ã‚µã‚¤ã‚¯ãƒ«å‘¼ã³å‡ºã—ã¨ã—ã¦ç™»éŒ²ã•ã‚ŒãŸã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚’æ›´æ–°
 		/// </summary>
 		void UpdateCycle() { UpdateForEach(callCycleIndexes_); }
 		/// <summary>
-		/// “o˜^‚³‚ê‚Ä‚¢‚é‘SƒQ[ƒ€ƒVƒXƒeƒ€‚ðI—¹‚·‚é
+		/// ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹å…¨ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚’çµ‚äº†ã™ã‚‹
 		/// </summary>
 		void End() { EndForEachAll(); }
 
 	private:
 		/// <summary>
-		/// ƒQ[ƒ€ƒVƒXƒeƒ€‚ðXV‚·‚é
+		/// ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚’æ›´æ–°ã™ã‚‹
 		/// </summary>
-		/// <param name="_indexRef">ŒÄ‚Ño‚·—v‘f”Ô†‚ÌŽQÆ</param>
+		/// <param name="_indexRef">å‘¼ã³å‡ºã™è¦ç´ ç•ªå·ã®å‚ç…§</param>
 		void UpdateForEach(const Indexes& _indexRef);
 		/// <summary>
-		/// “o˜^‚³‚ê‚Ä‚¢‚é‘SƒQ[ƒ€ƒVƒXƒeƒ€‚ð‰Šú‰»‚·‚é
+		/// ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹å…¨ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚’åˆæœŸåŒ–ã™ã‚‹
 		/// </summary>
 		void InitForEachAll();
 		/// <summary>
-		/// “o˜^‚³‚ê‚Ä‚¢‚é‘SƒQ[ƒ€ƒVƒXƒeƒ€‚ðI—¹ˆ—‚·‚é
+		/// ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹å…¨ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚’çµ‚äº†å‡¦ç†ã™ã‚‹
 		/// </summary>
 		void EndForEachAll();
 
 	private:
-		TypeKeys gameSystemTypeKey_;  // ƒQ[ƒ€ƒVƒXƒeƒ€‚ÌŒ^ƒL[
-		GameSystems gameSystems_;     // “o˜^‚µ‚½ƒQ[ƒ€ƒVƒXƒeƒ€
-		Indexes callFrameIndexes_;    // •`‰æƒtƒŒ[ƒ€‚ÅŒÄ‚Ño‚·ƒQ[ƒ€ƒVƒXƒeƒ€‚Ì—v‘f”Ô†
-		Indexes callCycleIndexes_;    // ƒQ[ƒ€ƒ‹[ƒvƒTƒCƒNƒ‹‚ÅŒÄ‚Ño‚·ƒQ[ƒ€ƒVƒXƒeƒ€‚Ì—v‘f”Ô†
+		TypeKeys gameSystemTypeKey_;  // ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã®åž‹ã‚­ãƒ¼
+		GameSystems gameSystems_;     // ç™»éŒ²ã—ãŸã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ 
+		Indexes callFrameIndexes_;    // æç”»ãƒ•ãƒ¬ãƒ¼ãƒ ã§å‘¼ã³å‡ºã™ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã®è¦ç´ ç•ªå·
+		Indexes callCycleIndexes_;    // ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã‚µã‚¤ã‚¯ãƒ«ã§å‘¼ã³å‡ºã™ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã®è¦ç´ ç•ªå·
 
-		// TODO: ƒNƒ‰ƒX•ª‚¯‚·‚é
-		Indexes componentPoolIndexes_;  // ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚Ì—v‘f”Ô†
+		// TODO: ã‚¯ãƒ©ã‚¹åˆ†ã‘ã™ã‚‹
+		Indexes componentPoolIndexes_;  // ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã®è¦ç´ ç•ªå·
 	};
 }
 

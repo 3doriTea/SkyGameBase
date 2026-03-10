@@ -7,7 +7,7 @@ namespace wtgb
 	class Collider;
 
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹ : “–‚½‚è”»’è(Collider)
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ« : å½“ãŸã‚Šåˆ¤å®š(Collider)
 	/// </summary>
 	class CPCollider : public ComponentPool<Collider>
 	{
@@ -16,11 +16,11 @@ namespace wtgb
 		~CPCollider() {}
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		void Init() override {}
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update() override;
 	};

@@ -26,7 +26,7 @@ void wtgb::Path::End()
 wtgb::Path::Current::Current(const fs::path& _currentPath) :
 	currentPath_{ _currentPath }
 {
-	wassert(pInstance_ == nullptr && "•¡”‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ªì‚ç‚ê‚Ä‚¢‚é");
+	wassert(pInstance_ == nullptr && "è¤‡æ•°ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒä½œã‚‰ã‚Œã¦ã„ã‚‹");
 	pInstance_ = this;
 }
 

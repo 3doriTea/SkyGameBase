@@ -23,12 +23,12 @@ inline void wtgb::ShaderConstant<StructT>::Init(ViewerCached _system)
 
 	const D3D11_BUFFER_DESC CONSTANT_DESC
 	{
-		// Œ^‚Ì‘å‚«‚³
+		// å‹ã®å¤§ãã•
 		.ByteWidth = cbSize,
-		.Usage = D3D11_USAGE_DYNAMIC,                // •ÏX‚·‚é‚©
-		.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // ‚È‚ñ‚Ìƒoƒbƒtƒ@‚©
-		.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPU‚©‚ç‚ÌƒAƒNƒZƒXƒtƒ‰ƒO
-		.MiscFlags = 0,                              // ‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
+		.Usage = D3D11_USAGE_DYNAMIC,                // å¤‰æ›´ã™ã‚‹ã‹
+		.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // ãªã‚“ã®ãƒãƒƒãƒ•ã‚¡ã‹
+		.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPUã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒ•ãƒ©ã‚°
+		.MiscFlags = 0,                              // ãã®ä»–ã®ãƒ•ãƒ©ã‚°
 		.StructureByteStride = 0,
 	};
 
@@ -36,22 +36,22 @@ inline void wtgb::ShaderConstant<StructT>::Init(ViewerCached _system)
 	HRESULT hResult{};
 
 	hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "ShaderConstant‚ÌƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@ì¬‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "ShaderConstantã®ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ä½œæˆã«å¤±æ•—");
 
 }
 
 template<typename StructT>
 inline void wtgb::ShaderConstant<StructT>::Send(ViewerCached _system)
 {
-	// TODO: ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğ‰½“x‚àƒZƒbƒg‚·‚é‚Ì‚Í–³‘Ê‚¾‚Æ‚Ív‚¢‚Â‚Â
+	// TODO: ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’ä½•åº¦ã‚‚ã‚»ãƒƒãƒˆã™ã‚‹ã®ã¯ç„¡é§„ã ã¨ã¯æ€ã„ã¤ã¤
 
 	Direct3D& d3d{ _system.Get<Direct3D>() };
 	ID3D11Device* pDevice{ d3d.Resource().Device() };
 	ID3D11DeviceContext* pContext{ d3d.Resource().Context() };
 
-	// ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@‚ğƒZƒbƒg
-	pContext->VSSetConstantBuffers(beginSlot_, slotCount_, pConstantBuffer_.GetAddressOf());  // ’¸“_ƒVƒF[ƒ_—p
-	pContext->PSSetConstantBuffers(beginSlot_, slotCount_, pConstantBuffer_.GetAddressOf());  // ƒsƒNƒZƒ‹ƒVƒF[ƒ_—p
+	// ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã‚’ã‚»ãƒƒãƒˆ
+	pContext->VSSetConstantBuffers(beginSlot_, slotCount_, pConstantBuffer_.GetAddressOf());  // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ç”¨
+	pContext->PSSetConstantBuffers(beginSlot_, slotCount_, pConstantBuffer_.GetAddressOf());  // ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ç”¨
 
 	D3D11_MAPPED_SUBRESOURCE data{};
 

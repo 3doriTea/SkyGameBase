@@ -4,7 +4,7 @@
 
 
 /// <summary>
-/// ƒXƒRƒA‚ğŠÇ—‚·‚éƒVƒXƒeƒ€
+/// ã‚¹ã‚³ã‚¢ã‚’ç®¡ç†ã™ã‚‹ã‚·ã‚¹ãƒ†ãƒ 
 /// </summary>
 class ScoreManager : public IGameSystem
 {
@@ -18,23 +18,23 @@ public:
 	void End() override;
 
 	/// <summary>
-	/// Œ»İ‚ÌƒXƒRƒA’l‚ğæ“¾
+	/// ç¾åœ¨ã®ã‚¹ã‚³ã‚¢å€¤ã‚’å–å¾—
 	/// </summary>
-	/// <returns>Œ»İ‚ÌƒXƒRƒA’l</returns>
+	/// <returns>ç¾åœ¨ã®ã‚¹ã‚³ã‚¢å€¤</returns>
 	uint64_t GetCurrentScore() const { return currentScore_; }
 	/// <summary>
-	/// Œ»İ‚ÌƒXƒRƒA’l‚ğİ’è‚·‚é
+	/// ç¾åœ¨ã®ã‚¹ã‚³ã‚¢å€¤ã‚’è¨­å®šã™ã‚‹
 	/// </summary>
-	/// <param name="_value">İ’è‚·‚éƒXƒRƒA’l</param>
+	/// <param name="_value">è¨­å®šã™ã‚‹ã‚¹ã‚³ã‚¢å€¤</param>
 	void SetCurrentScore(const uint64_t _value) { currentScore_ = _value; }
 	/// <summary>
-	/// Œ»İ‚ÌƒXƒRƒA’l‚É‰ÁZ‚·‚é
+	/// ç¾åœ¨ã®ã‚¹ã‚³ã‚¢å€¤ã«åŠ ç®—ã™ã‚‹
 	/// </summary>
-	/// <param name="_value">‰ÁZ‚·‚éƒXƒRƒA’l</param>
+	/// <param name="_value">åŠ ç®—ã™ã‚‹ã‚¹ã‚³ã‚¢å€¤</param>
 	void AddCurrentScore(const uint64_t _value) { currentScore_ += _value; }
 private:
-	uint64_t currentScore_;  // Œ»İ‚ÌƒXƒRƒA’l
-	uint64_t maxScore_;      // ƒXƒRƒA‚ÌÅ‘å’l
+	uint64_t currentScore_;  // ç¾åœ¨ã®ã‚¹ã‚³ã‚¢å€¤
+	uint64_t maxScore_;      // ã‚¹ã‚³ã‚¢ã®æœ€å¤§å€¤
 
 	GameScore gameScore_;
 };

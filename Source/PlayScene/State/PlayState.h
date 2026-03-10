@@ -2,18 +2,18 @@
 #include <wtgb.h>
 
 /// <summary>
-/// <para>ƒvƒŒƒCƒV[ƒ““à‚Å‚Ìó‘ÔŠÇ—ƒNƒ‰ƒX</para>
-/// <para>ˆÄ“àUI“™‚É‰e‹¿</para>
+/// <para>ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³å†…ã§ã®çŠ¶æ…‹ç®¡ç†ã‚¯ãƒ©ã‚¹</para>
+/// <para>æ¡ˆå†…UIç­‰ã«å½±éŸ¿</para>
 /// </summary>
 class PlayState : public GameObject
 {
 public:
 	enum struct Type
 	{
-		StartLine,    // ’¸ã‚É‚¢‚é
-		Falling,      // ‰ºR’†
-		FallingLast,  // ‰ºR’†ƒS[ƒ‹‚ªŒ©‚¦‚Ä‚­‚é
-		Finished,     // ‰ºRI—¹
+		StartLine,    // é ‚ä¸Šã«ã„ã‚‹
+		Falling,      // ä¸‹å±±ä¸­
+		FallingLast,  // ä¸‹å±±ä¸­ã‚´ãƒ¼ãƒ«ãŒè¦‹ãˆã¦ãã‚‹
+		Finished,     // ä¸‹å±±çµ‚äº†
 	};
 
 private:
@@ -60,24 +60,24 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// ó‘Ô•ÏX‚ª‚ ‚Á‚½‚Æ‚«‚ÌƒR[ƒ‹ƒoƒbƒNˆ—
+	/// çŠ¶æ…‹å¤‰æ›´ãŒã‚ã£ãŸã¨ãã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯å‡¦ç†
 	/// </summary>
-	/// <param name="_callback">(Ÿ‚Ìó‘Ô) -> “o˜^‰ğœ‚·‚é‚©‚Ìƒtƒ‰ƒOtrue / false</param>
+	/// <param name="_callback">(æ¬¡ã®çŠ¶æ…‹) -> ç™»éŒ²è§£é™¤ã™ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°true / false</param>
 	void OnChanged(OnChangedCallback&& _callback);
 
 	/// <summary>
-	/// ó‘Ô‚ğƒ`ƒFƒ“ƒW‚·‚é
+	/// çŠ¶æ…‹ã‚’ãƒã‚§ãƒ³ã‚¸ã™ã‚‹
 	/// </summary>
-	/// <param name="_type">Ÿ‚Ìó‘Ô</param>
+	/// <param name="_type">æ¬¡ã®çŠ¶æ…‹</param>
 	void ChangeState(Type _type);
 	/// <summary>
-	/// Œ»İ‚Ìó‘Ô‚ğæ“¾‚·‚é
+	/// ç¾åœ¨ã®çŠ¶æ…‹ã‚’å–å¾—ã™ã‚‹
 	/// </summary>
 	/// <returns></returns>
 	Type GetState() const;
 
 private:
-	// •ÏX‚ÌƒCƒxƒ“ƒg
+	// å¤‰æ›´æ™‚ã®ã‚¤ãƒ™ãƒ³ãƒˆ
 	std::list<OnChangedCallback> onChangedEvents_;
 	std::unique_ptr<IPlayState> pCurrentState_;
 };

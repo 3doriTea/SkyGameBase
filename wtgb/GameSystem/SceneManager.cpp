@@ -24,20 +24,20 @@ void wtgb::SceneManager::Update(const ViewerUpdate& _system)
 {
 	if (pToNext_)
 	{
-		// ƒV[ƒ““Ç‚Ýž‚Ý’†‚ÍŽžŠÔ‚ðŽ~‚ß‚é
+		// ã‚·ãƒ¼ãƒ³èª­ã¿è¾¼ã¿ä¸­ã¯æ™‚é–“ã‚’æ­¢ã‚ã‚‹
 		_system.Get<GameTime>().SetTimeStopped(true);
 
 		pCurrent_.reset();
 		pCurrent_ = std::move(pToNext_);
 		pToNext_ = {};
 
-		pCurrent_.get()->Start();  // ƒV[ƒ“ŠJŽnˆ—
+		pCurrent_.get()->Start();  // ã‚·ãƒ¼ãƒ³é–‹å§‹å‡¦ç†
 
 		_system.Get<GameTime>().SetTimeStopped(false);
 	}
 	if (pCurrent_)
 	{
-		pCurrent_.get()->Update();  // ƒV[ƒ“XVˆ—
+		pCurrent_.get()->Update();  // ã‚·ãƒ¼ãƒ³æ›´æ–°å‡¦ç†
 	}
 }
 

@@ -12,6 +12,6 @@ public:
 	void Release() override;
 
 private:
-	//EntityId mainCamera_;  // ƒJƒƒ‰
+	//EntityId mainCamera_;  // ã‚«ãƒ¡ãƒ©
 
 };

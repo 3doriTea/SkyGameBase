@@ -19,7 +19,7 @@ inline constexpr bool is_shared_ptr_v{ is_shared_ptr<V>::value };
 namespace wtgb
 {
 	/// <summary>
-	/// ”ÍˆÍfor‚ğ’â~‚·‚é‚©‚Ìƒg[ƒNƒ“
+	/// ç¯„å›²forã‚’åœæ­¢ã™ã‚‹ã‹ã®ãƒˆãƒ¼ã‚¯ãƒ³
 	/// </summary>
 	struct BreakToken
 	{
@@ -31,13 +31,13 @@ namespace wtgb
 			toBreak{ _toBreak }
 		{}
 
-		bool toBreak;  // ForEach‚ğ~‚ß‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
+		bool toBreak;  // ForEachã‚’æ­¢ã‚ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
 	};
 
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚ÌŠî’êƒNƒ‰ƒX
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã®åŸºåº•ã‚¯ãƒ©ã‚¹
 	/// </summary>
-	/// <typeparam name="ComponentT">ƒRƒ“ƒ|[ƒlƒ“ƒgŒ^</typeparam>
+	/// <typeparam name="ComponentT">ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå‹</typeparam>
 	template<typename ComponentT>
 	class ComponentPool : public IGameSystem, public IComponentPool
 	{
@@ -48,7 +48,7 @@ namespace wtgb
 
 	protected:
 		/// <summary>
-		/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹‚Ö‚ÌƒCƒeƒŒ[ƒ^
+		/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ«ã¸ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
 		/// </summary>
 		class PoolIterator
 		{
@@ -62,7 +62,7 @@ namespace wtgb
 
 			size_t GetIndex() const { return itr_ - pool_.begin(); }
 
-			// ‘O’uƒCƒ“ƒNƒŠƒƒ“ƒg
+			// å‰ç½®ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 			PoolIterator& operator++()
 			{
 				while (true)
@@ -82,7 +82,7 @@ namespace wtgb
 				return *this;
 			}
 
-			// Œã’uƒCƒ“ƒNƒŠƒƒ“ƒg
+			// å¾Œç½®ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 			PoolIterator operator++(int)
 			{
 				while (true)
@@ -143,7 +143,7 @@ namespace wtgb
 
 			size_t GetIndex() const { return itr_ - pool_.begin(); }
 
-			// ‘O’uƒCƒ“ƒNƒŠƒƒ“ƒg
+			// å‰ç½®ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 			ConstPoolIterator& operator++()
 			{
 				while (true)
@@ -163,7 +163,7 @@ namespace wtgb
 				return *this;
 			}
 
-			// Œã’uƒCƒ“ƒNƒŠƒƒ“ƒg
+			// å¾Œç½®ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 			ConstPoolIterator operator++(int)
 			{
 				while (true)
@@ -216,23 +216,23 @@ namespace wtgb
 		virtual ~ComponentPool() {}
 
 		/// <summary>
-		/// ŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO‚Ìí—Ş‚ğæ“¾
+		/// å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã®ç¨®é¡ã‚’å–å¾—
 		/// </summary>
-		/// <returns>ŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO‚Ìí—Ş</returns>
+		/// <returns>å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã®ç¨®é¡</returns>
 		const CallType GetCallType() { return CallType::Frame; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Update(const ViewerUpdate& _system) override;
 	
 	public:
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void End() override {}
 
@@ -240,29 +240,29 @@ namespace wtgb
 		ComponentT& Add(const EntityId _entityId, const Args& ...args);
 
 		/// <summary>
-		/// <para>ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾‚·‚é</para>
-		/// <para>NOTE: •Ô‚³‚ê‚½ƒ|ƒCƒ“ƒ^‚ğ•Û‘¶‚µ‚È‚¢‚Å‚­‚¾‚³‚¢I</para>
+		/// <para>ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—ã™ã‚‹</para>
+		/// <para>NOTE: è¿”ã•ã‚ŒãŸãƒã‚¤ãƒ³ã‚¿ã‚’ä¿å­˜ã—ãªã„ã§ãã ã•ã„ï¼</para>
 		/// </summary>
-		/// <param name="_entityId">ƒGƒ“ƒeƒBƒeƒBId</param>
-		/// <returns>ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìƒ|ƒCƒ“ƒ^ / ‚È‚¯‚ê‚Î nullptr</returns>
+		/// <param name="_entityId">ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
+		/// <returns>ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ / ãªã‘ã‚Œã° nullptr</returns>
 		[[nodiscard]]
 		std::remove_pointer_t<ComponentT>* Get(const EntityId _entityId);
 
 		/// <summary>
-		/// ƒGƒ“ƒeƒBƒeƒB‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ‚Í‚¸‚·
+		/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ã¯ãšã™
 		/// </summary>
-		/// <param name="_entityId">ŠO‚·ƒGƒ“ƒeƒBƒeƒBId</param>
+		/// <param name="_entityId">å¤–ã™ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£Id</param>
 		void Remove(const EntityId _entityId);
 
 		/// <summary>
-		/// ‘SƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ”jŠü‚·‚é
+		/// å…¨ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ç ´æ£„ã™ã‚‹
 		/// </summary>
 		void Clear() override;
 
 		/// <summary>
-		/// w’è‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ”jŠü‚·‚é
+		/// æŒ‡å®šã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ç ´æ£„ã™ã‚‹
 		/// </summary>
-		/// <param name="_index">w’è‚ÌƒCƒ“ƒfƒNƒX</param>
+		/// <param name="_index">æŒ‡å®šã®ã‚¤ãƒ³ãƒ‡ã‚¯ã‚¹</param>
 		void ClearAt(const size_t _index) override;
 
 		void ForEach(const std::function<BreakToken(ComponentT&)>& _callback);
@@ -272,11 +272,11 @@ namespace wtgb
 
 	protected:
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		virtual void Init() = 0;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		virtual void Update() = 0;
 
@@ -290,28 +290,28 @@ namespace wtgb
 		ConstPoolIterator end() const { return { pool_, useFlag_, pool_.end() }; }*/
 
 		inline ComponentT& at(const size_t _index) { return pool_.at(_index); }
-		inline ComponentT& at(const EntityId _entityId) { assert(!IsInvalidEntity(_entityId) && "–³Œø‚ÈƒGƒ“ƒeƒBƒeƒB"); return pool_.at(_entityId.index); }
+		inline ComponentT& at(const EntityId _entityId) { assert(!IsInvalidEntity(_entityId) && "ç„¡åŠ¹ãªã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£"); return pool_.at(_entityId.index); }
 		inline const ComponentT& at(const size_t _index) const { return pool_.at(_index); }
-		inline const ComponentT& at(const EntityId _entityId) const { return assert(!IsInvalidEntity(_entityId) && "–³Œø‚ÈƒGƒ“ƒeƒBƒeƒB"); pool_.at(_entityId.index); }
+		inline const ComponentT& at(const EntityId _entityId) const { return assert(!IsInvalidEntity(_entityId) && "ç„¡åŠ¹ãªã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£"); pool_.at(_entityId.index); }
 
 		inline const ComponentT* DataBegin() const { return pool_.data(); }
 	private:
 		/// <summary>
-		/// g‚í‚ê‚Ä‚¢‚é itr begin ‚ğæ“¾‚·‚é
+		/// ä½¿ã‚ã‚Œã¦ã„ã‚‹ itr begin ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒv[ƒ‹‚ÌƒCƒeƒŒ[ƒ^</returns>
+		/// <returns>ãƒ—ãƒ¼ãƒ«ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿</returns>
 		Pool::iterator GetUsedBeginItr();
 		/// <summary>
-		/// g‚í‚ê‚Ä‚¢‚é itr begin ‚ğæ“¾‚·‚é
+		/// ä½¿ã‚ã‚Œã¦ã„ã‚‹ itr begin ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>ƒv[ƒ‹‚ÌƒCƒeƒŒ[ƒ^</returns>
+		/// <returns>ãƒ—ãƒ¼ãƒ«ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿</returns>
 		Pool::const_iterator GetUsedBeginItr() const;
 
 		bool IsInvalidEntity(const EntityId _entityId);
 
 	private:
 		Pool pool_;
-		std::bitset<ENTITY_CAPACITY> useFlag_;  // ƒGƒ“ƒeƒBƒeƒB‚ªƒRƒ“ƒ|[ƒlƒ“ƒg‚ğg—p‚µ‚Ä‚¢‚é‚©ƒtƒ‰ƒO
+		std::bitset<ENTITY_CAPACITY> useFlag_;  // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ãŒã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã‹ãƒ•ãƒ©ã‚°
 		ViewerCached system_;
 	};
 }

@@ -27,34 +27,34 @@ void wtgb::InputResource::Init()
 					IID_IDirectInput8,
 					reinterpret_cast<VOID**>(&pDirectInput_),
 					nullptr);
-			}, "DirectInput8‚Ìì¬‚É¸”s")
+			}, "DirectInput8ã®ä½œæˆã«å¤±æ•—")
 		.TryRun([this]() -> HRESULT
 			{
 				return pDirectInput_->CreateDevice(GUID_SysKeyboard, &pKeyDevice_, nullptr);
-			}, "ƒL[ƒ{[ƒhƒfƒoƒCƒX‚Ìì¬‚É¸”s")
+			}, "ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆã«å¤±æ•—")
 		.TryRun([this]() -> HRESULT
 			{
 				return pKeyDevice_->SetDataFormat(&c_dfDIKeyboard);
-			}, "ƒL[ƒ{[ƒh‚ÌƒtƒH[ƒ}ƒbƒgİ’è‚É¸”s")
+			}, "ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆè¨­å®šã«å¤±æ•—")
 		.TryRun([this]() -> HRESULT
 			{
 				return pKeyDevice_->SetCooperativeLevel(config_.hWnd, config_.cooperativeLevelFlag);
-			}, "ƒL[ƒ{[ƒhŠ±Â“x‡‚¢İ’è‚É¸”s")
+			}, "ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å¹²æ¸‰åº¦åˆã„è¨­å®šã«å¤±æ•—")
 		.TryRun([this]() -> HRESULT
 			{
 				return pDirectInput_->CreateDevice(GUID_SysMouse, &pMouseDevice_, nullptr);
-			}, "ƒ}ƒEƒXƒfƒoƒCƒX‚Ìì¬‚É¸”s")
+			}, "ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆã«å¤±æ•—")
 		.TryRun([this]() -> HRESULT
 			{
 				return pMouseDevice_->SetDataFormat(&c_dfDIMouse);
-			}, "ƒ}ƒEƒX‚ÌƒtƒH[ƒ}ƒbƒgİ’è‚É¸”s")
+			}, "ãƒã‚¦ã‚¹ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆè¨­å®šã«å¤±æ•—")
 		.TryRun([this]() -> HRESULT
 			{
 				return pMouseDevice_->SetCooperativeLevel(config_.hWnd, config_.cooperativeLevelFlag);
-			}, "ƒ}ƒEƒXŠ±Â“x‡‚¢İ’è‚É¸”s")
+			}, "ãƒã‚¦ã‚¹å¹²æ¸‰åº¦åˆã„è¨­å®šã«å¤±æ•—")
 		.End();
 
-	wassert(SUCCEEDED(hResult) && "InputResouce ‰Šú‰»ˆ—‚É¸”s");
+	wassert(SUCCEEDED(hResult) && "InputResouce åˆæœŸåŒ–å‡¦ç†ã«å¤±æ•—");
 }
 
 void wtgb::InputResource::Release()

@@ -7,7 +7,7 @@
 namespace wtgb
 {
 	/// <summary>
-	/// UI•\¦—pƒLƒƒƒ“ƒoƒXƒVƒXƒeƒ€
+	/// UIè¡¨ç¤ºç”¨ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚·ã‚¹ãƒ†ãƒ 
 	/// </summary>
 	class Canvas : public IGameSystem
 	{
@@ -22,30 +22,30 @@ namespace wtgb
 		~Canvas();
 
 		/// <summary>
-		/// XV‚Ìƒ^ƒCƒ~ƒ“ƒO‚ğæ“¾‚·‚é
+		/// æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns>XV‚Ìƒ^ƒCƒ~ƒ“ƒO</returns>
+		/// <returns>æ›´æ–°ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 		const CallType GetCallType() override { return CallType::Frame; }
 
 		/// <summary>
-		/// ƒLƒƒƒ“ƒoƒX‚Ö‚Ì•`‰æ—pƒRƒ“ƒeƒLƒXƒg‚ğæ“¾
+		/// ã‚­ãƒ£ãƒ³ãƒã‚¹ã¸ã®æç”»ç”¨ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã‚’å–å¾—
 		/// </summary>
-		/// <returns>•`‰æ—pƒRƒ“ƒeƒLƒXƒg</returns>
+		/// <returns>æç”»ç”¨ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ</returns>
 		const UI::CanvasContext& GetContext() const { return context_; }
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_viewer">ƒVƒXƒeƒ€ƒAƒNƒZƒX—p</param>
-		/// <returns>Œ‹‰Ê</returns>
+		/// <param name="_viewer">ã‚·ã‚¹ãƒ†ãƒ ã‚¢ã‚¯ã‚»ã‚¹ç”¨</param>
+		/// <returns>çµæœ</returns>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
-		/// <param name="_system">ƒVƒXƒeƒ€ƒAƒNƒZƒX—p</param>
+		/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ ã‚¢ã‚¯ã‚»ã‚¹ç”¨</param>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void End() override;
 
@@ -53,10 +53,10 @@ namespace wtgb
 		Mesh2D mesh2D_;
 		ViewerCached system_;
 
-		UI::LayoutConfig* pReferenceLayoutConfig_;  // Œ»İ‚ÌQÆƒŒƒCƒAƒEƒgİ’è
+		UI::LayoutConfig* pReferenceLayoutConfig_;  // ç¾åœ¨ã®å‚ç…§ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
 
-		UI::CanvasContext context_;  // ƒLƒƒƒ“ƒoƒXƒAƒNƒZƒX—pƒRƒ“ƒeƒLƒXƒg
-		std::list<UI::ConfigAndContent> renderOrder_;  // •`‰æƒI[ƒ_[
+		UI::CanvasContext context_;  // ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚¢ã‚¯ã‚»ã‚¹ç”¨ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+		std::list<UI::ConfigAndContent> renderOrder_;  // æç”»ã‚ªãƒ¼ãƒ€ãƒ¼
 	};
 }
 

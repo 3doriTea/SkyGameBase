@@ -6,7 +6,7 @@ namespace wtgb
 	class Parameter;
 
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒgƒv[ƒ‹ : ƒQ[ƒ€ƒIƒuƒWƒFƒNƒgŒÅ—L‚Ì•Ï”(Parameter)
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ—ãƒ¼ãƒ« : ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå›ºæœ‰ã®å¤‰æ•°(Parameter)
 	/// </summary>
 	class CPParameter : public ComponentPool<Parameter>
 	{
@@ -15,12 +15,12 @@ namespace wtgb
 		inline ~CPParameter() {}
 
 		/// <summary>
-		/// ‰Šú‰»ˆ—
+		/// åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
 		inline void Init() override {}
 
 		/// <summary>
-		/// XVˆ—
+		/// æ›´æ–°å‡¦ç†
 		/// </summary>
 		inline void Update() override {}
 	};

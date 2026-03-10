@@ -4,7 +4,7 @@
 namespace mtbin
 {
 	/// <summary>
-	/// ƒoƒCƒg”z—ñ‚Ì‘‚«æ‚èê—p‚Æ‚·‚éƒNƒ‰ƒX
+	/// ãƒã‚¤ãƒˆé…åˆ—ã®æ›¸ãå–ã‚Šå°‚ç”¨ã¨ã™ã‚‹ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class BinaryReader : public MemoryStreamCore
 	{
@@ -22,9 +22,9 @@ namespace mtbin
 		using MemoryStreamCore::Peek;
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@‚Ìƒ|ƒCƒ“ƒ^‚ğæ“¾
+		/// ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒ³ã‚¿ã‚’å–å¾—
 		/// </summary>
-		/// <returns>“Ç‚İæ‚èê—p‚Ìƒoƒbƒtƒ@‚Ìƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>èª­ã¿å–ã‚Šå°‚ç”¨ã®ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 		inline const mtbin::Byte* Data() { return MemoryStreamCore::Data(); }
 	};
 }

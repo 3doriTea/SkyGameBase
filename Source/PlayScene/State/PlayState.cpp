@@ -58,14 +58,14 @@ void PlayState::ChangeState(Type _type)
 		pCurrentState_ = std::make_unique<Finished>();
 		break;
 	default:
-		wassert(false && "–¢‘Î‰ž‚ÌƒvƒŒƒCƒXƒe[ƒg");
+		wassert(false && "æœªå¯¾å¿œã®ãƒ—ãƒ¬ã‚¤ã‚¹ãƒ†ãƒ¼ãƒˆ");
 		break;
 	}
 }
 
 PlayState::Type PlayState::GetState() const
 {
-	wassert(pCurrentState_ && "Œ»Ý‚ÌƒXƒe[ƒg‚ªnullptr");
+	wassert(pCurrentState_ && "ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆãŒnullptr");
 	
 	return pCurrentState_->GetType();
 }
