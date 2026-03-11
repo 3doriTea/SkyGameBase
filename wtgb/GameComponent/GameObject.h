@@ -90,7 +90,7 @@ namespace wtgb
 			//	// TODO: もしくはGameScene || std::is_base_of_v<GameScene, GameSceneT>
 			//	&& "指定する型はGameSceneを継承している必要があります。");
 			GameScene* pCurrentScene{ System().Get<SceneManager>().GetCurrentScene() };
-			wassert(pCurrentScene && "現在のシーンがない");
+			wassert(pCurrentScene && u8"現在のシーンがない");
 			GameSceneT* pCasted{ dynamic_cast<GameSceneT*>(pCurrentScene) };
 
 			return pCasted;

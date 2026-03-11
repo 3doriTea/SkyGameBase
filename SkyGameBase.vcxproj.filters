@@ -729,6 +729,12 @@
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaBase3.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaTubar.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaGlocken.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1185,6 +1191,12 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaBase3.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaTubar.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaGlocken.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>

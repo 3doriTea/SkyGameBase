@@ -23,7 +23,11 @@ TitleNeco::TitleNeco(const EntityId _dragCircle) :
 	dragCircleRadius_{},
 	playButtonRadius_{},
 	playNoteChannel_{},
-	playNoteDiffOffset_{}
+	playNoteDiffOffset_{},
+	dragCircleOffsetX_{},
+	dragCircleOffsetXPP_{},
+	dragCircleOffsetScreenSizeYDiv_{},
+	uiLayoutConfigOrder_{}
 {
 }
 
@@ -92,7 +96,6 @@ void TitleNeco::Init()
 		return;  // タイトルシーンの取得に失敗すると何もできない
 	}
 
-	//dragPoint_ = GetScene<SampleScene>().Instantiate<DragCircle>(centerPosition, 30);
 	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragPoint_)) };
 
 	pDragCircle->SetRadius(dragCircleRadius_);

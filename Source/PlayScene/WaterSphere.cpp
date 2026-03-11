@@ -3,7 +3,9 @@
 
 namespace
 {
+	// ステージの左端
 	const float SAFE_ZONE_X_MIN{ -0.5f };
+	// ステージの右端
 	const float SAFE_ZONE_X_MAX{ 300.5f };
 }
 
@@ -53,11 +55,6 @@ void WaterSphere::Init()
 
 void WaterSphere::Update()
 {
-	Vector3 pos{ Transform().GetPosition() };
-	if (pos.x < SAFE_ZONE_X_MIN || SAFE_ZONE_X_MAX < pos.x)
-	{
-		//DestroyMe();
-	}
 }
 
 void WaterSphere::Release()

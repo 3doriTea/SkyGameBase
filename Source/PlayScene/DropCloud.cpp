@@ -170,20 +170,19 @@ void DropCloud::Update()
 	const float dt{ System().Get<GameTime>().GetDeltaTime() };
 
 	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
-	wassert(pSMFPlayer && "SMFPlayerが見つからなかった");
+	wassert(pSMFPlayer && u8"SMFPlayerが見つからなかった");
 	Player* pPlayer{ FindGameObject<Player>(player_) };
-	wassert(pPlayer && "プレイヤーが見つからなかった");
+	wassert(pPlayer && u8"プレイヤーが見つからなかった");
 	StageLine* pStageLine{ FindGameObject<StageLine>(stageLine_) };
-	wassert(pStageLine && "ステージラインが見つからなかった");
+	wassert(pStageLine && u8"ステージラインが見つからなかった");
 	ISpeedController* pSpeedController{ FindGameObject<ISpeedController>(speedController_) };
-	wassert(pSpeedController && "スピードコントローラが見つからなかった");
+	wassert(pSpeedController && u8"スピードコントローラが見つからなかった");
 
 
 #pragma region 再生が終了したら1回だけゴール処理
 	if (pSMFPlayer
 		&& isFinished_ == false
 		&& pSMFPlayer->IsFinished())
-	//if (System().Get<Input>().Getter().IsKeyDown(KeyCode::H))
 	{
 		isFinished_ = true;
 		System().Get<Alarm>().Add([this]
@@ -255,8 +254,7 @@ void DropCloud::Update()
 				{
 					level_ = static_cast<CloudLevel>(CLOUD_LEVEL_MAX - 1);
 				}
-				LOGFLN("レベルアップ:{}", (int)level_);
-
+				
 				SpawanMiniChara();
 			}
 			else if (perfectTimer_ < 0.0f)
@@ -268,7 +266,6 @@ void DropCloud::Update()
 				{
 					level_ = static_cast<CloudLevel>(0);
 				}
-				LOGFLN("レベルダウン:{}", (int)level_);
 			}
 		}
 
@@ -324,11 +321,13 @@ void DropCloud::SpawanMiniChara()
 			spawanType = MiniCharaType::Base3;
 			break;
 		case CLOUD_LEVEL_TUBA:
+			spawanType = MiniCharaType::Tubar;
 			break;
 		case CLOUD_LEVEL_DRUM:
 			spawanType = MiniCharaType::Monkitty;
 			break;
 		case CLOUD_LEVEL_GLOCKEN:
+			spawanType = MiniCharaType::Glocken;
 			break;
 		case CLOUD_LEVEL_START:
 		case CLOUD_LEVEL_MAX:

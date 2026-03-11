@@ -4,26 +4,22 @@
 #include "GameLoop.h"
 #include "GameSystemCollection.h"
 
-std::string_view wtgb::Game::Title()
+std::u8string_view wtgb::Game::Title()
 {
 	if (pGame_)
 	{
 		return pGame_->GetTitle();
 	}
-	return
-#include "../_Config/DefaultGameTitle.value"
-		;
+	return u8"ゲーム";
 }
 
-std::string_view wtgb::Game::Version()
+std::u8string_view wtgb::Game::Version()
 {
 	if (pGame_)
 	{
 		return pGame_->GetVersion();
 	}
-	return
-#include "../_Config/DefaultGameVersion.value"
-		;
+	return u8"1.2.1";
 }
 
 void wtgb::Game::Exit()

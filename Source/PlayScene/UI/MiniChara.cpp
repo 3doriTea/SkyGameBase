@@ -1,7 +1,9 @@
 #include "MiniChara.h"
 #include "SMF/SMFPlayer.h"
-#include "MiniChara/MiniCharaMonkitty.h"
 #include "MiniChara/MiniCharaBase3.h"
+#include "MiniChara/MiniCharaTubar.h"
+#include "MiniChara/MiniCharaMonkitty.h"
+#include "MiniChara/MiniCharaGlocken.h"
 
 
 MiniChara::MiniChara(
@@ -20,11 +22,17 @@ MiniChara::MiniChara(
 {
 	switch (_type)
 	{
+		case MiniCharaType::Base3:
+			pMiniCharaState_ = std::make_unique<MiniCharaBase3>();
+			break;
+		case MiniCharaType::Tubar:
+			pMiniCharaState_ = std::make_unique<MiniCharaTubar>();
+			break;
 		case MiniCharaType::Monkitty:
 			pMiniCharaState_ = std::make_unique<MiniCharaMonkitty>();
 			break;
-		case MiniCharaType::Base3:
-			pMiniCharaState_ = std::make_unique<MiniCharaBase3>();
+		case MiniCharaType::Glocken:
+			pMiniCharaState_ = std::make_unique<MiniCharaGlocken>();
 			break;
 		default:
 			wassert(false && "unknown type of mini chara");

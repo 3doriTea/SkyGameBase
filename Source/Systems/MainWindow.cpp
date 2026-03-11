@@ -30,7 +30,7 @@ wtgb::Result MainWindow::Init(const ViewerInit& _viewer)
 	{
 		_viewer.Get<GameWindow>().Create(GameWindow::CreateWindowConfig
 		{
-			.title = Game::Title(),
+			.title = std::string{ Game::Title().begin(), Game::Title().end() },
 			.classStyle = CS_VREDRAW | CS_HREDRAW,
 			.icon = LoadIcon(nullptr, IDI_APPLICATION),
 			.iconSmile = LoadIcon(nullptr, IDI_WINLOGO),

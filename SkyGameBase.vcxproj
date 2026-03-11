@@ -59,7 +59,9 @@
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\IMiniCharaState.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaBase3.h" />
+    <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaGlocken.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaMonkitty.h" />
+    <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaTubar.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMessage.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
     <ClInclude Include="Source\PostProcessingEffect\Twist.h" />
@@ -349,7 +351,9 @@
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaBase3.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaGlocken.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaMonkitty.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaTubar.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMessage.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
     <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp" />

@@ -5,8 +5,10 @@ using namespace wtgb;
 
 namespace
 {
+	// ゴールの高さ
 	const float GOAL_HEIGHT{ 3000.0f };
 	const float GOAL_POS_Y{ -GOAL_HEIGHT };
+
 	const float RAND_RANGE_X{ 100.0f };
 	const float RAND_RANGE_Y{ 30.0f };
 

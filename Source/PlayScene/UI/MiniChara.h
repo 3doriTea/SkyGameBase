@@ -5,8 +5,10 @@
 
 enum struct MiniCharaType
 {
-	Monkitty,
 	Base3,
+	Tubar,
+	Monkitty,
+	Glocken,
 };
 
 /// <summary>
@@ -16,6 +18,8 @@ class MiniChara : public GameObject
 {
 	friend class MiniCharaMonkitty;
 	friend class MiniCharaBase3;
+	friend class MiniCharaTubar;
+	friend class MiniCharaGlocken;
 public:
 	MiniChara(
 		const EntityId _dropCloud,

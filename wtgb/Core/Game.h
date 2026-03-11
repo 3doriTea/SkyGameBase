@@ -28,12 +28,12 @@ namespace wtgb
 		/// ゲームタイトルを取得する
 		/// </summary>
 		/// <returns>ゲームタイトル文字列</returns>
-		static std::string_view Title();
+		static std::u8string_view Title();
 		/// <summary>
 		/// ゲームバージョンを取得する
 		/// </summary>
 		/// <returns>バージョンの文字列</returns>
-		static std::string_view Version();
+		static std::u8string_view Version();
 
 		/// <summary>
 		/// ゲームを終了する

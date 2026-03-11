@@ -30,7 +30,7 @@ Lift::~Lift()
 void Lift::Init()
 {
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
-	wassert(pPlayScene && "プレイシーンの取得に失敗");
+	wassert(pPlayScene && u8"プレイシーンの取得に失敗");
 
 	if (pPlayScene == nullptr)
 	{

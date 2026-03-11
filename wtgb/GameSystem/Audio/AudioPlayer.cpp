@@ -52,14 +52,6 @@ void wtgb::AudioPlayer::Update(const float _dt)
 void wtgb::AudioPlayer::Clear()
 {
 	entryQueue_.clear();
-
-	/*for (auto itr = sourceVoices_.begin(); itr != sourceVoices_.end(); itr++)
-	{
-		itr->reset();
-	}
-	sourceVoices_.clear();
-
-	useFlag_.clear();*/
 }
 
 wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
@@ -69,7 +61,7 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 	Audio& _audioSystem)
 {
 	SourceVoiceIndex index{};
-	// インデクスを求める
+	// 使われていないインデクスを求める
 	for (index = 0; index < sourceVoices_.size(); index++)
 	{
 		if (!useFlag_.at(index))
@@ -77,8 +69,6 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 			break;
 		}
 	}
-
-	//index = static_cast<SourceVoiceIndex>(sourceVoices_.size());
 
 	// 全部使われていたら追加する
 	if (index == sourceVoices_.size())
@@ -155,7 +145,7 @@ wtgb::AudioPlayer::AudioEntry::AudioEntry(
 
 wtgb::AudioPlayer::AudioEntry::~AudioEntry()
 {
-	//audioPlayer.sourceVoices_.at(sourceVoiceIndex).reset();
+	audioPlayer.sourceVoices_.at(sourceVoiceIndex).reset();
 	audioPlayer.useFlag_.at(sourceVoiceIndex) = false;
 }
 

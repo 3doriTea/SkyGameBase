@@ -20,12 +20,12 @@ namespace wtgb
 		/// ゲームのタイトルを取得
 		/// </summary>
 		/// <returns>ゲームのタイトル文字列</returns>
-		virtual const char* GetTitle() const = 0;
+		virtual const char8_t* GetTitle() const = 0;
 		/// <summary>
 		/// ゲームのバージョンを取得
 		/// </summary>
 		/// <returns>ゲームバージョンの取得</returns>
-		virtual const char* GetVersion() const = 0;
+		virtual const char8_t* GetVersion() const = 0;
 
 		/// <summary>
 		/// 登録開始処理
