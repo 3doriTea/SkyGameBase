@@ -39,5 +39,5 @@ private:
 
 	Vector2Int prevMousePos_;  // 前フレームのマウススクリーン座標
 
-	ICameraMove* pCameraMove_;  // カメラの移動方法
+	std::unique_ptr<ICameraMove> pCameraMove_;  // カメラの移動方法
 };

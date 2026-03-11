@@ -62,7 +62,7 @@ inline void wtgb::ComponentPool<ComponentT>::Remove(const EntityId _entityId)
 template<typename ComponentT>
 inline void wtgb::ComponentPool<ComponentT>::Clear()
 {
-
+	LOGFLN("ClearPool:{}", typeid(wtgb::ComponentPool<ComponentT>).name());
 	ForEach([](ComponentT& component) -> BreakToken
 		{
 			// 終了処理呼び出していく
@@ -73,6 +73,7 @@ inline void wtgb::ComponentPool<ComponentT>::Clear()
 			else if constexpr (is_shared_ptr_v<ComponentT>)
 			{
 				component.get()->End();
+				component.reset();
 			}
 			else
 			{
@@ -95,7 +96,11 @@ inline void wtgb::ComponentPool<ComponentT>::ClearAt(const size_t _index)
 	}
 	else if constexpr (is_shared_ptr_v<ComponentT>)
 	{
-		at(_index).get()->End();
+		if (at(_index))
+		{
+			at(_index).get()->End();
+			at(_index).reset();
+		}
 	}
 	else
 	{

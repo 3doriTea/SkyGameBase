@@ -37,6 +37,7 @@ void wtgb::AudioPlayer::Update(const float _dt)
 		else  // 残り時間がマイナス
 		{
 			// 再生終了のため解放
+			//itr->Release();
 			itr = entryQueue_.erase(itr);
 
 			if (itr == entryQueue_.end())
@@ -84,6 +85,13 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 	{
 		IXAudio2SourceVoice* pSourceVoice{ nullptr };
 		_audioSystem.CreateSourceVoice(&pSourceVoice, _format);
+		if (sourceVoices_.at(index))
+		{
+			sourceVoices_.at(index).get()->Stop(0);
+			sourceVoices_.at(index).get()->FlushSourceBuffers();
+			sourceVoices_.at(index).get()->DestroyVoice();
+		}
+
 		sourceVoices_.at(index) = std::move(UniqueXAudio2SourceVoice{pSourceVoice});
 	}
 
@@ -143,14 +151,19 @@ wtgb::AudioPlayer::AudioEntry::AudioEntry(
 	sourceVoiceIndex{ _sourceVoiceIndex }
 {
 	_audioPlayer.useFlag_.at(sourceVoiceIndex) = true;
-	LOGFLN("{}:ON", sourceVoiceIndex);
 }
 
 wtgb::AudioPlayer::AudioEntry::~AudioEntry()
 {
-	//audioPlayer.sourceVoices_.at(sourceVoiceIndex).reset();
 	audioPlayer.useFlag_.at(sourceVoiceIndex) = false;
-	LOGFLN("{}:OFF", sourceVoiceIndex);
+}
+
+void wtgb::AudioPlayer::AudioEntry::Release()
+{
+	audioPlayer.useFlag_.at(sourceVoiceIndex) = false;
+	audioPlayer.sourceVoices_.at(sourceVoiceIndex).get()->Stop(0);
+	audioPlayer.sourceVoices_.at(sourceVoiceIndex).get()->FlushSourceBuffers();
+	audioPlayer.sourceVoices_.at(sourceVoiceIndex).get()->DestroyVoice();
 }
 
 #pragma endregion

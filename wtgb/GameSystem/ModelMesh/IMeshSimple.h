@@ -20,7 +20,7 @@ namespace wtgb
 		/// <summary>
 		/// コンスタントバッファ
 		/// </summary>
-		struct ConstantBuffer
+		struct alignas(16) ConstantBuffer
 		{
 			Matrix4x4 matrixProjection;   // Projection行列
 			Matrix4x4 matrixView;         // View行列

@@ -24,6 +24,8 @@ namespace wtgb
 				const SourceVoiceIndex _sourceVoiceIndex);
 			~AudioEntry();
 
+			void Release();
+
 			float timeLeft;                     // 残りの再生時間
 			SourceVoiceIndex sourceVoiceIndex;  // 使っている再生機のインデクス
 			AudioPlayer& audioPlayer;           // 再生するやつへの参照

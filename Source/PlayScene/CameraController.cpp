@@ -65,7 +65,7 @@ void CameraController::Update()
 void CameraController::Release()
 {
 	// しっかり解放
-	SAFE_DELETE(pCameraMove_);
+	pCameraMove_.reset();
 
 	// カーソルの後片付けをしっかり
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
@@ -82,14 +82,14 @@ void CameraController::SetMode(const Mode _mode)
 		pCameraMove_->End({ System(), GetEntityId() });
 	}
 
-	SAFE_DELETE(pCameraMove_);
+	pCameraMove_.reset();
 	switch (_mode)
 	{
 	case Mode::Free:
-		pCameraMove_ = new CameraMoveFree{};
+		pCameraMove_ = std::make_unique<CameraMoveFree>();
 		break;
 	case Mode::Play:
-		pCameraMove_ = new CameraMovePlay{};
+		pCameraMove_ = std::make_unique<CameraMovePlay>();
 		break;
 	default:
 		wassert(false && "未実装のカメラモード");

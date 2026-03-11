@@ -52,6 +52,10 @@ private:
 	/// <param name="_vertex">セットしたい頂点</param>
 	static void SetPosXValue(const float _xValue, Vertex* _vertex);
 
+	void GenerateVertices(ViewerCached _system);
+	void GenerateIndices(ViewerCached _system);
+	void GenerateConstant(ViewerCached _system);
+
 private:
 	StagePoints& points_;
 

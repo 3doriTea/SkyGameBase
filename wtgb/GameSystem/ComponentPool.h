@@ -289,10 +289,10 @@ namespace wtgb
 		ConstPoolIterator begin() const { return { pool_, useFlag_, GetUsedBeginItr() }; }
 		ConstPoolIterator end() const { return { pool_, useFlag_, pool_.end() }; }*/
 
-		inline ComponentT& at(const size_t _index) { return pool_.at(_index); }
-		inline ComponentT& at(const EntityId _entityId) { assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); return pool_.at(_entityId.index); }
-		inline const ComponentT& at(const size_t _index) const { return pool_.at(_index); }
-		inline const ComponentT& at(const EntityId _entityId) const { return assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); pool_.at(_entityId.index); }
+		inline ComponentT& at(const size_t _index) { return pool_[_index]; }
+		inline ComponentT& at(const EntityId _entityId) { assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); return pool_[_entityId.index]; }
+		inline const ComponentT& at(const size_t _index) const { return pool_[_index]; }
+		inline const ComponentT& at(const EntityId _entityId) const { return assert(!IsInvalidEntity(_entityId) && "無効なエンティティ"); pool_[_entityId.index]; }
 
 		inline const ComponentT* DataBegin() const { return pool_.data(); }
 	private:
