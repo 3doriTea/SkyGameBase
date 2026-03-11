@@ -60,6 +60,8 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 	const WAVEFORMATEX& _format,
 	Audio& _audioSystem)
 {
+	LOGFLN("sourceVoices.size:{}", sourceVoices_.size());
+
 	SourceVoiceIndex index{};
 	// 使われていないインデクスを求める
 	for (index = 0; index < sourceVoices_.size(); index++)
@@ -141,12 +143,14 @@ wtgb::AudioPlayer::AudioEntry::AudioEntry(
 	sourceVoiceIndex{ _sourceVoiceIndex }
 {
 	_audioPlayer.useFlag_.at(sourceVoiceIndex) = true;
+	LOGFLN("{}:ON", sourceVoiceIndex);
 }
 
 wtgb::AudioPlayer::AudioEntry::~AudioEntry()
 {
-	audioPlayer.sourceVoices_.at(sourceVoiceIndex).reset();
+	//audioPlayer.sourceVoices_.at(sourceVoiceIndex).reset();
 	audioPlayer.useFlag_.at(sourceVoiceIndex) = false;
+	LOGFLN("{}:OFF", sourceVoiceIndex);
 }
 
 #pragma endregion

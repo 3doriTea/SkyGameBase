@@ -22,6 +22,8 @@
 #include "Utility/Mathf.h"
 #include "UI/MiniChara.h"
 
+#include "Debugger.h"
+
 PlayScene::PlayScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) },
 	worldConfig_
@@ -40,6 +42,8 @@ PlayScene::~PlayScene()
 void PlayScene::Start()
 {
 	EntityId playState{ Instantiate<PlayState>() };
+
+	Instantiate<Debugger>();
 
 	Instantiate<ControlUI>();
 	Instantiate<CountDown>();

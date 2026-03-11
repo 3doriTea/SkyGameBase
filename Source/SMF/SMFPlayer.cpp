@@ -334,7 +334,7 @@ void SMFPlayer::Init()
 			continue;
 		}
 		const Note& lastNote{ truck.notes.at(truck.notes.size() - 1) };
-		const float TOTAL_PLAY_TIME{ lastNote.totalTime + lastNote.playTime };
+		const float TOTAL_PLAY_TIME{ lastNote.startTime + lastNote.playTime };
 
 		// 各トラックで最大時間を全探索して見つける
 		if (TOTAL_PLAY_TIME > totalPlayTime_)
@@ -370,7 +370,7 @@ void SMFPlayer::Update()
 		}
 
 		// 次を待っているノードに再生時間がやってきたか (その次の次もチェックのため while)
-		while (playTime_ >= smfTrucks_[truckId].notes.at(readCurr_[truckId]).totalTime)
+		while (playTime_ >= smfTrucks_[truckId].notes.at(readCurr_[truckId]).startTime)
 		{
 			const Note& note{ smfTrucks_[truckId].notes.at(readCurr_[truckId]) };
 			readCurr_[truckId]++;
@@ -479,6 +479,7 @@ void SMFPlayer::TruckGenerator::SetTempo(const uint32_t _value)
 
 void SMFPlayer::TruckGenerator::On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
+	LOGFLN("currentTime={}", currentTime_);
 	truck_.notes.push_back(
 		{
 			currentTime_,
@@ -495,7 +496,7 @@ void SMFPlayer::TruckGenerator::Off(const uint8_t _channel, const uint8_t _note,
 	{
 		if (itr->channel == _channel && itr->noteNumber == _note)
 		{  // 見つかった
-			itr->playTime = itr->totalTime - currentTime_;
+			itr->playTime = currentTime_ - itr->startTime;
 			return;  // 時間指定して回帰
 		}
 	}

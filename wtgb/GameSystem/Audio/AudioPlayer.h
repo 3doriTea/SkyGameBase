@@ -13,14 +13,20 @@ namespace wtgb
 	/// </summary>
 	class AudioPlayer
 	{
+		/// <summary>
+		/// 音声の再生タイミングを管理する
+		/// </summary>
 		struct AudioEntry
 		{
-			AudioEntry(const float _timeLeft, AudioPlayer& _audioPlayer, const SourceVoiceIndex _sourceVoiceIndex);
+			AudioEntry(
+				const float _timeLeft,
+				AudioPlayer& _audioPlayer,
+				const SourceVoiceIndex _sourceVoiceIndex);
 			~AudioEntry();
 
-			float timeLeft;              // 残りの再生時間
+			float timeLeft;                     // 残りの再生時間
 			SourceVoiceIndex sourceVoiceIndex;  // 使っている再生機のインデクス
-			AudioPlayer& audioPlayer;  // 再生するやつへの参照
+			AudioPlayer& audioPlayer;           // 再生するやつへの参照
 		};
 
 	public:
@@ -51,6 +57,11 @@ namespace wtgb
 			Audio& _audioSystem);
 
 	private:
+		/// <summary>
+		/// 再生キューの適切な場所にエンキューする
+		/// </summary>
+		/// <param name="_timeLeft">残り時間</param>
+		/// <param name="_index">インデクス</param>
 		void InsertEntryQueue(float _timeLeft, const SourceVoiceIndex _index);
 
 	private:

@@ -12,14 +12,15 @@ struct Note
 		uint8_t _channel,
 		uint8_t _noteNumber,
 		uint8_t _velocity) :
-		totalTime{ _totalTime },
+		startTime{ _totalTime },
+		playTime{ _totalTime },
 		channel{ _channel },
 		noteNumber{ _noteNumber },
 		velocity{ _velocity }
 	{
 	}
-	float totalTime;     // 絶対的な時間
-	float playTime;      // 再生時間
+	float startTime;     // 再生し始める時間
+	float playTime;      // 音を鳴らしている時間
 	//float diffTime;    // 前回のノーツとの相対的な時間
 	uint8_t channel;     // チャンネル
 	uint8_t noteNumber;  // 音の高さ

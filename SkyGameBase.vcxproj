@@ -40,6 +40,7 @@
     <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
     <ClInclude Include="Source\GameScore.h" />
+    <ClInclude Include="Source\PlayScene\Debugger.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara.h" />
     <ClInclude Include="Source\PlayScene\PlaybackParam.h" />
     <ClInclude Include="Source\PlayScene\GoalGround.h" />
@@ -338,6 +339,7 @@
     <ClCompile Include="Source\PlayScene\CharaBall.cpp" />
     <ClCompile Include="Source\PlayScene\CharaEgg.cpp" />
     <ClCompile Include="Source\PlayScene\ControlUI.cpp" />
+    <ClCompile Include="Source\PlayScene\Debugger.cpp" />
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
     <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
     <ClCompile Include="Source\PlayScene\GoalGround.cpp" />

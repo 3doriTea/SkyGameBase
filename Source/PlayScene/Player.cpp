@@ -136,7 +136,6 @@ void Player::Update()
 	}
 	
 	float vv = std::powf(slideVeloDampingPerSec_, dt);
-	LOGFLN("vv={}", vv);
 	v.x *= vv;
 	rb.SetVelocity(v);
 

@@ -115,7 +115,6 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 				* CURSOR_MOVE_TO_VELOCITY
 			};
 
-			//LOGFLN("v({}, {}, {})", velocity.x, velocity.y, velocity.z);
 
 			// プレイヤーのローカル方向へ変換
 			velocity = XMVector3TransformCoord(velocity, XMMatrixRotationY(angleY_));
