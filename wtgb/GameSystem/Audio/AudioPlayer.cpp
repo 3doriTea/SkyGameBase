@@ -61,8 +61,6 @@ wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(
 	const WAVEFORMATEX& _format,
 	Audio& _audioSystem)
 {
-	LOGFLN("sourceVoices.size:{}", sourceVoices_.size());
-
 	SourceVoiceIndex index{};
 	// 使われていないインデクスを求める
 	for (index = 0; index < sourceVoices_.size(); index++)

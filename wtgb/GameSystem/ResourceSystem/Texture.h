@@ -49,6 +49,12 @@ namespace wtgb
 		/// <returns>画像のサイズ</returns>
 		inline Vector2Int GetImageSizePix() const { return imageSize_; }
 
+		/// <summary>
+		/// 画像のファイル名を取得
+		/// </summary>
+		/// <returns>画像のファイル名</returns>
+		inline std::string_view GetFileName() const { return config_.fileName; }
+
 	private:
 		Config config_;  // 設定
 

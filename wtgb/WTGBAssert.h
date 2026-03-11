@@ -15,10 +15,10 @@
 *   wassert(atom != 0 && "ウィンドウクラス登録に失敗");
 */
 
+#ifdef _DEBUG
 #define wassert(expression)\
 assert(expression)
-
-//#ifdef _DEBUG
+#endif
 //
 //#define wassert(expression)\
 //if (!(expression))\

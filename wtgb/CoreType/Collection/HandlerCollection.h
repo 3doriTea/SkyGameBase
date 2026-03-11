@@ -47,7 +47,7 @@ namespace wtgb
 		/// <summary>
 		/// 重複する要素ハンドルを取得
 		/// </summary>
-		/// <param name="_callback">重複をチェックするコールバック関数</param>
+		/// <param name="_callback">要素と比較して重複するなら trueを返すコールバック関数</param>
 		/// <returns>重複するハンドル / 見つからなければ無効ハンドル</returns>
 		HandleT GetContainsDuplicate(const std::function<bool(ValueT& _value)>& _callback);
 

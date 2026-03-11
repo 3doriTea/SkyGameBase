@@ -60,7 +60,22 @@ wtgb::TextureHandle wtgb::ResourceSystem::LoadTexture(const Texture::Config& _co
 {
 	ID3D11Device* pDevice{ system_.Get<Direct3D>().Resource().Device() };
 
-	TextureHandle hTexture = textures_.Emplace(_config);
+	TextureHandle hTexture{ INVALID_HANDLE };
+	hTexture = textures_.GetContainsDuplicate([_config](Texture& _texture) -> bool
+		{
+			return _texture.GetFileName() == _config.fileName;
+		});
+
+	if (hTexture != INVALID_HANDLE)
+	{
+		// 既に読み込まれているならそれを返す
+		return hTexture;
+	}
+	else
+	{
+		// 初読み込みなら追加する
+		hTexture = textures_.Emplace(_config);
+	}
 
 	// 初期化していく
 	textures_.At(hTexture).CallInit();
