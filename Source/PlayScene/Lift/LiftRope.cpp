@@ -24,7 +24,7 @@ LiftRope::LiftRope(const Vector3& _position, const float _width, const EntityId 
 				.EndSetter()
 			.AddComponent<MeshRenderer>()
 				.BeginSetter()
-					.shader("Shader/StageMesh.hlsl")
+					.shader("Shader/LiftRope.hlsl")
 					.textureConfig(
 						{
 							.fileName = "RopeTexture.png",
@@ -33,6 +33,7 @@ LiftRope::LiftRope(const Vector3& _position, const float _width, const EntityId 
 							.format = DXGI_FORMAT_R8G8B8A8_UNORM,
 							.dimension = D3D11_SRV_DIMENSION_TEXTURE2D,
 						})
+					.cullMode(D3D11_CULL_NONE)
 				.EndSetter()
 			.Build();
 		}
