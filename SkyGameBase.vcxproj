@@ -42,6 +42,8 @@
     <ClInclude Include="Source\GameScore.h" />
     <ClInclude Include="Source\PlayScene\Debugger.h" />
     <ClInclude Include="Source\PlayScene\LiftStructure.h" />
+    <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
+    <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara.h" />
     <ClInclude Include="Source\PlayScene\PlaybackParam.h" />
     <ClInclude Include="Source\PlayScene\GoalGround.h" />
@@ -347,6 +349,8 @@
     <ClCompile Include="Source\PlayScene\Lift\LiftChair.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftLoop.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
+    <ClCompile Include="Source\PlayScene\Lift\LiftRope.cpp" />
+    <ClCompile Include="Source\PlayScene\Lift\LiftRopeMesh.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara.cpp" />
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
     <ClCompile Include="Source\PlayScene\State\PlayState.cpp" />

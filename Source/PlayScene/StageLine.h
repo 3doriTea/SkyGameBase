@@ -29,6 +29,8 @@ public:
 	/// <returns>ステージのZ軸長さ m</returns>
 	float GetStageLengthZ() const;
 
+	inline const std::vector<Vector2>& GetPoints() { return points_; }
+
 private:
 	std::vector<Vector2> points_;  // 各頂点の座標 (xy平面で考える)
 	StageMesh stageMesh_;          // ステージのメッシュ情報

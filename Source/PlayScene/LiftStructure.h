@@ -13,6 +13,7 @@ class LiftStructure : public GameObject
 		Lower,   // 麓のポール
 	};
 
+public:
 	/// <summary>
 	/// リフトの中間ポール情報
 	/// </summary>
@@ -60,6 +61,12 @@ public:
 	/// <param name="_length">どの長さ付近か</param>
 	/// <returns>(座椅子の座標 xyz込み, 回転y軸)</returns>
 	std::tuple<Vector3, float> GetChairPositionAndRotateY(const float _length);
+
+	/// <summary>
+	/// ポール情報を参照する
+	/// </summary>
+	/// <returns>ポールの座標とエンティティの紐づけ情報</returns>
+	inline const std::vector<LiftPoleBinding>& GetPoles() { return poles_; }
 
 	/// <summary>
 	/// ロープの高さを取得する

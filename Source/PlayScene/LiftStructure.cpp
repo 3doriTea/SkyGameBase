@@ -3,6 +3,7 @@
 #include "Lift/LiftChair.h"
 #include "Lift/LiftLoop.h"
 #include "Lift/LiftPole.h"
+#include "Lift/LiftRope.h"
 
 
 LiftStructure::LiftStructure(const EntityId _stage, const float _polePosX) :
@@ -40,6 +41,20 @@ void LiftStructure::Init()
 
 	GeneratePoles();
 	GenerateChairs();
+
+	GameScene* pGameScene{ GetScene() };
+	wassert(pGameScene && "シーンが見つからなかった");
+	if (pGameScene)
+	{
+		EntityId liftRope
+		{
+			pGameScene->Instantiate<LiftRope>(
+				Vector3::Up() * ropeHeight_,
+				stage_,
+				GetEntityId())
+		};
+
+	}
 }
 
 void LiftStructure::Update()
@@ -197,9 +212,7 @@ void LiftStructure::GenerateChairs()
 	GameScene* pPlayScene{ GetScene() };
 	if (pPlayScene)
 	{
-		wassert(poleDistance_ != 0.0f && "ゼロ除算すんな！");/*
-		int chairCount{ static_cast<int>(totalLength_ * 0.5f / poleDistance_) };
-		for (int i = 0; i < chairCount; i++)*/
+		wassert(poleDistance_ != 0.0f && "ゼロ除算すんな！");
 		for (float length{ 0.0f }; length < totalLength_; length += poleDistance_)
 		{
 			pPlayScene->Instantiate<LiftChair>(
