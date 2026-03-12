@@ -522,9 +522,6 @@
     <ClInclude Include="Source\UI\Button.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PlayScene\Lift\Lift.h">
-      <Filter>C++未分類ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Source\PlayScene\Lift\LiftChair.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
@@ -736,6 +733,9 @@
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\PlayScene\Debugger.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\LiftStructure.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1058,9 +1058,6 @@
     <ClCompile Include="Source\UI\Button.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PlayScene\Lift\Lift.cpp">
-      <Filter>C++未分類ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Source\PlayScene\Lift\LiftChair.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
@@ -1205,6 +1202,9 @@
     <ClCompile Include="Source\PlayScene\Debugger.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\LiftStructure.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1277,6 +1277,7 @@
     <None Include="Assets\Shader\Common2D.hlsli" />
     <None Include="Assets\Score\ScoreNotion.json" />
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />
+    <None Include="Assets\Prefab\LiftStructure.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

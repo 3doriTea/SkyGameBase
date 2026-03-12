@@ -10,7 +10,7 @@
 #include "TestBillBoard.h"
 #include "StageObjectManager.h"
 #include "ControlUI.h"
-#include "Lift/Lift.h"
+#include "LiftStructure.h"
 #include "SkySphere.h"
 
 #include "SMF/SMFPlayer.h"
@@ -53,7 +53,7 @@ void PlayScene::Start()
 	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
 
 	// TODO: ステージライン作ったらリフト作る
-	Instantiate<Lift>(stageLine);
+	Instantiate<LiftStructure>(stageLine, 10.0f);
 	
 	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
 

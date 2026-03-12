@@ -41,6 +41,7 @@
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
     <ClInclude Include="Source\GameScore.h" />
     <ClInclude Include="Source\PlayScene\Debugger.h" />
+    <ClInclude Include="Source\PlayScene\LiftStructure.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara.h" />
     <ClInclude Include="Source\PlayScene\PlaybackParam.h" />
     <ClInclude Include="Source\PlayScene\GoalGround.h" />
@@ -50,7 +51,6 @@
     <ClInclude Include="Source\PlayScene\CharaEgg.h" />
     <ClInclude Include="Source\PlayScene\ControlUI.h" />
     <ClInclude Include="Source\PlayScene\ISpeedController.h" />
-    <ClInclude Include="Source\PlayScene\Lift\Lift.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftChair.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftLoop.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftPole.h" />
@@ -343,7 +343,7 @@
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
     <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
     <ClCompile Include="Source\PlayScene\GoalGround.cpp" />
-    <ClCompile Include="Source\PlayScene\Lift\Lift.cpp" />
+    <ClCompile Include="Source\PlayScene\LiftStructure.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftChair.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftLoop.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
@@ -483,6 +483,7 @@
     <None Include="Assets\Prefab\CharaEgg.json" />
     <None Include="Assets\Prefab\CountDown.json" />
     <None Include="Assets\Prefab\DropCloud.json" />
+    <None Include="Assets\Prefab\LiftStructure.json" />
     <None Include="Assets\Prefab\MapView.json" />
     <None Include="Assets\Prefab\MusicPlayer.json" />
     <None Include="Assets\Prefab\Player.json" />
