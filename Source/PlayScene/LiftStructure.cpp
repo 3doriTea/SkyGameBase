@@ -51,7 +51,7 @@ void LiftStructure::Init()
 		EntityId liftRopeLeft
 		{
 			pGameScene->Instantiate<LiftRope>(
-				Vector3{ polePosX_ + ropeSpasing_ * 0.5f, posY, 0.0f },
+				Vector3{ polePosX_ + ropeSpasing_ * -0.5f + ropeWidth_ * 0.5f, posY, 0.0f },
 				ropeWidth_,
 				stage_,
 				GetEntityId())
@@ -59,7 +59,7 @@ void LiftStructure::Init()
 		EntityId rightRopeLeft
 		{
 			pGameScene->Instantiate<LiftRope>(
-				Vector3{ polePosX_ + ropeSpasing_ * -0.5f, posY, 0.0f },
+				Vector3{ polePosX_ + ropeSpasing_ * 0.5f - ropeWidth_ * 0.5f, posY, 0.0f },
 				ropeWidth_,
 				stage_,
 				GetEntityId())
@@ -129,8 +129,10 @@ std::tuple<Vector3, float> LiftStructure::GetChairPositionAndRotateY(const float
 		angleRadian += radius + DirectX::XM_PI;
 	}
 
+	Vector3 offset{ Transform().GetPosition() };
+
 	// 椅子の座標と回転(ラジアン)を返す
-	return { position, angleRadian };
+	return { position + offset, angleRadian };
 }
 
 float LiftStructure::GetRopeHeight(const float _z)
@@ -214,7 +216,8 @@ void LiftStructure::GeneratePoles()
 			position,
 			GetEntityId());
 
-		poles_.push_back({ position, instantiatedEntity });
+		Vector3 offset{ Transform().GetPosition() };
+		poles_.push_back({ position + offset, instantiatedEntity });
 	}
 }
 

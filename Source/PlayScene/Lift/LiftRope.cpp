@@ -6,7 +6,7 @@
 LiftRope::LiftRope(const Vector3& _position, const float _width, const EntityId _stageLine, const EntityId _structure) :
 	GameObject
 	{
-		[this, _position](GameObjectBuilder& _builder)
+		[this, _position, _width](GameObjectBuilder& _builder)
 		{
 			_builder
 			.AddComponent<GameObjectProperty>()
@@ -15,8 +15,8 @@ LiftRope::LiftRope(const Vector3& _position, const float _width, const EntityId 
 				.EndSetter()
 			.AddComponent<wtgb::Transform>()
 				.BeginSetter()
-					.position(_position)
-					.scale({ 1.0f, 1, 1 })
+					.position(Vector3::Zero())
+					.scale({ 1, 1, 1 })
 				.EndSetter()
 			.AddComponent<ModelMesh>()
 				.BeginSetter()
@@ -27,7 +27,7 @@ LiftRope::LiftRope(const Vector3& _position, const float _width, const EntityId 
 					.shader("Shader/StageMesh.hlsl")
 					.textureConfig(
 						{
-							.fileName = "GroundTexture.png",
+							.fileName = "RopeTexture.png",
 							.filer = D3D11_FILTER_MIN_MAG_MIP_POINT,
 							.addressMode = D3D11_TEXTURE_ADDRESS_WRAP,
 							.format = DXGI_FORMAT_R8G8B8A8_UNORM,
