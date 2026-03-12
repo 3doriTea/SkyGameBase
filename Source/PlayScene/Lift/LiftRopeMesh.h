@@ -10,7 +10,7 @@ class LiftRopeMesh : public wtgb::IMeshSimple
 {
 public:
 	/// <summary>
-	/// ロームのメッシュ部分の設定
+	/// ロープのメッシュ部分の設定
 	/// </summary>
 	struct Config
 	{
