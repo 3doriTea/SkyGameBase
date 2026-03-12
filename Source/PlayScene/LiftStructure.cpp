@@ -2,6 +2,7 @@
 #include "StageLine.h"
 #include "Lift/LiftChair.h"
 #include "Lift/LiftLoop.h"
+#include "Lift/LiftPole.h"
 
 
 LiftStructure::LiftStructure(const EntityId _stage, const float _polePosX) :
@@ -79,9 +80,9 @@ std::tuple<Vector3, float> LiftStructure::GetChairPositionAndRotateY(const float
 	else if (lengthAt += laneLength_; _length < lengthAt)
 	{
 		angleRadian += DirectX::XM_PI;
-		position.x = ropeSpasing_ * 0.5f + polePosX_;
+		position.x = -ropeSpasing_ * 0.5f + polePosX_;
 		// 逆方向から引いていく
-		position.z = totalLength_ - (_length - curveLength_ - laneLength_);
+		position.z = laneLength_ - (_length - curveLength_ - laneLength_);
 		position.y = GetRopeHeight(position.z);
 	}
 	// 頂上のカーブ
@@ -135,6 +136,14 @@ float LiftStructure::GetRopeHeight(const float _z)
 	}
 }
 
+Vector3 LiftStructure::GetPolePosition(const float _z)
+{
+	StageLine* pStage{ FindGameObject<StageLine>(stage_) };
+	wassert(pStage && "ステージラインオブジェクトが見つからない");
+
+	return { polePosX_, pStage->GetPosY(Vector3::Forward() * _z), _z};
+}
+
 void LiftStructure::OnLoad(const json& _json)
 {
 	ropeSpasing_ = SafeGet<float>(_json, "ropeSpasing");
@@ -158,21 +167,28 @@ void LiftStructure::GeneratePoles()
 		EntityId instantiatedEntity{ INVALID_ENTITY };
 
 		// 最初のループはじめを設置 (ポールと重複する)
+		Vector3 position{ GetPolePosition(currZ) };
 		instantiatedEntity = pPlayScene->Instantiate<LiftLoop>(
-			GetPolePosition(currZ), parentEntity);
+			position, GetEntityId());
+
+		poles_.push_back({ position, instantiatedEntity });
 
 		while (currZ < STAGE_LENGTH_Z)
 		{
+			currZ += poleDistance_;
 			// ポールを立てていく
-			instantiatedEntity = pPlayScene->Instantiate<LiftPole>(GetPolePosition(currZ), parentEntity);
-			poles_.push_back(instantiatedEntity);
-			currZ += POLE_DISTANCE;
+			position = GetPolePosition(currZ);
+			instantiatedEntity = pPlayScene->Instantiate<LiftPole>(position, GetEntityId());
+			poles_.push_back({ position, instantiatedEntity });
 		}
 
-		currZ -= POLE_DISTANCE;
-
+		position = GetPolePosition(currZ);
 		// 最後のループ端を設置 (ポールと重複する)
-		loopPole_[LOOP_POLE_LOWER] = pPlayScene->Instantiate<LiftLoop>(GetPolePosition(currZ), parentEntity);
+		instantiatedEntity = pPlayScene->Instantiate<LiftLoop>(
+			position,
+			GetEntityId());
+
+		poles_.push_back({ position, instantiatedEntity });
 	}
 }
 
@@ -181,7 +197,16 @@ void LiftStructure::GenerateChairs()
 	GameScene* pPlayScene{ GetScene() };
 	if (pPlayScene)
 	{
-		pPlayScene->Instantiate<LiftChair>(GetEntityId(), 0.0f, totalLength_);
+		wassert(poleDistance_ != 0.0f && "ゼロ除算すんな！");/*
+		int chairCount{ static_cast<int>(totalLength_ * 0.5f / poleDistance_) };
+		for (int i = 0; i < chairCount; i++)*/
+		for (float length{ 0.0f }; length < totalLength_; length += poleDistance_)
+		{
+			pPlayScene->Instantiate<LiftChair>(
+				GetEntityId(),
+				length,
+				totalLength_);
+		}
 
 	}
 }

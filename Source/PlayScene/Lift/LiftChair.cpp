@@ -2,10 +2,6 @@
 #include "LiftChair.h"
 #include "../LiftStructure.h"
 
-namespace
-{
-	static const float LINE_MARGIN{ 5.0f };
-}
 
 LiftChair::LiftChair(const EntityId _structure, const float _beginLength, const float _maxLength) :
 GameObject
@@ -55,7 +51,8 @@ void LiftChair::Update()
 	Transform().SetPosition(position);
 	Transform().SetRotation(Vector3::Up() * rotate);
 
-	length_ += dt;
+	length_ += dt * 30.0f;
+	length_ = std::fmodf(length_, lengthMax_);
 }
 
 void LiftChair::Release()

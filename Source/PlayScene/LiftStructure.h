@@ -16,9 +16,9 @@ class LiftStructure : public GameObject
 	/// <summary>
 	/// リフトの中間ポール情報
 	/// </summary>
-	struct LiftPole
+	struct LiftPoleBinding
 	{
-		inline LiftPole(const Vector3& _position, const EntityId _entity) :
+		inline LiftPoleBinding(const Vector3& _position, const EntityId _entity) :
 			position{ _position },
 			entity{ _entity }
 		{ }
@@ -70,6 +70,12 @@ public:
 
 	float GetRotationSpeedPerSec() const { return (DirectX::XM_2PI / 360.0f) * 30.0f; }
 
+	/// <summary>
+	/// ポールの設置座標を取得する
+	/// </summary>
+	/// <param name="_z">座標 z</param>
+	/// <returns>ポールの設置座標</returns>
+	Vector3 GetPolePosition(const float _z);
 private:
 	void OnLoad(const json& _json);
 
@@ -82,7 +88,7 @@ private:
 	float polePosX_;      // ポールを設置するx座標
 	EntityId stage_;  // ステージ
 
-	std::vector<LiftPole> poles_;   // 中間ポールたち
+	std::vector<LiftPoleBinding> poles_;   // 中間ポールたち
 	std::vector<EntityId> chairs_;  // 椅子
 	float totalLength_;             // ロープの全長
 	float laneLength_;              // 直線部分1本の長さ

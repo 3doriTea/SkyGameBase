@@ -85,7 +85,9 @@ void PlayScene::Update()
 		System().Get<SceneManager>().Move<PlayScene>();
 	}
 
-	if (input.IsKeyDown(KeyCode::Escape))
+	// 左コントロール押しながらエスケープでゲームを閉じる
+	if (input.IsKeyDown(KeyCode::Escape)
+		&& input.IsKey(KeyCode::LeftControl))
 	{
 		Game::Exit();
 	}
