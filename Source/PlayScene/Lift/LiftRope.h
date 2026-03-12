@@ -9,7 +9,7 @@
 class LiftRope : public GameObject
 {
 public:
-	LiftRope(const Vector3& _position, const EntityId _stageLine, const EntityId _structure);
+	LiftRope(const Vector3& _position, const float _width, const EntityId _stageLine, const EntityId _structure);
 	~LiftRope();
 
 	void Init() override;

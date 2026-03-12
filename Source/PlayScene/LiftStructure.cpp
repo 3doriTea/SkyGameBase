@@ -46,14 +46,24 @@ void LiftStructure::Init()
 	wassert(pGameScene && "シーンが見つからなかった");
 	if (pGameScene)
 	{
-		EntityId liftRope
+		float posY{ poles_.begin()->position.y + ropeHeight_ };
+
+		EntityId liftRopeLeft
 		{
 			pGameScene->Instantiate<LiftRope>(
-				Vector3::Up() * ropeHeight_,
+				Vector3{ polePosX_ + ropeSpasing_ * 0.5f, posY, 0.0f },
+				ropeWidth_,
 				stage_,
 				GetEntityId())
 		};
-
+		EntityId rightRopeLeft
+		{
+			pGameScene->Instantiate<LiftRope>(
+				Vector3{ polePosX_ + ropeSpasing_ * -0.5f, posY, 0.0f },
+				ropeWidth_,
+				stage_,
+				GetEntityId())
+		};
 	}
 }
 
@@ -165,6 +175,7 @@ void LiftStructure::OnLoad(const json& _json)
 	chairsCount_ = SafeGet<int>(_json, "chairsCount");
 	poleDistance_ = SafeGet<float>(_json, "poleDistance");
 	ropeHeight_ = SafeGet<float>(_json, "ropeHeight");
+	ropeWidth_ = SafeGet<float>(_json, "ropeWidth");
 }
 
 void LiftStructure::GeneratePoles()

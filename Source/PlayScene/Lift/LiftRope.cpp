@@ -3,7 +3,7 @@
 #include "../LiftStructure.h"
 
 
-LiftRope::LiftRope(const Vector3& _position, const EntityId _stageLine, const EntityId _structure) :
+LiftRope::LiftRope(const Vector3& _position, const float _width, const EntityId _stageLine, const EntityId _structure) :
 	GameObject
 	{
 		[this, _position](GameObjectBuilder& _builder)
@@ -38,7 +38,15 @@ LiftRope::LiftRope(const Vector3& _position, const EntityId _stageLine, const En
 		}
 	},
 	stageLine_{ _stageLine },
-	ropeMesh_{ points_ },
+	ropeMesh_
+	{
+		LiftRopeMesh::Config
+		{
+			_position.x,
+			_width,
+			points_
+		}
+	},
 	points_{},
 	structure_{ _structure }
 {

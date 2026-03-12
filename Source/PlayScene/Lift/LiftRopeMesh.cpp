@@ -2,8 +2,8 @@
 
 using namespace wtgb;
 
-LiftRopeMesh::LiftRopeMesh(RopePoints& _points) :
-	points_{ _points },
+LiftRopeMesh::LiftRopeMesh(Config&& _config) :
+	config_{ std::move(_config) },
 	hTexture_{ INVALID_HANDLE },
 	vertexCount_{},
 	indexCount_{}
@@ -43,16 +43,25 @@ void LiftRopeMesh::GenerateVertices(ViewerCached _system)
 	const float TEXTURE_BEGIN_U{ 0.0f };
 	const float TEXTURE_SCALE_U{ 20.0f };
 
-	if (points_.size() < 2)
+	RopePoints& points{ config_.points };
+
+	if (points.size() < 2)
 	{
 		wassert(false && "平面頂点数が2以上でないと描画できない");
 		return;
 	}
 
+	const float BEGIN_X{ config_.offsetX };
+	const float END_X{ config_.offsetX + config_.widthX };
+
 	int size = 0;
-	for (int i = 0; i < points_.size(); i++)
+	for (int i = 0; i < points.size(); i++)
 	{
-		Vector2 pos2D{ static_cast<float>(points_[i].x), static_cast<float>(points_[i].y) };
+		Vector2 pos2D
+		{
+			static_cast<float>(points[i].x),
+			static_cast<float>(points[i].y)
+		};
 		Vertex v
 		{
 			.position = { 0.0f, pos2D.y, pos2D.x },
@@ -62,7 +71,11 @@ void LiftRopeMesh::GenerateVertices(ViewerCached _system)
 		if (i == 0)  // 最初のポイントなら
 		{
 			Vector2 toPrev2D{ 0.0f, 1.0f };
-			Vector2 posNext2D{ static_cast<float>(points_[i + 1].x), static_cast<float>(points_[i + 1].y) };
+			Vector2 posNext2D
+			{
+				static_cast<float>(points[i + 1].x),
+				static_cast<float>(points[i + 1].y)
+			};
 			Vector2 toNext2D{ posNext2D - pos2D };
 
 			Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toNext2D) };
@@ -74,14 +87,18 @@ void LiftRopeMesh::GenerateVertices(ViewerCached _system)
 				v.normal = v.normal * -1.0f;
 			}
 
-			SetPosXValue(0.0f, &v);
+			SetPosXValue(BEGIN_X, &v);
 			vertices.push_back(v);
-			SetPosXValue(1.0f, &v);
+			SetPosXValue(END_X, &v);
 			vertices.push_back(v);
 		}
-		else if (i == points_.size() - 1)  // 最後のポイントなら
+		else if (i == points.size() - 1)  // 最後のポイントなら
 		{
-			Vector2 posPrev2D{ static_cast<float>(points_[i - 1].x), static_cast<float>(points_[i - 1].y) };
+			Vector2 posPrev2D
+			{
+				static_cast<float>(points[i - 1].x),
+				static_cast<float>(points[i - 1].y)
+			};
 			Vector2 toPrev2D{ posPrev2D - pos2D };
 			Vector2 toNext2D{ 0.0f, 1.0f };
 
@@ -94,16 +111,16 @@ void LiftRopeMesh::GenerateVertices(ViewerCached _system)
 				v.normal = v.normal * -1.0f;
 			}
 
-			SetPosXValue(0.0f, &v);
+			SetPosXValue(BEGIN_X, &v);
 			vertices.push_back(v);
-			SetPosXValue(1.0f, &v);
+			SetPosXValue(END_X, &v);
 			vertices.push_back(v);
 		}
 		else  // 最初以外の中間ポイント
 		{
-			Vector2 posPrev2D{ static_cast<float>(points_[i - 1].x), static_cast<float>(points_[i - 1].y) };
+			Vector2 posPrev2D{ static_cast<float>(points[i - 1].x), static_cast<float>(points[i - 1].y) };
 			Vector2 toPrev2D{ posPrev2D - pos2D };
-			Vector2 posNext2D{ static_cast<float>(points_[i + 1].x), static_cast<float>(points_[i + 1].y) };
+			Vector2 posNext2D{ static_cast<float>(points[i + 1].x), static_cast<float>(points[i + 1].y) };
 			Vector2 toNext2D{ posNext2D - pos2D };
 
 			Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toNext2D) };
@@ -115,10 +132,10 @@ void LiftRopeMesh::GenerateVertices(ViewerCached _system)
 				v.normal = v.normal * -1.0f;
 			}
 
-			SetPosXValue(0.0f, &v);
+			SetPosXValue(BEGIN_X, &v);
 			v.uv.x = TEXTURE_BEGIN_U;
 			vertices.push_back(v);
-			SetPosXValue(1.0f, &v);
+			SetPosXValue(END_X, &v);
 			v.uv.x = TEXTURE_SCALE_U;
 			vertices.push_back(v);
 		}
@@ -160,7 +177,7 @@ void LiftRopeMesh::GenerateIndices(ViewerCached _system)
 	static const uint32_t INDEX_SET_ARRAY[]{ 0, 2, 1, 2, 3, 1 };
 	static const size_t INDEX_SET_ARRAY_SIZE{ sizeof(INDEX_SET_ARRAY) / sizeof(int) };
 
-	size_t polyCount{ (points_.size() - 1) * 2 };
+	size_t polyCount{ (config_.points.size() - 1) * 2 };
 
 	int indexCount{ 0 };
 	for (int p = 0; p < polyCount; p++)

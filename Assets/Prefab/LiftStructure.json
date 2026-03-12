@@ -13,6 +13,7 @@
     "ropeSpasing": 5.0,
     "chairsCount": 30,
     "poleDistance": 100.0,
-    "ropeHeight": 20.0
+    "ropeHeight": 20.0,
+    "ropeWidth": 2.0
   }
 }

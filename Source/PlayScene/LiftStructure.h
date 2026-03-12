@@ -91,6 +91,7 @@ private:
 	int chairsCount_;    // 座椅子プールに用意する椅子の数
 	float poleDistance_;  // ポールどうしの距離
 	float ropeHeight_;    // ポールの地面からラインまでの高さ
+	float ropeWidth_;    // ポールのx軸への厚み
 
 	float polePosX_;      // ポールを設置するx座標
 	EntityId stage_;  // ステージ

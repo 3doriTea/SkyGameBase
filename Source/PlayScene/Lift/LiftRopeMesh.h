@@ -3,10 +3,33 @@
 
 using RopePoints = std::vector<Vector2>;
 
+/// <summary>
+/// ロープのメッシュ部分
+/// </summary>
 class LiftRopeMesh : public wtgb::IMeshSimple
 {
 public:
-	LiftRopeMesh(RopePoints& _points);
+	/// <summary>
+	/// ロームのメッシュ部分の設定
+	/// </summary>
+	struct Config
+	{
+		Config(
+			float _offsetX,
+			float _widthX,
+			RopePoints& _points) :
+			offsetX{ _offsetX },
+			widthX{ _widthX },
+			points{ _points }
+		{
+		}
+		float offsetX;       // x軸の開始位置
+		float widthX;        // x軸の幅
+		RopePoints& points;  // yz平面で見たときの各頂点
+	};
+
+public:
+	LiftRopeMesh(Config&& _config);
 	~LiftRopeMesh();
 
 	void Init(ViewerCached _system) override;
@@ -53,7 +76,7 @@ private:
 	void GenerateConstant(ViewerCached _system);
 
 private:
-	RopePoints& points_;
+	Config config_;  // 設定
 
 	uint32_t vertexCount_;
 	uint32_t indexCount_;
