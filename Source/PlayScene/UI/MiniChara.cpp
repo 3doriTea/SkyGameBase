@@ -1,5 +1,4 @@
 #include "MiniChara.h"
-#include "SMF/SMFPlayer.h"
 #include "MiniChara/MiniCharaBase3.h"
 #include "MiniChara/MiniCharaTubar.h"
 #include "MiniChara/MiniCharaMonkitty.h"

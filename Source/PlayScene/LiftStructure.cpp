@@ -51,7 +51,7 @@ void LiftStructure::Init()
 		EntityId liftRopeLeft
 		{
 			pGameScene->Instantiate<LiftRope>(
-				Vector3{ polePosX_ + ropeSpasing_ * -0.5f + ropeWidth_ * 0.5f, posY, 0.0f },
+				Vector3{ polePosX_ + ropeSpasing_ * -0.5f - ropeWidth_ * 0.5f, posY, 0.0f },
 				ropeWidth_,
 				stage_,
 				GetEntityId())
