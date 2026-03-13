@@ -20,7 +20,7 @@ void MiniCharaBase3::Update(MiniChara& _self)
 {
 	const Canvas::Context& CONTEXT{ _self.System().Get<Canvas>().GetContext() };
 	UI::LayoutConfig config{};
-	config.position(Vector2Int::Zero());
+	config.position(_self.drawPosition_);
 
 	for (float offsetAngle{ 0.0f }; offsetAngle <= 0.5f; offsetAngle += 0.05f)
 	{

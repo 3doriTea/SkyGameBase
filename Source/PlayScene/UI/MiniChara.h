@@ -26,14 +26,17 @@ public:
 		Config(
 			float _moveTime,
 			float _totalAnimTime,
-			MiniCharaType _type) :
+			MiniCharaType _type,
+			Vector2Int _beginPosition) :
 			moveTime{ _moveTime },
 			totalAnimTime{ _totalAnimTime },
-			type{ _type }
+			type{ _type },
+			beginPosition{ _beginPosition }
 		{}
-		float moveTime;       // 目的地までの移動時間
-		float totalAnimTime;  // アニメーション総時間
-		MiniCharaType type;   // ミニキャラの種類
+		float moveTime;            // 目的地までの移動時間
+		float totalAnimTime;       // アニメーション総時間
+		MiniCharaType type;        // ミニキャラの種類
+		Vector2Int beginPosition;  // 開始座標
 	};
 
 public:

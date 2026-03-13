@@ -1299,6 +1299,7 @@
     <None Include="Assets\Score\ScoreNotion.json" />
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />
     <None Include="Assets\Prefab\LiftStructure.json" />
+    <None Include="Assets\Prefab\Play\UI\MiniCharaManager.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

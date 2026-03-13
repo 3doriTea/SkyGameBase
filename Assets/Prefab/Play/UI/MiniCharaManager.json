@@ -1,0 +1,16 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "MiniCharaManager"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "imageScale": 0.5,
+    "imageSize": [ 300, 300 ]
+  }
+}

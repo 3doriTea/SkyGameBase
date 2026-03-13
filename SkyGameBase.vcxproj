@@ -500,6 +500,7 @@
     <None Include="Assets\Prefab\Play\GoalGround.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />
+    <None Include="Assets\Prefab\Play\UI\MiniCharaManager.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMessage.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
     <None Include="Assets\Prefab\Result\ResultPanel.json" />

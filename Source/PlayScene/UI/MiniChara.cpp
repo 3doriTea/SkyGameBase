@@ -13,7 +13,9 @@ MiniChara::MiniChara(const EntityId _miniCharaManager, const Config& _config) :
 	animTimeLeft_{},
 	scale_{ 0.5f },
 	pMiniCharaState_{},
-	config_{ std::move(_config) }
+	config_{ _config },
+	moveTimeLeft_{},
+	drawPosition_{ _config.beginPosition }
 {
 	switch (config_.type)
 	{
@@ -58,7 +60,7 @@ void MiniChara::Update()
 	{
 		moveTimeLeft_ -= DT;
 		wassert(config_.moveTime > FLT_EPSILON && "ゼロ除算するな！");
-		Vector2 position{ Mathf::Lerp(fromPos_, targetPos_, moveTimeLeft_ / config_.moveTime) };
+		Vector2 position{ Mathf::Lerp(targetPos_, fromPos_, moveTimeLeft_ / config_.moveTime) };
 		drawPosition_ = { static_cast<int>(position.x), static_cast<int>(position.y) };
 	}
 	

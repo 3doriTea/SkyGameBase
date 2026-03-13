@@ -43,4 +43,5 @@ private:
 	std::vector<EntityId> miniCharars_;  // 登場しているミニキャラたち
 
 	Vector2Int imageSize_;  // ミニキャラの画像サイズ
+	float iamgeScale_;      // ミニキャラの拡縮
 };

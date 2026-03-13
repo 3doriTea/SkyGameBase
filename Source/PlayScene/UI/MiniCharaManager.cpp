@@ -4,7 +4,7 @@
 
 
 MiniCharaManager::MiniCharaManager(const EntityId _smfPlayer) :
-	GameObject{ "Simple.json" },
+	GameObject{ "Play/UI/MiniCharaManager.json" },
 	currentLevel_{ CloudLevel::CLOUD_LEVEL_START },
 	smfPlayer_{ _smfPlayer }
 {
@@ -15,7 +15,7 @@ MiniCharaManager::~MiniCharaManager()
 
 void MiniCharaManager::Init()
 {
-	//OnLoad(GetComponent<Parameter>().Load());
+	OnLoad(GetComponent<Parameter>().Load());
 }
 
 void MiniCharaManager::Update()
@@ -33,6 +33,8 @@ void MiniCharaManager::LevelUp(const CloudLevel _current)
 		wassert(pGameScene && "ゲームシーンの取得に失敗");
 		SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
 		wassert(pSMFPlayer && "smfPlayerの取得に失敗");
+
+		const Vector2Int SCREEN_SIZE{ System().Get<GameWindow>().GetMainWindowSize() };
 
 		if (pGameScene && pSMFPlayer)
 		{
@@ -56,6 +58,12 @@ void MiniCharaManager::LevelUp(const CloudLevel _current)
 			default:
 				break;
 			}
+			Vector2Int beginPosition
+			{
+				imageSize_.x * static_cast<int>(miniCharars_.size()),
+				SCREEN_SIZE.y - 1
+			};
+			// ミニキャラを登場させる
 			miniCharars_.push_back(
 				pGameScene->Instantiate<MiniChara>(
 					GetEntityId(),
@@ -63,8 +71,14 @@ void MiniCharaManager::LevelUp(const CloudLevel _current)
 					{
 						pSMFPlayer->GetQuarterSec(),
 						pSMFPlayer->GetQuarterSec(),
-						spawanType
+						spawanType,
+						beginPosition,
 					}));
+			MiniChara* pMiniChara{ FindGameObject<MiniChara>(miniCharars_.back()) };
+			Vector2Int upperPosition{ beginPosition };
+			upperPosition.y -= imageSize_.y;
+			// 登場して画面下から飛び出すようにする
+			pMiniChara->MoveAt(upperPosition);
 		}
 	}
 }
@@ -76,7 +90,8 @@ void MiniCharaManager::LevelDown(const CloudLevel _current)
 
 void MiniCharaManager::OnLoad(const json& _json)
 {
-	
+	imageSize_ = SafeGet<Vector2Int>(_json, "imageSize");
+	iamgeScale_ = SafeGet<float>(_json, "iamgeScale");
 }
 
 bool MiniCharaManager::TryUpdateMaxLevel()
