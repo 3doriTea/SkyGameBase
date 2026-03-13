@@ -21,6 +21,7 @@
 
 #include "Utility/Mathf.h"
 #include "UI/MiniChara.h"
+#include "UI/MiniCharaManager.h"
 
 #include "Debugger.h"
 
@@ -52,7 +53,6 @@ void PlayScene::Start()
 
 	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
 
-	// TODO: ステージライン作ったらリフト作る
 	Instantiate<LiftStructure>(stageLine, 10.0f);
 	
 	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
@@ -60,15 +60,18 @@ void PlayScene::Start()
 	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
 	Instantiate<StageObjectManager>(stageLine, player, playState);
 	Instantiate<CameraController>();
+	
+	EntityId miniCharaManager{ Instantiate<MiniCharaManager>(smfPlayer) };
 
 	EntityId speedController{ Instantiate<SpeedController>(player) };
-	EntityId dropCloud{ Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController) };
+	EntityId dropCloud{ Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController, miniCharaManager) };
 
 	Instantiate<SpeedMessage>(speedController);
 
 	Instantiate<SkySphere>();
 	
-	Instantiate<MiniChara>(dropCloud, smfPlayer, MiniCharaType::Monkitty);
+	// TODO: お試し↓
+	//Instantiate<MiniChara>(dropCloud, smfPlayer, MiniCharaType::Monkitty);
 
 	// TODO: 当たったら倒れる看板を作る
 }

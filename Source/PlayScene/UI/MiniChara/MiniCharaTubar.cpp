@@ -23,7 +23,7 @@ void MiniCharaTubar::Update(MiniChara& _self)
 	UI::LayoutConfig config{};
 	config.position(Vector2Int::Zero());
 
-	float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.totalAnimTime_) };
+	float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.config_.totalAnimTime) };
 	Vector2Int size{ _self.imageSize_ };
 	size.x += std::sinf(angle) * 10.0f;
 	config.scale(size);

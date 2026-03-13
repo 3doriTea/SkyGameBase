@@ -24,7 +24,7 @@ void MiniCharaBase3::Update(MiniChara& _self)
 
 	for (float offsetAngle{ 0.0f }; offsetAngle <= 0.5f; offsetAngle += 0.05f)
 	{
-		float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.totalAnimTime_) + offsetAngle };
+		float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.config_.totalAnimTime) + offsetAngle };
 		Vector2Int size{ _self.imageSize_ };
 		size.x += std::sinf(angle) * 10.0f;
 		config.scale(size);

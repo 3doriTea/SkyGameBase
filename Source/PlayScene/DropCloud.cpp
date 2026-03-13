@@ -11,7 +11,7 @@
 #include "ResultScene/ResultScene.h"
 #include "ISpeedController.h"
 #include "SMF/ToneHz.h"
-#include "UI/MiniChara.h"
+#include "UI/MiniCharaManager.h"
 
 
 DropCloud::DropCloud(
@@ -19,12 +19,14 @@ DropCloud::DropCloud(
 	const EntityId _gamePlayer,
 	const EntityId _stageLine,
 	const EntityId _playState,
-	const EntityId _speedController) :
+	const EntityId _speedController,
+	const EntityId _miniCharaManager) :
 	GameObject{ "DropCloud.json" },
 	smfPlayer_{ _smfPlayer },
 	player_{ _gamePlayer },
 	stageLine_{ _stageLine },
 	playState_{ _playState },
+	miniCharaManager_{ _miniCharaManager },
 	offsetHeight_{},
 	dropDistanceZ_{},
 	speedController_{ _speedController },
@@ -177,6 +179,8 @@ void DropCloud::Update()
 	wassert(pStageLine && u8"ステージラインが見つからなかった");
 	ISpeedController* pSpeedController{ FindGameObject<ISpeedController>(speedController_) };
 	wassert(pSpeedController && u8"スピードコントローラが見つからなかった");
+	MiniCharaManager* pMiniCharaManager{ FindGameObject<MiniCharaManager>(miniCharaManager_) };
+	wassert(pMiniCharaManager && "ミニキャラ統括するやつが見つからない");
 
 
 #pragma region 再生が終了したら1回だけゴール処理
@@ -254,8 +258,7 @@ void DropCloud::Update()
 				{
 					level_ = static_cast<CloudLevel>(CLOUD_LEVEL_MAX - 1);
 				}
-				
-				SpawanMiniChara();
+				pMiniCharaManager->LevelUp(level_);
 			}
 			else if (perfectTimer_ < 0.0f)
 			{
@@ -266,6 +269,7 @@ void DropCloud::Update()
 				{
 					level_ = static_cast<CloudLevel>(0);
 				}
+				pMiniCharaManager->LevelDown(level_);
 			}
 		}
 
@@ -308,36 +312,4 @@ void DropCloud::Update()
 
 void DropCloud::Release()
 {
-}
-
-void DropCloud::SpawanMiniChara()
-{
-	if (GameScene* pScene{ GetScene() }; pScene)
-	{
-		MiniCharaType spawanType{};
-		switch (level_)
-		{
-		case CLOUD_LEVEL_BASE:
-			spawanType = MiniCharaType::Base3;
-			break;
-		case CLOUD_LEVEL_TUBA:
-			spawanType = MiniCharaType::Tubar;
-			break;
-		case CLOUD_LEVEL_DRUM:
-			spawanType = MiniCharaType::Monkitty;
-			break;
-		case CLOUD_LEVEL_GLOCKEN:
-			spawanType = MiniCharaType::Glocken;
-			break;
-		case CLOUD_LEVEL_START:
-		case CLOUD_LEVEL_MAX:
-		default:
-			break;
-		}
-
-		pScene->Instantiate<MiniChara>(
-			GetEntityId(),
-			smfPlayer_,
-			spawanType);
-	}
 }

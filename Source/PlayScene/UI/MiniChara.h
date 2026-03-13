@@ -21,10 +21,23 @@ class MiniChara : public GameObject
 	friend class MiniCharaTubar;
 	friend class MiniCharaGlocken;
 public:
-	MiniChara(
-		const EntityId _dropCloud,
-		const EntityId _smfPlayer,
-		const MiniCharaType _type);
+	struct Config
+	{
+		Config(
+			float _moveTime,
+			float _totalAnimTime,
+			MiniCharaType _type) :
+			moveTime{ _moveTime },
+			totalAnimTime{ _totalAnimTime },
+			type{ _type }
+		{}
+		float moveTime;       // 目的地までの移動時間
+		float totalAnimTime;  // アニメーション総時間
+		MiniCharaType type;   // ミニキャラの種類
+	};
+
+public:
+	MiniChara(const EntityId _miniCharaManager, const Config& _config);
 	~MiniChara();
 
 	void OnLoadParam(const json& _json);
@@ -32,14 +45,22 @@ public:
 	void Update() override;
 	void Release() override {}
 
+	void MoveAt(const Vector2Int _position);
+
 private:
 	std::unique_ptr<IMiniCharaState> pMiniCharaState_;  // ミニキャラステート
 	TextureHandle hImage_;  // キャラの画像
-	EntityId dropCloud_;    // 雲
-	EntityId smfPlayer_;    // smf player
+	EntityId manager_;      // ミニキャラ統括
 
 	Vector2Int imageSize_;
 	float scale_;          // 画像のスケール
-	float totalAnimTime_;  // アニメーション総時間
 	float animTimeLeft_;   // アニメーションタイマー
+
+	Vector2Int drawPosition_;  // 描画座標
+
+	float moveTimeLeft_;    // 移動時のタイマー
+	Vector2Int targetPos_;  // 移動先の座標
+	Vector2Int fromPos_;     // 移動元の座標
+
+	Config config_;  // 設定
 };

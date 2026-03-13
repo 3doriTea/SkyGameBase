@@ -744,6 +744,12 @@
     <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\UI\MiniCharaManager.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\CloudLevel.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1215,6 +1221,9 @@
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Source\PlayScene\Lift\LiftRopeMesh.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\UI\MiniCharaManager.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
   </ItemGroup>

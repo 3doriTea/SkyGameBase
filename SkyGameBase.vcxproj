@@ -40,6 +40,7 @@
     <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
     <ClInclude Include="Source\GameScore.h" />
+    <ClInclude Include="Source\PlayScene\CloudLevel.h" />
     <ClInclude Include="Source\PlayScene\Debugger.h" />
     <ClInclude Include="Source\PlayScene\LiftStructure.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
@@ -60,6 +61,7 @@
     <ClInclude Include="Source\PlayScene\State\PlayState.h" />
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
+    <ClInclude Include="Source\PlayScene\UI\MiniCharaManager.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\IMiniCharaState.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaBase3.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaGlocken.h" />
@@ -356,6 +358,7 @@
     <ClCompile Include="Source\PlayScene\State\PlayState.cpp" />
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\MiniCharaManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaBase3.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaGlocken.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaMonkitty.cpp" />

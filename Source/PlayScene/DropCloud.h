@@ -1,20 +1,8 @@
 #pragma once
 #include <wtgb.h>
 #include "SMF/Note.h"
+#include "CloudLevel.h"
 
-
-/// <summary>
-/// 上手く演奏できていると上がるレベル
-/// </summary>
-enum CloudLevel : int
-{
-	CLOUD_LEVEL_START,
-	CLOUD_LEVEL_BASE,
-	CLOUD_LEVEL_TUBA,
-	CLOUD_LEVEL_DRUM,
-	CLOUD_LEVEL_GLOCKEN,
-	CLOUD_LEVEL_MAX,
-};
 
 /// <summary>
 /// アイテムを降らせる雲
@@ -39,17 +27,13 @@ public:
 		const EntityId _gamePlayer,
 		const EntityId _stageLine,
 		const EntityId _playState,
-		const EntityId _speedController);
+		const EntityId _speedController,
+		const EntityId _miniCharaManager);
 	~DropCloud();
 
 	void Init() override;
 	void Update() override;
 	void Release() override;
-
-	/// <summary>
-	/// ミニキャラを登場させる
-	/// </summary>
-	void SpawanMiniChara();
 
 private:
 	/// <summary>
@@ -59,11 +43,12 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
-	EntityId smfPlayer_;        // smfPlayer
-	EntityId player_;           // プレイヤー
-	EntityId stageLine_;        // ステージ
-	EntityId playState_;        // プレイ状態
-	EntityId speedController_;  // プレイ状態
+	EntityId smfPlayer_;         // smfPlayer
+	EntityId player_;            // プレイヤー
+	EntityId stageLine_;         // ステージ
+	EntityId playState_;         // プレイ状態
+	EntityId speedController_;   // プレイ状態
+	EntityId miniCharaManager_;  // ミニキャラ統括
 
 	float toResultSceneTime_;  // 再生終了後、結果シーンに遷移するまでの秒数
 	float offsetHeight_;  // 地上からの高さ
