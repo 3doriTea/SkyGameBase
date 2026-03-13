@@ -1,0 +1,23 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "Orb"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "imageFilesPath": [
+      "Image/Orb/Div4.png",
+      "Image/Orb/Div8.png",
+      "Image/Orb/Div8x2.png",
+      "Image/Orb/Div16x2.png"
+    ],
+      "scalingTime"
+      :
+      1.0
+  }
+}

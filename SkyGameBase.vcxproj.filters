@@ -750,6 +750,9 @@
     <ClInclude Include="Source\PlayScene\CloudLevel.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\UI\Orb.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1226,6 +1229,9 @@
     <ClCompile Include="Source\PlayScene\UI\MiniCharaManager.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\UI\Orb.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1300,6 +1306,7 @@
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />
     <None Include="Assets\Prefab\LiftStructure.json" />
     <None Include="Assets\Prefab\Play\UI\MiniCharaManager.json" />
+    <None Include="Assets\Prefab\Play\UI\Orb.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
