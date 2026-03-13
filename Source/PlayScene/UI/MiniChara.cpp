@@ -60,7 +60,13 @@ void MiniChara::Update()
 	{
 		moveTimeLeft_ -= DT;
 		wassert(config_.moveTime > FLT_EPSILON && "ゼロ除算するな！");
-		Vector2 position{ Mathf::Lerp(targetPos_, fromPos_, moveTimeLeft_ / config_.moveTime) };
+		Vector2 position
+		{
+			Mathf::Lerp(
+				fromPos_,
+				targetPos_,
+				Ease::OutElastic(1.0f - (moveTimeLeft_ / config_.moveTime)))
+		};
 		drawPosition_ = { static_cast<int>(position.x), static_cast<int>(position.y) };
 	}
 	

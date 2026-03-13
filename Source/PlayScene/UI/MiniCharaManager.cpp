@@ -6,7 +6,9 @@
 MiniCharaManager::MiniCharaManager(const EntityId _smfPlayer) :
 	GameObject{ "Play/UI/MiniCharaManager.json" },
 	currentLevel_{ CloudLevel::CLOUD_LEVEL_START },
-	smfPlayer_{ _smfPlayer }
+	smfPlayer_{ _smfPlayer },
+	imageSize_{},
+	iamgeScale_{}
 {
 }
 
