@@ -35,10 +35,10 @@ void SpeedController::Update()
 	wassert(pTargetGameObject && "スピードコントロール対象が見つからなかった");
 
 	RigidBody& targetRB{ pTargetGameObject->GetComponent<RigidBody>() };
-	float speedPerSec{ XMVectorGetX(XMVector3Length(targetRB.GetVelocity())) };
+	float speedPerSec{ targetRB.GetVelocity().z };
 
 	// RigidBody - Velocityは1秒間あたりの速度であるため、1フレーム当たりの速度に変換
-	wassert(FPS != 0 && "FPSが0による0除算が発生するよ");
+	wassert(FPS > FLT_EPSILON && "FPSが0による0除算が発生するよ");
 	SetSpeed(speedPerSec / FPS);
 }
 
