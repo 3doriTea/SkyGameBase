@@ -23,10 +23,13 @@ void MiniCharaGlocken::Update(MiniChara& _self)
 	UI::LayoutConfig config{};
 	config.position(_self.drawPosition_);
 
-	float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.config_.totalAnimTime) };
-	Vector2Int size{ _self.imageSize_ };
-	size.x += std::sinf(angle) * 10.0f;
-	config.scale(size);
-	CONTEXT.SetRefLayout(&config);
-	CONTEXT.DrawImage(_self.hImage_, angle);
+	for (float offsetAngle{ 0.0f }; offsetAngle <= 0.5f; offsetAngle += 0.05f)
+	{
+		float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.config_.totalAnimTime) + offsetAngle };
+		Vector2Int size{ _self.imageSize_ };
+		size.x += std::sinf(angle) * 10.0f;
+		config.scale(size);
+		CONTEXT.SetRefLayout(&config);
+		CONTEXT.DrawImage(_self.hImage_);
+	}
 }

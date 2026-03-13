@@ -11,6 +11,6 @@
   },
   "Param": {
     "imageScale": 0.5,
-    "imageSize": [ 300, 300 ]
+    "imageSize": [ 300, 400 ]
   }
 }
