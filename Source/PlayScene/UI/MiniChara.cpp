@@ -98,8 +98,7 @@ void MiniChara::Rap(const float _ratioX)
 
 	if (pGameScene)
 	{
-		Vector2Int from{ drawPosition_ };
-		from.x += imageSize_.x / 2;
+		Vector2Int from{ drawPosition_ + imageSize_ / 2 };
 		Vector2Int to{ static_cast<int>(SCREEN_SIZE.x * _ratioX), 0 };
 
 		// オーブをインスタンスする
