@@ -6,6 +6,9 @@
 class SMFPlayer : public GameObject
 {
 public:
+	using ToneMinMax = std::tuple<uint8_t, uint8_t>;
+	using ChannelToToneMinMax = std::map<uint8_t, ToneMinMax>;
+
 	struct Header
 	{
 		Header() :
@@ -35,10 +38,11 @@ public:
 	class TruckGenerator
 	{
 	public:
-		TruckGenerator(Truck& _truck, const Header& _header) :
+		TruckGenerator(Truck& _truck, const Header& _header, ChannelToToneMinMax& _channelToToneMinMax_) :
 			HEADER_{ _header },
 			truck_{ _truck },
-			currentTime_{ 0.0f }
+			currentTime_{ 0.0f },
+			channelToToneMinMax_{ _channelToToneMinMax_ }
 		{}
 		~TruckGenerator() {}
 
@@ -59,6 +63,7 @@ public:
 		static float quarterSec_;  // 四分音符の秒数
 		float currentTime_;        // 加算タイマ
 		Truck& truck_;             // 作るトラック
+		ChannelToToneMinMax& channelToToneMinMax_;
 	};
 
 public:
@@ -140,6 +145,13 @@ public:
 	/// <returns>トラック情報構造体</returns>
 	inline Truck& TruckAt(const size_t _index) { return smfTrucks_[_index]; }
 
+	/// <summary>
+	/// チャンネルの最小最大トーンを取得する
+	/// </summary>
+	/// <param name="_channel">チャンネル</param>
+	/// <returns>最小最大トーンタプル[toneMin, toneMax]</returns>
+	inline ToneMinMax& GetChannelToToneMinMax(const uint8_t _channel) { return channelToToneMinMax_.at(_channel); }
+
 private:
 	void OnLoadParam(const json& _json);
 
@@ -148,6 +160,8 @@ private:
 	fs::path file_;                 // smfのパス
 	Header smfHeader_;              // smfのヘッダデータ
 	std::vector<Truck> smfTrucks_;  // smfのトラックデータ
+	// 各チャンネルの最小最大トーン値
+	ChannelToToneMinMax channelToToneMinMax_;
 	std::vector<size_t> readCurr_;  // 各トラックの再生したノーツインデクス
 	float totalPlayTime_;           // 総再生時間
 	float quarterSec_;              // 四分音符の秒数

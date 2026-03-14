@@ -8,7 +8,8 @@ MiniCharaManager::MiniCharaManager(const EntityId _smfPlayer) :
 	currentLevel_{ CloudLevel::CLOUD_LEVEL_START },
 	smfPlayer_{ _smfPlayer },
 	imageSize_{},
-	iamgeScale_{}
+	iamgeScale_{},
+	orbMoveTime_{}
 {
 }
 
@@ -75,6 +76,7 @@ void MiniCharaManager::LevelUp(const CloudLevel _current)
 						pSMFPlayer->GetQuarterSec(),
 						spawanType,
 						beginPosition,
+						orbMoveTime_,
 					}));
 			MiniChara* pMiniChara{ FindGameObject<MiniChara>(miniCharars_.back()) };
 			Vector2Int upperPosition{ beginPosition };
@@ -113,6 +115,7 @@ void MiniCharaManager::OnLoad(const json& _json)
 {
 	imageSize_ = SafeGet<Vector2Int>(_json, "imageSize");
 	iamgeScale_ = SafeGet<float>(_json, "iamgeScale");
+	orbMoveTime_ = SafeGet<float>(_json, "orbMoveTime");
 }
 
 bool MiniCharaManager::TryUpdateMaxLevel()

@@ -27,11 +27,13 @@ public:
 			float _moveTime,
 			float _totalAnimTime,
 			MiniCharaType _type,
-			Vector2Int _beginPosition) :
+			Vector2Int _beginPosition,
+			float _orbMoveTime) :
 			moveTime{ _moveTime },
 			totalAnimTime{ _totalAnimTime },
 			type{ _type },
-			beginPosition{ _beginPosition }
+			beginPosition{ _beginPosition },
+			orbMoveTime{ _orbMoveTime }
 		{}
 		float moveTime;            // 目的地までの移動時間
 		float totalAnimTime;       // アニメーション総時間

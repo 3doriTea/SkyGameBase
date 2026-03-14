@@ -11,6 +11,7 @@
   },
   "Param": {
     "imageScale": 0.5,
-    "imageSize": [ 300, 400 ]
+    "imageSize": [ 300, 400 ],
+    "orbMoveTime": 1.0
   }
 }

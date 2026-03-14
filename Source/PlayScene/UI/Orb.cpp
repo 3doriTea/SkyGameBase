@@ -2,8 +2,11 @@
 
 Orb::Orb(const Vector2Int _position, const Vector2Int _target, const float _time, const OrbType _type) :
 	GameObject{ "Play/UI/Orb.json" },
-	type_{ _type }
-{}
+	type_{ _type },
+	position_{ _position }
+{
+	velocity_ = Vector2{ _target - _position } / _time;
+}
 
 Orb::~Orb()
 {}
@@ -35,11 +38,12 @@ void Orb::Update()
 	}
 
 	// 速度適用移動する
-	position_ = position_ + velocity_;
+	position_ = position_ + velocity_ * DT;
 
 	// 描画
 	const Canvas::Context& CONTEXT{ System().Get<Canvas>().GetContext() };
 	UI::LayoutConfig config{};
+	CONTEXT.SetRefLayout(&config);
 	config.position(position_ - offset_);
 	config.scale(Mathf::Lerp(imageSize_, Vector2::Zero(), scalingTimeLeft_ / scalingTime_));
 
@@ -48,6 +52,8 @@ void Orb::Update()
 		// 画面範囲外なら消す
 		DestroyMe();
 	}
+
+	CONTEXT.DrawImage(hImage_);
 }
 
 void Orb::Release()
@@ -57,9 +63,8 @@ void Orb::OnLoad(const json& _json)
 {
 	std::string dummm{ _json.dump() };
 	bool isarrrrr = _json["imageFilesPath"].is_array();
-	_json["imageFilesPath"].array().at(0);
 
 
-	_json["imageFilesPath"].array()[0].get_to(imageFilePath_);
+	_json["imageFilesPath"][static_cast<size_t>(type_)].get_to(imageFilePath_);
 	scalingTime_ = SafeGet<float>(_json, "scalingTime");
 }

@@ -159,11 +159,11 @@ void DropCloud::Init()
 					return;  // スタートレベルは音符出さない
 				}
 
-				SMFPlayer::Truck& truck{ pSMFPlayer->TruckAt(_note.channel) };
+				auto& [toneMin, toneMax]{ pSMFPlayer->GetChannelToToneMinMax(_note.channel) };
 				float ratio
 				{
-					static_cast<float>(_note.noteNumber - truck.toneMin)
-						/ (truck.toneMax - truck.toneMin)
+					static_cast<float>(_note.noteNumber - toneMin)
+						/ (toneMax - toneMin)
 				};
 
 				pMiniCharaManager->Rap(level, ratio);

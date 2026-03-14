@@ -51,4 +51,6 @@ private:
 
 	Vector2Int imageSize_;  // ミニキャラの画像サイズ
 	float iamgeScale_;      // ミニキャラの拡縮
+
+	float orbMoveTime_;     // オーブが上に動く時間
 };

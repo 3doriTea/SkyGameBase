@@ -16,8 +16,6 @@
       "Image/Orb/Div8x2.png",
       "Image/Orb/Div16x2.png"
     ],
-      "scalingTime"
-      :
-      1.0
+      "scalingTime": 0.1
   }
 }
