@@ -26,7 +26,7 @@ void MiniCharaBase3::Update(MiniChara& _self)
 	{
 		float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.config_.totalAnimTime) + offsetAngle };
 		Vector2Int size{ _self.imageSize_ };
-		size.x += std::sinf(angle) * 10.0f;
+		size.x += static_cast<int>(std::sinf(angle) * 10.0f);
 		config.scale(size);
 		CONTEXT.SetRefLayout(&config);
 		CONTEXT.DrawImage(_self.hImage_);

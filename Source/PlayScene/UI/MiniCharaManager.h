@@ -27,6 +27,13 @@ public:
 	/// <param name="_current">現在のレベル</param>
 	void LevelDown(const CloudLevel _current);
 
+	/// <summary>
+	/// ミニキャラが音を出す
+	/// </summary>
+	/// <param name="_level">鳴らす演奏レベル</param>
+	/// <param name="_ratioX">音階をx軸で表したレート</param>
+	void Rap(const CloudLevel _level, const float _ratioX);
+
 private:
 	void OnLoad(const json& _json);
 	/// <summary>

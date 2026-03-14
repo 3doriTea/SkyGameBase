@@ -20,12 +20,16 @@ public:
 		Truck() :
 			name{},
 			notes{},
-			tempo{}
+			tempo{},
+			toneMax{ 0x00 },
+			toneMin{ UINT8_MAX }
 		{}
 
 		std::string name;
 		std::vector<Note> notes;
 		uint32_t tempo;
+		uint8_t toneMax;  // 最大の音階
+		uint8_t toneMin;  // 最小の音階
 	};
 
 	class TruckGenerator
@@ -128,6 +132,13 @@ public:
 	/// </summary>
 	/// <returns>再生時間</returns>
 	inline float GetPlayTime() const { return playTime_; }
+
+	/// <summary>
+	/// トラック情報を取得
+	/// </summary>
+	/// <param name="_index">トラックインデクス(トラック番号 - 1)</param>
+	/// <returns>トラック情報構造体</returns>
+	inline Truck& TruckAt(const size_t _index) { return smfTrucks_[_index]; }
 
 private:
 	void OnLoadParam(const json& _json);

@@ -90,6 +90,25 @@ void MiniCharaManager::LevelDown(const CloudLevel _current)
 	currentLevel_ = _current;
 }
 
+void MiniCharaManager::Rap(const CloudLevel _level, const float _ratioX)
+{
+	size_t index{ static_cast<size_t>(_level) };
+	if (index < 0 || static_cast<size_t>(maxLevel_) < index)
+	{
+		wassert(false && "未登場の演奏レベルで音が鳴りました");
+		return;
+	}
+
+	// TODO: スタートミニキャラを飛ばすために -1しているだけ
+	MiniChara* pMiniChara{ FindGameObject<MiniChara>(miniCharars_[index - 1]) };
+	wassert(pMiniChara && "音を鳴らすミニキャラ取得に失敗");
+
+	if (pMiniChara)
+	{
+		pMiniChara->Rap(_ratioX);
+	}
+}
+
 void MiniCharaManager::OnLoad(const json& _json)
 {
 	imageSize_ = SafeGet<Vector2Int>(_json, "imageSize");
@@ -100,6 +119,8 @@ bool MiniCharaManager::TryUpdateMaxLevel()
 {
 	if (currentLevel_ > maxLevel_)
 	{
+		maxLevel_ = currentLevel_;
+
 		return true;  // 最高レベルを更新した
 	}
 	// 更新しなかった

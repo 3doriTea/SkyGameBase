@@ -25,7 +25,11 @@ constexpr size_t ORB_TYPE_MAX{ static_cast<size_t>(OrbType::Max) };
 class Orb : public GameObject
 {
 public:
-	Orb(const Vector2Int _position, const Vector2Int _target, const float _time, const OrbType _type);
+	Orb(
+		const Vector2Int _position,
+		const Vector2Int _target,
+		const float _time,
+		const OrbType _type);
 	~Orb();
 
 	void Init() override;

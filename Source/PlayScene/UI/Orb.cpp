@@ -42,6 +42,12 @@ void Orb::Update()
 	UI::LayoutConfig config{};
 	config.position(position_ - offset_);
 	config.scale(Mathf::Lerp(imageSize_, Vector2::Zero(), scalingTimeLeft_ / scalingTime_));
+
+	if (position_.y < offset_.y)
+	{
+		// 画面範囲外なら消す
+		DestroyMe();
+	}
 }
 
 void Orb::Release()
@@ -49,10 +55,11 @@ void Orb::Release()
 
 void Orb::OnLoad(const json& _json)
 {
-	for (auto& imageFilePath : _json["imageFilesPath"].array())
-	{
+	std::string dummm{ _json.dump() };
+	bool isarrrrr = _json["imageFilesPath"].is_array();
+	_json["imageFilesPath"].array().at(0)
 
-	}
-	imageFilePath_ = SafeGet<std::string>(_json, "imageFilePath");
+
+	_json["imageFilesPath"].array()[0].get_to(imageFilePath_);
 	scalingTime_ = SafeGet<float>(_json, "scalingTime");
 }

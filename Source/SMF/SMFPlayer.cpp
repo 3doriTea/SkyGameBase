@@ -479,6 +479,17 @@ void SMFPlayer::TruckGenerator::SetTempo(const uint32_t _value)
 
 void SMFPlayer::TruckGenerator::On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
+	if (_note > truck_.toneMax)
+	{
+		// 最大トーン更新
+		truck_.toneMax = _note;
+	}
+	if (_note < truck_.toneMin)
+	{
+		// 最小トーン更新
+		truck_.toneMin = _note;
+	}
+
 	LOGFLN("currentTime={}", currentTime_);
 	truck_.notes.push_back(
 		{

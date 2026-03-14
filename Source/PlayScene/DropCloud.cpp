@@ -85,6 +85,13 @@ void DropCloud::Init()
 					return;  // プレイシーンが取得できなければ何もしない
 				}
 
+				MiniCharaManager* pMiniCharaManager{ FindGameObject<MiniCharaManager>(miniCharaManager_) };
+				wassert(pMiniCharaManager && "ミニキャラ統括するやつが見つからない");
+				if (pMiniCharaManager == nullptr)
+				{
+					return;  // ミニキャラ統括するやつ取得できなければ何もできない
+				}
+
 				DroppedPresent droppedPresent
 				{
 					.entityId = pPlayScene->Instantiate<PresentSphere>(
@@ -96,13 +103,17 @@ void DropCloud::Init()
 					.toneOffset = 0,
 				};
 
+				CloudLevel level{};
+				float toneRatio{};  // 音階範囲内でのレート
 				switch (_note.channel)
 				{
 				case 0x03:
+					level = CLOUD_LEVEL_START;
 					droppedPresent.hTone = hAudioCat_;
 					droppedPresent.toneOffset = SMF::C4_60_INDEX;
 					break;
 				case 0x01:
+					level = CLOUD_LEVEL_BASE;
 					if (level_ < CLOUD_LEVEL_BASE)
 					{
 						return;
@@ -111,6 +122,7 @@ void DropCloud::Init()
 					droppedPresent.toneOffset = 12 * 7;
 					break;
 				case 0x02:
+					level = CLOUD_LEVEL_TUBA;
 					if (level_ < CLOUD_LEVEL_TUBA)
 					{
 						return;
@@ -119,6 +131,7 @@ void DropCloud::Init()
 					droppedPresent.toneOffset = 12 * 7;
 					break;
 				case 0x09:
+					level = CLOUD_LEVEL_DRUM;
 					if (level_ < CLOUD_LEVEL_DRUM)
 					{
 						return;
@@ -127,6 +140,7 @@ void DropCloud::Init()
 					droppedPresent.toneOffset = 12 * 7;
 					break;
 				case 0x06:
+					level = CLOUD_LEVEL_GLOCKEN;
 					if (level_ < CLOUD_LEVEL_GLOCKEN)
 					{
 						return;
@@ -139,6 +153,20 @@ void DropCloud::Init()
 					return;
 				}
 				droppedPresents_.push_back(droppedPresent);
+
+				if (level == CLOUD_LEVEL_START)
+				{
+					return;  // スタートレベルは音符出さない
+				}
+
+				SMFPlayer::Truck& truck{ pSMFPlayer->TruckAt(_note.channel) };
+				float ratio
+				{
+					static_cast<float>(_note.noteNumber - truck.toneMin)
+						/ (truck.toneMax - truck.toneMin)
+				};
+
+				pMiniCharaManager->Rap(level, ratio);
 			});
 
 		PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };

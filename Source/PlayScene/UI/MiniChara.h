@@ -37,6 +37,7 @@ public:
 		float totalAnimTime;       // アニメーション総時間
 		MiniCharaType type;        // ミニキャラの種類
 		Vector2Int beginPosition;  // 開始座標
+		float orbMoveTime;         // オーブが下から上に流れる時間
 	};
 
 public:
@@ -49,6 +50,12 @@ public:
 	void Release() override {}
 
 	void MoveAt(const Vector2Int _position);
+
+	/// <summary>
+	/// 音を鳴らす
+	/// </summary>
+	/// <param name="_ratioX">鳴らす音の横軸</param>
+	void Rap(const float _ratioX);
 
 private:
 	std::unique_ptr<IMiniCharaState> pMiniCharaState_;  // ミニキャラステート

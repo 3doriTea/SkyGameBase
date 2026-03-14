@@ -1,4 +1,5 @@
 #include "MiniChara.h"
+#include "Orb.h"
 #include "MiniChara/MiniCharaBase3.h"
 #include "MiniChara/MiniCharaTubar.h"
 #include "MiniChara/MiniCharaMonkitty.h"
@@ -84,4 +85,28 @@ void MiniChara::MoveAt(const Vector2Int _position)
 	moveTimeLeft_ = config_.moveTime;
 	fromPos_ = drawPosition_;
 	targetPos_ = _position;
+}
+
+void MiniChara::Rap(const float _ratioX)
+{
+	GameScene* pGameScene{ GetScene() };
+	wassert(pGameScene && "シーン取得に失敗");
+	const Vector2Int SCREEN_SIZE
+	{
+		System().Get<GameWindow>().GetMainWindowSize()
+	};
+
+	if (pGameScene)
+	{
+		Vector2Int from{ drawPosition_ };
+		from.x += imageSize_.x / 2;
+		Vector2Int to{ static_cast<int>(SCREEN_SIZE.x * _ratioX), 0 };
+
+		// オーブをインスタンスする
+		pGameScene->Instantiate<Orb>(
+			from,
+			to,
+			config_.orbMoveTime,
+			OrbType::Div4);
+	}
 }
