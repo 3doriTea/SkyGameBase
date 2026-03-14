@@ -57,7 +57,7 @@ void Orb::OnLoad(const json& _json)
 {
 	std::string dummm{ _json.dump() };
 	bool isarrrrr = _json["imageFilesPath"].is_array();
-	_json["imageFilesPath"].array().at(0)
+	_json["imageFilesPath"].array().at(0);
 
 
 	_json["imageFilesPath"].array()[0].get_to(imageFilePath_);
