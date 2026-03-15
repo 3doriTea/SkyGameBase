@@ -286,7 +286,10 @@ void DropCloud::Update()
 				{
 					level_ = static_cast<CloudLevel>(CLOUD_LEVEL_MAX - 1);
 				}
-				pMiniCharaManager->LevelUp(level_);
+				else
+				{
+					pMiniCharaManager->LevelUp(level_);
+				}
 			}
 			else if (perfectTimer_ < 0.0f)
 			{
@@ -297,7 +300,11 @@ void DropCloud::Update()
 				{
 					level_ = static_cast<CloudLevel>(0);
 				}
-				pMiniCharaManager->LevelDown(level_);
+
+				if (level_ > 0)
+				{
+					pMiniCharaManager->LevelDown(level_);
+				}
 			}
 		}
 

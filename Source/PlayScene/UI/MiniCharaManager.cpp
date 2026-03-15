@@ -29,6 +29,8 @@ void MiniCharaManager::Release()
 
 void MiniCharaManager::LevelUp(const CloudLevel _current)
 {
+	const Vector2Int SCREEN_SIZE{ System().Get<GameWindow>().GetMainWindowSize() };
+
 	currentLevel_ = _current;
 	if (TryUpdateMaxLevel())
 	{
@@ -36,8 +38,6 @@ void MiniCharaManager::LevelUp(const CloudLevel _current)
 		wassert(pGameScene && "ゲームシーンの取得に失敗");
 		SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
 		wassert(pSMFPlayer && "smfPlayerの取得に失敗");
-
-		const Vector2Int SCREEN_SIZE{ System().Get<GameWindow>().GetMainWindowSize() };
 
 		if (pGameScene && pSMFPlayer)
 		{
@@ -63,7 +63,7 @@ void MiniCharaManager::LevelUp(const CloudLevel _current)
 			}
 			Vector2Int beginPosition
 			{
-				imageSize_.x * static_cast<int>(miniCharars_.size()),
+				GetMiniCharaPositionX(miniCharars_.size()),
 				SCREEN_SIZE.y - 1
 			};
 			// ミニキャラを登場させる
@@ -85,10 +85,32 @@ void MiniCharaManager::LevelUp(const CloudLevel _current)
 			pMiniChara->MoveAt(upperPosition);
 		}
 	}
+	else
+	{
+		MiniChara* pMiniChara{ FindGameObject<MiniChara>(miniCharars_[currentLevel_ - 1]) };
+		wassert(pMiniChara && "音を鳴らすミニキャラ取得に失敗");
+		if (pMiniChara)
+		{
+			pMiniChara->MoveAt(
+				{
+					GetMiniCharaPositionX(static_cast<int>(currentLevel_)),
+					SCREEN_SIZE.y - 1 - imageSize_.y
+				});
+		}
+	}
 }
 
 void MiniCharaManager::LevelDown(const CloudLevel _current)
 {
+	const Vector2Int SCREEN_SIZE{ System().Get<GameWindow>().GetMainWindowSize() };
+
+	MiniChara* pMiniChara{ FindGameObject<MiniChara>(miniCharars_[currentLevel_ - 1]) };
+	wassert(pMiniChara && "音を鳴らすミニキャラ取得に失敗");
+	if (pMiniChara)
+	{
+		pMiniChara->MoveAt({ GetMiniCharaPositionX(static_cast<int>(currentLevel_)), SCREEN_SIZE.y - 1 });
+	}
+	
 	currentLevel_ = _current;
 }
 
@@ -109,6 +131,11 @@ void MiniCharaManager::Rap(const CloudLevel _level, const float _ratioX)
 	{
 		pMiniChara->Rap(_ratioX);
 	}
+}
+
+int MiniCharaManager::GetMiniCharaPositionX(const int _index)
+{
+	return imageSize_.x * _index;
 }
 
 void MiniCharaManager::OnLoad(const json& _json)

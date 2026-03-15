@@ -34,6 +34,13 @@ public:
 	/// <param name="_ratioX">音階をx軸で表したレート</param>
 	void Rap(const CloudLevel _level, const float _ratioX);
 
+	/// <summary>
+	/// ミニキャラのx軸座標を取得する
+	/// </summary>
+	/// <param name="_index">ミニキャラのインデクス</param>
+	/// <returns>ミニキャラのx座標</returns>
+	int GetMiniCharaPositionX(const int _index);
+
 private:
 	void OnLoad(const json& _json);
 	/// <summary>
