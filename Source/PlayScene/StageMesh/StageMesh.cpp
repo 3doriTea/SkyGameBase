@@ -115,7 +115,7 @@ void StageMesh::GenerateVertices(ViewerCached _system)
 			// 下向きの法線ができてしまったら上向きに変換
 			if (v.normal.y <= 0.0f)
 			{
-				v.normal = v.normal * -1.0f;
+				v.normal.y = v.normal.y * -1.0f;
 			}
 
 			SetPosXValue(0.0f, &v);
