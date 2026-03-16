@@ -13,7 +13,7 @@ public:
 	};
 
 public:
-	CameraController();
+	CameraController(const EntityId _dragArrowAxis);
 	~CameraController();
 
 	void Init() override;
@@ -33,7 +33,8 @@ public:
 	inline Mode GetMode() const { return mode_; }
 
 private:
-	EntityId lookTarget_;  // カメラの注視点となるターゲットエンティティ
+	EntityId lookTarget_;     // カメラの注視点となるターゲットエンティティ
+	EntityId dragArrowAxis_;  // ドラッグ中の軸
 
 	Mode mode_;
 

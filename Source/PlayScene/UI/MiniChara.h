@@ -1,15 +1,8 @@
 #pragma once
 #include <wtgb.h>
 #include "MiniChara/IMiniCharaState.h"
+#include "MiniCharaType.h"
 
-
-enum struct MiniCharaType
-{
-	Base3,
-	Tubar,
-	Monkitty,
-	Glocken,
-};
 
 /// <summary>
 /// 演奏レベルが上がるごとに増えるミニキャラ

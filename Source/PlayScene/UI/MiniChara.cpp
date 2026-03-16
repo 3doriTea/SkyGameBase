@@ -20,16 +20,16 @@ MiniChara::MiniChara(const EntityId _miniCharaManager, const Config& _config) :
 {
 	switch (config_.type)
 	{
-		case MiniCharaType::Base3:
+		case MiniCharaType::MINICHARA_BASE3:
 			pMiniCharaState_ = std::make_unique<MiniCharaBase3>();
 			break;
-		case MiniCharaType::Tubar:
+		case MiniCharaType::MINICHARA_TUBAR:
 			pMiniCharaState_ = std::make_unique<MiniCharaTubar>();
 			break;
-		case MiniCharaType::Monkitty:
+		case MiniCharaType::MINICHARA_MONKITTY:
 			pMiniCharaState_ = std::make_unique<MiniCharaMonkitty>();
 			break;
-		case MiniCharaType::Glocken:
+		case MiniCharaType::MINICHARA_GLOCKEN:
 			pMiniCharaState_ = std::make_unique<MiniCharaGlocken>();
 			break;
 		default:

@@ -64,6 +64,7 @@
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniCharaManager.h" />
+    <ClInclude Include="Source\PlayScene\UI\MiniCharaType.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\IMiniCharaState.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaBase3.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaGlocken.h" />

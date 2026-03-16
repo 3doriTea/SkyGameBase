@@ -4,11 +4,12 @@
 #include "CameraController/CameraMovePlay.h"
 
 
-CameraController::CameraController() :
+CameraController::CameraController(const EntityId _dragArrowAxis) :
 	GameObject{ "Play/CameraController.json" },
-mode_{ Mode::Play },
-lookTarget_{ INVALID_ENTITY },
-pCameraMove_{ nullptr }
+	mode_{ Mode::Play },
+	lookTarget_{ INVALID_ENTITY },
+	pCameraMove_{ nullptr },
+	dragArrowAxis_{ _dragArrowAxis }
 {
 }
 
@@ -27,14 +28,13 @@ void CameraController::Update()
 	Cursor& cursor{ System().Get<Cursor>() };
 	Camera& camera{ System().Get<Camera>() };
 
-
 	if (input.IsKeyDown(KeyCode::Escape))
 	{
 		cursor.SetCenterLock(false);
 		cursor.SetShow(true);
 	}
 
-	pCameraMove_->Update({ System(), GetEntityId() });
+	pCameraMove_->Update({ System(), GetEntityId(), dragArrowAxis_ });
 
 	camera.targetPosition_ = Transform().GetPosition() + Transform().GetForward();
 	camera.position_ = Transform().GetPosition();
@@ -79,7 +79,7 @@ void CameraController::SetMode(const Mode _mode)
 
 	if (pCameraMove_)
 	{
-		pCameraMove_->End({ System(), GetEntityId() });
+		pCameraMove_->End({ System(), GetEntityId(), dragArrowAxis_ });
 	}
 
 	pCameraMove_.reset();
@@ -98,6 +98,6 @@ void CameraController::SetMode(const Mode _mode)
 
 	if (pCameraMove_)
 	{
-		pCameraMove_->Start({ System(), GetEntityId() });
+		pCameraMove_->Start({ System(), GetEntityId(), dragArrowAxis_ });
 	}
 }

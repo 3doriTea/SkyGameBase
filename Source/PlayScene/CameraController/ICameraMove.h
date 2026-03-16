@@ -7,8 +7,21 @@
 class ICameraMove
 {
 public:
+	/// <summary>
+	/// ゲームオブジェクトの参照
+	/// </summary>
 	struct GameObjectReference
 	{
+		GameObjectReference(
+			ViewerCached& _system,
+			EntityId _self,
+			EntityId _dragArrowAxis
+		) :
+			system{ _system },
+			self{ _self },
+			dragArrowAxis{ _dragArrowAxis }
+		{}
+
 		ViewerCached& system;    // システムアクセス用
 		EntityId self;           // カメラ自身
 		EntityId dragArrowAxis;  // drag軸
