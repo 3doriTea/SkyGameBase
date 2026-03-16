@@ -91,13 +91,36 @@ void DropCloud::Init()
 				{
 					return;  // ミニキャラ統括するやつ取得できなければ何もできない
 				}
+				
+				// プレゼントの出現座標
+				Vector3 fromPosition{ Transform().GetPosition() };
+				PlayScene* pPlayScene{ GetScene<PlayScene>() };
+				wassert(pPlayScene && "プレイシーンの取得に失敗");
 
+				auto& [toneMin, toneMax] { pSMFPlayer->GetChannelToToneMinMax(_note.channel) };
+				// プレゼントを投下するX軸のレート
+				float ratio
+				{
+					static_cast<float>(_note.noteNumber - toneMin)
+						/ (toneMax - toneMin)
+				};
+
+				WorldConfig worldConfig{ pPlayScene->GetWorldConfig() };
+				fromPosition.x = Mathf::Lerp(
+					worldConfig.safeZoneXMin,
+					worldConfig.safeZoneXMax,
+					ratio);
+
+				// プレゼントの投下地点の座標
+				Vector3 toPosition{ fromPosition.x, pStageLine->GetPosY(fromPosition), fromPosition.z };
+
+				// プレゼント
 				DroppedPresent droppedPresent
 				{
 					.entityId = pPlayScene->Instantiate<PresentSphere>(
 						player_,
-						Transform().GetPosition(),
-						Vector3{ Transform().GetPosition().x, pStageLine->GetPosY(Transform().GetPosition()), Transform().GetPosition().z }),
+						fromPosition,
+						toPosition),
 					.note = _note,
 					.hTone = INVALID_HANDLE,
 					.toneOffset = 0,
@@ -158,13 +181,6 @@ void DropCloud::Init()
 				{
 					return;  // スタートレベルは音符出さない
 				}
-
-				auto& [toneMin, toneMax]{ pSMFPlayer->GetChannelToToneMinMax(_note.channel) };
-				float ratio
-				{
-					static_cast<float>(_note.noteNumber - toneMin)
-						/ (toneMax - toneMin)
-				};
 
 				pMiniCharaManager->Rap(level, ratio);
 			});
@@ -312,11 +328,14 @@ void DropCloud::Update()
 	}
 #pragma endregion
 
+#pragma region X座標移動処理
 	Vector3 position{ pPlayer->Transform().GetPosition() };
 	position.z += dropDistanceZ_;
 	position.y = pStageLine->GetPosY(position) + offsetHeight_;
 	Transform().SetPosition(position);
+#pragma endregion
 
+#pragma region 投下したプレゼントの処理
 	for (auto itr = droppedPresents_.begin(); itr != droppedPresents_.end();)
 	{
 		GameObject* pPresentObj{ FindGameObject(itr->entityId) };
@@ -343,6 +362,7 @@ void DropCloud::Update()
 
 		itr++;
 	}
+#pragma endregion
 }
 
 void DropCloud::Release()
