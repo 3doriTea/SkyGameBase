@@ -29,8 +29,8 @@ private:
 
 private:
 	PlayerTargeting playerTargeting_;  // プレイヤーターゲティング処理
-	bool isTargeting_;   // ターゲットがあるか
-	float toTargetTime_;  // ターゲットに当たるまでの時間
+	bool isTargeting_;                 // ターゲットがあるか
+	float toTargetTime_;               // ターゲットに当たるまでの時間
 	float angle_;
 	float awakeTimeLeft_;       // シーン読み込み直後のラグを待つカウントダウンタイマ
 	EntityId playState_;        // プレイ状態

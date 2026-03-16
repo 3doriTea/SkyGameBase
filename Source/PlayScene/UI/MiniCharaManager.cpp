@@ -45,16 +45,16 @@ void MiniCharaManager::LevelUp(const CloudLevel _current)
 			switch (currentLevel_)
 			{
 			case CLOUD_LEVEL_BASE:
-				spawanType = MiniCharaType::Base3;
+				spawanType = MiniCharaType::MINICHARA_BASE3;
 				break;
 			case CLOUD_LEVEL_TUBA:
-				spawanType = MiniCharaType::Tubar;
+				spawanType = MiniCharaType::MINICHARA_TUBAR;
 				break;
 			case CLOUD_LEVEL_DRUM:
-				spawanType = MiniCharaType::Monkitty;
+				spawanType = MiniCharaType::MINICHARA_MONKITTY;
 				break;
 			case CLOUD_LEVEL_GLOCKEN:
-				spawanType = MiniCharaType::Glocken;
+				spawanType = MiniCharaType::MINICHARA_GLOCKEN;
 				break;
 			case CLOUD_LEVEL_START:
 			case CLOUD_LEVEL_MAX:
@@ -63,7 +63,7 @@ void MiniCharaManager::LevelUp(const CloudLevel _current)
 			}
 			Vector2Int beginPosition
 			{
-				GetMiniCharaPositionX(miniCharars_.size()),
+				GetMiniCharaPositionX(static_cast<int>(miniCharars_.size())),
 				SCREEN_SIZE.y - 1
 			};
 			// ミニキャラを登場させる

@@ -165,7 +165,6 @@ void Player::AddMove(const Vector3 _move)
 	Vector3 selfPos{ Transform().GetPosition() };
 	Vector3 selfDir{ camera.GetDirection() };
 
-
 #pragma region キャラエッグにフォーカス処理
 	std::vector<GameObject*> foundGameObjects{};
 	if (FindGameObjects("CharaEgg", &foundGameObjects))

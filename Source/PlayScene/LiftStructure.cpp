@@ -4,6 +4,7 @@
 #include "Lift/LiftLoop.h"
 #include "Lift/LiftPole.h"
 #include "Lift/LiftRope.h"
+#include "LiftChilds/Cloud.h"
 
 
 LiftStructure::LiftStructure(const EntityId _stage, const float _polePosX) :
@@ -229,10 +230,15 @@ void LiftStructure::GenerateChairs()
 		wassert(poleDistance_ != 0.0f && "ゼロ除算すんな！");
 		for (float length{ 0.0f }; length < totalLength_; length += poleDistance_)
 		{
-			pPlayScene->Instantiate<LiftChair>(
-				GetEntityId(),
-				length,
-				totalLength_);
+			EntityId liftChair
+			{
+				pPlayScene->Instantiate<LiftChair>(
+					GetEntityId(),
+					length,
+					totalLength_)
+			};
+
+			pPlayScene->Instantiate<Cloud>(liftChair);
 		}
 
 	}

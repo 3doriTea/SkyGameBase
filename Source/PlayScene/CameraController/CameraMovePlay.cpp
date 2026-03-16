@@ -3,6 +3,7 @@
 #include "../Player.h"
 #include "PlayScene/StageLine.h"
 #include <algorithm>
+#include "../DragArrowAxis.h"
 
 namespace
 {
@@ -40,7 +41,7 @@ CameraMovePlay::CameraMovePlay() :
 
 void CameraMovePlay::Start(GameObjectReference _ref)
 {
-	auto [systemView, entityId]{ _ref };
+	auto [systemView, entityId, dragArrowAxis]{ _ref };
 
 	GameObject* pStageLineObj{ systemView.Get<CPGameObject>().FindGameObject("StageLine") };
 	wassert(pStageLineObj && "ステージラインがシーンに存在しないよ！");
@@ -54,7 +55,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 {
 	using namespace DirectX;
 
-	auto [systemView, entityId]{ _ref };
+	auto [systemView, entityId, dragArrowAxis]{ _ref };
 
 	float dt{ systemView.Get<GameTime>().GetDeltaTime() };
 	Cursor& cursor{ systemView.Get<Cursor>() };
@@ -302,6 +303,15 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 			break;
 		}
 	}
+
+#pragma region ドラッグ中の軸を更新
+	DragArrowAxis* pAxis{ pGameObject->FindGameObject<DragArrowAxis>(dragArrowAxis) };
+
+	Vector2 diff{ static_cast<float>(diffValue_.x), -static_cast<float>(diffValue_.y) };
+	pAxis->SetAngleY(std::atan2f(diff.x, diff.y));
+	float scale{ std::sqrtf(diff.x * diff.x + diff.y * diff.y) };
+	pAxis->SetScaleZ(scale);
+#pragma endregion
 }
 
 void CameraMovePlay::End(GameObjectReference _ref)

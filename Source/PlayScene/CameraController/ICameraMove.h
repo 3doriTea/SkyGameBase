@@ -7,7 +7,26 @@
 class ICameraMove
 {
 public:
-	using GameObjectReference = std::pair<ViewerCached&, const EntityId>;
+	/// <summary>
+	/// ゲームオブジェクトの参照
+	/// </summary>
+	struct GameObjectReference
+	{
+		GameObjectReference(
+			ViewerCached& _system,
+			EntityId _self,
+			EntityId _dragArrowAxis
+		) :
+			system{ _system },
+			self{ _self },
+			dragArrowAxis{ _dragArrowAxis }
+		{}
+
+		ViewerCached& system;    // システムアクセス用
+		EntityId self;           // カメラ自身
+		EntityId dragArrowAxis;  // drag軸
+	};
+
 public:
 	ICameraMove() {}
 	virtual ~ICameraMove() {}

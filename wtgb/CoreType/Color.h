@@ -15,15 +15,27 @@ namespace wtgb
 		// コンストラクタもそのまま継承
 		using DirectX::XMFLOAT4::XMFLOAT4;
 
-		Color(const ColorCode _hexCode, const uint8_t _alpha = UINT8_MAX) :
+		inline Color(const ColorCode _hexCode, const uint8_t _alpha = UINT8_MAX) :
 			XMFLOAT4
 			{
-				static_cast<float>((_hexCode & 0xff0000) >> (8 * 2)) / 255.0f,
-				static_cast<float>((_hexCode & 0x00ff00) >> (8 * 1)) / 255.0f,
-				static_cast<float>((_hexCode & 0x0000ff) >> (8 * 0)) / 255.0f,
-				static_cast<float>(_alpha) / 255.0f,
+				static_cast<float>((_hexCode & 0xff0000) >> (8 * 2)) / static_cast<float>(UINT8_MAX),
+				static_cast<float>((_hexCode & 0x00ff00) >> (8 * 1)) / static_cast<float>(UINT8_MAX),
+				static_cast<float>((_hexCode & 0x0000ff) >> (8 * 0)) / static_cast<float>(UINT8_MAX),
+				static_cast<float>(_alpha) / static_cast<float>(UINT8_MAX),
 			}
 		{
+		}
+
+		/// <summary>
+		/// カラーコードに変換する
+		/// </summary>
+		/// <returns>16進数カラーコード</returns>
+		inline ColorCode ToCode() const
+		{
+			return
+				static_cast<ColorCode>(x * static_cast<float>(UINT8_MAX)) << (8 * 2) | 
+				static_cast<ColorCode>(y * static_cast<float>(UINT8_MAX)) << (8 * 1) |
+				static_cast<ColorCode>(z * static_cast<float>(UINT8_MAX)) << (8 * 1) ;
 		}
 
 		static const ColorCode RED;

@@ -12,6 +12,7 @@
 #include "ISpeedController.h"
 #include "SMF/ToneHz.h"
 #include "UI/MiniCharaManager.h"
+#include "UI/PerfectTimer.h"
 
 
 DropCloud::DropCloud(
@@ -49,124 +50,155 @@ void DropCloud::OnLoadParam(const json& _json)
 	toResultSceneTime_ = SafeGet<float>(_json, "toResultSceneTime");
 	playNoteNumberOffset_ = SafeGet<int>(_json, "playNoteNumberOffset");
 	playRatioMaxVelocity_ = SafeGet<float>(_json, "playRatioMaxVelocity");
-	playToneAudioFilePath_ = SafeGet<std::string>(_json, "playToneAudioFilePath");
-	toneAudioFilePathBase_ = SafeGet<std::string>(_json, "toneAudioFilePathBase");
-	toneAudioFilePathTuba_ = SafeGet<std::string>(_json, "toneAudioFilePathTuba");
-	toneAudioFilePathDrum_ = SafeGet<std::string>(_json, "toneAudioFilePathDrum");
-	toneAudioFilePathGlocken_ = SafeGet<std::string>(_json, "toneAudioFilePathGlocken");
+	// TOOD: ここもまとめる
+	int miniCharaType{};
+	for (auto& toneAudioFileJson : _json["toneAudioFiles"])
+	{
+		toneAudioFilesPath_.at(miniCharaType) = toneAudioFileJson.get<std::string>();
+		miniCharaType++;
+	}
+}
+
+void DropCloud::DropPresent(const Note _note)
+{
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	WorldConfig worldConfig{ pPlayScene->GetWorldConfig() };
+
+	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
+	wassert(pSMFPlayer && "SMFPlayerの取得に失敗");
+
+	MiniCharaManager* pMiniCharaManager{ FindGameObject<MiniCharaManager>(miniCharaManager_) };
+	wassert(pMiniCharaManager && "ミニキャラ統括するやつが見つからない");
+
+	StageLine* pStageLine{ FindGameObject<StageLine>(stageLine_) };
+	wassert(pStageLine && "ステージラインがシーンに存在しないよ！");
+
+	if ((pPlayScene && pSMFPlayer && pMiniCharaManager && pStageLine) == false)
+	{
+		return;  // 参照できないものがあれば何もできない
+	}
+
+	// プレゼント
+	DroppedPresent droppedPresent
+	{
+		.entityId = INVALID_ENTITY,
+		.note = _note,
+		.hTone = INVALID_HANDLE,
+		.toneOffset = 0,
+	};
+
+	// 演奏レベルフィルタ
+	CloudLevel level{};
+	switch (_note.channel)
+	{
+	case 0x03:
+		level = CLOUD_LEVEL_START;
+		droppedPresent.hTone = hAudios_[MINICHARA_T];
+		droppedPresent.toneOffset = SMF::C4_60_INDEX;
+		break;
+	case 0x01:
+		level = CLOUD_LEVEL_BASE;
+		if (level_ < CLOUD_LEVEL_BASE)
+		{
+			return;
+		}
+		droppedPresent.hTone = hAudios_[MINICHARA_BASE3];
+		droppedPresent.toneOffset = 12 * 7;
+		break;
+	case 0x02:
+		level = CLOUD_LEVEL_TUBA;
+		if (level_ < CLOUD_LEVEL_TUBA)
+		{
+			return;
+		}
+		droppedPresent.hTone = hAudios_[MINICHARA_TUBAR];
+		droppedPresent.toneOffset = 12 * 7;
+		break;
+	case 0x09:
+		level = CLOUD_LEVEL_DRUM;
+		if (level_ < CLOUD_LEVEL_DRUM)
+		{
+			return;
+		}
+		droppedPresent.hTone = hAudios_[MINICHARA_MONKITTY];
+		droppedPresent.toneOffset = 12 * 7;
+		break;
+	case 0x06:
+		level = CLOUD_LEVEL_GLOCKEN;
+		if (level_ < CLOUD_LEVEL_GLOCKEN)
+		{
+			return;
+		}
+		droppedPresent.note.playTime = 6.0f;
+		droppedPresent.hTone = hAudios_[MINICHARA_GLOCKEN];
+		droppedPresent.toneOffset = SMF::C4_60_INDEX + 12 * 0;
+		break;
+	default:
+		return;
+	}
+
+	// プレゼントの出現座標
+	Vector3 fromPosition{ Transform().GetPosition() };
+
+	auto& [toneMin, toneMax] { pSMFPlayer->GetChannelToToneMinMax(_note.channel) };
+	// プレゼントを投下する音階範囲内でのレート
+	float toneRatio
+	{
+		static_cast<float>(_note.noteNumber - toneMin)
+			/ (toneMax - toneMin)
+	};
+
+	fromPosition.x = Mathf::Lerp(
+		worldConfig.safeZoneXMin,
+		worldConfig.safeZoneXMax,
+		toneRatio);
+
+	// プレゼントの投下地点の座標
+	Vector3 toPosition{ fromPosition.x, pStageLine->GetPosY(fromPosition), fromPosition.z };
+
+	// プレゼント生成
+	droppedPresent.entityId = pPlayScene->Instantiate<PresentSphere>(
+		player_,
+		fromPosition,
+		toPosition);
+
+	droppedPresents_.push_back(droppedPresent);
+
+	if (level == CLOUD_LEVEL_START)
+	{
+		return;  // スタートレベルは音符出さない
+	}
+
+	pMiniCharaManager->Rap(level, toneRatio);
 }
 
 void DropCloud::Init()
 {
 	OnLoadParam(GetComponent<Parameter>().Load());
 
-	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject(smfPlayer_)) };
+	GameScene* pGameScene{ GetScene() };
+	wassert(pGameScene && "シーン取得に失敗");
+	if (pGameScene)
+	{
+		perfectTimerUI_ = pGameScene->Instantiate<PerfectTimer>();
+	}
+
+	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
 	if (pSMFPlayer)
 	{
 		Audio& audio{ System().Get<Audio>() };
-		StageLine* pStageLine{ dynamic_cast<StageLine*>(FindGameObject(stageLine_)) };
-		wassert(pStageLine && "ステージラインがシーンに存在しないよ！");
 
-		hAudioBase_ = audio.Load(toneAudioFilePathBase_);
-		hAudioCat_ = audio.Load(playToneAudioFilePath_);
-		hAudioTuba_ = audio.Load(toneAudioFilePathTuba_);
-		hAudioDrum_ = audio.Load(toneAudioFilePathDrum_);
-		hAudioGlocken_ = audio.Load(toneAudioFilePathGlocken_);
-		// ノーツ再生時の音源読み込み && セット
-		/*pSMFPlayer->SetToneAudioHandle(
-			);*/
+		// ミニキャラの読み込み
+		for (int miniCharaType{}; miniCharaType < MINICHARA_MAX; miniCharaType++)
+		{
+			hAudios_[miniCharaType] = audio.Load(toneAudioFilesPath_[miniCharaType]);
+		}
 
 		// ノーツの処理を登録
-		pSMFPlayer->OnNote([this, pSMFPlayer, pStageLine](Note _note)
+		pSMFPlayer->OnNote([this](Note _note)
 			{
-				PlayScene* pPlayScene{ GetScene<PlayScene>() };
-				if (pPlayScene == nullptr)
-				{
-					return;  // プレイシーンが取得できなければ何もしない
-				}
-
-				MiniCharaManager* pMiniCharaManager{ FindGameObject<MiniCharaManager>(miniCharaManager_) };
-				wassert(pMiniCharaManager && "ミニキャラ統括するやつが見つからない");
-				if (pMiniCharaManager == nullptr)
-				{
-					return;  // ミニキャラ統括するやつ取得できなければ何もできない
-				}
-
-				DroppedPresent droppedPresent
-				{
-					.entityId = pPlayScene->Instantiate<PresentSphere>(
-						player_,
-						Transform().GetPosition(),
-						Vector3{ Transform().GetPosition().x, pStageLine->GetPosY(Transform().GetPosition()), Transform().GetPosition().z }),
-					.note = _note,
-					.hTone = INVALID_HANDLE,
-					.toneOffset = 0,
-				};
-
-				CloudLevel level{};
-				float toneRatio{};  // 音階範囲内でのレート
-				switch (_note.channel)
-				{
-				case 0x03:
-					level = CLOUD_LEVEL_START;
-					droppedPresent.hTone = hAudioCat_;
-					droppedPresent.toneOffset = SMF::C4_60_INDEX;
-					break;
-				case 0x01:
-					level = CLOUD_LEVEL_BASE;
-					if (level_ < CLOUD_LEVEL_BASE)
-					{
-						return;
-					}
-					droppedPresent.hTone = hAudioBase_;
-					droppedPresent.toneOffset = 12 * 7;
-					break;
-				case 0x02:
-					level = CLOUD_LEVEL_TUBA;
-					if (level_ < CLOUD_LEVEL_TUBA)
-					{
-						return;
-					}
-					droppedPresent.hTone = hAudioTuba_;
-					droppedPresent.toneOffset = 12 * 7;
-					break;
-				case 0x09:
-					level = CLOUD_LEVEL_DRUM;
-					if (level_ < CLOUD_LEVEL_DRUM)
-					{
-						return;
-					}
-					droppedPresent.hTone = hAudioDrum_;
-					droppedPresent.toneOffset = 12 * 7;
-					break;
-				case 0x06:
-					level = CLOUD_LEVEL_GLOCKEN;
-					if (level_ < CLOUD_LEVEL_GLOCKEN)
-					{
-						return;
-					}
-					droppedPresent.note.playTime = 6.0f;
-					droppedPresent.hTone = hAudioGlocken_;
-					droppedPresent.toneOffset = SMF::C4_60_INDEX + 12 * 0;
-					break;
-				default:
-					return;
-				}
-				droppedPresents_.push_back(droppedPresent);
-
-				if (level == CLOUD_LEVEL_START)
-				{
-					return;  // スタートレベルは音符出さない
-				}
-
-				auto& [toneMin, toneMax]{ pSMFPlayer->GetChannelToToneMinMax(_note.channel) };
-				float ratio
-				{
-					static_cast<float>(_note.noteNumber - toneMin)
-						/ (toneMax - toneMin)
-				};
-
-				pMiniCharaManager->Rap(level, ratio);
+				// 再生時にプレゼントを投下！
+				DropPresent(_note);
 			});
 
 		PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
@@ -201,12 +233,16 @@ void DropCloud::Update()
 
 	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
 	wassert(pSMFPlayer && u8"SMFPlayerが見つからなかった");
+	
 	Player* pPlayer{ FindGameObject<Player>(player_) };
 	wassert(pPlayer && u8"プレイヤーが見つからなかった");
+	
 	StageLine* pStageLine{ FindGameObject<StageLine>(stageLine_) };
 	wassert(pStageLine && u8"ステージラインが見つからなかった");
+	
 	ISpeedController* pSpeedController{ FindGameObject<ISpeedController>(speedController_) };
 	wassert(pSpeedController && u8"スピードコントローラが見つからなかった");
+	
 	MiniCharaManager* pMiniCharaManager{ FindGameObject<MiniCharaManager>(miniCharaManager_) };
 	wassert(pMiniCharaManager && "ミニキャラ統括するやつが見つからない");
 
@@ -247,16 +283,25 @@ void DropCloud::Update()
 		case SpeedType::TooSlow:
 			// 十分ではないがある程度進んでいるならそのスピードに合わせる
 			playRate = velocity.z / playRatioMaxVelocity_;
-			perfectTimer_ -= dt;
+			if (level_ > 0)
+			{
+				perfectTimer_ -= dt;
+			}
 			break;
 		case SpeedType::Good:
 			// 十分スピードがあるなら通常再生
 			playRate = 1.0f;
-			perfectTimer_ += dt;
+			if (level_ < CLOUD_LEVEL_MAX)
+			{
+				perfectTimer_ += dt;
+			}
 			break;
 		case SpeedType::Excissive:
 			// 速すぎるなら止める
-			perfectTimer_ -= dt;
+			if (level_ > 0)
+			{
+				perfectTimer_ -= dt;
+			}
 			playRate = 0.0f;
 			break;
 		default:
@@ -267,17 +312,19 @@ void DropCloud::Update()
 #pragma endregion
 
 #pragma region レベルのアップダウン処理
+	// 1小節の秒数
+	const float BAR_TIME_SEC{ pSMFPlayer->GetQuarterSec() * 4.0f };
+	// 誤差としてレベルアップできる秒数
+	const float SAFE_TIME_SEC{ 0.04f };
+	
 	if (pSMFPlayer)
 	{
-		// 1小節の秒数
-		const float BAR_TIME_SEC{ pSMFPlayer->GetQuarterSec() * 4.0f };
-
 		int currBar{ static_cast<int>(pSMFPlayer->GetPlayTime() / BAR_TIME_SEC) };
 
 		// 1小節の区切り目
 		if (currBar != prevBar_)
 		{
-			if (perfectTimer_ >= BAR_TIME_SEC)
+			if (perfectTimer_ >= BAR_TIME_SEC - SAFE_TIME_SEC)
 			{
 				perfectTimer_ = 0.0f;
 
@@ -312,11 +359,14 @@ void DropCloud::Update()
 	}
 #pragma endregion
 
+#pragma region X座標移動処理
 	Vector3 position{ pPlayer->Transform().GetPosition() };
 	position.z += dropDistanceZ_;
 	position.y = pStageLine->GetPosY(position) + offsetHeight_;
 	Transform().SetPosition(position);
+#pragma endregion
 
+#pragma region 投下したプレゼントの処理
 	for (auto itr = droppedPresents_.begin(); itr != droppedPresents_.end();)
 	{
 		GameObject* pPresentObj{ FindGameObject(itr->entityId) };
@@ -343,6 +393,12 @@ void DropCloud::Update()
 
 		itr++;
 	}
+#pragma endregion
+
+#pragma region パーフェクトタイマの更新
+	PerfectTimer* pPerfectTimerUI{ FindGameObject<PerfectTimer>(perfectTimerUI_) };
+	pPerfectTimerUI->SetRatio(perfectTimer_ / BAR_TIME_SEC);
+#pragma endregion
 }
 
 void DropCloud::Release()

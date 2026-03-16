@@ -5,18 +5,18 @@
 
 struct VS_OUT
 {
-	float4 pos : SV_POSITION; // é ‚ç‚¹ã®ä½ç½®
-	float4 uv : TEXCOORD; // é ‚ç‚¹ã«å¯¾å¿œã™ã‚‹UVåº§æ¨™
-	float4 color : COLOR; // è‰² / æ˜ã‚‹ã•
+	float4 pos : SV_POSITION; // ’¸“_‚ÌˆÊ’u
+	float4 uv : TEXCOORD; // ’¸“_‚É‘Î‰‚·‚éUVÀ•W
+	float4 color : COLOR; // F / –¾‚é‚³
 };
 
-// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€
+// ’¸“_ƒVƒF[ƒ_
 VS_OUT VS(
 	float4 pos : POSITION,
 	float4 normal : NORMAL,
 	float4 uv : TEXCOORD)
 {
-	// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ã«æ¸¡ã™æƒ…å ±
+	// ƒsƒNƒZƒ‹ƒVƒF[ƒ_‚É“n‚·î•ñ
 	VS_OUT outData;
 	
 	outData.pos = mul(pos, matrixWVP);
@@ -32,7 +32,7 @@ VS_OUT VS(
 	return outData;
 }
 
-// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€
+// ƒsƒNƒZƒ‹ƒVƒF[ƒ_
 float4 PS(VS_OUT inData) : SV_TARGET
 {
 	float4 diffuse;
@@ -45,12 +45,7 @@ float4 PS(VS_OUT inData) : SV_TARGET
 	{
 		diffuse = diffuseColor;
 	}
-	float4 color =
-	((diffuse + diffuse) * inData.color)
-	+ diffuse * ambientValue;
+	float4 color = diffuse * inData.color + diffuse * ambientValue;
 	
-	// ä»®
-	color.a = 0.5f;
-
 	return color;
 }

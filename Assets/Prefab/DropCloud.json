@@ -22,11 +22,13 @@
     "playSMFPath": "Sound/entertainer.mid",
     "dropDistanceZ": 100.0,
     "playRatioMaxVelocity": 100.0,
-    "playToneAudioFilePath": "Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3",
-    "toneAudioFilePathBase": "Sound/tone_130.813hz_6s.mp3",
-    "toneAudioFilePathTuba": "Sound/tone_130.813hz_3s(1).mp3",
-    "toneAudioFilePathDrum": "Sound/maou_se_inst_drum1_tom2.mp3",
-    "toneAudioFilePathGlocken": "Sound/meow.mp3",
+    "toneAudioFiles": [
+      "Sound/385892__spacether__262312__steffcaffrey__cat-meow1.mp3",
+      "Sound/tone_130.813hz_6s.mp3",
+      "Sound/tone_130.813hz_3s(1).mp3",
+      "Sound/maou_se_inst_drum1_tom2.mp3",
+      "Sound/meow.mp3"
+    ],
     "toResultSceneTime": 1.0,
     "neededBeatsToLevelUp": 1
   }

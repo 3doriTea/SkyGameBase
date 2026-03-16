@@ -1,0 +1,20 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "PerfectTimer"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "height": 30,
+    "margin": 4,
+    "barBackColor": "cccccc",
+    "barThicknessColor": "000000",
+    "barFillColorNormal": "00ff00",
+    "barFillColorFull": "ffff00"
+  }
+}

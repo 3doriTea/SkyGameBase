@@ -42,9 +42,11 @@
     <ClInclude Include="Source\GameScore.h" />
     <ClInclude Include="Source\PlayScene\CloudLevel.h" />
     <ClInclude Include="Source\PlayScene\Debugger.h" />
+    <ClInclude Include="Source\PlayScene\DragArrowAxis.h" />
     <ClInclude Include="Source\PlayScene\LiftStructure.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
+    <ClInclude Include="Source\PlayScene\UI\DragArrow.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara.h" />
     <ClInclude Include="Source\PlayScene\PlaybackParam.h" />
     <ClInclude Include="Source\PlayScene\GoalGround.h" />
@@ -62,12 +64,14 @@
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniCharaManager.h" />
+    <ClInclude Include="Source\PlayScene\UI\MiniCharaType.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\IMiniCharaState.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaBase3.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaGlocken.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaMonkitty.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaTubar.h" />
     <ClInclude Include="Source\PlayScene\UI\Orb.h" />
+    <ClInclude Include="Source\PlayScene\UI\PerfectTimer.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMessage.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
     <ClInclude Include="Source\PostProcessingEffect\Twist.h" />
@@ -102,6 +106,7 @@
     <ClInclude Include="Source\UI\IVisual.h" />
     <ClInclude Include="Source\UI\ScalingCue.h" />
     <ClInclude Include="Source\UI\VisualSequence.h" />
+    <ClInclude Include="wtgb\CoreType\ExtJson\Color.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h" />
     <ClInclude Include="wtgb\CoreType\RectInt.h" />
@@ -346,6 +351,7 @@
     <ClCompile Include="Source\PlayScene\ControlUI.cpp" />
     <ClCompile Include="Source\PlayScene\Debugger.cpp" />
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
+    <ClCompile Include="Source\PlayScene\DragArrowAxis.cpp" />
     <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
     <ClCompile Include="Source\PlayScene\GoalGround.cpp" />
     <ClCompile Include="Source\PlayScene\LiftStructure.cpp" />
@@ -354,6 +360,7 @@
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRope.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRopeMesh.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\DragArrow.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara.cpp" />
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
     <ClCompile Include="Source\PlayScene\State\PlayState.cpp" />
@@ -365,6 +372,7 @@
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaMonkitty.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaTubar.cpp" />
     <ClCompile Include="Source\PlayScene\UI\Orb.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\PerfectTimer.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMessage.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
     <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp" />
@@ -499,11 +507,13 @@
     <None Include="Assets\Prefab\PlayState.json" />
     <None Include="Assets\Prefab\Play\BallSphere.json" />
     <None Include="Assets\Prefab\Play\CameraController.json" />
+    <None Include="Assets\Prefab\Play\DragArrow.json" />
     <None Include="Assets\Prefab\Play\GoalGround.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />
     <None Include="Assets\Prefab\Play\UI\MiniCharaManager.json" />
     <None Include="Assets\Prefab\Play\UI\Orb.json" />
+    <None Include="Assets\Prefab\Play\UI\PerfectTimer.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMessage.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
     <None Include="Assets\Prefab\Result\ResultPanel.json" />
@@ -743,6 +753,12 @@
       <Command>
       </Command>
     </PreBuildEvent>
+    <FxCompile>
+      <EntryPointName>VS</EntryPointName>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -774,6 +790,12 @@
       <Command>
       </Command>
     </PreBuildEvent>
+    <FxCompile>
+      <EntryPointName>VS</EntryPointName>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -803,6 +825,12 @@
       <Command>
       </Command>
     </PreBuildEvent>
+    <FxCompile>
+      <EntryPointName>VS</EntryPointName>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -834,6 +862,12 @@
       <Command>
       </Command>
     </PreBuildEvent>
+    <FxCompile>
+      <EntryPointName>VS</EntryPointName>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

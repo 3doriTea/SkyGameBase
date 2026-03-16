@@ -22,7 +22,7 @@ public:
 	void End(GameObjectReference _ref) override;
 
 private:
-	Vector2Int previous_;  // 前回のマウス座標
+	Vector2Int previous_;   // 前回のマウス座標
 	Vector2Int diffValue_;  // 全体的な移動差分
 
 	float angleX_;  // x軸の回転角度

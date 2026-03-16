@@ -24,6 +24,9 @@
 #include "UI/MiniCharaManager.h"
 
 #include "Debugger.h"
+#include "DragArrowAxis.h"
+#include "UI/DragArrow.h"
+
 
 PlayScene::PlayScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) },
@@ -49,6 +52,7 @@ void PlayScene::Start()
 	Instantiate<ControlUI>();
 	Instantiate<CountDown>();
 
+
 	EntityId stageLine{ Instantiate<StageLine>() };
 
 	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
@@ -59,8 +63,10 @@ void PlayScene::Start()
 
 	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
 	Instantiate<StageObjectManager>(stageLine, player, playState);
-	Instantiate<CameraController>();
-	
+	EntityId dragArrowAxis{ Instantiate<DragArrowAxis>(player) };
+	Instantiate<DragArrow>(dragArrowAxis);
+	Instantiate<CameraController>(dragArrowAxis);
+
 	EntityId miniCharaManager{ Instantiate<MiniCharaManager>(smfPlayer) };
 
 	EntityId speedController{ Instantiate<SpeedController>(player) };
