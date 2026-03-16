@@ -42,9 +42,11 @@
     <ClInclude Include="Source\GameScore.h" />
     <ClInclude Include="Source\PlayScene\CloudLevel.h" />
     <ClInclude Include="Source\PlayScene\Debugger.h" />
+    <ClInclude Include="Source\PlayScene\DragArrowAxis.h" />
     <ClInclude Include="Source\PlayScene\LiftStructure.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
+    <ClInclude Include="Source\PlayScene\UI\DragArrow.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara.h" />
     <ClInclude Include="Source\PlayScene\PlaybackParam.h" />
     <ClInclude Include="Source\PlayScene\GoalGround.h" />
@@ -346,6 +348,7 @@
     <ClCompile Include="Source\PlayScene\ControlUI.cpp" />
     <ClCompile Include="Source\PlayScene\Debugger.cpp" />
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
+    <ClCompile Include="Source\PlayScene\DragArrowAxis.cpp" />
     <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
     <ClCompile Include="Source\PlayScene\GoalGround.cpp" />
     <ClCompile Include="Source\PlayScene\LiftStructure.cpp" />
@@ -354,6 +357,7 @@
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRope.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRopeMesh.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\DragArrow.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara.cpp" />
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
     <ClCompile Include="Source\PlayScene\State\PlayState.cpp" />
@@ -499,6 +503,7 @@
     <None Include="Assets\Prefab\PlayState.json" />
     <None Include="Assets\Prefab\Play\BallSphere.json" />
     <None Include="Assets\Prefab\Play\CameraController.json" />
+    <None Include="Assets\Prefab\Play\DragArrow.json" />
     <None Include="Assets\Prefab\Play\GoalGround.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />

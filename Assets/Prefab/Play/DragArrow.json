@@ -1,7 +1,7 @@
 {
   "Component": {
     "GameObjectProperty": {
-      "name": "GoalGround"
+      "name": "DragArrow"
     },
     "Transform": {
       "position": [ 0, 0, 0 ],
@@ -9,13 +9,13 @@
       "scale": [ 1, 1, 1 ]
     },
     "ModelMesh": {
-      "fileName": "Models/GoalPole/GoalPole.fbx"
+      "fileName": "Models/DragArrow/DragArrow.fbx"
     },
     "MeshRenderer": {
-      "shader": "Shader/Simple3D.hlsl"
+      "shader": "Shader/BillBoard.hlsl",
+      "texture": "Models/DragArrow/Arrow.png"
     }
   },
   "Param": {
-    "targetName": "Player"
   }
 }

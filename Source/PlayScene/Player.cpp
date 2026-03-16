@@ -6,6 +6,9 @@
 #include "SpeedController.h"
 #include "BallSphere.h"
 
+#include "DragArrowAxis.h"
+#include "UI/DragArrow.h"
+
 
 using namespace wtgb;
 
@@ -35,6 +38,9 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 
 	// 乗るためのボールを出現させる
 	pPlayScene->Instantiate<BallSphere>(GetEntityId());
+
+	pPlayScene->Instantiate<DragArrowAxis>(GetEntityId());
+	pPlayScene->Instantiate<DragArrow>(GetEntityId());
 }
 
 Player::~Player()
