@@ -5,34 +5,34 @@
 
 struct VS_OUT
 {
-	float4 pos : SV_POSITION; // ’¸“_‚ÌˆÊ’u
-	float4 uv : TEXCOORD; // ’¸“_‚É‘Î‰‚·‚éUVÀ•W
-	float4 color : COLOR; // F / –¾‚é‚³
+	float4 pos : SV_POSITION; // é ‚ç‚¹ã®ä½ç½®
+	float4 uv : TEXCOORD; // é ‚ç‚¹ã«å¯¾å¿œã™ã‚‹UVåº§æ¨™
+	float4 color : COLOR; // è‰² / æ˜ã‚‹ã•
 };
 
-// ’¸“_ƒVƒF[ƒ_
+// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€
 VS_OUT VS(
-    float4 pos : POSITION,
-    float4 normal : NORMAL,
-    float4 uv : TEXCOORD)
+	float4 pos : POSITION,
+	float4 normal : NORMAL,
+	float4 uv : TEXCOORD)
 {
-    // ƒsƒNƒZƒ‹ƒVƒF[ƒ_‚É“n‚·î•ñ
+	// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ã«æ¸¡ã™æƒ…å ±
 	VS_OUT outData;
-    
+	
 	outData.pos = mul(pos, matrixWVP);
 	outData.uv = mul(uv, matrixUV);
-    
+	
 	float4 light = normalize(lightDirection);
-    
+	
 	normal = mul(normal, matrixRotateWorld);
 	normal.w = 0;
-    
+	
 	outData.color = saturate(dot(normal, light));
-    
+	
 	return outData;
 }
 
-// ƒsƒNƒZƒ‹ƒVƒF[ƒ_
+// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€
 float4 PS(VS_OUT inData) : SV_TARGET
 {
 	float4 diffuse;
@@ -45,10 +45,12 @@ float4 PS(VS_OUT inData) : SV_TARGET
 	{
 		diffuse = diffuseColor;
 	}
-	float4 color = diffuse * inData.color + diffuse * ambientValue;
+	float4 color =
+	((diffuse + diffuse) * inData.color)
+	+ diffuse * ambientValue;
 	
-	// ‰¼
-	color.a = 0.3f;
+	// ä»®
+	color.a = 0.5f;
 
 	return color;
 }
