@@ -25,8 +25,8 @@ public:
 
 private:
 	float ratio_;   // パーフェクトタイマレート
-	float height_;  // バーの高さ
-	float margin_;  // マージン
+	int height_;  // バーの高さ
+	int margin_;  // マージン
 
 	struct
 	{

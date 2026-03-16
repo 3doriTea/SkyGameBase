@@ -20,21 +20,20 @@ void PerfectTimer::Update()
 	const Canvas::Context& CONTEXT{ System().Get<Canvas>().GetContext() };
 	const Vector2Int SCREEN_SIZE{ System().Get<GameWindow>().GetMainWindowSize() };
 
-
 	UI::LayoutConfig config{};
 	CONTEXT.SetRefLayout(&config);
 
 #pragma region ゲージの縁
 	config
-		.position(Vector2Int::Zero())
-		.scale({ static_cast<float>(SCREEN_SIZE.x), height_ });
+		.position(Vector2Int{ 0, SCREEN_SIZE.y - height_ })
+		.scale(SCREEN_SIZE);
 	CONTEXT.DrawBox(bar_.thicknessColor);
 #pragma endregion
 
 #pragma region ゲージの背景
 	config
-		.position(Vector2Int::Zero())
-		.scale({ static_cast<float>(SCREEN_SIZE.x), height_ - margin_ });
+		.position(Vector2Int{ 0, SCREEN_SIZE.y - height_ + margin_ })
+		.scale(SCREEN_SIZE);
 	CONTEXT.DrawBox(bar_.backColor);
 #pragma endregion
 
@@ -42,13 +41,13 @@ void PerfectTimer::Update()
 	Color fillColor{ ratio_ < 1.0f ? bar_.fillColorNormal : bar_.fillColorFull };
 	
 	config
-		.position(Vector2Int::Zero())
-		.scale({ (SCREEN_SIZE.x * 0.5f) * ratio_, height_ - margin_ });
+		.position(Vector2{ 0.0f, static_cast<float>(SCREEN_SIZE.y - height_ + margin_) })
+		.scale(Vector2{ (SCREEN_SIZE.x * 0.5f) * ratio_, static_cast<float>(SCREEN_SIZE.y) });
 	CONTEXT.DrawBox(fillColor);
 
 	config
-		.position({ SCREEN_SIZE.x - SCREEN_SIZE.x * 0.5f * ratio_, 0.0f })
-		.scale({ (SCREEN_SIZE.x * 0.5f) * ratio_, height_ - margin_ });
+		.position(Vector2{ SCREEN_SIZE.x - SCREEN_SIZE.x * 0.5f * ratio_, static_cast<float>(SCREEN_SIZE.y - height_ + margin_) })
+		.scale({ (SCREEN_SIZE.x * 0.5f) * ratio_, static_cast<float>(SCREEN_SIZE.y) });
 	CONTEXT.DrawBox(fillColor);
 #pragma endregion
 }
@@ -64,8 +63,8 @@ void PerfectTimer::SetRatio(const float _ratio)
 
 void PerfectTimer::OnLoad(const json& _json)
 {
-	height_ = SafeGet<float>(_json, "height");
-	margin_ = SafeGet<float>(_json, "margin");
+	height_ = SafeGet<int>(_json, "height");
+	margin_ = SafeGet<int>(_json, "margin");
 
 	bar_.backColor = SafeGet<Color>(_json, "barBackColor");
 	bar_.thicknessColor = SafeGet<Color>(_json, "barThicknessColor");
