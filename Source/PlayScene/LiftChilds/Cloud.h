@@ -19,6 +19,7 @@ private:
 	void OnLoad(const json& _json);
 
 private:
+	EntityId parentLift_;  // くっつく椅子
 	Vector3 randomBegin_;  // ランダム範囲開始点
 	Vector3 randomEnd_;    // ランダム範囲終了点
 };

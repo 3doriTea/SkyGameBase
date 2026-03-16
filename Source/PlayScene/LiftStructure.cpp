@@ -238,7 +238,7 @@ void LiftStructure::GenerateChairs()
 					totalLength_)
 			};
 
-			pPlayScene->Instantiate<Cloud>(liftChair);
+			//pPlayScene->Instantiate<Cloud>(liftChair);
 		}
 
 	}

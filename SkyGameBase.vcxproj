@@ -43,6 +43,7 @@
     <ClInclude Include="Source\PlayScene\CloudLevel.h" />
     <ClInclude Include="Source\PlayScene\Debugger.h" />
     <ClInclude Include="Source\PlayScene\DragArrowAxis.h" />
+    <ClInclude Include="Source\PlayScene\LiftChilds\Cloud.h" />
     <ClInclude Include="Source\PlayScene\LiftStructure.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
@@ -354,6 +355,7 @@
     <ClCompile Include="Source\PlayScene\DragArrowAxis.cpp" />
     <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
     <ClCompile Include="Source\PlayScene\GoalGround.cpp" />
+    <ClCompile Include="Source\PlayScene\LiftChilds\Cloud.cpp" />
     <ClCompile Include="Source\PlayScene\LiftStructure.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftChair.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftLoop.cpp" />

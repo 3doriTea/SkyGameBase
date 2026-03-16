@@ -1,10 +1,9 @@
 #include "Cloud.h"
 
 Cloud::Cloud(const EntityId _parentLift) :
-	GameObject{ "Play/LiftChilds/Cloud.json" }
+	GameObject{ "Play/LiftChilds/Cloud.json" },
+	parentLift_{ _parentLift }
 {
-	// 指定のリフト座席に固定される
-	Property().SetParent(_parentLift);
 }
 
 Cloud::~Cloud()
@@ -13,6 +12,8 @@ Cloud::~Cloud()
 
 void Cloud::Init()
 {
+	// 指定のリフト座席に固定される
+	Property().SetParent(parentLift_);
 }
 
 void Cloud::Update()
