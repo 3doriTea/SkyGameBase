@@ -106,7 +106,7 @@ void SMFPlayer::Init()
 		uint8_t prevStatus{};  // ランニングステータス用
 		size_t endOfTruckPos{ br.Current() + headerSize };
 
-		TruckGenerator truckGen{ smfTrucks_.at(truckId), smfHeader_ };
+		TruckGenerator truckGen{ smfTrucks_.at(truckId), smfHeader_, channelToToneMinMax_ };
 
 		bool endOfTruckFlag{ false };
 		while (br.Current() < endOfTruckPos && !endOfTruckFlag)
@@ -479,6 +479,35 @@ void SMFPlayer::TruckGenerator::SetTempo(const uint32_t _value)
 
 void SMFPlayer::TruckGenerator::On(const uint8_t _channel, const uint8_t _note, const uint8_t _velocity)
 {
+	if (_note > truck_.toneMax)
+	{
+		// 最大トーン更新
+		truck_.toneMax = _note;
+	}
+	if (_note < truck_.toneMin)
+	{
+		// 最小トーン更新
+		truck_.toneMin = _note;
+	}
+
+	if (!channelToToneMinMax_.contains(_channel))
+	{
+		// チャンネルが含まれていないなら追加
+		channelToToneMinMax_.insert({ _channel, { UINT8_MAX, 0x00 } });
+	}
+
+	auto& [toneMin, toneMax]{ channelToToneMinMax_[_channel] };
+	if (_note > toneMax)
+	{
+		// 最大トーン更新
+		toneMax = _note;
+	}
+	if (_note < toneMin)
+	{
+		// 最小トーン更新
+		toneMin = _note;
+	}
+
 	LOGFLN("currentTime={}", currentTime_);
 	truck_.notes.push_back(
 		{

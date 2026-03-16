@@ -1,26 +1,24 @@
 #include "MiniChara.h"
-#include "SMF/SMFPlayer.h"
+#include "Orb.h"
 #include "MiniChara/MiniCharaBase3.h"
 #include "MiniChara/MiniCharaTubar.h"
 #include "MiniChara/MiniCharaMonkitty.h"
 #include "MiniChara/MiniCharaGlocken.h"
 
 
-MiniChara::MiniChara(
-	const EntityId _dropCloud,
-	const EntityId _smfPlayer,
-	const MiniCharaType _type) :
+MiniChara::MiniChara(const EntityId _miniCharaManager, const Config& _config) :
 	GameObject{ "Play/UI/MiniChara.json" },
-	dropCloud_{ _dropCloud },
+	manager_{ _miniCharaManager },
 	hImage_{ INVALID_HANDLE },
 	imageSize_{ Vector2Int::Zero() },
 	animTimeLeft_{},
-	smfPlayer_{ _smfPlayer },
 	scale_{ 0.5f },
 	pMiniCharaState_{},
-	totalAnimTime_{}
+	config_{ _config },
+	moveTimeLeft_{},
+	drawPosition_{ _config.beginPosition }
 {
-	switch (_type)
+	switch (config_.type)
 	{
 		case MiniCharaType::Base3:
 			pMiniCharaState_ = std::make_unique<MiniCharaBase3>();
@@ -50,14 +48,7 @@ void MiniChara::OnLoadParam(const json& _json)
 
 void MiniChara::Init()
 {
-	//OnLoadParam(GetComponent<Parameter>().Load());
-
-	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
-	if (pSMFPlayer)
-	{
-		totalAnimTime_ = pSMFPlayer->GetQuarterSec();
-	}
-	assert(totalAnimTime_ > 0 && "feild to get total anim time");
+	assert(config_.totalAnimTime > 0 && "feild to get total anim time");
 
 	pMiniCharaState_.get()->Init(*this);
 }
@@ -65,12 +56,56 @@ void MiniChara::Init()
 void MiniChara::Update()
 {
 	const float DT{ System().Get<GameTime>().GetDeltaTime() };
+
+	if (moveTimeLeft_ > 0.0f)
+	{
+		moveTimeLeft_ -= DT;
+		wassert(config_.moveTime > FLT_EPSILON && "ゼロ除算するな！");
+		Vector2 position
+		{
+			Mathf::Lerp(
+				fromPos_,
+				targetPos_,
+				Ease::OutElastic(1.0f - (moveTimeLeft_ / config_.moveTime)))
+		};
+		drawPosition_ = { static_cast<int>(position.x), static_cast<int>(position.y) };
+	}
 	
 	animTimeLeft_ -= DT;
 	if (animTimeLeft_ <= 0.0f)
 	{
-		animTimeLeft_ += totalAnimTime_;
+		animTimeLeft_ += config_.totalAnimTime;
 	}
 
 	pMiniCharaState_.get()->Update(*this);
+}
+
+void MiniChara::MoveAt(const Vector2Int _position)
+{
+	moveTimeLeft_ = config_.moveTime;
+	fromPos_ = drawPosition_;
+	targetPos_ = _position;
+}
+
+void MiniChara::Rap(const float _ratioX)
+{
+	GameScene* pGameScene{ GetScene() };
+	wassert(pGameScene && "シーン取得に失敗");
+	const Vector2Int SCREEN_SIZE
+	{
+		System().Get<GameWindow>().GetMainWindowSize()
+	};
+
+	if (pGameScene)
+	{
+		Vector2Int from{ drawPosition_ + imageSize_ / 2 };
+		Vector2Int to{ static_cast<int>(SCREEN_SIZE.x * _ratioX), 0 };
+
+		// オーブをインスタンスする
+		pGameScene->Instantiate<Orb>(
+			from,
+			to,
+			config_.orbMoveTime,
+			OrbType::Div4);
+	}
 }

@@ -1,7 +1,7 @@
 {
   "Component": {
     "GameObjectProperty": {
-      "name": "MiniChara"
+      "name": "Orb"
     },
     "Transform": {
       "position": [ 0, 0, 0 ],
@@ -10,5 +10,12 @@
     }
   },
   "Param": {
+    "imageFilesPath": [
+      "Image/Orb/Div4.png",
+      "Image/Orb/Div8.png",
+      "Image/Orb/Div8x2.png",
+      "Image/Orb/Div16x2.png"
+    ],
+      "scalingTime": 0.1
   }
 }

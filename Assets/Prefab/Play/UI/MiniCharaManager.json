@@ -1,7 +1,7 @@
 {
   "Component": {
     "GameObjectProperty": {
-      "name": "MiniChara"
+      "name": "MiniCharaManager"
     },
     "Transform": {
       "position": [ 0, 0, 0 ],
@@ -10,5 +10,8 @@
     }
   },
   "Param": {
+    "imageScale": 0.5,
+    "imageSize": [ 300, 400 ],
+    "orbMoveTime": 1.0
   }
 }

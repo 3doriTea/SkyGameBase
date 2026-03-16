@@ -1,7 +1,7 @@
 {
   "Component": {
     "GameObjectProperty": {
-      "name": "MiniChara"
+      "name": "LiftStructure"
     },
     "Transform": {
       "position": [ 0, 0, 0 ],
@@ -10,5 +10,10 @@
     }
   },
   "Param": {
+    "ropeSpasing": 20.0,
+    "chairsCount": 30,
+    "poleDistance": 100.0,
+    "ropeHeight": 20.0,
+    "ropeWidth": 2.0
   }
 }

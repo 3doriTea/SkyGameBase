@@ -35,11 +35,12 @@ namespace wtgb
 		/// <param name="..._args">可変長引数</param>
 		/// <returns>インスタンスされたゲームオブジェクトの ptr / nullptr</returns>
 		template<typename T, typename ...Args>
-		EntityId Instantiate(Args... _args)
+		requires std::constructible_from<T, Args...>
+		EntityId Instantiate(Args&&... _args)
 		{
 			EntityId entityId{ cachedSystem_.Get<ComponentManager>().GenerateEntity() };
 			// NOTE: new するとゲームオブジェクトは自ら自動でプールに追加される
-			GameObject* pGameObject{ new T{ _args... } };
+			GameObject* pGameObject{ new T{ std::forward<Args>(_args)... } };
 
 			pGameObject->Init();  // 初期化はすぐ呼ぶ
 

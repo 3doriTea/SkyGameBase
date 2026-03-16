@@ -18,6 +18,8 @@ namespace wtgb
 			SETTER_PARAM(std::string, shader)
 			SETTER_PARAM(std::string, texture)
 			SETTER_PARAM(TextureConfig, textureConfig)
+			SETTER_PARAM(D3D11_CULL_MODE, cullMode)
+			SETTER_PARAM(D3D11_FILL_MODE, fillMode)
 		};
 
 	public:	
@@ -30,6 +32,8 @@ namespace wtgb
 	private:
 		std::string shader_;
 		std::string texture_;
+		D3D11_CULL_MODE cullMode_;  // カリングモード
+		D3D11_FILL_MODE fillMode_;  // 塗りつぶしモード
 
 		ShaderHandle  hShader_;
 		TextureHandle hTexture_;

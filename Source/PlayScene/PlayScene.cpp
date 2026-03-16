@@ -10,7 +10,7 @@
 #include "TestBillBoard.h"
 #include "StageObjectManager.h"
 #include "ControlUI.h"
-#include "Lift/Lift.h"
+#include "LiftStructure.h"
 #include "SkySphere.h"
 
 #include "SMF/SMFPlayer.h"
@@ -21,6 +21,7 @@
 
 #include "Utility/Mathf.h"
 #include "UI/MiniChara.h"
+#include "UI/MiniCharaManager.h"
 
 #include "Debugger.h"
 
@@ -52,23 +53,25 @@ void PlayScene::Start()
 
 	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
 
-	// TODO: ステージライン作ったらリフト作る
-	Instantiate<Lift>(stageLine);
+	Instantiate<LiftStructure>(stageLine, 10.0f);
 	
 	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
 
 	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
 	Instantiate<StageObjectManager>(stageLine, player, playState);
 	Instantiate<CameraController>();
+	
+	EntityId miniCharaManager{ Instantiate<MiniCharaManager>(smfPlayer) };
 
 	EntityId speedController{ Instantiate<SpeedController>(player) };
-	EntityId dropCloud{ Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController) };
+	EntityId dropCloud{ Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController, miniCharaManager) };
 
 	Instantiate<SpeedMessage>(speedController);
 
 	Instantiate<SkySphere>();
 	
-	Instantiate<MiniChara>(dropCloud, smfPlayer, MiniCharaType::Monkitty);
+	// TODO: お試し↓
+	//Instantiate<MiniChara>(dropCloud, smfPlayer, MiniCharaType::Monkitty);
 
 	// TODO: 当たったら倒れる看板を作る
 }
@@ -85,7 +88,9 @@ void PlayScene::Update()
 		System().Get<SceneManager>().Move<PlayScene>();
 	}
 
-	if (input.IsKeyDown(KeyCode::Escape))
+	// 左コントロール押しながらエスケープでゲームを閉じる
+	if (input.IsKeyDown(KeyCode::Escape)
+		&& input.IsKey(KeyCode::LeftControl))
 	{
 		Game::Exit();
 	}

@@ -7,7 +7,7 @@
 class LiftLoop : public GameObject
 {
 public:
-	LiftLoop(const Vector3& _position, const EntityId _lift);
+	LiftLoop(const Vector3& _position, const EntityId _structure);
 	~LiftLoop() {}
 
 	void Init() override {}
@@ -15,5 +15,5 @@ public:
 	void Release() override {}
 
 private:
-	EntityId lift_;
+	EntityId structure_;
 };

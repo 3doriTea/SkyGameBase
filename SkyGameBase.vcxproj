@@ -40,7 +40,11 @@
     <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
     <ClInclude Include="Source\GameScore.h" />
+    <ClInclude Include="Source\PlayScene\CloudLevel.h" />
     <ClInclude Include="Source\PlayScene\Debugger.h" />
+    <ClInclude Include="Source\PlayScene\LiftStructure.h" />
+    <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
+    <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara.h" />
     <ClInclude Include="Source\PlayScene\PlaybackParam.h" />
     <ClInclude Include="Source\PlayScene\GoalGround.h" />
@@ -50,7 +54,6 @@
     <ClInclude Include="Source\PlayScene\CharaEgg.h" />
     <ClInclude Include="Source\PlayScene\ControlUI.h" />
     <ClInclude Include="Source\PlayScene\ISpeedController.h" />
-    <ClInclude Include="Source\PlayScene\Lift\Lift.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftChair.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftLoop.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftPole.h" />
@@ -58,11 +61,13 @@
     <ClInclude Include="Source\PlayScene\State\PlayState.h" />
     <ClInclude Include="Source\PlayScene\PresentSphere.h" />
     <ClInclude Include="Source\PlayScene\SpeedController.h" />
+    <ClInclude Include="Source\PlayScene\UI\MiniCharaManager.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\IMiniCharaState.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaBase3.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaGlocken.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaMonkitty.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaTubar.h" />
+    <ClInclude Include="Source\PlayScene\UI\Orb.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMessage.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
     <ClInclude Include="Source\PostProcessingEffect\Twist.h" />
@@ -343,19 +348,23 @@
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
     <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
     <ClCompile Include="Source\PlayScene\GoalGround.cpp" />
-    <ClCompile Include="Source\PlayScene\Lift\Lift.cpp" />
+    <ClCompile Include="Source\PlayScene\LiftStructure.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftChair.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftLoop.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
+    <ClCompile Include="Source\PlayScene\Lift\LiftRope.cpp" />
+    <ClCompile Include="Source\PlayScene\Lift\LiftRopeMesh.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara.cpp" />
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
     <ClCompile Include="Source\PlayScene\State\PlayState.cpp" />
     <ClCompile Include="Source\PlayScene\PresentSphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpeedController.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\MiniCharaManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaBase3.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaGlocken.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaMonkitty.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaTubar.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\Orb.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMessage.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
     <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp" />
@@ -483,6 +492,7 @@
     <None Include="Assets\Prefab\CharaEgg.json" />
     <None Include="Assets\Prefab\CountDown.json" />
     <None Include="Assets\Prefab\DropCloud.json" />
+    <None Include="Assets\Prefab\LiftStructure.json" />
     <None Include="Assets\Prefab\MapView.json" />
     <None Include="Assets\Prefab\MusicPlayer.json" />
     <None Include="Assets\Prefab\Player.json" />
@@ -492,6 +502,8 @@
     <None Include="Assets\Prefab\Play\GoalGround.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />
+    <None Include="Assets\Prefab\Play\UI\MiniCharaManager.json" />
+    <None Include="Assets\Prefab\Play\UI\Orb.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMessage.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
     <None Include="Assets\Prefab\Result\ResultPanel.json" />
@@ -565,6 +577,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\LiftRope.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
     </FxCompile>

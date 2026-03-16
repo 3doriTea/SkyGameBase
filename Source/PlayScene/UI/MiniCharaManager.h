@@ -1,0 +1,63 @@
+#pragma once
+#include <wtgb.h>
+#include "../CloudLevel.h"
+
+
+/// <summary>
+/// ミニキャラの統一を図る
+/// </summary>
+class MiniCharaManager : public GameObject
+{
+public:
+	MiniCharaManager(const EntityId _smfPlayer);
+	~MiniCharaManager();
+
+	void Init() override;
+	void Update() override;
+	void Release() override;
+
+	/// <summary>
+	/// レベルアップしたときに呼び出してほしい処理
+	/// </summary>
+	/// <param name="_current">現在のレベル</param>
+	void LevelUp(const CloudLevel _current);
+	/// <summary>
+	/// レベルダウンしたときに呼び出してほしい処理
+	/// </summary>
+	/// <param name="_current">現在のレベル</param>
+	void LevelDown(const CloudLevel _current);
+
+	/// <summary>
+	/// ミニキャラが音を出す
+	/// </summary>
+	/// <param name="_level">鳴らす演奏レベル</param>
+	/// <param name="_ratioX">音階をx軸で表したレート</param>
+	void Rap(const CloudLevel _level, const float _ratioX);
+
+	/// <summary>
+	/// ミニキャラのx軸座標を取得する
+	/// </summary>
+	/// <param name="_index">ミニキャラのインデクス</param>
+	/// <returns>ミニキャラのx座標</returns>
+	int GetMiniCharaPositionX(const int _index);
+
+private:
+	void OnLoad(const json& _json);
+	/// <summary>
+	/// 最高レベルを更新したか
+	/// </summary>
+	/// <returns>更新した true / false</returns>
+	bool TryUpdateMaxLevel();
+
+private:
+	EntityId smfPlayer_;       // smf再生するやつ
+
+	CloudLevel currentLevel_;  // 現在の演奏レベル
+	CloudLevel maxLevel_;      // 到達した最高の演奏レベル
+	std::vector<EntityId> miniCharars_;  // 登場しているミニキャラたち
+
+	Vector2Int imageSize_;  // ミニキャラの画像サイズ
+	float iamgeScale_;      // ミニキャラの拡縮
+
+	float orbMoveTime_;     // オーブが上に動く時間
+};

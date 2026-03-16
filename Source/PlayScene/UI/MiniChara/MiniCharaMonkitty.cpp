@@ -20,11 +20,11 @@ void MiniCharaMonkitty::Update(MiniChara& _self)
 {
 	const Canvas::Context& CONTEXT{ _self.System().Get<Canvas>().GetContext() };
 	UI::LayoutConfig config{};
-	config.position(Vector2Int::Zero());
+	config.position(_self.drawPosition_);
 
-	float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.totalAnimTime_) };
+	float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.config_.totalAnimTime) };
 	Vector2Int size{ _self.imageSize_ };
-	size.x += std::sinf(angle) * 10.0f;
+	size.x += static_cast<int>(std::sinf(angle) * 10.0f);
 	config.scale(size);
 	CONTEXT.SetRefLayout(&config);
 	CONTEXT.DrawImage(_self.hImage_, angle);

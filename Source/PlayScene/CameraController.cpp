@@ -42,13 +42,13 @@ void CameraController::Update()
 	switch (mode_)
 	{
 	case CameraController::Mode::Free:
-		if (input.IsKeyDown(KeyCode::R))
+		if (input.IsKeyDown(KeyCode::C))
 		{
 			SetMode(Mode::Play);
 		}
 		break;
 	case CameraController::Mode::Play:
-		if (input.IsKeyDown(KeyCode::R))
+		if (input.IsKeyDown(KeyCode::C))
 		{
 			Vector3 rotation{ Transform().GetRotation() };
 			rotation.z = 0.0f;

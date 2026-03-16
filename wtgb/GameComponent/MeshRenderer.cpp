@@ -9,7 +9,9 @@ wtgb::MeshRenderer::MeshRenderer() :
 	hShader_{ INVALID_HANDLE },
 	hTexture_{ INVALID_HANDLE },
 	texture_{},
-	textureConfig_{}
+	textureConfig_{},
+	fillMode_{ D3D11_FILL_SOLID },
+	cullMode_{ D3D11_CULL_BACK }
 {
 }
 
@@ -34,8 +36,8 @@ void wtgb::MeshRenderer::Init(ViewerCached _system)
 				{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },     // 法線ベクトル
 				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },      // UV座標
 			},
-			.fillMode = D3D11_FILL_SOLID,  // 塗りつぶし
-			.cullMode = D3D11_CULL_BACK,   // 隠面消去
+			.fillMode = fillMode_,  // 塗りつぶし
+			.cullMode = cullMode_,   // 隠面消去
 			//.cullMode = D3D11_CULL_NONE,   // 隠面消去
 			.backIsClockwise = false,
 		});
