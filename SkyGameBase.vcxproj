@@ -71,6 +71,7 @@
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaMonkitty.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara\MiniCharaTubar.h" />
     <ClInclude Include="Source\PlayScene\UI\Orb.h" />
+    <ClInclude Include="Source\PlayScene\UI\PerfectTimer.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMessage.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
     <ClInclude Include="Source\PostProcessingEffect\Twist.h" />
@@ -370,6 +371,7 @@
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaMonkitty.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara\MiniCharaTubar.cpp" />
     <ClCompile Include="Source\PlayScene\UI\Orb.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\PerfectTimer.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMessage.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
     <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp" />
@@ -510,6 +512,7 @@
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />
     <None Include="Assets\Prefab\Play\UI\MiniCharaManager.json" />
     <None Include="Assets\Prefab\Play\UI\Orb.json" />
+    <None Include="Assets\Prefab\Play\UI\PerfectTimer.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMessage.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
     <None Include="Assets\Prefab\Result\ResultPanel.json" />

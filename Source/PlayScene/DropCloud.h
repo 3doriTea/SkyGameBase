@@ -92,4 +92,6 @@ private:
 	CloudLevel level_;    // うまく演奏していると上がるレベル
 	float perfectTimer_;  // ノーミスの秒数
 	int prevBar_;         // 前のフレームでの小節
+
+	EntityId perfectTimerUI_;  // 完璧継続を表示するUI
 };

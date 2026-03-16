@@ -12,6 +12,7 @@
 #include "ISpeedController.h"
 #include "SMF/ToneHz.h"
 #include "UI/MiniCharaManager.h"
+#include "UI/PerfectTimer.h"
 
 
 DropCloud::DropCloud(
@@ -175,6 +176,13 @@ void DropCloud::Init()
 {
 	OnLoadParam(GetComponent<Parameter>().Load());
 
+	GameScene* pGameScene{ GetScene() };
+	wassert(pGameScene && "シーン取得に失敗");
+	if (pGameScene)
+	{
+		perfectTimerUI_ = pGameScene->Instantiate<PerfectTimer>();
+	}
+
 	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
 	if (pSMFPlayer)
 	{
@@ -304,17 +312,19 @@ void DropCloud::Update()
 #pragma endregion
 
 #pragma region レベルのアップダウン処理
+	// 1小節の秒数
+	const float BAR_TIME_SEC{ pSMFPlayer->GetQuarterSec() * 4.0f };
+	// 誤差としてレベルアップできる秒数
+	const float SAFE_TIME_SEC{ 0.04f };
+	
 	if (pSMFPlayer)
 	{
-		// 1小節の秒数
-		const float BAR_TIME_SEC{ pSMFPlayer->GetQuarterSec() * 4.0f };
-
 		int currBar{ static_cast<int>(pSMFPlayer->GetPlayTime() / BAR_TIME_SEC) };
 
 		// 1小節の区切り目
 		if (currBar != prevBar_)
 		{
-			if (perfectTimer_ >= BAR_TIME_SEC)
+			if (perfectTimer_ >= BAR_TIME_SEC - SAFE_TIME_SEC)
 			{
 				perfectTimer_ = 0.0f;
 
@@ -383,6 +393,11 @@ void DropCloud::Update()
 
 		itr++;
 	}
+#pragma endregion
+
+#pragma region パーフェクトタイマの更新
+	PerfectTimer* pPerfectTimerUI{ FindGameObject<PerfectTimer>(perfectTimerUI_) };
+	pPerfectTimerUI->SetRatio(perfectTimer_ / BAR_TIME_SEC);
 #pragma endregion
 }
 
