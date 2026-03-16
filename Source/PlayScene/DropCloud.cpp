@@ -77,37 +77,16 @@ void DropCloud::DropPresent(const Note _note)
 		return;  // 参照できないものがあれば何もできない
 	}
 
-	// プレゼントの出現座標
-	Vector3 fromPosition{ Transform().GetPosition() };
-
-	auto& [toneMin, toneMax] { pSMFPlayer->GetChannelToToneMinMax(_note.channel) };
-	// プレゼントを投下する音階範囲内でのレート
-	float toneRatio
-	{
-		static_cast<float>(_note.noteNumber - toneMin)
-			/ (toneMax - toneMin)
-	};
-
-	fromPosition.x = Mathf::Lerp(
-		worldConfig.safeZoneXMin,
-		worldConfig.safeZoneXMax,
-		toneRatio);
-
-	// プレゼントの投下地点の座標
-	Vector3 toPosition{ fromPosition.x, pStageLine->GetPosY(fromPosition), fromPosition.z };
-
 	// プレゼント
 	DroppedPresent droppedPresent
 	{
-		.entityId = pPlayScene->Instantiate<PresentSphere>(
-			player_,
-			fromPosition,
-			toPosition),
+		.entityId = INVALID_ENTITY,
 		.note = _note,
 		.hTone = INVALID_HANDLE,
 		.toneOffset = 0,
 	};
 
+	// 演奏レベルフィルタ
 	CloudLevel level{};
 	switch (_note.channel)
 	{
@@ -156,6 +135,32 @@ void DropCloud::DropPresent(const Note _note)
 	default:
 		return;
 	}
+
+	// プレゼントの出現座標
+	Vector3 fromPosition{ Transform().GetPosition() };
+
+	auto& [toneMin, toneMax] { pSMFPlayer->GetChannelToToneMinMax(_note.channel) };
+	// プレゼントを投下する音階範囲内でのレート
+	float toneRatio
+	{
+		static_cast<float>(_note.noteNumber - toneMin)
+			/ (toneMax - toneMin)
+	};
+
+	fromPosition.x = Mathf::Lerp(
+		worldConfig.safeZoneXMin,
+		worldConfig.safeZoneXMax,
+		toneRatio);
+
+	// プレゼントの投下地点の座標
+	Vector3 toPosition{ fromPosition.x, pStageLine->GetPosY(fromPosition), fromPosition.z };
+
+	// プレゼント生成
+	droppedPresent.entityId = pPlayScene->Instantiate<PresentSphere>(
+		player_,
+		fromPosition,
+		toPosition);
+
 	droppedPresents_.push_back(droppedPresent);
 
 	if (level == CLOUD_LEVEL_START)
@@ -270,16 +275,25 @@ void DropCloud::Update()
 		case SpeedType::TooSlow:
 			// 十分ではないがある程度進んでいるならそのスピードに合わせる
 			playRate = velocity.z / playRatioMaxVelocity_;
-			perfectTimer_ -= dt;
+			if (level_ > 0)
+			{
+				perfectTimer_ -= dt;
+			}
 			break;
 		case SpeedType::Good:
 			// 十分スピードがあるなら通常再生
 			playRate = 1.0f;
-			perfectTimer_ += dt;
+			if (level_ < CLOUD_LEVEL_MAX)
+			{
+				perfectTimer_ += dt;
+			}
 			break;
 		case SpeedType::Excissive:
 			// 速すぎるなら止める
-			perfectTimer_ -= dt;
+			if (level_ > 0)
+			{
+				perfectTimer_ -= dt;
+			}
 			playRate = 0.0f;
 			break;
 		default:
