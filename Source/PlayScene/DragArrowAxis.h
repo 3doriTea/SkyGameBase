@@ -25,4 +25,7 @@ public:
 	/// </summary>
 	/// <param name="_angle">回転角度</param>
 	void SetAngleY(const float _angle);
+
+private:
+	EntityId player_;  // プレイヤーエンティティ
 };

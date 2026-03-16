@@ -1,4 +1,5 @@
 #include "PerfectTimer.h"
+#include "CoreType/ExtJson/Color.h"
 
 PerfectTimer::PerfectTimer() :
 	GameObject{ "Play/UI/PerfectTimer.json" },
@@ -40,11 +41,14 @@ void PerfectTimer::Update()
 #pragma region ゲージを塗っていく
 	Color fillColor{ ratio_ < 1.0f ? bar_.fillColorNormal : bar_.fillColorFull };
 	
+	float leftX{ Mathf::Lerp(0.0f, SCREEN_SIZE.x * 0.5f, ratio_) };
+
 	config
 		.position(Vector2{ 0.0f, static_cast<float>(SCREEN_SIZE.y - height_ + margin_) })
-		.scale(Vector2{ (SCREEN_SIZE.x * 0.5f) * ratio_, static_cast<float>(SCREEN_SIZE.y) });
+		.scale(Vector2{ leftX, static_cast<float>(SCREEN_SIZE.y) });
 	CONTEXT.DrawBox(fillColor);
 
+	//float leftX{ Mathf::Lerp(0.0f, SCREEN_SIZE.x * 0.5f, ratio_) };
 	config
 		.position(Vector2{ SCREEN_SIZE.x - SCREEN_SIZE.x * 0.5f * ratio_, static_cast<float>(SCREEN_SIZE.y - height_ + margin_) })
 		.scale({ (SCREEN_SIZE.x * 0.5f) * ratio_, static_cast<float>(SCREEN_SIZE.y) });

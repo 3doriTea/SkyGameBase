@@ -106,6 +106,7 @@
     <ClInclude Include="Source\UI\IVisual.h" />
     <ClInclude Include="Source\UI\ScalingCue.h" />
     <ClInclude Include="Source\UI\VisualSequence.h" />
+    <ClInclude Include="wtgb\CoreType\ExtJson\Color.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2Int.h" />
     <ClInclude Include="wtgb\CoreType\RectInt.h" />

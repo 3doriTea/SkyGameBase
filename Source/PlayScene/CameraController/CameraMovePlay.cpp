@@ -309,7 +309,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	DragArrowAxis* pAxis{ pGameObject->FindGameObject<DragArrowAxis>(dragArrowAxis) };
 
 	Vector2 diff{ static_cast<float>(diffValue_.x), -static_cast<float>(diffValue_.y) };
-	pAxis->SetAngleY(std::atan2f(diff.y, diff.x));
+	pAxis->SetAngleY(std::atan2f(diff.x, diff.y));
 	float scale{ std::sqrtf(diff.x * diff.x + diff.y * diff.y) };
 	pAxis->SetScaleZ(scale);
 #pragma endregion

@@ -64,7 +64,7 @@ void PlayScene::Start()
 	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
 	Instantiate<StageObjectManager>(stageLine, player, playState);
 	EntityId dragArrowAxis{ Instantiate<DragArrowAxis>(player) };
-	Instantiate<DragArrow>(player);
+	Instantiate<DragArrow>(dragArrowAxis);
 	Instantiate<CameraController>(dragArrowAxis);
 
 	EntityId miniCharaManager{ Instantiate<MiniCharaManager>(smfPlayer) };
