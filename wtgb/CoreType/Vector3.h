@@ -46,6 +46,16 @@ namespace wtgb
 		/// <summary>
 		/// Yだけ+1のベクトルを取得する
 		/// </summary>
+		/// <returns>(1, 0, 0)</returns>
+		inline static Vector3 Right() { return { 1.0f, 0.0f, 0.0f }; }
+		/// <summary>
+		/// Yだけ-1のベクトルを取得する
+		/// </summary>
+		/// <returns>(-1, 0, 0)</returns>
+		inline static Vector3 Left() { return { -1.0f, 0.0f, 0.0f }; }
+		/// <summary>
+		/// Yだけ+1のベクトルを取得する
+		/// </summary>
 		/// <returns>(0, 1, 0)</returns>
 		inline static Vector3 Up() { return { 0.0f, 1.0f, 0.0f }; }
 		/// <summary>

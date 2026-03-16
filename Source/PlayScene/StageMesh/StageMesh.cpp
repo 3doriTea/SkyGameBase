@@ -109,8 +109,10 @@ void StageMesh::GenerateVertices(ViewerCached _system)
 			Vector2 posNext2D{ static_cast<float>(points_[i + 1].x), static_cast<float>(points_[i + 1].y) };
 			Vector2 toNext2D{ posNext2D - pos2D };
 
-			Vector2 normal2D{ DirectX::XMVector3Normalize(toPrev2D + toNext2D) };
-			v.normal = { 0.0f, normal2D.y, normal2D.x };
+			Vector3 prevNormal{ XMVector3Normalize(XMVector3Cross(Vector3::Right(), Vector3{ 0.0f, toPrev2D.y, toPrev2D.x })) };
+			Vector3 nextNormal{ XMVector3Normalize(XMVector3Cross(Vector3::Right(), Vector3{ 0.0f, toNext2D.y, toNext2D.x })) };
+
+			v.normal = XMVector3Normalize(prevNormal + nextNormal);
 
 			// 下向きの法線ができてしまったら上向きに変換
 			if (v.normal.y <= 0.0f)

@@ -279,7 +279,6 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 	// ドラッグ中の処理
 	Vector2Int move{ cursor.GetFrameMove() };
-	LOGFLN("cursor.GetFrameMove = ({}, {})", move.x, move.y);
 	if (isDragging_)
 	{
 		switch (controlMode_)
