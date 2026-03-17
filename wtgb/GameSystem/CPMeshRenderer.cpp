@@ -235,7 +235,11 @@ void wtgb::CPMeshRenderer::Update()
 					return {};
 				}
 
-				if (pModelMesh->GetType() == ModelMesh::Type::FbxBack)
+				if (pModelMesh->GetType() == ModelMesh::Type::Fbx)
+				{
+
+				}
+				else if (pModelMesh->GetType() == ModelMesh::Type::FbxBack)
 				{
 					// 最背面に描画する準備
 					d3d.SetZBuffer(ZBufferMode::Back);
@@ -333,6 +337,10 @@ void wtgb::CPMeshRenderer::Update()
 					return {};
 				}
 
+				// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
+				d3d.SetShader(meshRenderer.hShader_);
+				d3d.SetBlend(BlendMode::None);
+
 				IMeshSimple::ConstantBuffer constantBuffer{};
 				constantBuffer.matrixProjection = XMMatrixTranspose(camera.GetProjectionMatrix());
 				constantBuffer.matrixView = XMMatrixTranspose(camera.GetViewMatrix());
@@ -346,8 +354,6 @@ void wtgb::CPMeshRenderer::Update()
 				
 				constantBuffer.hasTexture = FALSE;
 
-				// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
-				d3d.SetShader(meshRenderer.hShader_);
 
 				UINT stride{ static_cast<UINT>(pMesh->GetVertexSize()) };
 				UINT offset{ 0 };
@@ -494,6 +500,80 @@ void wtgb::CPMeshRenderer::Update()
 				}
 #endif
 
+			}
+			else if (pModelMesh->GetType() == ModelMesh::Type::SimpleMeshes)
+			{
+				IMeshesSimple* pMesh{ pModelMesh->pOriginalMeshes_ };
+				wassert(pMesh && "メッシュがない！");
+				if (pMesh == nullptr)
+				{
+					return {};
+				}
+
+				// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
+				d3d.SetShader(meshRenderer.hShader_);
+				d3d.SetBlend(BlendMode::None);
+
+				IMeshSimple::ConstantBuffer constantBuffer{};
+				constantBuffer.matrixProjection = XMMatrixTranspose(camera.GetProjectionMatrix());
+				constantBuffer.matrixView = XMMatrixTranspose(camera.GetViewMatrix());
+				constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
+				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
+				constantBuffer.matrixUV = XMMatrixIdentity();
+				constantBuffer.lightDirection = directionalLight.GetDirection();
+				constantBuffer.lightColor = directionalLight.GetColor();
+				constantBuffer.ambientValue = 0.3f;
+				constantBuffer.diffuseColor = { 0.0f, 0.7f, 0.0f, 1.0f };
+
+				constantBuffer.hasTexture = TRUE;
+
+				D3D11_MAPPED_SUBRESOURCE data{};
+				pContext->Map(pMesh->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+				D3D11_BUFFER_DESC desc{};
+				pMesh->GetConstantBuffer().Get()->GetDesc(&desc);
+				desc.ByteWidth;
+				memcpy_s(
+					data.pData,
+					data.RowPitch,
+					reinterpret_cast<void*>(&constantBuffer),
+					desc.ByteWidth);
+				pContext->Unmap(pMesh->GetConstantBuffer().Get(), 0);
+
+				// コンスタントバッファをセット
+				pContext->VSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
+				pContext->PSSetConstantBuffers(0, 1, pMesh->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
+
+				// 各面を1枚１枚描画していく
+				for (int i = 0; i < pMesh->GetPlaneCount(); i++)
+				{
+					UINT stride{ static_cast<UINT>(pMesh->GetVertexSize()) };
+					UINT offset{ 0 };
+					// 頂点バッファをセット
+					pContext->IASetVertexBuffers(0, 1, pMesh->GetVertexBufferAt(i).GetAddressOf(), &stride, &offset);
+
+					// インデックスバッファをセット
+					stride = sizeof(uint32_t);
+					offset = 0;
+					pContext->IASetIndexBuffer(pMesh->GetIndexBufferAt(i).Get(), DXGI_FORMAT_R32_UINT, 0);
+
+					// テクスチャが指定されているなら使う
+					if (meshRenderer.hTexture_ != INVALID_HANDLE)
+					{
+						Texture* pTexture{ resource.GetTexture(meshRenderer.hTexture_) };
+						wassert(pTexture != nullptr);
+						if (pTexture)
+						{
+							constantBuffer.hasTexture = TRUE;  // テクスチャあるよ
+
+							pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
+
+							pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
+						}
+					}
+
+					
+					pContext->DrawIndexed(pMesh->GetIndexCountAt(i), 0, 0);
+				}
 			}
 			else
 			{

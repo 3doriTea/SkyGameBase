@@ -2,6 +2,7 @@
 #include "pch/pch.h"
 #include "Helper/CommonGameComponent.h"
 #include "GameSystem/ModelMesh/IMeshSimple.h"
+#include "GameSystem/ModelMesh/IMeshesSimple.h"
 #include "GameSystem/CPModelMesh.h"
 
 
@@ -23,6 +24,7 @@ namespace wtgb
 			SimpleMesh2D,  // シンプルなメッシュ2D描画
 			FbxBack,       // 最背面に描画したいFBX
 			FbxAplha,      // 透明度を適用したいFBX
+			SimpleMeshes,  // シンプルなメッシュ群描画
 		};
 
 		friend class CPMeshRenderer;
@@ -33,6 +35,7 @@ namespace wtgb
 
 			SETTER_PARAM(std::string, fileName)
 			SETTER_PARAM_PTR(IMeshSimple, pOriginalMesh)
+			SETTER_PARAM_PTR(IMeshesSimple, pOriginalMeshes)
 			SETTER_PARAM(Type, modelMeshType)
 		};
 
@@ -52,8 +55,10 @@ namespace wtgb
 
 	private:
 		std::string fileName_;  // モデルのファイル名
-		IMeshSimple* pOriginalMesh_;  // シンプルならオリジナルメッシュ
 
+		IMeshSimple* pOriginalMesh_;  // シンプルならオリジナルメッシュ
+		IMeshesSimple* pOriginalMeshes_;  // シンプルならオリジナルメッシュ
+		
 		ModelHandle hModel_;  // モデルハンドル
 
 		Type modelMeshType_;  // モデルメッシュの種類

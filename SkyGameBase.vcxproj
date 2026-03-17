@@ -47,6 +47,7 @@
     <ClInclude Include="Source\PlayScene\LiftStructure.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
+    <ClInclude Include="Source\PlayScene\StageMesh\StageMeshes.h" />
     <ClInclude Include="Source\PlayScene\UI\DragArrow.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara.h" />
     <ClInclude Include="Source\PlayScene\PlaybackParam.h" />
@@ -119,6 +120,7 @@
     <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h" />
     <ClInclude Include="wtgb\GameSystem\DirectionalLight.h" />
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\ShaderConstant.h" />
+    <ClInclude Include="wtgb\GameSystem\ModelMesh\IMeshesSimple.h" />
     <ClInclude Include="wtgb\GameSystem\NeoCanvas.h" />
     <ClInclude Include="wtgb\GameSystem\PostProcessing.h" />
     <ClInclude Include="wtgb\GameSystem\PostProcessing\BackMesh2D.h" />
@@ -362,6 +364,7 @@
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRope.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRopeMesh.cpp" />
+    <ClCompile Include="Source\PlayScene\StageMesh\StageMeshes.cpp" />
     <ClCompile Include="Source\PlayScene\UI\DragArrow.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara.cpp" />
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
@@ -469,6 +472,7 @@
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\DirectionalLight.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshesSimple.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshSimple.cpp" />
     <ClCompile Include="wtgb\GameSystem\Model.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshSimple2D.cpp" />

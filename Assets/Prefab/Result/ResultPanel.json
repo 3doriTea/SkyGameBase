@@ -11,7 +11,7 @@
   },
   "Param": {
     "baseCanvasSize": [ 1920, 1080 ],
-    "panelImageFile": "Image/Result/Complate.png",
+    "panelImageFile": "Image/Result/PanelV2.png",
     "dragCirclePositionDown": [ 823, 703 ],
     "dragCirclePositionUp": [ 823, 873 ],
     "dragCircleSizePix": 100,
