@@ -113,6 +113,17 @@ void StageMeshes::GenerateVertices(ViewerCached _system)
 			&VERTEX_DATA,
 			pVertexBuffers_.back().GetAddressOf());
 		wassert(SUCCEEDED(hResult) && "ステージメッシュ頂点バッファ作成に失敗");
+
+		LOGFLN("------");
+		for (int i = 0; i < vertices.size(); i++)
+		{
+			LOGFLN(
+				"i: {} = position:({}, {}, {}), normal:({}, {}, {}), uv:({}, {})",
+				i,
+				vertices[i].position.x, vertices[i].position.y, vertices[i].position.z,
+				vertices[i].normal.x, vertices[i].normal.y, vertices[i].normal.z,
+				vertices[i].uv.x, vertices[i].uv.y);
+		}
 	}
 }
 

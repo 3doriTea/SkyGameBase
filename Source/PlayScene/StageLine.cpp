@@ -31,7 +31,7 @@ StageLine::StageLine() : GameObject
 			.EndSetter()
 		.AddComponent<ModelMesh>()
 			.BeginSetter()
-				.pOriginalMesh(&this->stageMesh_)
+				.pOriginalMeshes(&this->stageMesh_)
 			.EndSetter()
 		.AddComponent<MeshRenderer>()
 			.BeginSetter()

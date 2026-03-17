@@ -571,7 +571,6 @@ void wtgb::CPMeshRenderer::Update()
 						}
 					}
 
-					
 					pContext->DrawIndexed(pMesh->GetIndexCountAt(i), 0, 0);
 				}
 			}

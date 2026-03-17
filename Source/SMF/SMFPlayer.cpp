@@ -2,6 +2,8 @@
 #include "SMFPlayer.h"
 #include "ToneHz.h"
 
+//#define USE_SMF_PLAYER_LOG
+
 using namespace SMF;
 
 SMFPlayer::SMFPlayer(const fs::path& _file) :
@@ -70,13 +72,14 @@ void SMFPlayer::Init()
 	}
 
 	uint32_t headerSize{ br.ReadRev<uint32_t>() };
-	LOGFLN("HeaderSize:{}", headerSize);
-
 	uint16_t format{ br.ReadRev<uint16_t>() };
-	LOGFLN("Format:{}", format);
-
 	uint16_t truckCount{ br.ReadRev<uint16_t>() };
+
+#ifdef USE_SMF_PLAYER_LOG
+	LOGFLN("HeaderSize:{}", headerSize);
+	LOGFLN("Format:{}", format);
 	LOGFLN("truckCount:{}", truckCount);
+#endif
 
 	smfTrucks_.resize(truckCount);
 
@@ -86,14 +89,18 @@ void SMFPlayer::Init()
 		wassert("分解能が何分何秒何フレームは対応していないよ");
 	}
 	smfHeader_.quarterUnit = timeUnit;
+#ifdef USE_SMF_PLAYER_LOG
 	LOGFLN("timeUnit:{}", timeUnit);
+#endif
 #pragma endregion
 
 #pragma region トラックチャンク
 	int truckId{ 0 };
 	while (br.Current() < br.Size())
 	{
+#ifdef USE_SMF_PLAYER_LOG
 		LOGFLN("--------------------truckCount:{} / {}--------------------", truckId, truckCount);
+#endif
 		if (br.Read(buff4.data(), 4, 4); !CompareId(buff4, "MTrk"))
 		{
 			wassert(false && "トラックヘッダ不一致");
@@ -101,8 +108,9 @@ void SMFPlayer::Init()
 		}
 
 		uint32_t headerSize{ br.ReadRev<uint32_t>() };
+#ifdef USE_SMF_PLAYER_LOG
 		LOGFLN("HeaderSize:{}", headerSize);
-
+#endif
 		uint8_t prevStatus{};  // ランニングステータス用
 		size_t endOfTruckPos{ br.Current() + headerSize };
 
@@ -113,7 +121,9 @@ void SMFPlayer::Init()
 		{
 			uint64_t delta{ ReadDelta(br) };
 			truckGen.AddDeltaTime(delta);
+#ifdef USE_SMF_PLAYER_LOG
 			LOGFLN("DeltaTime:{}", delta);
+#endif
 
 			uint8_t status{};
 			uint8_t peekStatus{ br.Peek<uint8_t>() };
@@ -128,12 +138,16 @@ void SMFPlayer::Init()
 				}
 
 				status = prevStatus;
+#ifdef USE_SMF_PLAYER_LOG
 				LOGFLN("StatusR:{:x}", +status);
+#endif
 			}
 			else
 			{
 				status = br.Read<uint8_t>();
+#ifdef USE_SMF_PLAYER_LOG
 				LOGFLN("Status:{:x}", +status);
+#endif
 			}
 
 			if (status != 0xF0 && status != 0xF7)
@@ -144,15 +158,18 @@ void SMFPlayer::Init()
 			if (status == 0xFF)
 			{  // メタイベント
 				uint8_t subStatus{ br.Read<uint8_t>() };
+#ifdef USE_SMF_PLAYER_LOG
 				LOGFLN("meta");
-
+#endif
 				switch (subStatus)
 				{
 				case 0x00:  // シーケンス番号
 				{
 					uint8_t size{ br.Read<uint8_t>() };
 					uint16_t sequenceNumber{ br.ReadRev<uint16_t>() };
+#ifdef USE_SMF_PLAYER_LOG
 					LOGFLN("Sequence:{} size:{}", sequenceNumber, size);
+#endif
 					break;
 				}
 				case 0x01:
@@ -243,13 +260,17 @@ void SMFPlayer::Init()
 					if (br.Peek<uint8_t>() == 0xF7)
 					{
 						br.Read<uint8_t>();
+#ifdef USE_SMF_PLAYER_LOG
 						LOGFLN("Skiped 0xF7");
+#endif
 					}
 				}
 
 				std::vector<char> textBuffer(size, '\0');
 				br.Read(textBuffer.data(), size, size);
+#ifdef USE_SMF_PLAYER_LOG
 				LOGFLN("SystemEx size:{}", size);
+#endif
 			}
 			else if (0xB0 <= status && status <= 0xBF)
 			{  // コントロールチェンジ
@@ -257,21 +278,27 @@ void SMFPlayer::Init()
 				uint8_t ccNum{ br.Read<uint8_t>() };
 				uint8_t ccValue{ br.Read<uint8_t>() };
 
+#ifdef USE_SMF_PLAYER_LOG
 				LOGFLN("CC - channel:{}, number:{}, value:{}", channel, ccNum, ccValue);
+#endif
 			}
 			else if (0xC0 <= status && status <= 0xCF)
 			{  // プログラムチェンジ
 				uint8_t channel{ static_cast<uint8_t>(status - 0xC0) };
 				uint8_t pcNum{ br.Read<uint8_t>() };
 
+#ifdef USE_SMF_PLAYER_LOG
 				LOGFLN("PC - channel:{}, number:{}", channel, pcNum);
+#endif
 			}
 			else if (0xD0 <= status && status <= 0xDF)
 			{  // チャンネルプレッシャー / アフタータッチ
 				uint8_t channel{ static_cast<uint8_t>(status - 0xD0) };
 				uint8_t cpValue{ br.Read<uint8_t>() };
 
+#ifdef USE_SMF_PLAYER_LOG
 				LOGFLN("CP - channel:{}, cpValue:{}", channel, cpValue);
+#endif
 			}
 			else if (0xE0 <= status && status <= 0xEF)
 			{  // ピッチベンドチェンジ
@@ -280,7 +307,9 @@ void SMFPlayer::Init()
 				uint8_t rightSide{ br.Read<uint8_t>() };
 				uint16_t value{ static_cast<uint16_t>(static_cast<uint16_t>(rightSide) << 7 | leftSide) };
 
+#ifdef USE_SMF_PLAYER_LOG
 				LOGFLN("Pitch bend - channel:{}, LSB:{:x}, MSB:{:x}", channel, leftSide, rightSide);
+#endif
 			}
 			else if (0xA0 <= status && status <= 0xAF)
 			{  // キープレッシャー
@@ -288,7 +317,9 @@ void SMFPlayer::Init()
 				uint8_t note{ br.Read<uint8_t>() };
 				uint8_t press{ br.Read<uint8_t>() };
 
+#ifdef USE_SMF_PLAYER_LOG
 				LOGFLN("Key pressure - channel:{}, note:{}, press:{}", channel, note, press);
+#endif
 			}
 			else if (0x80 <= status && status <= 0x8F)
 			{  // ノートオフ
@@ -297,7 +328,9 @@ void SMFPlayer::Init()
 				uint8_t velocity{ br.Read<uint8_t>() };  // 音の強さ
 				
 				truckGen.Off(channel, note, velocity);
+#ifdef USE_SMF_PLAYER_LOG
 				LOGFLN("note off - channel:{}, note:{}, velo:{}", channel, note, velocity);
+#endif
 			}
 			else if (0x90 <= status && status <= 0x9F)
 			{  // ノートオン
@@ -308,12 +341,16 @@ void SMFPlayer::Init()
 				if (velocity == 0)
 				{
 					truckGen.Off(channel, note, velocity);
+#ifdef USE_SMF_PLAYER_LOG
 					LOGFLN("note off - channel:{}, note:{}, velo:{}", channel, note, velocity);
+#endif
 				}
 				else
 				{
 					truckGen.On(channel, note, velocity);
+#ifdef USE_SMF_PLAYER_LOG
 					LOGFLN("note on - channel:{}, note:{}, velo:{}", channel, note, velocity);
+#endif
 				}
 			}
 			else
@@ -508,7 +545,9 @@ void SMFPlayer::TruckGenerator::On(const uint8_t _channel, const uint8_t _note, 
 		toneMin = _note;
 	}
 
+#ifdef USE_SMF_PLAYER_LOG
 	LOGFLN("currentTime={}", currentTime_);
+#endif
 	truck_.notes.push_back(
 		{
 			currentTime_,

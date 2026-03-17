@@ -34,6 +34,6 @@ public:
 
 private:
 	std::vector<Vector2> points_;  // 各頂点の座標 (xy平面で考える)
-	StageMesh stageMesh_;        // ステージのメッシュ情報
+	StageMeshes stageMesh_;        // ステージのメッシュ情報
 	//StageMeshes stageMesh_;       // ステージメッシュ
 };
