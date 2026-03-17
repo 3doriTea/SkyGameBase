@@ -85,6 +85,7 @@ void StageLine::Init()
 		points_.push_back(pos);
 	}
 
+#if 0
 	Mathf::Randomer random{ 0 };
 
 	Vector2 last{};
@@ -105,6 +106,7 @@ void StageLine::Init()
 	// 壁を作る
 	last.y -= GOAL_WALL_HEIGHT;
 	points_.push_back(last);
+#endif
 
 	// 全ての y 軸を - にする
 	for (auto& point : points_)
