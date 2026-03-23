@@ -10,6 +10,9 @@
 #include "MusicPlayer.h"
 
 #include "PlayScene/PlayScene.h"
+#include "ResultScene/ResultScene.h"
+#include "Systems/ScoreManager.h"
+
 
 TitleScene::TitleScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) }
@@ -48,5 +51,16 @@ void TitleScene::Update()
 	if (input.IsKeyDown(KeyCode::Escape))
 	{
 		Game::Exit();
+	}
+
+	if (input.IsKeyDown(KeyCode::Alpha0))
+	{
+		System().Get<ScoreManager>().Ref([](GameScore& _score)
+			{
+				_score.allyCount = 72;
+				_score.presentCount = 104;
+				_score.timeDifference = 123;
+			});
+		System().Get<SceneManager>().Move<ResultScene>();
 	}
 }

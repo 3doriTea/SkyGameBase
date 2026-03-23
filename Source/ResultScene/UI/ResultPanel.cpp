@@ -146,9 +146,6 @@ void ResultPanel::Update()
 	context.SetRefLayout(&config);
 
 	context.DrawImage(hPanelImage_);
-
-	/*Canvas::LayoutConfig{}
-		.position({})*/
 }
 
 void ResultPanel::Release()
@@ -168,8 +165,6 @@ void ResultPanel::OnLoadParam(const json& _json)
 	
 	for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
 	{
-		std::string tttttttt = _json.at("scoreTextPosition").dump();
-
 		_json.at("scoreTextPosition").at(type).get_to(scoreTextPosition_[type]);
 	}
 }
