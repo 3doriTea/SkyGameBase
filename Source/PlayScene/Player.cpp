@@ -18,7 +18,8 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 	isTargeting_{ false },
 	startLineZ_{},
 	toTargetTime_{},
-	slideVelocityX_{ 0.0f }
+	slideVelocityX_{ 0.0f },
+	bounceRotationVZDiv_{}
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);
@@ -47,6 +48,8 @@ void Player::OnLoadParam(const json& _json)
 	toTargetTime_ = SafeGet<float>(_json, "toTargetTime");
 	startLineZ_ = SafeGet<float>(_json, "startLineZ");
 	slideVeloDampingPerSec_ = SafeGet<float>(_json, "slideVeloDampingPerSec");
+	bounceRotationVZDiv_ = SafeGet<float>(_json, "bounceRotationVZDiv");
+	onGroundRotationVelo_ = SafeGet<float>(_json, "onGroundRotationVelo");
 }
 
 void Player::Init()
@@ -110,8 +113,15 @@ void Player::Update()
 	{
 		if (pColl && pColl->GetColliderType() == Collider::Type::Section)
 		{
-			// TODO: ここの回転トルク値をjson化する
-			rb.AddTorque({ 0.03f, 0.0f, 0.0f });
+			Vector3 angularVelo{ rb.GetAngularVelocity() };
+			if (angularVelo.x < onGroundRotationVelo_)
+			{
+				// まだ最低回転速度に達していないなら回転速度をかける
+
+				Vector3 velo{ rb.GetVelocity() };
+				// TODO: ここの回転トルク値をjson化する
+				rb.AddTorque({ velo.z / bounceRotationVZDiv_, 0.0f, 0.0f });
+			}
 		}
 	}
 

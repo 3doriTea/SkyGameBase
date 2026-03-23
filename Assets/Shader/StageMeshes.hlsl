@@ -3,11 +3,17 @@
 #include "MainTexture.hlsli"
 #include "CBGlobal3D.hlsli"
 
+cbuffer PlayerConstant : register(b2)
+{
+	float2 player_Position;  // プレイヤー座標
+};
+
 struct VS_OUT
 {
 	float4 pos : SV_POSITION; // 頂点の位置
 	float4 uv : TEXCOORD; // 頂点に対応するUV座標
 	float4 color : COLOR; // 色 / 明るさ
+	float4 normal : NORMAL;
 };
 
 // 頂点シェーダ
@@ -22,7 +28,9 @@ VS_OUT VS(
 	outData.pos = mul(pos, matrixWVP);
 	outData.uv = mul(uv, matrixUV);
 	
-	float4 light = normalize(lightDirection);
+	outData.normal = normal;
+	
+	float4 light = float4(0, -1, 0, 0); //normalize(lightDirection);
 	
 	normal = mul(normal, matrixRotateWorld);
 	normal.w = 0;
@@ -35,6 +43,8 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
+	//return float4(1.0f, 0.0f, 0.0f, 1.0f);
+	
 	float4 diffuse;
 
 	if (hasTexture)
@@ -45,12 +55,12 @@ float4 PS(VS_OUT inData) : SV_TARGET
 	{
 		diffuse = diffuseColor;
 	}
-	float4 color =
-	(diffuse * inData.color * 2.0f)
-	+ diffuse * ambientValue;
 	
-	// 仮
-	color.a = 0.5f;
-
+	float4 light = float4(0, -1, 0, 0); //normalize(lightDirection);
+	
+	//float4 normalColor = saturate(dot(inData.normal, -light));
+	float4 color = diffuse * inData.color * 1.0f + diffuse * ambientValue * 0.5f;
+	//float4 color = inData.color;
+	
 	return color;
 }

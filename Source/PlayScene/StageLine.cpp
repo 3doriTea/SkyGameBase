@@ -35,10 +35,10 @@ StageLine::StageLine() : GameObject
 			.EndSetter()
 		.AddComponent<MeshRenderer>()
 			.BeginSetter()
-				.shader("Shader/StageMesh.hlsl")
+				.shader("Shader/StageMeshes.hlsl")
 				.textureConfig(
 					{
-						.fileName = "GroundTexture.png",
+						.fileName = "GroundTexture2.png",
 						.filer = D3D11_FILTER_MIN_MAG_MIP_POINT,
 						.addressMode = D3D11_TEXTURE_ADDRESS_WRAP,
 						.format = DXGI_FORMAT_R8G8B8A8_UNORM,
@@ -52,7 +52,8 @@ StageLine::StageLine() : GameObject
 		.Build();
 	}
 },
-	stageMesh_{ points_ }
+	textureScale_{ 0.0f },
+	stageMesh_{ points_, textureScale_ }
 {
 }
 
@@ -70,6 +71,8 @@ void StageLine::Init()
 	ifs >> j;
 	ifs.close();
 
+	textureScale_ = j.value("textureScale", 20.0f);
+
 	const size_t POINTS_SIZE{ j["points"].size() };
 
 	points_.resize(POINTS_SIZE);
@@ -85,7 +88,7 @@ void StageLine::Init()
 		points_.push_back(pos);
 	}
 
-#if 0
+#if 1
 	Mathf::Randomer random{ 0 };
 
 	Vector2 last{};

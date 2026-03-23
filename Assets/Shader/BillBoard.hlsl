@@ -35,8 +35,6 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
-    //return float4(0.0f, 0.0f, 1.0f, 1.0f);
-    
     float4 diffuse;
 
     if (hasTexture)
@@ -47,7 +45,9 @@ float4 PS(VS_OUT inData) : SV_TARGET
     {
         diffuse = diffuseColor;
     }
-    float4 color = diffuse * inData.color + diffuse * ambientValue;
+    float4 color = diffuse;
+    
+    //color.a = 1.0f;
     
     return color;
 }

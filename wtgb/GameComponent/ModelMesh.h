@@ -25,6 +25,7 @@ namespace wtgb
 			FbxBack,       // 最背面に描画したいFBX
 			FbxAplha,      // 透明度を適用したいFBX
 			SimpleMeshes,  // シンプルなメッシュ群描画
+			SimpleMeshUI3D,  // シンプルなメッシュUI3D描画 透過する
 		};
 
 		friend class CPMeshRenderer;
@@ -56,11 +57,10 @@ namespace wtgb
 	private:
 		std::string fileName_;  // モデルのファイル名
 
-		IMeshSimple* pOriginalMesh_;  // シンプルならオリジナルメッシュ
+		IMeshSimple* pOriginalMesh_;      // シンプルならオリジナルメッシュ
 		IMeshesSimple* pOriginalMeshes_;  // シンプルならオリジナルメッシュ
 		
 		ModelHandle hModel_;  // モデルハンドル
-
 		Type modelMeshType_;  // モデルメッシュの種類
 	};
 }

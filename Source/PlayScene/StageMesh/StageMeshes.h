@@ -12,15 +12,15 @@ class StageMeshes : public wtgb::IMeshesSimple
 	enum  // x-> ^z で面を見たときの各頂点
 	{
 		VERTEX_BOTTOM_LEFT,   // 左下 -x, -y
-		VERTEX_BOTTOM_RIGHT,  // 右下 +x, -y
 		VERTEX_TOP_LEFT,      // 左上 -x, +y
 		VERTEX_TOP_RIGHT,     // 右上 +x, +y
+		VERTEX_BOTTOM_RIGHT,  // 右下 +x, -y
 		VERTEX_MAX,
 	};
 
 	using PlaneVertices = std::array<Vertex, VERTEX_MAX>;
 public:
-	StageMeshes(StagePoints& _points);
+	StageMeshes(StagePoints& _points, float& textureScale_);
 	~StageMeshes();
 
 	void Init(ViewerCached _system) override;
@@ -73,7 +73,8 @@ private:
 	void GenerateConstant(ViewerCached _system);
 
 private:
-	StagePoints& points_;
+	StagePoints& points_;  // 2次元平面で見たときの斜面の頂点たち
+	float& textureScale_;   // テクスチャの拡縮
 
 	std::vector<uint32_t> vertexCounts_;
 	std::vector<uint32_t> indexCounts_;
@@ -83,4 +84,5 @@ private:
 	std::vector<ComPtr<ID3D11Buffer>> pVertexBuffers_;    // 頂点バッファ
 	std::vector<ComPtr<ID3D11Buffer>> pIndexBuffers_;     // インデックスバッファ
 	ComPtr<ID3D11Buffer> pConstantBuffer_;  // コンスタントバッファ
+
 };

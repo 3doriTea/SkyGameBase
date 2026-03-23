@@ -1,10 +1,11 @@
 #include "StageMeshes.h"
 
-StageMeshes::StageMeshes(StagePoints& _points) :
+StageMeshes::StageMeshes(StagePoints& _points, float& _textureScale) :
 	points_{ _points },
 	hTextures_{},
 	vertexCounts_{},
-	indexCounts_{}
+	indexCounts_{},
+	textureScale_{ _textureScale }
 {
 }
 
@@ -41,11 +42,6 @@ void StageMeshes::GenerateVertices(ViewerCached _system)
 		return;
 	}
 
-	const float UV_BEGIN_X{ 0.0f };
-	const float UV_BEGIN_Y{ 0.0f };
-	const float UV_END_X{ 20.0f };
-	const float UV_END_Y{ 0.0f };
-
 	// 面
 	for (int i = 0; i < points_.size() - 1; i++)
 	{
@@ -53,7 +49,12 @@ void StageMeshes::GenerateVertices(ViewerCached _system)
 		
 		Vector2 pos2DCurr{ static_cast<float>(points_[i].x), static_cast<float>(points_[i].y) };
 		Vector2 pos2DNext{ static_cast<float>(points_[i + 1].x), static_cast<float>(points_[i + 1].y) };
-		
+	
+		const float UV_BEGIN_X{ 0.0f };
+		const float UV_BEGIN_Y{ pos2DCurr.x / textureScale_ };
+		const float UV_END_X{ textureScale_ };
+		const float UV_END_Y{ pos2DNext.x / textureScale_ };
+
 		Vector3 toNext{ 0.0f, pos2DNext.y - pos2DCurr.y, pos2DNext.x - pos2DCurr.x };
 		Vector3 toForwardNorm{ XMVector3Normalize(toNext) };
 		Vector3 toRightNorm{ Vector3::Right() };
@@ -69,9 +70,9 @@ void StageMeshes::GenerateVertices(ViewerCached _system)
 		};
 		vertices[VERTEX_BOTTOM_RIGHT] =
 		{
-			.position = { 0.0f, pos2DCurr.y, pos2DCurr.x },
+			.position = { 1.0f, pos2DCurr.y, pos2DCurr.x },
 			.normal = toUpNorm,
-			.uv = { UV_BEGIN_X, UV_END_Y },
+			.uv = { UV_END_X, UV_BEGIN_Y },
 		};
 		vertices[VERTEX_TOP_LEFT] =
 		{
@@ -81,7 +82,7 @@ void StageMeshes::GenerateVertices(ViewerCached _system)
 		};
 		vertices[VERTEX_TOP_RIGHT] =
 		{
-			.position = { 0.0f, pos2DNext.y, pos2DNext.x },
+			.position = { 1.0f, pos2DNext.y, pos2DNext.x },
 			.normal = toUpNorm,
 			.uv = { UV_END_X, UV_END_Y },
 		};
@@ -134,7 +135,8 @@ void StageMeshes::GenerateIndices(ViewerCached _system)
 	for (int i = 0; i < points_.size() - 1; i++)
 	{
 		static const size_t INDEX_COUNT{ 6 };
-		static const std::array<uint32_t, INDEX_COUNT> INDEX_SET_ARRAY{ 0, 2, 1, 2, 3, 1 };
+		//static const std::array<uint32_t, INDEX_COUNT> INDEX_SET_ARRAY{ 0, 2, 1, 2, 3, 1 };
+		static const std::array<uint32_t, INDEX_COUNT> INDEX_SET_ARRAY{ 0, 1, 2, 0, 2, 3 };
 
 		ID3D11Device* pDevice{ _system.Get<Direct3D>().Resource().Device() };
 		HRESULT hResult{};

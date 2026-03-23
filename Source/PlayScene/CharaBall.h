@@ -1,6 +1,9 @@
 #pragma once
 #include <wtgb.h>
 
+/// <summary>
+/// 集めた仲間のボール
+/// </summary>
 class CharaBall : public GameObject
 {
 public:
@@ -12,6 +15,6 @@ public:
 	void Release() override;
 
 private:
-	EntityId player_;
+	EntityId player_;  // プレイヤー
 };
 

@@ -137,7 +137,10 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 #pragma region y軸速度の分迫力をもたせる
 	RigidBody& rb{ pPlayer->GetComponent<RigidBody>() };
-	float emphasisCurrYOffset{ std::clamp(rb.GetVelocity().y, -10.0f, 10.0f) };
+	float emphasisCurrYOffset
+	{
+		std::clamp(rb.GetVelocity().y, emphasis_.velocityMin, emphasis_.velocityMax)
+	};
 
 	emphasisBoost_ -= dt * emphasis_.boostDecayRatePerSec;
 	if (emphasisBoost_ <= 0.0f)
@@ -153,7 +156,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 		// バウンドの衝撃も加える
 		bounceImpactPlayRatio_ = { 0.3f, 0.8f, 0.0f };
-		bounceImpactIntensity_ = bounceImpact.startIntensity;
+		bounceImpactIntensity_ = bounceImpact_.startIntensity;
 	}
 
 	// MEMO: expfの中の -が抜けると無限大に発散するよ()
@@ -172,13 +175,13 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	};
 
 	// 再生レートを進める
-	bounceImpactPlayRatio_ = bounceImpactPlayRatio_ + bounceImpact.frequencyPerSec * dt;
+	bounceImpactPlayRatio_ = bounceImpactPlayRatio_ + bounceImpact_.frequencyPerSec * dt;
 	bounceImpactPlayRatio_.x = std::fmodf(bounceImpactPlayRatio_.x, 1.0f);
 	bounceImpactPlayRatio_.y = std::fmodf(bounceImpactPlayRatio_.y, 1.0f);
 	bounceImpactPlayRatio_.z = std::fmodf(bounceImpactPlayRatio_.z, 1.0f);
 
 	// 揺れの強さを減衰させる
-	float dampingT = 1.0f - std::expf(-(bounceImpact.dampingRatioPerSec) * dt);
+	float dampingT = 1.0f - std::expf(-(bounceImpact_.dampingRatioPerSec) * dt);
 	bounceImpactIntensity_ = Mathf::Lerp(
 		bounceImpactIntensity_,
 		Vector3::Zero(),
@@ -307,9 +310,20 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 #pragma region ドラッグ中の軸を更新
 	DragArrowAxis* pAxis{ pGameObject->FindGameObject<DragArrowAxis>(dragArrowAxis) };
 
-	Vector2 diff{ static_cast<float>(diffValue_.x), -static_cast<float>(diffValue_.y) };
-	pAxis->SetAngleY(std::atan2f(diff.x, diff.y));
-	float scale{ std::sqrtf(diff.x * diff.x + diff.y * diff.y) };
+	// 2D 画面空間から3D空間に変換
+	Vector3 diff3D
+	{
+			static_cast<float>(std::clamp(diffValue_.x, dragArrow_.screenDiffMin, dragArrow_.screenDiffMax)),
+			0.0f,
+			-static_cast<float>(std::clamp(diffValue_.y, dragArrow_.screenDiffMin, dragArrow_.screenDiffMax))
+	};
+	
+	// カメラとの角度から矢印の方向を適用
+	Vector3 arrowDir3D{ XMVector3TransformCoord(diff3D, XMMatrixRotationY(angleY_)) };
+	pAxis->SetAngleY(std::atan2f(arrowDir3D.x, arrowDir3D.z));
+	
+	// 矢印の大きさを適用
+	float scale{ std::sqrtf(arrowDir3D.x * arrowDir3D.x + arrowDir3D.z * arrowDir3D.z) };
 	pAxis->SetScaleZ(scale);
 #pragma endregion
 }
