@@ -2,6 +2,8 @@
 #include "../ResultScene.h"
 #include "DragPoint.h"
 #include "TitleScene/TitleScene.h"
+#include "UI/NumberPlate.h"
+#include "../../Systems/ScoreManager.h"
 
 
 ResultPanel::ResultPanel() :
@@ -9,7 +11,9 @@ ResultPanel::ResultPanel() :
 	baseCanvasSize_{},
 	panelImageFile_{},
 	dragPoint_{ INVALID_ENTITY },
-	animOffsetY_{}
+	animOffsetY_{},
+	numberPlate_{ INVALID_ENTITY, INVALID_ENTITY, INVALID_ENTITY },
+	scoreFontSize_{}
 {
 }
 
@@ -21,6 +25,16 @@ void ResultPanel::Init()
 {
 	OnLoadParam(GetComponent<Parameter>().Load());
 	Vector2Int screenSize{ System().Get<GameWindow>().GetMainWindowSize() };
+
+	GameScene* pGameScene{ GetScene() };
+	if (pGameScene)
+	{
+		for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
+		{
+			numberPlate_[type] = pGameScene->Instantiate<NumberPlate>(
+				numberFontImagePath_);
+		}
+	}
 
 	ResultScene* pResultScene{ GetScene<ResultScene>() };
 	wassert(pResultScene && "結果シーンの取得に失敗");
@@ -68,9 +82,26 @@ void ResultPanel::Update()
 	DragPoint* pDragPoint{ FindGameObject<DragPoint>(dragPoint_) };
 	wassert(pDragPoint);
 
-	/*ImGui::Begin("ResultPanel");
-	ImGui::DragFloat("moveRatio", &moveRatio_);
-	ImGui::End();*/
+	NumberPlate* pNumberPlate[GameScore::ScoreType_Max]{};
+	for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
+	{
+		pNumberPlate[type] = FindGameObject<NumberPlate>(
+			numberPlate_[GameScore::ScoreType_PresentCount]);
+		wassert(pNumberPlate[type]);
+
+		if (pNumberPlate[type])
+		{
+			pNumberPlate[type]->SetPosition(scoreTextPosition_[type]);
+			pNumberPlate[type]->SetSize(scoreFontSize_);
+		}
+	}
+
+	System().Get<ScoreManager>().Ref([pNumberPlate](GameScore& _score)
+		{
+			pNumberPlate[GameScore::ScoreType_PresentCount]->SetNumber(_score.presentCount);
+			pNumberPlate[GameScore::ScoreType_AllyCount]->SetNumber(_score.allyCount);
+			pNumberPlate[GameScore::ScoreType_TimeDifference]->SetNumber(_score.timeDifference);
+		});
 
 	if (pDragPoint && pDragPoint->IsDrag())
 	{
@@ -109,12 +140,15 @@ void ResultPanel::Update()
 		Canvas::LayoutConfig{ baseCanvasSize_ }
 			.position({ 0.0f, animOffsetY_ })
 			.scale(size)
-			.order(100)
+			.order(1000)
 	};
 
 	context.SetRefLayout(&config);
 
 	context.DrawImage(hPanelImage_);
+
+	/*Canvas::LayoutConfig{}
+		.position({})*/
 }
 
 void ResultPanel::Release()
@@ -129,4 +163,13 @@ void ResultPanel::OnLoadParam(const json& _json)
 	_json.at("dragCirclePositionUp").get_to(dragCirclePositionUp_);
 	_json.at("dragCircleSizePix").get_to(dragCircleSizePix_);
 	_json.at("toTitleMoveTime").get_to(toTitleTime_);
+	_json.at("numberFontImagePath").get_to(numberFontImagePath_);
+	_json.at("scoreFontSize").get_to(scoreFontSize_);
+	
+	for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
+	{
+		std::string tttttttt = _json.at("scoreTextPosition").dump();
+
+		_json.at("scoreTextPosition").at(type).get_to(scoreTextPosition_[type]);
+	}
 }

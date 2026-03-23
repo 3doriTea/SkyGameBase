@@ -22,3 +22,8 @@ void ScoreManager::Update(const ViewerUpdate& _system)
 void ScoreManager::End()
 {
 }
+
+void ScoreManager::ResetGameScore()
+{
+	gameScore_ = {};
+}

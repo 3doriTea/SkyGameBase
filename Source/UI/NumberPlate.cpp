@@ -17,7 +17,7 @@ NumberPlate::NumberPlate(const std::string_view _numberImageFilePath) : GameObje
 	hNumberImage_{},
 	beginDrawPos_{},
 	currDrawPos_{},
-	baseCanvasSize_{},
+	baseCanvasSize_{ 1920, 1080 },
 	sizePix_{},
 	marginPix_{},
 	number_{},

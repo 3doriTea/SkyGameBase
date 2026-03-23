@@ -1,6 +1,9 @@
 #pragma once
 #include <wtgb.h>
 
+/// <summary>
+/// たまごの強調エフェクト
+/// </summary>
 class CharaEggRing : public GameObject
 {
 public:
@@ -12,6 +15,9 @@ public:
 	void Release() override;
 };
 
+/// <summary>
+/// 仲間のたまご
+/// </summary>
 class CharaEgg : public GameObject
 {
 public:

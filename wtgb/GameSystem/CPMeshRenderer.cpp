@@ -191,8 +191,11 @@ void wtgb::CPMeshRenderer::Update()
 	DirectionalLight& directionalLight{ System().Get<DirectionalLight>() };
 	ID3D11DeviceContext* pContext{ System().Get<Direct3D>().Resource().Context() };
 	
-	//std::vector<size_t> 
-	// TODO: 透明用に避けスペース作るか検討
+	// 最背面に描画するインデクス
+	std::vector<size_t> mostBackgroundIndices{};
+
+	// 透明描画するインデクス
+	std::vector<size_t> alphaIndices{};
 
 	ForEach([
 		&camera,
@@ -204,6 +207,8 @@ void wtgb::CPMeshRenderer::Update()
 		&d3d,
 		&resource,
 		&directionalLight,
+		&mostBackgroundIndices,
+		&alphaIndices,
 		pContext]
 		(MeshRenderer& meshRenderer, const size_t _index) -> BreakToken
 		{
@@ -241,14 +246,13 @@ void wtgb::CPMeshRenderer::Update()
 				}
 				else if (pModelMesh->GetType() == ModelMesh::Type::FbxBack)
 				{
-					// 最背面に描画する準備
-					d3d.SetZBuffer(ZBufferMode::Back);
+					mostBackgroundIndices.push_back(_index);
+					return {};  // 最背面は一番最後に描画する
 				}
 				else if (pModelMesh->GetType() == ModelMesh::Type::FbxAplha)
 				{
-					// 透明度付きで描画する準備
-					d3d.SetUseDepthBuffer(false);
-					d3d.SetBlend(BlendMode::Alpha);
+					alphaIndices.push_back(_index);
+					return {};
 				}
 
 				Fbx::ConstantBuffer constantBuffer{};
@@ -314,18 +318,6 @@ void wtgb::CPMeshRenderer::Update()
 					pContext->Unmap(pFbxModel->GetConstantBuffer().Get(), 0);
 
 					pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
-				}
-
-				if (pModelMesh->GetType() == ModelMesh::Type::FbxBack)
-				{
-					// 最背面に描画したなら戻す
-					d3d.SetZBuffer(ZBufferMode::None);
-				}
-				else if (pModelMesh->GetType() == ModelMesh::Type::FbxAplha)
-				{
-					// 透明度付きで描画したなら戻す
-					d3d.SetUseDepthBuffer(true);
-					d3d.SetZBuffer(ZBufferMode::None);
 				}
 			}
 			else if (pModelMesh->GetType() == ModelMesh::Type::SimpleMesh)
@@ -580,4 +572,218 @@ void wtgb::CPMeshRenderer::Update()
 			}
 			return {};
 		});
+
+#pragma region 最背面描画
+	for (size_t index : mostBackgroundIndices)
+	{
+		// 最背面に描画する準備
+		d3d.SetZBuffer(ZBufferMode::Back);
+
+		EntityId entityId{ cpGameObject.GetEntityId(index) };
+
+		ModelMesh* pModelMesh{ cpModelMesh.Get(entityId) };
+		if (pModelMesh == nullptr)  // 無効なメッシュコンポーネントを取得してしまったら回帰
+		{
+			return;
+		}
+
+		Transform* pTransform{ cpTransform.Get(entityId) };
+		if (pTransform == nullptr)
+		{
+			wassert(false && "Transformの取得に失敗");
+			return;
+		}
+
+		{
+			MeshRenderer& meshRenderer{ this->at(index) };
+
+			ModelHandle hModel{ pModelMesh->hModel_ };
+			ModelResource* pModel{ model.GetModel(hModel) };
+			Fbx* pFbxModel{ dynamic_cast<Fbx*>(pModel) };
+			if (pFbxModel == nullptr)
+			{
+				LOGFLN("Warn:Fbx以外のモデルが読み込まれた！");
+				return;
+			}
+
+			Fbx::ConstantBuffer constantBuffer{};
+			constantBuffer.matrixView = XMMatrixTranspose(camera.GetViewMatrix());
+			constantBuffer.matrixProjection = XMMatrixTranspose(camera.GetProjectionMatrix());
+			constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
+			constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
+			constantBuffer.matrixUV = XMMatrixIdentity();
+			constantBuffer.lightDirection = directionalLight.GetDirection();
+			constantBuffer.lightColor = directionalLight.GetColor();
+			constantBuffer.ambientValue = 0.3f;
+
+			// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
+			d3d.SetShader(meshRenderer.hShader_);
+
+			UINT stride{ sizeof(Fbx::Vertex) };
+			UINT offset{ 0 };
+			// 頂点バッファをセット
+			pContext->IASetVertexBuffers(0, 1, pFbxModel->GetVertexBuffer().GetAddressOf(), &stride, &offset);
+
+			// 各マテリアル分
+			for (int i = 0; i < pFbxModel->GetMaterialCount(); i++)
+			{
+				constantBuffer.hasTexture = pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE;
+
+				TextureHandle hTexture{ pFbxModel->GetMaterialAt(i).hTexture_ };
+
+				hTexture = meshRenderer.hTexture_;
+
+
+				// インデックスバッファをセット
+				stride = sizeof(int);
+				offset = 0;
+				pContext->IASetIndexBuffer(pFbxModel->GetIndexBufferAt(i).Get(), DXGI_FORMAT_R32_UINT, 0);
+
+				// コンスタントバッファをセット
+				pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
+				pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
+
+				if (constantBuffer.hasTexture)
+				{
+					Texture* pTexture{ resource.GetTexture(hTexture) };
+					wassert(pTexture != nullptr);
+					if (pTexture)
+					{
+						pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
+
+						pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
+					}
+				}
+				else
+				{
+					constantBuffer.diffuseColor = pFbxModel->GetMaterialAt(i).diffuse;
+				}
+				D3D11_MAPPED_SUBRESOURCE data{};
+
+				pContext->Map(pFbxModel->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+				memcpy_s(
+					data.pData,
+					data.RowPitch,
+					reinterpret_cast<void*>(&constantBuffer),
+					sizeof(Fbx::ConstantBuffer));
+				pContext->Unmap(pFbxModel->GetConstantBuffer().Get(), 0);
+
+				pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
+			}
+
+			// 最背面に描画したから戻す
+			d3d.SetZBuffer(ZBufferMode::None);
+		}
+	}
+#pragma endregion
+
+
+#pragma region 透明描画
+	for (size_t index : alphaIndices)
+	{
+		// 透明度付きで描画する準備
+		d3d.SetUseDepthBuffer(false);
+		d3d.SetBlend(BlendMode::Alpha);
+
+		EntityId entityId{ cpGameObject.GetEntityId(index) };
+
+		ModelMesh* pModelMesh{ cpModelMesh.Get(entityId) };
+		if (pModelMesh == nullptr)  // 無効なメッシュコンポーネントを取得してしまったら回帰
+		{
+			return;
+		}
+
+		Transform* pTransform{ cpTransform.Get(entityId) };
+		if (pTransform == nullptr)
+		{
+			wassert(false && "Transformの取得に失敗");
+			return;
+		}
+
+		{
+			MeshRenderer& meshRenderer{ this->at(index) };
+
+			ModelHandle hModel{ pModelMesh->hModel_ };
+			ModelResource* pModel{ model.GetModel(hModel) };
+			Fbx* pFbxModel{ dynamic_cast<Fbx*>(pModel) };
+			if (pFbxModel == nullptr)
+			{
+				LOGFLN("Warn:Fbx以外のモデルが読み込まれた！");
+				return;
+			}
+
+			Fbx::ConstantBuffer constantBuffer{};
+			constantBuffer.matrixView = XMMatrixTranspose(camera.GetViewMatrix());
+			constantBuffer.matrixProjection = XMMatrixTranspose(camera.GetProjectionMatrix());
+			constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
+			constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
+			constantBuffer.matrixUV = XMMatrixIdentity();
+			constantBuffer.lightDirection = directionalLight.GetDirection();
+			constantBuffer.lightColor = directionalLight.GetColor();
+			constantBuffer.ambientValue = 0.3f;
+
+			// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
+			d3d.SetShader(meshRenderer.hShader_);
+
+			UINT stride{ sizeof(Fbx::Vertex) };
+			UINT offset{ 0 };
+			// 頂点バッファをセット
+			pContext->IASetVertexBuffers(0, 1, pFbxModel->GetVertexBuffer().GetAddressOf(), &stride, &offset);
+
+			// 各マテリアル分
+			for (int i = 0; i < pFbxModel->GetMaterialCount(); i++)
+			{
+				constantBuffer.hasTexture = pFbxModel->GetMaterialAt(i).hTexture_ != INVALID_HANDLE;
+
+				TextureHandle hTexture{ pFbxModel->GetMaterialAt(i).hTexture_ };
+
+				hTexture = meshRenderer.hTexture_;
+
+
+				// インデックスバッファをセット
+				stride = sizeof(int);
+				offset = 0;
+				pContext->IASetIndexBuffer(pFbxModel->GetIndexBufferAt(i).Get(), DXGI_FORMAT_R32_UINT, 0);
+
+				// コンスタントバッファをセット
+				pContext->VSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // 頂点シェーダ用
+				pContext->PSSetConstantBuffers(0, 1, pFbxModel->GetConstantBuffer().GetAddressOf());  // ピクセルシェーダ用
+
+				if (constantBuffer.hasTexture)
+				{
+					Texture* pTexture{ resource.GetTexture(hTexture) };
+					wassert(pTexture != nullptr);
+					if (pTexture)
+					{
+						pContext->PSSetSamplers(0, 1, pTexture->GetSamplerState().GetAddressOf());
+
+						pContext->PSSetShaderResources(0, 1, pTexture->GetShaderResourceView().GetAddressOf());
+					}
+				}
+				else
+				{
+					constantBuffer.diffuseColor = pFbxModel->GetMaterialAt(i).diffuse;
+				}
+				D3D11_MAPPED_SUBRESOURCE data{};
+
+				pContext->Map(pFbxModel->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+				memcpy_s(
+					data.pData,
+					data.RowPitch,
+					reinterpret_cast<void*>(&constantBuffer),
+					sizeof(Fbx::ConstantBuffer));
+				pContext->Unmap(pFbxModel->GetConstantBuffer().Get(), 0);
+
+				pContext->DrawIndexed(static_cast<UINT>(pFbxModel->GetIndexCountAt(i)), 0, 0);
+			}
+
+			// 最背面に描画したから戻す
+			d3d.SetZBuffer(ZBufferMode::None);
+		}
+
+		// 透明度付きで描画したなら戻す
+		d3d.SetUseDepthBuffer(true);
+		d3d.SetZBuffer(ZBufferMode::None);
+	}
+#pragma endregion
 }

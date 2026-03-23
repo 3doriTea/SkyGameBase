@@ -55,9 +55,8 @@ void wtgb::Scriptable::LoadPrefabFromJson(const fs::path& _jsonPath, GameObjectB
 	{
 		ifs >> j;
 	}
-	catch (std::exception& ex)
+	catch (const std::exception&)
 	{
-		(void)ex;  // 意図的にキャスト
 		wassert(false && "jsonファイルのフォーマットエラー");
 		return;
 	}

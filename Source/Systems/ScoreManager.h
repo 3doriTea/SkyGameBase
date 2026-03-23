@@ -18,6 +18,17 @@ public:
 	void End() override;
 
 	/// <summary>
+	/// ゲームスコアをリセットする
+	/// </summary>
+	void ResetGameScore();
+
+	/// <summary>
+	/// ゲームスコアを参照する
+	/// </summary>
+	/// <param name="_callback">ゲームスコアのコールバック関数 void(GameScore&)</param>
+	inline void Ref(const std::function<void(GameScore&)>& _callback) { _callback(gameScore_); }
+
+	/// <summary>
 	/// 現在のスコア値を取得
 	/// </summary>
 	/// <returns>現在のスコア値</returns>
@@ -36,5 +47,5 @@ private:
 	uint64_t currentScore_;  // 現在のスコア値
 	uint64_t maxScore_;      // スコアの最大値
 
-	GameScore gameScore_;
+	GameScore gameScore_;  // ゲームのスコア
 };

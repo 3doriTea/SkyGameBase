@@ -27,6 +27,8 @@
 #include "DragArrowAxis.h"
 #include "UI/DragArrow.h"
 
+#include "Systems/ScoreManager.h"
+
 
 PlayScene::PlayScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) },
@@ -46,6 +48,9 @@ PlayScene::~PlayScene()
 void PlayScene::Start()
 {
 	EntityId playState{ Instantiate<PlayState>() };
+
+	// シーンが始まったらスコアをリセットする
+	System().Get<ScoreManager>().ResetGameScore();
 
 	Instantiate<Debugger>();
 

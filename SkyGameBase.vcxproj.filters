@@ -1372,6 +1372,7 @@
     <FxCompile Include="Assets\Shader\BallSphere.hlsl" />
     <FxCompile Include="Assets\Shader\PostProcessing\Twist.hlsl" />
     <FxCompile Include="Assets\Shader\LiftRope.hlsl" />
+    <FxCompile Include="Assets\Shader\CharaEggRing.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="wtgb\_Template\GameSystem-cpp.txt" />

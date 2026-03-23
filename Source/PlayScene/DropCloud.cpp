@@ -13,6 +13,7 @@
 #include "SMF/ToneHz.h"
 #include "UI/MiniCharaManager.h"
 #include "UI/PerfectTimer.h"
+#include "Systems/ScoreManager.h"
 
 
 DropCloud::DropCloud(
@@ -229,7 +230,7 @@ void DropCloud::Update()
 		return;  // 下山中以外は無視
 	}
 
-	const float dt{ System().Get<GameTime>().GetDeltaTime() };
+	const float DT{ System().Get<GameTime>().GetDeltaTime() };
 
 	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
 	wassert(pSMFPlayer && u8"SMFPlayerが見つからなかった");
@@ -246,6 +247,23 @@ void DropCloud::Update()
 	MiniCharaManager* pMiniCharaManager{ FindGameObject<MiniCharaManager>(miniCharaManager_) };
 	wassert(pMiniCharaManager && "ミニキャラ統括するやつが見つからない");
 
+
+#ifdef _DEBUG
+	// デバッグ用 すぐにリザルトシーンへ行く
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+	if (input.IsKeyDown(KeyCode::Alpha0) && isFinished_ == false)
+	{
+		isFinished_ = true;
+		System().Get<Alarm>().Add([this]
+			{
+				// 時間が経ったら結果シーンに遷移する
+				System()
+					.Get<SceneManager>()
+					.Move<ResultScene>();
+			},
+			0.0f);
+	}
+#endif
 
 #pragma region 再生が終了したら1回だけゴール処理
 	if (pSMFPlayer
@@ -285,24 +303,36 @@ void DropCloud::Update()
 			playRate = velocity.z / playRatioMaxVelocity_;
 			if (level_ > 0)
 			{
-				perfectTimer_ -= dt;
+				perfectTimer_ = std::fmaxf(perfectTimer_ + DT, 0.0f);
 			}
+
+			System().Get<ScoreManager>().Ref([DT](GameScore& _score)
+				{
+					// ずれている時間を計測
+					_score.timeDifference += DT;
+				});
 			break;
 		case SpeedType::Good:
 			// 十分スピードがあるなら通常再生
 			playRate = 1.0f;
 			if (level_ < CLOUD_LEVEL_MAX)
 			{
-				perfectTimer_ += dt;
+				perfectTimer_ += DT;
 			}
 			break;
 		case SpeedType::Excissive:
 			// 速すぎるなら止める
 			if (level_ > 0)
 			{
-				perfectTimer_ -= dt;
+				perfectTimer_ = std::fmaxf(perfectTimer_ + DT, 0.0f);
 			}
 			playRate = 0.0f;
+
+			System().Get<ScoreManager>().Ref([DT](GameScore& _score)
+				{
+					// ずれている時間を計測
+					_score.timeDifference += DT;
+				});
 			break;
 		default:
 			break;
