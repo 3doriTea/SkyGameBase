@@ -13,7 +13,7 @@ public:
 	};
 
 public:
-	CameraController(const EntityId _dragArrowAxis);
+	CameraController(const EntityId _dragArrowAxis, const EntityId _dragArrow);
 	~CameraController();
 
 	void Init() override;
@@ -34,7 +34,8 @@ public:
 
 private:
 	EntityId lookTarget_;     // カメラの注視点となるターゲットエンティティ
-	EntityId dragArrowAxis_;  // ドラッグ中の軸
+	EntityId dragArrowAxis_;  // ドラッグの軸
+	EntityId dragArrow_;      // ドラッグの矢印本体
 
 	Mode mode_;
 

@@ -4,12 +4,15 @@
 #include "CameraController/CameraMovePlay.h"
 
 
-CameraController::CameraController(const EntityId _dragArrowAxis) :
+CameraController::CameraController(
+	const EntityId _dragArrowAxis,
+	const EntityId _dragArrow) :
 	GameObject{ "Play/CameraController.json" },
 	mode_{ Mode::Play },
 	lookTarget_{ INVALID_ENTITY },
 	pCameraMove_{ nullptr },
-	dragArrowAxis_{ _dragArrowAxis }
+	dragArrowAxis_{ _dragArrowAxis },
+	dragArrow_{ _dragArrow }
 {
 }
 
@@ -34,7 +37,7 @@ void CameraController::Update()
 		cursor.SetShow(true);
 	}
 
-	pCameraMove_->Update({ System(), GetEntityId(), dragArrowAxis_ });
+	pCameraMove_->Update({ System(), GetEntityId(), dragArrowAxis_, dragArrow_ });
 
 	camera.targetPosition_ = Transform().GetPosition() + Transform().GetForward();
 	camera.position_ = Transform().GetPosition();
@@ -79,7 +82,7 @@ void CameraController::SetMode(const Mode _mode)
 
 	if (pCameraMove_)
 	{
-		pCameraMove_->End({ System(), GetEntityId(), dragArrowAxis_ });
+		pCameraMove_->End({ System(), GetEntityId(), dragArrowAxis_, dragArrow_ });
 	}
 
 	pCameraMove_.reset();
@@ -98,6 +101,6 @@ void CameraController::SetMode(const Mode _mode)
 
 	if (pCameraMove_)
 	{
-		pCameraMove_->Start({ System(), GetEntityId(), dragArrowAxis_ });
+		pCameraMove_->Start({ System(), GetEntityId(), dragArrowAxis_, dragArrow_ });
 	}
 }

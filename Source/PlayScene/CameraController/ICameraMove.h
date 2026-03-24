@@ -15,16 +15,19 @@ public:
 		GameObjectReference(
 			ViewerCached& _system,
 			EntityId _self,
-			EntityId _dragArrowAxis
+			EntityId _dragArrowAxis,
+			EntityId _dragArrow
 		) :
 			system{ _system },
 			self{ _self },
-			dragArrowAxis{ _dragArrowAxis }
+			dragArrowAxis{ _dragArrowAxis },
+			dragArrow{ _dragArrow }
 		{}
 
 		ViewerCached& system;    // システムアクセス用
 		EntityId self;           // カメラ自身
-		EntityId dragArrowAxis;  // drag軸
+		EntityId dragArrowAxis;  // drag矢印の軸
+		EntityId dragArrow;      // drag矢印本体
 	};
 
 public:

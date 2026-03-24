@@ -29,7 +29,7 @@ CameraMoveFree::~CameraMoveFree()
 
 void CameraMoveFree::Start(GameObjectReference _ref)
 {
-	auto [systemView, entityId, dragArrowAxis]{ _ref };
+	auto [systemView, entityId, dragArrowAxis, dragArrow]{ _ref };
 
 	Cursor& cursor{ systemView.Get<Cursor>() };
 	cursor.SetCenterLock(false);
@@ -38,7 +38,7 @@ void CameraMoveFree::Start(GameObjectReference _ref)
 
 void CameraMoveFree::Update(GameObjectReference _ref)
 {
-	auto [systemView, entityId, dragArrowAxis]{ _ref };
+	auto [systemView, entityId, dragArrowAxis, dragArrow]{ _ref };
 
 	float dt{ systemView.Get<GameTime>().GetDeltaTime() };
 	Cursor& cursor{ systemView.Get<Cursor>() };

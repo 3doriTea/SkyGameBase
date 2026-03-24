@@ -4,6 +4,7 @@
 #include "PlayScene/StageLine.h"
 #include <algorithm>
 #include "../DragArrowAxis.h"
+#include "../UI/DragArrow.h"
 
 namespace
 {
@@ -41,7 +42,7 @@ CameraMovePlay::CameraMovePlay() :
 
 void CameraMovePlay::Start(GameObjectReference _ref)
 {
-	auto [systemView, entityId, dragArrowAxis]{ _ref };
+	auto [systemView, entityId, dragArrowAxis, dragArrow]{ _ref };
 
 	GameObject* pStageLineObj{ systemView.Get<CPGameObject>().FindGameObject("StageLine") };
 	wassert(pStageLineObj && "ステージラインがシーンに存在しないよ！");
@@ -55,7 +56,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 {
 	using namespace DirectX;
 
-	auto [systemView, entityId, dragArrowAxis]{ _ref };
+	auto [systemView, entityId, dragArrowAxis, dragArrow]{ _ref };
 
 	float dt{ systemView.Get<GameTime>().GetDeltaTime() };
 	Cursor& cursor{ systemView.Get<Cursor>() };
@@ -309,6 +310,10 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 #pragma region ドラッグ中の軸を更新
 	DragArrowAxis* pAxis{ pGameObject->FindGameObject<DragArrowAxis>(dragArrowAxis) };
+	wassert(pAxis && "pAxisが見つからなかった");
+
+	DragArrow* pArrow{ pGameObject->FindGameObject<DragArrow>(dragArrow) };
+	wassert(pArrow && "pArrowが見つからなかった");
 
 	// 2D 画面空間から3D空間に変換
 	Vector3 diff3D
@@ -317,6 +322,15 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 			0.0f,
 			-static_cast<float>(std::clamp(diffValue_.y, dragArrow_.screenDiffMin, dragArrow_.screenDiffMax))
 	};
+
+	if (diff3D.x * diff3D.x + diff3D.y * diff3D.y > 0.0f)
+	{
+		pArrow->ChangeType(DragArrowType_Control);
+	}
+	else
+	{
+		pArrow->ChangeType(DragArrowType_Velocity);
+	}
 	
 	// カメラとの角度から矢印の方向を適用
 	Vector3 arrowDir3D{ XMVector3TransformCoord(diff3D, XMMatrixRotationY(angleY_)) };

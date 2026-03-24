@@ -18,5 +18,7 @@
     }
   },
   "Param": {
+    "dragArrowImageFilePath": "Models/DragArrow/Arrow.png",
+    "veloArrowImageFilePath": "Models/DragArrow/VelocityArrow.png"
   }
 }

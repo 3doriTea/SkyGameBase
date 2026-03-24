@@ -74,8 +74,8 @@ void PlayScene::Start()
 	player = { Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
 	Instantiate<StageObjectManager>(stageLine, player, playState);
 	EntityId dragArrowAxis{ Instantiate<DragArrowAxis>(player) };
-	Instantiate<DragArrow>(dragArrowAxis);
-	camera = Instantiate<CameraController>(dragArrowAxis);
+	EntityId dragArrow{ Instantiate<DragArrow>(dragArrowAxis) };
+	camera = Instantiate<CameraController>(dragArrowAxis, dragArrow);
 
 	EntityId miniCharaManager{ Instantiate<MiniCharaManager>(smfPlayer) };
 
@@ -115,7 +115,7 @@ void PlayScene::Update()
 
 #ifdef _DEBUG
 	//static float v[3]{ -29.231293, -34.184677, 41.512207 };
-	static float v[3]{ -6.74646, -15.585419, 26.661987 };
+	static float v[3]{ -6.74646f, -15.585419f, 26.661987f };
 	/*ImGui::Begin("Direction");
 	ImGui::InputFloat3("direction", v);
 	ImGui::End();*/
