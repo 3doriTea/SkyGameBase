@@ -56,11 +56,30 @@ float4 PS(VS_OUT inData) : SV_TARGET
 		diffuse = diffuseColor;
 	}
 	
+	#if 0
+	float4 light = float4(0, -1, 0, 0); //normalize(lightDirection);
+	
+	//float4 normalColor = saturate(dot(inData.normal, -light));
+	float4 color = diffuse * (1.0f - inData.color) * 1.0f + diffuse * ambientValue * 0.5f;
+	//color.rgb += (0.5 - length(color.rgb)) * float3(0, 0, 1);
+	//float4 color = inData.color;
+	float grade = 1.0f - saturate(dot(inData.normal, float4(0, 0, 1, 0)));
+	//color.rgb += float3(0.7, 0.7, 0.7) * grade;
+	//color.rgb += float3(1.0, 0.7, 0.7) * grade;
+	color.rgb += float3(0.7, 1.0, 0.7) * grade;
+	
+	#else
 	float4 light = float4(0, -1, 0, 0); //normalize(lightDirection);
 	
 	//float4 normalColor = saturate(dot(inData.normal, -light));
 	float4 color = diffuse * inData.color * 1.0f + diffuse * ambientValue * 0.5f;
+	//color.rgb += (0.5 - length(color.rgb)) * float3(0, 0, 1);
 	//float4 color = inData.color;
+	float grade = saturate(dot(inData.normal, float4(0, 0, 1, 0)));
+	//color.rgb += float3(0.7, 0.7, 0.7) * grade;
+	//color.rgb += float3(1.0, 0.7, 0.7) * grade;
+	color.rgb += float3(0.7, 1.0, 0.7) * grade;
+	#endif
 	
 	return color;
 }
