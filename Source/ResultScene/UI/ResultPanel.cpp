@@ -85,8 +85,7 @@ void ResultPanel::Update()
 	NumberPlate* pNumberPlate[GameScore::ScoreType_Max]{};
 	for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
 	{
-		pNumberPlate[type] = FindGameObject<NumberPlate>(
-			numberPlate_[GameScore::ScoreType_PresentCount]);
+		pNumberPlate[type] = FindGameObject<NumberPlate>(numberPlate_[type]);
 		wassert(pNumberPlate[type]);
 
 		if (pNumberPlate[type])
