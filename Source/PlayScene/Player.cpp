@@ -19,7 +19,11 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 	startLineZ_{},
 	toTargetTime_{},
 	slideVelocityX_{ 0.0f },
-	bounceRotationVZDiv_{}
+	bounceRotationVZDiv_{},
+	rotateBoostSpeedX_{},
+	onGroundRotationVelo_{},
+	colliderRadius_{},
+	slideVeloDampingPerSec_{}
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);
@@ -50,6 +54,7 @@ void Player::OnLoadParam(const json& _json)
 	slideVeloDampingPerSec_ = SafeGet<float>(_json, "slideVeloDampingPerSec");
 	bounceRotationVZDiv_ = SafeGet<float>(_json, "bounceRotationVZDiv");
 	onGroundRotationVelo_ = SafeGet<float>(_json, "onGroundRotationVelo");
+	colliderRadius_ = SafeGet<float>(_json, "colliderRadius");
 }
 
 void Player::Init()
@@ -59,7 +64,7 @@ void Player::Init()
 	Collider& collider{ GetComponent<Collider>() };
 
 	// TODO: プレイヤーの球コライダの半径を jsonに
-	collider.SetRadius(2.0f);
+	collider.SetRadius(colliderRadius_);
 
 	angle_ = 0.0f;
 }
@@ -148,20 +153,6 @@ void Player::Update()
 	float vv = std::powf(slideVeloDampingPerSec_, dt);
 	v.x *= vv;
 	rb.SetVelocity(v);
-
-	return;
-
-	angle_ += DirectX::XM_2PI / 10.0f * dt;
-	if (angle_ >= DirectX::XM_2PI)
-	{
-		angle_ -= DirectX::XM_2PI;
-	}
-
-	Vector3 rotation{ Transform().GetRotation() };
-	rotation.y = angle_;
-	Transform().SetRotation(rotation);
-
-	Transform().SetScale((std::sinf(angle_) * std::sinf(angle_) * 3.0f) * Vector3::One() + Vector3::One());
 }
 
 void Player::AddMove(const Vector3 _move)

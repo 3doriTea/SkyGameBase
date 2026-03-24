@@ -42,4 +42,5 @@ private:
 	float rotateBoostSpeedX_;     // x軸での回転速度ブースト
 	float bounceRotationVZDiv_;   // 速度.zに比例する回転速度の分母
 	float onGroundRotationVelo_;  // 地上に引っ付いている時の最大回転速度
+	float colliderRadius_;      // 当たり判定円の半径
 };
