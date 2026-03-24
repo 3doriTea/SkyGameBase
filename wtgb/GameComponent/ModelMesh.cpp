@@ -15,6 +15,15 @@ wtgb::ModelMesh::ModelMesh() :
 
 void wtgb::ModelMesh::Init(ViewerCached system_)
 {
+	Reflesh(system_);
+}
+
+void wtgb::ModelMesh::End()
+{
+}
+
+void wtgb::ModelMesh::Reflesh(ViewerCached system_)
+{
 	// ファイル名だけ指定されている
 	if (!fileName_.empty() && (!pOriginalMesh_ && !pOriginalMeshes_))
 	{
@@ -65,6 +74,7 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 	}
 }
 
-void wtgb::ModelMesh::End()
+void wtgb::ModelMesh::SetModel(const ModelHandle _hModel)
 {
+	hModel_ = _hModel;
 }

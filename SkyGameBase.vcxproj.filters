@@ -780,6 +780,12 @@
     <ClInclude Include="Source\PlayScene\PlayerCosntantSender.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\LiftChilds\LiftChild.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\LiftChilds\Bird.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1277,6 +1283,9 @@
     <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshesSimple.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\LiftChilds\LiftChild.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1355,6 +1364,7 @@
     <None Include="Assets\Prefab\Play\DragArrow.json" />
     <None Include="Assets\Prefab\Play\UI\PerfectTimer.json" />
     <None Include="Assets\Prefab\Play\DragArrowAxis.json" />
+    <None Include="Assets\Prefab\LiftChild.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

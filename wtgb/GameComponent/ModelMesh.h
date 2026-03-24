@@ -49,10 +49,21 @@ namespace wtgb
 		void End() override;
 
 		/// <summary>
+		/// メッシュの種類を再読み込みする
+		/// </summary>
+		void Reflesh(ViewerCached system_);
+
+		/// <summary>
 		/// モデルメッシュの種類を取得
 		/// </summary>
 		/// <returns>モデルメッシュの種類</returns>
 		Type GetType() const { return modelMeshType_; }
+
+		/// <summary>
+		/// モデルをセットする
+		/// </summary>
+		/// <param name="_hModel">モデルのハンドル</param>
+		void SetModel(const ModelHandle _hModel);
 
 	private:
 		std::string fileName_;  // モデルのファイル名
