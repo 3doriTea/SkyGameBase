@@ -28,6 +28,7 @@
 #include "UI/DragArrow.h"
 
 #include "Systems/ScoreManager.h"
+#include "wtgb/GameSystem/DirectionalLight.h"
 
 
 PlayScene::PlayScene(GameScene::Config&& _config) :
@@ -45,6 +46,10 @@ PlayScene::~PlayScene()
 {
 }
 
+static EntityId player{};
+static EntityId camera{};
+static Vector3 pPos{};
+static bool isPlayerFixied{};
 void PlayScene::Start()
 {
 	EntityId playState{ Instantiate<PlayState>() };
@@ -66,11 +71,11 @@ void PlayScene::Start()
 	
 	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
 
-	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
+	player = { Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
 	Instantiate<StageObjectManager>(stageLine, player, playState);
 	EntityId dragArrowAxis{ Instantiate<DragArrowAxis>(player) };
 	Instantiate<DragArrow>(dragArrowAxis);
-	Instantiate<CameraController>(dragArrowAxis);
+	camera = Instantiate<CameraController>(dragArrowAxis);
 
 	EntityId miniCharaManager{ Instantiate<MiniCharaManager>(smfPlayer) };
 
@@ -105,4 +110,50 @@ void PlayScene::Update()
 	{
 		Game::Exit();
 	}
+
+	const float DT = System().Get<GameTime>().GetDeltaTime();
+
+#ifdef _DEBUG
+	//static float v[3]{ -29.231293, -34.184677, 41.512207 };
+	static float v[3]{ -6.74646, -15.585419, 26.661987 };
+	/*ImGui::Begin("Direction");
+	ImGui::InputFloat3("direction", v);
+	ImGui::End();*/
+	System().Get<DirectionalLight>()
+		.SetDirection({ v[0], v[1], v[2] });
+
+	static bool isActive{ false };
+
+	if (input.IsKeyDown(KeyCode::G))
+	{
+		isActive = !isActive;
+		CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+
+	}
+
+	if (input.IsKeyDown(KeyCode::H))
+	{
+		isPlayerFixied = !isPlayerFixied;
+		CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+		pPos = cpGameObject.FindGameObject(player)->Transform().GetPosition();
+	}
+	
+	if (isActive)
+	{
+		CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+		Vector3 cPos = cpGameObject.FindGameObject(camera)->Transform().GetPosition();
+		Vector3 diff = pPos - cPos;
+		v[Vector3::AT_X] = diff.x;
+		v[Vector3::AT_Y] = diff.y;
+		v[Vector3::AT_Z] = diff.z;
+	}
+
+	if (isPlayerFixied)
+	{
+		CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+		cpGameObject.FindGameObject(player)->Transform().SetPosition(pPos);
+	}
+
+	LOGFLN("light = {}, {}, {}", v[0], v[1], v[2]);
+#endif
 }

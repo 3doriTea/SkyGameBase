@@ -263,7 +263,7 @@ void wtgb::CPMeshRenderer::Update()
 				constantBuffer.matrixUV = XMMatrixIdentity();
 				constantBuffer.lightDirection = directionalLight.GetDirection();
 				constantBuffer.lightColor = directionalLight.GetColor();
-				constantBuffer.ambientValue = 0.3f;
+				constantBuffer.ambientValue = 0.8f;
 
 				// 頂点バッファ、インデックスバッファ、コンスタントバッファ、をパイプラインにセットする
 				d3d.SetShader(meshRenderer.hShader_);

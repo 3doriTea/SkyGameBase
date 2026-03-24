@@ -39,6 +39,7 @@ void NumberPlate::Update()
 {
 	currDrawPos_ = beginDrawPos_;
 	
+	LOGFLN("number:{}", number_);
 	for (std::string str = std::to_string(number_); char c : str)
 	{
 		if ('0' <= c && c <= '9')
@@ -47,6 +48,7 @@ void NumberPlate::Update()
 			DrawNumber(num);
 		}
 	}
+	LOGFLN("");
 }
 
 void NumberPlate::Release()

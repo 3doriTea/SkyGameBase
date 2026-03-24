@@ -30,7 +30,7 @@ VS_OUT VS(
 	
 	outData.normal = normal;
 	
-	float4 light = float4(0, -1, 0, 0); //normalize(lightDirection);
+	float4 light = normalize(lightDirection);
 	
 	normal = mul(normal, matrixRotateWorld);
 	normal.w = 0;
