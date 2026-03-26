@@ -13,6 +13,8 @@
 #include "ResultScene/ResultScene.h"
 #include "Systems/ScoreManager.h"
 
+#include "SkySphere/SkySphere.h"
+
 
 TitleScene::TitleScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) }
@@ -31,10 +33,12 @@ void TitleScene::Start()
 
 	EntityId dragCircle{ Instantiate<DragCircle>() };
 	EntityId titleNeco{ Instantiate<TitleNeco>(dragCircle) };
-	Instantiate<TitleCamera>(titleNeco);
+	EntityId camera{ Instantiate<TitleCamera>(titleNeco) };
 
 	System().Get<Camera>().position_ = { 200, -140, 440.0f };
 	System().Get<Camera>().targetPosition_ = { 0, -160.0, 400.0f };
+	
+	Instantiate<SkySphere>(camera, DirectX::XM_PI / 2.0f);
 }
 
 void TitleScene::Update()

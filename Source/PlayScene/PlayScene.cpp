@@ -85,7 +85,7 @@ void PlayScene::Start()
 
 	Instantiate<SpeedMessage>(speedController);
 
-	Instantiate<SkySphere>();
+	Instantiate<SkySphere>(camera);
 	
 	System().Get<DirectionalLight>()
 		.SetDirection(worldConfig_.lightDirection);

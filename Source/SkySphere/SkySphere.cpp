@@ -1,11 +1,14 @@
 #include "SkySphere.h"
 
 
-SkySphere::SkySphere() :
-	GameObject{ "SkySphere.json" }
+SkySphere::SkySphere(
+	const EntityId _cameraEntity,
+	const float _angleYRadian) :
+	GameObject{ "SkySphere.json" },
+	angleYRadian_{ _angleYRadian }
 {
-	EntityId mainCamera{ FindGameObject("CameraController")->GetEntityId() };
-	Property().SetParent(mainCamera);  // 常にカメラにくっつくようにする
+	Property().SetParent(_cameraEntity);  // 常にカメラにくっつくようにする
+	Transform().SetRotation(Vector3::Up() * _angleYRadian);
 }
 
 SkySphere::~SkySphere()
