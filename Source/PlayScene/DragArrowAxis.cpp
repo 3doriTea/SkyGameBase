@@ -4,7 +4,8 @@ DragArrowAxis::DragArrowAxis(const EntityId _player) :
 	GameObject{ "Play/DragArrowAxis.json" },
 	player_{ _player },
 	scaleZDiv_{ 1.0f },
-	scaleBase_{ 0.0f }
+	scaleBase_{ 0.0f },
+	offset_{ Vector3::Zero() }
 {
 }
 
@@ -20,7 +21,7 @@ void DragArrowAxis::Init()
 void DragArrowAxis::Update()
 {
 	Vector3 position{ FindGameObject(player_)->Transform().GetPosition() };
-	Transform().SetPositionWorld(position);
+	Transform().SetPositionWorld(position + offset_);
 }
 
 void DragArrowAxis::Release()
@@ -30,11 +31,6 @@ void DragArrowAxis::Release()
 void DragArrowAxis::SetScaleZ(const float _z)
 {
 	float offset{ 1.0f };
-	/*if (_z > 0.0f)
-	{
-		offset = 1.0f;
-	}*/
-
 	Transform().SetScale(Vector3
 		{
 			scaleBase_,
@@ -53,4 +49,5 @@ void DragArrowAxis::OnLoad(const json& _j)
 {
 	scaleBase_ = SafeGet<float>(_j, "scaleBase");
 	scaleZDiv_ = SafeGet<float>(_j, "scaleZDiv");
+	offset_ = SafeGet<Vector3>(_j, "offset");
 }

@@ -26,11 +26,14 @@ wtgb::Result MainWindow::Init(const ViewerInit& _viewer)
 	const uint32_t WINDOW_REFRESH_RATE{ GetPrivateProfileInt("Window", "RefreshRate", 60, SETTING_FILE_NAME) };
 	const uint32_t WINDOW_WINDOWED    { GetPrivateProfileInt("Window", "Windowed", 60, SETTING_FILE_NAME) };
 
+	// MEMO: u8string を 内部で扱っている wstirng に変換 自然に string
+	fs::path WINDOW_TITLE_CONVERT{ Game::Title() };
+
 	GameWindowHandle hGameWindow
 	{
 		_viewer.Get<GameWindow>().Create(GameWindow::CreateWindowConfig
 		{
-			.title = std::string{ Game::Title().begin(), Game::Title().end() },
+			.title = WINDOW_TITLE_CONVERT.string(),
 			.classStyle = CS_VREDRAW | CS_HREDRAW,
 			.icon = LoadIcon(nullptr, IDI_APPLICATION),
 			.iconSmile = LoadIcon(nullptr, IDI_WINLOGO),

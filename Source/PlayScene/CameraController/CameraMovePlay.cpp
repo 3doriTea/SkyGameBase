@@ -68,6 +68,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
 	GameObject* pGameObject{ systemView.Get<CPGameObject>().Get(entityId)->get() };
 	GameObject* pPlayer{ pGameObject->FindGameObject("Player") };
+	RigidBody& playerRB{ pPlayer->GetComponent<RigidBody>() };
 
 	// マウスカーソルの制御
 	if (input.IsMouseDown(MouseCode::Left)  // マウス左押された
@@ -137,10 +138,9 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	toPosition = XMVector3TransformCoord(OFFSET, rotationMatrix) + pPlayer->Transform().GetPositionWorld();
 
 #pragma region y軸速度の分迫力をもたせる
-	RigidBody& rb{ pPlayer->GetComponent<RigidBody>() };
 	float emphasisCurrYOffset
 	{
-		std::clamp(rb.GetVelocity().y, emphasis_.velocityMin, emphasis_.velocityMax)
+		std::clamp(playerRB.GetVelocity().y, emphasis_.velocityMin, emphasis_.velocityMax)
 	};
 
 	emphasisBoost_ -= dt * emphasis_.boostDecayRatePerSec;
@@ -194,7 +194,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 	{  // プレイヤーが前に進んでいるとき、カメラをだんだんと前に向ける処理
 		
-		if (rb.GetVelocity().z > 0.0f)
+		if (playerRB.GetVelocity().z > 0.0f)
 		{
 			Vector3 rotation{ pTransform->GetRotation() };
 			rotation.y /= 1.01f;
@@ -324,21 +324,25 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	};
 
 	if (diff3D.x * diff3D.x + diff3D.y * diff3D.y > 0.0f)
-	{
+	{  // マウスドラッグで矢印を操作している
+		
 		pArrow->ChangeType(DragArrowType_Control);
+
+		// カメラとの角度から矢印の方向を適用
+		Vector3 arrowDir3D{ XMVector3TransformCoord(diff3D, XMMatrixRotationY(angleY_)) };
+		pAxis->SetAngleY(std::atan2f(arrowDir3D.x, arrowDir3D.z));
+
+		// 矢印の大きさを適用
+		float scale{ std::sqrtf(arrowDir3D.x * arrowDir3D.x + arrowDir3D.z * arrowDir3D.z) };
+		pAxis->SetScaleZ(scale);
 	}
 	else
-	{
+	{  // マウスドラッグで矢印を操作していない
+		Vector3 velocity{ playerRB.GetVelocity() };
+		pAxis->SetAngleY(0.0f);
+		pAxis->SetScaleZ(velocity.z);
 		pArrow->ChangeType(DragArrowType_Velocity);
 	}
-	
-	// カメラとの角度から矢印の方向を適用
-	Vector3 arrowDir3D{ XMVector3TransformCoord(diff3D, XMMatrixRotationY(angleY_)) };
-	pAxis->SetAngleY(std::atan2f(arrowDir3D.x, arrowDir3D.z));
-	
-	// 矢印の大きさを適用
-	float scale{ std::sqrtf(arrowDir3D.x * arrowDir3D.x + arrowDir3D.z * arrowDir3D.z) };
-	pAxis->SetScaleZ(scale);
 #pragma endregion
 }
 

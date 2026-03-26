@@ -30,9 +30,6 @@
     <ClInclude Include="Source\Resource.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SampleSkyCombat.h">
-      <Filter>C++未分類ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Source\SkyGameBase.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
@@ -72,7 +69,7 @@
     <ClInclude Include="wtgb\LogUtility.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SampleGame.h">
+    <ClInclude Include="Source\NekoGame.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="wtgb\GameSystem\Direct3D.h">
@@ -809,7 +806,7 @@
     <ClCompile Include="wtgb\GameSystem\Debug.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SampleGame.cpp">
+    <ClCompile Include="Source\NekoGame.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
     <ClCompile Include="wtgb\GameSystem\Direct3D.cpp">

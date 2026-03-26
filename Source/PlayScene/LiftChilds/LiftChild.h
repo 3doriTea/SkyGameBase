@@ -13,8 +13,9 @@ public:
 		const fs::path& _modelFile);
 	~LiftChild();
 
-	inline void Update() override {}
-	inline void Release() override {}
+	inline void Init() override;
+	inline void Update() override;
+	inline void Release() override;
 
 	virtual ModelHandle OnGetModel() = 0;
 	virtual void OnLoadParam(const json& _json) {}
