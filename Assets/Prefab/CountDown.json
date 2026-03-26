@@ -30,6 +30,6 @@
     "countDownTime": 4.0,
     "countDownTimeScale": 1.0,
     "countDownMoveRatio": 0.25,
-    "smallingPerFrameScale": [ 10, 10 ]
+    "smallingPerFrameScale": [ 600.0, 600.0 ]
   }
 }

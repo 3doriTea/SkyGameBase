@@ -13,10 +13,10 @@ CountDown::~CountDown()
 {
 }
 
-void CountDown::PlayAnimGo(RectF& _rectF)
+void CountDown::PlayAnimGo(RectF& _rectF, const float _deltaTime)
 {
 	// ひたすら小さくする
-	cellSize_ -= smallingPerFScale_;
+	cellSize_ = cellSize_ - smallingPerFScale_ * _deltaTime;
 
 	if (cellSize_.x < 0.0f)
 	{
@@ -58,7 +58,7 @@ void CountDown::OnLoadParam(const json& _json)
 	timeLeft_ = SafeGet<float>(_json, "countDownTime");
 	timeScaleSec_ = SafeGet<float>(_json, "countDownTimeScale");
 	moveTimeRatio_ = SafeGet<float>(_json, "countDownMoveRatio");
-	smallingPerFScale_ = SafeGet<Vector2Int>(_json, "smallingPerFrameScale");
+	smallingPerFScale_ = SafeGet<Vector2>(_json, "smallingPerFrameScale");
 }
 
 void CountDown::Init()
@@ -91,7 +91,7 @@ void CountDown::Update()
 	else  // カウントダウン終わってGOアニメーション
 	{
 		timeLeft_ = 0.0f;
-		PlayAnimGo(drawRectF);
+		PlayAnimGo(drawRectF, dt);
 	}
 
 	CONTEXT.DrawImage(hSlideImage_, 0.0f, drawRectF);
