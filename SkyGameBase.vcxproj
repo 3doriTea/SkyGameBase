@@ -86,10 +86,10 @@
     <ClInclude Include="Source\ResultScene\ResultScene.h" />
     <ClInclude Include="Source\ResultScene\WaterPool.h" />
     <ClInclude Include="Source\SMF\Note.h" />
-    <ClInclude Include="Source\SpeedType.h" />
+    <ClInclude Include="Source\PlayScene\SpeedType.h" />
     <ClInclude Include="Source\Systems\ScoreManager.h" />
     <ClInclude Include="Source\PlayScene\UI\CountDown.h" />
-    <ClInclude Include="Source\SkySphere.h" />
+    <ClInclude Include="Source\SkySphere\SkySphere.h" />
     <ClInclude Include="Source\PlayScene\WorldSetting.h" />
     <ClInclude Include="Source\SMF\ToneHz.h" />
     <ClInclude Include="Source\StageSelectScene\MapView.h" />
@@ -390,7 +390,7 @@
     <ClCompile Include="Source\ResultScene\WaterPool.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\CountDown.cpp" />
-    <ClCompile Include="Source\SkySphere.cpp" />
+    <ClCompile Include="Source\SkySphere\SkySphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpecialBoom.cpp" />
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />

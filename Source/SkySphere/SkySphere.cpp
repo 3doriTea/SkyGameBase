@@ -1,5 +1,6 @@
 #include "SkySphere.h"
 
+
 SkySphere::SkySphere() :
 	GameObject{ "SkySphere.json" }
 {

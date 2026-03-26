@@ -11,7 +11,7 @@
 #include "StageObjectManager.h"
 #include "ControlUI.h"
 #include "LiftStructure.h"
-#include "SkySphere.h"
+#include "SkySphere/SkySphere.h"
 
 #include "SMF/SMFPlayer.h"
 #include "DropCloud.h"
@@ -38,6 +38,7 @@ PlayScene::PlayScene(GameScene::Config&& _config) :
 		.safeZoneXMin = 0.0f,
 		.safeZoneXMax = 400.0f,
 		.eggGetDistance = 10.0f,
+		.lightDirection = { -6.74646f, -15.585419f, 26.661987f },
 	}
 {
 }
@@ -86,6 +87,9 @@ void PlayScene::Start()
 
 	Instantiate<SkySphere>();
 	
+	System().Get<DirectionalLight>()
+		.SetDirection(worldConfig_.lightDirection);
+
 	// TODO: お試し↓
 	//Instantiate<MiniChara>(dropCloud, smfPlayer, MiniCharaType::Monkitty);
 
@@ -113,7 +117,7 @@ void PlayScene::Update()
 
 	const float DT = System().Get<GameTime>().GetDeltaTime();
 
-#ifdef _DEBUG
+#ifdef _DEBUG_DISABLED
 	//static float v[3]{ -29.231293, -34.184677, 41.512207 };
 	static float v[3]{ -6.74646f, -15.585419f, 26.661987f };
 	/*ImGui::Begin("Direction");
@@ -128,7 +132,6 @@ void PlayScene::Update()
 	{
 		isActive = !isActive;
 		CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
-
 	}
 
 	if (input.IsKeyDown(KeyCode::H))
