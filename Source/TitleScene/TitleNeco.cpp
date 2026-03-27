@@ -99,6 +99,10 @@ void TitleNeco::Init()
 	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragPoint_)) };
 
 	pDragCircle->SetRadius(dragCircleRadius_);
+	pDragCircle->OnClickIn([]
+		{
+			
+		});
 
 #pragma region プレイボタン
 	playButton_ = pTitleScene->Instantiate<Button>();
@@ -169,7 +173,7 @@ void TitleNeco::Update()
 
 	if (pDragCircle && pDragCircle->IsDrag())
 	{
-		Vector2Int displacement{ pDragCircle->GetDisplacement() };
+		Vector2Int displacement{ pDragCircle->GetDifference() };
 		LOGFLN("displacement:({}, {})", displacement.x, displacement.y);
 		moveRatio_ += static_cast<float>(-displacement.y) / screenSize.y;
 	}

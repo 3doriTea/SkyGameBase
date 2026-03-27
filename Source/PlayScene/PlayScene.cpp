@@ -30,6 +30,8 @@
 #include "Systems/ScoreManager.h"
 #include "wtgb/GameSystem/DirectionalLight.h"
 
+#include "FlighterController.h"
+
 
 PlayScene::PlayScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) },
@@ -63,16 +65,16 @@ void PlayScene::Start()
 	Instantiate<ControlUI>();
 	Instantiate<CountDown>();
 
-
 	EntityId stageLine{ Instantiate<StageLine>() };
 
 	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
 
-	Instantiate<LiftStructure>(stageLine, 10.0f);
+	EntityId liftStructure{ Instantiate<LiftStructure>(stageLine, 10.0f) };
 	
 	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
 
 	player = { Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
+	Instantiate<FlighterController>(liftStructure, player);
 	Instantiate<StageObjectManager>(stageLine, player, playState);
 	EntityId dragArrowAxis{ Instantiate<DragArrowAxis>(player) };
 	EntityId dragArrow{ Instantiate<DragArrow>(dragArrowAxis) };

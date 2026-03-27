@@ -12,8 +12,18 @@ LiftStructure::LiftStructure(const EntityId _stage, const float _polePosX) :
 	{
 		"LiftStructure.json"
 	},
+	ropeSpasing_{},
+	chairsCount_{},
+	poleDistance_{},
+	ropeHeight_{},
+	ropeWidth_{},
 	stage_{ _stage },
-	polePosX_{ _polePosX }
+	polePosX_{ _polePosX },
+	poles_{},
+	chairs_{},
+	totalLength_{},
+	laneLength_{},
+	curveLength_{}
 {
 }
 
@@ -181,6 +191,38 @@ void LiftStructure::OnLoad(const json& _json)
 	ropeWidth_ = SafeGet<float>(_json, "ropeWidth");
 }
 
+EntityId LiftStructure::FindChair(const Vector3 _position, const LiftChairDir _dir)
+{
+	float minDistD{ FLT_MAX };             // 今まで見つけた最小距離の2乗
+	EntityId minEntity{ INVALID_ENTITY };  // 今まで見つけた最も近い椅子
+
+	for (const EntityId chair : chairs_)
+	{
+		GameObject* pPick{ FindGameObject(chair) };
+		if (!pPick)
+		{
+			wassert(false && "無効な座椅子エンティティが格納されていた");
+			continue;  // エンティティが見つからなかったなら無視
+		}
+		Vector3 pickPos{ pPick->Transform().GetPosition() };
+		float pickDistD{ DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(pickPos - _position)) };
+
+		float dot
+		{ 
+			DirectX::XMVectorGetX(
+				DirectX::XMVector3Dot(pPick->Transform().GetForward(), Vector3::Forward()))
+		};
+
+		if (minDistD > pickDistD && dot > 0)
+		{
+			minDistD = pickDistD;
+			minEntity = chair;
+		}
+	}
+
+	return minEntity;
+}
+
 void LiftStructure::GeneratePoles()
 {
 	StageLine* pStage{ FindGameObject<StageLine>(stage_) };
@@ -227,6 +269,7 @@ void LiftStructure::GenerateChairs()
 	GameScene* pPlayScene{ GetScene() };
 	if (pPlayScene)
 	{
+		chairs_.clear();
 		wassert(poleDistance_ != 0.0f && "ゼロ除算すんな！");
 		for (float length{ 0.0f }; length < totalLength_; length += poleDistance_)
 		{
@@ -238,7 +281,7 @@ void LiftStructure::GenerateChairs()
 					totalLength_)
 			};
 
-			//pPlayScene->Instantiate<Cloud>(liftChair);
+			chairs_.push_back(liftChair);
 		}
 
 	}

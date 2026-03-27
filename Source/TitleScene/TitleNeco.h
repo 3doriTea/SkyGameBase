@@ -49,11 +49,11 @@ private:
 private:
 	TextureHandle hImages_[IMAGE::I_MAX];
 	float moveRatio_;  // ムーブレート
-	bool isDrag_;  // ドラッグ中か
+	bool isDrag_;      // ドラッグ中か
 
 	Vector2Int playButtonShowPos_;  // プレイボタンを表示させるときの位置
 
-	EntityId dragPoint_;  // ドラッグして掴む円
+	EntityId dragPoint_;   // ドラッグして掴む円
 	EntityId playButton_;  // プレイボタン
 
 	TextureHandle hButtonOff_;

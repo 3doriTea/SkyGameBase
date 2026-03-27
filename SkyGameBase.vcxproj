@@ -43,6 +43,7 @@
     <ClInclude Include="Source\PlayScene\CloudLevel.h" />
     <ClInclude Include="Source\PlayScene\Debugger.h" />
     <ClInclude Include="Source\PlayScene\DragArrowAxis.h" />
+    <ClInclude Include="Source\PlayScene\FlighterController.h" />
     <ClInclude Include="Source\PlayScene\LiftChilds\Bird.h" />
     <ClInclude Include="Source\PlayScene\LiftChilds\Cloud.h" />
     <ClInclude Include="Source\PlayScene\LiftChilds\LiftChild.h" />
@@ -359,7 +360,9 @@
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
     <ClCompile Include="Source\PlayScene\DragArrowAxis.cpp" />
     <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
+    <ClCompile Include="Source\PlayScene\FlighterController.cpp" />
     <ClCompile Include="Source\PlayScene\GoalGround.cpp" />
+    <ClCompile Include="Source\PlayScene\LiftChilds\Bird.cpp" />
     <ClCompile Include="Source\PlayScene\LiftChilds\Cloud.cpp" />
     <ClCompile Include="Source\PlayScene\LiftChilds\LiftChild.cpp" />
     <ClCompile Include="Source\PlayScene\LiftStructure.cpp" />
@@ -521,6 +524,7 @@
     <None Include="Assets\Prefab\Play\BallSphere.json" />
     <None Include="Assets\Prefab\Play\CameraController.json" />
     <None Include="Assets\Prefab\Play\DragArrow.json" />
+    <None Include="Assets\Prefab\Play\FlighterController.json" />
     <None Include="Assets\Prefab\Play\GoalGround.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />

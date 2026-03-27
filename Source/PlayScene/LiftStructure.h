@@ -1,6 +1,17 @@
 #pragma once
 #include <wtgb.h>
 
+
+/// <summary>
+/// リフトの座椅子の方向
+/// </summary>
+enum struct LiftChairDir
+{
+	ToDown,    // 下山方向
+	ToUp,      // 登山方向
+	Rotation,  // 回転中
+};
+
 /// <summary>
 /// リフト構造物
 /// </summary>
@@ -44,6 +55,13 @@ public:
 	void Update() override;
 	void Release() override;
 
+	/// <summary>
+	/// 指定座標、指定方向に最も近しい座椅子を取得する
+	/// </summary>
+	/// <param name="_position">指定座標</param>
+	/// <param name="_dir">指定方向</param>
+	/// <returns>座椅子のエンティティ</returns>
+	EntityId FindChair(const Vector3 _position, const LiftChairDir _dir);
 
 	/// <summary>
 	/// ポールを生成
@@ -87,18 +105,18 @@ private:
 	void OnLoad(const json& _json);
 
 private:
-	float ropeSpasing_;  // ロープの幅
-	int chairsCount_;    // 座椅子プールに用意する椅子の数
+	float ropeSpasing_;   // ロープの幅
+	int chairsCount_;     // 座椅子プールに用意する椅子の数
 	float poleDistance_;  // ポールどうしの距離
 	float ropeHeight_;    // ポールの地面からラインまでの高さ
-	float ropeWidth_;    // ポールのx軸への厚み
+	float ropeWidth_;     // ポールのx軸への厚み
 
 	float polePosX_;      // ポールを設置するx座標
-	EntityId stage_;  // ステージ
+	EntityId stage_;      // ステージ
 
-	std::vector<LiftPoleBinding> poles_;   // 中間ポールたち
-	std::vector<EntityId> chairs_;  // 椅子
-	float totalLength_;             // ロープの全長
-	float laneLength_;              // 直線部分1本の長さ
-	float curveLength_;             // 端の半円の長さ
+	std::vector<LiftPoleBinding> poles_;  // 中間ポールたち
+	std::vector<EntityId> chairs_;        // 椅子
+	float totalLength_;                   // ロープの全長
+	float laneLength_;                    // 直線部分1本の長さ
+	float curveLength_;                   // 端の半円の長さ
 };
