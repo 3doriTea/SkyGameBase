@@ -88,7 +88,9 @@ private:
 
 	struct
 	{
-		float totalTime;  // 総アニメーション時間
-		float playTime;   // 現在の再生時間
-	} boundXAnim;         // x軸のバウンドアニメーション
+		float totalTime;    // 総アニメーション時間
+		float playTime;     // 現在の再生時間
+
+		float beginScaleX;  // 開始時のスケールX
+	} boundXAnim;           // x軸のバウンドアニメーション
 };

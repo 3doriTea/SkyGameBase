@@ -73,9 +73,9 @@ void Player::OnStart()
 {
 	RigidBody& rb{ GetComponent<RigidBody>() };
 
-	rb.SetUseGravity(true);  // 重力の影響を受けるようにする
 	// 一気に加速！
-	rb.AddVelocity(Vector3::Forward() * startDushForce_);
+	//rb.AddVelocity(Vector3::Forward() * startDushForce_);
+	//rb.SetUseGravity(true);  // 重力の影響を受けるようにする
 }
 
 void Player::Update()
@@ -86,8 +86,6 @@ void Player::Update()
 		return;  // カウントダウンを待っているなら以下無視
 	}
 	
-	const Input::InputGetter& input{ System().Get<Input>().Getter() };
-
 	PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
 	if (playState && playState->GetState() == PlayState::Type::StartLine)
 	{
@@ -105,10 +103,12 @@ void Player::Update()
 	// プレイヤーを範囲外に出さないための演算
 	if (OutBounce())
 	{
-		// バウンド時のアニメーションするならここ
+		// バウンド時のアニメーション
+		boundXAnim.playTime = 0.0f;
 	}
 
-	UpdateAnim();
+	// TODO: このアニメーションバグを修正する
+	//UpdateAnim();
 }
 
 bool Player::HasWaitingCountDown()
@@ -300,6 +300,7 @@ bool Player::UpdateAnim()
 {
 	const float DT{ System().Get<GameTime>().GetDeltaTime() };
 
+	bool isPlayed{ false };
 	if (boundXAnim.playTime < boundXAnim.totalTime)
 	{
 		boundXAnim.playTime += DT;
@@ -307,8 +308,17 @@ bool Player::UpdateAnim()
 		{
 			boundXAnim.playTime = boundXAnim.totalTime;
 		}
-		return true;  // アニメーション再生があった
+		isPlayed = true;  // アニメーション再生があった
 	}
 
-	return false;
+#pragma region 横軸アニメーション
+	float animRatio{ boundXAnim.playTime / boundXAnim.totalTime };
+	float scaleX
+	{
+		Mathf::Lerp(boundXAnim.beginScaleX, 1.0f, animRatio)
+	};
+	Transform().SetScale(Vector3{ scaleX, 1.0f, 1.0f });
+#pragma endregion
+
+	return isPlayed;
 }
