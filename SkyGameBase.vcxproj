@@ -102,6 +102,7 @@
     <ClInclude Include="Source\TitleScene\TitleCameraPlayer.h" />
     <ClInclude Include="Source\TitleScene\TitleMountain.h" />
     <ClInclude Include="Source\TitleScene\TitleScene.h" />
+    <ClInclude Include="Source\TitleScene\TitleText.h" />
     <ClInclude Include="Source\UI\BaseCue.h" />
     <ClInclude Include="Source\UI\Button.h" />
     <ClInclude Include="Source\UI\CueAnimation.h" />
@@ -399,6 +400,7 @@
     <ClCompile Include="Source\PlayScene\TestBillBoard.cpp" />
     <ClCompile Include="Source\PlayScene\WaterPlane.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager\DiffTimeToStr.cpp" />
+    <ClCompile Include="Source\TitleScene\TitleText.cpp" />
     <ClCompile Include="Source\UI\DragPointCue.cpp" />
     <ClCompile Include="Source\WaterPlane\WaterMesh.cpp" />
     <ClCompile Include="Source\PlayScene\WaterSphere.cpp" />
@@ -535,6 +537,9 @@
     <None Include="Assets\Prefab\StageObjectManager.json" />
     <None Include="Assets\Prefab\StageObj\CharaEggRing.json" />
     <None Include="Assets\Prefab\TitleNeco.json" />
+    <None Include="Assets\Prefab\Title\TitleCamera.json" />
+    <None Include="Assets\Prefab\Title\TitleScene.json" />
+    <None Include="Assets\Prefab\Title\TitleText.json" />
     <None Include="Assets\Score\ScoreNotion.json" />
     <None Include="Assets\Shader\CBGlobal3D.hlsli" />
     <None Include="Assets\Shader\Common2D.hlsli" />

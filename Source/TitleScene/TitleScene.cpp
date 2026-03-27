@@ -4,6 +4,7 @@
 #include "TitleMountain.h"
 #include "TitleNeco.h"
 #include "TitleCamera.h"
+#include "TitleText.h"
 #include "SMF/SMFPlayer.h"
 #include "UI/DragCircle.h"
 
@@ -27,6 +28,7 @@ TitleScene::~TitleScene()
 
 void TitleScene::Start()
 {
+
 	Instantiate<TitleMountain>();
 
 	Instantiate<MusicPlayer>();
@@ -34,6 +36,9 @@ void TitleScene::Start()
 	EntityId dragCircle{ Instantiate<DragCircle>() };
 	EntityId titleNeco{ Instantiate<TitleNeco>(dragCircle) };
 	EntityId camera{ Instantiate<TitleCamera>(titleNeco) };
+	
+	// タイトルテキスト
+	Instantiate<TitleText>(titleNeco);
 
 	System().Get<Camera>().position_ = { 200, -140, 440.0f };
 	System().Get<Camera>().targetPosition_ = { 0, -160.0, 400.0f };
@@ -57,6 +62,8 @@ void TitleScene::Update()
 		Game::Exit();
 	}
 
+#ifdef _DEBUG
+	// 結果シーン確認用debugコード
 	if (input.IsKeyDown(KeyCode::Alpha0))
 	{
 		System().Get<ScoreManager>().Ref([](GameScore& _score)
@@ -67,4 +74,5 @@ void TitleScene::Update()
 			});
 		System().Get<SceneManager>().Move<ResultScene>();
 	}
+#endif
 }

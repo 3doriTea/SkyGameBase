@@ -2,16 +2,13 @@
 #include "TitleCamera.h"
 #include "TitleNeco.h"
 
-namespace
-{
-	static const Vector3 CAMERA_POSITION{ 295, -151, 411 };
-	static const Vector3 CAMERA_TARGET_UP{ 144, -144, 41 };
-	static const Vector3 CAMERA_TARGET_DOWN{ 144, -288, 41 };
-}
 
 TitleCamera::TitleCamera(const EntityId _titleNeco) :
-	GameObject{ "Simple.json" },
-	titleNeco_{ _titleNeco }
+	GameObject{ "Title/TitleCamera.json" },
+	titleNeco_{ _titleNeco },
+	position_{},
+	targetBegin_{},
+	targetEnd_{}
 {
 }
 
@@ -21,9 +18,11 @@ TitleCamera::~TitleCamera()
 
 void TitleCamera::Init()
 {
+	OnLoadParam(GetComponent<Parameter>().Load());
+
 	Camera& camera{ System().Get<Camera>() };
-	camera.position_ = CAMERA_POSITION;
-	camera.targetPosition_ = CAMERA_TARGET_UP;
+	camera.position_ = position_;
+	camera.targetPosition_ = targetBegin_;
 }
 
 void TitleCamera::Update()
@@ -35,10 +34,20 @@ void TitleCamera::Update()
 	if (dragCircle)
 	{
 		float raito{ dragCircle->GetMoveRaito() };
-		camera.targetPosition_ = Mathf::Lerp(CAMERA_TARGET_UP, CAMERA_TARGET_DOWN, raito);
+		camera.targetPosition_ = Mathf::Lerp(
+			targetBegin_,
+			targetEnd_,
+			raito);
 	}
 }
 
 void TitleCamera::Release()
 {
+}
+
+void TitleCamera::OnLoadParam(const json& _json)
+{
+	position_    = SafeGet<Vector3>(_json, "position");
+	targetBegin_ = SafeGet<Vector3>(_json, "targetBegin");
+	targetEnd_   = SafeGet<Vector3>(_json, "targetEnd");
 }

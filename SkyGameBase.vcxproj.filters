@@ -783,6 +783,9 @@
     <ClInclude Include="Source\PlayScene\LiftChilds\Bird.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\TitleScene\TitleText.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1283,6 +1286,9 @@
     <ClCompile Include="Source\PlayScene\LiftChilds\LiftChild.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TitleScene\TitleText.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1362,6 +1368,9 @@
     <None Include="Assets\Prefab\Play\UI\PerfectTimer.json" />
     <None Include="Assets\Prefab\Play\DragArrowAxis.json" />
     <None Include="Assets\Prefab\LiftChild.json" />
+    <None Include="Assets\Prefab\Title\TitleText.json" />
+    <None Include="Assets\Prefab\Title\TitleScene.json" />
+    <None Include="Assets\Prefab\Title\TitleCamera.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

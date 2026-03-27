@@ -1,0 +1,17 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "TitleCamera"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "position": [ 295, -151, 411 ],
+    "targetBegin": [ 144, -144, 41 ],
+    "targetEnd": [ 144, -288, 41 ]
+  }
+}

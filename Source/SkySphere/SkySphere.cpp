@@ -7,7 +7,7 @@ SkySphere::SkySphere(
 	GameObject{ "SkySphere.json" },
 	angleYRadian_{ _angleYRadian }
 {
-	Property().SetParent(_cameraEntity);  // 常にカメラにくっつくようにする
+	// シェーダ制御で常にカメラにくっつく
 	Transform().SetRotation(Vector3::Up() * _angleYRadian);
 }
 
