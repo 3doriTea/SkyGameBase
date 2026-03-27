@@ -34,7 +34,14 @@ DropCloud::DropCloud(
 	speedController_{ _speedController },
 	level_{ CloudLevel::CLOUD_LEVEL_START },
 	perfectTimer_{},
-	prevBar_{}
+	prevBar_{},
+	destroyDistanceZ_{},
+	hAudios_{},
+	isFinished_{},
+	playNoteNumberOffset_{},
+	perfectTimerUI_{ INVALID_ENTITY },
+	playRatioMaxVelocity_{},
+	toResultSceneTime_{}
 {
 }
 
@@ -62,6 +69,11 @@ void DropCloud::OnLoadParam(const json& _json)
 
 void DropCloud::DropPresent(const Note _note)
 {
+	System().Get<ScoreManager>().Ref([](GameScore& _score)
+		{
+			_score.presentCount++;
+		});
+
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
 	WorldConfig worldConfig{ pPlayScene->GetWorldConfig() };
 

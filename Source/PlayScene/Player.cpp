@@ -170,28 +170,84 @@ void Player::AddMove(const Vector3 _move)
 	std::vector<GameObject*> foundGameObjects{};
 	if (FindGameObjects("CharaEgg", &foundGameObjects))
 	{
+		GameObject* pMostCloseCharaEgg{ nullptr };  // 最も近いキャラエッグ
+		float mostCloseDistanceD{ FLT_MAX };        // 最も近いキャラエッグとの距離
+		float mostCloseDot{ 0.0f };                 // 最も近いキャラエッグとのcos値
+		Vector3 mostClosePosition{};                // 最も近いキャラエッグの座標
+
 		for (GameObject* pCharaEgg : foundGameObjects)
 		{
 			Vector3 eggPos{ pCharaEgg->Transform().GetPosition() };
 			Vector3 toDir{ XMVector3Normalize(eggPos - selfPos) };
 
+			if (toDir.z <= 0.0f)
+			{
+				continue;  // プレイヤーより後ろにいるのは無視
+			}
+
 			float dot{ XMVectorGetX(XMVector3Dot(selfDir, toDir)) };
 
+			// 大まかなに円に触れている
 			if (dot > 0.99f)
 			{
-				Vector3 v
+				float distanceD  // 距離の2乗
 				{
-					playerTargeting_.GetToTargetVelocity(
-					{
-						.playerPos = selfPos,
-						.playerVelocity = rb.GetVelocity(),
-						.targetPos = eggPos,
-						.gravity = 9.8f
-					})
+					DirectX::XMVectorGetX(
+						DirectX::XMVector3LengthSq(toDir))
 				};
-				rb.SetVelocity(v);
-				return;  // 速度を適用して回帰
+
+				auto pickUp  // 選択中のキャラエッグを選ぶ
+				{
+					[&]
+					{
+						pMostCloseCharaEgg = pCharaEgg;
+						mostCloseDistanceD = distanceD;
+						mostCloseDot = dot;
+						mostClosePosition = eggPos;
+					}
+				};
+
+				// 距離の差分
+				const float EQUAL_THRESHOLD{ 1.0f };
+				float distanceDiff{ distanceD - mostCloseDistanceD };
+				if (distanceDiff < -EQUAL_THRESHOLD)  // 確実に小さい
+				{
+					pickUp();
+				}
+				else if (distanceDiff < EQUAL_THRESHOLD)  // ほぼ距離が一緒
+				{
+					// ほぼ距離が同じなら最も円の中心に近い方を選ぶ
+					if (dot > mostCloseDot)  // 1に近いほど
+					{
+						pickUp();
+					}
+				}
 			}
+		}
+
+		// 見つかったなら
+		if (pMostCloseCharaEgg)
+		{
+			PlayScene* pPlayScene{ GetScene<PlayScene>() };
+			wassert(pPlayScene && "プレイシーンの取得に失敗");
+
+			float gravity{};
+			if (pPlayScene)
+			{
+				gravity = pPlayScene->GetWorldConfig().gravity;
+			}
+			Vector3 v
+			{
+				playerTargeting_.GetToTargetVelocity(
+				{
+					.playerPos = selfPos,
+					.playerVelocity = rb.GetVelocity(),
+					.targetPos = mostClosePosition,
+					.gravity = gravity
+				})
+			};
+			rb.SetVelocity(v);
+			return;  // 速度を適用して回帰
 		}
 	}
 #pragma endregion

@@ -41,6 +41,17 @@ PlayScene::PlayScene(GameScene::Config&& _config) :
 		.safeZoneXMax = 400.0f,
 		.eggGetDistance = 10.0f,
 		.lightDirection = { -6.74646f, -15.585419f, 26.661987f },
+		.gravity = 9.8f,
+		.lift
+		{
+			.polePosX = 10.0f
+		},
+		.player
+		{
+			.startPositionY = 30.0f,
+			.startPositionZ = 5.0f,
+		},
+		.bgmFilePath = "Sound/entertainer.mid",
 	}
 {
 }
@@ -67,28 +78,52 @@ void PlayScene::Start()
 
 	EntityId stageLine{ Instantiate<StageLine>() };
 
-	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
+	EntityId smfPlayer{ Instantiate<SMFPlayer>(worldConfig_.bgmFilePath) };
 
-	EntityId liftStructure{ Instantiate<LiftStructure>(stageLine, 10.0f) };
+	EntityId liftStructure{ Instantiate<LiftStructure>(stageLine, worldConfig_.lift.polePosX) };
 	
-	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
+	const float HALF{ 0.5f };  // 半分
+	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, HALF) };
 
-	player = { Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
+	player =  // プレイヤー
+		Instantiate<Player>(
+			INVALID_ENTITY,
+			Vector3
+			{
+				startPositionX,
+				worldConfig_.player.startPositionY,
+				worldConfig_.player.startPositionZ
+			},
+			playState);
+
+	// リフトに追従するオブジェクトを管理するやつ
 	Instantiate<FlighterController>(liftStructure, player);
+
+	// 演奏中に登場するステージオブジェクトを管理するやつ
 	Instantiate<StageObjectManager>(stageLine, player, playState);
+	
+	// プレイヤーのドラッグ矢印の軸
 	EntityId dragArrowAxis{ Instantiate<DragArrowAxis>(player) };
+	// プレイヤーのドラッグ矢印
 	EntityId dragArrow{ Instantiate<DragArrow>(dragArrowAxis) };
+	
+	// 複数モードを含むカメラ
 	camera = Instantiate<CameraController>(dragArrowAxis, dragArrow);
 
+	// ミニキャラを管理するやつ
 	EntityId miniCharaManager{ Instantiate<MiniCharaManager>(smfPlayer) };
 
+	// スピードを管理するやつ
 	EntityId speedController{ Instantiate<SpeedController>(player) };
+	
 	EntityId dropCloud{ Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController, miniCharaManager) };
 
 	Instantiate<SpeedMessage>(speedController);
 
+	// 最背面の天球
 	Instantiate<SkySphere>(camera);
 	
+	// 平行光線(光源)
 	System().Get<DirectionalLight>()
 		.SetDirection(worldConfig_.lightDirection);
 

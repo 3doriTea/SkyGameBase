@@ -1,0 +1,15 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "TargetMark"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Params": {
+    "ImageFilePath": "Image/TargetUI/TargetMark.png"
+  }
+}
