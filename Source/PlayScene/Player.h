@@ -35,6 +35,8 @@ private:
 	float awakeTimeLeft_;       // シーン読み込み直後のラグを待つカウントダウンタイマ
 	EntityId playState_;        // プレイ状態
 	float startLineZ_;          // 下山開始のライン z座標
+	float startDushForce_;      // 開始ダッシュで押す力
+	float aboutCircleThreshold_;  // 大体の円の判定 cosθ の値
 	
 	float slideVeloDampingPerSec_;  // 1秒間あたりのスライド速度の抵抗
 

@@ -55,6 +55,8 @@ void Player::OnLoadParam(const json& _json)
 	bounceRotationVZDiv_ = SafeGet<float>(_json, "bounceRotationVZDiv");
 	onGroundRotationVelo_ = SafeGet<float>(_json, "onGroundRotationVelo");
 	colliderRadius_ = SafeGet<float>(_json, "colliderRadius");
+	startDushForce_ = SafeGet<float>(_json, "startDushForce");
+	aboutCircleThreshold_ = SafeGet<float>(_json, "aboutCircleThreshold");
 }
 
 void Player::Init()
@@ -89,6 +91,7 @@ void Player::Update()
 		awakeTimeLeft_ -= dt;
 		if (awakeTimeLeft_ <= 0.0f)
 		{
+			rb.AddVelocity(Vector3::Forward() * startDushForce_);
 			rb.SetUseGravity(true);  // 重力の影響を受けるようにする
 		}
 		return;
@@ -188,7 +191,7 @@ void Player::AddMove(const Vector3 _move)
 			float dot{ XMVectorGetX(XMVector3Dot(selfDir, toDir)) };
 
 			// 大まかなに円に触れている
-			if (dot > 0.99f)
+			if (dot > aboutCircleThreshold_)
 			{
 				float distanceD  // 距離の2乗
 				{

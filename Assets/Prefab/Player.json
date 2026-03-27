@@ -27,9 +27,11 @@
     }
   },
   "Param": {
-    "awakeTimeSec": 10,
+    "awakeTimeSec": 4.0,
     "toTargetTime": 5.0,
     "startLineZ": 100,
+    "startDushForce": 100.0,
+    "aboutCircleThreshold": 0.97,
     "slideVeloDampingPerSec": 0.5,
     "bounceRotationVZDiv": 10.0,
     "onGroundRotationVelo": 1.0125,
