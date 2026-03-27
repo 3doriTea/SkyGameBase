@@ -23,13 +23,16 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 	rotateBoostSpeedX_{},
 	onGroundRotationVelo_{},
 	colliderRadius_{},
-	slideVeloDampingPerSec_{}
+	slideVeloDampingPerSec_{},
+	startDushForce_{},
+	boundXAnim{},
+	aboutCircleThreshold_{}
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);
 
 	RigidBody& rb{ GetComponent<RigidBody>() };
-	rb.SetUseGravity(false);  // シーン読み込み直後のラグを待つために重力無効化
+	rb.SetUseGravity(false);  // シーン読み込み直後のカウントダウンを待つために重力無効化
 
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
 	wassert(pPlayScene && "プレイシーンの取得に失敗");
@@ -40,10 +43,6 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 
 	// 乗るためのボールを出現させる
 	pPlayScene->Instantiate<BallSphere>(GetEntityId());
-}
-
-Player::~Player()
-{
 }
 
 void Player::OnLoadParam(const json& _json)
@@ -57,6 +56,7 @@ void Player::OnLoadParam(const json& _json)
 	colliderRadius_ = SafeGet<float>(_json, "colliderRadius");
 	startDushForce_ = SafeGet<float>(_json, "startDushForce");
 	aboutCircleThreshold_ = SafeGet<float>(_json, "aboutCircleThreshold");
+	boundXAnim.totalTime = SafeGet<float>(_json, "/boundXAnim/totalTime");
 }
 
 void Player::Init()
@@ -64,38 +64,29 @@ void Player::Init()
 	OnLoadParam(GetComponent<Parameter>().Load());
 
 	Collider& collider{ GetComponent<Collider>() };
-
-	// TODO: プレイヤーの球コライダの半径を jsonに
 	collider.SetRadius(colliderRadius_);
 
 	angle_ = 0.0f;
 }
 
-void Player::Update()
+void Player::OnStart()
 {
-	PlayScene* pPlayScene{ GetScene<PlayScene>() };
-	if (pPlayScene == nullptr)
-	{
-		return;  // プレイシーンではないなら何もしない
-	}
-
-	float dt{ System().Get<GameTime>().GetDeltaTime() };
-	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 	RigidBody& rb{ GetComponent<RigidBody>() };
 
-	WorldConfig worldConfig{ pPlayScene->GetWorldConfig() };
+	rb.SetUseGravity(true);  // 重力の影響を受けるようにする
+	// 一気に加速！
+	rb.AddVelocity(Vector3::Forward() * startDushForce_);
+}
 
-	// シーン読み込み直後のラグを待つ
-	if (awakeTimeLeft_ > 0.0f)
+void Player::Update()
+{
+	// シーン読み込み直後のカウントダウンを待つ
+	if (HasWaitingCountDown())
 	{
-		awakeTimeLeft_ -= dt;
-		if (awakeTimeLeft_ <= 0.0f)
-		{
-			rb.AddVelocity(Vector3::Forward() * startDushForce_);
-			rb.SetUseGravity(true);  // 重力の影響を受けるようにする
-		}
-		return;
+		return;  // カウントダウンを待っているなら以下無視
 	}
+	
+	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 
 	PlayState* playState{ dynamic_cast<PlayState*>(FindGameObject(playState_)) };
 	if (playState && playState->GetState() == PlayState::Type::StartLine)
@@ -106,14 +97,43 @@ void Player::Update()
 		}
 	}
 
-#if _DEBUG
-	// TODO: デバッグ用
-	if (input.IsKeyDown(KeyCode::Space))
+	if (GroundBounceRotation())
 	{
-		rb.AddVelocity({ 0.0f, -500.0f, 0.0f });
+		// 地面に当たったときのアニメーションをするならここ
 	}
-#endif
 
+	// プレイヤーを範囲外に出さないための演算
+	if (OutBounce())
+	{
+		// バウンド時のアニメーションするならここ
+	}
+
+	UpdateAnim();
+}
+
+bool Player::HasWaitingCountDown()
+{
+	const float DT{ System().Get<GameTime>().GetDeltaTime() };
+
+	if (awakeTimeLeft_ > 0.0f)
+	{
+		awakeTimeLeft_ -= DT;
+		if (awakeTimeLeft_ <= 0.0f)
+		{
+			OnStart();
+		}
+		return true;
+	}
+
+	return false;
+}
+
+bool Player::GroundBounceRotation()
+{
+	RigidBody& rb{ GetComponent<RigidBody>() };
+
+
+	bool isBounce{ false };  // バウンドしたか
 	std::vector<Collider*> hitColliders{};
 	rb.GetHitColliders(&hitColliders);
 
@@ -127,49 +147,69 @@ void Player::Update()
 				// まだ最低回転速度に達していないなら回転速度をかける
 
 				Vector3 velo{ rb.GetVelocity() };
-				// TODO: ここの回転トルク値をjson化する
 				rb.AddTorque({ velo.z / bounceRotationVZDiv_, 0.0f, 0.0f });
+				isBounce = true;
 			}
 		}
 	}
 
-#if _DEBUG
-	// TODO: デバッグ用
-	// MEMO: 簡易的ジャンプ
-	if (input.IsKeyDown(KeyCode::Space))
+	return isBounce;
+}
+
+bool Player::OutBounce()
+{
+	PlayScene* pPlayScene{ GetScene<PlayScene>() };
+	if (pPlayScene == nullptr)
 	{
-		rb.AddVelocity({ 0.0f, 3.0f, 0.0f });
+		return false;  // プレイシーンの取得ができなければ以下無視
 	}
-#endif
+	const float DT{ System().Get<GameTime>().GetDeltaTime() };
+	RigidBody& rb{ GetComponent<RigidBody>() };
+	WorldConfig worldConfig{ pPlayScene->GetWorldConfig() };
 
-	// プレイヤーを範囲外に出さないための演算
+
 	Vector3 v{ rb.GetVelocity() };
-
-
 	Vector3 pos{ Transform().GetPosition() };
+
+	bool isBounced{ false };  // バウンドしたか
+
 	if ((pos.x < worldConfig.safeZoneXMin && v.x < 0)
 		|| (pos.x > worldConfig.safeZoneXMax && v.x > 0))
 	{
 		v.x *= -1.0f;
+		isBounced = true;
 	}
-	
-	float vv = std::powf(slideVeloDampingPerSec_, dt);
+
+	float vv = std::powf(slideVeloDampingPerSec_, DT);
 	v.x *= vv;
 	rb.SetVelocity(v);
+
+	return isBounced;
 }
 
 void Player::AddMove(const Vector3 _move)
 {
+	float DT{ System().Get<GameTime>().GetDeltaTime() };
+	RigidBody& rb{ GetComponent<RigidBody>() };
+
+	if (TryFocusToCharaEgg())
+	{
+		return;  // キャラエッグへのフォーカス処理があったなら無視
+	}
+
+	// 特に何もないならそのまま加速
+	rb.AddVelocity(_move);
+}
+
+bool Player::TryFocusToCharaEgg()
+{
 	using namespace DirectX;
 
 	Camera& camera{ System().Get<Camera>() };
-	float dt{ System().Get<GameTime>().GetDeltaTime() };
-	RigidBody& rb{ GetComponent<RigidBody>() };
-
 	Vector3 selfPos{ Transform().GetPosition() };
 	Vector3 selfDir{ camera.GetDirection() };
+	RigidBody& rb{ GetComponent<RigidBody>() };
 
-#pragma region キャラエッグにフォーカス処理
 	std::vector<GameObject*> foundGameObjects{};
 	if (FindGameObjects("CharaEgg", &foundGameObjects))
 	{
@@ -250,10 +290,25 @@ void Player::AddMove(const Vector3 _move)
 				})
 			};
 			rb.SetVelocity(v);
-			return;  // 速度を適用して回帰
+			return true;  // フォーカス処理行う
 		}
 	}
-#pragma endregion
+	return false;  // フォーカス処理行わず
+}
 
-	rb.AddVelocity(_move);
+bool Player::UpdateAnim()
+{
+	const float DT{ System().Get<GameTime>().GetDeltaTime() };
+
+	if (boundXAnim.playTime < boundXAnim.totalTime)
+	{
+		boundXAnim.playTime += DT;
+		if (boundXAnim.playTime > boundXAnim.totalTime)
+		{
+			boundXAnim.playTime = boundXAnim.totalTime;
+		}
+		return true;  // アニメーション再生があった
+	}
+
+	return false;
 }

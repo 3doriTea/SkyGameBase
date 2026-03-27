@@ -35,6 +35,9 @@
     "slideVeloDampingPerSec": 0.5,
     "bounceRotationVZDiv": 10.0,
     "onGroundRotationVelo": 1.0125,
-    "colliderRadius": 2.0
+    "colliderRadius": 2.0,
+    "boundXAnim": {
+      "totalTime": 0.3
+    }
   }
 }
