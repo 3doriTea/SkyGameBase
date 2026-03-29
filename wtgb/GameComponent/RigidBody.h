@@ -60,6 +60,11 @@ namespace wtgb
 		void GetHitColliders(std::vector<Collider*>* _pHitColliderVector);
 
 		/// <summary>
+		/// 回転速度を取得する
+		/// </summary>
+		/// <returns>オイラー角でのラジアン角速度</returns>
+		inline Vector3 GetAngularVelocity() const { return angularVelocity_; }
+		/// <summary>
 		/// 速度ベクトルを取得する
 		/// </summary>
 		/// <returns>速度ベクトル</returns>
@@ -77,7 +82,7 @@ namespace wtgb
 		/// <summary>
 		/// 回転速度を加える
 		/// </summary>
-		/// <param name="_addT">ワールド座標系での速度</param>
+		/// <param name="_addT">ワールド座標系でのラジアン回転速度 /s</param>
 		inline void AddTorque(const Vector3& _addT) { angularVelocity_ = angularVelocity_ + _addT; }
 		/// <summary>
 		/// 反発力を取得する

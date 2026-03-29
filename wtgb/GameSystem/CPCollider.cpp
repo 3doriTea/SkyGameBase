@@ -34,7 +34,7 @@ void wtgb::CPCollider::Update()
 			case Collider::Type::Section:
 				break;
 			case Collider::Type::Sphere:
-				cpMeshRenderer.Render(pDebugSphere, pTransform, hDebugShader);
+				//cpMeshRenderer.Render(pDebugSphere, pTransform, hDebugShader);
 				break;
 			default:
 				break;

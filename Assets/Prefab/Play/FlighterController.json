@@ -1,0 +1,22 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "FlighterController"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "ModelMesh": {
+      "fileName": "Models/Sphere/Sphere.fbx",
+      "modelMeshType": 5
+    },
+    "MeshRenderer": {
+      "shader": "Shader/BallSphere.hlsl"
+    }
+  },
+  "Params": {
+
+  }
+}

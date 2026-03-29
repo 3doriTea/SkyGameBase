@@ -27,7 +27,7 @@ VS_OUT VS(
 	normal = mul(normal, matrixRotateWorld);
 	normal.w = 0;
 	
-	outData.color = saturate(dot(normal, light));
+	outData.color = saturate(dot(normal, -light));
 	
 	return outData;
 }
@@ -45,12 +45,13 @@ float4 PS(VS_OUT inData) : SV_TARGET
 	{
 		diffuse = diffuseColor;
 	}
-	float4 color =
-	((diffuse + diffuse) * inData.color)
-	+ diffuse * ambientValue;
+	float4 color = diffuse + (inData.color * float4(1, 0, 1, 0));
+	//(diffuse * inData.color * 2.0f)
+	//+ diffuse * ambientValue;
 	
 	// 仮
-	color.a = 0.5f;
+	//color.a = 0.5f;
+	color.a = 1.0f - inData.color.x / 2.0f - 0.5f;
 
 	return color;
 }

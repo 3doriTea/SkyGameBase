@@ -61,20 +61,29 @@ public:
 	/// <returns></returns>
 	inline Vector2Int GetDisplacement() const { return dragDisplacement_; }
 	/// <summary>
+	/// ドラッグ中のフレーム内移動ベクトルを取得する
+	/// </summary>
+	/// <returns></returns>
+	inline Vector2Int GetDifference() const { return dragDifference_; }
+	/// <summary>
 	/// ドラッグの開始地点を取得する
 	/// </summary>
 	/// <returns>開始地点の座標</returns>
 	inline Vector2Int GetBegin() const { return dragBegin_; }
 
 private:
-	Vector2Int baseCanvasSize_;    // 設計時のキャンバスサイズ
-	TextureHandle hCircleImage_;   // 円の画像
-	bool isDrag_;                  // 掴んでいるか
-	Vector2Int centerPosition_;    // 円の中心座標
-	Vector2Int dragBegin_;         // 掴んだ始点
-	Vector2Int dragDisplacement_;  // 掴んだ大きさと方向
-	int radius_;                   // 掴める円の半径
-	int radiusSq_;                 // 掴める円の半径の2乗
+	Vector2Int baseCanvasSize_;        // 設計時のキャンバスサイズ
+	TextureHandle hCircleImage_;       // 円の画像
+	bool isDrag_;                      // 掴んでいるか
+	Vector2Int centerPosition_;        // 円の中心座標
+	Vector2Int dragBegin_;             // 掴んだ始点
+	Vector2Int dragDisplacement_;      // 掴んだ大きさと方向
+	Vector2Int dragDisplacementPrev_;  // 前のフレームの掴んだ大きさと方向
+	Vector2Int dragDifference_;        // 1フレーム間の掴んだ大きさと方向
+	int radius_;                       // 掴める円の半径
+	int radiusSq_;                     // 掴める円の半径の2乗
+
+	float velocityY_;  // ドラッグした勢い
 
 	std::function<void()> onClickInRadius_;   // マウスがクリックされたコールバック 円の中
 	std::function<void()> onClickOutRadius_;  // マウスがクリックされたコールバック 円の外

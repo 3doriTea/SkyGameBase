@@ -27,5 +27,11 @@ public:
 	void SetAngleY(const float _angle);
 
 private:
+	void OnLoad(const json& _j);
+
+private:
 	EntityId player_;  // プレイヤーエンティティ
+	float scaleBase_;  // スケールのベース
+	float scaleZDiv_;  // スケールZの分母
+	Vector3 offset_;   // 矢印を生やす座標
 };

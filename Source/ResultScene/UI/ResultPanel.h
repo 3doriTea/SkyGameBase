@@ -1,5 +1,6 @@
 #pragma once
 #include <wtgb.h>
+#include "../../GameScore.h"
 
 /// <summary>
 /// リザルトシーン動く結果パネル
@@ -30,5 +31,10 @@ private:
 	float moveRatio_;      // ムーブレート
 	bool isDrag_;          // 掴んでいる true / false
 	float toTitleTime_;    // タイトルにシーン遷移する
+	std::string numberFontImagePath_;  // 数字のフォント画像パス
+
+	Vector2Int scoreFontSize_;                                // 数字のサイズ
+	EntityId numberPlate_[GameScore::ScoreType_Max];          // 数字表示UIのエンティティ
+	Vector2Int scoreTextPosition_[GameScore::ScoreType_Max];  // 数字表示UIの座標
 };
 

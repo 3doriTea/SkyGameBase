@@ -1,0 +1,17 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "DragArrowAxis"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "scaleBase": 5.0,
+    "scaleZDiv": 10.0,
+    "offset": [ 0, 1, 0 ]
+  }
+}

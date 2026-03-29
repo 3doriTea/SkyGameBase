@@ -5,6 +5,7 @@
 #include "GameComponent/ModelMesh.h"
 #include "GameSystem/CPMeshRenderer.h"
 
+
 wtgb::MeshRenderer::MeshRenderer() :
 	hShader_{ INVALID_HANDLE },
 	hTexture_{ INVALID_HANDLE },

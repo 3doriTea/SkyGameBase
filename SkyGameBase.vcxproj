@@ -43,10 +43,15 @@
     <ClInclude Include="Source\PlayScene\CloudLevel.h" />
     <ClInclude Include="Source\PlayScene\Debugger.h" />
     <ClInclude Include="Source\PlayScene\DragArrowAxis.h" />
+    <ClInclude Include="Source\PlayScene\FlighterController.h" />
+    <ClInclude Include="Source\PlayScene\LiftChilds\Bird.h" />
     <ClInclude Include="Source\PlayScene\LiftChilds\Cloud.h" />
+    <ClInclude Include="Source\PlayScene\LiftChilds\LiftChild.h" />
     <ClInclude Include="Source\PlayScene\LiftStructure.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
+    <ClInclude Include="Source\PlayScene\PlayerCosntantSender.h" />
+    <ClInclude Include="Source\PlayScene\StageMesh\StageMeshes.h" />
     <ClInclude Include="Source\PlayScene\UI\DragArrow.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara.h" />
     <ClInclude Include="Source\PlayScene\PlaybackParam.h" />
@@ -75,6 +80,7 @@
     <ClInclude Include="Source\PlayScene\UI\PerfectTimer.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMessage.h" />
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
+    <ClInclude Include="Source\PlayScene\UI\TargetMark.h" />
     <ClInclude Include="Source\PostProcessingEffect\Twist.h" />
     <ClInclude Include="Source\ResultScene\UI\CircleHint.h" />
     <ClInclude Include="Source\ResultScene\UI\DragPoint.h" />
@@ -82,10 +88,10 @@
     <ClInclude Include="Source\ResultScene\ResultScene.h" />
     <ClInclude Include="Source\ResultScene\WaterPool.h" />
     <ClInclude Include="Source\SMF\Note.h" />
-    <ClInclude Include="Source\SpeedType.h" />
+    <ClInclude Include="Source\PlayScene\SpeedType.h" />
     <ClInclude Include="Source\Systems\ScoreManager.h" />
     <ClInclude Include="Source\PlayScene\UI\CountDown.h" />
-    <ClInclude Include="Source\SkySphere.h" />
+    <ClInclude Include="Source\SkySphere\SkySphere.h" />
     <ClInclude Include="Source\PlayScene\WorldSetting.h" />
     <ClInclude Include="Source\SMF\ToneHz.h" />
     <ClInclude Include="Source\StageSelectScene\MapView.h" />
@@ -98,6 +104,7 @@
     <ClInclude Include="Source\TitleScene\TitleCameraPlayer.h" />
     <ClInclude Include="Source\TitleScene\TitleMountain.h" />
     <ClInclude Include="Source\TitleScene\TitleScene.h" />
+    <ClInclude Include="Source\TitleScene\TitleText.h" />
     <ClInclude Include="Source\UI\BaseCue.h" />
     <ClInclude Include="Source\UI\Button.h" />
     <ClInclude Include="Source\UI\CueAnimation.h" />
@@ -119,6 +126,7 @@
     <ClInclude Include="wtgb\GameSystem\Direct3D\ZBufferMode.h" />
     <ClInclude Include="wtgb\GameSystem\DirectionalLight.h" />
     <ClInclude Include="wtgb\GameSystem\MeshRenderer\ShaderConstant.h" />
+    <ClInclude Include="wtgb\GameSystem\ModelMesh\IMeshesSimple.h" />
     <ClInclude Include="wtgb\GameSystem\NeoCanvas.h" />
     <ClInclude Include="wtgb\GameSystem\PostProcessing.h" />
     <ClInclude Include="wtgb\GameSystem\PostProcessing\BackMesh2D.h" />
@@ -152,10 +160,9 @@
     <ClInclude Include="Source\Systems\MainWindow.h" />
     <ClInclude Include="Source\PlayScene\PlayScene.h" />
     <ClInclude Include="Source\Resource.h" />
-    <ClInclude Include="Source\SampleGame.h" />
+    <ClInclude Include="Source\NekoGame.h" />
     <ClInclude Include="Source\PlayScene\Player.h" />
     <ClInclude Include="Source\SampleScene\SampleScene.h" />
-    <ClInclude Include="Source\SampleSkyCombat.h" />
     <ClInclude Include="Source\SkyGameBase.h" />
     <ClInclude Include="Source\UI\NumberPlate.h" />
     <ClInclude Include="Source\TitleScene\TitleNeco.h" />
@@ -354,14 +361,18 @@
     <ClCompile Include="Source\PlayScene\DebugPoint.cpp" />
     <ClCompile Include="Source\PlayScene\DragArrowAxis.cpp" />
     <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
+    <ClCompile Include="Source\PlayScene\FlighterController.cpp" />
     <ClCompile Include="Source\PlayScene\GoalGround.cpp" />
+    <ClCompile Include="Source\PlayScene\LiftChilds\Bird.cpp" />
     <ClCompile Include="Source\PlayScene\LiftChilds\Cloud.cpp" />
+    <ClCompile Include="Source\PlayScene\LiftChilds\LiftChild.cpp" />
     <ClCompile Include="Source\PlayScene\LiftStructure.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftChair.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftLoop.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRope.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRopeMesh.cpp" />
+    <ClCompile Include="Source\PlayScene\StageMesh\StageMeshes.cpp" />
     <ClCompile Include="Source\PlayScene\UI\DragArrow.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara.cpp" />
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
@@ -377,6 +388,7 @@
     <ClCompile Include="Source\PlayScene\UI\PerfectTimer.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMessage.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\TargetMark.cpp" />
     <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp" />
     <ClCompile Include="Source\ResultScene\UI\DragPoint.cpp" />
     <ClCompile Include="Source\ResultScene\ResultScene.cpp" />
@@ -384,7 +396,7 @@
     <ClCompile Include="Source\ResultScene\WaterPool.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\CountDown.cpp" />
-    <ClCompile Include="Source\SkySphere.cpp" />
+    <ClCompile Include="Source\SkySphere\SkySphere.cpp" />
     <ClCompile Include="Source\PlayScene\SpecialBoom.cpp" />
     <ClCompile Include="Source\PlayScene\StageLine.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMesh.cpp" />
@@ -393,6 +405,7 @@
     <ClCompile Include="Source\PlayScene\TestBillBoard.cpp" />
     <ClCompile Include="Source\PlayScene\WaterPlane.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager\DiffTimeToStr.cpp" />
+    <ClCompile Include="Source\TitleScene\TitleText.cpp" />
     <ClCompile Include="Source\UI\DragPointCue.cpp" />
     <ClCompile Include="Source\WaterPlane\WaterMesh.cpp" />
     <ClCompile Include="Source\PlayScene\WaterSphere.cpp" />
@@ -406,7 +419,7 @@
     <ClCompile Include="Source\Systems\CPItemAnim.cpp" />
     <ClCompile Include="Source\Systems\MainWindow.cpp" />
     <ClCompile Include="Source\PlayScene\PlayScene.cpp" />
-    <ClCompile Include="Source\SampleGame.cpp" />
+    <ClCompile Include="Source\NekoGame.cpp" />
     <ClCompile Include="Source\PlayScene\Player.cpp" />
     <ClCompile Include="Source\SampleScene\SampleScene.cpp" />
     <ClCompile Include="Source\SkyGameBase.cpp" />
@@ -469,6 +482,7 @@
     <ClCompile Include="wtgb\GameSystem\Input.cpp" />
     <ClCompile Include="wtgb\GameSystem\Input\InputResource.cpp" />
     <ClCompile Include="wtgb\GameSystem\DirectionalLight.cpp" />
+    <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshesSimple.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshSimple.cpp" />
     <ClCompile Include="wtgb\GameSystem\Model.cpp" />
     <ClCompile Include="wtgb\GameSystem\ModelMesh\IMeshSimple2D.cpp" />
@@ -501,6 +515,8 @@
     <None Include="Assets\Prefab\CharaBall.json" />
     <None Include="Assets\Prefab\CharaEgg.json" />
     <None Include="Assets\Prefab\CountDown.json" />
+    <None Include="Assets\Prefab\LiftChild.json" />
+    <None Include="Assets\Prefab\Play\DragArrowAxis.json" />
     <None Include="Assets\Prefab\DropCloud.json" />
     <None Include="Assets\Prefab\LiftStructure.json" />
     <None Include="Assets\Prefab\MapView.json" />
@@ -510,6 +526,7 @@
     <None Include="Assets\Prefab\Play\BallSphere.json" />
     <None Include="Assets\Prefab\Play\CameraController.json" />
     <None Include="Assets\Prefab\Play\DragArrow.json" />
+    <None Include="Assets\Prefab\Play\FlighterController.json" />
     <None Include="Assets\Prefab\Play\GoalGround.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />
@@ -518,6 +535,7 @@
     <None Include="Assets\Prefab\Play\UI\PerfectTimer.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMessage.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
+    <None Include="Assets\Prefab\Play\UI\TargetMark.json" />
     <None Include="Assets\Prefab\Result\ResultPanel.json" />
     <None Include="Assets\Prefab\ScoreManager.json" />
     <None Include="Assets\Prefab\Simple.json" />
@@ -526,6 +544,9 @@
     <None Include="Assets\Prefab\StageObjectManager.json" />
     <None Include="Assets\Prefab\StageObj\CharaEggRing.json" />
     <None Include="Assets\Prefab\TitleNeco.json" />
+    <None Include="Assets\Prefab\Title\TitleCamera.json" />
+    <None Include="Assets\Prefab\Title\TitleScene.json" />
+    <None Include="Assets\Prefab\Title\TitleText.json" />
     <None Include="Assets\Score\ScoreNotion.json" />
     <None Include="Assets\Shader\CBGlobal3D.hlsli" />
     <None Include="Assets\Shader\Common2D.hlsli" />
@@ -570,6 +591,7 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
     </FxCompile>
+    <FxCompile Include="Assets\Shader\CharaEggRing.hlsl" />
     <FxCompile Include="Assets\Shader\Debug.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>

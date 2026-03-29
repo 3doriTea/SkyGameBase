@@ -24,7 +24,11 @@ namespace wtgb
 		/// <param name="_pMeshSimple">シンプルメッシュの派生</param>
 		/// <param name="_pTransform">座標系</param>
 		/// <param name="_hShader">シェーダ</param>
-		void Render(IMeshSimple* _pMeshSimple, Transform* _pTransform, const ShaderHandle _hShader, const Color& _diffuseColor = Color::GREEN);
+		void Render(
+			IMeshSimple* _pMeshSimple,
+			Transform* _pTransform,
+			const ShaderHandle _hShader,
+			const Color& _diffuseColor = Color::GREEN);
 
 		void Render2D(
 			IMeshSimple2D* _pMeshSimple,

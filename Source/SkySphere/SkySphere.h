@@ -1,10 +1,14 @@
 #pragma once
 #include <wtgb.h>
 
+
+/// <summary>
+/// 一番背景の青空
+/// </summary>
 class SkySphere : public GameObject
 {
 public:
-	SkySphere();
+	SkySphere(const EntityId _cameraEntity, const float _angleYRadian = 0.0f);
 	~SkySphere();
 
 	void Init() override;
@@ -12,6 +16,5 @@ public:
 	void Release() override;
 
 private:
-	//EntityId mainCamera_;  // カメラ
-
+	float angleYRadian_;  // Y軸の回転
 };

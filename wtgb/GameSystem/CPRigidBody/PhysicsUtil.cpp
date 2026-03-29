@@ -672,11 +672,9 @@ bool wtgb::PhysicsUtil::IsHitSphereVSSection(ColliderSet* _pSphere, ColliderSet*
 			}
 			else
 			{
-				LOGFLN("時間差:{}", std::fabsf(info.time - bestInfo.time));
-
 				if (std::fabsf(info.time - bestInfo.time) <= SIMULTANEOUS_THRESHOLD_SEC)  // 当たるまでの時間がほぼ同じなら
 				{
-					LOGF("同時に衝突");
+					LOGFLN("同時に衝突");
 
 					bestInfo.push = bestInfo.push + info.push;
 					bestInfo.normal = XMVector3Normalize(bestInfo.normal + info.normal);

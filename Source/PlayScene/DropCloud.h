@@ -69,25 +69,15 @@ private:
 
 	std::string playSMFPath_;  // 再生する smf
 
+	// 各音色のファイル
 	std::array<std::string, MINICHARA_MAX> toneAudioFilesPath_;
-	//std::string playToneAudioFilePath_;     // 再生する音の音源ファイル
-	//std::string toneAudioFilePathBase_;     // 再生するベース音の音源ファイル
-	//std::string toneAudioFilePathTuba_;     // 再生するチューバ音の音源ファイル
-	//std::string toneAudioFilePathDrum_;     // 再生するドラム音の音源ファイル
-	//std::string toneAudioFilePathGlocken_;  // 再生するグロッケン音の音源ファイル
-
+	
 	std::list<DroppedPresent> droppedPresents_;  // 投下したプレゼントリスト
 
 	bool isFinished_;  // 全ボールを出し終えたか
 
-	// 各ミニキャラの音色
+	// 各ミニキャラの音色の音声ファイル
 	std::array<AudioHandle, MINICHARA_MAX> hAudios_;
-
-	//AudioHandle hAudioCat_;  // 猫音
-	//AudioHandle hAudioBase_;  // ベース音
-	//AudioHandle hAudioTuba_;  // チューバ音
-	//AudioHandle hAudioDrum_;  // ドラム音
-	//AudioHandle hAudioGlocken_;  // グロッケンシュピール音
 
 	CloudLevel level_;    // うまく演奏していると上がるレベル
 	float perfectTimer_;  // ノーミスの秒数

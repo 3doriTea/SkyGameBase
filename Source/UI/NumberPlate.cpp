@@ -17,7 +17,7 @@ NumberPlate::NumberPlate(const std::string_view _numberImageFilePath) : GameObje
 	hNumberImage_{},
 	beginDrawPos_{},
 	currDrawPos_{},
-	baseCanvasSize_{},
+	baseCanvasSize_{ 1920, 1080 },
 	sizePix_{},
 	marginPix_{},
 	number_{},
@@ -39,6 +39,7 @@ void NumberPlate::Update()
 {
 	currDrawPos_ = beginDrawPos_;
 	
+	LOGFLN("number:{}", number_);
 	for (std::string str = std::to_string(number_); char c : str)
 	{
 		if ('0' <= c && c <= '9')
@@ -47,6 +48,7 @@ void NumberPlate::Update()
 			DrawNumber(num);
 		}
 	}
+	LOGFLN("");
 }
 
 void NumberPlate::Release()

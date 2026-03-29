@@ -29,6 +29,12 @@ namespace wtgb
 		void Init(ViewerCached _system) override;
 		void Update(ViewerCached _system) override {}
 
+		/// <summary>
+		/// テクスチャをセットする
+		/// </summary>
+		/// <param name="_hTexture">テクスチャのハンドル</param>
+		inline void SetTexture(const TextureHandle _hTexture) { hTexture_ = _hTexture; }
+
 	private:
 		std::string shader_;
 		std::string texture_;

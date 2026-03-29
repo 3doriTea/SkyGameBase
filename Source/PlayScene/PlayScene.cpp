@@ -11,7 +11,7 @@
 #include "StageObjectManager.h"
 #include "ControlUI.h"
 #include "LiftStructure.h"
-#include "SkySphere.h"
+#include "SkySphere/SkySphere.h"
 
 #include "SMF/SMFPlayer.h"
 #include "DropCloud.h"
@@ -27,6 +27,11 @@
 #include "DragArrowAxis.h"
 #include "UI/DragArrow.h"
 
+#include "Systems/ScoreManager.h"
+#include "wtgb/GameSystem/DirectionalLight.h"
+
+#include "FlighterController.h"
+
 
 PlayScene::PlayScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) },
@@ -35,6 +40,18 @@ PlayScene::PlayScene(GameScene::Config&& _config) :
 		.safeZoneXMin = 0.0f,
 		.safeZoneXMax = 400.0f,
 		.eggGetDistance = 10.0f,
+		.lightDirection = { -6.74646f, -15.585419f, 26.661987f },
+		.gravity = 9.8f,
+		.lift
+		{
+			.polePosX = 10.0f
+		},
+		.player
+		{
+			.startPositionY = 30.0f,
+			.startPositionZ = 5.0f,
+		},
+		.bgmFilePath = "Sound/entertainer.mid",
 	}
 {
 }
@@ -43,39 +60,73 @@ PlayScene::~PlayScene()
 {
 }
 
+static EntityId player{};
+static EntityId camera{};
+static Vector3 pPos{};
+static bool isPlayerFixied{};
 void PlayScene::Start()
 {
 	EntityId playState{ Instantiate<PlayState>() };
+
+	// シーンが始まったらスコアをリセットする
+	System().Get<ScoreManager>().ResetGameScore();
 
 	Instantiate<Debugger>();
 
 	Instantiate<ControlUI>();
 	Instantiate<CountDown>();
 
-
 	EntityId stageLine{ Instantiate<StageLine>() };
 
-	EntityId smfPlayer{ Instantiate<SMFPlayer>("Sound/entertainer.mid") };
+	EntityId smfPlayer{ Instantiate<SMFPlayer>(worldConfig_.bgmFilePath) };
 
-	Instantiate<LiftStructure>(stageLine, 10.0f);
+	EntityId liftStructure{ Instantiate<LiftStructure>(stageLine, worldConfig_.lift.polePosX) };
 	
-	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, 0.5f) };
+	const float HALF{ 0.5f };  // 半分
+	float startPositionX{ Mathf::Lerp(worldConfig_.safeZoneXMin, worldConfig_.safeZoneXMax, HALF) };
 
-	EntityId player{ Instantiate<Player>(INVALID_ENTITY, Vector3{ startPositionX, 30.0f, 5.0f }, playState) };
+	player =  // プレイヤー
+		Instantiate<Player>(
+			INVALID_ENTITY,
+			Vector3
+			{
+				startPositionX,
+				worldConfig_.player.startPositionY,
+				worldConfig_.player.startPositionZ
+			},
+			playState);
+
+	// リフトに追従するオブジェクトを管理するやつ
+	Instantiate<FlighterController>(liftStructure, player);
+
+	// 演奏中に登場するステージオブジェクトを管理するやつ
 	Instantiate<StageObjectManager>(stageLine, player, playState);
+	
+	// プレイヤーのドラッグ矢印の軸
 	EntityId dragArrowAxis{ Instantiate<DragArrowAxis>(player) };
-	Instantiate<DragArrow>(dragArrowAxis);
-	Instantiate<CameraController>(dragArrowAxis);
+	// プレイヤーのドラッグ矢印
+	EntityId dragArrow{ Instantiate<DragArrow>(dragArrowAxis) };
+	
+	// 複数モードを含むカメラ
+	camera = Instantiate<CameraController>(dragArrowAxis, dragArrow);
 
+	// ミニキャラを管理するやつ
 	EntityId miniCharaManager{ Instantiate<MiniCharaManager>(smfPlayer) };
 
+	// スピードを管理するやつ
 	EntityId speedController{ Instantiate<SpeedController>(player) };
+	
 	EntityId dropCloud{ Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController, miniCharaManager) };
 
 	Instantiate<SpeedMessage>(speedController);
 
-	Instantiate<SkySphere>();
+	// 最背面の天球
+	Instantiate<SkySphere>(camera);
 	
+	// 平行光線(光源)
+	System().Get<DirectionalLight>()
+		.SetDirection(worldConfig_.lightDirection);
+
 	// TODO: お試し↓
 	//Instantiate<MiniChara>(dropCloud, smfPlayer, MiniCharaType::Monkitty);
 
@@ -100,4 +151,49 @@ void PlayScene::Update()
 	{
 		Game::Exit();
 	}
+
+	const float DT = System().Get<GameTime>().GetDeltaTime();
+
+#ifdef _DEBUG_DISABLED
+	//static float v[3]{ -29.231293, -34.184677, 41.512207 };
+	static float v[3]{ -6.74646f, -15.585419f, 26.661987f };
+	/*ImGui::Begin("Direction");
+	ImGui::InputFloat3("direction", v);
+	ImGui::End();*/
+	System().Get<DirectionalLight>()
+		.SetDirection({ v[0], v[1], v[2] });
+
+	static bool isActive{ false };
+
+	if (input.IsKeyDown(KeyCode::G))
+	{
+		isActive = !isActive;
+		CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+	}
+
+	if (input.IsKeyDown(KeyCode::H))
+	{
+		isPlayerFixied = !isPlayerFixied;
+		CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+		pPos = cpGameObject.FindGameObject(player)->Transform().GetPosition();
+	}
+	
+	if (isActive)
+	{
+		CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+		Vector3 cPos = cpGameObject.FindGameObject(camera)->Transform().GetPosition();
+		Vector3 diff = pPos - cPos;
+		v[Vector3::AT_X] = diff.x;
+		v[Vector3::AT_Y] = diff.y;
+		v[Vector3::AT_Z] = diff.z;
+	}
+
+	if (isPlayerFixied)
+	{
+		CPGameObject& cpGameObject{ System().Get<CPGameObject>() };
+		cpGameObject.FindGameObject(player)->Transform().SetPosition(pPos);
+	}
+
+	LOGFLN("light = {}, {}, {}", v[0], v[1], v[2]);
+#endif
 }

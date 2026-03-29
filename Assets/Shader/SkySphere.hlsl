@@ -5,34 +5,37 @@
 
 struct VS_OUT
 {
-    float4 pos : SV_POSITION; // ’¸“_‚ÌˆÊ’u
-    float4 uv : TEXCOORD; // ’¸“_‚É‘Î‰‚·‚éUVÀ•W
-    float4 color : COLOR; // F / –¾‚é‚³
+    float4 pos : SV_POSITION; // é ‚ç‚¹ã®ä½ç½®
+    float4 uv : TEXCOORD;     // é ‚ç‚¹ã«å¯¾å¿œã™ã‚‹UVåº§æ¨™
+    float4 color : COLOR;     // è‰² / æ˜ã‚‹ã•
 };
 
 VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float4 uv : TEXCOORD)
 {
     VS_OUT outData;
     
-    // ƒrƒ…[s—ñ‚Ì•½sˆÚ“®•”•ª‚ğÁ‚µ‚ÄƒJƒƒ‰‚Æ“¯‚¶ˆÊ’u‚É‚·‚é
+    // ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—ã®å¹³è¡Œç§»å‹•éƒ¨åˆ†ã‚’æ¶ˆã—ã¦ã‚«ãƒ¡ãƒ©ã¨åŒã˜ä½ç½®ã«ã™ã‚‹
     float4x4 viewNoTranslation = matrixView;
     viewNoTranslation._41 = 0;
     viewNoTranslation._42 = 0;
     viewNoTranslation._43 = 0;
     
-    // ƒrƒ…[À•W‚ğ‹‚ß‚ÄƒvƒƒWƒFƒNƒVƒ‡ƒ“À•W‚É•ÏŠ·‚·‚é
-    float4 viewPos = mul(float4(pos.xyz, 1.0), viewNoTranslation);
+    // å›è»¢ã ã‘é©ç”¨ã™ã‚‹
+    float4 worldPos = mul(pos, matrixRotateWorld);
+    
+    // ãƒ“ãƒ¥ãƒ¼åº§æ¨™ã‚’æ±‚ã‚ã¦ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³åº§æ¨™ã«å¤‰æ›ã™ã‚‹
+    float4 viewPos = mul(float4(worldPos.xyz, 1.0), viewNoTranslation);
     outData.pos = mul(viewPos, matrixProjection);
 
-    // ƒvƒƒWƒFƒNƒVƒ‡ƒ“À•Wã‚Ì z / w = 1.0 -> Å”w–Ê•`‰æ‚É‚·‚é
+    // ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³åº§æ¨™ä¸Šã® z / w = 1.0 -> æœ€èƒŒé¢æç”»ã«ã™ã‚‹
     outData.pos.z = outData.pos.w;
     
     outData.uv = mul(uv, matrixUV);
-    outData.color = float4(1, 1, 1, 1); // ƒ‰ƒCƒgŒvZ‚ğ”ò‚Î‚µ‚Ä”’‚­‚·‚é
+    outData.color = float4(1, 1, 1, 1); // ãƒ©ã‚¤ãƒˆè¨ˆç®—ã‚’é£›ã°ã—ã¦ç™½ãã™ã‚‹
     return outData;
 }
 
-// ƒsƒNƒZƒ‹ƒVƒF[ƒ_
+// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€
 float4 PS(VS_OUT inData) : SV_TARGET
 {
     float4 diffuse;

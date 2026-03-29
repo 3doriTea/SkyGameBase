@@ -4,6 +4,9 @@
 #include "Player.h"
 
 
+/// <summary>
+/// 捕まえた仲間のボール
+/// </summary>
 CharaBall::CharaBall(
 	const Vector3& _position,
 	const Vector3& _velocity,

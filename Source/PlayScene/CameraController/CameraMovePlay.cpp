@@ -4,6 +4,7 @@
 #include "PlayScene/StageLine.h"
 #include <algorithm>
 #include "../DragArrowAxis.h"
+#include "../UI/DragArrow.h"
 
 namespace
 {
@@ -41,7 +42,7 @@ CameraMovePlay::CameraMovePlay() :
 
 void CameraMovePlay::Start(GameObjectReference _ref)
 {
-	auto [systemView, entityId, dragArrowAxis]{ _ref };
+	auto [systemView, entityId, dragArrowAxis, dragArrow]{ _ref };
 
 	GameObject* pStageLineObj{ systemView.Get<CPGameObject>().FindGameObject("StageLine") };
 	wassert(pStageLineObj && "ステージラインがシーンに存在しないよ！");
@@ -55,7 +56,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 {
 	using namespace DirectX;
 
-	auto [systemView, entityId, dragArrowAxis]{ _ref };
+	auto [systemView, entityId, dragArrowAxis, dragArrow]{ _ref };
 
 	float dt{ systemView.Get<GameTime>().GetDeltaTime() };
 	Cursor& cursor{ systemView.Get<Cursor>() };
@@ -67,6 +68,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	Transform* pTransform{ systemView.Get<CPTransform>().Get(entityId) };
 	GameObject* pGameObject{ systemView.Get<CPGameObject>().Get(entityId)->get() };
 	GameObject* pPlayer{ pGameObject->FindGameObject("Player") };
+	RigidBody& playerRB{ pPlayer->GetComponent<RigidBody>() };
 
 	// マウスカーソルの制御
 	if (input.IsMouseDown(MouseCode::Left)  // マウス左押された
@@ -136,8 +138,10 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	toPosition = XMVector3TransformCoord(OFFSET, rotationMatrix) + pPlayer->Transform().GetPositionWorld();
 
 #pragma region y軸速度の分迫力をもたせる
-	RigidBody& rb{ pPlayer->GetComponent<RigidBody>() };
-	float emphasisCurrYOffset{ std::clamp(rb.GetVelocity().y, -10.0f, 10.0f) };
+	float emphasisCurrYOffset
+	{
+		std::clamp(playerRB.GetVelocity().y, emphasis_.velocityMin, emphasis_.velocityMax)
+	};
 
 	emphasisBoost_ -= dt * emphasis_.boostDecayRatePerSec;
 	if (emphasisBoost_ <= 0.0f)
@@ -153,7 +157,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 		// バウンドの衝撃も加える
 		bounceImpactPlayRatio_ = { 0.3f, 0.8f, 0.0f };
-		bounceImpactIntensity_ = bounceImpact.startIntensity;
+		bounceImpactIntensity_ = bounceImpact_.startIntensity;
 	}
 
 	// MEMO: expfの中の -が抜けると無限大に発散するよ()
@@ -172,13 +176,13 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 	};
 
 	// 再生レートを進める
-	bounceImpactPlayRatio_ = bounceImpactPlayRatio_ + bounceImpact.frequencyPerSec * dt;
+	bounceImpactPlayRatio_ = bounceImpactPlayRatio_ + bounceImpact_.frequencyPerSec * dt;
 	bounceImpactPlayRatio_.x = std::fmodf(bounceImpactPlayRatio_.x, 1.0f);
 	bounceImpactPlayRatio_.y = std::fmodf(bounceImpactPlayRatio_.y, 1.0f);
 	bounceImpactPlayRatio_.z = std::fmodf(bounceImpactPlayRatio_.z, 1.0f);
 
 	// 揺れの強さを減衰させる
-	float dampingT = 1.0f - std::expf(-(bounceImpact.dampingRatioPerSec) * dt);
+	float dampingT = 1.0f - std::expf(-(bounceImpact_.dampingRatioPerSec) * dt);
 	bounceImpactIntensity_ = Mathf::Lerp(
 		bounceImpactIntensity_,
 		Vector3::Zero(),
@@ -190,7 +194,7 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 	{  // プレイヤーが前に進んでいるとき、カメラをだんだんと前に向ける処理
 		
-		if (rb.GetVelocity().z > 0.0f)
+		if (playerRB.GetVelocity().z > 0.0f)
 		{
 			Vector3 rotation{ pTransform->GetRotation() };
 			rotation.y /= 1.01f;
@@ -306,11 +310,39 @@ void CameraMovePlay::Update(GameObjectReference _ref)
 
 #pragma region ドラッグ中の軸を更新
 	DragArrowAxis* pAxis{ pGameObject->FindGameObject<DragArrowAxis>(dragArrowAxis) };
+	wassert(pAxis && "pAxisが見つからなかった");
 
-	Vector2 diff{ static_cast<float>(diffValue_.x), -static_cast<float>(diffValue_.y) };
-	pAxis->SetAngleY(std::atan2f(diff.x, diff.y));
-	float scale{ std::sqrtf(diff.x * diff.x + diff.y * diff.y) };
-	pAxis->SetScaleZ(scale);
+	DragArrow* pArrow{ pGameObject->FindGameObject<DragArrow>(dragArrow) };
+	wassert(pArrow && "pArrowが見つからなかった");
+
+	// 2D 画面空間から3D空間に変換
+	Vector3 diff3D
+	{
+			static_cast<float>(std::clamp(diffValue_.x, dragArrow_.screenDiffMin, dragArrow_.screenDiffMax)),
+			0.0f,
+			-static_cast<float>(std::clamp(diffValue_.y, dragArrow_.screenDiffMin, dragArrow_.screenDiffMax))
+	};
+
+	if (diff3D.x * diff3D.x + diff3D.y * diff3D.y > 0.0f)
+	{  // マウスドラッグで矢印を操作している
+		
+		pArrow->ChangeType(DragArrowType_Control);
+
+		// カメラとの角度から矢印の方向を適用
+		Vector3 arrowDir3D{ XMVector3TransformCoord(diff3D, XMMatrixRotationY(angleY_)) };
+		pAxis->SetAngleY(std::atan2f(arrowDir3D.x, arrowDir3D.z));
+
+		// 矢印の大きさを適用
+		float scale{ std::sqrtf(arrowDir3D.x * arrowDir3D.x + arrowDir3D.z * arrowDir3D.z) };
+		pAxis->SetScaleZ(scale);
+	}
+	else
+	{  // マウスドラッグで矢印を操作していない
+		Vector3 velocity{ playerRB.GetVelocity() };
+		pAxis->SetAngleY(0.0f);
+		pAxis->SetScaleZ(velocity.z);
+		pArrow->ChangeType(DragArrowType_Velocity);
+	}
 #pragma endregion
 }
 

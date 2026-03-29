@@ -2,6 +2,7 @@
 #include "pch/pch.h"
 #include "Helper/CommonGameComponent.h"
 #include "GameSystem/ModelMesh/IMeshSimple.h"
+#include "GameSystem/ModelMesh/IMeshesSimple.h"
 #include "GameSystem/CPModelMesh.h"
 
 
@@ -23,6 +24,8 @@ namespace wtgb
 			SimpleMesh2D,  // シンプルなメッシュ2D描画
 			FbxBack,       // 最背面に描画したいFBX
 			FbxAplha,      // 透明度を適用したいFBX
+			SimpleMeshes,  // シンプルなメッシュ群描画
+			SimpleMeshUI3D,  // シンプルなメッシュUI3D描画 透過する
 		};
 
 		friend class CPMeshRenderer;
@@ -33,6 +36,7 @@ namespace wtgb
 
 			SETTER_PARAM(std::string, fileName)
 			SETTER_PARAM_PTR(IMeshSimple, pOriginalMesh)
+			SETTER_PARAM_PTR(IMeshesSimple, pOriginalMeshes)
 			SETTER_PARAM(Type, modelMeshType)
 		};
 
@@ -45,17 +49,29 @@ namespace wtgb
 		void End() override;
 
 		/// <summary>
+		/// メッシュの種類を再読み込みする
+		/// </summary>
+		void Reflesh(ViewerCached system_);
+
+		/// <summary>
 		/// モデルメッシュの種類を取得
 		/// </summary>
 		/// <returns>モデルメッシュの種類</returns>
 		Type GetType() const { return modelMeshType_; }
 
+		/// <summary>
+		/// モデルをセットする
+		/// </summary>
+		/// <param name="_hModel">モデルのハンドル</param>
+		void SetModel(const ModelHandle _hModel);
+
 	private:
 		std::string fileName_;  // モデルのファイル名
-		IMeshSimple* pOriginalMesh_;  // シンプルならオリジナルメッシュ
 
+		IMeshSimple* pOriginalMesh_;      // シンプルならオリジナルメッシュ
+		IMeshesSimple* pOriginalMeshes_;  // シンプルならオリジナルメッシュ
+		
 		ModelHandle hModel_;  // モデルハンドル
-
 		Type modelMeshType_;  // モデルメッシュの種類
 	};
 }

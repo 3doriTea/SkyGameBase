@@ -61,10 +61,6 @@ void Orb::Release()
 
 void Orb::OnLoad(const json& _json)
 {
-	std::string dummm{ _json.dump() };
-	bool isarrrrr = _json["imageFilesPath"].is_array();
-
-
 	_json["imageFilesPath"][static_cast<size_t>(type_)].get_to(imageFilePath_);
 	scalingTime_ = SafeGet<float>(_json, "scalingTime");
 }

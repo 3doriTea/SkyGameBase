@@ -1,0 +1,17 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "TitleText"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "imageFilePath": "Image/Title/TitleText.png",
+    "beginPosition": [ 0, 0 ],
+    "endPosition": [ -300, -1000 ]
+  }
+}

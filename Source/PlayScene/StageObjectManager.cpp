@@ -7,6 +7,7 @@
 #include "SpecialBoom.h"
 #include "CharaBall.h"
 #include "CharaEgg.h"
+#include "Systems/ScoreManager.h"
 
 #include "State/PlayState.h"
 
@@ -109,7 +110,7 @@ void StageObjectManager::Release()
 void StageObjectManager::Fire()
 {
 	using namespace DirectX;
-
+	
 	PlayScene* pPlayScene{ GetScene<PlayScene>() };
 	if (pPlayScene == nullptr)
 	{
@@ -138,5 +139,11 @@ void StageObjectManager::Fire()
 		v.z = vSrc.z;
 
 		pPlayScene->Instantiate<CharaBall>(targetPos, v, player_);
+
+		System().Get<ScoreManager>().Ref([](GameScore& _score)
+			{
+				// 増えた仲間の数を加算
+				_score.allyCount += 1;
+			});
 	}
 }

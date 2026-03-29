@@ -75,7 +75,7 @@ void wtgb::CPRigidBody::Update()
 			Vector3 rotation{ pTransform->GetRotationWorld() };
 			rotation = rotation + _rb.angularVelocity_ * DT;
 			pTransform->SetRotationWorld(rotation);
-			_rb.angularVelocity_ = _rb.angularVelocity_ * _rb.drag_;
+			_rb.angularVelocity_ = _rb.angularVelocity_ * _rb.angularDrag_;
 
 			Collider* pCollider{ cpCollider.Get(entityId) };
 			wassert(pCollider && "コライダついてないよー");

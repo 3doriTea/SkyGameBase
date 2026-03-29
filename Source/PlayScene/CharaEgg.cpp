@@ -39,7 +39,8 @@ void CharaEggRing::Release()
 CharaEgg::CharaEgg(const Vector3& _position, const EntityId _stageObjManager, const EntityId _player) :
 	GameObject{ "CharaEgg.json" },
 	stageObjManager_{ _stageObjManager },
-	player_{ _player }
+	player_{ _player },
+	rotAngleSpeedPerSec_{}
 {
 	Transform().SetPosition(_position);
 }

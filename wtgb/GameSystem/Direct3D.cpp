@@ -354,13 +354,6 @@ void wtgb::Direct3D::SetUseDepthBuffer(const bool _useDepthBuffer)
 void wtgb::Direct3D::SetBlend(const BlendMode _mode)
 {
 	wassert(_mode != BlendMode::Max && "BlendModeにMaxは指定できない");
-
-	if (_mode == BlendMode::Max || _mode == BlendMode::None)
-	{
-		// ブレンドモードを特に指定しない
-		pResource_->Context().Get()->OMSetBlendState(nullptr, nullptr, Color::NONE);
-	}
-	
 	switch (_mode)
 	{
 	case BlendMode::Alpha:
@@ -375,6 +368,9 @@ void wtgb::Direct3D::SetBlend(const BlendMode _mode)
 		break;
 	}
 	case BlendMode::None:
+	case BlendMode::Max:
+		// ブレンドモードを特に指定しない
+		pResource_->Context().Get()->OMSetBlendState(nullptr, nullptr, Color::NONE);
 		break;
 	default:
 		wassert(false && "未実装のブレンドモード");

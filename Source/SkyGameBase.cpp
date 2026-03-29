@@ -2,9 +2,8 @@
 #include "pch/pch.h"
 #include "pch/framework.h"
 #include "SkyGameBase.h"
-#include "SampleSkyCombat.h"
 
-#include "SampleGame.h"
+#include "NekoGame.h"
 
 int APIENTRY wWinMain(
 	_In_     HINSTANCE hInstance,
@@ -15,7 +14,7 @@ int APIENTRY wWinMain(
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	int result{ wtgb::Game::Run<SampleGame>() };
+	int result{ wtgb::Game::Run<NekoGame>() };
 
 	return result;
 }

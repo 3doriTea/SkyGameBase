@@ -1,5 +1,5 @@
 #include "pch\pch.h"
-#include "SampleGame.h"
+#include "NekoGame.h"
 
 #include "GameSystem/GameTime.h"
 #include "GameSystem/Alarm.h"
@@ -51,7 +51,7 @@
 
 using namespace wtgb;
 
-void SampleGame::StartRegister(
+void NekoGame::StartRegister(
 	const GameSystemCollection::GameSystemAdder& _gameSystemRegister)
 {
 	// TODO: 登録順番が厳しいところが難儀

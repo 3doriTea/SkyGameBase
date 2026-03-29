@@ -34,7 +34,7 @@ void DragPoint::Update()
 		Vector2Int offsetPos{ cursorPosition - centerPosition_ };
 		int mouseDistanceSq{ offsetPos.x * offsetPos.x + offsetPos.y * offsetPos.y };
 
-		LOGFLN("DragPointdist:{}", std::sqrtf(mouseDistanceSq));
+		LOGFLN("DragPointdist:{}", std::sqrtf(static_cast<float>(mouseDistanceSq)));
 
 		// マウスへの距離
 		if (mouseDistanceSq <= radiusSq_)

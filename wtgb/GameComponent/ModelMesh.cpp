@@ -9,12 +9,23 @@ wtgb::ModelMesh::ModelMesh() :
 	hModel_{ INVALID_HANDLE },
 	fileName_{},
 	pOriginalMesh_{ nullptr },
+	pOriginalMeshes_{ nullptr },
 	modelMeshType_{ Type::Other }
 {}
 
 void wtgb::ModelMesh::Init(ViewerCached system_)
 {
-	if (!fileName_.empty() && pOriginalMesh_ == nullptr)
+	Reflesh(system_);
+}
+
+void wtgb::ModelMesh::End()
+{
+}
+
+void wtgb::ModelMesh::Reflesh(ViewerCached system_)
+{
+	// ファイル名だけ指定されている
+	if (!fileName_.empty() && (!pOriginalMesh_ && !pOriginalMeshes_))
 	{
 		if (modelMeshType_ == Type::FbxBack  // 最背面に描画したい
 			|| modelMeshType_ == Type::FbxAplha)  // 透明度を付けて描画したい
@@ -26,10 +37,17 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 			modelMeshType_ = Type::Fbx;
 		}
 	}
-	else if (fileName_.empty() && pOriginalMesh_ != nullptr)
+	else if (fileName_.empty() && (pOriginalMesh_ || pOriginalMeshes_))
 	{
 		// ファイル名が指定されていない かつ オリジナルメッシュが指定されている
-		modelMeshType_ = Type::SimpleMesh;
+		if (pOriginalMesh_)
+		{
+			modelMeshType_ = Type::SimpleMesh;
+		}
+		else
+		{
+			modelMeshType_ = Type::SimpleMeshes;
+		}
 	}
 	else
 	{
@@ -46,6 +64,7 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 		hModel_ = system_.Get<Model>().Load(fileName_);
 		break;
 	case wtgb::ModelMesh::Type::SimpleMesh:
+	case wtgb::ModelMesh::Type::SimpleMeshes:
 		//pOriginalMesh_->CallInit();
 		break;
 	case wtgb::ModelMesh::Type::Other:
@@ -55,6 +74,7 @@ void wtgb::ModelMesh::Init(ViewerCached system_)
 	}
 }
 
-void wtgb::ModelMesh::End()
+void wtgb::ModelMesh::SetModel(const ModelHandle _hModel)
 {
+	hModel_ = _hModel;
 }

@@ -6,13 +6,13 @@
     "Transform": {
       "position": [ 0, 0, 0 ],
       "rotation": [ 0, 0, 0 ],
-      "scale": [ 5, 5, 5 ]
+      "scale": [ 10, 10, 10 ]
     },
     "ModelMesh": {
       "fileName": "Models/CharaEggRing.fbx"
     },
     "MeshRenderer": {
-      "shader":  "Shader/CharaEgg.hlsl"
+      "shader":  "Shader/CharaEggRing.hlsl"
     }
   }
 }

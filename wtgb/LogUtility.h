@@ -4,7 +4,7 @@
 #if 1 //_DEBUG
 
 #define LOGF(fmt, ...)\
-OutputDebugString(std::format(fmt, __VA_ARGS__).c_str())
+OutputDebugString(std::format(reinterpret_cast<const char*>(std::u8string{ fmt }.c_str()), __VA_ARGS__).c_str())
 
 #define LOGFLN(fmt, ...)\
 OutputDebugString((std::format(fmt, __VA_ARGS__) + "\n").c_str())

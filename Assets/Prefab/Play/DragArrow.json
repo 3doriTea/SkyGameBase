@@ -9,7 +9,8 @@
       "scale": [ 1, 1, 1 ]
     },
     "ModelMesh": {
-      "fileName": "Models/DragArrow/DragArrow.fbx"
+      "fileName": "Models/DragArrow/DragArrow.fbx",
+      "modelMeshType": 5
     },
     "MeshRenderer": {
       "shader": "Shader/BillBoard.hlsl",
@@ -17,5 +18,7 @@
     }
   },
   "Param": {
+    "dragArrowImageFilePath": "Models/DragArrow/Arrow.png",
+    "veloArrowImageFilePath": "Models/DragArrow/VelocityArrow.png"
   }
 }

@@ -19,7 +19,9 @@ void MiniCharaMonkitty::Init(MiniChara& _self)
 void MiniCharaMonkitty::Update(MiniChara& _self)
 {
 	const Canvas::Context& CONTEXT{ _self.System().Get<Canvas>().GetContext() };
+	
 	UI::LayoutConfig config{};
+	config.positionPivot(UI::Pivot::Center);
 	config.position(_self.drawPosition_);
 
 	float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.config_.totalAnimTime) };
