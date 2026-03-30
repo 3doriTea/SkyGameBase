@@ -58,7 +58,7 @@ private:
 	EntityId manager_;      // ミニキャラ統括
 
 	Vector2Int imageSize_;
-	float scale_;          // 画像のスケール
+	Vector2 scale_;          // 画像のスケール
 	float animTimeLeft_;   // アニメーションタイマー
 
 	Vector2Int drawPosition_;  // 描画座標

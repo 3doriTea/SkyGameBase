@@ -12,7 +12,7 @@ MiniChara::MiniChara(const EntityId _miniCharaManager, const Config& _config) :
 	hImage_{ INVALID_HANDLE },
 	imageSize_{ Vector2Int::Zero() },
 	animTimeLeft_{},
-	scale_{ 0.5f },
+	scale_{ Vector2::One() },
 	pMiniCharaState_{},
 	config_{ _config },
 	moveTimeLeft_{},
@@ -44,10 +44,13 @@ MiniChara::~MiniChara()
 
 void MiniChara::OnLoadParam(const json& _json)
 {
+	_json["Scalings"][config_.type].get_to(scale_);
 }
 
 void MiniChara::Init()
 {
+	OnLoadParam(GetComponent<Parameter>().Load());
+
 	assert(config_.totalAnimTime > 0 && "feild to get total anim time");
 
 	pMiniCharaState_.get()->Init(*this);

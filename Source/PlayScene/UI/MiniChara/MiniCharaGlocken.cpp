@@ -12,8 +12,8 @@ void MiniCharaGlocken::Init(MiniChara& _self)
 	_self.imageSize_ = rsrcSystem.GetTexture(_self.hImage_)->GetImageSizePix();
 	_self.imageSize_ = Vector2Int
 	{
-		static_cast<int>(_self.imageSize_.x * _self.scale_),
-		static_cast<int>(_self.imageSize_.y * _self.scale_),
+		static_cast<int>(_self.imageSize_.x * _self.scale_.x),
+		static_cast<int>(_self.imageSize_.y * _self.scale_.y),
 	};
 }
 
