@@ -18,12 +18,13 @@ namespace wtgb
 			friend Path;  // パスシステムからはアクセスできるようにするs
 		private:
 			Current(const fs::path& _currentPath);
-			~Current() {}
 
 		private:
 			fs::path currentPath_;  // カレントパス
 
 		public:
+			inline ~Current() = default;
+
 			/// <summary>
 			/// 現在のディレクトリを取得する
 			/// </summary>

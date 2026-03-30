@@ -59,10 +59,12 @@ void Player::OnLoadParam(const json& _json)
 	
 	boundXAnim.totalTime = SafeGet<float>(_json, "/boundXAnim/totalTime"_json_pointer);
 	boundXAnim.beginScaleX = SafeGet<float>(_json, "/boundXAnim/beginScaleX"_json_pointer);
+	boundXAnim.playTime = boundXAnim.totalTime;
 	
 	boundYAnim.totalTime = SafeGet<float>(_json, "/boundYAnim/totalTime"_json_pointer);
 	boundYAnim.beginScaleY = SafeGet<float>(_json, "/boundYAnim/beginScaleY"_json_pointer);
-	
+	boundYAnim.playTime = boundYAnim.totalTime;
+
 	autoRotation_.rotationThresholdVelocityX = SafeGet<float>(_json, "/autoRotation/rotationThresholdVelocityX"_json_pointer);
 	autoRotation_.keepStandSafeAngle = SafeGet<float>(_json, "/autoRotation/keepStandSafeAngle"_json_pointer);
 	autoRotation_.addTorqueX = SafeGet<float>(_json, "/autoRotation/addTorqueX"_json_pointer);
@@ -352,6 +354,8 @@ bool Player::UpdateAnim()
 	const float DT{ System().Get<GameTime>().GetDeltaTime() };
 
 	bool isPlayed{ false };
+
+#pragma region 横軸アニメーション
 	if (boundXAnim.playTime < boundXAnim.totalTime)
 	{
 		boundXAnim.playTime += DT;
@@ -362,16 +366,34 @@ bool Player::UpdateAnim()
 		isPlayed = true;  // アニメーション再生があった
 	}
 
-#pragma region 横軸アニメーション
-	float animRatio{ boundXAnim.playTime / boundXAnim.totalTime };
+	float animRatioX{ boundXAnim.playTime / boundXAnim.totalTime };
 	
 	float scaleX
 	{
-		Mathf::Lerp(boundXAnim.beginScaleX, 1.0f, animRatio)
+		Mathf::Lerp(boundXAnim.beginScaleX, 1.0f, animRatioX)
 	};
-
-	Transform().SetScale(Vector3{ scaleX, 1.0f, 1.0f });
 #pragma endregion
 
+#pragma region 縦軸アニメーション
+	if (boundYAnim.playTime < boundYAnim.totalTime)
+	{
+		boundYAnim.playTime += DT;
+		if (boundYAnim.playTime > boundYAnim.totalTime)
+		{
+			boundYAnim.playTime = boundYAnim.totalTime;
+		}
+		isPlayed = true;  // アニメーション再生があった
+	}
+
+	float animRatioY{ boundYAnim.playTime / boundYAnim.totalTime };
+
+	float scaleY
+	{
+		Mathf::Lerp(boundYAnim.beginScaleY, 1.0f, animRatioY)
+	};
+#pragma endregion
+
+	Transform().SetScale(Vector3{ scaleX, scaleY, 1.0f });
+	
 	return isPlayed;
 }
