@@ -70,14 +70,14 @@ private:
 	std::string playSMFPath_;  // 再生する smf
 
 	// 各音色のファイル
-	std::array<std::string, MINICHARA_MAX> toneAudioFilesPath_;
+	std::array<std::string, MiniCharaType_Max> toneAudioFilesPath_;
 	
 	std::list<DroppedPresent> droppedPresents_;  // 投下したプレゼントリスト
 
 	bool isFinished_;  // 全ボールを出し終えたか
 
 	// 各ミニキャラの音色の音声ファイル
-	std::array<AudioHandle, MINICHARA_MAX> hAudios_;
+	std::array<AudioHandle, MiniCharaType_Max> hAudios_;
 
 	CloudLevel level_;    // うまく演奏していると上がるレベル
 	float perfectTimer_;  // ノーミスの秒数

@@ -74,14 +74,14 @@ void Player::OnStart()
 	RigidBody& rb{ GetComponent<RigidBody>() };
 
 	// 一気に加速！
-	//rb.AddVelocity(Vector3::Forward() * startDushForce_);
-	//rb.SetUseGravity(true);  // 重力の影響を受けるようにする
+	rb.AddVelocity(Vector3::Forward() * startDushForce_);
+	rb.SetUseGravity(true);  // 重力の影響を受けるようにする
 }
 
 void Player::Update()
 {
 	// シーン読み込み直後のカウントダウンを待つ
-	if (HasWaitingCountDown())
+	if (WaitingCountDown())
 	{
 		return;  // カウントダウンを待っているなら以下無視
 	}
@@ -111,7 +111,7 @@ void Player::Update()
 	//UpdateAnim();
 }
 
-bool Player::HasWaitingCountDown()
+bool Player::WaitingCountDown()
 {
 	const float DT{ System().Get<GameTime>().GetDeltaTime() };
 

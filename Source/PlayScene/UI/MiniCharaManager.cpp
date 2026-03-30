@@ -45,16 +45,16 @@ void MiniCharaManager::LevelUp(const CloudLevel _current)
 			switch (currentLevel_)
 			{
 			case CLOUD_LEVEL_BASE:
-				spawanType = MiniCharaType::MINICHARA_BASE3;
+				spawanType = MiniCharaType_Base3;
 				break;
 			case CLOUD_LEVEL_TUBA:
-				spawanType = MiniCharaType::MINICHARA_TUBAR;
+				spawanType = MiniCharaType_Tubar;
 				break;
 			case CLOUD_LEVEL_DRUM:
-				spawanType = MiniCharaType::MINICHARA_MONKITTY;
+				spawanType = MiniCharaType_Monkitty;
 				break;
 			case CLOUD_LEVEL_GLOCKEN:
-				spawanType = MiniCharaType::MINICHARA_GLOCKEN;
+				spawanType = MiniCharaType_Glocken;
 				break;
 			case CLOUD_LEVEL_START:
 			case CLOUD_LEVEL_MAX:

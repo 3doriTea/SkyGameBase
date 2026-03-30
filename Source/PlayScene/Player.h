@@ -55,10 +55,10 @@ private:
 	bool GroundBounceRotation();
 	
 	/// <summary>
-	/// カウントダウンを待っているか
+	/// カウントダウンを待つ
 	/// </summary>
 	/// <returns>待っている true / false</returns>
-	bool HasWaitingCountDown();
+	bool WaitingCountDown();
 
 	/// <summary>
 	/// 試しにキャラエッグへのフォーカス処理をする

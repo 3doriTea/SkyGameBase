@@ -12,8 +12,8 @@ void MiniCharaTubar::Init(MiniChara& _self)
 	_self.imageSize_ = rsrcSystem.GetTexture(_self.hImage_)->GetImageSizePix();
 	_self.imageSize_ = Vector2Int
 	{
-		static_cast<int>(_self.imageSize_.x * _self.scale_),
-		static_cast<int>(_self.imageSize_.y * _self.scale_),
+		static_cast<int>(_self.imageSize_.x * _self.scale_ * 0.8f),
+		static_cast<int>(_self.imageSize_.y * _self.scale_ * 0.8f),
 	};
 }
 
@@ -23,10 +23,13 @@ void MiniCharaTubar::Update(MiniChara& _self)
 	UI::LayoutConfig config{};
 	config.position(_self.drawPosition_);
 
-	float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.config_.totalAnimTime) };
-	Vector2Int size{ _self.imageSize_ };
-	size.x += static_cast<int>(std::sinf(angle) * 10.0f);
-	config.scale(size);
-	CONTEXT.SetRefLayout(&config);
-	CONTEXT.DrawImage(_self.hImage_, angle);
+	for (float offsetAngle{ 0.0f }; offsetAngle <= 0.5f; offsetAngle += 0.05f)
+	{
+		float angle{ DirectX::XM_2PI * (_self.animTimeLeft_ / _self.config_.totalAnimTime) + offsetAngle };
+		Vector2Int size{ _self.imageSize_ };
+		size.x += static_cast<int>(std::sinf(angle) * 10.0f);
+		config.scale(size);
+		CONTEXT.SetRefLayout(&config);
+		CONTEXT.DrawImage(_self.hImage_);
+	}
 }

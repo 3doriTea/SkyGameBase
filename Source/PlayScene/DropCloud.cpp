@@ -106,7 +106,7 @@ void DropCloud::DropPresent(const Note _note)
 	{
 	case 0x03:
 		level = CLOUD_LEVEL_START;
-		droppedPresent.hTone = hAudios_[MINICHARA_T];
+		droppedPresent.hTone = hAudios_[MiniCharaType_T];
 		droppedPresent.toneOffset = SMF::C4_60_INDEX;
 		break;
 	case 0x01:
@@ -115,7 +115,7 @@ void DropCloud::DropPresent(const Note _note)
 		{
 			return;
 		}
-		droppedPresent.hTone = hAudios_[MINICHARA_BASE3];
+		droppedPresent.hTone = hAudios_[MiniCharaType_Base3];
 		droppedPresent.toneOffset = 12 * 7;
 		break;
 	case 0x02:
@@ -124,7 +124,7 @@ void DropCloud::DropPresent(const Note _note)
 		{
 			return;
 		}
-		droppedPresent.hTone = hAudios_[MINICHARA_TUBAR];
+		droppedPresent.hTone = hAudios_[MiniCharaType_Tubar];
 		droppedPresent.toneOffset = 12 * 7;
 		break;
 	case 0x09:
@@ -133,7 +133,7 @@ void DropCloud::DropPresent(const Note _note)
 		{
 			return;
 		}
-		droppedPresent.hTone = hAudios_[MINICHARA_MONKITTY];
+		droppedPresent.hTone = hAudios_[MiniCharaType_Monkitty];
 		droppedPresent.toneOffset = 12 * 7;
 		break;
 	case 0x06:
@@ -143,7 +143,7 @@ void DropCloud::DropPresent(const Note _note)
 			return;
 		}
 		droppedPresent.note.playTime = 6.0f;
-		droppedPresent.hTone = hAudios_[MINICHARA_GLOCKEN];
+		droppedPresent.hTone = hAudios_[MiniCharaType_Glocken];
 		droppedPresent.toneOffset = SMF::C4_60_INDEX + 12 * 0;
 		break;
 	default:
@@ -202,7 +202,7 @@ void DropCloud::Init()
 		Audio& audio{ System().Get<Audio>() };
 
 		// ミニキャラの読み込み
-		for (int miniCharaType{}; miniCharaType < MINICHARA_MAX; miniCharaType++)
+		for (int miniCharaType{}; miniCharaType < MiniCharaType_Max; miniCharaType++)
 		{
 			hAudios_[miniCharaType] = audio.Load(toneAudioFilesPath_[miniCharaType]);
 		}
