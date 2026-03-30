@@ -18,7 +18,7 @@ MiniCharaManager::~MiniCharaManager()
 
 void MiniCharaManager::Init()
 {
-	OnLoad(GetComponent<Parameter>().Load());
+	OnLoadParam(GetComponent<Parameter>().Load());
 }
 
 void MiniCharaManager::Update()
@@ -138,7 +138,7 @@ int MiniCharaManager::GetMiniCharaPositionX(const int _index)
 	return imageSize_.x * _index;
 }
 
-void MiniCharaManager::OnLoad(const json& _json)
+void MiniCharaManager::OnLoadParam(const json& _json)
 {
 	imageSize_ = SafeGet<Vector2Int>(_json, "imageSize");
 	iamgeScale_ = SafeGet<float>(_json, "iamgeScale");

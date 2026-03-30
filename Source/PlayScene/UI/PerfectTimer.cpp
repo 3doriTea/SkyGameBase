@@ -13,7 +13,7 @@ PerfectTimer::~PerfectTimer()
 
 void PerfectTimer::Init()
 {
-	OnLoad(GetComponent<Parameter>().Load());
+	OnLoadParam(GetComponent<Parameter>().Load());
 }
 
 void PerfectTimer::Update()
@@ -65,7 +65,7 @@ void PerfectTimer::SetRatio(const float _ratio)
 	ratio_ = _ratio;
 }
 
-void PerfectTimer::OnLoad(const json& _json)
+void PerfectTimer::OnLoadParam(const json& _json)
 {
 	height_ = SafeGet<int>(_json, "height");
 	margin_ = SafeGet<int>(_json, "margin");

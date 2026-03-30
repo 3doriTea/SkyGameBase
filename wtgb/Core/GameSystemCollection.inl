@@ -1,3 +1,5 @@
+#include "WTGBAssert.h"
+
 template<typename T, typename ...Args>
 inline const wtgb::GameSystemCollection::GameSystemAdder&
 wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
@@ -14,7 +16,7 @@ wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
 	if (gameSystemTypeKey.count(typeid(T)))
 	{
 		wassert(false && "同じシステムが重複して登録されました。");
-		return;  // 既に登録されているため無視
+		return *this;  // 既に登録されているため無視
 	}
 
 	// 登録するゲームシステムに割り当てる要素番号

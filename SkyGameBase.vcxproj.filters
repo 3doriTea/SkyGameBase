@@ -1412,6 +1412,8 @@
     <None Include="Source\JsonUnitLoaderBase.inl">
       <Filter>Source</Filter>
     </None>
+    <None Include="Assets\PlaySceneWorldConfig.json" />
+    <None Include="Assets\CountDown.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

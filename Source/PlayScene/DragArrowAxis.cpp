@@ -15,7 +15,7 @@ DragArrowAxis::~DragArrowAxis()
 
 void DragArrowAxis::Init()
 {
-	OnLoad(GetComponent<Parameter>().Load());
+	OnLoadParam(GetComponent<Parameter>().Load());
 }
 
 void DragArrowAxis::Update()
@@ -45,7 +45,7 @@ void DragArrowAxis::SetAngleY(const float _angle)
 	Transform().SetRotation(Vector3::Up() * _angle);
 }
 
-void DragArrowAxis::OnLoad(const json& _j)
+void DragArrowAxis::OnLoadParam(const json& _j)
 {
 	scaleBase_ = SafeGet<float>(_j, "scaleBase");
 	scaleZDiv_ = SafeGet<float>(_j, "scaleZDiv");

@@ -42,7 +42,7 @@ public:
 	int GetMiniCharaPositionX(const int _index);
 
 private:
-	void OnLoad(const json& _json);
+	void OnLoadParam(const json& _json);
 	/// <summary>
 	/// 最高レベルを更新したか
 	/// </summary>

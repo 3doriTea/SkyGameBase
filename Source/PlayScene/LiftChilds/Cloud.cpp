@@ -25,7 +25,7 @@ void Cloud::Release()
 {
 }
 
-void Cloud::OnLoad(const json& _json)
+void Cloud::OnLoadParam(const json& _json)
 {
 	randomBegin_ = SafeGet<Vector3>(_json, "randomBegin");
 	randomEnd_ = SafeGet<Vector3>(_json, "randomEnd");

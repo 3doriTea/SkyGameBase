@@ -1,8 +1,9 @@
 #include "pch/pch.h"
 #include "StageLoader.h"
 
-StageLoader::StageLoader(std::vector<Vector2>& _points) :
-	points_{ _points }
+StageLoader::StageLoader(std::vector<Vector2>& _points, float& _textureScale) :
+	points_{ _points },
+	textureScale_{ _textureScale }
 {
 }
 
@@ -21,6 +22,8 @@ bool StageLoader::TryLoad(const fs::path& _fileName)
 
 	ifs >> j;
 	ifs.close();
+
+	textureScale_ = j.value("textureScale", 20.0f);
 
 	const size_t POINTS_SIZE{ j["points"].size() };
 

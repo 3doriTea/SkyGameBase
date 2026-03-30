@@ -39,7 +39,7 @@ TitleMountain::TitleMountain() : GameObject
 		.Build();
 	}
 },
-	stageMesh_{ points_ }
+	stageMesh_{ points_, textureScale_ }
 {
 }
 
@@ -47,7 +47,7 @@ void TitleMountain::Init()
 {
 	Collider& collider{ GetComponent<Collider>() };
 
-	StageLoader stageLoader{ points_ };
+	StageLoader stageLoader{ points_, textureScale_ };
 	bool succeed{ stageLoader.TryLoad("TitleMountain.json") };
 	wassert(succeed && "タイトル山のデータ読み込みに失敗");
 

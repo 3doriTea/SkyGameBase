@@ -13,7 +13,7 @@ Orb::~Orb()
 
 void Orb::Init()
 {
-	OnLoad(GetComponent<Parameter>().Load());
+	OnLoadParam(GetComponent<Parameter>().Load());
 	scalingTimeLeft_ = scalingTime_;
 
 	ResourceSystem& rsrcSystem{ System().Get<ResourceSystem>() };
@@ -59,7 +59,7 @@ void Orb::Update()
 void Orb::Release()
 {}
 
-void Orb::OnLoad(const json& _json)
+void Orb::OnLoadParam(const json& _json)
 {
 	_json["imageFilesPath"][static_cast<size_t>(type_)].get_to(imageFilePath_);
 	scalingTime_ = SafeGet<float>(_json, "scalingTime");

@@ -87,7 +87,7 @@ void DragCircle::Update()
 		dragDisplacement_ = cursorPosition - dragBegin_;
 		velocityY_ = Mathf::Lerp(
 			velocityY_,
-			dragDisplacementPrev_.y - dragDisplacement_.y,
+			static_cast<float>(dragDisplacementPrev_.y - dragDisplacement_.y),
 			vv);
 	}
 	else

@@ -102,7 +102,7 @@ public:
 	/// <returns>ポールの設置座標</returns>
 	Vector3 GetPolePosition(const float _z);
 private:
-	void OnLoad(const json& _json);
+	void OnLoadParam(const json& _json);
 
 private:
 	float ropeSpasing_;   // ロープの幅

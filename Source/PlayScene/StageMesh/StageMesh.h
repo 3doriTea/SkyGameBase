@@ -10,7 +10,7 @@ using StagePoints = std::vector<Vector2>;
 class StageMesh : public wtgb::IMeshSimple
 {
 public:
-	StageMesh(StagePoints& _points);
+	StageMesh(StagePoints& _points, float& _textureScale);
 	~StageMesh();
 	
 	void Init(ViewerCached _system) override;
@@ -58,6 +58,7 @@ private:
 
 private:
 	StagePoints& points_;
+	float& textureScale_;  // テクスチャの拡縮
 
 	uint32_t vertexCount_;
 	uint32_t indexCount_;

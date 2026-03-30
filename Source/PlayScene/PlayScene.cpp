@@ -147,7 +147,7 @@ void PlayScene::Update()
 	}
 
 
-#ifdef _DEBUG_DISABLED
+#ifdef _DEBUG
 
 	const float DT = System().Get<GameTime>().GetDeltaTime();
 	//static float v[3]{ -29.231293, -34.184677, 41.512207 };

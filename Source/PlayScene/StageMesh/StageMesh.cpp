@@ -5,8 +5,9 @@
 using namespace wtgb;
 
 
-StageMesh::StageMesh(StagePoints& _points) :
+StageMesh::StageMesh(StagePoints& _points, float& _textureScale) :
 	points_{ _points },
+	textureScale_{ _textureScale },
 	hTexture_{ INVALID_HANDLE },
 	vertexCount_{},
 	indexCount_{}
@@ -44,7 +45,7 @@ void StageMesh::GenerateVertices(ViewerCached _system)
 	std::vector<Vertex> vertices;
 
 	const float TEXTURE_BEGIN_U{ 0.0f };
-	const float TEXTURE_SCALE_U{ 20.0f };
+	const float TEXTURE_SCALE_U{ textureScale_ };
 
 	if (points_.size() < 2)
 	{

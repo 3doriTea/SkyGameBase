@@ -16,7 +16,7 @@ public:
 	void Release() override;
 
 private:
-	void OnLoad(const json& _json);
+	void OnLoadParam(const json& _json);
 
 private:
 	EntityId parentLift_;  // くっつく椅子

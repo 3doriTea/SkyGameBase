@@ -27,7 +27,7 @@ public:
 	void SetAngleY(const float _angle);
 
 private:
-	void OnLoad(const json& _j);
+	void OnLoadParam(const json& _j);
 
 private:
 	EntityId player_;  // プレイヤーエンティティ

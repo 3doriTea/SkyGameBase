@@ -21,7 +21,7 @@ public:
 	/// <param name="_ratio">レート 0.0f = 溜まっていない 1.0f = 演奏レベルアップ</param>
 	void SetRatio(const float _ratio);
 
-	void OnLoad(const json& _json);
+	void OnLoadParam(const json& _json);
 
 private:
 	float ratio_;   // パーフェクトタイマレート

@@ -33,7 +33,7 @@ LiftStructure::~LiftStructure()
 
 void LiftStructure::Init()
 {
-	OnLoad(GetComponent<Parameter>().Load());
+	OnLoadParam(GetComponent<Parameter>().Load());
 
 	StageLine* pStage{ FindGameObject<StageLine>(stage_) };
 	wassert(pStage && "ステージラインオブジェクトが見つからない");
@@ -182,7 +182,7 @@ Vector3 LiftStructure::GetPolePosition(const float _z)
 	return { polePosX_, pStage->GetPosY(Vector3::Forward() * _z), _z};
 }
 
-void LiftStructure::OnLoad(const json& _json)
+void LiftStructure::OnLoadParam(const json& _json)
 {
 	ropeSpasing_ = SafeGet<float>(_json, "ropeSpasing");
 	chairsCount_ = SafeGet<int>(_json, "chairsCount");

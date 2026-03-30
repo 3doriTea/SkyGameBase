@@ -102,7 +102,7 @@ void ResultPanel::Update()
 			pStringPlate[GameScore::ScoreType_AllyCount]->SetString(
 				std::format("{}h", _score.allyCount));
 			pStringPlate[GameScore::ScoreType_TimeDifference]->SetString(
-				std::format("{}s", _score.timeDifference));
+				std::format("{:.7}s", _score.timeDifference));
 		});
 
 	if (pDragPoint && pDragPoint->IsDrag())

@@ -16,6 +16,8 @@
 
 #include "SkySphere/SkySphere.h"
 
+#include "wtgb/GameSystem/DirectionalLight.h"
+
 
 TitleScene::TitleScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) }
@@ -47,9 +49,16 @@ void TitleScene::Update()
 {
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
 
+#ifdef _DEBUG
 	if (input.IsKeyDown(KeyCode::T))
 	{
 		System().Get<SceneManager>().Move<PlayScene>();
+	}
+#endif
+
+	if (input.IsKeyDown(KeyCode::R))
+	{
+		System().Get<SceneManager>().Move<TitleScene>();
 	}
 
 	Camera& camera{ System().Get<Camera>() };
@@ -67,7 +76,7 @@ void TitleScene::Update()
 			{
 				_score.allyCount = 72;
 				_score.presentCount = 104;
-				_score.timeDifference = 123.4567;
+				_score.timeDifference = 123.456789;
 			});
 		System().Get<SceneManager>().Move<ResultScene>();
 	}
