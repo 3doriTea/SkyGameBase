@@ -10,21 +10,17 @@
 #include "GameSystem/Input.h"
 #include "GameSystem/SceneManager.h"
 #include "GameSystem/ComponentManager.h"
-
 #include "GameSystem/ImGuiSystem.h"
-
 #include "GameSystem/DirectionalLight.h"
 #include "GameSystem/Rendering.h"
 #include "GameSystem/ResourceSystem.h"
 #include "GameSystem/Model.h"
 #include "GameSystem/PostProcessing.h"
-
 // オリジナルゲームシステム
 #include "Systems/MainWindow.h"
 #include "Systems/FirstSceneRegister.h"
 #include "Systems/CPItemAnim.h"
 #include "Systems/ScoreManager.h"
-
 // ベースが用意しているコンポーネントプール
 #include "GameSystem/CPGameObject.h"
 #include "GameSystem/CPGameObjectProperty.h"
@@ -33,20 +29,12 @@
 #include "GameSystem/CPMeshRenderer.h"
 #include "GameSystem/CPCollider.h"
 #include "GameSystem/CPRigidBody.h"
-
-
 #include "GameSystem/Audio.h"
-
 #include "GameSystem/Camera.h"
-
 #include "GameSystem/Canvas.h"
-
 #include "GameSystem/Path.h"
 #include "GameSystem/ShaderCompile.h"
-
 #include "GameSystem/Scriptable.h"
-// MEMO: 大量のinclude↑が発生し管理が大変
-//     : → 解決方法 @00
 
 
 using namespace wtgb;
@@ -54,10 +42,6 @@ using namespace wtgb;
 void NekoGame::StartRegister(
 	const GameSystemCollection::GameSystemAdder& _gameSystemRegister)
 {
-	// TODO: 登録順番が厳しいところが難儀
-	// MEMO: オリジナルのシステムを登録するユーザからするとここは不便
-	//     : → Jsonで登録するように変更すべき
-
 	_gameSystemRegister
 		.Register<GameTime>()
 		.Register<Path>()
@@ -121,7 +105,7 @@ void NekoGame::StartRegister(
 		// スコア系
 		.Register<ScoreManager>()
 
-		// デバッグ系は一番最後
+		// NOTE: デバッグ系は一番最後
 		.Register<Debug>()
 	;
 }

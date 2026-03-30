@@ -9,9 +9,13 @@ wtgb::GameSystemCollection::GameSystemAdder::Register(Args&& ...args) const
 	GameSystems& gameSystems{ GetAccess()->gameSystems_ };
 	Indexes& callFrameIndexes{ GetAccess()->callFrameIndexes_ };
 	Indexes& callCycleIndexes{ GetAccess()->callCycleIndexes_ };
-	
-	// TODO: コンポーネントプール関連は別クラスに移す
 	Indexes& componentPoolIndexes{ GetAccess()->componentPoolIndexes_ };
+	
+	if (gameSystemTypeKey.count(typeid(T)))
+	{
+		wassert(false && "同じシステムが重複して登録されました。");
+		return;  // 既に登録されているため無視
+	}
 
 	// 登録するゲームシステムに割り当てる要素番号
 	const Index INDEX{ gameSystems.size() };

@@ -18,7 +18,6 @@ void Cloud::Init()
 
 void Cloud::Update()
 {
-	// TODO: 簡易的に座標設定
 	Transform().SetPosition(Mathf::Lerp(randomBegin_, randomEnd_, 0.5f));
 }
 
