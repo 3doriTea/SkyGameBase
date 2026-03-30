@@ -101,11 +101,6 @@ void TestBillBoard::BillBoard::Init(ViewerCached _system)
 		wassert(SUCCEEDED(hResult) && "ステージメッシュのインデックスバッファ作成に失敗");
 	}
 
-	for (int i = 0; i < indexes.size(); i++)
-	{
-		LOGFLN("{}, {}", i, indexes[i]);
-	}
-
 	// コンスタントバッファを作っておく
 	{
 		const D3D11_BUFFER_DESC CONSTANT_DESC

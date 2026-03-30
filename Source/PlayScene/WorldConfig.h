@@ -1,5 +1,6 @@
 #pragma once
 #include <wtgb.h>
+#include "StageLineConfig.h"
 
 /// <summary>
 /// ワールドの設定
@@ -22,4 +23,6 @@ struct WorldConfig
 		float startPositionZ;  // プレイヤーが生まれる座標
 	} player;
 	std::string bgmFilePath;  // 再生する音楽のファイルパス
+
+	StageLineConfig stageLineConfig;  // ステージの設定
 };

@@ -62,7 +62,6 @@ inline void wtgb::ComponentPool<ComponentT>::Remove(const EntityId _entityId)
 template<typename ComponentT>
 inline void wtgb::ComponentPool<ComponentT>::Clear()
 {
-	LOGFLN("ClearPool:{}", typeid(wtgb::ComponentPool<ComponentT>).name());
 	ForEach([](ComponentT& component) -> BreakToken
 		{
 			// 終了処理呼び出していく

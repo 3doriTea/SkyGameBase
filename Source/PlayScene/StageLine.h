@@ -2,6 +2,7 @@
 #include <wtgb.h>
 #include "StageMesh/StageMesh.h"
 #include "StageMesh/StageMeshes.h"
+#include "StageLineConfig.h"
 
 
 /// <summary>
@@ -10,7 +11,7 @@
 class StageLine : public GameObject
 {
 public:
-	StageLine();
+	StageLine(const StageLineConfig& _config);
 	~StageLine();
 
 	void Init() override;
@@ -36,5 +37,6 @@ private:
 	std::vector<Vector2> points_;  // 各頂点の座標 (xy平面で考える)
 	StageMeshes stageMesh_;        // ステージのメッシュ情報
 	float textureScale_;           // 地形のテクスチャスケール
-	//StageMeshes stageMesh_;       // ステージメッシュ
+	StageLineConfig config_;       // ステージラインの設定
+	//StageMeshes stageMesh_;      // ステージメッシュ
 };

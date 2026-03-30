@@ -11,5 +11,14 @@
     "startPositionY": 30.0,
     "startPositionZ": 5.0
   },
-  "bgmFilePath": "Sound/entertainer.mid"
+  "bgmFilePath": "Sound/entertainer.mid",
+  "stageLine": {
+    "goalHeight": 3000.0,
+    "goalPosY": -3000.0,
+    "randRangeX": 100.0,
+    "randRangeY": 30.0,
+    "goalSizeZ": 300.0,
+    "goalWallHeight": 300.0,
+    "stageScale": [ 400.0, 1.0, 1.0 ]
+  }
 }

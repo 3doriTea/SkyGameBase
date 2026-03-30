@@ -3,58 +3,47 @@
 
 using namespace wtgb;
 
-namespace
-{
-	// ゴールの高さ
-	const float GOAL_HEIGHT{ 3000.0f };
-	const float GOAL_POS_Y{ -GOAL_HEIGHT };
-
-	const float RAND_RANGE_X{ 100.0f };
-	const float RAND_RANGE_Y{ 30.0f };
-
-	const float GOAL_SIZE_Z{ 300.0f };
-	const float GOAL_WALL_HEIGHT{ 300.0f };
-}
-
-StageLine::StageLine() : GameObject
-{
-	[this](GameObjectBuilder& _builder)
+StageLine::StageLine(const StageLineConfig& _config) :
+	GameObject
 	{
-		_builder
-		.AddComponent<GameObjectProperty>()
-			.BeginSetter()
-				.name("StageLine")
-			.EndSetter()
-		.AddComponent<wtgb::Transform>()
-			.BeginSetter()
-				.scale({ 400.0f, 1, 1 })
-			.EndSetter()
-		.AddComponent<ModelMesh>()
-			.BeginSetter()
-				.pOriginalMeshes(&this->stageMesh_)
-			.EndSetter()
-		.AddComponent<MeshRenderer>()
-			.BeginSetter()
-				.shader("Shader/StageMeshes.hlsl")
-				.textureConfig(
-					{
-						.fileName = "GroundTexture2.png",
-						.filer = D3D11_FILTER_MIN_MAG_MIP_POINT,
-						.addressMode = D3D11_TEXTURE_ADDRESS_WRAP,
-						.format = DXGI_FORMAT_R8G8B8A8_UNORM,
-						.dimension = D3D11_SRV_DIMENSION_TEXTURE2D,
-					})
-			.EndSetter()
-		.AddComponent<Collider>()
-			.BeginSetter()
-				.colliderType(Collider::Type::Section)
-			.EndSetter()
-		.Build();
-	}
-},
+		[this](GameObjectBuilder& _builder)
+		{
+			_builder
+			.AddComponent<GameObjectProperty>()
+				.BeginSetter()
+					.name("StageLine")
+				.EndSetter()
+			.AddComponent<wtgb::Transform>()
+				.BeginSetter()
+				.EndSetter()
+			.AddComponent<ModelMesh>()
+				.BeginSetter()
+					.pOriginalMeshes(&this->stageMesh_)
+				.EndSetter()
+			.AddComponent<MeshRenderer>()
+				.BeginSetter()
+					.shader("Shader/StageMeshes.hlsl")
+					.textureConfig(
+						{
+							.fileName = "GroundTexture2.png",
+							.filer = D3D11_FILTER_MIN_MAG_MIP_POINT,
+							.addressMode = D3D11_TEXTURE_ADDRESS_WRAP,
+							.format = DXGI_FORMAT_R8G8B8A8_UNORM,
+							.dimension = D3D11_SRV_DIMENSION_TEXTURE2D,
+						})
+				.EndSetter()
+			.AddComponent<Collider>()
+				.BeginSetter()
+					.colliderType(Collider::Type::Section)
+				.EndSetter()
+			.Build();
+		}
+	},
+	config_{ _config },
 	textureScale_{ 0.0f },
 	stageMesh_{ points_, textureScale_ }
 {
+	Transform().SetScale(config_.stageScale);
 }
 
 StageLine::~StageLine()
@@ -88,28 +77,26 @@ void StageLine::Init()
 		points_.push_back(pos);
 	}
 
-#if 1
 	Mathf::Randomer random{ 0 };
 
 	Vector2 last{};
-	while (last.y < GOAL_HEIGHT)
+	while (last.y < config_.goalHeight)
 	{
 		last = points_.at(points_.size() - 1);
-		points_.push_back({ last.x + (random.Rand() * RAND_RANGE_X), last.y + random.Rand() * RAND_RANGE_Y });
+		points_.push_back({ last.x + (random.Rand() * config_.randRangeX), last.y + random.Rand() * config_.randRangeY });
 	}
 
-	points_.at(points_.size() - 1).y = GOAL_HEIGHT;
+	points_.at(points_.size() - 1).y = config_.goalHeight;
 	last = points_.at(points_.size() - 1);
 
 
 	// 床を作る
-	last.x += GOAL_SIZE_Z;
+	last.x += config_.goalSizeZ;
 	points_.push_back(last);
 
 	// 壁を作る
-	last.y -= GOAL_WALL_HEIGHT;
+	last.y -= config_.goalWallHeight;
 	points_.push_back(last);
-#endif
 
 	// 全ての y 軸を - にする
 	for (auto& point : points_)

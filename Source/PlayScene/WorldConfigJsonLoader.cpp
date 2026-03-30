@@ -24,5 +24,15 @@ void WorldConfigJsonLoader::OnLoad(const json& _json, WorldConfig* pWorldConfig)
 				.startPositionZ = _json.value("/player/startPositionZ", 5.0f),
 			},
 			.bgmFilePath = _json.value("bgmFilePath", "Sound/entertainer.mid"),
+			.stageLineConfig
+			{
+				.goalHeight = _json.value("/stageLine/goalHeight", 3000.0f),
+				.goalPosY = _json.value("/stageLine/goalPosY", -3000.0f),
+				.randRangeX = _json.value("/stageLine/randRangeX", 100.0f),
+				.randRangeY = _json.value("/stageLine/randRangeY", 30.0f),
+				.goalSizeZ = _json.value("/stageLine/goalSizeZ", 300.0f),
+				.goalWallHeight = _json.value("/stageLine/goalWallHeight", 300.0f),
+				.stageScale = _json.value("/stageLine/stageScale", Vector3{ 400.0, 1.0, 1.0 }),
+			}
 		});
 }

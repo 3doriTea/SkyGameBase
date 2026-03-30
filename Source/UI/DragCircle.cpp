@@ -16,7 +16,7 @@ DragCircle::DragCircle(const Vector2Int _centerPosition, const int _radius, cons
 	radius_{ _radius },
 	radiusSq_{ _radius * _radius },
 	baseCanvasSize_{ _baseCanvasSize },
-
+	velocityY_{},
 	onClickInRadius_{ []{} },
 	onClickOutRadius_{ []{} },
 	onOut_{ []{} }
@@ -54,8 +54,6 @@ void DragCircle::Update()
 		
 		Vector2Int offsetPos{ cursorPosition - centerPosition_ };
 		int mouseDistanceSq{ offsetPos.x * offsetPos.x + offsetPos.y * offsetPos.y };
-
-		LOGFLN("DragCircleDist:{}", std::sqrtf((float)mouseDistanceSq));
 
 		if (mouseDistanceSq <= radiusSq_)
 		{

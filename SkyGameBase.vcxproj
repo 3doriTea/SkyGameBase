@@ -52,6 +52,7 @@
     <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
     <ClInclude Include="Source\PlayScene\PlayerCosntantSender.h" />
+    <ClInclude Include="Source\PlayScene\StageLineConfig.h" />
     <ClInclude Include="Source\PlayScene\WorldConfigJsonLoader.h" />
     <ClInclude Include="Source\PlayScene\StageMesh\StageMeshes.h" />
     <ClInclude Include="Source\PlayScene\UI\DragArrow.h" />

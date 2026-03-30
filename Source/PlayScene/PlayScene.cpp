@@ -70,7 +70,7 @@ void PlayScene::Start()
 	Instantiate<ControlUI>();
 	Instantiate<CountDown>();
 
-	EntityId stageLine{ Instantiate<StageLine>() };
+	EntityId stageLine{ Instantiate<StageLine>(worldConfig_.stageLineConfig) };
 
 	EntityId smfPlayer{ Instantiate<SMFPlayer>(worldConfig_.bgmFilePath) };
 
