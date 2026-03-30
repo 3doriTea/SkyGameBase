@@ -9,7 +9,7 @@ class JsonUnitLoaderBase
 {
 public:
 	JsonUnitLoaderBase(const fs::path& _jsonFile);
-	~JsonUnitLoaderBase() = default;
+	virtual ~JsonUnitLoaderBase() = default;
 
 	/// <summary>
 	/// <para>試しに読み込む</para>
