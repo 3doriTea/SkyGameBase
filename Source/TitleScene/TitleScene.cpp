@@ -28,7 +28,6 @@ TitleScene::~TitleScene()
 
 void TitleScene::Start()
 {
-
 	Instantiate<TitleMountain>();
 
 	Instantiate<MusicPlayer>();
@@ -40,10 +39,8 @@ void TitleScene::Start()
 	// タイトルテキスト
 	Instantiate<TitleText>(titleNeco);
 
-	System().Get<Camera>().position_ = { 200, -140, 440.0f };
-	System().Get<Camera>().targetPosition_ = { 0, -160.0, 400.0f };
-	
-	Instantiate<SkySphere>(camera, DirectX::XM_PI / 2.0f);
+	// 天球
+	Instantiate<SkySphere>(camera, DirectX::XM_PIDIV2);
 }
 
 void TitleScene::Update()

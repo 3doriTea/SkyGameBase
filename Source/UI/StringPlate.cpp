@@ -13,7 +13,6 @@ void StringPlate::Update()
 {
 	currDrawPos_ = beginDrawPos_;
 
-	LOGFLN("str:{}", str_);
 	for (char c : str_)
 	{
 		if ('0' <= c && c <= '9')
@@ -46,7 +45,6 @@ void StringPlate::Update()
 			wassert(false && "指定できない文字");
 		}
 	}
-	LOGFLN("");
 }
 
 void StringPlate::DrawMoji(const Moji _moji)
