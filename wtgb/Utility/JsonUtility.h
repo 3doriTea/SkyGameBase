@@ -24,6 +24,9 @@ namespace wtgb
 	template<typename T>
 	T SafeGet(const json& _j, const std::string_view _key, const T _defaultValue);
 
+	template<typename T>
+	T SafeGet(const json& _j, const json::json_pointer _jsonPtr);
+
 	/// <summary>
 	/// 試しに値を取得する
 	/// </summary>
@@ -35,16 +38,15 @@ namespace wtgb
 }
 
 template<typename T>
+T wtgb::SafeGet(const json& _j, const json::json_pointer _jsonPtr)
+{
+	return _j.value(_jsonPtr, T{});
+}
+
+template<typename T>
 T wtgb::SafeGet(const json& _j, const std::string_view _key)
 {
-	if (_j.contains(_key))
-	{
-		return _j.at(_key).get<T>();
-	}
-	else
-	{
-		return T{};
-	}
+	return _j.value(_key, T{});
 }
 
 template<typename T>

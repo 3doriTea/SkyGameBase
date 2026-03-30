@@ -16,7 +16,7 @@
     "dragCirclePositionUp": [ 823, 873 ],
     "dragCircleSizePix": 100,
     "toTitleMoveTime": 5.0,
-    "numberFontImagePath": "Image/Numbers.png",
+    "numberFontImagePath": "Image/NumbersPlusAlpha.png",
     "scoreFontSize": [ 100, 100 ],
     "scoreTextPosition": [
       [ 710, 260 ],

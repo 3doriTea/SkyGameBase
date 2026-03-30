@@ -116,6 +116,7 @@
     <ClInclude Include="Source\UI\FadingCue.h" />
     <ClInclude Include="Source\UI\IVisual.h" />
     <ClInclude Include="Source\UI\ScalingCue.h" />
+    <ClInclude Include="Source\UI\StringPlate.h" />
     <ClInclude Include="Source\UI\VisualSequence.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Color.h" />
     <ClInclude Include="wtgb\CoreType\ExtJson\Vector2.h" />
@@ -412,6 +413,7 @@
     <ClCompile Include="Source\Systems\ScoreManager\DiffTimeToStr.cpp" />
     <ClCompile Include="Source\TitleScene\TitleText.cpp" />
     <ClCompile Include="Source\UI\DragPointCue.cpp" />
+    <ClCompile Include="Source\UI\StringPlate.cpp" />
     <ClCompile Include="Source\WaterPlane\WaterMesh.cpp" />
     <ClCompile Include="Source\PlayScene\WaterSphere.cpp" />
     <ClCompile Include="Source\SampleScene\Piano.cpp" />

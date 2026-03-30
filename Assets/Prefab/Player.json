@@ -39,6 +39,15 @@
     "boundXAnim": {
       "totalTime": 0.3,
       "beginScaleX": 0.3
+    },
+    "boundYAnim": {
+      "totalTime": 0.3,
+      "beginScaleY": 0.3
+    },
+    "autoRotation": {
+      "rotationThresholdVelocityX": 0.34906585039,
+      "keepStandSafeAngle": 0.52359877559,
+      "addTorqueX": 0.08726646259
     }
   }
 }

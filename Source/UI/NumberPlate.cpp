@@ -44,7 +44,7 @@ void NumberPlate::Update()
 	{
 		if ('0' <= c && c <= '9')
 		{
-			NUMBER num{ c - '0' };
+			Number num{ c - '0' };
 			DrawNumber(num);
 		}
 	}
@@ -55,7 +55,7 @@ void NumberPlate::Release()
 {
 }
 
-void NumberPlate::DrawNumber(const NUMBER _number)
+void NumberPlate::DrawNumber(const Number _number)
 {
 	const Canvas::Context& context{ System().Get<Canvas>().GetContext() };
 	Texture* pTexture{ System().Get<ResourceSystem>().GetTexture(hNumberImage_) };

@@ -49,6 +49,11 @@ private:
 	void OnStart();
 
 	/// <summary>
+	/// 自然に縦方向を維持するように回転する処理
+	/// </summary>
+	void AutoRotation();
+
+	/// <summary>
 	/// 地面に当たったときの回転をかける処理
 	/// </summary>
 	/// <returns>回転処理が走った true / false</returns>
@@ -93,4 +98,20 @@ private:
 
 		float beginScaleX;  // 開始時のスケールX
 	} boundXAnim;           // x軸のバウンドアニメーション
+
+	struct
+	{
+		float totalTime;    // 総アニメーション時間
+		float playTime;     // 現在の再生時間
+
+		float beginScaleY;  // 開始時のスケールX
+	} boundYAnim;           // x軸のバウンドアニメーション
+
+
+	struct
+	{
+		float rotationThresholdVelocityX;  // 力を加え始めるX軸角速度
+		float keepStandSafeAngle;          // 直立と見なす角度
+		float addTorqueX;                  // 加えるX軸での回転力
+	} autoRotation_;  // 直立するように自動回転するプロパティ
 };

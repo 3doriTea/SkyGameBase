@@ -34,7 +34,7 @@ private:
 	std::string numberFontImagePath_;  // 数字のフォント画像パス
 
 	Vector2Int scoreFontSize_;                                // 数字のサイズ
-	EntityId numberPlate_[GameScore::ScoreType_Max];          // 数字表示UIのエンティティ
+	EntityId stringPlate_[GameScore::ScoreType_Max];          // 数字表示UIのエンティティ
 	Vector2Int scoreTextPosition_[GameScore::ScoreType_Max];  // 数字表示UIの座標
 };
 

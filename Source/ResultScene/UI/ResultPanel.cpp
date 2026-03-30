@@ -2,7 +2,7 @@
 #include "../ResultScene.h"
 #include "DragPoint.h"
 #include "TitleScene/TitleScene.h"
-#include "UI/NumberPlate.h"
+#include "UI/StringPlate.h"
 #include "../../Systems/ScoreManager.h"
 
 
@@ -12,7 +12,7 @@ ResultPanel::ResultPanel() :
 	panelImageFile_{},
 	dragPoint_{ INVALID_ENTITY },
 	animOffsetY_{},
-	numberPlate_{ INVALID_ENTITY, INVALID_ENTITY, INVALID_ENTITY },
+	stringPlate_{ INVALID_ENTITY, INVALID_ENTITY, INVALID_ENTITY },
 	scoreFontSize_{}
 {
 }
@@ -31,7 +31,7 @@ void ResultPanel::Init()
 	{
 		for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
 		{
-			numberPlate_[type] = pGameScene->Instantiate<NumberPlate>(
+			stringPlate_[type] = pGameScene->Instantiate<StringPlate>(
 				numberFontImagePath_);
 		}
 	}
@@ -82,24 +82,27 @@ void ResultPanel::Update()
 	DragPoint* pDragPoint{ FindGameObject<DragPoint>(dragPoint_) };
 	wassert(pDragPoint);
 
-	NumberPlate* pNumberPlate[GameScore::ScoreType_Max]{};
+	StringPlate* pStringPlate[GameScore::ScoreType_Max]{};
 	for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
 	{
-		pNumberPlate[type] = FindGameObject<NumberPlate>(numberPlate_[type]);
-		wassert(pNumberPlate[type]);
+		pStringPlate[type] = FindGameObject<StringPlate>(stringPlate_[type]);
+		wassert(pStringPlate[type]);
 
-		if (pNumberPlate[type])
+		if (pStringPlate[type])
 		{
-			pNumberPlate[type]->SetPosition(scoreTextPosition_[type]);
-			pNumberPlate[type]->SetSize(scoreFontSize_);
+			pStringPlate[type]->SetPosition(scoreTextPosition_[type]);
+			pStringPlate[type]->SetSize(scoreFontSize_);
 		}
 	}
 
-	System().Get<ScoreManager>().Ref([pNumberPlate](GameScore& _score)
+	System().Get<ScoreManager>().Ref([pStringPlate](GameScore& _score)
 		{
-			pNumberPlate[GameScore::ScoreType_PresentCount]->SetNumber(_score.presentCount);
-			pNumberPlate[GameScore::ScoreType_AllyCount]->SetNumber(_score.allyCount);
-			pNumberPlate[GameScore::ScoreType_TimeDifference]->SetNumber(_score.timeDifference);
+			pStringPlate[GameScore::ScoreType_PresentCount]->SetString(
+				std::format("{}p", _score.presentCount));
+			pStringPlate[GameScore::ScoreType_AllyCount]->SetString(
+				std::format("{}h", _score.allyCount));
+			pStringPlate[GameScore::ScoreType_TimeDifference]->SetString(
+				std::format("{}s", _score.timeDifference));
 		});
 
 	if (pDragPoint && pDragPoint->IsDrag())

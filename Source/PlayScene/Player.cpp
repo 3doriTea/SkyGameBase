@@ -56,7 +56,16 @@ void Player::OnLoadParam(const json& _json)
 	colliderRadius_ = SafeGet<float>(_json, "colliderRadius");
 	startDushForce_ = SafeGet<float>(_json, "startDushForce");
 	aboutCircleThreshold_ = SafeGet<float>(_json, "aboutCircleThreshold");
-	boundXAnim.totalTime = SafeGet<float>(_json, "/boundXAnim/totalTime");
+	
+	boundXAnim.totalTime = SafeGet<float>(_json, "/boundXAnim/totalTime"_json_pointer);
+	boundXAnim.beginScaleX = SafeGet<float>(_json, "/boundXAnim/beginScaleX"_json_pointer);
+	
+	boundYAnim.totalTime = SafeGet<float>(_json, "/boundYAnim/totalTime"_json_pointer);
+	boundYAnim.beginScaleY = SafeGet<float>(_json, "/boundYAnim/beginScaleY"_json_pointer);
+	
+	autoRotation_.rotationThresholdVelocityX = SafeGet<float>(_json, "/autoRotation/rotationThresholdVelocityX"_json_pointer);
+	autoRotation_.keepStandSafeAngle = SafeGet<float>(_json, "/autoRotation/keepStandSafeAngle"_json_pointer);
+	autoRotation_.addTorqueX = SafeGet<float>(_json, "/autoRotation/addTorqueX"_json_pointer);
 }
 
 void Player::Init()
@@ -100,6 +109,8 @@ void Player::Update()
 		// 地面に当たったときのアニメーションをするならここ
 	}
 
+	AutoRotation();
+
 	// プレイヤーを範囲外に出さないための演算
 	if (OutBounce())
 	{
@@ -107,8 +118,7 @@ void Player::Update()
 		boundXAnim.playTime = 0.0f;
 	}
 
-	// TODO: このアニメーションバグを修正する
-	//UpdateAnim();
+	UpdateAnim();
 }
 
 bool Player::WaitingCountDown()
@@ -154,6 +164,47 @@ bool Player::GroundBounceRotation()
 	}
 
 	return isBounce;
+}
+
+void Player::AutoRotation()
+{
+	const float DT{ System().Get<GameTime>().GetDeltaTime() };
+	RigidBody& rb{ GetComponent<RigidBody>() };
+	const Vector3 ROTATION{ Transform().GetRotation() };
+	Transform().SetRotation(
+		{
+			std::fmodf(ROTATION.x, DirectX::XM_2PI),
+			std::fmodf(ROTATION.y, DirectX::XM_2PI),
+			std::fmodf(ROTATION.z, DirectX::XM_2PI),
+		});
+
+	Vector3 angularV{ rb.GetAngularVelocity() };
+
+	if (angularV.x > autoRotation_.rotationThresholdVelocityX)
+	{
+		// 起動する速度まで低下していないなら以下無視
+		return;
+	}
+
+	if (std::fabsf(ROTATION.x) < autoRotation_.keepStandSafeAngle * 0.5f)
+	{
+		// 直立判定内なら無視
+		return;
+	}
+
+	std::partial_ordering sign{ ROTATION.x <=> 0 };
+
+	if (sign < 0)
+	{
+		rb.AddTorque(Vector3::Right() * (autoRotation_.addTorqueX));
+	}
+	else if (sign > 0)
+	{
+		rb.AddTorque(Vector3::Right() * (-autoRotation_.addTorqueX));
+	}
+	else if (sign == 0)
+	{
+	}
 }
 
 bool Player::OutBounce()
@@ -313,10 +364,12 @@ bool Player::UpdateAnim()
 
 #pragma region 横軸アニメーション
 	float animRatio{ boundXAnim.playTime / boundXAnim.totalTime };
+	
 	float scaleX
 	{
 		Mathf::Lerp(boundXAnim.beginScaleX, 1.0f, animRatio)
 	};
+
 	Transform().SetScale(Vector3{ scaleX, 1.0f, 1.0f });
 #pragma endregion
 
