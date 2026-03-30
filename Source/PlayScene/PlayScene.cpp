@@ -31,28 +31,12 @@
 #include "wtgb/GameSystem/DirectionalLight.h"
 
 #include "FlighterController.h"
+#include "WorldConfigJsonLoader.h"
 
 
 PlayScene::PlayScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) },
-	worldConfig_
-	{
-		.safeZoneXMin = 0.0f,
-		.safeZoneXMax = 400.0f,
-		.eggGetDistance = 10.0f,
-		.lightDirection = { -6.74646f, -15.585419f, 26.661987f },
-		.gravity = 9.8f,
-		.lift
-		{
-			.polePosX = 10.0f
-		},
-		.player
-		{
-			.startPositionY = 30.0f,
-			.startPositionZ = 5.0f,
-		},
-		.bgmFilePath = "Sound/entertainer.mid",
-	}
+	worldConfig_{}
 {
 }
 
@@ -66,6 +50,16 @@ static Vector3 pPos{};
 static bool isPlayerFixied{};
 void PlayScene::Start()
 {
+	// ワールド設定読み込みするやつ
+	WorldConfigJsonLoader loader{};
+	bool succeed{ loader.TryLoad(&worldConfig_) };
+	wassert(succeed && "読み込み失敗");
+	if (!succeed)
+	{
+		Game::Exit();
+		return;  // ワールド設定読み込みに失敗したため先に進めず
+	}
+
 	EntityId playState{ Instantiate<PlayState>() };
 
 	// シーンが始まったらスコアをリセットする
@@ -127,15 +121,14 @@ void PlayScene::Start()
 	System().Get<DirectionalLight>()
 		.SetDirection(worldConfig_.lightDirection);
 
-	// TODO: お試し↓
-	//Instantiate<MiniChara>(dropCloud, smfPlayer, MiniCharaType::Monkitty);
-
 	// TODO: 当たったら倒れる看板を作る
 }
 
 void PlayScene::Update()
 {
 	const Input::InputGetter& input{ System().Get<Input>().Getter() };
+
+#ifdef _DEBUG
 	if (input.IsKeyDown(KeyCode::F))
 	{
 		System().Get<SceneManager>().Move<TitleScene>();
@@ -144,6 +137,7 @@ void PlayScene::Update()
 	{
 		System().Get<SceneManager>().Move<PlayScene>();
 	}
+#endif
 
 	// 左コントロール押しながらエスケープでゲームを閉じる
 	if (input.IsKeyDown(KeyCode::Escape)
@@ -152,9 +146,10 @@ void PlayScene::Update()
 		Game::Exit();
 	}
 
-	const float DT = System().Get<GameTime>().GetDeltaTime();
 
 #ifdef _DEBUG_DISABLED
+
+	const float DT = System().Get<GameTime>().GetDeltaTime();
 	//static float v[3]{ -29.231293, -34.184677, 41.512207 };
 	static float v[3]{ -6.74646f, -15.585419f, 26.661987f };
 	/*ImGui::Begin("Direction");

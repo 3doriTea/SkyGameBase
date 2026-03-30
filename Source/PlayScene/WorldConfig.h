@@ -1,4 +1,5 @@
 #pragma once
+#include <wtgb.h>
 
 /// <summary>
 /// ワールドの設定

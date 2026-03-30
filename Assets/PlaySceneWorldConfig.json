@@ -1,0 +1,15 @@
+{
+  "safeZoneXMin": 0.0,
+  "safeZoneXMax": 400.0,
+  "eggGetDistance": 10.0,
+  "lightDirection": [ -6.74646, -15.585419, 26.661987 ],
+  "gravity": 9.8,
+  "lift": {
+    "polePosX": 10.0
+  },
+  "player": {
+    "startPositionY": 30.0,
+    "startPositionZ": 5.0
+  },
+  "bgmFilePath": "Sound/entertainer.mid"
+}

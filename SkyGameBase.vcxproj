@@ -40,6 +40,7 @@
     <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
     <ClInclude Include="Source\GameScore.h" />
+    <ClInclude Include="Source\JsonUnitLoaderBase.h" />
     <ClInclude Include="Source\PlayScene\CloudLevel.h" />
     <ClInclude Include="Source\PlayScene\Debugger.h" />
     <ClInclude Include="Source\PlayScene\DragArrowAxis.h" />
@@ -51,6 +52,7 @@
     <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
     <ClInclude Include="Source\PlayScene\PlayerCosntantSender.h" />
+    <ClInclude Include="Source\PlayScene\WorldConfigJsonLoader.h" />
     <ClInclude Include="Source\PlayScene\StageMesh\StageMeshes.h" />
     <ClInclude Include="Source\PlayScene\UI\DragArrow.h" />
     <ClInclude Include="Source\PlayScene\UI\MiniChara.h" />
@@ -92,7 +94,7 @@
     <ClInclude Include="Source\Systems\ScoreManager.h" />
     <ClInclude Include="Source\PlayScene\UI\CountDown.h" />
     <ClInclude Include="Source\SkySphere\SkySphere.h" />
-    <ClInclude Include="Source\PlayScene\WorldSetting.h" />
+    <ClInclude Include="Source\PlayScene\WorldConfig.h" />
     <ClInclude Include="Source\SMF\ToneHz.h" />
     <ClInclude Include="Source\StageSelectScene\MapView.h" />
     <ClInclude Include="Source\StageSelectScene\StageSelectScene.h" />
@@ -350,6 +352,7 @@
     </ClCompile>
     <ClCompile Include="Source\Components\ItemAnim.cpp" />
     <ClCompile Include="Source\GameScore.cpp" />
+    <ClCompile Include="Source\JsonUnitLoaderBase.cpp" />
     <ClCompile Include="Source\PlayScene\BallSphere.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController.cpp" />
     <ClCompile Include="Source\PlayScene\CameraController\CameraMoveFree.cpp" />
@@ -389,6 +392,7 @@
     <ClCompile Include="Source\PlayScene\UI\SpeedMessage.cpp" />
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
     <ClCompile Include="Source\PlayScene\UI\TargetMark.cpp" />
+    <ClCompile Include="Source\PlayScene\WorldConfigJsonLoader.cpp" />
     <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp" />
     <ClCompile Include="Source\ResultScene\UI\DragPoint.cpp" />
     <ClCompile Include="Source\ResultScene\ResultScene.cpp" />
@@ -556,6 +560,7 @@
     <None Include="Assets\TitleMountain.json" />
     <None Include="Doc\CodingGuide.md" />
     <None Include="packages.config" />
+    <None Include="Source\JsonUnitLoaderBase.inl" />
     <None Include="wtgb\CoreType\Collection\HandlerCollection.inl" />
     <None Include="wtgb\Core\ComponentSetter.inl" />
     <None Include="wtgb\Core\GameObjectBuilder.inl" />

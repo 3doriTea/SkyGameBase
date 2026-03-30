@@ -495,7 +495,7 @@
     <ClInclude Include="Source\PlayScene\CharaEgg.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PlayScene\WorldSetting.h">
+    <ClInclude Include="Source\PlayScene\WorldConfig.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\UI\DragCircle.h">
@@ -790,6 +790,12 @@
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\PlayScene\UI\TargetMark.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JsonUnitLoaderBase.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\WorldConfigJsonLoader.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1304,6 +1310,12 @@
     <ClCompile Include="Source\PlayScene\UI\TargetMark.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\JsonUnitLoaderBase.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayScene\WorldConfigJsonLoader.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1388,6 +1400,9 @@
     <None Include="Assets\Prefab\Title\TitleCamera.json" />
     <None Include="Assets\Prefab\Play\FlighterController.json" />
     <None Include="Assets\Prefab\Play\UI\TargetMark.json" />
+    <None Include="Source\JsonUnitLoaderBase.inl">
+      <Filter>Source</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

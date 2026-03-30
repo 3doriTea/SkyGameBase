@@ -1,6 +1,6 @@
 #pragma once
 #include <wtgb.h>
-#include "WorldSetting.h"
+#include "WorldConfig.h"
 
 /// <summary>
 /// プレイヤーが坂を降るプレイシーン
