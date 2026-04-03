@@ -1,10 +1,13 @@
 #include "pch\pch.h"
+#include <ShellScalingApi.h>
 #include "GameWindow.h"
 #include "Core/Game.h"
 #include "WTGBAssert.h"
 
 #include "GameSystem/Input.h"
 #include "GameSystem/Cursor.h"
+
+#pragma comment(lib, "shcore.lib")
 
 using namespace wtgb;
 
@@ -50,6 +53,8 @@ void wtgb::GameWindow::End()
 
 wtgb::GameWindowHandle wtgb::GameWindow::Create(const CreateWindowConfig& _config)
 {
+	SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
+
 	HINSTANCE hInstance{ GetModuleHandle(NULL) };
 
 	const WNDCLASSEX WNDCLASSEX_DESC
