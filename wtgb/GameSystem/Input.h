@@ -32,10 +32,6 @@ namespace wtgb
 			bool IsKeyDown(const KeyCode _keyCode) const;
 			bool IsKeyUp(const KeyCode _keyCode) const;
 
-			bool IsButton(const PadCode _padCode) const;
-			bool IsButtonDown(const PadCode _padCode) const;
-			bool IsButtonUp(const PadCode _padCode) const;
-
 			bool IsMouse(const MouseCode _mouseCode) const;
 			bool IsMouseDown(const MouseCode _mouseCode) const;
 			bool IsMouseUp(const MouseCode _mouseCode) const;
