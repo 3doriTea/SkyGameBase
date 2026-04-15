@@ -563,6 +563,7 @@
     <None Include="Assets\Shader\PostProcessing.hlsli" />
     <None Include="Assets\StageData.json" />
     <None Include="Assets\TitleMountain.json" />
+    <None Include="DOC.md" />
     <None Include="Doc\CodingGuide.md" />
     <None Include="packages.config" />
     <None Include="Source\JsonUnitLoaderBase.inl" />

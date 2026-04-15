@@ -1414,6 +1414,7 @@
     </None>
     <None Include="Assets\PlaySceneWorldConfig.json" />
     <None Include="Assets\CountDown.json" />
+    <None Include="DOC.md" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
