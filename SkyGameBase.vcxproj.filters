@@ -1332,7 +1332,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Doc\CodingGuide.md" />
+    <None Include="docs\CodingGuide.md" />
     <None Include="wtgb\Core\GameObjectBuilder.inl">
       <Filter>C++未分類ファイル</Filter>
     </None>
@@ -1414,7 +1414,7 @@
     </None>
     <None Include="Assets\PlaySceneWorldConfig.json" />
     <None Include="Assets\CountDown.json" />
-    <None Include="DOC.md" />
+    <None Include="docs\Document.md" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
