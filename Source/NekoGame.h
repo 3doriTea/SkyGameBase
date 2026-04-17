@@ -3,7 +3,7 @@
 
 
 /// <summary>
-/// サンプルゲーム
+/// はねねこボール
 /// </summary>
 class NekoGame : public IGame
 {
