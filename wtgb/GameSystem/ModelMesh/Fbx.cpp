@@ -28,7 +28,9 @@ void wtgb::Fbx::Init(ViewerCached _system)
 
 	FbxManager* pFbxManager{ FbxManager::Create() };
 	FbxImporter* pFbxImporter{ FbxImporter::Create(pFbxManager, "importer") };
-	pFbxImporter->Initialize(modelFile_.string().c_str(), -1, pFbxManager->GetIOSettings());
+	std::u8string pathUtf8{ modelFile_.u8string() };
+	std::string pathUft8Str{ pathUtf8.begin(), pathUtf8.end() };
+	pFbxImporter->Initialize(pathUft8Str.c_str(), -1, pFbxManager->GetIOSettings());
 
 	FbxScene* pFbxScene{ FbxScene::Create(pFbxManager, "fbx-scene")};
 	pFbxImporter->Import(pFbxScene);

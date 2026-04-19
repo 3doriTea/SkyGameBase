@@ -60,7 +60,7 @@ void wtgb::Texture::CreateShaderResourceView(ID3D11Device* _pDevice)
 
 	HRESULT hResult{};
 
-	std::wstring fileNameW{ config_.fileName.begin(), config_.fileName.end() };
+	std::wstring fileNameW{ fs::path{ config_.fileName }.wstring() };
 
 	bool existFile{ Path::Current::Exists(fileNameW) };
 
