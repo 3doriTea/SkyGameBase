@@ -2,7 +2,9 @@
 #include <wtgb.h>
 #include "Note.h"
 
-
+/// <summary>
+/// SMF を再生する
+/// </summary>
 class SMFPlayer : public GameObject
 {
 public:
