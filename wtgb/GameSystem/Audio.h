@@ -6,6 +6,9 @@
 
 namespace wtgb
 {
+	/// <summary>
+	/// 音声の再生制御システム
+	/// </summary>
 	class Audio : public IGameSystem
 	{
 	public:
