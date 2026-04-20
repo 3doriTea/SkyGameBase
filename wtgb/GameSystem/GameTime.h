@@ -8,6 +8,9 @@ typedef union _LARGE_INTEGER LARGE_INTEGER;
 
 namespace wtgb
 {
+	/// <summary>
+	/// ゲーム内時間を制御するシステム
+	/// </summary>
 	class GameTime : public IGameSystem
 	{
 	public:
@@ -52,10 +55,13 @@ namespace wtgb
 		/// <summary>
 		/// 初期化処理
 		/// </summary>
+		/// <param name="_viewer">システムの参照</param>
+		/// <returns>初期化処理の結果</returns>
 		Result Init(const ViewerInit& _viewer) override;
 		/// <summary>
 		/// 更新処理
 		/// </summary>
+		/// <param name="_system">システムの参照</param>
 		void Update(const ViewerUpdate& _system) override;
 		/// <summary>
 		/// 終了処理
@@ -63,15 +69,15 @@ namespace wtgb
 		void End() override;
 
 	private:
-		bool isFrameDue_;  // フレームが切り替わるタイミング true / false
-		float deltaTimeSec_;  // フレーム間時間
-		float timeScalePrev_;  // 前回設定したゲーム内時間の大きさ
-		float timeScale_;      // ゲーム内時間の大きさ
-		LARGE_INTEGER currentMicro_;  // 現在のCPU時間 (マイクロ秒)
+		bool isFrameDue_;              // フレームが切り替わるタイミング true / false
+		float deltaTimeSec_;           // フレーム間時間
+		float timeScalePrev_;          // 前回設定したゲーム内時間の大きさ
+		float timeScale_;              // ゲーム内時間の大きさ
+		LARGE_INTEGER currentMicro_;   // 現在のCPU時間 (マイクロ秒)
 		LARGE_INTEGER previousMicro_;  // 前回のCPU時間 (マイクロ秒)
 	private:
-		static const UINT PERIOD_MILLI;  // 分解能(ミリ秒)
+		static const UINT PERIOD_MILLI;          // 分解能(ミリ秒)
 		static const LONGLONG ONE_SEC_TO_MICRO;  // 1秒はマイクロ秒で表すと
-		static const float MICRO_TO_SEC;  // マイクロ秒を秒に変換する
+		static const float MICRO_TO_SEC;         // マイクロ秒を秒に変換する
 	};
 }

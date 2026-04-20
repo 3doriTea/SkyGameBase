@@ -8,6 +8,10 @@ namespace wtgb
 {
 	class IGameSystem;
 
+	/// <summary>
+	/// <para>ゲームシステム型</para>
+	/// <para>ゲームシステム型は必ず IGameSystem クラスを継承している</para>
+	/// </summary>
 	template<typename T>
 	concept GameSystemT = std::is_base_of_v<IGameSystem, T>;
 
@@ -177,7 +181,6 @@ namespace wtgb
 		Indexes callFrameIndexes_;    // 描画フレームで呼び出すゲームシステムの要素番号
 		Indexes callCycleIndexes_;    // ゲームループサイクルで呼び出すゲームシステムの要素番号
 
-		// TODO: クラス分けする
 		Indexes componentPoolIndexes_;  // コンポーネントプールの要素番号
 	};
 }
