@@ -58,7 +58,7 @@ void DropCloud::OnLoadParam(const json& _json)
 	toResultSceneTime_ = SafeGet<float>(_json, "toResultSceneTime");
 	playNoteNumberOffset_ = SafeGet<int>(_json, "playNoteNumberOffset");
 	playRatioMaxVelocity_ = SafeGet<float>(_json, "playRatioMaxVelocity");
-	// TOOD: ここもまとめる
+
 	int miniCharaType{};
 	for (auto& toneAudioFileJson : _json["toneAudioFiles"])
 	{
@@ -354,11 +354,12 @@ void DropCloud::Update()
 #pragma endregion
 
 #pragma region レベルのアップダウン処理
+	wassert(pSMFPlayer && "SMFPlayerが見つからない");
 	// 1小節の秒数
 	const float BAR_TIME_SEC{ pSMFPlayer->GetQuarterSec() * 4.0f };
 	// 誤差としてレベルアップできる秒数
 	const float SAFE_TIME_SEC{ 0.04f };
-	
+
 	if (pSMFPlayer)
 	{
 		int currBar{ static_cast<int>(pSMFPlayer->GetPlayTime() / BAR_TIME_SEC) };

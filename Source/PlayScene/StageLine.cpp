@@ -53,41 +53,13 @@ StageLine::~StageLine()
 
 void StageLine::Init()
 {
+	if (GenerateStagePoints())
+	{
+
+	}
+
 	Collider& collider{ GetComponent<Collider>() };
-
-	StageLoader stageLoader{ points_, textureScale_ };
-	bool succeed{ stageLoader.TryLoad("StageData.json") };
-	wassert(succeed && "タイトル山のデータ読み込みに失敗");
-
-	Mathf::Randomer random{ 0 };
-
-	Vector2 last{};
-	while (last.y < config_.goalHeight)
-	{
-		last = points_.at(points_.size() - 1);
-		points_.push_back({ last.x + (random.Rand() * config_.randRangeX), last.y + random.Rand() * config_.randRangeY });
-	}
-
-	points_.at(points_.size() - 1).y = config_.goalHeight;
-	last = points_.at(points_.size() - 1);
-
-
-	// 床を作る
-	last.x += config_.goalSizeZ;
-	points_.push_back(last);
-
-	// 壁を作る
-	last.y -= config_.goalWallHeight;
-	points_.push_back(last);
-
-	// 全ての y 軸を - にする
-	for (auto& point : points_)
-	{
-		point.y = -point.y;
-	}
-
 	collider.SetPoints2D(points_);
-	stageMesh_.CallInit(System());
 }
 
 void StageLine::Update()
@@ -167,4 +139,46 @@ float StageLine::GetStageLengthZ() const
 
 	// ステージポイント末端のx軸がステージの長さになる
 	return points_.back().x;
+}
+
+bool StageLine::GenerateStagePoints()
+{
+	StageLoader stageLoader{ points_, textureScale_ };
+	bool succeed{ stageLoader.TryLoad("StageData.json") };
+	wassert(succeed && "タイトル山のデータ読み込みに失敗");
+	if (succeed == false)
+	{
+		return false;  // 失敗
+	}
+
+	Mathf::Randomer random{ 0 };
+
+	Vector2 last{};
+	while (last.y < config_.goalHeight)
+	{
+		last = points_.at(points_.size() - 1);
+		points_.push_back({ last.x + (random.Rand() * config_.randRangeX), last.y + random.Rand() * config_.randRangeY });
+	}
+
+	points_.at(points_.size() - 1).y = config_.goalHeight;
+	last = points_.at(points_.size() - 1);
+
+
+	// 床を作る
+	last.x += config_.goalSizeZ;
+	points_.push_back(last);
+
+	// 壁を作る
+	last.y -= config_.goalWallHeight;
+	points_.push_back(last);
+
+	// 全ての y 軸を - にする
+	for (auto& point : points_)
+	{
+		point.y = -point.y;
+	}
+
+	stageMesh_.CallInit(System());
+	
+	return true;
 }

@@ -34,9 +34,14 @@ public:
 	inline const std::vector<Vector2>& GetPoints() { return points_; }
 
 private:
+	/// <summary>
+	/// ステージの点を生成する
+	/// </summary>
+	bool GenerateStagePoints();
+
+private:
 	std::vector<Vector2> points_;  // 各頂点の座標 (xy平面で考える)
 	StageMeshes stageMesh_;        // ステージのメッシュ情報
 	float textureScale_;           // 地形のテクスチャスケール
 	StageLineConfig config_;       // ステージラインの設定
-	//StageMeshes stageMesh_;      // ステージメッシュ
 };
