@@ -10,6 +10,8 @@
 // プリコンパイルするヘッダーをここに追加します
 #include "framework.h"
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <string>
 #include <cstdint>
 #include <cassert>
