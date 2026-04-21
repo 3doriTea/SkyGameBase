@@ -4,6 +4,9 @@
 
 namespace wtgb
 {
+	/// <summary>
+	/// AudioSourceVoiceのインデクス
+	/// </summary>
 	using SourceVoiceIndex = int32_t;
 
 	class Audio;
@@ -67,10 +70,8 @@ namespace wtgb
 		void InsertEntryQueue(float _timeLeft, const SourceVoiceIndex _index);
 
 	private:
-		// 音声再生機
-		std::vector<UniqueXAudio2SourceVoice> sourceVoices_;
-		std::vector<bool> useFlag_;  // 再生機の使用フラグ
-
-		std::list<AudioEntry> entryQueue_;  // 再生キュー
+		std::vector<UniqueXAudio2SourceVoice> sourceVoices_;  // 音声再生機
+		std::vector<bool> useFlag_;                           // 再生機の使用フラグ
+		std::list<AudioEntry> entryQueue_;                    // 再生キュー
 	};
 }
