@@ -30,7 +30,9 @@
 - [プロジェクト概要](docs/Document.md)  
   ディレクトリ構成やソースコードの分類の説明
 - [コーディング規約](docs/CodingGuide.md)  
-  ソースコードの書き方を明記
+  ソースコードの書き方の説明
+- [実装後の自己評価](docs/Reflections.md)  
+  実装後に得られた効果の説明
 
 ## VisualStudio のフィルター機能に関して
 
