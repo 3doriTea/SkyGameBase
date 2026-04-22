@@ -76,7 +76,7 @@ void TitleScene::Update()
 			{
 				_score.allyCount = 72;
 				_score.presentCount = 104;
-				_score.timeDifference = 123.456789;
+				_score.timeDifference = 123.456789f;
 			});
 		System().Get<SceneManager>().Move<ResultScene>();
 	}

@@ -26,6 +26,12 @@ public:
 	/// <param name="_filePath">テキストファイルのパス</param>
 	void Dump(const fs::path& _filePath);
 
+	/// <summary>
+	/// FPSを取得する
+	/// </summary>
+	/// <returns>FPS値</returns>
+	inline uint32_t GetFPS() const { return frameCountPrev_; }
+
 private:
 	uint32_t frameCounter_;             // フレームのカウント
 	uint32_t frameCountPrev_;           // 前のフレームのカウント

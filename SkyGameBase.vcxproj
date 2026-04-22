@@ -85,8 +85,12 @@
     <ClInclude Include="Source\PlayScene\UI\SpeedMeter.h" />
     <ClInclude Include="Source\PlayScene\UI\TargetMark.h" />
     <ClInclude Include="Source\PostProcessingEffect\Twist.h" />
+    <ClInclude Include="Source\PTScene\PerformanceReader.h" />
     <ClInclude Include="Source\PTScene\PerformanceTester.h" />
     <ClInclude Include="Source\PTScene\PTScene.h" />
+    <ClInclude Include="Source\PTScene\SimpleCamera.h" />
+    <ClInclude Include="Source\PTScene\SimplePlane.h" />
+    <ClInclude Include="Source\PTScene\SimpleSphere.h" />
     <ClInclude Include="Source\ResultScene\UI\CircleHint.h" />
     <ClInclude Include="Source\ResultScene\UI\DragPoint.h" />
     <ClInclude Include="Source\ResultScene\UI\ResultPanel.h" />
@@ -397,8 +401,12 @@
     <ClCompile Include="Source\PlayScene\UI\SpeedMeter.cpp" />
     <ClCompile Include="Source\PlayScene\UI\TargetMark.cpp" />
     <ClCompile Include="Source\PlayScene\WorldConfigJsonLoader.cpp" />
+    <ClCompile Include="Source\PTScene\PerformanceReader.cpp" />
     <ClCompile Include="Source\PTScene\PerformanceTester.cpp" />
     <ClCompile Include="Source\PTScene\PTScene.cpp" />
+    <ClCompile Include="Source\PTScene\SimpleCamera.cpp" />
+    <ClCompile Include="Source\PTScene\SimplePlane.cpp" />
+    <ClCompile Include="Source\PTScene\SimpleSphere.cpp" />
     <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp" />
     <ClCompile Include="Source\ResultScene\UI\DragPoint.cpp" />
     <ClCompile Include="Source\ResultScene\ResultScene.cpp" />
@@ -549,6 +557,10 @@
     <None Include="Assets\Prefab\Play\UI\SpeedMessage.json" />
     <None Include="Assets\Prefab\Play\UI\SpeedMeter.json" />
     <None Include="Assets\Prefab\Play\UI\TargetMark.json" />
+    <None Include="Assets\Prefab\PT\PerformanceReader.json" />
+    <None Include="Assets\Prefab\PT\SimpleCamera.json" />
+    <None Include="Assets\Prefab\PT\SimplePlane.json" />
+    <None Include="Assets\Prefab\PT\SimpleSphere.json" />
     <None Include="Assets\Prefab\Result\ResultPanel.json" />
     <None Include="Assets\Prefab\ScoreManager.json" />
     <None Include="Assets\Prefab\Simple.json" />

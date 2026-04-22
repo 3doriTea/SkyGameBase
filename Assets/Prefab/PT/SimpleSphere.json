@@ -1,0 +1,21 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "SimplePlane"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "ModelMesh": {
+      "fileName": "Models/SimpleSphere/SimpleSphere.fbx"
+    },
+    "MeshRenderer": {
+      "shader": "Shader/Simple3D.hlsl"
+    }
+  },
+  "Param": {
+
+  }
+}

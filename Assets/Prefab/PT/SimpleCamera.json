@@ -1,0 +1,16 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "SimpleCamera"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "moveSpeedPerSec": 30.0,
+    "moveAnglePerSecRad": 0.52359877559
+  }
+}

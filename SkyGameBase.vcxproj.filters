@@ -810,6 +810,18 @@
     <ClInclude Include="Source\PTScene\PerformanceTester.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PTScene\SimplePlane.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PTScene\SimpleSphere.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PTScene\SimpleCamera.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PTScene\PerformanceReader.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1337,6 +1349,18 @@
     <ClCompile Include="Source\PTScene\PerformanceTester.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PTScene\SimplePlane.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PTScene\SimpleCamera.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PTScene\SimpleSphere.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PTScene\PerformanceReader.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1428,6 +1452,10 @@
     <None Include="docs\Document.md" />
     <None Include="docs\CodingGuide.md" />
     <None Include="docs\Reflections.md" />
+    <None Include="Assets\Prefab\PT\SimplePlane.json" />
+    <None Include="Assets\Prefab\PT\SimpleCamera.json" />
+    <None Include="Assets\Prefab\PT\SimpleSphere.json" />
+    <None Include="Assets\Prefab\PT\PerformanceReader.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

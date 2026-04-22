@@ -22,6 +22,7 @@ void PerformanceTester::Update(const float _deltaTime)
 		frameCountPrev_ = frameCounter_;
 		// フレームカウントをリセット
 		frameCounter_ = 0;
+		timeLeft_ = 1.0f;
 	}
 	else
 	{
@@ -34,20 +35,20 @@ void PerformanceTester::Stamp(const std::string_view _desc)
 	namespace chrono = std::chrono;
 
 	// 現在の時刻
-	chrono::system_clock::time_point nowPoint
+	/*chrono::system_clock::time_point nowPoint
 	{
 		chrono::floor<chrono::seconds>(chrono::system_clock::now())
 	};
 
 	std::time_t t{ chrono::system_clock::to_time_t(nowPoint) };
-	const std::tm* pTm{ std::localtime(&t) };
+	const std::tm* pTm{ std::localtime(&t) };*/
 
 	// スタンプ文字列
 	std::string stamp
 	{
 		std::format(
 			"[{}] FPS: {}, {}",
-			std::put_time(pTm, "%T")._Fmtfirst,
+			"???"/*std::put_time(pTm, "%T")._Fmtfirst*/,
 			frameCountPrev_,
 			_desc)
 	};
@@ -58,8 +59,10 @@ void PerformanceTester::Dump(const fs::path& _filePath)
 {
 	std::ofstream ofs{ _filePath };
 
+	wassert(!!ofs && "パフォーマンス計測結果のダンプに失敗: ファイルが開けなかった");
+
 	// 履歴の文字列を出力していく
-	for (auto history : history_)
+	for (const std::string& history : history_)
 	{
 		ofs << history << std::endl;
 	}
