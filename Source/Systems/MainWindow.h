@@ -14,7 +14,7 @@ public:
 	/// 更新の呼び出しタイミング
 	/// </summary>
 	/// <returns>更新のタイミング</returns>
-	const CallType GetCallType() override { return CallType::Frame; }
+	const CallType GetCallType() override { return CallType::DoNotUpdate; }
 
 	/// <summary>
 	/// 初期化処理

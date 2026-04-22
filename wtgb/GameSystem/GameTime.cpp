@@ -69,6 +69,12 @@ wtgb::Result wtgb::GameTime::Init(const ViewerInit& _viewer)
 
 void wtgb::GameTime::Update(const ViewerUpdate& _system)
 {
+	if (QueryPerformanceFrequency(&cpuFrequency_) == FALSE)
+	{
+		LOGFW("CPU周波数取得に失敗");
+		return;
+	}
+
 	if (QueryPerformanceCounter(&currentMicro_) == FALSE)
 	{
 		LOGFW("CPU時間取得に失敗");
@@ -78,8 +84,10 @@ void wtgb::GameTime::Update(const ViewerUpdate& _system)
 	// 前フレームと今のマイクロ秒差
 	const LONGLONG diff{ currentMicro_.QuadPart - previousMicro_.QuadPart };
 	// 差をFPS倍して1秒を超える = 差が 1 / FPS なら更新タイミング
-	isFrameDue_ = (diff * FPS >= ONE_SEC_TO_MICRO);
+	isFrameDue_ = ((diff * FPS >= cpuFrequency_.QuadPart), true);
 	
+	//LOGFLN("diff={}", diff / cpuFrequency_.QuadPart * FPS);
+
 	// 更新タイミングなら
 	if (isFrameDue_)
 	{

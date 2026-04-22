@@ -75,6 +75,7 @@ namespace wtgb
 		float timeScale_;              // ゲーム内時間の大きさ
 		LARGE_INTEGER currentMicro_;   // 現在のCPU時間 (マイクロ秒)
 		LARGE_INTEGER previousMicro_;  // 前回のCPU時間 (マイクロ秒)
+		LARGE_INTEGER cpuFrequency_;   // CPU 周波数
 	private:
 		static const UINT PERIOD_MILLI;          // 分解能(ミリ秒)
 		static const LONGLONG ONE_SEC_TO_MICRO;  // 1秒はマイクロ秒で表すと

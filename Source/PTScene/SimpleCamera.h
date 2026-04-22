@@ -43,6 +43,6 @@ private:
 	bool UpdateAngle();
 
 private:
-	float moveSpeedPerSec_;  // 1秒間あたりの移動速度
+	float moveSpeedPerSec_;     // 1秒間あたりの移動速度
 	float moveAnglePerSecRad_;  // 1秒間あたりの回転角速度 (ラジアン)
 };
