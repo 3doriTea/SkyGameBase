@@ -2,6 +2,7 @@
 #include "FirstSceneRegister.h"
 #include "GameSystem/SceneManager.h"
 
+// 最初に起動するシーン候補のインクルードたち
 #include "TitleScene/TitleScene.h"
 #include "PlayScene/PlayScene.h"
 #include "ResultScene/ResultScene.h"
