@@ -18,8 +18,8 @@ public:
 	/// <summary>
 	/// 現在のパフォーマンスを履歴に追加
 	/// </summary>
-	/// <param name="_desc">追加する説明</param>
-	void Stamp(const std::string_view _desc);
+	/// <param name="_key">現時点のキー</param>
+	void Stamp(const uint32_t _key);
 	/// <summary>
 	/// 履歴をテキストファイルとして出力する
 	/// </summary>
