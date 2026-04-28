@@ -32,14 +32,14 @@ void PerformanceReader::Update()
 
 		if (INPUT.IsKey(KeyCode::G))
 		{
-			tester_.Stamp(std::format("SphereCount:{}", pPTScene->GetSphereCount()));
+			tester_.Stamp(pPTScene->GetSphereCount());
 		}
 	}
 
 	// Mキーが押されたら計測結果をダンプする
 	if (INPUT.IsKeyDown(KeyCode::M))
 	{
-		tester_.Dump("./Performance.log");
+		tester_.Dump("./Performance.csv");
 	}
 }
 

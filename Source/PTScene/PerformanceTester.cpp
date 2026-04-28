@@ -30,27 +30,17 @@ void PerformanceTester::Update(const float _deltaTime)
 	}
 }
 
-void PerformanceTester::Stamp(const std::string_view _desc)
+void PerformanceTester::Stamp(const uint32_t _key)
 {
 	namespace chrono = std::chrono;
-
-	// 現在の時刻
-	/*chrono::system_clock::time_point nowPoint
-	{
-		chrono::floor<chrono::seconds>(chrono::system_clock::now())
-	};
-
-	std::time_t t{ chrono::system_clock::to_time_t(nowPoint) };
-	const std::tm* pTm{ std::localtime(&t) };*/
 
 	// スタンプ文字列
 	std::string stamp
 	{
 		std::format(
-			"[{}] FPS: {}, {}",
-			"???"/*std::put_time(pTm, "%T")._Fmtfirst*/,
-			frameCountPrev_,
-			_desc)
+			"{},{}",
+			_key,
+			frameCountPrev_)
 	};
 	history_.push_back(stamp);
 }
