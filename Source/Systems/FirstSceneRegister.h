@@ -2,7 +2,7 @@
 #include <wtgb/wtgb.h>
 
 /// <summary>
-/// ƒQ[ƒ€‹N“®‚ÌƒV[ƒ““o˜^ƒVƒXƒeƒ€
+/// ã‚²ãƒ¼ãƒ èµ·å‹•æ™‚ã®ã‚·ãƒ¼ãƒ³ç™»éŒ²ã‚·ã‚¹ãƒ†ãƒ 
 /// </summary>
 class FirstSceneRegister : public IGameSystem
 {
@@ -11,26 +11,26 @@ public:
 	~FirstSceneRegister() {}
 
 	/// <summary>
-	/// XVƒ^ƒCƒ~ƒ“ƒO‚ğæ“¾
+	/// æ›´æ–°ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’å–å¾—
 	/// </summary>
-	/// <returns>XVƒ^ƒCƒ~ƒ“ƒO</returns>
+	/// <returns>æ›´æ–°ã‚¿ã‚¤ãƒŸãƒ³ã‚°</returns>
 	const CallType GetCallType() override { return CallType::DoNotUpdate; }
 
 	/// <summary>
-	/// ‰Šú‰»ˆ—
+	/// åˆæœŸåŒ–å‡¦ç†
 	/// </summary>
-	/// <param name="_viewer">ƒVƒXƒeƒ€QÆ</param>
-	/// <returns>‰Šú‰»‚ÌŒ‹‰Ê</returns>
+	/// <param name="_viewer">ã‚·ã‚¹ãƒ†ãƒ å‚ç…§</param>
+	/// <returns>åˆæœŸåŒ–ã®çµæœ</returns>
 	wtgb::Result Init(const ViewerInit& _viewer) override;
 
 	/// <summary>
-	/// XVˆ—
+	/// æ›´æ–°å‡¦ç†
 	/// </summary>
-	/// <param name="_system">ƒVƒXƒeƒ€QÆ</param>
+	/// <param name="_system">ã‚·ã‚¹ãƒ†ãƒ å‚ç…§</param>
 	void Update(const ViewerUpdate& _system) override {}
 
 	/// <summary>
-	/// I—¹ˆ—
+	/// çµ‚äº†å‡¦ç†
 	/// </summary>
 	void End() override {}
 };

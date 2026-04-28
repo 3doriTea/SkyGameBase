@@ -2,7 +2,7 @@
 #include "FirstSceneRegister.h"
 #include "GameSystem/SceneManager.h"
 
-// 最初に起動するシーン候補のインクルードたち
+// 譛蛻昴↓襍ｷ蜍輔☆繧九す繝ｼ繝ｳ蛟呵｣懊�ｮ繧､繝ｳ繧ｯ繝ｫ繝ｼ繝峨◆縺｡
 #include "TitleScene/TitleScene.h"
 #include "PlayScene/PlayScene.h"
 #include "ResultScene/ResultScene.h"
