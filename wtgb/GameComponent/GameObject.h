@@ -142,9 +142,7 @@ namespace wtgb
 
 	private:
 		EntityId entityId_;  // エンティティのId
-
-		// TODO: entityIdのみにする
-		bool toDestroy_;  // 削除予定のゲームオブジェクトか true / false
+		bool toDestroy_;     // 削除予定のゲームオブジェクトか true / false
 
 		// cache済みのゲームシステム
 		static ViewerCached* pCachedSystem_;

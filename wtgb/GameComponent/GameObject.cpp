@@ -7,7 +7,6 @@
 #include "GameSystem/CPTransform.h"
 #include "GameObjectProperty.h"
 #include "GameSystem/CPGameObjectProperty.h"
-//#include "CPTransform.h"
 #include "GameSystem/ComponentManager.h"
 #include "GameSystem/Scriptable.h"
 #include "GameSystem/CPGameObject.h"
@@ -20,7 +19,6 @@ wtgb::GameObject::GameObject(const fs::path& _prefabJson) :
 	entityId_{ System().Get<ComponentManager>().GetPrevEntity() },
 	toDestroy_{ false }
 {
-	// TODO: 重複している
 	System().Get<CPGameObject>().Add(entityId_, this);
 
 	Scriptable& scriptable{ System().Get<Scriptable>() };
@@ -44,8 +42,6 @@ wtgb::GameObject::GameObject(std::function<void(GameObjectBuilder&)> _callback) 
 	
 	GameObjectBuilder builder{ *this };
 	_callback(builder);
-
-	// TODO: 重複している
 }
 
 wtgb::GameObject::~GameObject()
