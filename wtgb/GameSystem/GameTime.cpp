@@ -18,6 +18,7 @@ wtgb::GameTime::GameTime() :
 	deltaTimeSec_{ 0.0f },
 	currentMicro_{},
 	previousMicro_{},
+	cpuFrequency_{},
 	timeScale_{ 1.0f },
 	timeScalePrev_{ 1.0f }
 {
@@ -84,9 +85,7 @@ void wtgb::GameTime::Update(const ViewerUpdate& _system)
 	// 前フレームと今のマイクロ秒差
 	const LONGLONG diff{ currentMicro_.QuadPart - previousMicro_.QuadPart };
 	// 差をFPS倍して1秒を超える = 差が 1 / FPS なら更新タイミング
-	isFrameDue_ = (diff * FPS >= cpuFrequency_.QuadPart);
-	
-	//LOGFLN("diff={}", diff / cpuFrequency_.QuadPart * FPS);
+	isFrameDue_ = (diff * FPS >= cpuFrequency_.QuadPart, true);
 
 	// 更新タイミングなら
 	if (isFrameDue_)
