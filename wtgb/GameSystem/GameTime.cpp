@@ -7,6 +7,7 @@
 namespace
 {
 	const int FPS{ 60 };
+	const float DELTA_TIME_LIMIT_SEC{ 0.1f };
 }
 
 const UINT wtgb::GameTime::PERIOD_MILLI{ 1 };  // 分解能を設定
@@ -90,7 +91,7 @@ void wtgb::GameTime::Update(const ViewerUpdate& _system)
 	// 更新タイミングなら
 	if (isFrameDue_)
 	{
-		deltaTimeSec_ = static_cast<float>(diff) * MICRO_TO_SEC * timeScale_;
+		deltaTimeSec_ = min(static_cast<float>(diff) * MICRO_TO_SEC * timeScale_, DELTA_TIME_LIMIT_SEC);
 		previousMicro_ = currentMicro_;
 	}
 }
