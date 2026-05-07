@@ -301,13 +301,23 @@ void DropCloud::Update()
 #pragma region プレイヤーがゴール不可能時にゴール失敗処理
 	if (!isFinished_)
 	{
-		const float GOAL_POS_Y{ GetScene<PlayScene>()->GetWorldConfig().stageLineConfig.goalPosY };
-		/*const float 
+		const float STOPPER_POS_Z{ pStageLine->GetStopperStartPosZ() };
 		Vector3 playerPosition{ pPlayer->Transform().GetPosition() };
-		if (playerPosition.z < )
+		if (playerPosition.z >= STOPPER_POS_Z
+			&& isFinished_ == false)
 		{
-
-		}*/
+			isFinished_ = true;
+			// ストッパーに侵入してしまったなら、失敗
+			System().Get<ScoreManager>().FailedGoal();
+			System().Get<Alarm>().Add([this]
+				{
+					// 時間が経ったら結果シーンに遷移する
+					System()
+						.Get<SceneManager>()
+						.Move<ResultScene>();
+				},
+				toResultSceneTime_);
+		}
 	}
 #pragma endregion
 

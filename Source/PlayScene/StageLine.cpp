@@ -70,7 +70,9 @@ void StageLine::Init()
 
 	points_.at(points_.size() - 1).y = config_.goalHeight;
 	last = points_.at(points_.size() - 1);
-
+	
+	// ストッパー開始地点を記録
+	stopperStartPosZ_ = last.x;
 
 	// 床を作る
 	last.x += config_.goalSizeZ;

@@ -31,11 +31,18 @@ public:
 	/// <returns>ステージのZ軸長さ m</returns>
 	float GetStageLengthZ() const;
 
+	/// <summary>
+	/// ストッパー開始地点のz座標を取得
+	/// </summary>
+	/// <returns>ストッパー開始地点のz座標</returns>
+	inline float GetStopperStartPosZ() const { return stopperStartPosZ_; }
+
 	inline const std::vector<Vector2>& GetPoints() { return points_; }
 
 private:
 	std::vector<Vector2> points_;  // 各頂点の座標 (xy平面で考える)
 	StageMeshes stageMesh_;        // ステージのメッシュ情報
+	float stopperStartPosZ_;       // ストッパー開始地点のz座標
 	float textureScale_;           // 地形のテクスチャスケール
 	StageLineConfig config_;       // ステージラインの設定
 	//StageMeshes stageMesh_;      // ステージメッシュ

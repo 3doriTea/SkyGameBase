@@ -20,7 +20,8 @@ private:
 
 private:
 	Vector2Int baseCanvasSize_;          // UI設計時のキャンバスサイズ
-	std::string panelImageFile_;         // パネルの画像ファイルパス
+	std::string panelImageFileResult_;         // パネルの画像ファイルパス
+	std::string panelImageFileFailed_;         // パネルの画像ファイルパス
 	TextureHandle hPanelImage_;          // パネル画像のハンドル
 	Vector2Int dragCirclePositionDown_;  // 下がっているときのドラッグ座標
 	Vector2Int dragCirclePositionUp_;    // 上がっているときのドラッグ座標
@@ -32,6 +33,8 @@ private:
 	bool isDrag_;                      // 掴んでいる true / false
 	float toTitleTime_;                // タイトルにシーン遷移する
 	std::string numberFontImagePath_;  // 数字のフォント画像パス
+
+	bool isShowResult_;  // 結果を表示するか
 
 	Vector2Int scoreFontSize_;                                // 数字のサイズ
 	EntityId stringPlate_[GameScore::ScoreType_Max];          // 数字表示UIのエンティティ

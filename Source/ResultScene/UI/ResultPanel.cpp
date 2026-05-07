@@ -9,7 +9,8 @@
 ResultPanel::ResultPanel() :
 	GameObject{ "Result/ResultPanel.json" },
 	baseCanvasSize_{},
-	panelImageFile_{},
+	panelImageFileResult_{},
+	panelImageFileFailed_{},
 	dragPoint_{ INVALID_ENTITY },
 	animOffsetY_{},
 	stringPlate_{ INVALID_ENTITY, INVALID_ENTITY, INVALID_ENTITY },
@@ -18,7 +19,8 @@ ResultPanel::ResultPanel() :
 	hPanelImage_{ INVALID_HANDLE },
 	isDrag_{ false },
 	moveRatio_{},
-	toTitleTime_{}
+	toTitleTime_{},
+	isShowResult_{}
 {
 }
 
@@ -31,15 +33,11 @@ void ResultPanel::Init()
 	OnLoadParam(GetComponent<Parameter>().Load());
 	Vector2Int screenSize{ System().Get<GameWindow>().GetMainWindowSize() };
 
-	GameScene* pGameScene{ GetScene() };
-	if (pGameScene)
-	{
-		for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
+	System().Get<Alarm>().Add([this]
 		{
-			stringPlate_[type] = pGameScene->Instantiate<StringPlate>(
-				numberFontImagePath_);
-		}
-	}
+			System().Get<SceneManager>().Move<TitleScene>();
+		},
+		toTitleTime_);
 
 	ResultScene* pResultScene{ GetScene<ResultScene>() };
 	wassert(pResultScene && "結果シーンの取得に失敗");
@@ -48,7 +46,23 @@ void ResultPanel::Init()
 		return;  // 結果シーンの取得に失敗すると何もできない
 	}
 
-	hPanelImage_ = System().Get<ResourceSystem>().LoadTexture(panelImageFile_);
+	if (System().Get<ScoreManager>().IsFailedGoal())
+	{
+		hPanelImage_ = System().Get<ResourceSystem>().LoadTexture(panelImageFileFailed_);
+		isShowResult_ = false;  // 結果表示は行わない
+		return;  // 失敗時の表示のみでほかは非表示
+	}
+	else  // 通常は結果表示
+	{
+		hPanelImage_ = System().Get<ResourceSystem>().LoadTexture(panelImageFileResult_);
+		isShowResult_ = true;  // 結果表示を行う
+	}
+
+	for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
+	{
+		stringPlate_[type] = pResultScene->Instantiate<StringPlate>(
+			numberFontImagePath_);
+	}
 
 	CoordinateTransformer transformer{ screenSize, baseCanvasSize_ };
 	dragPoint_ = pResultScene->Instantiate<DragPoint>(transformer);
@@ -58,12 +72,6 @@ void ResultPanel::Init()
 	assert(pDragPoint);
 	pDragPoint->SetRadius(dragCircleSizePix_);
 	pDragPoint->SetPosition(dragCirclePositionDown_);
-
-	System().Get<Alarm>().Add([this]
-		{
-			System().Get<SceneManager>().Move<TitleScene>();
-		},
-		toTitleTime_);
 }
 
 void ResultPanel::Update()
@@ -84,60 +92,63 @@ void ResultPanel::Update()
 		return;
 	}
 
-	DragPoint* pDragPoint{ FindGameObject<DragPoint>(dragPoint_) };
-	wassert(pDragPoint);
-
-	StringPlate* pStringPlate[GameScore::ScoreType_Max]{};
-	for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
+	if (isShowResult_)  // 結果表示があるなら
 	{
-		pStringPlate[type] = FindGameObject<StringPlate>(stringPlate_[type]);
-		wassert(pStringPlate[type]);
+		DragPoint* pDragPoint{ FindGameObject<DragPoint>(dragPoint_) };
+		wassert(pDragPoint);
 
-		if (pStringPlate[type])
+		StringPlate* pStringPlate[GameScore::ScoreType_Max]{};
+		for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
 		{
-			pStringPlate[type]->SetPosition(scoreTextPosition_[type]);
-			pStringPlate[type]->SetSize(scoreFontSize_);
+			pStringPlate[type] = FindGameObject<StringPlate>(stringPlate_[type]);
+			wassert(pStringPlate[type]);
+
+			if (pStringPlate[type])
+			{
+				pStringPlate[type]->SetPosition(scoreTextPosition_[type]);
+				pStringPlate[type]->SetSize(scoreFontSize_);
+			}
 		}
-	}
 
-	System().Get<ScoreManager>().Ref([pStringPlate](GameScore& _score)
-		{
-			pStringPlate[GameScore::ScoreType_PresentCount]->SetString(
-				std::format("{}p", _score.presentCount));
-			pStringPlate[GameScore::ScoreType_AllyCount]->SetString(
-				std::format("{}h", _score.allyCount));
-			pStringPlate[GameScore::ScoreType_TimeDifference]->SetString(
-				std::format("{:.7}s", _score.timeDifference));
-		});
+		System().Get<ScoreManager>().Ref([pStringPlate](GameScore& _score)
+			{
+				pStringPlate[GameScore::ScoreType_PresentCount]->SetString(
+					std::format("{}p", _score.presentCount));
+				pStringPlate[GameScore::ScoreType_AllyCount]->SetString(
+					std::format("{}h", _score.allyCount));
+				pStringPlate[GameScore::ScoreType_TimeDifference]->SetString(
+					std::format("{:.7}s", _score.timeDifference));
+			});
 
-	if (pDragPoint && pDragPoint->IsDrag())
-	{
-		// 掴んだ分加算する
-		Vector2Int displacement{ pDragPoint->GetDisplacement() };
-		moveRatio_ += static_cast<float>(-displacement.y) / screenSize.y;
-		LOGFLN("ドラッグされた{}", moveRatio_);
-	}
-	else
-	{
-		// 掴まれていないなら、自動で引篭る
-		if (moveRatio_ < 0.5f)
+		if (pDragPoint && pDragPoint->IsDrag())
 		{
-			moveRatio_ -= dt / 3.0f;
+			// 掴んだ分加算する
+			Vector2Int displacement{ pDragPoint->GetDisplacement() };
+			moveRatio_ += static_cast<float>(-displacement.y) / screenSize.y;
+			LOGFLN("ドラッグされた{}", moveRatio_);
 		}
 		else
 		{
-			moveRatio_ += dt / 3.0f;
+			// 掴まれていないなら、自動で引篭る
+			if (moveRatio_ < 0.5f)
+			{
+				moveRatio_ -= dt / 3.0f;
+			}
+			else
+			{
+				moveRatio_ += dt / 3.0f;
+			}
 		}
-	}
-	moveRatio_ = min(max(moveRatio_, 0.0f), 1.0f);
+		moveRatio_ = min(max(moveRatio_, 0.0f), 1.0f);
 
 
-	if (pDragPoint)
-	{
-		// TODO: ボタンドラッグ位置を確定させる
-		isDrag_ = pDragPoint->IsDrag();
-		//Mathf::Lerp()
-		//pDragPoint->SetPosition({ 430 + OFFSET_X, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
+		if (pDragPoint)
+		{
+			// TODO: ボタンドラッグ位置を確定させる
+			isDrag_ = pDragPoint->IsDrag();
+			//Mathf::Lerp()
+			//pDragPoint->SetPosition({ 430 + OFFSET_X, static_cast<int>((screenSize.y / 1.3f) * (1.0f - moveRatio_)) });
+		}
 	}
 
 	Vector2Int size = pTexture->GetImageSizePix();
@@ -162,7 +173,8 @@ void ResultPanel::Release()
 void ResultPanel::OnLoadParam(const json& _json)
 {
 	_json.at("baseCanvasSize").get_to(baseCanvasSize_);
-	_json.at("panelImageFile").get_to(panelImageFile_);
+	_json.at("panelImageFileResult").get_to(panelImageFileResult_);
+	_json.at("panelImageFileFailed").get_to(panelImageFileFailed_);
 	_json.at("dragCirclePositionDown").get_to(dragCirclePositionDown_);
 	_json.at("dragCirclePositionUp").get_to(dragCirclePositionUp_);
 	_json.at("dragCircleSizePix").get_to(dragCircleSizePix_);
