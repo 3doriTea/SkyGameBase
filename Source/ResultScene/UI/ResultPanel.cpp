@@ -13,7 +13,12 @@ ResultPanel::ResultPanel() :
 	dragPoint_{ INVALID_ENTITY },
 	animOffsetY_{},
 	stringPlate_{ INVALID_ENTITY, INVALID_ENTITY, INVALID_ENTITY },
-	scoreFontSize_{}
+	scoreFontSize_{},
+	dragCircleSizePix_{},
+	hPanelImage_{ INVALID_HANDLE },
+	isDrag_{ false },
+	moveRatio_{},
+	toTitleTime_{}
 {
 }
 

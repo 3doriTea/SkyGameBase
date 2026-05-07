@@ -26,7 +26,9 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 	slideVeloDampingPerSec_{},
 	startDushForce_{},
 	boundXAnim{},
-	aboutCircleThreshold_{}
+	boundYAnim{},
+	aboutCircleThreshold_{},
+	autoRotation_{}
 {
 	Property().SetParent(_parentId);
 	Transform().SetPosition(_localPos);

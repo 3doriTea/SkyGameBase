@@ -29,6 +29,17 @@ public:
 	inline void Ref(const std::function<void(GameScore&)>& _callback) { _callback(gameScore_); }
 
 	/// <summary>
+	/// ゴールできずに失敗
+	/// </summary>
+	inline void FailedGoal() { isFailedGoal_ = true; }
+
+	/// <summary>
+	/// ゴールできずに失敗したかを取得
+	/// </summary>
+	/// <returns>ゴールできずに失敗 true / false</returns>
+	inline bool IsFailedGoal() const { return isFailedGoal_; }
+
+	/// <summary>
 	/// 現在のスコア値を取得
 	/// </summary>
 	/// <returns>現在のスコア値</returns>
@@ -48,4 +59,6 @@ private:
 	uint64_t maxScore_;      // スコアの最大値
 
 	GameScore gameScore_;  // ゲームのスコア
+
+	bool isFailedGoal_;  // ゴールできずに失敗か true / false
 };

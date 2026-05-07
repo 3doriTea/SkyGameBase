@@ -285,12 +285,29 @@ void DropCloud::Update()
 		isFinished_ = true;
 		System().Get<Alarm>().Add([this]
 			{
-				// 時間が経ったら結果シーンに遷移する
-				System()
-					.Get<SceneManager>()
-					.Move<ResultScene>();
+				if (System().Get<ScoreManager>().IsFailedGoal()
+					== false)  // ゴール失敗していない！
+				{
+					// 時間が経ったら結果シーンに遷移する
+					System()
+						.Get<SceneManager>()
+						.Move<ResultScene>();
+				}
 			},
 			toResultSceneTime_);
+	}
+#pragma endregion
+
+#pragma region プレイヤーがゴール不可能時にゴール失敗処理
+	if (!isFinished_)
+	{
+		const float GOAL_POS_Y{ GetScene<PlayScene>()->GetWorldConfig().stageLineConfig.goalPosY };
+		/*const float 
+		Vector3 playerPosition{ pPlayer->Transform().GetPosition() };
+		if (playerPosition.z < )
+		{
+
+		}*/
 	}
 #pragma endregion
 

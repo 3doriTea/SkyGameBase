@@ -53,6 +53,16 @@ void wtgb::AudioPlayer::Update(const float _dt)
 void wtgb::AudioPlayer::Clear()
 {
 	entryQueue_.clear();
+	for (auto& sourceVoice : sourceVoices_)
+	{
+		if (sourceVoice)
+		{
+			sourceVoice.get()->Stop();
+			sourceVoice.get()->DestroyVoice();
+		}
+	}
+	sourceVoices_.clear();
+	useFlag_.clear();
 }
 
 wtgb::SourceVoiceIndex wtgb::AudioPlayer::Play(

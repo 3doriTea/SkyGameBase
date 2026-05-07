@@ -35,6 +35,11 @@ namespace wtgb
 		void End() override;
 
 		/// <summary>
+		/// すべての再生音を停止する
+		/// </summary>
+		void ClearAll();
+
+		/// <summary>
 		/// 音声再生するやつを作成する
 		/// </summary>
 		/// <param name="_ppSourceVoice">作成先のポインタ</param>

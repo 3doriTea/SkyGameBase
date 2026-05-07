@@ -16,6 +16,8 @@ ResultScene::~ResultScene()
 
 void ResultScene::Start()
 {
+	System().Get<Audio>().ClearAll();
+
 	Instantiate<ResultPanel>();
 
 	// カーソルが固定されたままになってしまうため明示的に解除

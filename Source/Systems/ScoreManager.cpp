@@ -2,7 +2,9 @@
 
 ScoreManager::ScoreManager() :
 	currentScore_{ 0 },
-	maxScore_{ 0 }
+	maxScore_{ 0 },
+	gameScore_{},
+	isFailedGoal_{}
 {
 }
 
@@ -26,4 +28,5 @@ void ScoreManager::End()
 void ScoreManager::ResetGameScore()
 {
 	gameScore_ = {};
+	isFailedGoal_ = false;
 }
