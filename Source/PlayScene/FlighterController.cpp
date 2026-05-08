@@ -1,5 +1,6 @@
 #include "FlighterController.h"
 #include "LiftStructure.h"
+#include <wtgb/GameSystem/Model.h>
 //#include "Player.h"
 
 
@@ -18,7 +19,9 @@ FlighterController::~FlighterController()
 
 void FlighterController::Init()
 {
+	OnLoadParam(GetComponent<Parameter>().Load());
 
+	GetComponent<ModelMesh>().SetModel(hModel_);
 }
 
 void FlighterController::Update()
@@ -50,4 +53,23 @@ void FlighterController::Update()
 
 void FlighterController::Release()
 {
+}
+
+void FlighterController::OnLoadParam(const json& _json)
+{
+	size_t modelsCount{ _json["modelsFileName"].size() };
+
+	/*
+	"ModelMesh": {
+		"fileName": "Models/Sphere/Sphere.fbx",
+		"modelMeshType": 5
+	},
+	*/
+
+	std::string modelFileName{};
+	_json["modelsFileName"][modelsCount].value(modelFileName, "Models/Flighter/Bird.fbx");
+
+	hModel_ = System().Get<Model>().Load(modelFileName);
+
+	GetComponent<ModelMesh>().SetModel(hModel_);
 }
