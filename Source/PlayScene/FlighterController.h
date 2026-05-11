@@ -1,5 +1,6 @@
 #pragma once
 #include <wtgb.h>
+#include "Flighter/FlighterFlag.h"
 
 
 /// <summary>
@@ -28,7 +29,11 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
-	EntityId liftStructure_;  // リフト本体
-	EntityId player_;         // プレイヤー
-	ModelHandle hModel_;      // モデルのハンドル
+	EntityId liftStructure_;                   // リフト本体
+	EntityId player_;                          // プレイヤー
+	ModelHandle hModel_;                       // モデルのハンドル
+	uint32_t flighterCount_;                   // 追従オブジェクトの総数
+	float findChairForwardOffset_;             // 追従オブジェクト検索の前方向オフセット
+	std::vector<FlighterFlag> flighterFlags_;  // 追従オブジェクトのフラグ
+	std::vector<EntityId> flighterEntities_;   // 追従オブジェクトのエンティティ
 };

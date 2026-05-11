@@ -6,31 +6,12 @@
 LiftChair::LiftChair(const EntityId _structure, const float _beginLength, const float _maxLength) :
 GameObject
 {
-	[this](GameObjectBuilder& _builder)
-	{
-		_builder
-			.AddComponent<GameObjectProperty>()
-				.BeginSetter()
-					.name("LiftChair")
-				.EndSetter()
-			.AddComponent<wtgb::Transform>()
-				.BeginSetter()
-					//.position({ 0, 10, 50 })
-				.EndSetter()
-			.AddComponent<ModelMesh>()
-				.BeginSetter()
-					.fileName("Models/LiftChair/LiftChair.fbx")
-				.EndSetter()
-			.AddComponent<MeshRenderer>()
-				.BeginSetter()
-					.shader("Shader/Simple3D.hlsl")
-				.EndSetter()
-		.Build();
-	},
+	"LiftChair.json"
 },
 	structure_{ _structure },
 	length_{ _beginLength },
-	lengthMax_{ _maxLength }
+	lengthMax_{ _maxLength },
+	moveSpeedPerSec_{}
 {
 }
 
@@ -40,6 +21,7 @@ LiftChair::~LiftChair()
 
 void LiftChair::Init()
 {
+	OnLoadParam(GetComponent<Parameter>().Load());
 }
 
 void LiftChair::Update()
@@ -51,10 +33,15 @@ void LiftChair::Update()
 	Transform().SetPosition(position);
 	Transform().SetRotation(Vector3::Up() * rotate);
 
-	length_ += dt * 30.0f;
+	length_ += dt * moveSpeedPerSec_;
 	length_ = std::fmodf(length_, lengthMax_);
 }
 
 void LiftChair::Release()
 {
+}
+
+void LiftChair::OnLoadParam(const json& _json)
+{
+	moveSpeedPerSec_ = _json.value("moveSpeedPerSec", 100.0f);
 }

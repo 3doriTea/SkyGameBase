@@ -45,6 +45,8 @@
     <ClInclude Include="Source\PlayScene\Debugger.h" />
     <ClInclude Include="Source\PlayScene\DragArrowAxis.h" />
     <ClInclude Include="Source\PlayScene\FlighterController.h" />
+    <ClInclude Include="Source\PlayScene\Flighter\FlighterFlag.h" />
+    <ClInclude Include="Source\PlayScene\Flighter\FlighterObject.h" />
     <ClInclude Include="Source\PlayScene\LiftChilds\Bird.h" />
     <ClInclude Include="Source\PlayScene\LiftChilds\Cloud.h" />
     <ClInclude Include="Source\PlayScene\LiftChilds\LiftChild.h" />
@@ -373,6 +375,7 @@
     <ClCompile Include="Source\PlayScene\DragArrowAxis.cpp" />
     <ClCompile Include="Source\PlayScene\DropCloud.cpp" />
     <ClCompile Include="Source\PlayScene\FlighterController.cpp" />
+    <ClCompile Include="Source\PlayScene\Flighter\FlighterObject.cpp" />
     <ClCompile Include="Source\PlayScene\GoalGround.cpp" />
     <ClCompile Include="Source\PlayScene\LiftChilds\Bird.cpp" />
     <ClCompile Include="Source\PlayScene\LiftChilds\Cloud.cpp" />
@@ -536,6 +539,8 @@
     <None Include="Assets\Prefab\CharaBall.json" />
     <None Include="Assets\Prefab\CharaEgg.json" />
     <None Include="Assets\Prefab\CountDown.json" />
+    <None Include="Assets\Prefab\FlighterObject.json" />
+    <None Include="Assets\Prefab\LiftChair.json" />
     <None Include="Assets\Prefab\LiftChild.json" />
     <None Include="Assets\Prefab\Play\DragArrowAxis.json" />
     <None Include="Assets\Prefab\DropCloud.json" />
@@ -615,6 +620,7 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
     </FxCompile>
+    <FxCompile Include="Assets\Shader\Bird.hlsl" />
     <FxCompile Include="Assets\Shader\CharaEgg.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>

@@ -93,7 +93,7 @@ public:
 	/// <returns>ロープの高さ</returns>
 	float GetRopeHeight(const float _z);
 
-	float GetRotationSpeedPerSec() const { return (DirectX::XM_2PI / 360.0f) * 30.0f; }
+	float GetRotationSpeedPerSec() const { return (DirectX::XM_2PI / 360.0f) * 50.0f; }
 
 	/// <summary>
 	/// ポールの設置座標を取得する

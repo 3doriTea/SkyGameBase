@@ -9,7 +9,12 @@ FlighterController::FlighterController(
 	const EntityId _player) :
 	GameObject{ "Play/FlighterController.json" },
 	liftStructure_{ _liftStructure },
-	player_{ _player }
+	player_{ _player },
+	hModel_{ INVALID_HANDLE },
+	findChairForwardOffset_{},
+	flighterCount_{},
+	flighterFlags_{},
+	flighterEntities_{}
 {
 }
 
@@ -36,7 +41,7 @@ void FlighterController::Update()
 		EntityId foundChair
 		{
 			pLiftStructure->FindChair(
-				pPlayerObj->Transform().GetPosition(),
+				pPlayerObj->Transform().GetPosition() + Vector3::Forward() * findChairForwardOffset_,
 				LiftChairDir::ToDown)
 		};
 
@@ -45,7 +50,9 @@ void FlighterController::Update()
 			GameObject* pChairObj{ FindGameObject(foundChair) };
 			if (pChairObj)
 			{
-				Transform().SetPosition(pChairObj->Transform().GetPosition());
+				Vector3 position{ pChairObj->Transform().GetPosition() };
+				position.x = pPlayerObj->Transform().GetPosition().x;
+				Transform().SetPosition(position);
 			}
 		}
 	}
@@ -57,6 +64,9 @@ void FlighterController::Release()
 
 void FlighterController::OnLoadParam(const json& _json)
 {
+	flighterCount_ = _json.value("flighterCount", 5);
+	findChairForwardOffset_ = _json.value("findChairForwardOffset", 30.0f);
+
 	size_t modelsCount{ _json["modelsFileName"].size() };
 
 	/*
@@ -67,7 +77,7 @@ void FlighterController::OnLoadParam(const json& _json)
 	*/
 
 	std::string modelFileName{};
-	_json["modelsFileName"][modelsCount].value(modelFileName, "Models/Flighter/Bird.fbx");
+	_json["modelsFileName"][0].get_to(modelFileName);
 
 	hModel_ = System().Get<Model>().Load(modelFileName);
 

@@ -1,0 +1,22 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "LiftChair"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "MeshRenderer": {
+      "shader": "Shader/Simple3D.hlsl"
+    },
+    "ModelMesh": {
+      "fileName": "Models/LiftChair/LiftChair.fbx",
+      "modelMeshType": 2
+    }
+  },
+  "Param": {
+    "moveSpeedPerSec": 100.0
+  }
+}

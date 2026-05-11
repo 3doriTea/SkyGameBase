@@ -822,6 +822,12 @@
     <ClInclude Include="Source\PTScene\PerformanceReader.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\Flighter\FlighterFlag.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayScene\Flighter\FlighterObject.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1361,6 +1367,9 @@
     <ClCompile Include="Source\PTScene\PerformanceReader.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\Flighter\FlighterObject.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1456,6 +1465,8 @@
     <None Include="Assets\Prefab\PT\SimpleCamera.json" />
     <None Include="Assets\Prefab\PT\SimpleSphere.json" />
     <None Include="Assets\Prefab\PT\PerformanceReader.json" />
+    <None Include="Assets\Prefab\LiftChair.json" />
+    <None Include="Assets\Prefab\FlighterObject.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
@@ -1474,6 +1485,7 @@
     <FxCompile Include="Assets\Shader\PostProcessing\Twist.hlsl" />
     <FxCompile Include="Assets\Shader\LiftRope.hlsl" />
     <FxCompile Include="Assets\Shader\CharaEggRing.hlsl" />
+    <FxCompile Include="Assets\Shader\Bird.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="wtgb\_Template\GameSystem-cpp.txt" />

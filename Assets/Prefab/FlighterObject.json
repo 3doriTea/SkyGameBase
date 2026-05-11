@@ -12,15 +12,7 @@
       "shader": "Shader/Bird.hlsl"
     },
     "ModelMesh": {
-      "fileName": "Models/Flighter/Bird.fbx",
       "modelMeshType": 5
     }
-  },
-  "Param": {
-    "modelsFileName": [
-      "Models/Flighter/Bird.fbx"
-    ],
-    "flighterCount": 5,
-    "findChairForwardOffset": 50.0
   }
 }
