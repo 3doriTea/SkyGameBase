@@ -21,6 +21,7 @@
       "Models/Flighter/Bird.fbx"
     ],
     "flighterCount": 5,
-    "findChairForwardOffset": 50.0
+    "findChairForwardOffset": 50.0,
+    "vFormationDistance": 5.0
   }
 }

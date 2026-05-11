@@ -189,6 +189,10 @@ void PlayScene::Update()
 		cpGameObject.FindGameObject(player)->Transform().SetPosition(pPos);
 	}
 
-	LOGFLN("light = {}, {}, {}", v[0], v[1], v[2]);
+
+	if (input.IsKey(KeyCode::LeftControl))
+	{
+		LOGFLN("light = {}, {}, {}", v[0], v[1], v[2]);
+	}
 #endif
 }

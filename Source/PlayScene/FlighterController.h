@@ -8,6 +8,13 @@
 /// </summary>
 class FlighterController : public GameObject
 {
+private:
+	struct VFormationPosition
+	{
+		float x;
+		float z;
+	};
+
 public:
 	FlighterController(const EntityId _liftStructure, const EntityId _player);
 	~FlighterController();
@@ -26,7 +33,18 @@ public:
 	void Release() override;
 
 private:
+	/// <summary>
+	/// パラメータを読み込む
+	/// </summary>
+	/// <param name="_json">パラメータJSON</param>
 	void OnLoadParam(const json& _json);
+
+	/// <summary>
+	/// 渡り鳥の逆V字編隊の座標を取得
+	/// </summary>
+	/// <param name="_index">インデクス</param>
+	/// <returns>y座標 z座標</returns>
+	VFormationPosition GetVFormationPosition(const uint32_t _index) const;
 
 private:
 	EntityId liftStructure_;                   // リフト本体
@@ -36,4 +54,5 @@ private:
 	float findChairForwardOffset_;             // 追従オブジェクト検索の前方向オフセット
 	std::vector<FlighterFlag> flighterFlags_;  // 追従オブジェクトのフラグ
 	std::vector<EntityId> flighterEntities_;   // 追従オブジェクトのエンティティ
+	float vFormationDistance_;                 // v字編隊を組む時の距離
 };

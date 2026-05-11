@@ -11,8 +11,8 @@ class FlighterObject : public GameObject
 public:
 	FlighterObject(
 		const EntityId _flighterController,
-		const EntityId _targetChair,
 		const EntityId _player,
+		const EntityId _targetChair,
 		const FlighterFlag _flag,
 		const ModelHandle _hModel);
 	~FlighterObject() {}
@@ -39,7 +39,11 @@ public:
 	/// <summary>
 	/// 追従を再開する
 	/// </summary>
-	void ReFollow();
+	void ReFollow(
+		const EntityId _targetChair,
+		const float _toPlayerX,
+		const float _toChairY,
+		const float _toChairZ);
 
 private:
 	/// <summary>
@@ -55,4 +59,16 @@ private:
 	ModelHandle hModel_;            // モデルのハンドル
 	FlighterFlag flag_;             // 飛行フラグ
 	bool isRangeOut_;               // 追従オブジェクトがプレイヤーから離れすぎたか
+	float moveRatioPerSec_;         // 1秒間あたりに追従するレート
+
+	union
+	{
+		struct
+		{
+			float playerX;  // オフセットX プレイヤーからのマージン
+			float chairY;   // オフセットY リフト椅子からのマージン
+			float chairZ;   // オフセットZ リフト椅子からのマージン
+		} toMargine_;
+		Vector3 offset_;    // ターゲットの椅子とのオフセット
+	};
 };

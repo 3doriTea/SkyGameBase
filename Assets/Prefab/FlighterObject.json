@@ -12,7 +12,11 @@
       "shader": "Shader/Bird.hlsl"
     },
     "ModelMesh": {
+      "fileName": "Models/Flighter/Bird.fbx",
       "modelMeshType": 5
     }
+  },
+  "Param": {
+    "moveRatioPerSec": 10.0
   }
 }
