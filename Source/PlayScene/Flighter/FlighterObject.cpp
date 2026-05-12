@@ -68,6 +68,12 @@ void FlighterObject::ReFollow(
 	toMargine_.chairY = _toChairY;
 	toMargine_.chairZ = _toChairZ;
 
+	LOGFLN(
+		"toMargine_[]: ({}, {}, {})",
+		toMargine_.playerX,
+		toMargine_.chairY,
+		toMargine_.chairZ);
+
 	GameObject* pPlayerObj{ FindGameObject(player_) };
 	wassert(pPlayerObj && "プレイヤーオブジェクトが見つからなかった");
 	GameObject* pTargetChair{ FindGameObject(targetChair_) };

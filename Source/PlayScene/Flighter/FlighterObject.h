@@ -61,14 +61,14 @@ private:
 	bool isRangeOut_;               // 追従オブジェクトがプレイヤーから離れすぎたか
 	float moveRatioPerSec_;         // 1秒間あたりに追従するレート
 
-	union
-	{
+	/*union
+	{*/
 		struct
 		{
 			float playerX;  // オフセットX プレイヤーからのマージン
 			float chairY;   // オフセットY リフト椅子からのマージン
 			float chairZ;   // オフセットZ リフト椅子からのマージン
 		} toMargine_;
-		Vector3 offset_;    // ターゲットの椅子とのオフセット
-	};
+		//Vector3 offset_;    // ターゲットの椅子とのオフセット
+	//};
 };

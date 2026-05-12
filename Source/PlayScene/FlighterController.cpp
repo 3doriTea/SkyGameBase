@@ -59,44 +59,37 @@ void FlighterController::Update()
 		if (foundChair != INVALID_ENTITY)
 		{
 			// 空きを線形探索する
-			uint32_t index{ 0 };
-			while (index < flighterCount_)
+			for (uint32_t index = 0; index < flighterCount_; index++)
 			{
+				// 見つかった！
 				if (flighterEntities_[index] == INVALID_ENTITY)
 				{
-					break;
-				}
-				index++;
-			}
+					EntityId flighterObject
+					{
+						GetScene()->Instantiate<FlighterObject>(
+							GetEntityId(),
+							player_,
+							foundChair,
+							static_cast<uint8_t>(0),
+							hModel_)
+					};
 
-			// 見つかった！
-			if (index < flighterCount_)
-			{
-				EntityId flighterObject
-				{
-					GetScene()->Instantiate<FlighterObject>(
-						GetEntityId(),
-						player_,
+					flighterEntities_[index] = flighterObject;
+
+					FlighterObject* pflighterObj{ FindGameObject<FlighterObject>(flighterObject) };
+					if (pflighterObj == nullptr)
+					{
+						wassert(false && "飛行オブジェクトの取得に失敗");
+					}
+
+					VFormationPosition vFormationPosition{ GetVFormationPosition(index) };
+
+					pflighterObj->ReFollow(
 						foundChair,
-						static_cast<uint8_t>(0),
-						hModel_)
-				};
-
-				flighterEntities_[index] = flighterObject;
-
-				FlighterObject* pflighterObj{ FindGameObject<FlighterObject>(flighterObject) };
-				if (pflighterObj == nullptr)
-				{
-					wassert(false && "飛行オブジェクトの取得に失敗");
+						vFormationPosition.x,
+						0.0f,
+						vFormationPosition.z);
 				}
-
-				VFormationPosition vFormationPosition{ GetVFormationPosition(index) };
-
-				pflighterObj->ReFollow(
-					foundChair,
-					vFormationPosition.x,
-					0.0f,
-					vFormationPosition.z);
 			}
 
 			GameObject* pChairObj{ FindGameObject(foundChair) };
@@ -141,8 +134,8 @@ FlighterController::VFormationPosition FlighterController::GetVFormationPosition
 {
 	VFormationPosition position{};
 
-	position.x = vFormationDistance_ * static_cast<float>(_index / 2);
-	position.z = vFormationDistance_ * position.x * static_cast<float>(_index % 2 == 1 ? 1 : -1);
+	position.z = vFormationDistance_ * static_cast<float>((_index + 1) / 2);
+	position.x = vFormationDistance_ * position.z * static_cast<float>(_index % 2 == 1 ? 1 : -1);
 
 	LOGFLN("VFormationPosition[{}]: ({}, {})", _index, position.x, position.z);
 

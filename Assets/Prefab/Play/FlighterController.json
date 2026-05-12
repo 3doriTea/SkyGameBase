@@ -22,6 +22,7 @@
     ],
     "flighterCount": 5,
     "findChairForwardOffset": 50.0,
-    "vFormationDistance": 5.0
+    "vFormationDistanceX": 10.0,
+    "vFormationDistanceZ": 30.0
   }
 }
