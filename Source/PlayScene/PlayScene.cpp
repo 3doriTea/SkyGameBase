@@ -65,15 +65,23 @@ void PlayScene::Start()
 	// シーンが始まったらスコアをリセットする
 	System().Get<ScoreManager>().ResetGameScore();
 
+#if _DEBUG
+	// デバッグ用の
 	Instantiate<Debugger>();
+#endif
 
+	// ドラッグして操作するUI
 	Instantiate<ControlUI>();
+	// 開始時のカウントダウン
 	Instantiate<CountDown>();
 
+	// ほとんど動的生成されるステージ
 	EntityId stageLine{ Instantiate<StageLine>(worldConfig_.stageLineConfig) };
 
+	// SMF 再生するもの
 	EntityId smfPlayer{ Instantiate<SMFPlayer>(worldConfig_.bgmFilePath) };
 
+	// リフト構造物全体
 	EntityId liftStructure{ Instantiate<LiftStructure>(stageLine, worldConfig_.lift.polePosX) };
 	
 	const float HALF{ 0.5f };  // 半分

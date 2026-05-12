@@ -37,7 +37,6 @@ void Debugger::Update()
 	{
 		gameTime.SetTimeStopped(false);
 	}
-
 }
 
 void Debugger::Release()

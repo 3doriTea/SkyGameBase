@@ -100,6 +100,7 @@
     <ClInclude Include="Source\ResultScene\WaterPool.h" />
     <ClInclude Include="Source\SMF\Note.h" />
     <ClInclude Include="Source\PlayScene\SpeedType.h" />
+    <ClInclude Include="Source\Systems\FaderSystem.h" />
     <ClInclude Include="Source\Systems\ScoreManager.h" />
     <ClInclude Include="Source\PlayScene\UI\CountDown.h" />
     <ClInclude Include="Source\SkySphere\SkySphere.h" />
@@ -415,6 +416,7 @@
     <ClCompile Include="Source\ResultScene\ResultScene.cpp" />
     <ClCompile Include="Source\ResultScene\UI\ResultPanel.cpp" />
     <ClCompile Include="Source\ResultScene\WaterPool.cpp" />
+    <ClCompile Include="Source\Systems\FaderSystem.cpp" />
     <ClCompile Include="Source\Systems\ScoreManager.cpp" />
     <ClCompile Include="Source\PlayScene\UI\CountDown.cpp" />
     <ClCompile Include="Source\SkySphere\SkySphere.cpp" />
