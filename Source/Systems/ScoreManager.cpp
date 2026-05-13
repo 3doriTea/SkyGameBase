@@ -4,7 +4,7 @@ ScoreManager::ScoreManager() :
 	currentScore_{ 0 },
 	maxScore_{ 0 },
 	gameScore_{},
-	isFailedGoal_{}
+	failedType_{ GameFailedType_None }
 {
 }
 
@@ -28,5 +28,5 @@ void ScoreManager::End()
 void ScoreManager::ResetGameScore()
 {
 	gameScore_ = {};
-	isFailedGoal_ = false;
+	failedType_ = GameFailedType_None;
 }

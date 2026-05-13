@@ -1,8 +1,12 @@
 #include "pch/pch.h"
 #include "StageLoader.h"
 
-StageLoader::StageLoader(std::vector<Vector2>& _points, float& _textureScale) :
+StageLoader::StageLoader(
+	std::vector<Vector2>& _points,
+	uint32_t* _pStartBaseEdgeIndex,
+	float& _textureScale) :
 	points_{ _points },
+	pStartBaseEdgeIndex_{ _pStartBaseEdgeIndex },
 	textureScale_{ _textureScale }
 {
 }
@@ -22,6 +26,12 @@ bool StageLoader::TryLoad(const fs::path& _fileName)
 
 	ifs >> j;
 	ifs.close();
+
+	// スタート土台の角っこインデックスがほしいなら提供する
+	if (pStartBaseEdgeIndex_)
+	{
+		*pStartBaseEdgeIndex_ = j.value("startBaseEdgeIndex", 1);
+	}
 
 	textureScale_ = j.value("textureScale", 20.0f);
 

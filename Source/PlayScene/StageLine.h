@@ -37,13 +37,27 @@ public:
 	/// <returns>ストッパー開始地点のz座標</returns>
 	inline float GetStopperStartPosZ() const { return stopperStartPosZ_; }
 
+	/// <summary>
+	/// スタート土台の開始高さ Y座標 を取得する
+	/// </summary>
+	/// <returns>高さ Y座標</returns>
+	inline float GetStartBeginPosY() const { return startBasePosY_; }
+	/// <summary>
+	/// スタート土台の開始地点 Z座標 を取得する
+	/// </summary>
+	/// <returns>地点 Z座標</returns>
+	inline float GetStartBeginPosZ() const { return startBasePosZ_; }
+
 	inline const std::vector<Vector2>& GetPoints() { return points_; }
 
 private:
 	std::vector<Vector2> points_;  // 各頂点の座標 (xy平面で考える)
 	StageMeshes stageMesh_;        // ステージのメッシュ情報
 	float stopperStartPosZ_;       // ストッパー開始地点のz座標
+	float startBasePosY_;         // スタート土台の開始地点 Z
+	float startBasePosZ_;         // スタート土台の高さ Y
 	float textureScale_;           // 地形のテクスチャスケール
 	StageLineConfig config_;       // ステージラインの設定
 	//StageMeshes stageMesh_;      // ステージメッシュ
+	uint32_t startBaseIndex_;      // スタート土台の角っこにあたる頂点インデクス
 };

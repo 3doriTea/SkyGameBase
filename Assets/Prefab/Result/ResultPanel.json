@@ -13,6 +13,7 @@
     "baseCanvasSize": [ 1920, 1080 ],
     "panelImageFileResult": "Image/Result/PanelV2.png",
     "panelImageFileFailed": "Image/Result/PanelFailed.png",
+    "panelImageFileWarning": "Image/Result/PanelWarning.png",
     "dragCirclePositionDown": [ 823, 703 ],
     "dragCirclePositionUp": [ 823, 873 ],
     "dragCircleSizePix": 100,

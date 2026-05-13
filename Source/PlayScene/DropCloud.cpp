@@ -239,6 +239,18 @@ void DropCloud::Init()
 
 void DropCloud::Update()
 {
+#pragma region プレイヤーがゴール不可能時にゴール失敗処理
+	if (!isFinished_)
+	{
+		if (CheckIsFallOutStart())
+		{
+			// スタート土台より前のほうに落ちてしまったなら、失敗
+			System().Get<ScoreManager>().FailedGoal(GameFailedType_OutFallStart);
+			MoveResultScene();
+		}
+	}
+#pragma endregion
+
 	PlayState* playState{ FindGameObject<PlayState>(playState_) };
 	if (playState && playState->GetState() != PlayState::Type::Falling)
 	{
@@ -285,47 +297,18 @@ void DropCloud::Update()
 		&& isFinished_ == false
 		&& pSMFPlayer->IsFinished())
 	{
-		isFinished_ = true;
-
-
-		System().Get<Alarm>().Add([this]
-			{
-				if (System().Get<ScoreManager>().IsFailedGoal()
-					== false)  // ゴール失敗していない！
-				{
-					FaderController* pFaderController{ FindGameObject<FaderController>(faderController_) };
-					pFaderController->Hide([this]
-						{
-							// 時間が経ったら結果シーンに遷移する
-							System()
-								.Get<SceneManager>()
-								.Move<ResultScene>();
-						});
-				}
-			},
-			toResultSceneTime_);
+		MoveResultScene();
 	}
 #pragma endregion
 
 #pragma region プレイヤーがゴール不可能時にゴール失敗処理
 	if (!isFinished_)
 	{
-		const float STOPPER_POS_Z{ pStageLine->GetStopperStartPosZ() };
-		Vector3 playerPosition{ pPlayer->Transform().GetPosition() };
-		if (playerPosition.z >= STOPPER_POS_Z
-			&& isFinished_ == false)
+		if (CheckIsOutStopper())
 		{
-			isFinished_ = true;
 			// ストッパーに侵入してしまったなら、失敗
-			System().Get<ScoreManager>().FailedGoal();
-			System().Get<Alarm>().Add([this]
-				{
-					// 時間が経ったら結果シーンに遷移する
-					System()
-						.Get<SceneManager>()
-						.Move<ResultScene>();
-				},
-				toResultSceneTime_);
+			System().Get<ScoreManager>().FailedGoal(GameFailedType_OutStopper);
+			MoveResultScene();
 		}
 	}
 #pragma endregion
@@ -481,4 +464,79 @@ void DropCloud::Update()
 
 void DropCloud::Release()
 {
+}
+
+bool DropCloud::CheckIsOutStopper()
+{
+	if (isFinished_)
+	{
+		return false;
+	}
+
+	Player* pPlayer{ FindGameObject<Player>(player_) };
+	wassert(pPlayer && u8"プレイヤーが見つからなかった");
+
+	StageLine* pStageLine{ FindGameObject<StageLine>(stageLine_) };
+	wassert(pStageLine && u8"ステージラインが見つからなかった");
+
+	if (!pPlayer || !pStageLine)
+	{
+		// どちらか片方が見つからなければストッパー越えていない判定
+		return false;
+	}
+
+	const float STOPPER_POS_Z{ pStageLine->GetStopperStartPosZ() };
+	Vector3 playerPosition{ pPlayer->Transform().GetPosition() };
+	
+	return playerPosition.z >= STOPPER_POS_Z;
+}
+
+bool DropCloud::CheckIsFallOutStart()
+{
+	if (isFinished_)
+	{
+		return false;
+	}
+
+	Player* pPlayer{ FindGameObject<Player>(player_) };
+	wassert(pPlayer && u8"プレイヤーが見つからなかった");
+
+	StageLine* pStageLine{ FindGameObject<StageLine>(stageLine_) };
+	wassert(pStageLine && u8"ステージラインが見つからなかった");
+
+	if (!pPlayer || !pStageLine)
+	{
+		// どちらか片方が見つからなければ落ちていない判定
+		return false;
+	}
+
+	const float START_PLANE_POS_Y{ pStageLine->GetStartBeginPosY() };
+	const float START_PLANE_POS_Z{ pStageLine->GetStartBeginPosZ() };
+	Vector3 playerPosition{ pPlayer->Transform().GetPosition() };
+
+	// スタート土台より落ちてしまった
+	return playerPosition.y <= START_PLANE_POS_Y
+		&& playerPosition.z <= START_PLANE_POS_Z;
+}
+
+void DropCloud::MoveResultScene()
+{
+	if (isFinished_)
+	{
+		return;  // 既に別の処理でシーン終了していたら無視
+	}
+	
+	isFinished_ = true;
+	System().Get<Alarm>().Add([this]
+		{
+			FaderController* pFaderController{ FindGameObject<FaderController>(faderController_) };
+			pFaderController->Hide([this]
+				{
+					// 時間が経ったら結果シーンに遷移する
+					System()
+						.Get<SceneManager>()
+						.Move<ResultScene>();
+				});
+		},
+		toResultSceneTime_);
 }

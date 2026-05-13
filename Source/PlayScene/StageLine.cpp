@@ -4,6 +4,12 @@
 
 using namespace wtgb;
 
+namespace
+{
+	// スタート土台の直角部分、落ちてしまう崖っぷちのインデックス
+	static const uint32_t StartBaseRightAngleIndex{};
+}
+
 StageLine::StageLine(const StageLineConfig& _config) :
 	GameObject
 	{
@@ -42,7 +48,11 @@ StageLine::StageLine(const StageLineConfig& _config) :
 	},
 	config_{ _config },
 	textureScale_{ 0.0f },
-	stageMesh_{ points_, textureScale_ }
+	stageMesh_{ points_, textureScale_ },
+	stopperStartPosZ_{},
+	startBasePosY_{},
+	startBasePosZ_{},
+	startBaseIndex_{}
 {
 	Transform().SetScale(config_.stageScale);
 }
@@ -55,7 +65,7 @@ void StageLine::Init()
 {
 	Collider& collider{ GetComponent<Collider>() };
 
-	StageLoader stageLoader{ points_, textureScale_ };
+	StageLoader stageLoader{ points_, &startBaseIndex_, textureScale_ };
 	bool succeed{ stageLoader.TryLoad("StageData.json") };
 	wassert(succeed && "タイトル山のデータ読み込みに失敗");
 
@@ -67,6 +77,12 @@ void StageLine::Init()
 		last = points_.at(points_.size() - 1);
 		points_.push_back({ last.x + (random.Rand() * config_.randRangeX), last.y + random.Rand() * config_.randRangeY });
 	}
+
+	// 開始地点土台の端っこを記録
+	// NOTE: インデクスが範囲外かもしれないのであえて at メンバ関数を使用
+	//     : 最初の初期化処理だから処理増えても問題ないと考えた
+	startBasePosY_ = points_.at(startBaseIndex_).y;
+	startBasePosZ_ = points_.at(startBaseIndex_).x;
 
 	points_.at(points_.size() - 1).y = config_.goalHeight;
 	last = points_.at(points_.size() - 1);

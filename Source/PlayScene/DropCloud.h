@@ -39,6 +39,24 @@ public:
 
 private:
 	/// <summary>
+	/// ストッパーを超えてしまったか
+	/// </summary>
+	/// <returns>超えてしまった true / false</returns>
+	bool CheckIsOutStopper();
+
+	/// <summary>
+	/// スタートを逆走して落ちてしまったか
+	/// </summary>
+	/// <returns>落ちてしまった true / false</returns>
+	bool CheckIsFallOutStart();
+
+	/// <summary>
+	/// 結果シーンに遷移する
+	/// </summary>
+	void MoveResultScene();
+
+private:
+	/// <summary>
 	/// jsonからパラメータを読み込む
 	/// </summary>
 	/// <param name="_json">パラメータの json</param>

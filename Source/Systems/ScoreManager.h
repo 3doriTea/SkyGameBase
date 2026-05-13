@@ -1,6 +1,7 @@
 #pragma once
 #include <wtgb.h>
 #include "GameScore.h"
+#include "GameFailedType.h"
 
 
 /// <summary>
@@ -31,13 +32,30 @@ public:
 	/// <summary>
 	/// ゴールできずに失敗
 	/// </summary>
-	inline void FailedGoal() { isFailedGoal_ = true; }
+	/// <param name="_failedType">失敗の種類</param>
+	inline void FailedGoal(const GameFailedType _failedType)
+	{
+		failedType_ = _failedType;
+	}
 
 	/// <summary>
 	/// ゴールできずに失敗したかを取得
 	/// </summary>
 	/// <returns>ゴールできずに失敗 true / false</returns>
-	inline bool IsFailedGoal() const { return isFailedGoal_; }
+	inline bool IsFailedGoal() const
+	{
+		// 失敗していない ではないなら失敗
+		return failedType_ != GameFailedType_None;
+	}
+
+	/// <summary>
+	/// 失敗した種類を取得
+	/// </summary>
+	/// <returns>失敗した種類</returns>
+	inline GameFailedType GetFailedType() const
+	{
+		return failedType_;
+	}
 
 	/// <summary>
 	/// 現在のスコア値を取得
@@ -60,5 +78,5 @@ private:
 
 	GameScore gameScore_;  // ゲームのスコア
 
-	bool isFailedGoal_;  // ゴールできずに失敗か true / false
+	GameFailedType failedType_;  // クリアできずに失敗した種類
 };

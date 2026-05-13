@@ -56,18 +56,30 @@ void ResultPanel::Init()
 		return;  // 結果シーンの取得に失敗すると何もできない
 	}
 
-	if (System().Get<ScoreManager>().IsFailedGoal())
+	// 各失敗に応じた表示
+	switch (System().Get<ScoreManager>().GetFailedType())
 	{
+	case GameFailedType_OutFallStart:
+		hPanelImage_ = System().Get<ResourceSystem>().LoadTexture(panelImageFileWarning_);
+		isShowResult_ = false;  // 結果表示は行わない
+		break;
+	case GameFailedType_OutStopper:
 		hPanelImage_ = System().Get<ResourceSystem>().LoadTexture(panelImageFileFailed_);
 		isShowResult_ = false;  // 結果表示は行わない
-		return;  // 失敗時の表示のみでほかは非表示
-	}
-	else  // 通常は結果表示
-	{
+		break;
+	case GameFailedType_None:  // 失敗していない
+	default:
 		hPanelImage_ = System().Get<ResourceSystem>().LoadTexture(panelImageFileResult_);
 		isShowResult_ = true;  // 結果表示を行う
+		break;
 	}
 
+	// 表示しないなら非表示
+	if (isShowResult_ == false)
+	{
+		return;  
+	}
+	
 	for (GameScore::ScoreType type{}; type < GameScore::ScoreType_Max; type++)
 	{
 		stringPlate_[type] = pResultScene->Instantiate<StringPlate>(
@@ -185,6 +197,7 @@ void ResultPanel::OnLoadParam(const json& _json)
 	_json.at("baseCanvasSize").get_to(baseCanvasSize_);
 	_json.at("panelImageFileResult").get_to(panelImageFileResult_);
 	_json.at("panelImageFileFailed").get_to(panelImageFileFailed_);
+	_json.at("panelImageFileWarning").get_to(panelImageFileWarning_);
 	_json.at("dragCirclePositionDown").get_to(dragCirclePositionDown_);
 	_json.at("dragCirclePositionUp").get_to(dragCirclePositionUp_);
 	_json.at("dragCircleSizePix").get_to(dragCircleSizePix_);

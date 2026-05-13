@@ -36,6 +36,7 @@
     <ClInclude Include="Library\mtbin\mtbin.h" />
     <ClInclude Include="Library\mtbin\Util.h" />
     <ClInclude Include="pch\framework.h" />
+    <ClInclude Include="Source\GameFailedType.h" />
     <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />

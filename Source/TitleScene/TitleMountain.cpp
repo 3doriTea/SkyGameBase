@@ -47,7 +47,7 @@ void TitleMountain::Init()
 {
 	Collider& collider{ GetComponent<Collider>() };
 
-	StageLoader stageLoader{ points_, textureScale_ };
+	StageLoader stageLoader{ points_, nullptr, textureScale_ };
 	bool succeed{ stageLoader.TryLoad("TitleMountain.json") };
 	wassert(succeed && "タイトル山のデータ読み込みに失敗");
 
