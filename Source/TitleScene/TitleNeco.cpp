@@ -82,7 +82,7 @@ void TitleNeco::OnLoadParam(const json& _json)
 	moveRatioConfig_.moveRatioMin = SafeGet<float>(moveRatioConfigJson, "moveRatioMin");
 	moveRatioConfig_.moveRatioMax = SafeGet<float>(moveRatioConfigJson, "moveRatioMax");
 
-	toPlaySceneTime_ = _json.value("toPlaySceneTime", 0.5);
+	toPlaySceneTime_ = _json.value("toPlaySceneTime", 0.5f);
 }
 
 void TitleNeco::Init()

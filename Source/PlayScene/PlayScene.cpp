@@ -149,6 +149,14 @@ void PlayScene::Update()
 	{
 		System().Get<SceneManager>().Move<PlayScene>();
 	}
+	if (input.IsKeyDown(KeyCode::Y))
+	{
+		System().Get<GameTime>().SetTimeScale(3.0f);
+	}
+	if (input.IsKeyUp(KeyCode::Y))
+	{
+		System().Get<GameTime>().SetTimeScale(1.0f);
+	}
 #endif
 
 	// 左コントロール押しながらエスケープでゲームを閉じる

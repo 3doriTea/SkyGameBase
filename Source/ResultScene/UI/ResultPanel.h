@@ -8,7 +8,7 @@
 class ResultPanel : public GameObject
 {
 public:
-	ResultPanel();
+	ResultPanel(const EntityId _faderController);
 	~ResultPanel();
 
 	void Init() override;
@@ -19,6 +19,8 @@ private:
 	void OnLoadParam(const json& _json);
 
 private:
+	EntityId faderController_;
+
 	Vector2Int baseCanvasSize_;          // UI設計時のキャンバスサイズ
 	std::string panelImageFileResult_;         // パネルの画像ファイルパス
 	std::string panelImageFileFailed_;         // パネルの画像ファイルパス

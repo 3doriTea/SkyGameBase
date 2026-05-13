@@ -294,7 +294,7 @@ void DropCloud::Update()
 					== false)  // ゴール失敗していない！
 				{
 					FaderController* pFaderController{ FindGameObject<FaderController>(faderController_) };
-					pFaderController->Show([this]
+					pFaderController->Hide([this]
 						{
 							// 時間が経ったら結果シーンに遷移する
 							System()

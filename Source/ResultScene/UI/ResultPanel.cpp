@@ -4,9 +4,10 @@
 #include "TitleScene/TitleScene.h"
 #include "UI/StringPlate.h"
 #include "../../Systems/ScoreManager.h"
+#include "../../FaderController.h"
 
 
-ResultPanel::ResultPanel() :
+ResultPanel::ResultPanel(const EntityId _faderController) :
 	GameObject{ "Result/ResultPanel.json" },
 	baseCanvasSize_{},
 	panelImageFileResult_{},
@@ -20,7 +21,8 @@ ResultPanel::ResultPanel() :
 	isDrag_{ false },
 	moveRatio_{},
 	toTitleTime_{},
-	isShowResult_{}
+	isShowResult_{},
+	faderController_{ _faderController }
 {
 }
 
@@ -33,11 +35,19 @@ void ResultPanel::Init()
 	OnLoadParam(GetComponent<Parameter>().Load());
 	Vector2Int screenSize{ System().Get<GameWindow>().GetMainWindowSize() };
 
-	System().Get<Alarm>().Add([this]
-		{
-			System().Get<SceneManager>().Move<TitleScene>();
-		},
-		toTitleTime_);
+	FaderController* pFaderController{ FindGameObject<FaderController>(faderController_) };
+	wassert(pFaderController && "フェーダコントローラが見つからなかった");
+	if (pFaderController)
+	{
+		System().Get<Alarm>().Add([this, pFaderController]
+			{
+				pFaderController->Hide([this]
+					{
+						System().Get<SceneManager>().Move<TitleScene>();
+					});
+			},
+			toTitleTime_);
+	}
 
 	ResultScene* pResultScene{ GetScene<ResultScene>() };
 	wassert(pResultScene && "結果シーンの取得に失敗");
