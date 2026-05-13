@@ -18,19 +18,31 @@ class TitleNeco : public GameObject
 		float moveRatioMax;
 	};
 
+	/// <summary>
+	/// タイトル表示の猫の画像集
+	/// </summary>
 	enum IMAGE
 	{
-		I_HAND,
-		I_HANG,
-		I_NORM,
-		I_MAX,
+		I_HAND,  // 手の部分
+		I_HANG,  // 引っ張られている胴体
+		I_NORM,  // 普通の胴体
+		I_MAX,   // 総数
 	};
 public:
-	TitleNeco(const EntityId _dragCircle);
+	TitleNeco(const EntityId _dragCircle, const EntityId _fader);
 	~TitleNeco();
 
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
 	void Init() override;
+	/// <summary>
+	/// 更新処理
+	/// </summary>
 	void Update() override;
+	/// <summary>
+	/// 解放処理
+	/// </summary>
 	void Release() override;
 
 	/// <summary>
@@ -46,6 +58,11 @@ private:
 	/// <param name="_json">パラメータのjson</param>
 	void OnLoadParam(const json& _json);
 
+	/// <summary>
+	/// ボタンが押された
+	/// </summary>
+	void OnPush();
+
 private:
 	TextureHandle hImages_[IMAGE::I_MAX];
 	float moveRatio_;  // ムーブレート
@@ -56,8 +73,10 @@ private:
 	EntityId dragPoint_;   // ドラッグして掴む円
 	EntityId playButton_;  // プレイボタン
 
-	TextureHandle hButtonOff_;
-	TextureHandle hButtonOn_;
+	EntityId fader_;  // フェーダー
+
+	TextureHandle hButtonOff_;  // ボタン画像 Off
+	TextureHandle hButtonOn_;   // ボタン画像 On
 
 	std::string playToneAudioFile_;  // トーンとして流す音のファイルパス
 
@@ -73,4 +92,6 @@ private:
 	int dragCircleOffsetX_;                 // ドラッグ円のx座標
 	int dragCircleOffsetXPP_;               // ドラッグ円のx座標++
 	float dragCircleOffsetScreenSizeYDiv_;  // ドラッグ円のy座標 スクリーンサイズyとの割合
+
+	float toPlaySceneTime_;  // プレイシーンに遷移するまでの時間
 };

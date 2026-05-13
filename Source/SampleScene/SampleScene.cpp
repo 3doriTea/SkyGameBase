@@ -31,7 +31,7 @@ void SampleScene::Start()
 	EntityId dragCircle{ Instantiate<DragCircle>() };
 	//Instantiate<SMFPlayer>("Sound/gekkou1-rei.MID");
 	//Instantiate<SMFPlayer>("Sound/entertainer.mid");
-	Instantiate<TitleNeco>(dragCircle);
+	//Instantiate<TitleNeco>(dragCircle);
 
 	System().Get<Camera>().position_ = { 0, 0, -10.0f };
 	System().Get<Camera>().targetPosition_ = { 0, 0, 0 };

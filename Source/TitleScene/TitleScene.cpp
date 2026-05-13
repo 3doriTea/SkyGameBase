@@ -13,11 +13,13 @@
 #include "PlayScene/PlayScene.h"
 #include "ResultScene/ResultScene.h"
 #include "Systems/ScoreManager.h"
+#include "Systems/FaderSystem.h"
 
 #include "SkySphere/SkySphere.h"
 
 #include "wtgb/GameSystem/DirectionalLight.h"
 
+#include "../FaderController.h"
 
 TitleScene::TitleScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) }
@@ -34,8 +36,11 @@ void TitleScene::Start()
 
 	Instantiate<MusicPlayer>();
 
+	// フェーダ制御
+	EntityId faderController{ Instantiate<FaderController>() };
+
 	EntityId dragCircle{ Instantiate<DragCircle>() };
-	EntityId titleNeco{ Instantiate<TitleNeco>(dragCircle) };
+	EntityId titleNeco{ Instantiate<TitleNeco>(dragCircle, faderController) };
 	EntityId camera{ Instantiate<TitleCamera>(titleNeco) };
 	
 	// タイトルテキスト

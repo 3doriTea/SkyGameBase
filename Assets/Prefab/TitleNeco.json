@@ -35,6 +35,7 @@
       "dtDiv": 3.0,
       "moveRatioMin": 0.0,
       "moveRatioMax": 1.0
-    }
+    },
+    "toPlaySceneTime": 2.0
   }
 }

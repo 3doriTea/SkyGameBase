@@ -14,6 +14,7 @@
 #include "UI/MiniCharaManager.h"
 #include "UI/PerfectTimer.h"
 #include "Systems/ScoreManager.h"
+#include "../FaderController.h"
 
 
 DropCloud::DropCloud(
@@ -22,13 +23,15 @@ DropCloud::DropCloud(
 	const EntityId _stageLine,
 	const EntityId _playState,
 	const EntityId _speedController,
-	const EntityId _miniCharaManager) :
+	const EntityId _miniCharaManager,
+	const EntityId _faderController) :
 	GameObject{ "DropCloud.json" },
 	smfPlayer_{ _smfPlayer },
 	player_{ _gamePlayer },
 	stageLine_{ _stageLine },
 	playState_{ _playState },
 	miniCharaManager_{ _miniCharaManager },
+	faderController_{ _faderController },
 	offsetHeight_{},
 	dropDistanceZ_{},
 	speedController_{ _speedController },
@@ -283,15 +286,21 @@ void DropCloud::Update()
 		&& pSMFPlayer->IsFinished())
 	{
 		isFinished_ = true;
+
+
 		System().Get<Alarm>().Add([this]
 			{
 				if (System().Get<ScoreManager>().IsFailedGoal()
 					== false)  // ゴール失敗していない！
 				{
-					// 時間が経ったら結果シーンに遷移する
-					System()
-						.Get<SceneManager>()
-						.Move<ResultScene>();
+					FaderController* pFaderController{ FindGameObject<FaderController>(faderController_) };
+					pFaderController->Show([this]
+						{
+							// 時間が経ったら結果シーンに遷移する
+							System()
+								.Get<SceneManager>()
+								.Move<ResultScene>();
+						});
 				}
 			},
 			toResultSceneTime_);

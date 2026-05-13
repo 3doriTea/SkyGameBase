@@ -5,10 +5,11 @@
 #include "../UI/Button.h"
 #include "TitleScene.h"
 #include "../PlayScene/PlayScene.h"
+#include "../FaderController.h"
 
 // TODO: タイトル猫が持ちすぎてるから分ける
 
-TitleNeco::TitleNeco(const EntityId _dragCircle) :
+TitleNeco::TitleNeco(const EntityId _dragCircle, const EntityId _fader) :
 	GameObject{ "TitleNeco.json" },
 	hImages_{},
 	isDrag_{ false },
@@ -27,7 +28,9 @@ TitleNeco::TitleNeco(const EntityId _dragCircle) :
 	dragCircleOffsetX_{},
 	dragCircleOffsetXPP_{},
 	dragCircleOffsetScreenSizeYDiv_{},
-	uiLayoutConfigOrder_{}
+	uiLayoutConfigOrder_{},
+	fader_{ _fader },
+	toPlaySceneTime_{}
 {
 }
 
@@ -79,6 +82,7 @@ void TitleNeco::OnLoadParam(const json& _json)
 	moveRatioConfig_.moveRatioMin = SafeGet<float>(moveRatioConfigJson, "moveRatioMin");
 	moveRatioConfig_.moveRatioMax = SafeGet<float>(moveRatioConfigJson, "moveRatioMax");
 
+	toPlaySceneTime_ = _json.value("toPlaySceneTime", 0.5);
 }
 
 void TitleNeco::Init()
@@ -99,10 +103,6 @@ void TitleNeco::Init()
 	DragCircle* pDragCircle{ dynamic_cast<DragCircle*>(FindGameObject(dragPoint_)) };
 
 	pDragCircle->SetRadius(dragCircleRadius_);
-	pDragCircle->OnClickIn([]
-		{
-			
-		});
 
 #pragma region プレイボタン
 	playButton_ = pTitleScene->Instantiate<Button>();
@@ -234,7 +234,7 @@ void TitleNeco::Update()
 			});
 		if (pPlayButton->IsPushedFrame())
 		{
-			System().Get<SceneManager>().Move<PlayScene>();
+			OnPush();
 		}
 	}
 }
@@ -243,3 +243,20 @@ void TitleNeco::Release()
 {
 }
 
+void TitleNeco::OnPush()
+{
+	FaderController* pFaderController{ FindGameObject<FaderController>(fader_) };
+	wassert(pFaderController && "フェーダコントローラが見つからなかった");
+	if (pFaderController)
+	{
+		pFaderController->Hide();
+		System().Get<Alarm>().Add([this]
+			{
+				// 時間が経ったら結果シーンに遷移する
+				System()
+					.Get<SceneManager>()
+					.Move<PlayScene>();
+			},
+			toPlaySceneTime_);
+	}
+}

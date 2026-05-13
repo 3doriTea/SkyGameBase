@@ -39,6 +39,7 @@
     <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Source\Components\ItemAnim.h" />
     <ClInclude Include="Source\Components\ItemAnim\ItemType.h" />
+    <ClInclude Include="Source\FaderController.h" />
     <ClInclude Include="Source\GameScore.h" />
     <ClInclude Include="Source\JsonUnitLoaderBase.h" />
     <ClInclude Include="Source\PlayScene\CloudLevel.h" />
@@ -362,6 +363,7 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/MP1 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ClCompile Include="Source\Components\ItemAnim.cpp" />
+    <ClCompile Include="Source\FaderController.cpp" />
     <ClCompile Include="Source\GameScore.cpp" />
     <ClCompile Include="Source\JsonUnitLoaderBase.cpp" />
     <ClCompile Include="Source\PlayScene\BallSphere.cpp" />
@@ -541,6 +543,7 @@
     <None Include="Assets\Prefab\CharaBall.json" />
     <None Include="Assets\Prefab\CharaEgg.json" />
     <None Include="Assets\Prefab\CountDown.json" />
+    <None Include="Assets\Prefab\FaderController.json" />
     <None Include="Assets\Prefab\FlighterObject.json" />
     <None Include="Assets\Prefab\LiftChair.json" />
     <None Include="Assets\Prefab\LiftChild.json" />

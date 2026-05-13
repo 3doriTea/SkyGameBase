@@ -33,6 +33,8 @@
 #include "FlighterController.h"
 #include "WorldConfigJsonLoader.h"
 
+#include "../FaderController.h"
+
 
 PlayScene::PlayScene(GameScene::Config&& _config) :
 	GameScene{ std::move(_config) },
@@ -69,6 +71,8 @@ void PlayScene::Start()
 	// デバッグ用の
 	Instantiate<Debugger>();
 #endif
+
+	EntityId faderController{ Instantiate<FaderController>() };
 
 	// ドラッグして操作するUI
 	Instantiate<ControlUI>();
@@ -118,7 +122,7 @@ void PlayScene::Start()
 	// スピードを管理するやつ
 	EntityId speedController{ Instantiate<SpeedController>(player) };
 	
-	EntityId dropCloud{ Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController, miniCharaManager) };
+	EntityId dropCloud{ Instantiate<DropCloud>(smfPlayer, player, stageLine, playState, speedController, miniCharaManager, faderController) };
 
 	Instantiate<SpeedMessage>(speedController);
 

@@ -29,7 +29,8 @@ public:
 		const EntityId _stageLine,
 		const EntityId _playState,
 		const EntityId _speedController,
-		const EntityId _miniCharaManager);
+		const EntityId _miniCharaManager,
+		const EntityId _faderController);
 	~DropCloud();
 
 	void Init() override;
@@ -56,6 +57,7 @@ private:
 	EntityId playState_;         // プレイ状態
 	EntityId speedController_;   // プレイ状態
 	EntityId miniCharaManager_;  // ミニキャラ統括
+	EntityId faderController_;   // フェーダコントローラ
 
 	float toResultSceneTime_;  // 再生終了後、結果シーンに遷移するまでの秒数
 	float offsetHeight_;  // 地上からの高さ

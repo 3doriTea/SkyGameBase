@@ -831,6 +831,9 @@
     <ClInclude Include="Source\Systems\FaderSystem.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FaderController.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1376,6 +1379,9 @@
     <ClCompile Include="Source\Systems\FaderSystem.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FaderController.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1473,6 +1479,7 @@
     <None Include="Assets\Prefab\PT\PerformanceReader.json" />
     <None Include="Assets\Prefab\LiftChair.json" />
     <None Include="Assets\Prefab\FlighterObject.json" />
+    <None Include="Assets\Prefab\FaderController.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
