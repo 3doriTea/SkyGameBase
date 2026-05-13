@@ -19,7 +19,8 @@ wtgb::Direct3D::Direct3D() :
 	pResource_{ std::make_unique<Direct3DResource>(D3D_RESOURCE_CONFIG) },
 	resourceAccessor_{ this },
 	system_{ nullptr },
-	renderCallbacks_{}
+	renderCallbacks_{},
+	renderSkipperOnce_{ true }
 {
 }
 
@@ -306,6 +307,13 @@ void wtgb::Direct3D::End()
 
 void wtgb::Direct3D::Render()
 {
+	if (renderSkipperOnce_)
+	{
+		// ゲーム起動時の1フレームはちらつき防止のため捨てる
+		renderSkipperOnce_ = false;
+		return;
+	}
+
 	for (auto& callback : renderCallbacks_)
 	{
 		callback();  // 描画直前の処理

@@ -3,7 +3,7 @@
 
 FaderSystem::FaderSystem() :
 	hImage_{ INVALID_HANDLE },
-	alpha_{ 1.0f },
+	alpha_{ 0.0f },
 	fadeType_{ FadeType::FadeOut },
 	timeLeft_{ 0.0f },
 	maxTimeSec_{ 1.0f }

@@ -101,5 +101,7 @@ namespace wtgb
 
 		ViewerCached system_;  // システムアクセス用
 		ResourceAccessor resourceAccessor_;  // リソースへのアクセッサ
+
+		bool renderSkipperOnce_;  // 開始時最初のフレームだけレンダリングをスキップする
 	};
 }
