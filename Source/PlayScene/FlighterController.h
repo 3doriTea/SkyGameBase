@@ -54,5 +54,6 @@ private:
 	float findChairForwardOffset_;             // 追従オブジェクト検索の前方向オフセット
 	std::vector<FlighterFlag> flighterFlags_;  // 追従オブジェクトのフラグ
 	std::vector<EntityId> flighterEntities_;   // 追従オブジェクトのエンティティ
-	float vFormationDistance_;                 // v字編隊を組む時の距離
+	float vFormationDistanceX_;                 // v字編隊を組む時の距離 x
+	float vFormationDistanceZ_;                 // v字編隊を組む時の距離 z
 };

@@ -16,7 +16,8 @@ FlighterController::FlighterController(
 	flighterCount_{},
 	flighterFlags_{},
 	flighterEntities_{},
-	vFormationDistance_{}
+	vFormationDistanceX_{},
+	vFormationDistanceZ_{}
 {
 }
 
@@ -111,7 +112,8 @@ void FlighterController::OnLoadParam(const json& _json)
 {
 	flighterCount_ = _json.value("flighterCount", 5);
 	findChairForwardOffset_ = _json.value("findChairForwardOffset", 30.0f);
-	vFormationDistance_ = _json.value("vFormationDistance", 30.0f);
+	vFormationDistanceX_ = _json.value("vFormationDistanceX", 5.0f);
+	vFormationDistanceZ_ = _json.value("vFormationDistanceX", 5.0f);
 
 	size_t modelsCount{ _json["modelsFileName"].size() };
 
@@ -134,8 +136,8 @@ FlighterController::VFormationPosition FlighterController::GetVFormationPosition
 {
 	VFormationPosition position{};
 
-	position.z = vFormationDistance_ * static_cast<float>((_index + 1) / 2);
-	position.x = vFormationDistance_ * position.z * static_cast<float>(_index % 2 == 1 ? 1 : -1);
+	position.z = vFormationDistanceZ_ * static_cast<float>((_index + 1) / 2);
+	position.x = vFormationDistanceX_ * position.z * static_cast<float>(_index % 2 == 1 ? 1 : -1);
 
 	LOGFLN("VFormationPosition[{}]: ({}, {})", _index, position.x, position.z);
 
