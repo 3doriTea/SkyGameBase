@@ -3,12 +3,35 @@
 #include "TitleScene.h"
 
 MusicPlayer::MusicPlayer() :
-	GameObject{ "MusicPlayer.json" }
+	GameObject{ "MusicPlayer.json" },
+	smfPlayer_{ INVALID_ENTITY },
+	smfPath_{},
+	toneAudioFilePath_{}
 {
 }
 
 MusicPlayer::~MusicPlayer()
 {
+}
+
+void MusicPlayer::StopAndClear()
+{
+	Stop();
+	// 再生中の音をクリア
+	System().Get<Audio>().ClearAll();
+}
+
+void MusicPlayer::Stop()
+{
+	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
+	wassert(pSMFPlayer && "SMFPlayerが見つからなかった");
+	if (pSMFPlayer == nullptr)
+	{
+		return;  // SMFPlayerの取得に失敗すると何もできない
+	}
+
+	// 再生停止
+	pSMFPlayer->Stop();
 }
 
 void MusicPlayer::OnLoadParam(const json& _json)
@@ -31,11 +54,14 @@ void MusicPlayer::Init()
 	}
 
 	// smf プレイヤーを登場させる
-	EntityId smfPlayer
+	smfPlayer_ = pTitleScene->Instantiate<SMFPlayer>(smfPath_);
+	SMFPlayer* pSMFPlayer{ FindGameObject<SMFPlayer>(smfPlayer_) };
+	wassert(pSMFPlayer && "インスタンスしたはずのSMFPlayerが見つからなかった");
+	if (pSMFPlayer == nullptr)
 	{
-		pTitleScene->Instantiate<SMFPlayer>(smfPath_)
-	};
-	SMFPlayer* pSMFPlayer{ dynamic_cast<SMFPlayer*>(FindGameObject(smfPlayer)) };
+		return;  // SMFPlayerの取得に失敗すると何もできない
+	}
+
 
 	// ノーツ再生時の音源読み込み && セット
 	pSMFPlayer->SetToneAudioHandle(

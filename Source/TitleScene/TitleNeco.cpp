@@ -1,20 +1,26 @@
 #include "pch/pch.h"
+#include "TitleScene.h"
 #include "TitleNeco.h"
+#include "MusicPlayer.h"
 #include "../SMF/SMFPlayer.h"
 #include "../UI/DragCircle.h"
 #include "../UI/Button.h"
-#include "TitleScene.h"
 #include "../PlayScene/PlayScene.h"
 #include "../FaderController.h"
 
 // TODO: タイトル猫が持ちすぎてるから分ける
 
-TitleNeco::TitleNeco(const EntityId _dragCircle, const EntityId _fader) :
+TitleNeco::TitleNeco(
+	const EntityId _dragCircle,
+	const EntityId _fader,
+	const EntityId _musicPlayer) :
 	GameObject{ "TitleNeco.json" },
 	hImages_{},
 	isDrag_{ false },
 	moveRatio_{},
 	dragPoint_{ _dragCircle },
+	fader_{ _fader },
+	musicPlayer_{ _musicPlayer },
 	playButton_{ INVALID_ENTITY },
 	playButtonShowPos_{},
 	playToneAudioFile_{},
@@ -29,7 +35,6 @@ TitleNeco::TitleNeco(const EntityId _dragCircle, const EntityId _fader) :
 	dragCircleOffsetXPP_{},
 	dragCircleOffsetScreenSizeYDiv_{},
 	uiLayoutConfigOrder_{},
-	fader_{ _fader },
 	toPlaySceneTime_{}
 {
 }
@@ -258,5 +263,13 @@ void TitleNeco::OnPush()
 					.Move<PlayScene>();
 			},
 			toPlaySceneTime_);
+
+		MusicPlayer* pMusicPlayer{ FindGameObject<MusicPlayer>(musicPlayer_) };
+		wassert(pMusicPlayer && "音楽再生機が見つからなかった");
+		if (pMusicPlayer)
+		{
+			// 再生中の音楽を停止する
+			pMusicPlayer->Stop();
+		}
 	}
 }

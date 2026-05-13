@@ -14,10 +14,21 @@ public:
 	void Update() override;
 	void Release() override;
 
+	/// <summary>
+	/// 曲の再生を止め、再生中の音をクリアする
+	/// </summary>
+	void StopAndClear();
+
+	/// <summary>
+	/// 曲の再生を止める
+	/// </summary>
+	void Stop();
+
 private:
 	void OnLoadParam(const json& _json);
 
 private:
-	std::string smfPath_;           // smfのパス
+	EntityId smfPlayer_;             // SMF を再生するエンティティ
+	std::string smfPath_;            // smfのパス
 	std::string toneAudioFilePath_;  // 再生する音の音源ファイルのパス
 };

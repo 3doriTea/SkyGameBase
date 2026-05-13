@@ -32,15 +32,22 @@ TitleScene::~TitleScene()
 
 void TitleScene::Start()
 {
+	// タイトル背景の山
 	Instantiate<TitleMountain>();
 
-	Instantiate<MusicPlayer>();
+	// タイトルでの音楽再生
+	EntityId musicPlayer{ Instantiate<MusicPlayer>() };
 
 	// フェーダ制御
 	EntityId faderController{ Instantiate<FaderController>() };
 
+	// ドラッグ操作する円
 	EntityId dragCircle{ Instantiate<DragCircle>() };
-	EntityId titleNeco{ Instantiate<TitleNeco>(dragCircle, faderController) };
+
+	// スタートボタンを隠し持っているねこ
+	EntityId titleNeco{ Instantiate<TitleNeco>(dragCircle, faderController, musicPlayer) };
+
+	// カメラ
 	EntityId camera{ Instantiate<TitleCamera>(titleNeco) };
 	
 	// タイトルテキスト

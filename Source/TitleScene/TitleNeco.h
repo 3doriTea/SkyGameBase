@@ -29,7 +29,10 @@ class TitleNeco : public GameObject
 		I_MAX,   // 総数
 	};
 public:
-	TitleNeco(const EntityId _dragCircle, const EntityId _fader);
+	TitleNeco(
+		const EntityId _dragCircle,
+		const EntityId _fader,
+		const EntityId _musicPlayer);
 	~TitleNeco();
 
 	/// <summary>
@@ -70,10 +73,10 @@ private:
 
 	Vector2Int playButtonShowPos_;  // プレイボタンを表示させるときの位置
 
-	EntityId dragPoint_;   // ドラッグして掴む円
-	EntityId playButton_;  // プレイボタン
-
-	EntityId fader_;  // フェーダー
+	EntityId dragPoint_;    // ドラッグして掴む円
+	EntityId playButton_;   // プレイボタン
+	EntityId fader_;        // フェーダー
+	EntityId musicPlayer_;  // 音楽再生機
 
 	TextureHandle hButtonOff_;  // ボタン画像 Off
 	TextureHandle hButtonOn_;   // ボタン画像 On
