@@ -539,7 +539,6 @@
     <ResourceCompile Include="Source\SkyGameBase.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\CountDown.json" />
     <None Include="Assets\PlaySceneWorldConfig.json" />
     <None Include="Assets\Prefab\CharaBall.json" />
     <None Include="Assets\Prefab\CharaEgg.json" />

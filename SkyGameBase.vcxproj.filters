@@ -1472,7 +1472,6 @@
       <Filter>Source</Filter>
     </None>
     <None Include="Assets\PlaySceneWorldConfig.json" />
-    <None Include="Assets\CountDown.json" />
     <None Include="docs\Document.md" />
     <None Include="docs\CodingGuide.md" />
     <None Include="docs\Reflections.md" />

@@ -3,9 +3,14 @@
 CountDown::CountDown() :
 	GameObject{ "CountDown.json" },
 	timeLeft_{ 0.0f },
+	timeScaleSec_{ 0.0f },
+	moveTimeRatio_{ 0.0f },
 	hSlideImage_{ INVALID_HANDLE },
-	cellSize_{},
-	imageSize_{}
+	cellSize_{ Vector2::Zero() },
+	imageSize_{ Vector2Int::Zero() },
+	baseSize_{ Vector2Int::Zero() },
+	drawPos_{ Vector2Int::Zero() },
+	smallingPerFScale_{ Vector2Int::Zero() }
 {
 }
 
