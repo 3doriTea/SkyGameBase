@@ -57,6 +57,7 @@
     <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
     <ClInclude Include="Source\PlayScene\PlayerCosntantSender.h" />
     <ClInclude Include="Source\PlayScene\StageLineConfig.h" />
+    <ClInclude Include="Source\PlayScene\UI\CountDownSoundPlayer.h" />
     <ClInclude Include="Source\PlayScene\WorldConfigJsonLoader.h" />
     <ClInclude Include="Source\PlayScene\StageMesh\StageMeshes.h" />
     <ClInclude Include="Source\PlayScene\UI\DragArrow.h" />
@@ -391,6 +392,7 @@
     <ClCompile Include="Source\PlayScene\Lift\LiftRope.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRopeMesh.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMeshes.cpp" />
+    <ClCompile Include="Source\PlayScene\UI\CountDownSoundPlayer.cpp" />
     <ClCompile Include="Source\PlayScene\UI\DragArrow.cpp" />
     <ClCompile Include="Source\PlayScene\UI\MiniChara.cpp" />
     <ClCompile Include="Source\PlayScene\PlayerTargetting.cpp" />
@@ -547,6 +549,7 @@
     <None Include="Assets\Prefab\FlighterObject.json" />
     <None Include="Assets\Prefab\LiftChair.json" />
     <None Include="Assets\Prefab\LiftChild.json" />
+    <None Include="Assets\Prefab\Play\CountDownSoundPlayer.json" />
     <None Include="Assets\Prefab\Play\DragArrowAxis.json" />
     <None Include="Assets\Prefab\DropCloud.json" />
     <None Include="Assets\Prefab\LiftStructure.json" />

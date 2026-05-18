@@ -16,6 +16,7 @@
 #include "SMF/SMFPlayer.h"
 #include "DropCloud.h"
 #include "UI/CountDown.h"
+#include "UI/CountDownSoundPlayer.h"
 #include "UI/SpeedMessage.h"
 #include "SpeedController.h"
 
@@ -78,6 +79,8 @@ void PlayScene::Start()
 	Instantiate<ControlUI>();
 	// 開始時のカウントダウン
 	Instantiate<CountDown>();
+	// 開始時のカウントダウン音を再生する
+	Instantiate<CountDownSoundPlayer>();
 
 	// ほとんど動的生成されるステージ
 	EntityId stageLine{ Instantiate<StageLine>(worldConfig_.stageLineConfig) };

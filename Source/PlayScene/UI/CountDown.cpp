@@ -45,7 +45,7 @@ void CountDown::PlayAnimCountDown(RectF& _rectF)
 
 	_rectF.x = 0.0f;
 	_rectF.y = moveOffset;
-	_rectF.size = Vector2{ cellSize_ };
+	_rectF.size = cellSize_;
 }
 
 void CountDown::OnLoadParam(const json& _json)

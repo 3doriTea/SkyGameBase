@@ -837,6 +837,9 @@
     <ClInclude Include="Source\GameFailedType.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\UI\CountDownSoundPlayer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1385,6 +1388,9 @@
     <ClCompile Include="Source\FaderController.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\UI\CountDownSoundPlayer.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1482,6 +1488,7 @@
     <None Include="Assets\Prefab\LiftChair.json" />
     <None Include="Assets\Prefab\FlighterObject.json" />
     <None Include="Assets\Prefab\FaderController.json" />
+    <None Include="Assets\Prefab\Play\CountDownSoundPlayer.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
