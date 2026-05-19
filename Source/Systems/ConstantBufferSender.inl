@@ -1,5 +1,6 @@
 //#include "ConstantBufferSender.h"
 #include "ConstantBufferSender/PlayerConstantBuffer.h"
+#include "ConstantBufferSender.h"
 
 inline ConstantBufferSender::ConstantBufferSender() :
 	pConstantBuffers_{},
@@ -53,6 +54,18 @@ inline void ConstantBufferSender::Register()
 {
 	std::unique_ptr<T> pConstantBuffer{ std::make_unique<T>() };
 
-	typeToIndex_[pConstantBuffer.get()->GetType()] = pConstantBuffer.get()->GetConstantBufferType();
+	typeToIndex_[std::type_index{ typeid(T) }] = pConstantBuffer.get()->GetConstantBufferType();
 	pConstantBuffers_[ConstantBufferType_Player] = std::move(pConstantBuffer);
+}
+
+template<typename T>
+inline std::unique_ptr<IConstantBuffer>& ConstantBufferSender::GetConstantBuffer()
+{
+	std::type_index typeIndex{ std::type_index{ typeid(T) } };
+
+	wassert(typeToIndex_.count(typeIndex) > 0 && "指定の型は未登録");
+
+	size_t constantBufferIndex{ typeToIndex_[typeIndex] };
+
+	return pConstantBuffers_[constantBufferIndex];
 }

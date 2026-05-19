@@ -127,6 +127,8 @@ void Player::Update()
 	}
 
 	UpdateAnim();
+
+	SendConstantBuffer();
 }
 
 bool Player::WaitingCountDown()

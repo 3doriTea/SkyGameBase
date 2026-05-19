@@ -41,6 +41,11 @@ float4 PS(VS_OUT inData) : SV_TARGET
 {
 	//return float4(1.0f, 0.0f, 0.0f, 1.0f);
 	
+    if (Player_Position.z < inData.pos.z)
+    {
+        return float4(1.0f, 1.0f, 0.0f, 1.0f);
+    }
+	
 	float4 diffuse;
 
 	if (hasTexture)
