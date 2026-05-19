@@ -2,6 +2,7 @@
 
 #include "MainTexture.hlsli"
 #include "CBGlobal3D.hlsli"
+#include "CBPlayer.hlsli"
 
 struct VS_OUT
 {

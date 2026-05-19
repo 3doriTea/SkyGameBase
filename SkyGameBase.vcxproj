@@ -103,6 +103,11 @@
     <ClInclude Include="Source\ResultScene\WaterPool.h" />
     <ClInclude Include="Source\SMF\Note.h" />
     <ClInclude Include="Source\PlayScene\SpeedType.h" />
+    <ClInclude Include="Source\Systems\ConstantBufferSender.h" />
+    <ClInclude Include="Source\Systems\ConstantBufferSender\ConstantBuffer.h" />
+    <ClInclude Include="Source\Systems\ConstantBufferSender\ConstantBufferType.h" />
+    <ClInclude Include="Source\Systems\ConstantBufferSender\IConstantBuffer.h" />
+    <ClInclude Include="Source\Systems\ConstantBufferSender\PlayerConstantBuffer.h" />
     <ClInclude Include="Source\Systems\FaderSystem.h" />
     <ClInclude Include="Source\Systems\ScoreManager.h" />
     <ClInclude Include="Source\PlayScene\UI\CountDown.h" />
@@ -587,6 +592,7 @@
     <None Include="Assets\Prefab\Title\TitleText.json" />
     <None Include="Assets\Score\ScoreNotion.json" />
     <None Include="Assets\Shader\CBGlobal3D.hlsli" />
+    <None Include="Assets\Shader\CBPlayer.hlsli" />
     <None Include="Assets\Shader\Common2D.hlsli" />
     <None Include="Assets\Shader\MainTexture.hlsli" />
     <None Include="Assets\Shader\PostProcessing.hlsli" />
@@ -597,6 +603,7 @@
     <None Include="docs\Reflections.md" />
     <None Include="packages.config" />
     <None Include="Source\JsonUnitLoaderBase.inl" />
+    <None Include="Source\Systems\ConstantBufferSender.inl" />
     <None Include="wtgb\CoreType\Collection\HandlerCollection.inl" />
     <None Include="wtgb\Core\ComponentSetter.inl" />
     <None Include="wtgb\Core\GameObjectBuilder.inl" />

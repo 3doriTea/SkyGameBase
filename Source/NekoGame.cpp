@@ -22,6 +22,7 @@
 #include "Systems/CPItemAnim.h"
 #include "Systems/ScoreManager.h"
 #include "Systems/FaderSystem.h"
+#include "Systems/ConstantBufferSender.h"
 // ベースが用意しているコンポーネントプール
 #include "GameSystem/CPGameObject.h"
 #include "GameSystem/CPGameObjectProperty.h"
@@ -96,9 +97,10 @@ void NekoGame::StartRegister(
 		.Register<DirectionalLight>()
 		.Register<CPModelMesh>()
 		.Register<CPMeshRenderer>()
-		.Register<PostProcessing>()  // 3D描画の後処理
-		.Register<Canvas>()          // UIの描画は3D描画の後に！
-		.Register<FaderSystem>()     // フェーダの描画はUI描画の後に！
+		.Register<PostProcessing>()        // 3D描画の後処理
+		.Register<Canvas>()                // UIの描画は3D描画の後に！
+		.Register<FaderSystem>()           // フェーダの描画はUI描画の後に！
+		.Register<ConstantBufferSender>()  // 念のため描画直前にコンスタントバッファ
 
 		.Register<Rendering>()
 

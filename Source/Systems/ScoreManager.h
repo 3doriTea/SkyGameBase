@@ -76,7 +76,7 @@ private:
 	uint64_t currentScore_;  // 現在のスコア値
 	uint64_t maxScore_;      // スコアの最大値
 
-	GameScore gameScore_;  // ゲームのスコア
+	GameScore gameScore_;    // ゲームのスコア
 
 	GameFailedType failedType_;  // クリアできずに失敗した種類
 };

@@ -3,7 +3,9 @@
 CountDownSoundPlayer::CountDownSoundPlayer() :
 	GameObject{ "Play/CountDownSoundPlayer.json" },
 	hSoundHigh_{ INVALID_HANDLE },
-	hSoundLow_{ INVALID_HANDLE }
+	hSoundLow_{ INVALID_HANDLE },
+	timeLeft_{ 0.0f },
+	prevTimeLeftSec_{ 0 }
 {
 }
 

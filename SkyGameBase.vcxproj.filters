@@ -840,6 +840,21 @@
     <ClInclude Include="Source\PlayScene\UI\CountDownSoundPlayer.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Systems\ConstantBufferSender.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\ConstantBufferSender\ConstantBuffer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\ConstantBufferSender\PlayerConstantBuffer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\ConstantBufferSender\ConstantBufferType.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\ConstantBufferSender\IConstantBuffer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1489,6 +1504,10 @@
     <None Include="Assets\Prefab\FlighterObject.json" />
     <None Include="Assets\Prefab\FaderController.json" />
     <None Include="Assets\Prefab\Play\CountDownSoundPlayer.json" />
+    <None Include="Assets\Shader\CBPlayer.hlsli" />
+    <None Include="Source\Systems\ConstantBufferSender.inl">
+      <Filter>C++未分類ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

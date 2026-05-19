@@ -49,7 +49,7 @@ private:
 	void OnStart();
 
 	/// <summary>
-	/// 自然に縦方向を維持するように回転する処理
+	/// 猫が苦しそうな態勢なら自然に直立方向を保持するよう回転する処理
 	/// </summary>
 	void AutoRotation();
 
@@ -70,6 +70,11 @@ private:
 	/// </summary>
 	/// <returns>フォーカス処理が行われた true / false</returns>
 	bool TryFocusToCharaEgg();
+
+	/// <summary>
+	/// コンスタントバッファへ情報を送信する
+	/// </summary>
+	void SendConstantBuffer();
 
 private:
 	PlayerTargeting playerTargeting_;  // プレイヤーターゲティング処理

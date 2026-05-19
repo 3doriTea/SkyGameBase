@@ -6,13 +6,15 @@
 #include "SpeedController.h"
 #include "BallSphere.h"
 
+#include "../Systems/ConstantBufferSender.h"
+#include "../Systems/ConstantBufferSender/PlayerConstantBuffer.h"
 
 using namespace wtgb;
 
 Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId _playState) :
 	GameObject{ "Player.json" },
 	playerTargeting_{},
-	angle_{},
+	angle_{ 0.0f },
 	awakeTimeLeft_{},
 	playState_{ _playState },
 	isTargeting_{ false },
@@ -49,6 +51,8 @@ Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId
 
 void Player::OnLoadParam(const json& _json)
 {
+	// JSONから各パラメータを読み込んでいく
+
 	awakeTimeLeft_ = SafeGet<float>(_json, "awakeTimeSec");
 	toTargetTime_ = SafeGet<float>(_json, "toTargetTime");
 	startLineZ_ = SafeGet<float>(_json, "startLineZ");
@@ -129,6 +133,7 @@ bool Player::WaitingCountDown()
 {
 	const float DT{ System().Get<GameTime>().GetDeltaTime() };
 
+	// カウントダウンを待つ
 	if (awakeTimeLeft_ > 0.0f)
 	{
 		awakeTimeLeft_ -= DT;
@@ -196,18 +201,22 @@ void Player::AutoRotation()
 		return;
 	}
 
+	// 中の猫の向きが苦しそうなら補正してあげる
 	std::partial_ordering sign{ ROTATION.x <=> 0 };
 
 	if (sign < 0)
 	{
+		// 仰向けなら前方向に加速
 		rb.AddTorque(Vector3::Right() * (autoRotation_.addTorqueX));
 	}
 	else if (sign > 0)
 	{
+		// うつ伏せなら後ろ方向に加速
 		rb.AddTorque(Vector3::Right() * (-autoRotation_.addTorqueX));
 	}
 	else if (sign == 0)
 	{
+		// ちょうどいいなら何もしない
 	}
 }
 
@@ -349,6 +358,17 @@ bool Player::TryFocusToCharaEgg()
 		}
 	}
 	return false;  // フォーカス処理行わず
+}
+
+void Player::SendConstantBuffer()
+{
+	System().Get<ConstantBufferSender>().SendConstant<PlayerConstantBuffer>(
+		[this](PlayerConstantBuffer* pConstantBuffer)
+		{
+			Vector3 position{ Transform().GetPosition() };
+			pConstantBuffer->Ref().position = Vector4{position};
+		},
+		System());
 }
 
 bool Player::UpdateAnim()

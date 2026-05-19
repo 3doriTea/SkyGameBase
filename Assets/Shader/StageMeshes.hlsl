@@ -2,17 +2,13 @@
 
 #include "MainTexture.hlsli"
 #include "CBGlobal3D.hlsli"
-
-cbuffer PlayerConstant : register(b2)
-{
-	float2 player_Position;  // プレイヤー座標
-};
+#include "CBPlayer.hlsli"
 
 struct VS_OUT
 {
-	float4 pos : SV_POSITION; // 頂点の位置
-	float4 uv : TEXCOORD; // 頂点に対応するUV座標
-	float4 color : COLOR; // 色 / 明るさ
+	float4 pos : SV_POSITION;  // 頂点の位置
+	float4 uv : TEXCOORD;      // 頂点に対応するUV座標
+	float4 color : COLOR;      // 色 / 明るさ
 	float4 normal : NORMAL;
 };
 
