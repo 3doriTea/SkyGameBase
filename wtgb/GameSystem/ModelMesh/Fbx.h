@@ -21,7 +21,7 @@ namespace wtgb
 		/// <summary>
 		/// 定数バッファ
 		/// </summary>
-		struct ConstantBuffer
+		struct alignas(16) ConstantBuffer
 		{
 			//DirectX::XMMATRIX matWVP;
 			//DirectX::XMMATRIX matNormal;
@@ -31,6 +31,7 @@ namespace wtgb
 			Matrix4x4 matrixProjection;   // Projection行列
 			Matrix4x4 matrixView;         // View行列
 			Matrix4x4 matrixWVP;          // ワールドビュープロジェクションの合成行列
+			Matrix4x4 matrixW;            // ワールド行列
 			Matrix4x4 matrixUV;           // UV変換行列
 			Matrix4x4 matrixRotateWorld;  // ワールド回転行列
 			Vector4 lightDirection;       // ライトの向き

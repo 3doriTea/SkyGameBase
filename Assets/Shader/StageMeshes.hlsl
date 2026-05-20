@@ -3,11 +3,13 @@
 #include "MainTexture.hlsli"
 #include "CBGlobal3D.hlsli"
 #include "CBPlayer.hlsli"
+#include "CBStage.hlsli"
 
 struct VS_OUT
 {
 	float4 pos : SV_POSITION;  // 頂点の位置
-	float4 uv : TEXCOORD;      // 頂点に対応するUV座標
+	float4 worldPos : TEXCOORD1;
+	float4 uv : TEXCOORD0;      // 頂点に対応するUV座標
 	float4 color : COLOR;      // 色 / 明るさ
 	float4 normal : NORMAL;
 };
@@ -21,6 +23,7 @@ VS_OUT VS(
 	// ピクセルシェーダに渡す情報
 	VS_OUT outData;
 	
+    outData.worldPos = mul(pos, matrixW);
 	outData.pos = mul(pos, matrixWVP);
 	outData.uv = mul(uv, matrixUV);
 	
@@ -39,12 +42,30 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
+    float3 playerPositionRatio = Player_Position.xyz;
+    playerPositionRatio.x /= Stage_UVRatioX_UVRatioY.x;
+    playerPositionRatio.y = 0.0f;
+    playerPositionRatio.z /= Stage_UVRatioX_UVRatioY.y;
+	
+    //return float4(playerPositionRatio, 1.0f);
+	
 	//return float4(1.0f, 0.0f, 0.0f, 1.0f);
 	
-    if (Player_Position.z < inData.pos.z)
-    {
-        return float4(1.0f, 1.0f, 0.0f, 1.0f);
-    }
+    //return float4(playerPositionRatio, 1.0f);
+	
+	
+    float2 pixWorldPositionRatio = float2(inData.worldPos.x, inData.worldPos.z / Stage_UVRatioX_UVRatioY.y);
+	
+    //return float4(worldPosition, 0.0f, 1.0f);
+	
+    //dcolor.y /= Stage_UVRatioX_UVRatioY.y;
+	
+    //return float4(dcolor, 1.0f);
+	
+    if (playerPositionRatio.x < pixWorldPositionRatio.x)
+	{
+		return float4(1.0f, 1.0f, 1.0f, 1.0f);
+	}
 	
 	float4 diffuse;
 
@@ -57,6 +78,7 @@ float4 PS(VS_OUT inData) : SV_TARGET
 		diffuse = diffuseColor;
 	}
 	
+	{
 	#if 0
 	float4 light = float4(0, -1, 0, 0); //normalize(lightDirection);
 	
@@ -81,6 +103,7 @@ float4 PS(VS_OUT inData) : SV_TARGET
 	//color.rgb += float3(1.0, 0.7, 0.7) * grade;
 	color.rgb += float3(0.7, 1.0, 0.7) * grade;
 	#endif
+		return color;
+	}
 	
-	return color;
 }

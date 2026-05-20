@@ -74,10 +74,10 @@ const wtgb::ShaderHandle wtgb::ShaderCompile::Compile(const CompileConfig& _conf
 		_config.flag2,
 		pCompileVS.GetAddressOf(),
 		pError.GetAddressOf());
-	wassert(SUCCEEDED(hResult) && "頂点シェーダのコンパイルに失敗");
 	if (FAILED(hResult))
 	{
 		LOGFLN("頂点シェーダコンパイルエラー：{}", reinterpret_cast<char*>(pError.Get()));
+		wassert(SUCCEEDED(hResult) && "頂点シェーダのコンパイルに失敗");
 		// 失敗したなら無効ハンドルを返す
 		return INVALID_HANDLE;
 	}

@@ -51,7 +51,43 @@ public:
 	/// <returns>コンスタントバッファの参照ポインタ</returns>
 	inline virtual ComPtr<ID3D11Buffer>& GetConstantBuffer() override { return pConstantBuffer_; }
 
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
+	/// <param name="_viewer">システム参照</param>
+	void Initialize(const ViewerCached _viewer) override;
+
 private:
 	T buffer_{};                              // 構造体本体
 	ComPtr<ID3D11Buffer> pConstantBuffer_{};  // コンスタントバッファ
 };
+
+template<typename T, ConstantBufferType ConstantBufferTypeV>
+inline void ConstantBuffer<T, ConstantBufferTypeV>::Initialize(const ViewerCached _viewer)
+{
+	UINT cbSize = static_cast<UINT>(sizeof(T));
+	// NOTE: 16byteアラインメントでのサイズにするために必要？
+	cbSize = (cbSize + 15u) & ~15u;
+
+	const D3D11_BUFFER_DESC CONSTANT_DESC
+	{
+		// 型の大きさ
+		.ByteWidth = cbSize,
+		.Usage = D3D11_USAGE_DYNAMIC,                // 変更するか
+		.BindFlags = D3D11_BIND_CONSTANT_BUFFER,     // なんのバッファか
+		.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE,    // CPUからのアクセスフラグ
+		.MiscFlags = 0,                              // その他のフラグ
+		.StructureByteStride = 0,
+	};
+
+	ID3D11Device* pDevice{ _viewer.Get<Direct3D>().Resource().Device() };
+	ID3D11DeviceContext* pContext{ _viewer.Get<Direct3D>().Resource().Context() };
+	HRESULT hResult{};
+
+	hResult = pDevice->CreateBuffer(&CONSTANT_DESC, nullptr, pConstantBuffer_.GetAddressOf());
+	wassert(SUCCEEDED(hResult) && "Fbxコンスタントバッファ作成に失敗");
+
+	// VS、PSともにコンスタントバッファをセットする
+	pContext->VSSetConstantBuffers(ConstantBufferTypeV, 1, pConstantBuffer_.GetAddressOf());  // 頂点シェーダ用
+	pContext->PSSetConstantBuffers(ConstantBufferTypeV, 1, pConstantBuffer_.GetAddressOf());  // ピクセルシェーダ用
+}

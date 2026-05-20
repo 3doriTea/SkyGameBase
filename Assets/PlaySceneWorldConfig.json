@@ -19,6 +19,7 @@
     "randRangeY": 30.0,
     "goalSizeZ": 300.0,
     "goalWallHeight": 300.0,
-    "stageScale": [ 400.0, 1.0, 1.0 ]
+    "stageScale": [ 400.0, 1.0, 1.0 ],
+    "uvScaleRatioX": 400.0
   }
 }

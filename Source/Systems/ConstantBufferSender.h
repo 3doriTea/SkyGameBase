@@ -50,7 +50,7 @@ private:
 	/// </summary>
 	/// <typeparam name="T">登録する型</typeparam>
 	template<typename T>
-	void Register();
+	void Register(const ViewerCached _viewer);
 
 	/// <summary>
 	/// コンスタントバッファを取得する

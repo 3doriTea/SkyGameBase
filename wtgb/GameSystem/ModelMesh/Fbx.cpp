@@ -232,6 +232,7 @@ void wtgb::Fbx::InitIndex(ViewerCached _system, FbxMesh* _pMesh)
 void wtgb::Fbx::InitConstant(ViewerCached _system)
 {
 	UINT cbSize = static_cast<UINT>(sizeof(ConstantBuffer));
+	// NOTE: 16byteアラインメントでのサイズにするために必要？
 	cbSize = (cbSize + 15u) & ~15u;
 
 	const D3D11_BUFFER_DESC CONSTANT_DESC

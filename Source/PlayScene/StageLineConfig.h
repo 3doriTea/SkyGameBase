@@ -13,4 +13,5 @@ struct StageLineConfig
 	float goalSizeZ;       // ゴールの平地幅z
 	float goalWallHeight;  // ゴールの壁z
 	Vector3 stageScale;    // ステージオブジェクト自体のサイズ
+	float uvScaleRatioX;        // x軸のuvスケール比率
 };

@@ -1,12 +1,12 @@
 //#include "ConstantBufferSender.h"
 #include "ConstantBufferSender/PlayerConstantBuffer.h"
+#include "ConstantBufferSender/StageConstantBuffer.h"
 #include "ConstantBufferSender.h"
 
 inline ConstantBufferSender::ConstantBufferSender() :
 	pConstantBuffers_{},
 	typeToIndex_{}
 {
-	this->template Register<PlayerConstantBuffer>();
 }
 
 inline ConstantBufferSender::~ConstantBufferSender()
@@ -15,6 +15,10 @@ inline ConstantBufferSender::~ConstantBufferSender()
 
 inline Result ConstantBufferSender::Init(const ViewerInit& _viewer)
 {
+	// 各コンスタントバッファの登録をしていく
+	this->template Register<PlayerConstantBuffer>(_viewer.GetCache());
+	this->template Register<StageConstantBuffer>(_viewer.GetCache());
+
 	return Result::Code::Ok;
 }
 
@@ -38,24 +42,44 @@ inline void ConstantBufferSender::SendConstant(Func&& _callback, const ViewerCac
 
 	ID3D11DeviceContext* pContext{ _viewer.Get<Direct3D>().Resource().Context() };
 
+	HRESULT hResult{};
+
 	D3D11_MAPPED_SUBRESOURCE data{};
-	pContext->Map(pConstantBuffer->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
-	// 送信
-	memcpy_s(
-		data.pData,
-		data.RowPitch,
-		pConstantBuffer->GetPtr(),
-		pConstantBuffer->GetSize());
-	pContext->Unmap(pConstantBuffer->GetConstantBuffer().Get(), 0);
+	hResult = pContext->Map(pConstantBuffer->GetConstantBuffer().Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &data);
+	if (SUCCEEDED(hResult))
+	{
+
+		size_t size{ pConstantBuffer->GetSize() };
+
+		// 送信
+		memcpy_s(
+			data.pData,
+			data.RowPitch,
+			pConstantBuffer->GetPtr(),
+			pConstantBuffer->GetSize());
+		pContext->Unmap(pConstantBuffer->GetConstantBuffer().Get(), 0);
+	}
+	else
+	{
+		wassert(SUCCEEDED(hResult) && "コンスタントバッファ送信に失敗");
+		return;  // 失敗したため無視
+	}
 }
 
 template<typename T>
-inline void ConstantBufferSender::Register()
+inline void ConstantBufferSender::Register(const ViewerCached _viewer)
 {
+	// コンスタントバッファをインスタンス
 	std::unique_ptr<T> pConstantBuffer{ std::make_unique<T>() };
 
-	typeToIndex_[std::type_index{ typeid(T) }] = pConstantBuffer.get()->GetConstantBufferType();
-	pConstantBuffers_[ConstantBufferType_Player] = std::move(pConstantBuffer);
+	// コンスタントバッファの種類
+	ConstantBufferType constantBufferType{ pConstantBuffer.get()->GetConstantBufferType() };
+
+	// 型情報とコンスタントバッファの種類を紐づけ
+	typeToIndex_[std::type_index{ typeid(T) }] = constantBufferType;
+	pConstantBuffers_[constantBufferType] = std::move(pConstantBuffer);
+
+	pConstantBuffers_[constantBufferType].get()->Initialize(_viewer);
 }
 
 template<typename T>

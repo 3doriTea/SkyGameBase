@@ -51,13 +51,25 @@ public:
 	inline const std::vector<Vector2>& GetPoints() { return points_; }
 
 private:
+	/// <summary>
+	/// ワールド座標に対応するステージ全体のUV比率を取得
+	/// </summary>
+	/// <returns>UV比率</returns>
+	Vector2 GetStageUVRatio();
+
+	/// <summary>
+	/// コンスタントバッファにステージ情報を送信する
+	/// </summary>
+	/// <param name="_uvRatio">座標軸に対応するUVの比率</param>
+	void SendConstantBuffer(const Vector2 _uvRatio);
+
+private:
 	std::vector<Vector2> points_;  // 各頂点の座標 (xy平面で考える)
 	StageMeshes stageMesh_;        // ステージのメッシュ情報
 	float stopperStartPosZ_;       // ストッパー開始地点のz座標
-	float startBasePosY_;         // スタート土台の開始地点 Z
-	float startBasePosZ_;         // スタート土台の高さ Y
+	float startBasePosY_;          // スタート土台の開始地点 Z
+	float startBasePosZ_;          // スタート土台の高さ Y
 	float textureScale_;           // 地形のテクスチャスケール
 	StageLineConfig config_;       // ステージラインの設定
-	//StageMeshes stageMesh_;      // ステージメッシュ
 	uint32_t startBaseIndex_;      // スタート土台の角っこにあたる頂点インデクス
 };

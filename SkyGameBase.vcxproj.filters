@@ -855,6 +855,9 @@
     <ClInclude Include="Source\Systems\ConstantBufferSender\IConstantBuffer.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Systems\ConstantBufferSender\StageConstantBuffer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1508,6 +1511,7 @@
     <None Include="Source\Systems\ConstantBufferSender.inl">
       <Filter>C++未分類ファイル</Filter>
     </None>
+    <None Include="Assets\Shader\CBStage.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />

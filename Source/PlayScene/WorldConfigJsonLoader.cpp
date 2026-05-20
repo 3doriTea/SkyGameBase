@@ -7,6 +7,8 @@ WorldConfigJsonLoader::WorldConfigJsonLoader() :
 
 void WorldConfigJsonLoader::OnLoad(const json& _json, WorldConfig* pWorldConfig)
 {
+	// JSONからワールドの設定を読み込んでいく
+
 	*pWorldConfig = std::move(WorldConfig
 		{
 			.safeZoneXMin = _json.value("safeZoneXMin", 0.0f),
@@ -33,6 +35,7 @@ void WorldConfigJsonLoader::OnLoad(const json& _json, WorldConfig* pWorldConfig)
 				.goalSizeZ = _json.value("/stageLine/goalSizeZ"_json_pointer, 300.0f),
 				.goalWallHeight = _json.value("/stageLine/goalWallHeight"_json_pointer, 300.0f),
 				.stageScale = _json.value("/stageLine/stageScale"_json_pointer, Vector3{ 400.0, 1.0, 1.0 }),
+				.uvScaleRatioX = _json.value("/stageLine/uvScaleRatioX"_json_pointer, 20.0f),
 			}
 		});
 }

@@ -105,6 +105,7 @@
     <ClInclude Include="Source\PlayScene\SpeedType.h" />
     <ClInclude Include="Source\Systems\ConstantBufferSender.h" />
     <ClInclude Include="Source\Systems\ConstantBufferSender\ConstantBuffer.h" />
+    <ClInclude Include="Source\Systems\ConstantBufferSender\StageConstantBuffer.h" />
     <ClInclude Include="Source\Systems\ConstantBufferSender\ConstantBufferType.h" />
     <ClInclude Include="Source\Systems\ConstantBufferSender\IConstantBuffer.h" />
     <ClInclude Include="Source\Systems\ConstantBufferSender\PlayerConstantBuffer.h" />
@@ -593,6 +594,7 @@
     <None Include="Assets\Score\ScoreNotion.json" />
     <None Include="Assets\Shader\CBGlobal3D.hlsli" />
     <None Include="Assets\Shader\CBPlayer.hlsli" />
+    <None Include="Assets\Shader\CBStage.hlsli" />
     <None Include="Assets\Shader\Common2D.hlsli" />
     <None Include="Assets\Shader\MainTexture.hlsli" />
     <None Include="Assets\Shader\PostProcessing.hlsli" />

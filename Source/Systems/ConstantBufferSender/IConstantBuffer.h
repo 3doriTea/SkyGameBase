@@ -40,4 +40,10 @@ public:
 	/// </summary>
 	/// <returns>コンスタントバッファの参照ポインタ</returns>
 	virtual ComPtr<ID3D11Buffer>& GetConstantBuffer() = 0;
+
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
+	/// <param name="_viewer">システム参照</param>
+	virtual void Initialize(const ViewerCached _viewer) = 0;
 };

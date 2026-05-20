@@ -2,6 +2,9 @@
 #include "StageLine.h"
 #include "Stage/StageLoader.h"
 
+#include "../Systems/ConstantBufferSender.h"
+#include "../Systems/ConstantBufferSender/StageConstantBuffer.h"
+
 using namespace wtgb;
 
 namespace
@@ -106,6 +109,10 @@ void StageLine::Init()
 
 	collider.SetPoints2D(points_);
 	stageMesh_.CallInit(System());
+
+	// 生成したステージの情報をコンスタントバッファとして送信する
+	Vector2 uvRatio{ GetStageUVRatio() };
+	SendConstantBuffer(uvRatio);
 }
 
 void StageLine::Update()
@@ -185,4 +192,20 @@ float StageLine::GetStageLengthZ() const
 
 	// ステージポイント末端のx軸がステージの長さになる
 	return points_.back().x;
+}
+
+Vector2 StageLine::GetStageUVRatio()
+{
+	return Vector2{ config_.uvScaleRatioX, GetStageLengthZ() };
+}
+
+void StageLine::SendConstantBuffer(const Vector2 _uvRatio)
+{
+	System().Get<ConstantBufferSender>().SendConstant<StageConstantBuffer>(
+		[this, _uvRatio](StageConstantBuffer* pConstantBuffer)
+		{
+			Vector3 position{ Transform().GetPosition() };
+			pConstantBuffer->Ref().uvRatio = Vector4{ _uvRatio.x, _uvRatio.y, 0.0f, 0.0f };
+		},
+		System());
 }

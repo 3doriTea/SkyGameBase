@@ -259,6 +259,7 @@ void wtgb::CPMeshRenderer::Update()
 				constantBuffer.matrixView = XMMatrixTranspose(camera.GetViewMatrix());
 				constantBuffer.matrixProjection = XMMatrixTranspose(camera.GetProjectionMatrix());
 				constantBuffer.matrixWVP = XMMatrixTranspose(pTransform->GetWorldMatrix() * camera.GetViewMatrix() * camera.GetProjectionMatrix());
+				constantBuffer.matrixW = XMMatrixTranspose(pTransform->GetWorldMatrix());
 				constantBuffer.matrixRotateWorld = XMMatrixTranspose(pTransform->GetNormalMatrix());
 				constantBuffer.matrixUV = XMMatrixIdentity();
 				constantBuffer.lightDirection = directionalLight.GetDirection();
