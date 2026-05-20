@@ -42,33 +42,30 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
-    float3 playerPositionRatio = Player_Position.xyz;
+	float4 diffuse;
+	
+    float2 playerPositionRatio = Player_Position.xz;
     playerPositionRatio.x /= Stage_UVRatioX_UVRatioY.x;
-    playerPositionRatio.y = 0.0f;
-    playerPositionRatio.z /= Stage_UVRatioX_UVRatioY.y;
-	
-    //return float4(playerPositionRatio, 1.0f);
-	
-	//return float4(1.0f, 0.0f, 0.0f, 1.0f);
-	
-    //return float4(playerPositionRatio, 1.0f);
-	
+    playerPositionRatio.y /= Stage_UVRatioX_UVRatioY.y;
 	
     float2 pixWorldPositionRatio = float2(inData.worldPos.x, inData.worldPos.z / Stage_UVRatioX_UVRatioY.y);
 	
-    //return float4(worldPosition, 0.0f, 1.0f);
+    float2 playerPositionPix = Player_Position.xz;
+    float2 worldPositionPix = float2(
+		pixWorldPositionRatio.x * Stage_UVRatioX_UVRatioY.x,
+		pixWorldPositionRatio.y * Stage_UVRatioX_UVRatioY.y);
 	
-    //dcolor.y /= Stage_UVRatioX_UVRatioY.y;
-	
-    //return float4(dcolor, 1.0f);
-	
-    if (playerPositionRatio.x < pixWorldPositionRatio.x)
-	{
-		return float4(1.0f, 1.0f, 1.0f, 1.0f);
-	}
-	
-	float4 diffuse;
 
+    float distance =
+		sqrt(
+			pow(playerPositionPix.x - worldPositionPix.x, 2.0f)
+			+ pow(playerPositionPix.y - worldPositionPix.y, 2.0f)
+		);
+	
+  //  if (playerPositionRatio.y < pixWorldPositionRatio.y)
+  //  {
+		//return float4(1.0f, 1.0f, 1.0f, 1.0f);
+  //  }
 	if (hasTexture)
 	{
 		diffuse = g_texture.Sample(g_sampler, inData.uv.xy);
@@ -77,6 +74,13 @@ float4 PS(VS_OUT inData) : SV_TARGET
 	{
 		diffuse = diffuseColor;
 	}
+	
+    const float DropShadow_Radius = 3.0f;
+	
+    if (distance < DropShadow_Radius)
+    {
+        diffuse.xyz -= float3(1.0f, 1.0f, 1.0f) * (((DropShadow_Radius - distance) / DropShadow_Radius));
+    }
 	
 	{
 	#if 0
