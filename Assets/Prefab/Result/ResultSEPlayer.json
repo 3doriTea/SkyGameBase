@@ -1,0 +1,16 @@
+{
+  "Component": {
+    "GameObjectProperty": {
+      "name": "ResultSEPlayer"
+    },
+    "Transform": {
+      "position": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  },
+  "Param": {
+    "clearSoundFilePath": "Sound/Result/Applause-Crowd01-2(Mid).mp3",
+    "failedSoundFilePath": ""
+  }
+}

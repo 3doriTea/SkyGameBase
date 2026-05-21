@@ -1,8 +1,8 @@
 // REF: https://learn.microsoft.com/ja-jp/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
 
 // テクスチャ&サンプラーデータのグローバル変数定義
-Texture2D g_texture : register(t0); // テクスチャ
-SamplerState g_sampler : register(s0); // サンプラー
+Texture2D g_texture : register(t0);     // テクスチャ
+SamplerState g_sampler : register(s0);  // サンプラー
 
 // コンスタントバッファ
 cbuffer global
@@ -15,8 +15,8 @@ cbuffer global
 
 struct VS_OUT
 {
-	float4 pos : SV_POSITION; // 頂点の位置
-	float4 uv : TEXCOORD; // 頂点に対応するUV座標
+	float4 pos : SV_POSITION;  // 頂点の位置
+	float4 uv : TEXCOORD;      // 頂点に対応するUV座標
 };
 
 // 頂点シェーダ
@@ -36,6 +36,5 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
-	//return float4(1, 1, 0, 1);
 	return g_texture.Sample(g_sampler, inData.uv.xy);
 }

@@ -1,5 +1,7 @@
-// コンスタントバッファ: グローバル
-cbuffer global : register(b0)
+/**
+* 3D描画時の共通のコンスタントバッファ
+*/
+cbuffer Global3D : register(b0)
 {
 	float4x4 matrixProjection;   // Projection行列
 	float4x4 matrixView;         // View行列

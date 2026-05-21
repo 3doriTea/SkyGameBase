@@ -3,9 +3,9 @@
 // コンスタントバッファ
 cbuffer global
 {
-    float4x4 matrixProj; // プロジェクションの合成行列
-    float4x4 matrixUV;   // UV変換行列
-    float4 color;        // 塗りつぶす色
+    float4x4 matrixProj;  // プロジェクションの合成行列
+    float4x4 matrixUV;    // UV変換行列
+    float4 color;         // 塗りつぶす色
 };
 
 struct VS_OUT

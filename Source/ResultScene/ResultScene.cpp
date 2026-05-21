@@ -3,6 +3,7 @@
 #include "UI/FadingCue.h"
 #include "UI/DragCircle.h"
 #include "UI/ResultPanel.h"
+#include "ResultSEPlayer.h"
 #include "../FaderController.h"
 
 
@@ -18,6 +19,7 @@ ResultScene::~ResultScene()
 void ResultScene::Start()
 {
 	System().Get<Audio>().ClearAll();
+	Instantiate<ResultSEPlayer>();  // 効果音を鳴らす
 
 	EntityId faderController{ Instantiate<FaderController>() };
 

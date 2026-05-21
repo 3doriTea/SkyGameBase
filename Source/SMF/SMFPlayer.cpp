@@ -469,14 +469,14 @@ void SMFPlayer::PlayTone(const Note& _note, const AudioHandle _hTone, const int3
 
 	size_t toneHzIndex{ static_cast<size_t>(_note.noteNumber - C4_60_NUM + _offset) };
 
-	if (toneHzIndex < 0 || ToneHz.size() <= toneHzIndex)
+	if (toneHzIndex < 0 || TONE_HZ.size() <= toneHzIndex)
 	{
 		return;
 	}
 
-	float targetHz{ ToneHz[toneHzIndex] };
+	float targetHz{ TONE_HZ[toneHzIndex] };
 
-	float sourceHz{ ToneHz[C4_60_INDEX] };
+	float sourceHz{ TONE_HZ[C4_60_INDEX] };
 
 	float ratio{ targetHz / sourceHz };
 

@@ -1,7 +1,63 @@
 
-https://freesound.org/people/spacether/sounds/385892/
-https://otologic.jp/free/license.html
+　使用素材のクレジット || ライセンス 表記
+￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
 
+【freesound.org】
+https://freesound.org/
+
+「使用箇所」
+・猫の鳴き声
+Assets/385892__spacether__262312__steffcaffrey__cat-meow1.mp3
+https://freesound.org/people/spacether/sounds/385892/
+
+
+【AudioCutter】
+https://www.audiocutter.org/
 https://www.audiocutter.org/jp/tone-generator
 
+「使用箇所」
+・音階と周波数の対応配列
 https://www.tomari.org/main/java/oto.html
+Source/SMF/ToneHz.h
+
+
+【OtoLogic】
+https://otologic.jp/
+https://otologic.jp/free/license.html
+
+「使用箇所」
+・拍手音
+Assets/Result/Applause-Crowd01-2(Mid).mp3
+https://otologic.jp/free/se/applause-cheer01.html
+
+
+【自作】
+「使用箇所」
+・3Dモデル
+  ・背景のスカイスフィア
+  ・ステージとステージの模様
+  ・球体
+  ・ネコモデル
+  ・プレゼント球
+  ・案内カモメ
+  ・リフト
+  ・ネコの紫たまご
+・3DUI
+  ・速度ベクトル
+  ・操作ベクトル
+・2DUI
+  ・スタートボタン
+  ・カウントダウン数字
+  ・ドラッグ黄色円
+・2Dキャラクター
+  ・ベース3ネコ
+  Assets/Image/MiniChara/Base3.png
+  ・ぐろっけんネコ
+  Assets/Image/MiniChara/Glocken.png
+  ・メインTネコ
+  Assets/Image/MiniChara/MainT.png
+  ・モンキティーネコ
+  Assets/Image/MiniChara/Monkitty.png
+  ・チューバーネコ
+  Assets/Image/MiniChara/Tubar.png
+

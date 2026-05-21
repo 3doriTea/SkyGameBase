@@ -47,7 +47,5 @@ float4 PS(VS_OUT inData) : SV_TARGET
     }
     float4 color = diffuse;
     
-    //color.a = 1.0f;
-    
     return color;
 }

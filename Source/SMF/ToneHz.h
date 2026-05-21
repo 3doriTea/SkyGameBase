@@ -3,10 +3,16 @@
 
 namespace SMF
 {
+	// C4ドの番号
 	const uint8_t C4_60_NUM{ 0x3C };
+	// C4ドのインデクス
 	const size_t C4_60_INDEX{ 39 };
 
-	const std::array<float, 88> ToneHz
+	/// <summary>
+	/// <para>音階と周波数の対応配列</para>
+	/// <para>src: https://www.tomari.org/main/java/oto.html</para>
+	/// </summary>
+	const std::array<float, 88> TONE_HZ
 	{
 		27.500f,  // ラ0
 		29.135f,

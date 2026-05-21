@@ -5,9 +5,9 @@
 
 struct VS_OUT
 {
-    float4 pos : SV_POSITION; // 頂点の位置
-    float4 uv : TEXCOORD; // 頂点に対応するUV座標
-    float4 color : COLOR; // 色 / 明るさ
+    float4 pos : SV_POSITION;  // 頂点の位置
+    float4 uv : TEXCOORD;      // 頂点に対応するUV座標
+    float4 color : COLOR;      // 色 / 明るさ
 };
 
 // 頂点シェーダ
@@ -35,8 +35,6 @@ VS_OUT VS(
 // ピクセルシェーダ
 float4 PS(VS_OUT inData) : SV_TARGET
 {
-    //return float4(1.0f, 0.0f, 0.0f, 1.0f);
-    
     float4 diffuse;
 
     if (hasTexture)
@@ -47,7 +45,7 @@ float4 PS(VS_OUT inData) : SV_TARGET
     {
         diffuse = diffuseColor;
     }
-    //float4 color = diffuse;
+    
     float4 color = diffuse * inData.color + diffuse * ambientValue;
     
     return color;

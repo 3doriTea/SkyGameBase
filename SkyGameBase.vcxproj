@@ -96,6 +96,7 @@
     <ClInclude Include="Source\PTScene\SimpleCamera.h" />
     <ClInclude Include="Source\PTScene\SimplePlane.h" />
     <ClInclude Include="Source\PTScene\SimpleSphere.h" />
+    <ClInclude Include="Source\ResultScene\ResultSEPlayer.h" />
     <ClInclude Include="Source\ResultScene\UI\CircleHint.h" />
     <ClInclude Include="Source\ResultScene\UI\DragPoint.h" />
     <ClInclude Include="Source\ResultScene\UI\ResultPanel.h" />
@@ -422,6 +423,7 @@
     <ClCompile Include="Source\PTScene\SimpleCamera.cpp" />
     <ClCompile Include="Source\PTScene\SimplePlane.cpp" />
     <ClCompile Include="Source\PTScene\SimpleSphere.cpp" />
+    <ClCompile Include="Source\ResultScene\ResultSEPlayer.cpp" />
     <ClCompile Include="Source\ResultScene\UI\CircleHint.cpp" />
     <ClCompile Include="Source\ResultScene\UI\DragPoint.cpp" />
     <ClCompile Include="Source\ResultScene\ResultScene.cpp" />
@@ -581,6 +583,7 @@
     <None Include="Assets\Prefab\PT\SimplePlane.json" />
     <None Include="Assets\Prefab\PT\SimpleSphere.json" />
     <None Include="Assets\Prefab\Result\ResultPanel.json" />
+    <None Include="Assets\Prefab\Result\ResultSEPlayer.json" />
     <None Include="Assets\Prefab\ScoreManager.json" />
     <None Include="Assets\Prefab\Simple.json" />
     <None Include="Assets\Prefab\SkySphere.json" />

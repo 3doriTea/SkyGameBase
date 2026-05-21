@@ -7,10 +7,10 @@
 
 struct VS_OUT
 {
-	float4 pos : SV_POSITION;  // 頂点の位置
-	float4 worldPos : TEXCOORD1;
-	float4 uv : TEXCOORD0;      // 頂点に対応するUV座標
-	float4 color : COLOR;      // 色 / 明るさ
+	float4 pos : SV_POSITION;     // 頂点の位置
+	float4 worldPos : TEXCOORD1;  // ワールド座標
+	float4 uv : TEXCOORD0;        // 頂点に対応するUV座標
+	float4 color : COLOR;         // 色 / 明るさ
 	float4 normal : NORMAL;
 };
 
@@ -62,10 +62,6 @@ float4 PS(VS_OUT inData) : SV_TARGET
 			+ pow(playerPositionPix.y - worldPositionPix.y, 2.0f)
 		);
 	
-  //  if (playerPositionRatio.y < pixWorldPositionRatio.y)
-  //  {
-		//return float4(1.0f, 1.0f, 1.0f, 1.0f);
-  //  }
 	if (hasTexture)
 	{
 		diffuse = g_texture.Sample(g_sampler, inData.uv.xy);
@@ -82,32 +78,11 @@ float4 PS(VS_OUT inData) : SV_TARGET
         diffuse.xyz -= float3(1.0f, 1.0f, 1.0f) * (((DropShadow_Radius - distance) / DropShadow_Radius));
     }
 	
-	{
-	#if 0
-	float4 light = float4(0, -1, 0, 0); //normalize(lightDirection);
+	float4 light = float4(0, -1, 0, 0);
 	
-	//float4 normalColor = saturate(dot(inData.normal, -light));
-	float4 color = diffuse * (1.0f - inData.color) * 1.0f + diffuse * ambientValue * 0.5f;
-	//color.rgb += (0.5 - length(color.rgb)) * float3(0, 0, 1);
-	//float4 color = inData.color;
-	float grade = 1.0f - saturate(dot(inData.normal, float4(0, 0, 1, 0)));
-	//color.rgb += float3(0.7, 0.7, 0.7) * grade;
-	//color.rgb += float3(1.0, 0.7, 0.7) * grade;
-	color.rgb += float3(0.7, 1.0, 0.7) * grade;
-	
-	#else
-	float4 light = float4(0, -1, 0, 0); //normalize(lightDirection);
-	
-	//float4 normalColor = saturate(dot(inData.normal, -light));
 	float4 color = diffuse * inData.color * 1.0f + diffuse * ambientValue * 0.5f;
-	//color.rgb += (0.5 - length(color.rgb)) * float3(0, 0, 1);
-	//float4 color = inData.color;
 	float grade = saturate(dot(inData.normal, float4(0, 0, 1, 0)));
-	//color.rgb += float3(0.7, 0.7, 0.7) * grade;
-	//color.rgb += float3(1.0, 0.7, 0.7) * grade;
 	color.rgb += float3(0.7, 1.0, 0.7) * grade;
-	#endif
-		return color;
-	}
 	
+	return color;
 }
