@@ -115,6 +115,7 @@ void Player::Update()
 	if (GroundBounceRotation())
 	{
 		// 地面に当たったときのアニメーションをするならここ
+		LOGFLN("バウンド");
 	}
 
 	AutoRotation();

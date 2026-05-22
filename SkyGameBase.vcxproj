@@ -56,6 +56,7 @@
     <ClInclude Include="Source\PlayScene\Lift\LiftRope.h" />
     <ClInclude Include="Source\PlayScene\Lift\LiftRopeMesh.h" />
     <ClInclude Include="Source\PlayScene\PlayerCosntantSender.h" />
+    <ClInclude Include="Source\PlayScene\Particle\Splat.h" />
     <ClInclude Include="Source\PlayScene\StageLineConfig.h" />
     <ClInclude Include="Source\PlayScene\UI\CountDownSoundPlayer.h" />
     <ClInclude Include="Source\PlayScene\WorldConfigJsonLoader.h" />
@@ -398,6 +399,7 @@
     <ClCompile Include="Source\PlayScene\Lift\LiftPole.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRope.cpp" />
     <ClCompile Include="Source\PlayScene\Lift\LiftRopeMesh.cpp" />
+    <ClCompile Include="Source\PlayScene\particle\Splat.cpp" />
     <ClCompile Include="Source\PlayScene\StageMesh\StageMeshes.cpp" />
     <ClCompile Include="Source\PlayScene\UI\CountDownSoundPlayer.cpp" />
     <ClCompile Include="Source\PlayScene\UI\DragArrow.cpp" />
@@ -570,6 +572,7 @@
     <None Include="Assets\Prefab\Play\DragArrow.json" />
     <None Include="Assets\Prefab\Play\FlighterController.json" />
     <None Include="Assets\Prefab\Play\GoalGround.json" />
+    <None Include="Assets\Prefab\Play\Particle\Splat.json" />
     <None Include="Assets\Prefab\Play\SpeedController.json" />
     <None Include="Assets\Prefab\Play\UI\MiniChara.json" />
     <None Include="Assets\Prefab\Play\UI\MiniCharaManager.json" />
