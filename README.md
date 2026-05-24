@@ -13,6 +13,12 @@
 |ライブラリ| [FBX SDK](https://aps.autodesk.com/developer/overview/fbx-sdk) / [dr_libs](https://github.com/mackron/dr_libs) / [ImGui](https://github.com/ocornut/imgui) / [JSON for Modern C++ (Nlohmann-JSON)](https://github.com/nlohmann/json) |
 ||DirectX11|
 
+## 開発期間
+
+- プロジェクト始動 : 2025年9月29日
+- プロジェクト終了 : 未定
+- 期間 : 8ヶ月経過 (2026年5月24日現在)
+
 ## 実行方法
 
 - exeファイルから実行する方法
@@ -38,6 +44,8 @@
   ソースコードの書き方の説明
 - [実装後の自己評価](docs/Reflections.md)  
   実装後に得られた効果の説明
+- [アピールポイント](docs/SellingPoints.md)  
+  制作時に苦戦した点と解決方法のまとめ
 
 ## VisualStudio のフィルター機能に関して
 

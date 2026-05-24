@@ -609,6 +609,7 @@
     <None Include="docs\CodingGuide.md" />
     <None Include="docs\Document.md" />
     <None Include="docs\Reflections.md" />
+    <None Include="docs\SellingPoints.md" />
     <None Include="packages.config" />
     <None Include="Source\JsonUnitLoaderBase.inl" />
     <None Include="Source\Systems\ConstantBufferSender.inl" />
