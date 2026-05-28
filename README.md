@@ -2,6 +2,8 @@
 
 本ゲームは C++ DirectX11 で制作した3Dゲームです。
 
+[実演動画はこちら (OneDriveから共有)](https://jc21-my.sharepoint.com/:v:/g/personal/240343_jc-21_jp/IQDbNu6QCtRgTbJ0xSVoiaIHAbFs-TbK74dxwXnjmFmfAK8?e=15RTvi&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+
 ## 開発環境
 
 |||
@@ -35,6 +37,14 @@
 - プレイシーンに限り、黄色い円内外のドラック操作が異なる
   - 内側 → 操作ボールの指定方向への加速
   - 外側 → カメラの視点操作
+
+## 注意事項
+
+- ドラッグ中に画面外までカーソルを動かすと予期せぬ動作が起こるので  
+  優しくゆっくり、画面内でつかんでください。
+- プレイ中はスピーカーやイヤホン、ヘッドフォンなどで、音楽をお楽しみください。
+
+![](SoundImage.png)
 
 ## ドキュメント
 

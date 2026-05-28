@@ -92,16 +92,9 @@ void DragCircle::Update()
 	}
 	else
 	{
-		//dragDisplacementPrev_.y = dragDisplacement_.y - velocityY_;
-		//dragDisplacement_.y = ;
-		if (velocityY_ > 0.0f)
-		{
-			//velocityY_ -= 0.000001f;
-		}
 		dragBegin_ = cursorPosition;
 	}
-	//LOGFLN("velocityY_:{:.6}", velocityY_);
-
+	
 	dragDifference_ = dragDisplacement_ - dragDisplacementPrev_;
 	dragDisplacementPrev_ = dragDisplacement_;
 
