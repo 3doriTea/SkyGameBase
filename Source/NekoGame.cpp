@@ -67,7 +67,7 @@ void NekoGame::StartRegister(
 
 		.Register<SceneManager>()
 		.Register<ResourceSystem>()
-		
+
 		.Register<ShaderCompile>()
 		.Register<Model>()
 
@@ -110,6 +110,8 @@ void NekoGame::StartRegister(
 		.Register<ScoreManager>()
 
 		// NOTE: デバッグ系は一番最後
-		.Register<Debug>()
-	;
+#ifdef _DEBUG
+		//.Register<Debug>()
+#endif
+		;
 }
