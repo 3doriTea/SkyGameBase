@@ -20,7 +20,7 @@ public:
 	/// ゲームのバージョンを取得する
 	/// </summary>
 	/// <returns>ゲームのバージョン</returns>
-	inline const char8_t* GetVersion() const override { return u8"1.1.2"; }
+	inline const char8_t* GetVersion() const override { return u8"1.1.3"; }
 
 	/// <summary>
 	/// 開始時のゲームシステム登録
