@@ -7,7 +7,7 @@
 class Splat : public GameObject
 {
 public:
-	Splat();
+	Splat(const Vector3 _position, const Vector3 _velocity);
 	~Splat();
 
 	void Init() override;

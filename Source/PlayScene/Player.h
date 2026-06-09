@@ -29,6 +29,10 @@ public:
 	void AddMove(const Vector3 _move);
 
 private:
+	/// <summary>
+	/// jsonからパラメータを読み込む
+	/// </summary>
+	/// <param name="_move">パラメータのjson</param>
 	void OnLoadParam(const json& _json);
 
 	/// <summary>
@@ -112,11 +116,16 @@ private:
 		float beginScaleY;  // 開始時のスケールX
 	} boundYAnim;           // x軸のバウンドアニメーション
 
-
 	struct
 	{
 		float rotationThresholdVelocityX;  // 力を加え始めるX軸角速度
 		float keepStandSafeAngle;          // 直立と見なす角度
 		float addTorqueX;                  // 加えるX軸での回転力
 	} autoRotation_;  // 直立するように自動回転するプロパティ
+
+	struct
+	{
+		Vector3 addVelocity;  // 現在の速度に加算する量
+		Vector3 mulVelocity;  // 現在の速度に掛算する量
+	} splat;  // 泥のパーティクル処理
 };

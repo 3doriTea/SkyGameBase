@@ -858,6 +858,12 @@
     <ClInclude Include="Source\Systems\ConstantBufferSender\StageConstantBuffer.h">
       <Filter>C++未分類ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayScene\Particle\Splat.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResultScene\ResultSEPlayer.h">
+      <Filter>C++未分類ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SkyGameBase.cpp">
@@ -1409,6 +1415,12 @@
     <ClCompile Include="Source\PlayScene\UI\CountDownSoundPlayer.cpp">
       <Filter>C++未分類ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayScene\particle\Splat.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResultScene\ResultSEPlayer.cpp">
+      <Filter>C++未分類ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\SkyGameBase.rc">
@@ -1512,6 +1524,9 @@
       <Filter>C++未分類ファイル</Filter>
     </None>
     <None Include="Assets\Shader\CBStage.hlsli" />
+    <None Include="Assets\Prefab\Play\Particle\Splat.json" />
+    <None Include="Assets\Prefab\Result\ResultSEPlayer.json" />
+    <None Include="docs\SellingPoints.md" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple3D.hlsl" />
@@ -1531,6 +1546,7 @@
     <FxCompile Include="Assets\Shader\LiftRope.hlsl" />
     <FxCompile Include="Assets\Shader\CharaEggRing.hlsl" />
     <FxCompile Include="Assets\Shader\Bird.hlsl" />
+    <FxCompile Include="Assets\Shader\Particle\ParticleSplat.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="wtgb\_Template\GameSystem-cpp.txt" />

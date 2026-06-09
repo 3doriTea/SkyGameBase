@@ -9,6 +9,8 @@
 #include "../Systems/ConstantBufferSender.h"
 #include "../Systems/ConstantBufferSender/PlayerConstantBuffer.h"
 
+#include "Particle/Splat.h"
+
 using namespace wtgb;
 
 Player::Player(const EntityId _parentId, const Vector3 _localPos, const EntityId _playState) :
@@ -74,6 +76,9 @@ void Player::OnLoadParam(const json& _json)
 	autoRotation_.rotationThresholdVelocityX = SafeGet<float>(_json, "/autoRotation/rotationThresholdVelocityX"_json_pointer);
 	autoRotation_.keepStandSafeAngle = SafeGet<float>(_json, "/autoRotation/keepStandSafeAngle"_json_pointer);
 	autoRotation_.addTorqueX = SafeGet<float>(_json, "/autoRotation/addTorqueX"_json_pointer);
+
+	splat.addVelocity = SafeGet<Vector3>(_json, "/splat/addVelocity"_json_pointer);
+	splat.mulVelocity = SafeGet<Vector3>(_json, "/splat/mulVelocity"_json_pointer);
 }
 
 void Player::Init()
@@ -112,10 +117,26 @@ void Player::Update()
 		}
 	}
 
+	// 地面に当たった時に回転のアニメーション
 	if (GroundBounceRotation())
 	{
 		// 地面に当たったときのアニメーションをするならここ
-		LOGFLN("バウンド");
+		Vector3 position{ Transform().GetPosition() };
+		Vector3 velocity{ GetComponent<RigidBody>().GetVelocity() };
+
+		velocity = velocity * splat.mulVelocity;
+		velocity = velocity + splat.addVelocity;
+
+		for (
+			float rad = 0.0f;
+			rad < DirectX::XM_2PI;
+			rad += DirectX::XM_PI / 180.0f * 30.0f)
+		{
+			Matrix4x4 rotation{ DirectX::XMMatrixRotationRollPitchYaw(0.0f, rad, 0.0f) };
+			GetScene()->Instantiate<Splat>(
+				position,
+				DirectX::XMVector3Transform(velocity, rotation));
+		}
 	}
 
 	AutoRotation();

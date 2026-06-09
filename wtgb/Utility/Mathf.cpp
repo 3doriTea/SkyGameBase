@@ -57,3 +57,8 @@ float wtgb::Mathf::Lerp(const float _a, const float _b, const float _rate)
 {
 	return _a + ((_b - _a) * _rate);
 }
+
+float wtgb::Mathf::ToRadian(const float _degree)
+{
+	return DirectX::XM_PI / 180.0f * _degree;
+}

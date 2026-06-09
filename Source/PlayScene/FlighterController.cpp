@@ -117,13 +117,6 @@ void FlighterController::OnLoadParam(const json& _json)
 
 	size_t modelsCount{ _json["modelsFileName"].size() };
 
-	/*
-	"ModelMesh": {
-		"fileName": "Models/Sphere/Sphere.fbx",
-		"modelMeshType": 5
-	},
-	*/
-
 	std::string modelFileName{};
 	_json["modelsFileName"][0].get_to(modelFileName);
 
@@ -138,8 +131,6 @@ FlighterController::VFormationPosition FlighterController::GetVFormationPosition
 
 	position.z = vFormationDistanceZ_ * static_cast<float>((_index + 1) / 2);
 	position.x = vFormationDistanceX_ * position.z * static_cast<float>(_index % 2 == 1 ? 1 : -1);
-
-	LOGFLN("VFormationPosition[{}]: ({}, {})", _index, position.x, position.z);
 
 	return position;
 }

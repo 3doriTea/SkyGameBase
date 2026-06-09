@@ -133,23 +133,13 @@ float StageLine::GetPosY(const Vector3& _worldPosition)
 		Vector2 begin{ points_[i] };
 		Vector2 end{ points_[i + 1] };
 		Vector2 v{ end - begin };
-		Vector2 w{ Vector2{ _worldPosition.z, _worldPosition.y } - begin};
+		Vector2 w{ Vector2{ _worldPosition.z, _worldPosition.y } - begin };
 		const float SEGMENT_LENGTH_SQ{ XMVectorGetX(XMVector2LengthSq(v)) };
 
 		if (begin.x <= _worldPosition.z && _worldPosition.z < end.x)
 		{  // 範囲内なら
 			// 最近接点
 			Vector2 point2D{};
-
-			// 線分に垂直な法線ベクトル（仮）
-			Vector2 SEGMENT_NORM{ XMVector2Normalize(Vector2{ -v.y, v.x }) };
-
-			// 法線が上を向くように調整 (地形として扱うため、常に円が存在すべき側を指すようにする)
-			// 一般に+Yが上であれば、法線のY成分が負なら反転させる
-			if (SEGMENT_NORM.y < 0.0f)
-			{
-				SEGMENT_NORM = SEGMENT_NORM * -1.0f;
-			}
 
 			// 線分がもうほぼ点と言って過言ではない (端点衝突)
 			if (SEGMENT_LENGTH_SQ < FLT_EPSILON)

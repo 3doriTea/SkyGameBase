@@ -48,6 +48,10 @@
       "rotationThresholdVelocityX": 0.34906585039,
       "keepStandSafeAngle": 0.52359877559,
       "addTorqueX": 0.08726646259
+    },
+    "splat": {
+      "addVelocity": [ 0.0, 2.0, 0.0 ],
+      "mulVelocity": [ 1.5, 0.0, 1.5 ]
     }
   }
 }

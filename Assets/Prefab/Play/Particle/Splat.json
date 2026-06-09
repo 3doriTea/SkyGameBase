@@ -6,7 +6,7 @@
     "Transform": {
       "position": [ 0, 0, 0 ],
       "rotation": [ 0, 0, 0 ],
-      "scale": [ 1, 1, 1 ]
+      "scale": [ 3, 3, 3 ]
     },
     "ModelMesh": {
       "fileName": "Models/Splat/SplatSphere.fbx",
@@ -14,6 +14,16 @@
     },
     "MeshRenderer": {
       "shader": "Shader/Particle/ParticleSplat.hlsl"
+    },
+    "Collider": {
+      "colliderType": 0
+    },
+    "RigidBody": {
+      "bounciness": 1.0,
+      "angularDrag": 1.0,
+      "useGravity": true,
+      "velocity": [ 0.0, 0.0, 0.0 ],
+      "angularVelocity": [ 0.0, 0.0, 0.0 ]
     }
   }
 }

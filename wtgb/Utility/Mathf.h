@@ -75,4 +75,11 @@ namespace wtgb::Mathf
 	/// <param name="_rate">レート</param>
 	/// <returns>線形補間した結果</returns>
 	float Lerp(const float _a, const float _b, const float _rate);
+
+	/// <summary>
+	/// デグリーをラジアンに変換する
+	/// </summary>
+	/// <param name="_degree">デグリー</param>
+	/// <returns>ラジアンの角度</returns>
+	float ToRadian(const float _degree);
 }

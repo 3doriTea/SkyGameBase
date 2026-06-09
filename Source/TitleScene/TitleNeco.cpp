@@ -179,7 +179,6 @@ void TitleNeco::Update()
 	if (pDragCircle && pDragCircle->IsDrag())
 	{
 		Vector2Int displacement{ pDragCircle->GetDifference() };
-		LOGFLN("displacement:({}, {})", displacement.x, displacement.y);
 		moveRatio_ += static_cast<float>(-displacement.y) / screenSize.y;
 	}
 	else
