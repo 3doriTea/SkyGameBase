@@ -66,9 +66,19 @@
 #pragma warning(default:26451)
 #pragma warning(default:26495)
 
+//#pragma comment(lib, "LibFbxSDK-MD.lib")
+//#pragma comment(lib, "LibXml2-MD.lib")
+//#pragma comment(lib, "zlib-MD.lib")
+
+#ifdef _DEBUG
+#pragma comment(lib, "LibFbxSDK-MDd.lib")
+#pragma comment(lib, "LibXml2-MDd.lib")
+#pragma comment(lib, "zlib-MDd.lib")
+#else
 #pragma comment(lib, "LibFbxSDK-MD.lib")
 #pragma comment(lib, "LibXml2-MD.lib")
 #pragma comment(lib, "zlib-MD.lib")
+#endif
 
 #else
 

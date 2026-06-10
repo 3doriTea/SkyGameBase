@@ -19,7 +19,7 @@
       "colliderType": 0
     },
     "RigidBody": {
-      "bounciness": 1.0,
+      "bounciness": 0.8,
       "angularDrag": 1.0,
       "useGravity": true,
       "velocity": [ 0.0, 0.0, 0.0 ],

@@ -127,10 +127,15 @@ void Player::Update()
 		velocity = velocity * splat.mulVelocity;
 		velocity = velocity + splat.addVelocity;
 
+		// エフェクトを正面に飛ばす角度
+		const float FORCE_ANGLE_DEG{ 15.0f };
+		const float FORCE_DENSITY_ANGLE_DEG{ 1.0f };
+
+		// エフェクトを出していく
 		for (
-			float rad = 0.0f;
-			rad < DirectX::XM_2PI;
-			rad += DirectX::XM_PI / 180.0f * 30.0f)
+			float rad = Mathf::ToRadian(FORCE_ANGLE_DEG / -2.0f);
+			rad < Mathf::ToRadian(FORCE_ANGLE_DEG / 2.0f);
+			rad += Mathf::ToRadian(FORCE_DENSITY_ANGLE_DEG))
 		{
 			Matrix4x4 rotation{ DirectX::XMMatrixRotationRollPitchYaw(0.0f, rad, 0.0f) };
 			GetScene()->Instantiate<Splat>(
