@@ -79,6 +79,8 @@ void Player::OnLoadParam(const json& _json)
 
 	splat.addVelocity = SafeGet<Vector3>(_json, "/splat/addVelocity"_json_pointer);
 	splat.mulVelocity = SafeGet<Vector3>(_json, "/splat/mulVelocity"_json_pointer);
+	splat.coneAngleDeg = SafeGet<float>(_json, "/splat/coneAngleDeg"_json_pointer);
+	splat.angleStepDeg = SafeGet<float>(_json, "/splat/angleStepDeg"_json_pointer);
 }
 
 void Player::Init()
@@ -121,27 +123,7 @@ void Player::Update()
 	if (GroundBounceRotation())
 	{
 		// 地面に当たったときのアニメーションをするならここ
-		Vector3 position{ Transform().GetPosition() };
-		Vector3 velocity{ GetComponent<RigidBody>().GetVelocity() };
-
-		velocity = velocity * splat.mulVelocity;
-		velocity = velocity + splat.addVelocity;
-
-		// エフェクトを正面に飛ばす角度
-		const float FORCE_ANGLE_DEG{ 15.0f };
-		const float FORCE_DENSITY_ANGLE_DEG{ 1.0f };
-
-		// エフェクトを出していく
-		for (
-			float rad = Mathf::ToRadian(FORCE_ANGLE_DEG / -2.0f);
-			rad < Mathf::ToRadian(FORCE_ANGLE_DEG / 2.0f);
-			rad += Mathf::ToRadian(FORCE_DENSITY_ANGLE_DEG))
-		{
-			Matrix4x4 rotation{ DirectX::XMMatrixRotationRollPitchYaw(0.0f, rad, 0.0f) };
-			GetScene()->Instantiate<Splat>(
-				position,
-				DirectX::XMVector3Transform(velocity, rotation));
-		}
+		PlaySplatPerticle();
 	}
 
 	AutoRotation();
@@ -398,6 +380,27 @@ void Player::SendConstantBuffer()
 			pConstantBuffer->Ref().position = Vector4{position};
 		},
 		System());
+}
+
+void Player::PlaySplatPerticle()
+{
+	Vector3 position{ Transform().GetPosition() };
+	Vector3 velocity{ GetComponent<RigidBody>().GetVelocity() };
+
+	velocity = velocity * splat.mulVelocity;
+	velocity = velocity + splat.addVelocity;
+
+	// エフェクトを出していく
+	for (
+		float rad = Mathf::ToRadian(splat.coneAngleDeg / -2.0f);
+		rad < Mathf::ToRadian(splat.coneAngleDeg / 2.0f);
+		rad += Mathf::ToRadian(splat.angleStepDeg))
+	{
+		Matrix4x4 rotation{ DirectX::XMMatrixRotationRollPitchYaw(0.0f, rad, 0.0f) };
+		GetScene()->Instantiate<Splat>(
+			position,
+			DirectX::XMVector3Transform(velocity, rotation));
+	}
 }
 
 bool Player::UpdateAnim()

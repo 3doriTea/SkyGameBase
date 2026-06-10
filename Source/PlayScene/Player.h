@@ -80,6 +80,11 @@ private:
 	/// </summary>
 	void SendConstantBuffer();
 
+	/// <summary>
+	/// 地面にバウンドしたときのパーティクルを再生
+	/// </summary>
+	void PlaySplatPerticle();
+
 private:
 	PlayerTargeting playerTargeting_;  // プレイヤーターゲティング処理
 	bool isTargeting_;                 // ターゲットがあるか
@@ -127,5 +132,8 @@ private:
 	{
 		Vector3 addVelocity;  // 現在の速度に加算する量
 		Vector3 mulVelocity;  // 現在の速度に掛算する量
+
+		float coneAngleDeg{ 15.0f };  // パーティクルを飛ばす角度
+		float angleStepDeg{ 1.0f };   // パーティクルを飛ばす角度内の間隔
 	} splat;  // 泥のパーティクル処理
 };
